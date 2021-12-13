@@ -1,0 +1,17 @@
+export const FONT_NORMAL = 'Mulish-Regular';
+export const FONT_MEDIUM = 'Mulish-Medium';
+export const FONT_BOLD = 'Mulish-Bold';
+export const FONT_SEMI_BOLD = 'Mulish-Semibold';
+export const FONT_SIZE_TINY = 9;
+export const FONT_SIZE_TINY_PLUS = 10;
+export const FONT_SIZE_SMALL = 12;
+export const FONT_SIZE_MEDIUM = 14;
+export const FONT_SIZE_LARGE = 16;
+export const FONT_SIZE_EXTRA_LARGE = 18;
+export const FONT_SIZE_EXTRA_LARGE_PLUS = 20;
+export const FONT_SIZE_DOUBLE_EXTRA_LARGE_MINUS = 22;
+export const FONT_SIZE_DOUBLE_EXTRA_LARGE = 24;
+export const FONT_SIZE_DOUBLE_EXTRA_LARGE_PLUS = 26;
+export const FONT_WEIGHT_LIGHT = 200;
+export const FONT_WEIGHT_MEDIUM = 600;
+export const FONT_WEIGHT_HEAVY = 800;
