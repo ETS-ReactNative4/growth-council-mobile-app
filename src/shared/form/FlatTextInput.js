@@ -1,5 +1,5 @@
 import React, {forwardRef} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {TextInput as FLTextInput} from 'react-native-paper';
 
 import {Colors, Typography} from '../../theme';
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     textInput: {
         height: 56,
         marginBottom: 15,
-        backgroundColor: Colors.PRIMARY_INPUT_TEXT_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         fontSize: Typography.FONT_SIZE_MEDIUM,
         color: Colors.PRIMARY_INPUT_TEXT_COLOR,
         width: '100%',

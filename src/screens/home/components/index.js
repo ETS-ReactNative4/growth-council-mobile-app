@@ -1,63 +1,65 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
-    Platform,
     StatusBar,
     StyleSheet,
     Text,
-    TouchableOpacity,
     View,
+    Image, ImageBackground
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import {Button} from 'native-base';
+import Swiper from 'react-native-swiper'
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import {getAsyncStorage} from '../../../utils/storageUtil';
-import {JWT_TOKEN} from '../../../constants';
-import {decodeUserID} from '../../../utils/jwtUtil';
 
-const Home = (props) => {
-
-    const {
-        navigation,
-        profile,
-        loading,
-        error,
-        fetchEmployeeByIdentifier,
-        cleanEmployee
-    } = props;
-
-    useEffect(() => {
-        const fetchEmployeeAsync = async () => {
-            let token = await getAsyncStorage(JWT_TOKEN);
-            await fetchEmployeeByIdentifier(decodeUserID(token));
-        };
-        fetchEmployeeAsync();
-    }, []);
+const Home = ({navigation}) => {
 
     return (
-
         <View style={styles.container}>
-            <StatusBar barStyle="dark-content" backgroundColor={Colors.SECONDARY_BACKGROUND_COLOR}/>
-            <View style={styles.salutationBox}>
-                <View style={styles.salutationBoxCol}>
-                    <Text style={styles.salutationBoxText}>{'Welcome'},</Text>
-                    <Text style={styles.name}>{profile?.name} !</Text>
-                </View>
-
-            </View>
-
-            <View style={styles.middleContent}>
-                <TouchableOpacity  onPress={() => navigation.navigate('TimeLog', {project_id: profile?.project_id})}>
-                <View style={styles.timeLogWrapper}>
-                    <View style={styles.timeLogInner}>
-                        <View style={styles.timeLogCircle}>
-                            <Icon name="clock" color={Colors.PRIMARY_TEXT_COLOR} size={30}/>
-                        </View>
-                        <Text style={styles.timeLogText}>Time Log</Text>
+            <ImageBackground source={require('../../../assets/img/home-background.png')} style={styles.background}>
+                <StatusBar hidden/>
+                <Swiper style={styles.wrapper} autoplay
+                        paginationStyle={{top: '85%', backgroundColor: 'transparent'}}
+                        activeDot={
+                            <View
+                                style={{
+                                    backgroundColor: '#91357A',
+                                    width: 60,
+                                    height: 8,
+                                    borderRadius: 4,
+                                    marginLeft: 3,
+                                    marginRight: 3,
+                                    marginTop: 3,
+                                    marginBottom: 3,
+                                }}
+                            />
+                        }
+                >
+                    <View style={styles.slide1}>
+                        <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
+                        <Text style={styles.text}>Get Started</Text>
                     </View>
-                </View>
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.slide2}>
+                        <Image style={styles.iconImage} source={require('../../../assets/img/Slide2.png')}/>
+                        <Text style={styles.text1}>We bring the televeison at your fingertips, now watch your favorite
+                            TV programming right in your smartphone with direct broadcast.</Text>
+                    </View>
+                    <View style={styles.slide3}>
+                        <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
+                        <Text style={styles.text1}>You can Register using the button below or simply login if you
+                            already have an account to begin enjoying the experience.</Text>
+                    </View>
+                </Swiper>
 
+                <View style={styles.buttonWrapper}>
+                    <Button style={[styles.button, styles.plainButton]} onPress={() => navigation.navigate('HomeDetail')}>
+                        <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
+                    </Button>
+                    <Button style={[styles.button]}
+                            onPress={() => navigation.navigate('SignIn')}>
+                        <Text style={styles.buttonText}>I already have an account </Text>
+                    </Button>
+                </View>
+            </ImageBackground>
         </View>
     );
 };
@@ -67,75 +69,69 @@ const styles = StyleSheet.create({
         ...CommonStyles.container,
         backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
     },
-    salutationBox: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: Platform.OS === 'ios' ? 90 : 50,
-        marginLeft: 32,
-        marginRight: 32,
+    background: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
     },
-    salutationBoxText: {
-        fontSize: Typography.FONT_SIZE_SMALL,
-        fontFamily: Typography.FONT_MEDIUM,
+    wrapper: {
+        top: '20%',
     },
-    salutationBoxCol: {
-        marginBottom: Platform.OS === 'ios' ? 30 : 20,
-    },
-    name: {
-        fontFamily: Typography.FONT_BOLD,
-        fontSize: Typography.FONT_SIZE_LARGE,
-        lineHeight: 24,
-        fontWeight:'bold'
-    },
-    middleContent: {
-        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
-        borderColor: '#000287',
-        borderWidth: 1,
-        padding: 32,
-        paddingTop: 20,
-        height: '100%',
-        marginTop: Platform.OS === 'ios' ? 10 : 0,
-    },
-    timeLogWrapper: {
-        flexDirection: 'row',
-        paddingTop: 14,
-        marginRight: 20,
+    slide1: {
+        flex: 1,
         justifyContent: 'center',
-    },
-    timeLogInner: {
-        width: '50%',
-        borderRadius: 6,
-        height: 120,
         alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20,
-        backgroundColor: '#f85102',
-        borderColor: Colors.SENARY_BORDER_COLOR,
-        borderWidth: 1,
-        paddingTop: 25,
     },
-    timeLogCircle: {
-        backgroundColor: 'rgba(210,212,252,0.50)',
-        height: 46,
-        width: 46,
-        borderRadius: 23,
-        borderColor: 'rgba(210,212,252,0.50)',
-        borderWidth: 1,
-        marginBottom: 5,
-        alignItems: 'center',
+    slide2: {
+        flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
     },
-    timeLogText: {
-        color: Colors.QUATERNARY_TEXT_COLOR,
-        fontSize: Typography.FONT_SIZE_SMALL,
-        fontFamily: Typography.FONT_SEMI_BOLD,
-        alignItems: 'center',
+    slide3: {
+        flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
+    },
+    text: {
+        color: '#ACACAC',
+        fontSize: 30,
+        fontFamily: Typography.FONT_NORMAL,
+        marginTop: 30,
+    },
+    text1: {
+        color: Colors.NONARY_TEXT_COLOR,
+        fontSize: Typography.FONT_SIZE_MEDIUM,
+        fontFamily: Typography.FONT_NORMAL,
+        margin: 30,
         textAlign: 'center',
-        paddingTop: 10,
-        paddingBottom: 25,
+    },
+    buttonWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 20,
+    },
+    button: {
+        ...CommonStyles.button,
+        height: 56,
+        width: '40%'
+    },
+    buttonText: {
+        ...CommonStyles.buttonText,
+        fontFamily: Typography.FONT_BOLD,
+    },
+    iconImage: {
+        width: 120,
+        height: 120,
+    },
+    plainButton: {
+        borderWidth: 1,
+        borderColor: Colors.OCTDENARY_BORDER_COLOR,
+        backgroundColor: Colors.TERTIARY_BACKGROUND_COLOR,
+    },
+    plainButtonText: {
+        color: Colors.OCTONARY_TEXT_COLOR,
+        fontFamily: Typography.FONT_BOLD,
     },
 });
+
 export default Home;

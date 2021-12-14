@@ -1,17 +1,17 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import Home from './components';
+import Detail from './components/Detail';
 
-const HomeScreen = (props) => {
+const DetailScreen = (props) => {
 
     const dispatch = useDispatch();
 
     return (
-        <Home
+        <Detail
             {...props}
         />
     );
 };
 
-export default HomeScreen;
+export default DetailScreen;

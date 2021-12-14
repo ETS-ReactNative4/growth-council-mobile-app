@@ -4,7 +4,6 @@ import {
     Text,
     View,
     ScrollView,
-    Image,
     StatusBar,
     TouchableOpacity,
     Dimensions,
@@ -18,7 +17,7 @@ import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
-import FlatOutlineTextInput from '../../../shared/form/FlatOutlineTextInput';
+import FlatTextInput from '../../../shared/form/FlatTextInput';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -66,29 +65,32 @@ const SignInForm = () => {
                 <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
 
                 <View style={styles.header}>
-                    <Text style={styles.headingText1}>Growth Innovation <Text style={{fontFamily: Typography.FONT_BOLD}}>Leadership Portal</Text></Text>
-                    <Text style={styles.headingText2}>Login to your account below. If you are having trouble logging into your account contact us.</Text>
+                    <Text style={styles.headingText1}>Growth Innovation <Text
+                        style={{fontFamily: Typography.FONT_BOLD}}>Leadership Portal</Text></Text>
+                    <Text style={styles.headingText2}>Login to your account below. If you are having trouble logging
+                        into your account contact us.</Text>
                 </View>
 
-                {!message?.success &&<View style={styles.message}>
-                   <Text style={styles.errorText}>{message?.message}</Text>
+                {!message?.success && <View style={styles.message}>
+                    <Text style={styles.errorText}>{message?.message}</Text>
                 </View>
                 }
 
                 {loading &&
-                    <View style={{ flex: 1,
+                <View style={{
+                    flex: 1,
                     alignItems: 'center',
                     flexDirection: 'column',
                     justifyContent: 'space-around',
                     position: 'absolute',
                     zIndex: 1011,
-                    }}>
-                        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} />
-                    </View>
+                }}>
+                    <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+                </View>
                 }
 
                 <View style={styles.body}>
-                    <FlatOutlineTextInput
+                    <FlatTextInput
                         label='Email'
                         value={values.email}
                         onChangeText={handleChange('email')}
@@ -98,7 +100,7 @@ const SignInForm = () => {
                         keyboardType={'email-address'}
                     />
 
-                    <FlatOutlineTextInput
+                    <FlatTextInput
                         label='Password'
                         value={values.password}
                         secureTextEntry={hidePass}
@@ -123,7 +125,8 @@ const SignInForm = () => {
 
                 <View style={styles.forgotButtonWrapper}>
                     <TouchableOpacity>
-                        <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot Password?</Text>
+                        <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot
+                            Password?</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -149,12 +152,12 @@ const styles = StyleSheet.create({
     },
     body: {
         width: '80%',
-       // marginTop: 15,
+        // marginTop: 15,
     },
     message: {
         ...CommonStyles.message,
         width: '86%',
-        paddingTop:29
+        paddingTop: 29
     },
     headingText1: {
         ...CommonStyles.headingText1,

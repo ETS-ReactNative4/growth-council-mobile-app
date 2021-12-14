@@ -9,7 +9,11 @@ import {HeaderBackButton} from '@react-navigation/elements';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 import ModelNavigation from '../navigations/ModelNavigation';
 
+import HomeScreen from '../screens/home';
+import HomeDetailScreen from '../screens/home/Detail';
+
 import SignInScreen from '../screens/auth/SignIn';
+import SignUpScreen from '../screens/auth/SignUp';
 import ForgotScreen from '../screens/auth/Forgot';
 
 import EditProfileScreen from '../screens/account/EditProfile';
@@ -54,6 +58,24 @@ const MainNavigation = () => {
         <Stack.Navigator detachInactiveScreens={false} screenOptions={({route}) => ({
             headerTitleAlign: 'center',
         })}>
+            <Stack.Screen name="Home" component={HomeScreen} options={{
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.SlideFromRightIOS,
+                gestureDirection: 'horizontal-inverted',
+            }}/>
+            <Stack.Screen name="HomeDetail" component={HomeDetailScreen} options={{
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.SlideFromRightIOS,
+                gestureDirection: 'horizontal-inverted',
+            }}/>
+            <Stack.Screen name="SignUp" component={SignUpScreen} options={{
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.SlideFromRightIOS,
+                gestureDirection: 'horizontal-inverted',
+            }}/>
             <Stack.Screen name="SignIn" component={SignInScreen} options={{
                 headerTitle: '',
                 headerTransparent: true,
@@ -67,20 +89,20 @@ const MainNavigation = () => {
                 gestureDirection: 'horizontal-inverted',
             }}/>
             <Stack.Screen name="Model" component={ModelNavigation} options={{headerShown: false}}/>
-            <Stack.Screen name="Home" component={BottomTabNavigation} options={({route, navigation}) => ({
-                headerShown: isHeaderShown(route),
-                headerTitle: headerTitle(route),
-                headerLeft: (props) => (
-                    <HeaderBackButton
-                        {...props}
-                        onPress={() => {
-                            navigation.replace('Home');
-                        }}
-                    />
-                ),
-                ...TransitionPresets.SlideFromRightIOS,
-                gestureDirection: 'horizontal-inverted',
-            })}/>
+            {/*<Stack.Screen name="Home" component={BottomTabNavigation} options={({route, navigation}) => ({*/}
+            {/*headerShown: isHeaderShown(route),*/}
+            {/*headerTitle: headerTitle(route),*/}
+            {/*headerLeft: (props) => (*/}
+            {/*<HeaderBackButton*/}
+            {/*{...props}*/}
+            {/*onPress={() => {*/}
+            {/*navigation.replace('Home');*/}
+            {/*}}*/}
+            {/*/>*/}
+            {/*),*/}
+            {/*...TransitionPresets.SlideFromRightIOS,*/}
+            {/*gestureDirection: 'horizontal-inverted',*/}
+            {/*})}/>*/}
             <Stack.Screen name="EditProfile" component={EditProfileScreen}
                           options={{
                               headerTitle: 'Edit Profile',

@@ -15,7 +15,7 @@ const WhoWeAreScreen = () => {
                 showsVerticalScrollIndicator={false}
             >
                 <Text style={styles.paragraph}>
-                    Welcome to Hyangle, Inc. Funded in 2017, We are Technology Company.
+                    Welcome to Growth Councel Funded in 2017, We are Technology Company.
                 </Text>
                 <Text style={styles.paragraph}>
                     This Agreement governs your use of Apple’s services (“Services”),
@@ -29,7 +29,7 @@ const WhoWeAreScreen = () => {
                     sometimes required) and Internet access (fees may apply).
                 </Text>
                 <Text style={styles.paragraph1}>
-                    Appsite is one of our kind.
+                    Growth Councel is one of our kind.
                 </Text>
                 <Text style={[styles.paragraph1, {paddingLeft: 7}]}>Let's connect on to go</Text>
                 <Text style={styles.paragraph}>
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         height: '20%',
-        //width: '90%',
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 0,
