@@ -1,5 +1,5 @@
 import React, {forwardRef} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {TextInput as FLTextInput} from 'react-native-paper';
 
 import {Colors, Typography} from '../../theme';
