@@ -17,7 +17,7 @@ import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
-import FlatOutlineTextInput from '../../../shared/form/FlatOutlineTextInput';
+import FlatTextInput from '../../../shared/form/FlatTextInput';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -90,7 +90,7 @@ const SignInForm = () => {
                 }
 
                 <View style={styles.body}>
-                    <FlatOutlineTextInput
+                    <FlatTextInput
                         label='Email'
                         value={values.email}
                         onChangeText={handleChange('email')}
@@ -100,7 +100,7 @@ const SignInForm = () => {
                         keyboardType={'email-address'}
                     />
 
-                    <FlatOutlineTextInput
+                    <FlatTextInput
                         label='Password'
                         value={values.password}
                         secureTextEntry={hidePass}

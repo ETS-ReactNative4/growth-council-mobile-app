@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     textInput: {
         height: 56,
         marginBottom: 15,
-        backgroundColor: Colors.PRIMARY_INPUT_TEXT_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         fontSize: Typography.FONT_SIZE_MEDIUM,
         color: Colors.PRIMARY_INPUT_TEXT_COLOR,
         width: '100%',
