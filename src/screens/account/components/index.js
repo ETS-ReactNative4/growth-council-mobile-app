@@ -6,7 +6,6 @@ import {
     StatusBar,
     StyleSheet,
     TouchableOpacity,
-    Dimensions,
 } from 'react-native';
 import moment from 'moment';
 
@@ -38,7 +37,7 @@ const Profile = (props) => {
 
             <View style={styles.content}>
 
-                {loading  && (
+                {loading && (
                     <>
                         <View style={{
                             flex: 1,
@@ -47,7 +46,7 @@ const Profile = (props) => {
                             justifyContent: 'space-around',
                             position: 'absolute',
                             zIndex: 1011,
-                            top:100
+                            top: 100
                         }}>
                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
                         </View>
@@ -61,39 +60,42 @@ const Profile = (props) => {
                         <Text style={styles.address}>{profile?.address}</Text>
                         <Text style={styles.address}>{profile?.nationality}</Text>
                         <Text style={styles.phone}>Mobile: {profile?.mobile}</Text>
-                        <Text style={styles.date}>Member since {moment(profile?.contract_start_date).format('MMMM D, YYYY')}</Text>
+                        <Text style={styles.date}>Member
+                            since {moment(profile?.contract_start_date).format('MMMM D, YYYY')}</Text>
                         <Text style={styles.date}>Project: {profile?.project_name}</Text>
                     </View>
                     {profile?.profile_picture && (
                         <>
-                    <View>
-                        <View style={styles.circleProfile}>
-                            <Image style={styles.circleImage} source={{uri: profile?.profile_picture }}/>
-                        </View>
-                    </View>
+                            <View>
+                                <View style={styles.circleProfile}>
+                                    <Image style={styles.circleImage} source={{uri: profile?.profile_picture}}/>
+                                </View>
+                            </View>
                         </>
                     )}
                 </View>
 
 
-            <View style={styles.middleContent}>
-                <View style={styles.contentList}>
-                    <TouchableOpacity  style={styles.contentListItem} onPress={() => navigation.navigate('ChangePassword')}>
-                        <Text style={styles.contentListName}>Change Password</Text>
-                    </TouchableOpacity>
+                <View style={styles.middleContent}>
+                    <View style={styles.contentList}>
+                        <TouchableOpacity style={styles.contentListItem}
+                                          onPress={() => navigation.navigate('ChangePassword')}>
+                            <Text style={styles.contentListName}>Change Password</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity style={styles.contentListItem} onPress={() => navigation.navigate('EditProfile')}>
-                    <Text style={styles.contentListName}>Edit Profile</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity style={styles.contentListItem}
+                                          onPress={() => navigation.navigate('EditProfile')}>
+                            <Text style={styles.contentListName}>Edit Profile</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
 
-            <View style={styles.bottomWrapper}>
-                <TouchableOpacity onPress={() => signOut()}>
-                    <Text style={styles.signout}>Sign Out</Text>
-                </TouchableOpacity>
-                <Text style={styles.version}>VERSION 1.0</Text>
-            </View>
+                <View style={styles.bottomWrapper}>
+                    <TouchableOpacity onPress={() => signOut()}>
+                        <Text style={styles.signout}>Sign Out</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.version}>VERSION 1.0</Text>
+                </View>
             </View>
         </View>
     );
@@ -181,7 +183,6 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_SEMI_BOLD,
     },
     middleContent: {
-        //  backgroundColor: Colors.QUATERNARY_BACKGROUND_COLOR,
         padding: 25,
         paddingTop: 20,
         height: '50%',
@@ -195,7 +196,6 @@ const styles = StyleSheet.create({
     contentListItem: {
         width: '48%',
         alignItems: 'center',
-       // backgroundColor: 'rgba(0,0,0,0.25)',
         borderColor: Colors.QUATERNARY_BORDER_COLOR,
         borderWidth: 1,
         borderRadius: 10,

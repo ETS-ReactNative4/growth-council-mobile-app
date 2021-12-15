@@ -4,7 +4,7 @@ import {
     StyleSheet,
     Text,
     View,
-    Image, ImageBackground
+    Image, ImageBackground, TouchableOpacity
 } from 'react-native';
 import {Button} from 'native-base';
 import Swiper from 'react-native-swiper'
@@ -33,28 +33,37 @@ const Home = ({navigation}) => {
                                 }}
                             />
                         }
+                        showsButtons={true}
                 >
+
                     <View style={styles.slide1}>
-                        <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
-                        <Text style={styles.text}>Get Started</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
+                            <Text style={styles.text}>Get Started</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.slide2}>
-                        <Image style={styles.iconImage} source={require('../../../assets/img/Slide2.png')}/>
-                        <Text style={styles.text1}>We bring the televeison at your fingertips, now watch your favorite
-                            TV programming right in your smartphone with direct broadcast.</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide2.png')}/>
+                            <Text style={styles.text1}>We bring the televeison at your fingertips, now watch your
+                                favorite TV programming right in your smartphone with direct broadcast.</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.slide3}>
-                        <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
-                        <Text style={styles.text1}>You can Register using the button below or simply login if you
-                            already have an account to begin enjoying the experience.</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
+                            <Text style={styles.text1}>You can Register using the button below or simply login if you
+                                already have an account to begin enjoying the experience.</Text>
+                        </TouchableOpacity>
                     </View>
                 </Swiper>
 
                 <View style={styles.buttonWrapper}>
-                    <Button style={[styles.button, styles.plainButton]} onPress={() => navigation.navigate('HomeDetail')}>
+                    <Button style={[styles.button, styles.plainButton]}
+                            onPress={() => navigation.navigate('HomeDetail')}>
                         <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
                     </Button>
-                    <Button style={[styles.button]}
+                    <Button style={[styles.button, styles.plainButton]}
                             onPress={() => navigation.navigate('SignIn')}>
                         <Text style={styles.buttonText}>I already have an account </Text>
                     </Button>
@@ -124,12 +133,16 @@ const styles = StyleSheet.create({
         height: 120,
     },
     plainButton: {
-        borderWidth: 1,
-        borderColor: Colors.OCTDENARY_BORDER_COLOR,
-        backgroundColor: Colors.TERTIARY_BACKGROUND_COLOR,
+        width: '50%',
+        borderRadius: 25,
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
+        marginLeft: 5,
     },
     plainButtonText: {
-        color: Colors.OCTONARY_TEXT_COLOR,
+        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
         fontFamily: Typography.FONT_BOLD,
     },
 });

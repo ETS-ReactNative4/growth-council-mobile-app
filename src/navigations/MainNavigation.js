@@ -67,20 +67,17 @@ const MainNavigation = () => {
             <Stack.Screen name="HomeDetail" component={HomeDetailScreen} options={{
                 headerTitle: '',
                 headerTransparent: true,
-                ...TransitionPresets.SlideFromRightIOS,
-                gestureDirection: 'horizontal-inverted',
+                ...TransitionPresets.RevealFromBottomAndroid,
             }}/>
             <Stack.Screen name="SignUp" component={SignUpScreen} options={{
                 headerTitle: '',
                 headerTransparent: true,
-                ...TransitionPresets.SlideFromRightIOS,
-                gestureDirection: 'horizontal-inverted',
+                ...TransitionPresets.RevealFromBottomAndroid,
             }}/>
             <Stack.Screen name="SignIn" component={SignInScreen} options={{
                 headerTitle: '',
                 headerTransparent: true,
-                ...TransitionPresets.SlideFromRightIOS,
-                gestureDirection: 'horizontal-inverted',
+                ...TransitionPresets.RevealFromBottomAndroid,
             }}/>
             <Stack.Screen name="Forgot" component={ForgotScreen} options={{
                 headerTitle: '',

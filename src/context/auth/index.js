@@ -21,7 +21,7 @@ export const AuthProvider = ({children}) => {
             signIn: async (fromData) => {
                 setLoading(true);
                 try {
-                    const response = await axios.post(API_URL + '/v1/auths/employee/login', fromData, {
+                    const response = await axios.post(API_URL + '/v1/auths/customer/login', fromData, {
                         headers: {
                             Accept: 'application/json',
                             'Content-Type': 'application/json',
