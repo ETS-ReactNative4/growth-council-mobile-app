@@ -16,7 +16,6 @@ import * as Yup from 'yup';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 
-const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const signUpSchema = Yup.object().shape({
@@ -43,7 +42,7 @@ const SignUpForm = (props) => {
         isValid,
     } = useFormik({
         validationSchema: signUpSchema,
-        initialValues: {email: 'krishna@gmail.com', password: '123456'},
+        initialValues: {email: '', password: ''},
         onSubmit: values => {
             navigation.navigate('SignUpNext', {
                 screen: 'SignUpNext',
@@ -59,11 +58,12 @@ const SignUpForm = (props) => {
                 <StatusBar barStyle="dark-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
 
                 <View style={styles.header}>
-                    <Text style={styles.headingText1}>Register</Text>
+                    <Text style={styles.headingText1}>Let's Create Your Account</Text>
                 </View>
 
                 <View style={styles.body}>
                     <FlatTextInput
+                        label='Email'
                         value={values.email}
                         onChangeText={handleChange('email')}
                         onFocus={handleBlur('email')}
@@ -72,6 +72,7 @@ const SignUpForm = (props) => {
                     />
 
                     <FlatTextInput
+                        label='Password'
                         value={values.password}
                         isPassword={true}
                         secureTextEntry={hidePass}
@@ -84,7 +85,7 @@ const SignUpForm = (props) => {
                 </View>
                 <View style={styles.loginButtonWrapper}>
                     <Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>
-                        <Text style={styles.loginButtonText}>NEXT</Text>
+                        <Text style={styles.loginButtonText}>Sign Up</Text>
                     </Button>
                 </View>
 
@@ -142,13 +143,17 @@ const styles = StyleSheet.create({
         width: '90%',
     },
     loginButton: {
-        ...CommonStyles.button,
-        height: 50,
-        marginBottom: 20,
-        backgroundColor: Colors.QUATERNARY_BACKGROUND_COLOR,
+        width: '50%',
+        borderRadius: 25,
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
+        marginLeft: 5,
     },
     loginButtonText: {
-        ...CommonStyles.buttonText,
+        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
+        fontFamily: Typography.FONT_BOLD,
     },
     signUpLinkWrapper: {
         ...CommonStyles.linkWrapper,

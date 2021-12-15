@@ -3,7 +3,6 @@ import {
     Platform,
     Text,
     View,
-    Image,
     ScrollView,
     StyleSheet,
     Dimensions,

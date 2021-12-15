@@ -1,12 +1,13 @@
 import React from 'react';
-import {Text, View, StyleSheet, StatusBar, ScrollView, Dimensions} from 'react-native';
+import {Platform, Text, View, ScrollView, StyleSheet, StatusBar, TouchableOpacity, Dimensions} from 'react-native';
 import {Button} from 'native-base';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
-const Detail = (props) => {
+const CouncilDetail = (props) => {
 
     const {navigation, route} = props;
 
@@ -14,9 +15,16 @@ const Detail = (props) => {
         <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
             <View style={styles.container}>
                 <StatusBar barStyle="dark-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
+                <View style={styles.meta}>
+                    <TouchableOpacity>
+                        <Text onPress={() => navigation.goBack()}>
+                            <AntIcon name="close" size={25} color={Colors.TERTIARY_TEXT_COLOR}/>
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
                 <View>
-                    <Text style={styles.headingTitle}>A. INTRODUCTION TO OUR SERVICES</Text>
+                    <Text style={styles.headingTitle}>Growth Coaching</Text>
                     <Text style={styles.paragraph}>
                         This Agreement governs your use of Apple’s services (“Services”),
                         through which you can buy, get, license, rent or subscribe to content,
@@ -31,11 +39,9 @@ const Detail = (props) => {
                     </Text>
                 </View>
 
-                <View>
-                    <Button style={styles.acceptButton} onPress={() => navigation.navigate('SignUp')}>
-                        <Text style={styles.acceptButtonText}>Create Your Account</Text>
-                    </Button>
-                </View>
+                <Button style={styles.moreButton}>
+                    <Text style={styles.moreButtonText}>Load More</Text>
+                </Button>
             </View>
         </ScrollView>
     );
@@ -44,8 +50,16 @@ const Detail = (props) => {
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+    },
+    meta: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '85%',
+        marginTop: Platform.OS === 'ios' ? 50 : 10,
+        marginLeft: 32,
+        marginRight: 32,
     },
     headingTitle: {
         ...CommonStyles.headingTitle,
@@ -60,5 +74,18 @@ const styles = StyleSheet.create({
         color: Colors.TERTIARY_TEXT_COLOR,
         textAlign: 'left',
     },
+    moreButton: {
+        width: '50%',
+        borderRadius: 25,
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
+        marginLeft: 5,
+    },
+    moreButtonText: {
+        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
+        fontFamily: Typography.FONT_BOLD,
+    },
 });
-export default Detail;
+export default CouncilDetail;

@@ -29,7 +29,9 @@ const signInSchema = Yup.object().shape({
         .required('Password is required.'),
 });
 
-const SignInForm = () => {
+const SignInForm = (props) => {
+
+    const {navigation} = props;
 
     const [hidePass, setHidePass] = useState(true);
 
@@ -125,8 +127,7 @@ const SignInForm = () => {
 
                 <View style={styles.forgotButtonWrapper}>
                     <TouchableOpacity>
-                        <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot
-                            Password?</Text>
+                        <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -152,7 +153,6 @@ const styles = StyleSheet.create({
     },
     body: {
         width: '80%',
-        // marginTop: 15,
     },
     message: {
         ...CommonStyles.message,
