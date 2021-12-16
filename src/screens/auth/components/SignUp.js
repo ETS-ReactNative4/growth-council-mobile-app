@@ -15,6 +15,7 @@ import * as Yup from 'yup';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
+import Icon from "react-native-vector-icons/Ionicons";
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -83,8 +84,16 @@ const SignUpForm = (props) => {
                     />
 
                 </View>
+                <View style={styles.checkboxWrapper}>
+                    <Icon name="ios-checkbox" size={25} color={Colors.NONARY_TEXT_COLOR}/>
+                    <Text style={styles.checkboxText}>By clicking submit I agree to the <Text  style={styles.linkText}
+                        onPress={() => navigation.navigate('Model', {screen: 'Terms'})}>Terms of Use</Text> and <Text
+                        style={styles.linkText}  onPress={() => navigation.navigate('Model', {screen: 'PrivacyPolicy'})}>Privacy
+                        Policy</Text></Text>
+                </View>
                 <View style={styles.loginButtonWrapper}>
-                    <Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>
+                    <Button style={styles.loginButton} onPress={() => navigation.navigate('SignUpNext')}>
+                        {/*<Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>*/}
                         <Text style={styles.loginButtonText}>Sign Up</Text>
                     </Button>
                 </View>
@@ -92,7 +101,7 @@ const SignUpForm = (props) => {
                 <View style={styles.signUpLinkWrapper}>
                     <Text style={{color: Colors.NONARY_TEXT_COLOR}}>Do you have already an account?</Text>
                     <TouchableOpacity>
-                        <Text style={styles.signUpButtonText} onPress={() => navigation.navigate('SignIn')}>Click
+                        <Text style={styles.linkText} onPress={() => navigation.navigate('SignIn')}>Click
                             Here</Text>
                     </TouchableOpacity>
                 </View>
@@ -138,6 +147,17 @@ const styles = StyleSheet.create({
         width: 210,
         textAlign: 'center',
     },
+    checkboxWrapper: {
+        flexDirection: 'row',
+        marginLeft: 12,
+    },
+    checkboxText: {
+        fontSize: Typography.FONT_SIZE_MEDIUM,
+        fontFamily: Typography.FONT_MEDIUM,
+        color: Colors.NONARY_TEXT_COLOR,
+        paddingLeft: 5,
+        paddingTop: 5,
+    },
     loginButtonWrapper: {
         ...CommonStyles.buttonWrapper,
         width: '90%',
@@ -160,7 +180,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignItems: 'center',
     },
-    signUpButtonText: {
+    linkText: {
         color: Colors.SENDENARY_TEXT_COLOR,
         fontFamily: Typography.FONT_NORMAL,
         paddingLeft: 5,

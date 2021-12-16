@@ -1,13 +1,24 @@
 import React from 'react';
-import {Platform, Text, View, ScrollView, StyleSheet, StatusBar} from 'react-native';
+import {Platform, Text, View, ScrollView, StyleSheet, StatusBar, Dimensions, TouchableOpacity} from 'react-native';
 
 import {CommonStyles, Colors, Typography} from '../../theme';
+import AntIcon from "react-native-vector-icons/AntDesign";
 
-const TermsConditionsScreen = () => {
+const screenHeight = Math.round(Dimensions.get('window').height);
+
+const TermsConditionsScreen = ({navigation}) => {
 
     return (
+        <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
         <View style={styles.container}>
             <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
+            <View style={styles.meta}>
+                <TouchableOpacity>
+                    <Text onPress={() => navigation.goBack()}>
+                        <AntIcon name="close" size={25} color={Colors.TERTIARY_TEXT_COLOR}/>
+                    </Text>
+                </TouchableOpacity>
+            </View>
             <View style={styles.contentWrapper}>
                 <ScrollView
                     style={styles.scrollContainer}
@@ -15,7 +26,7 @@ const TermsConditionsScreen = () => {
                     showsVerticalScrollIndicator={false}
                 >
                     <Text style={styles.topText}>Growth Councel(Terms of Use)</Text>
-                    <Text style={styles.meta}>Last Updated on March,2021</Text>
+                    <Text style={styles.timestamp}>Last Updated on March,2021</Text>
                     <Text style={styles.paragraph}>
                         This Agreement governs your use of Apple’s services (“Services”),
                         through which you can buy, get, license, rent or subscribe to content,
@@ -106,19 +117,26 @@ const TermsConditionsScreen = () => {
                 </ScrollView>
             </View>
         </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
     },
+    meta: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '85%',
+        marginTop: Platform.OS === 'ios' ? 50 : 10,
+        marginLeft: 32,
+        marginRight: 32,
+    },
     contentWrapper: {
         marginTop: Platform.OS === 'ios' ? 100 : 50,
-        backgroundColor: Colors.QUIDENARY_BACKGROUND_COLOR,
     },
     scrollContainer: {
         height: '20%',
@@ -140,7 +158,7 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         marginTop: 15,
     },
-    meta: {
+    timestamp: {
         fontFamily: Typography.FONT_NORMAL,
         fontSize: Typography.FONT_SIZE_MEDIUM,
         lineHeight: 24,
