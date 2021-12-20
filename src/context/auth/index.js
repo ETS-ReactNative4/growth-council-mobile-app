@@ -21,7 +21,7 @@ export const AuthProvider = ({children}) => {
             signIn: async (fromData) => {
                 setLoading(true);
                 try {
-                    const response = await axios.post(API_URL + '/v1/auths/customer/login', fromData, {
+                    const response = await axios.post(API_URL + '/jwt-auth/v1/token', fromData, {
                         headers: {
                             Accept: 'application/json',
                             'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
                     });
                     if (response.data.success) {
                         await setAsyncStorage(JWT_TOKEN, response.data.data.token);
-                        navigate('Home');
+                        navigate('Dashboard');
                     } else {
                         setLoading(false);
                         setMessage(response?.data?.message);

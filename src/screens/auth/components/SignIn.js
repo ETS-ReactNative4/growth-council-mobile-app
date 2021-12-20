@@ -7,6 +7,7 @@ import {
     StatusBar,
     TouchableOpacity,
     Dimensions,
+    ImageBackground,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {Button} from 'native-base';
@@ -64,78 +65,96 @@ const SignInForm = (props) => {
         <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
             <View style={styles.container}>
 
-                <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
+                <ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover">
 
-                <View style={styles.header}>
-                    <Text style={styles.headingText1}>Growth Innovation <Text
-                        style={{fontFamily: Typography.FONT_BOLD}}>Leadership Portal</Text></Text>
-                    <Text style={styles.headingText2}>Login to your account below. If you are having trouble logging
-                        into your account contact us.</Text>
-                </View>
+                    <StatusBar barStyle="dark-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
 
-                {!message?.success && <View style={styles.message}>
-                    <Text style={styles.errorText}>{message?.message}</Text>
-                </View>
-                }
+                    <View style={{height: '15%'}}>
+                    </View>
 
-                {loading &&
-                <View style={{
-                    flex: 1,
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                    position: 'absolute',
-                    zIndex: 1011,
-                }}>
-                    <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
-                </View>
-                }
+                    <View>
+                        <View style={styles.content}>
+                            <View style={styles.header}>
+                                <Text style={styles.headingText1}>Growth Innovation </Text>
+                                <Text style={[styles.headingText1, {marginBottom: 10}]}>Leadership Portal</Text>
+                                <Text>Login to your account below. If you are having trouble logging
+                                    into your account contact us.</Text>
+                            </View>
 
-                <View style={styles.body}>
-                    <FlatTextInput
-                        label='Email'
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onFocus={handleBlur('email')}
-                        error={errors.email}
-                        touched={touched.email}
-                        keyboardType={'email-address'}
-                    />
+                            {!message?.success && <View style={styles.message}>
+                                <Text style={styles.errorText}>{message?.message}</Text>
+                            </View>
+                            }
 
-                    <FlatTextInput
-                        label='Password'
-                        value={values.password}
-                        secureTextEntry={hidePass}
-                        onChangeText={handleChange('password')}
-                        onFocus={handleBlur('password')}
-                        error={errors.password}
-                        touched={touched.password}
-                    />
-                    <Ionicons
-                        name={hidePass ? 'eye-outline' : 'eye-off-outline'}
-                        size={25}
-                        color={Colors.PRIMARY_HEADING_COLOR}
-                        onPress={() => setHidePass(!hidePass)}
-                        style={{
-                            position: 'absolute',
-                            bottom: 25,
-                            right: 15,
-                        }}
-                    />
+                            {loading &&
+                            <View style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                position: 'absolute',
+                                zIndex: 1011,
+                            }}>
+                                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+                            </View>
+                            }
 
-                </View>
+                            <View style={styles.body}>
+                                <FlatTextInput
+                                    label='Email'
+                                    value={values.email}
+                                    onChangeText={handleChange('email')}
+                                    onFocus={handleBlur('email')}
+                                    error={errors.email}
+                                    touched={touched.email}
+                                    keyboardType={'email-address'}
+                                />
 
-                <View style={styles.forgotButtonWrapper}>
-                    <TouchableOpacity>
-                        <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot Password?</Text>
-                    </TouchableOpacity>
-                </View>
+                                <FlatTextInput
+                                    label='Password'
+                                    value={values.password}
+                                    secureTextEntry={hidePass}
+                                    onChangeText={handleChange('password')}
+                                    onFocus={handleBlur('password')}
+                                    error={errors.password}
+                                    touched={touched.password}
+                                />
+                                <Ionicons
+                                    name={hidePass ? 'eye-outline' : 'eye-off-outline'}
+                                    size={25}
+                                    color={Colors.PRIMARY_HEADING_COLOR}
+                                    onPress={() => setHidePass(!hidePass)}
+                                    style={{
+                                        position: 'absolute',
+                                        bottom: 25,
+                                        right: 15,
+                                    }}
+                                />
 
-                <View style={styles.loginButtonWrapper}>
-                    <Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>
-                        <Text style={styles.loginButtonText}>Login</Text>
-                    </Button>
-                </View>
+                            </View>
+
+                            <View style={styles.loginButtonWrapper}>
+                                <Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>
+                                    <Text style={styles.loginButtonText}>Sign In</Text>
+                                </Button>
+                            </View>
+                            <View style={styles.forgotButtonWrapper}>
+                                <TouchableOpacity>
+                                    <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot Password?</Text>
+                                </TouchableOpacity>
+                                <View style={styles.signup}>
+                                    <Text>Not a member ? </Text>
+                                    <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Sign Up </Text>
+                                </View>
+                                <View style={[styles.signup, {marginTop: 40}]}>
+                                    <Ionicons name="help-circle-outline" color={'#31ade5'}/>
+                                    <Text>Need Help? </Text>
+                                    <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Contact Us </Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </ImageBackground>
             </View>
         </ScrollView>
     );
@@ -144,15 +163,23 @@ const SignInForm = (props) => {
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     header: {
         height: 50,
-        width: '80%',
+        marginTop: Platform.OS === 'ios' ? 60 : 50,
+        marginBottom: 30,
+        //width: '80%',
     },
     body: {
         width: '80%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    content: {
+        backgroundColor: 'white',
+        borderRadius: 18,
+        padding: 25,
+        height: '100%'
     },
     message: {
         ...CommonStyles.message,
@@ -162,7 +189,7 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
-        marginBottom: 20,
+        //marginBottom: 20,
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -172,11 +199,13 @@ const styles = StyleSheet.create({
     },
     loginButtonWrapper: {
         ...CommonStyles.buttonWrapper,
+        alignItems: 'flex-start',
     },
     loginButton: {
         ...CommonStyles.button,
-        height: 50,
+        height: 40,
         marginBottom: 15,
+        borderRadius: 5,
     },
     loginButtonText: {
         ...CommonStyles.buttonText,
@@ -200,6 +229,10 @@ const styles = StyleSheet.create({
         ...CommonStyles.errorText,
         textAlign: 'left',
     },
+    signup: {
+        flexDirection: 'row',
+        marginBottom: 20,
+    }
 });
 
 
