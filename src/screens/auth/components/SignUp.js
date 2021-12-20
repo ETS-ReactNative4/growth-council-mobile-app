@@ -67,13 +67,13 @@ const SignUpForm = (props) => {
 
 
                 <View style={styles.content}>
-                    <ScrollView contentContainerStyle={{flexGrow: 1}}>
-                        <View style={styles.header}>
-                            <Text style={styles.headingText1}>Let's Create </Text>
-                            <Text style={styles.headingText1}>Your Account!</Text>
-                        </View>
-                        <View>
 
+                    <View style={styles.header}>
+                        <Text style={styles.headingText1}>Let's Create </Text>
+                        <Text style={styles.headingText1}>Your Account!</Text>
+                    </View>
+                    <View>
+                        <ScrollView persistentScrollbar={true} showsVerticalScrollIndicator={true}>
                             <View style={styles.body}>
 
                                 <FlatTextInput
@@ -142,7 +142,8 @@ const SignUpForm = (props) => {
 
 
                             <View style={styles.loginButtonWrapper}>
-                                <Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>
+                                <Button style={styles.loginButton} onPress={() => navigation.navigate('SignUpNext')}>
+                                    {/*<Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>*/}
                                     <Text style={styles.loginButtonText}>Sign Up</Text>
                                 </Button>
                             </View>
@@ -154,9 +155,9 @@ const SignUpForm = (props) => {
                                         Here</Text>
                                 </TouchableOpacity>
                             </View>
+                        </ScrollView>
+                    </View>
 
-                        </View>
-                    </ScrollView>
                 </View>
             </ImageBackground>
         </View>
