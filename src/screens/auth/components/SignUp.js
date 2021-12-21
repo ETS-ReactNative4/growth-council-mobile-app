@@ -72,92 +72,91 @@ const SignUpForm = (props) => {
                         <Text style={styles.headingText1}>Let's Create </Text>
                         <Text style={styles.headingText1}>Your Account!</Text>
                     </View>
-                    <View>
-                        <ScrollView persistentScrollbar={true} showsVerticalScrollIndicator={true}>
-                            <View style={styles.body}>
 
-                                <FlatTextInput
-                                    label='First Name'
-                                    value={values.firstname}
-                                    onChangeText={handleChange('firstname')}
-                                    onFocus={handleBlur('firstname')}
-                                    error={errors.firstname}
-                                    touched={touched.firstname}
-                                />
+                    <ScrollView
+                        style={styles.scrollBox}>
 
-                                <FlatTextInput
-                                    label='Last Name'
-                                    value={values.lastname}
-                                    onChangeText={handleChange('lastname')}
-                                    onFocus={handleBlur('lastname')}
-                                    error={errors.lastname}
-                                    touched={touched.lastname}
-                                />
+                        <View style={styles.body}>
 
-                                <FlatTextInput
-                                    label='Title'
-                                    value={values.title}
-                                    onChangeText={handleChange('title')}
-                                    onFocus={handleBlur('title')}
-                                    error={errors.title}
-                                    touched={touched.title}
-                                />
+                            <FlatTextInput
+                                label='First Name'
+                                value={values.firstname}
+                                onChangeText={handleChange('firstname')}
+                                onFocus={handleBlur('firstname')}
+                                error={errors.firstname}
+                                touched={touched.firstname}
+                            />
 
-                                <FlatTextInput
-                                    label='Company'
-                                    value={values.company}
-                                    onChangeText={handleChange('company')}
-                                    onFocus={handleBlur('company')}
-                                    error={errors.company}
-                                    touched={touched.company}
-                                />
+                            <FlatTextInput
+                                label='Last Name'
+                                value={values.lastname}
+                                onChangeText={handleChange('lastname')}
+                                onFocus={handleBlur('lastname')}
+                                error={errors.lastname}
+                                touched={touched.lastname}
+                            />
 
-                                <FlatTextInput
-                                    label='Business Phone'
-                                    value={values.business_phone}
-                                    onChangeText={handleChange('business_phone')}
-                                    onFocus={handleBlur('business_phone')}
-                                    error={errors.business_phone}
-                                    touched={touched.business_phone}
-                                />
+                            <FlatTextInput
+                                label='Title'
+                                value={values.title}
+                                onChangeText={handleChange('title')}
+                                onFocus={handleBlur('title')}
+                                error={errors.title}
+                                touched={touched.title}
+                            />
 
-                                <FlatTextInput
-                                    label='Business Email'
-                                    value={values.business_email}
-                                    onChangeText={handleChange('business_email')}
-                                    onFocus={handleBlur('business_email')}
-                                    error={errors.business_email}
-                                    touched={touched.business_email}
-                                />
+                            <FlatTextInput
+                                label='Company'
+                                value={values.company}
+                                onChangeText={handleChange('company')}
+                                onFocus={handleBlur('company')}
+                                error={errors.company}
+                                touched={touched.company}
+                            />
 
-                                <CheckBox
-                                    label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
-                                    status={checked ? 'checked' : 'unchecked'}
-                                    onPress={() => {
-                                        setChecked(!checked);
-                                    }}
-                                />
+                            <FlatTextInput
+                                label='Business Phone'
+                                value={values.business_phone}
+                                onChangeText={handleChange('business_phone')}
+                                onFocus={handleBlur('business_phone')}
+                                error={errors.business_phone}
+                                touched={touched.business_phone}
+                            />
 
-                            </View>
+                            <FlatTextInput
+                                label='Business Email'
+                                value={values.business_email}
+                                onChangeText={handleChange('business_email')}
+                                onFocus={handleBlur('business_email')}
+                                error={errors.business_email}
+                                touched={touched.business_email}
+                            />
 
+                            <CheckBox
+                                label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
+                                status={checked ? 'checked' : 'unchecked'}
+                                onPress={() => {
+                                    setChecked(!checked);
+                                }}
+                            />
 
-                            <View style={styles.loginButtonWrapper}>
-                                <Button style={styles.loginButton} onPress={() => navigation.navigate('SignUpNext')}>
-                                    {/*<Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>*/}
-                                    <Text style={styles.loginButtonText}>Sign Up</Text>
-                                </Button>
-                            </View>
+                        </View>
 
-                            <View style={styles.signUpLinkWrapper}>
-                                <Text style={{color: Colors.NONARY_TEXT_COLOR}}>Do you have already an account?</Text>
-                                <TouchableOpacity>
-                                    <Text style={styles.signUpButtonText} onPress={() => navigation.navigate('SignIn')}>Click
-                                        Here</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ScrollView>
-                    </View>
+                        <View style={styles.loginButtonWrapper}>
+                            <Button style={styles.loginButton} onPress={() => navigation.navigate('SignUpNext')}>
+                                {/*<Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>*/}
+                                <Text style={styles.loginButtonText}>Sign Up</Text>
+                            </Button>
+                        </View>
 
+                        <View style={styles.signUpLinkWrapper}>
+                            <Text style={{color: Colors.NONARY_TEXT_COLOR}}>Do you have already an account?</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.signUpButtonText} onPress={() => navigation.navigate('SignIn')}>Click
+                                    Here</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
                 </View>
             </ImageBackground>
         </View>
@@ -173,6 +172,13 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: Platform.OS === 'ios' ? 60 : 50,
         marginBottom: 30,
+    },
+    scrollBox: {
+        height: '65%',
+        width: '85%',
+        marginLeft: 32,
+        marginRight: 32,
+        marginBottom: 0,
     },
     body: {
         width: '80%',
