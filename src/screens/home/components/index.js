@@ -60,7 +60,7 @@ const Home = ({navigation}) => {
 
                 <View style={styles.buttonWrapper}>
                     <Button style={[styles.button, styles.plainButton]}
-                            onPress={() => navigation.navigate('HomeDetail')}>
+                            onPress={() => navigation.navigate('SignUpNext')}>
                         <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
                     </Button>
                     <Button style={[styles.button, styles.plainButton]}

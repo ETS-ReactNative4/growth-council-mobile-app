@@ -21,12 +21,17 @@ const SignUpNext = ({navigation}) => {
             <View style={styles.container}>
 
                 <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
+                <View>
+                <Image source={require('../../../assets/img/welcome_profile_image.png')}/>
 
-                <Image source={require('../../../assets/img/Slide2.png')}/>
+                </View>
+
 
                 <View style={styles.header}>
-                    <Text style={styles.headingText1}>Welcome to John!</Text>
+                    <Text style={styles.headingText1}>Welcome John!</Text>
                     <Text style={styles.headingText2}>Have you some problem today?</Text>
+                    <Text style={styles.headingText2}>Don't worry, now you are part of</Text>
+                    <Text style={styles.headingText2}>Growth Council, Lets us help you.</Text>
                 </View>
 
                 <View style={styles.arrow}>
@@ -37,6 +42,13 @@ const SignUpNext = ({navigation}) => {
                         onPress={() => navigation.navigate('Journey')}
                     />
                 </View>
+
+                  <Image source={require('../../../assets/img/footer_logo.png')}/>
+                  <View>
+                  <Text>Powered By</Text>
+                  </View>
+                  <Image source={require('../../../assets/img/footer_company_name_image.png')}/>
+
             </View>
         </ScrollView>
     );
@@ -51,6 +63,8 @@ const styles = StyleSheet.create({
     header: {
         height: 50,
         width: '80%',
+        alignItems : 'center',
+        
     },
     headingText1: {
         ...CommonStyles.headingText1,
@@ -61,9 +75,12 @@ const styles = StyleSheet.create({
         ...CommonStyles.headingText2,
         fontFamily: Typography.FONT_NORMAL,
         width: 210,
-        marginBottom: 30,
+       
     },
-    arrow: {},
+    arrow: {
+        marginTop : 200,
+        justifyContent : 'flex-end'
+    },
 });
 
 
