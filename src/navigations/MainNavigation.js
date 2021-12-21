@@ -6,6 +6,7 @@ import {
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {HeaderBackButton} from '@react-navigation/elements';
 
+import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 import ModelNavigation from '../navigations/ModelNavigation';
 
@@ -48,8 +49,6 @@ const MainNavigation = () => {
         switch (routeName) {
             case 'Home':
                 return '';
-            case 'History':
-                return 'History';
             case 'Account':
                 return 'Account';
             default:
@@ -111,26 +110,15 @@ const MainNavigation = () => {
                 ...TransitionPresets.RevealFromBottomAndroid,
             }}/>
             <Stack.Screen name="Model" component={ModelNavigation} options={{headerShown: false}}/>
-            <Stack.Screen name="Dashboard" component={BottomTabNavigation} options={({route, navigation}) => ({
+
+            <Stack.Screen name="Dashboard" component={DrawerNavigation} options={({route, navigation}) => ({
                 headerShown: isHeaderShown(route),
                 headerTitle: headerTitle(route),
-                headerLeft: (props) => (
-                    <HeaderBackButton
-                        {...props}
-                        onPress={() => {
-                            navigation.replace('Dashboard');
-                        }}
-                    />
-                ),
                 ...TransitionPresets.SlideFromRightIOS,
                 gestureDirection: 'horizontal-inverted',
+                headerLeft: () => null,
             })}/>
-            {/*<Stack.Screen name="Dashboard" component={DrawerNavigation} options={({route, navigation}) => ({*/}
-            {/*headerShown: isHeaderShown(route),*/}
-            {/*headerTitle: headerTitle(route),*/}
-            {/*...TransitionPresets.SlideFromRightIOS,*/}
-            {/*gestureDirection: 'horizontal-inverted',*/}
-            {/*})}/>*/}
+
             <Stack.Screen name="EditProfile" component={EditProfileScreen}
                           options={{
                               headerTitle: 'Edit Profile',
