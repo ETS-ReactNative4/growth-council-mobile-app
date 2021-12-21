@@ -20,6 +20,8 @@ import JourneyScreen from '../screens/auth/Journey';
 
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import * as Colors from "../theme/colors";
 
 const Stack = createStackNavigator();
 
@@ -66,11 +68,21 @@ const MainNavigation = () => {
                 ...TransitionPresets.SlideFromRightIOS,
                 gestureDirection: 'horizontal-inverted',
             }}/>
-            <Stack.Screen name="HomeDetail" component={HomeDetailScreen} options={{
+            <Stack.Screen name="HomeDetail" component={HomeDetailScreen} options={({route, navigation}) => ({
                 headerTitle: '',
+                headerStyle: {height: 80},
                 headerTransparent: true,
+                headerLeft: (props) => (
+                    <Ionicons
+                        name={'arrow-back'}
+                        size={80}
+                        color={'white'}
+                        onPress={() => navigation.navigate('Home')}
+                    />
+                ),
                 ...TransitionPresets.RevealFromBottomAndroid,
-            }}/>
+                gestureDirection: 'horizontal-inverted',
+            })}/>
             <Stack.Screen name="SignIn" component={SignInScreen} options={{
                 headerTitle: '',
                 headerTransparent: true,
@@ -114,10 +126,10 @@ const MainNavigation = () => {
                 gestureDirection: 'horizontal-inverted',
             })}/>
             {/*<Stack.Screen name="Dashboard" component={DrawerNavigation} options={({route, navigation}) => ({*/}
-                {/*headerShown: isHeaderShown(route),*/}
-                {/*headerTitle: headerTitle(route),*/}
-                {/*...TransitionPresets.SlideFromRightIOS,*/}
-                {/*gestureDirection: 'horizontal-inverted',*/}
+            {/*headerShown: isHeaderShown(route),*/}
+            {/*headerTitle: headerTitle(route),*/}
+            {/*...TransitionPresets.SlideFromRightIOS,*/}
+            {/*gestureDirection: 'horizontal-inverted',*/}
             {/*})}/>*/}
             <Stack.Screen name="EditProfile" component={EditProfileScreen}
                           options={{
