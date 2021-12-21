@@ -7,6 +7,7 @@ import {Colors} from '../theme';
 
 import DashboardScreen from '../screens/dashboard';
 import AccountScreen from '../screens/account';
+import SearchScreen from '../screens/search';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,7 @@ const BottomTabNavigation = () => {
 
             <Tab.Screen
                 name="Option"
-                component={DashboardScreen}
+                component={SearchScreen}
                 options={{
                     tabBarLabel: 'Setting',
                     tabBarIcon: ({color, size}) => (
@@ -85,7 +86,7 @@ const BottomTabNavigation = () => {
             />
             <Tab.Screen
                 name="Person"
-                component={DashboardScreen}
+                component={AccountScreen}
                 options={{
                     tabBarLabel: 'Setting',
                     tabBarIcon: ({color, size}) => (
