@@ -62,7 +62,7 @@ const Home = ({navigation}) => {
 
             <View style={styles.buttonWrapper}>
                 <Button style={[styles.button, styles.plainButton , {backgroundColor: Colors.PRIMARY_BUTTON_COLOR}]}
-                        onPress={() => navigation.navigate('Dashboard')}>
+                        onPress={() => navigation.navigate('HomeDetail')}>
                     <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
                 </Button>
                 <Button style={[styles.button1]}

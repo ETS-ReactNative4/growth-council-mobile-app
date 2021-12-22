@@ -22,7 +22,7 @@ const SignUpNext = ({navigation}) => {
 
                 <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
 
-                <Image source={require('../../../assets/img/Slide2.png')}/>
+                <Image source={require('../../../assets/img/welcome_profile_image.png')}/>
 
                 <View style={styles.header}>
                     <Text style={styles.headingText1}>Welcome to John!</Text>
