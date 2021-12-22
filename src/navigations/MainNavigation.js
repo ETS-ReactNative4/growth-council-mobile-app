@@ -20,6 +20,7 @@ import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Colors from '../theme/colors';
+import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
 
 const Stack = createStackNavigator();
 
@@ -83,6 +84,19 @@ const MainNavigation = () => {
               onPress={() => navigation.navigate('Home')}
             />
           ),
+          ...TransitionPresets.RevealFromBottomAndroid,
+          gestureDirection: 'horizontal-inverted',
+        })}
+      />
+
+      <Stack.Screen
+        name="CouncilAllDetail"
+        component={CouncilAllDetailScreen}
+        options={({route, navigation}) => ({
+          headerTitle: '',
+          headerStyle: {height: 80},
+          headerTransparent: true,
+          headerLeft: props => null,
           ...TransitionPresets.RevealFromBottomAndroid,
           gestureDirection: 'horizontal-inverted',
         })}
