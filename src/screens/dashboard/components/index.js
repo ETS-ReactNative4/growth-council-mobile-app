@@ -30,10 +30,7 @@ const Data = [
 		uri: require('../../../assets/img/profile_image.png'),
 		text: "Jay",
 	},
-	{
-		uri: require('../../../assets/img/welcome_profile_image.png'),
-		text: "John",
-	},
+	
 ];
 
 
