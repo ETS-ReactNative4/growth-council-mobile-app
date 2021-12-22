@@ -123,9 +123,10 @@ const Home = ({navigation}) => {
             style={styles.footerlogo}
             source={require('../../../assets/img/footer_logo.png')}
           />
+          <Text style={{fontSize: 7, marginTop: 2}}>Powered By</Text>
           <Image
             source={require('../../../assets/img/footer_company_name_image.png')}
-            style={{marginTop: 10}}
+            style={{marginTop: 2}}
           />
         </View>
       </View>

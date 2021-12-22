@@ -2,11 +2,13 @@ import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {HeaderBackButton} from '@react-navigation/elements';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 import ModelNavigation from '../navigations/ModelNavigation';
 
+import LogoTitle from '../shared/logo';
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
 
@@ -16,10 +18,10 @@ import SignUpScreen from '../screens/auth/SignUp';
 import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
 
+import ContactUsScreen from '../screens/static/ContactUs';
+
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import * as Colors from '../theme/colors';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
 
 const Stack = createStackNavigator();
@@ -198,6 +200,13 @@ const MainNavigation = () => {
         component={ChangePasswordScreen}
         options={{
           headerTitle: 'Change Password',
+        }}
+      />
+      <Stack.Screen
+        name="ContactUs"
+        component={ContactUsScreen}
+        options={{
+          headerTitle: 'Contact Us',
         }}
       />
     </Stack.Navigator>
