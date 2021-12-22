@@ -138,7 +138,6 @@ const MainNavigation = () => {
                 gestureDirection: 'horizontal-inverted',
                 headerLeft: () => null,
             })}/>
-
             <Stack.Screen name="EditProfile" component={EditProfileScreen}
                           options={{
                               headerTitle: 'Edit Profile',
