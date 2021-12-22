@@ -5,11 +5,14 @@ import {
     View,
     ScrollView,
     StatusBar,
-    Dimensions
+    Dimensions,
+    Image
 } from 'react-native';
 
-import {CommonStyles, Colors, Typography} from '../../../theme';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Button} from "native-base";
+
+import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -30,8 +33,8 @@ const Journey = ({navigation}) => {
                             color={'#0aade7'}
                             onPress={() => navigation.goBack()}
                         />
-                    </View>                     
-                </View>                 
+                    </View>
+                </View>
 
                 <View style = {{marginBottom: 20}}>
                     <Text style={styles.headingTitle}>Growth Coaching</Text>
@@ -41,9 +44,9 @@ const Journey = ({navigation}) => {
                         Apps (as defined below), and other in-app services (collectively, “Content”).
                         ontent may be offered through the Services by Apple or a third party.
                         Our Services are available for your use in your country or territory of residence (“Home
-                        Country”).                        
+                        Country”).
                     </Text>
-                     <Text style={styles.paragraph}>                       
+                     <Text style={styles.paragraph}>
                         By creating an account for use of the Services in a particular country or territory you are
                         specifying it as your Home Country.
                         To use our Services, you need compatible hardware, software (latest version recommended and
@@ -64,9 +67,9 @@ const Journey = ({navigation}) => {
 
 const styles = StyleSheet.create({
      container: {
-        ...CommonStyles.container,               
+        ...CommonStyles.container,
     },
-    meta: {      
+    meta: {
         width: '100%',
         marginTop: Platform.OS === 'ios' ? 50 : 10,
     },
