@@ -142,16 +142,17 @@ const SignInForm = (props) => {
                                 <TouchableOpacity>
                                     <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot Password?</Text>
                                 </TouchableOpacity>
-                                <View style={styles.signup}>
-                                    <Text>Not a member ? </Text>
-                                    <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Sign Up </Text>
-                                </View>
-                                <View style={[styles.signup, {marginTop: 40}]}>
-                                    <Ionicons name="help-circle-outline" color={'#31ade5'}/>
-                                    <Text>Need Help? </Text>
-                                    <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Contact Us </Text>
-                                </View>
+                             </View>
+                            <View style={styles.signuptext}>
+                                <Text>Not a member ?</Text>
+                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Sign Up </Text>
                             </View>
+                            <View style={[styles.signuptext, {marginTop: 40}]}>
+                                <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/>
+                                <Text>Need Help? </Text>
+                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Contact Us </Text>
+                            </View>
+                           
                         </View>
                     </View>
                 </ImageBackground>
@@ -205,7 +206,8 @@ const styles = StyleSheet.create({
         ...CommonStyles.button,
         height: 40,
         marginBottom: 15,
-        borderRadius: 5,
+        borderRadius: 10,
+        width: '50%'
     },
     loginButtonText: {
         ...CommonStyles.buttonText,
@@ -229,9 +231,8 @@ const styles = StyleSheet.create({
         ...CommonStyles.errorText,
         textAlign: 'left',
     },
-    signup: {
+    signuptext: {
         flexDirection: 'row',
-        marginBottom: 20,
     }
 });
 
