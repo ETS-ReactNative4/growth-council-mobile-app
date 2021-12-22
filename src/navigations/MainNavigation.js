@@ -82,7 +82,11 @@ const MainNavigation = () => {
                 ...TransitionPresets.RevealFromBottomAndroid,
                 gestureDirection: 'horizontal-inverted',
             })}/>
+
+			
+            <Stack.Screen name="SignIn" component={SignInScreen} options={{
             <Stack.Screen name="SignIn" component={SignInScreen} options={({route, navigation}) => ({
+
                 headerTitle: '',
                 headerStyle: {height: 80},
                 headerTransparent: true,
