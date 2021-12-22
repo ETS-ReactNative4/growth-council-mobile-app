@@ -53,6 +53,14 @@ const data1=[
 		icon:"location-arrow",
 		text:"Megatrends Workshop"
 	},
+	{
+		icon:"brain",
+		text:"Executive MindChange"
+	},
+	{
+		icon:"location-arrow",
+		text:"Megatrends Workshop"
+	},
 ]
 
 const _renderMiddleItem = ({item, index}) => {
@@ -69,6 +77,51 @@ const _renderMiddleItem = ({item, index}) => {
 	</View>)
 }
 
+const data2=[
+	{
+		date:"10",
+		month:"july",
+		text:"Executive Coaching Clinic On Goal Setting",
+		text1:"Hosted by Michael Cooper"
+	},
+	{
+		date:"10",
+		month:"Oct",
+		text:"Associate Member Meeting",
+		text1:"Hosted by Michael Cooper"
+	},
+]
+
+const _renderTopItem = ({item, index}) => {
+	return (
+		<View style={styles.topWrapper} >
+			<ImageBackground
+				style={{width:'100%',
+					height:170,
+					borderRadius:20}}
+					source={require('../../../assets/img/blank_event_design.png')}>
+
+			<View style={{
+				width:"15%",
+				height:50,
+				marginTop:10,
+				marginLeft:240,
+				backgroundColor:'#EBECF0',
+				borderRadius:10,
+				padding:5,
+				alignItems:'center'				
+				}}>
+					<Text>{item.date}</Text>
+					<Text>{item.month}</Text>
+			</View>
+							
+			<View style={styles.header}>
+				<Text style={styles.headingText1}>{item.text}</Text>
+				<Text style={styles.headingText2}>{item.text1}</Text>
+			</View>
+			</ImageBackground>
+		</View>)
+}
 const Dashboard = ({navigation}) => {
     return (
 		<ScrollView>
@@ -76,9 +129,9 @@ const Dashboard = ({navigation}) => {
 				<ImageBackground
 					style={{width:'100%',
 					height:200,
-					borderRadius:20}}
+					}}
 					source={require('../../../assets/img/blank_event_design.png')}>
-						<View style={{display:'flex',flexDirection:'row'}}>
+						<View style={{display:'flex', flexDirection:'row'}}>
 						<Image
 							source={require("../../../assets/img/dashboard_logo.png")}
 							style={{
@@ -156,7 +209,12 @@ const Dashboard = ({navigation}) => {
 					display:'flex', 
 					flexDirection:'row',
 				}}>
-				<Swiper style={styles.wrapper} autoplay
+					<FlatList
+                        horizontal
+						showsHorizontalScrollIndicator={false}
+                        data={data2}
+                        renderItem={_renderTopItem}/>
+				{/* <Swiper style={styles.wrapper} autoplay
                         paginationStyle={{top: '90%', backgroundColor: 'transparent'}}
                         showsButtons={false}
 						loop={false}
@@ -191,9 +249,7 @@ const Dashboard = ({navigation}) => {
 							</View>
 							</ImageBackground>
 						</View>
-					
 
-					
 						<View style={styles.topWrapper} >
 						
 							<ImageBackground
@@ -225,7 +281,7 @@ const Dashboard = ({navigation}) => {
 						
 						</View>
 
-				</Swiper>
+				</Swiper> */}
 				</View>
             </View>
 			
@@ -277,16 +333,14 @@ const styles = StyleSheet.create({
 		marginTop:80,
 		margin:10,
 		justifyContent:'center',	
-		
 	},
 	
 	topWrapper:{
 		height:170,
-		width:'85%',
-		backgroundColor:Colors.TERTIARY_BUTTON_COLOR,
+		width:300,
 		marginTop:20,
-		borderRadius:20,
-			
+		marginLeft:10,
+		borderRadius:50,
 	},
 	header:{
 		margin:10,
@@ -308,7 +362,8 @@ const styles = StyleSheet.create({
 	middle:{
 		width:400,
 		height:200,
-		marginLeft:10
+		marginLeft:10,
+		marginTop:15,
 			
 	},
 	middleWrapper:{
@@ -316,7 +371,6 @@ const styles = StyleSheet.create({
 		width:100,
 		borderRadius:20,
 		marginTop:10,
-		marginLeft:10,
 		// backgroundColor:'white',
 		justifyContent:"center",
 		alignItems:'center',
