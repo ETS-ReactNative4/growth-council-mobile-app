@@ -1,74 +1,113 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     StatusBar,
     StyleSheet,
     Text,
     View,
-    Image, ImageBackground, TouchableOpacity
+    Image, TouchableOpacity, Dimensions
 } from 'react-native';
 import {Button} from 'native-base';
-import Swiper from 'react-native-swiper'
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
+
 const Home = ({navigation}) => {
+
+    const [activeSlider, setActiveSlider] = useState(1);
+
+    const wp = (percentage) => {
+        const value = (percentage * viewportWidth) / 100;
+        return Math.round(value);
+    };
+
+    const slideHeight = viewportHeight * 0.36;
+    const slideWidth = wp(60);
+    const sliderWidth = viewportWidth;
+    const itemHorizontalMargin = wp(2);
+    const itemWidth = slideWidth + itemHorizontalMargin * 2;
+
+    const carouselItems = [
+        {
+            uri: require('../../../assets/img/slider1_image.png'),
+            text: "Growth Coaching",
+        },
+        {
+            uri: require('../../../assets/img/community_slider_image.png'),
+            text: "Community",
+        },
+        {
+            uri: require('../../../assets/img/best_practices_slider_image.png'),
+            text: "Best Practices",
+        },
+    ];
+
+    const _renderItem = ({item, index}) => {
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                <View
+                    style={{
+                        backgroundColor: "floralwhite",
+                        borderRadius: 5,
+                        height: 250,
+                        padding: 20,
+                        marginLeft: 20,
+                        marginRight: 20,
+                    }}
+                >
+                    <Image source={item?.uri} style={{resizeMode: 'cover'}}/>
+                    <Text>{item.text}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../../../assets/img/home-background.png')} style={styles.background}>
-                <StatusBar hidden/>
-                <Swiper style={styles.wrapper} autoplay
-                        paginationStyle={{top: '85%', backgroundColor: 'transparent'}}
-                        activeDot={
-                            <View
-                                style={{
-                                    backgroundColor: '#91357A',
-                                    width: 60,
-                                    height: 8,
-                                    borderRadius: 4,
-                                    marginLeft: 3,
-                                    marginRight: 3,
-                                    marginTop: 3,
-                                    marginBottom: 3,
-                                }}
-                            />
-                        }
-                        showsButtons={true}
-                >
+            <StatusBar hidden/>
+            <View style={styles.header}>
+                <Text style={styles.headingText1}>Welcome</Text>
+                <Text style={styles.headingText2}>To The Growth Council</Text>
+            </View>
+            <Carousel
+                layout={"default"}
+                data={carouselItems}
+                sliderWidth={sliderWidth}
+                itemWidth={itemWidth}
+                renderItem={_renderItem}
+                firstItem={1}
+                containerCustomStyle={styles.slider}
+                contentContainerCustomStyle={styles.sliderContent}
+                loop={true}
+                loopClonesPerSide={2}
+                autoplay={true}
+                autoplayDelay={500}
+                autoplayInterval={3000}
+                hasParallaxImages={true}
+                inactiveSlideScale={0.94}
+                inactiveSlideOpacity={0.7}
+                onSnapToItem={(index) => setActiveSlider(index)}
+            />
 
-                    <View style={styles.slide1}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
-                            <Text style={styles.text}>Get Started</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.slide2}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide2.png')}/>
-                            <Text style={styles.text1}>We bring the televeison at your fingertips, now watch your
-                                favorite TV programming right in your smartphone with direct broadcast.</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.slide3}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
-                            <Text style={styles.text1}>You can Register using the button below or simply login if you
-                                already have an account to begin enjoying the experience.</Text>
-                        </TouchableOpacity>
-                    </View>
-                </Swiper>
+            <Pagination
+                dotsLength={carouselItems.length}
+                activeDotIndex={activeSlider}
+                dotColor={'rgba(255, 255, 255, 0.92)'}
+                inactiveDotOpacity={0.4}
+                inactiveDotScale={0.6}
+            />
 
-                <View style={styles.buttonWrapper}>
-                    <Button style={[styles.button, styles.plainButton]}
-                            onPress={() => navigation.navigate('HomeDetail')}>
-                        <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
-                    </Button>
-                    <Button style={[styles.button, styles.plainButton]}
-                            onPress={() => navigation.navigate('SignIn')}>
-                        <Text style={styles.buttonText}>I already have an account </Text>
-                    </Button>
-                </View>
-            </ImageBackground>
+            <View style={styles.buttonWrapper}>
+                <Button style={[styles.button, styles.plainButton]}
+                        onPress={() => navigation.navigate('HomeDetail')}>
+                    <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
+                </Button>
+                <Button style={[styles.button, styles.plainButton]}
+                        onPress={() => navigation.navigate('SignIn')}>
+                    <Text style={styles.buttonText}>I already have an account </Text>
+                </Button>
+            </View>
         </View>
     );
 };
@@ -78,40 +117,38 @@ const styles = StyleSheet.create({
         ...CommonStyles.container,
         backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
     },
-    background: {
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center",
-    },
-    wrapper: {
-        top: '20%',
-    },
-    slide1: {
+    header: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    slide2: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    headingText1: {
+        ...CommonStyles.headingText1,
+        fontFamily: Typography.FONT_NORMAL,
+        marginBottom: 20,
     },
-    slide3: {
+    headingText2: {
+        ...CommonStyles.headingText2,
+        fontFamily: Typography.FONT_NORMAL,
+        marginBottom: 20,
+    },
+    slider: {
+        marginTop: 15,
+        overflow: 'visible'
+    },
+    sliderContent: {
+        paddingVertical: 10
+    },
+    slide: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     text: {
-        color: '#ACACAC',
-        fontSize: 30,
-        fontFamily: Typography.FONT_NORMAL,
-        marginTop: 30,
-    },
-    text1: {
-        color: Colors.NONARY_TEXT_COLOR,
+        color: 'white',
         fontSize: Typography.FONT_SIZE_MEDIUM,
         fontFamily: Typography.FONT_NORMAL,
-        margin: 30,
+        top: -40,
         textAlign: 'center',
     },
     buttonWrapper: {
@@ -129,8 +166,8 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_BOLD,
     },
     iconImage: {
-        width: 120,
-        height: 120,
+        width: 250,
+        height: 250,
     },
     plainButton: {
         width: '50%',
