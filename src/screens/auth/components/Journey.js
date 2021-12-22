@@ -55,7 +55,7 @@ const Journey = ({navigation}) => {
                 </View>
 
                 <View style = {{ alignItems: 'center', justifyContent: 'center',}}>
-                     <Button style={styles.moreButton} onPress={() => navigation.navigate('Detail')}>
+                     <Button style={styles.moreButton} onPress={() => navigation.navigate('Dashboard')}>
                     <Text style={styles.moreButtonText}>Load More</Text>
                 </Button>
 
