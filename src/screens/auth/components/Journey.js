@@ -22,43 +22,17 @@ const Journey = ({navigation}) => {
         <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
             <View style={styles.container}>
 
-                <StatusBar barStyle="dark-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
+                <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
 
-                <View style={styles.meta}>
-                    <Image style={{ width: '100%',height: 230, alignItems: 'center', borderRadius: 15}} source={require('../../../assets/img/welcome_screen_info_image.png')}/>
-                     <View style = {{ position : 'absolute', right : 0}}>
-                        <Ionicons
-                            name={'md-close-circle-sharp'}
-                            size={40}
-                            color={'#0aade7'}
-                            onPress={() => navigation.goBack()}
-                        />
-                    </View>
+                <View style={styles.header}>
+                    <Text style={styles.headingText1}>What are you interested in?</Text>
                 </View>
 
-                <View style = {{marginBottom: 20}}>
-                    <Text style={styles.headingTitle}>Growth Coaching</Text>
-                    <Text style={styles.paragraph}>
-                        This Agreement governs your use of Apple’s services (“Services”),
-                        through which you can buy, get, license, rent or subscribe to content,
-                        Apps (as defined below), and other in-app services (collectively, “Content”).
-                        ontent may be offered through the Services by Apple or a third party.
-                        Our Services are available for your use in your country or territory of residence (“Home
-                        Country”).
-                    </Text>
-                     <Text style={styles.paragraph}>
-                        By creating an account for use of the Services in a particular country or territory you are
-                        specifying it as your Home Country.
-                        To use our Services, you need compatible hardware, software (latest version recommended and
-                        sometimes required) and Internet access (fees may apply).
-                    </Text>
-                </View>
-
-                <View style = {{ alignItems: 'center', justifyContent: 'center',}}>
-                     <Button style={styles.moreButton} onPress={() => navigation.navigate('Dashboard')}>
-                    <Text style={styles.moreButtonText}>Load More</Text>
-                </Button>
-
+                <View style={styles.buttonWrapper}>
+                    <Button style={[styles.button, styles.plainButton]}
+                            onPress={() => navigation.navigate('Dashboard')}>
+                        <Text style={[styles.buttonText, styles.plainButtonText]}>Start your journey</Text>
+                    </Button>
                 </View>
             </View>
         </ScrollView>

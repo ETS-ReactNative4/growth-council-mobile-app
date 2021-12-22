@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/stack';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {HeaderBackButton} from '@react-navigation/elements';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
@@ -20,9 +21,10 @@ import SignUpScreen from '../screens/auth/SignUp';
 import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
 
+import ContactUsScreen from '../screens/static/ContactUs';
+
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Stack = createStackNavigator();
 
@@ -145,6 +147,10 @@ const MainNavigation = () => {
             <Stack.Screen name="ChangePassword" component={ChangePasswordScreen}
                           options={{
                               headerTitle: 'Change Password',
+                          }}/>
+            <Stack.Screen name="ContactUs" component={ContactUsScreen}
+                          options={{
+                              headerTitle: 'Contact Us',
                           }}/>
         </Stack.Navigator>
     );
