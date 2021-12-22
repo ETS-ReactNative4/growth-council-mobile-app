@@ -4,7 +4,7 @@ import {
     StyleSheet,
     Text,
     View,
-    Image, ImageBackground, TouchableOpacity
+    Image, TouchableOpacity
 } from 'react-native';
 import {Button} from 'native-base';
 import Swiper from 'react-native-swiper'
