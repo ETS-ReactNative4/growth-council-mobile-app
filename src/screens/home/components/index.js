@@ -15,17 +15,21 @@ const Home = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../../../assets/img/home-background.png')} style={styles.background}>
+            <View style={styles.header}>
+                <Text style={styles.headingText1}>Welcome</Text>
+                <Text style={styles.headingText2}>To The Growth Council</Text>
+            </View>
+            
                 <StatusBar hidden/>
                 <Swiper style={styles.wrapper} autoplay
-                        paginationStyle={{top: '85%', backgroundColor: 'transparent'}}
+                        paginationStyle={{top: '95%', backgroundColor: 'transparent'}}
                         activeDot={
                             <View
                                 style={{
-                                    backgroundColor: '#91357A',
-                                    width: 60,
+                                    backgroundColor: '#2189b1',
+                                    width: 20,
                                     height: 8,
-                                    borderRadius: 4,
+                                    borderRadius: 2,
                                     marginLeft: 3,
                                     marginRight: 3,
                                     marginTop: 3,
@@ -38,37 +42,40 @@ const Home = ({navigation}) => {
 
                     <View style={styles.slide1}>
                         <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
-                            <Text style={styles.text}>Get Started</Text>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/community_slider_image.png')}/>
+                            <Text style={styles.text}></Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.slide2}>
+                    <View style={styles.slide1}>
                         <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide2.png')}/>
-                            <Text style={styles.text1}>We bring the televeison at your fingertips, now watch your
-                                favorite TV programming right in your smartphone with direct broadcast.</Text>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/growth_coaching_slider_image.png')}/>
+                            <Text style={styles.text}></Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.slide3}>
+                    <View style={styles.slide1}>
                         <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                            <Image style={styles.iconImage} source={require('../../../assets/img/Slide3.png')}/>
-                            <Text style={styles.text1}>You can Register using the button below or simply login if you
-                                already have an account to begin enjoying the experience.</Text>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/best_practices_slider_image.png')}/>
+                            <Text style={styles.text}></Text>
                         </TouchableOpacity>
                     </View>
                 </Swiper>
 
                 <View style={styles.buttonWrapper}>
-                    <Button style={[styles.button, styles.plainButton]}
+                    <Button style={[styles.button, styles.plainButton , {backgroundColor: Colors.PRIMARY_BUTTON_COLOR}]}
                             onPress={() => navigation.navigate('HomeDetail')}>
                         <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
                     </Button>
-                    <Button style={[styles.button, styles.plainButton]}
+                    <Button style={[styles.button1]}
                             onPress={() => navigation.navigate('SignIn')}>
-                        <Text style={styles.buttonText}>I already have an account </Text>
+                        <Text style={[styles.buttonText, {color : '#709caf' } ]}>I already have an account </Text>
                     </Button>
                 </View>
-            </ImageBackground>
+
+                <View style={styles.footer}>
+                    <Image style={styles.footerlogo} source={require('../../../assets/img/footer_logo.png')} />
+                    <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop:10}} />
+                </View>
+           
         </View>
     );
 };
@@ -87,9 +94,8 @@ const styles = StyleSheet.create({
         top: '20%',
     },
     slide1: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 1,       
+        alignItems: 'center',               
     },
     slide2: {
         flex: 1,
@@ -115,36 +121,85 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     buttonWrapper: {
-        flexDirection: 'row',
+        alignItems : 'center',
         justifyContent: 'space-around',
         marginBottom: 20,
     },
     button: {
         ...CommonStyles.button,
         height: 56,
-        width: '40%'
+        width: '40%',
+        marginBottom: 10,
     },
     buttonText: {
         ...CommonStyles.buttonText,
         fontFamily: Typography.FONT_BOLD,
+         fontSize : 15,
     },
     iconImage: {
-        width: 120,
-        height: 120,
+        width: 300,
+        height: 350,
+        borderRadius : 10
     },
     plainButton: {
-        width: '50%',
+        width: '70%',
         borderRadius: 25,
         height: 56,
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
+        justifyContent: 'center',        
         marginLeft: 5,
     },
     plainButtonText: {
         color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
         fontFamily: Typography.FONT_BOLD,
     },
+    header: {
+        top : '5%',
+        height: 50,
+        width: '100%',
+        alignItems: 'center', 
+        justifyContent: 'center',
+    },
+    headingText1: {
+        ...CommonStyles.headingText1,
+        fontFamily: Typography.FONT_NORMAL,
+       fontSize : 35,
+       fontWeight: "bold",
+        color: '#1f3354',  
+        textAlign: 'center',
+        marginBottom : 10,    
+    },
+    headingText2: {
+        ...CommonStyles.headingText2,
+        fontFamily: Typography.FONT_NORMAL,
+         fontSize : 20,    
+        textAlign: 'center',
+       
+    },
+    button1: {        
+        height: 56,
+        width: '40%',
+        width: '70%',
+        borderRadius: 25,
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',        
+        marginLeft: 5,
+        backgroundColor : '#faf9f8',
+        borderWidth: 3,
+        borderColor:'#709caf',
+    },
+    footer:{
+         alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom : 10,
+
+    },
+    footerlogo:{
+        width: '50%',
+        height : 20,
+    }
+
 });
 
 export default Home;
