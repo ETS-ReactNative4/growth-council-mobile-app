@@ -58,7 +58,7 @@ const Home = ({navigation}) => {
                         marginRight: 20,
                     }}
                 >
-                    <Image source={item?.uri} style={{width:190}}/>
+                    <Image source={item?.uri} style={{width: 190}}/>
                     <Text>{item.text}</Text>
                 </View>
             </TouchableOpacity>
@@ -76,7 +76,9 @@ const Home = ({navigation}) => {
                 name={'chevron-back-outline'}
                 size={30}
                 color={Colors.PRIMARY_HEADING_COLOR}
-                onPress={() => {sliderRef.current.snapToNext(); }}
+                onPress={() => {
+                    sliderRef.current.snapToNext();
+                }}
             />
             <Carousel
                 ref={sliderRef}
@@ -102,7 +104,9 @@ const Home = ({navigation}) => {
                 name={'chevron-forward-outline'}
                 size={30}
                 color={Colors.PRIMARY_HEADING_COLOR}
-                onPress={() => {sliderRef.current.snapToPrev(); }}
+                onPress={() => {
+                    sliderRef.current.snapToPrev();
+                }}
             />
             <Pagination
                 dotsLength={carouselItems.length}
@@ -113,19 +117,17 @@ const Home = ({navigation}) => {
             />
 
             <View style={styles.buttonWrapper}>
-                <Button style={[styles.button, styles.plainButton]}
-                        onPress={() => navigation.navigate('HomeDetail')}>
+                <Button style={[styles.button, styles.plainButton]} onPress={() => navigation.navigate('HomeDetail')}>
                     <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
                 </Button>
-                <Button style={[styles.button, styles.plainButton]}
-                        onPress={() => navigation.navigate('SignIn')}>
+                <Button style={[styles.button, styles.plainButton]} onPress={() => navigation.navigate('SignIn')}>
                     <Text style={styles.buttonText}>I already have an account </Text>
                 </Button>
             </View>
 
             <View style={styles.footer}>
-                <Image style={styles.footerlogo} source={require('../../../assets/img/footer_logo.png')} />
-                <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop:10}} />
+                <Image style={styles.footerlogo} source={require('../../../assets/img/footer_logo.png')}/>
+                <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop: 10}}/>
             </View>
 
         </View>
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     buttonWrapper: {
-        alignItems : 'center',
+        alignItems: 'center',
         justifyContent: 'space-around',
         marginBottom: 20,
     },
@@ -178,12 +180,12 @@ const styles = StyleSheet.create({
     buttonText: {
         ...CommonStyles.buttonText,
         fontFamily: Typography.FONT_BOLD,
-        fontSize : 15,
+        fontSize: 15,
     },
     iconImage: {
         width: 300,
         height: 350,
-        borderRadius : 10
+        borderRadius: 10
     },
     plainButton: {
         width: '70%',
@@ -198,7 +200,7 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_BOLD,
     },
     header: {
-        top : '5%',
+        top: '5%',
         height: 50,
         width: '100%',
         alignItems: 'center',
@@ -207,16 +209,16 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
-        fontSize : 35,
+        fontSize: 35,
         fontWeight: "bold",
         color: '#1f3354',
         textAlign: 'center',
-        marginBottom : 10,
+        marginBottom: 10,
     },
     headingText2: {
         ...CommonStyles.headingText2,
         fontFamily: Typography.FONT_NORMAL,
-        fontSize : 20,
+        fontSize: 20,
         textAlign: 'center',
 
     },
@@ -227,19 +229,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: 5,
-        backgroundColor : '#faf9f8',
+        backgroundColor: '#faf9f8',
         borderWidth: 3,
-        borderColor:'#709caf',
+        borderColor: '#709caf',
     },
-    footer:{
+    footer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom : 10,
+        marginBottom: 10,
 
     },
-    footerlogo:{
+    footerlogo: {
         width: '50%',
-        height : 20,
+        height: 20,
     }
 
 });

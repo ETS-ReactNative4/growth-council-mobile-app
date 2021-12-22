@@ -110,11 +110,12 @@ const MainNavigation = () => {
             <Stack.Screen name="Model" component={ModelNavigation} options={{headerShown: false}}/>
 
             <Stack.Screen name="Dashboard" component={DrawerNavigation} options={({route, navigation}) => ({
-              //  headerShown: isHeaderShown(route),
+               headerShown: isHeaderShown(route),
                 headerTitle: headerTitle(route),
                 ...TransitionPresets.SlideFromRightIOS,
                 gestureDirection: 'horizontal-inverted',
                 headerLeft: () => null,
+				
             })}/>
 
             <Stack.Screen name="EditProfile" component={EditProfileScreen}
