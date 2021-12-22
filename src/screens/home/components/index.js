@@ -4,7 +4,7 @@ import {
     StyleSheet,
     Text,
     View,
-    Image, ImageBackground, TouchableOpacity
+    Image, TouchableOpacity
 } from 'react-native';
 import {Button} from 'native-base';
 import Swiper from 'react-native-swiper'
@@ -19,7 +19,7 @@ const Home = ({navigation}) => {
                 <Text style={styles.headingText1}>Welcome</Text>
                 <Text style={styles.headingText2}>To The Growth Council</Text>
             </View>
-            
+
                 <StatusBar hidden/>
                 <Swiper style={styles.wrapper} autoplay
                         paginationStyle={{top: '95%', backgroundColor: 'transparent'}}
@@ -75,7 +75,7 @@ const Home = ({navigation}) => {
                     <Image style={styles.footerlogo} source={require('../../../assets/img/footer_logo.png')} />
                     <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop:10}} />
                 </View>
-           
+
         </View>
     );
 };
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
         top: '20%',
     },
     slide1: {
-        flex: 1,       
-        alignItems: 'center',               
+        flex: 1,
+        alignItems: 'center',
     },
     slide2: {
         flex: 1,
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         height: 56,
         alignItems: 'center',
-        justifyContent: 'center',        
+        justifyContent: 'center',
         marginLeft: 5,
     },
     plainButtonText: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         top : '5%',
         height: 50,
         width: '100%',
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center',
     },
     headingText1: {
@@ -165,25 +165,23 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_NORMAL,
        fontSize : 35,
        fontWeight: "bold",
-        color: '#1f3354',  
+        color: '#1f3354',
         textAlign: 'center',
-        marginBottom : 10,    
+        marginBottom : 10,
     },
     headingText2: {
         ...CommonStyles.headingText2,
         fontFamily: Typography.FONT_NORMAL,
-         fontSize : 20,    
+         fontSize : 20,
         textAlign: 'center',
-       
+
     },
-    button1: {        
+    button1: {
         height: 56,
-        width: '40%',
         width: '70%',
         borderRadius: 25,
-        height: 56,
         alignItems: 'center',
-        justifyContent: 'center',        
+        justifyContent: 'center',
         marginLeft: 5,
         backgroundColor : '#faf9f8',
         borderWidth: 3,
