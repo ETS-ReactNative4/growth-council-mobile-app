@@ -117,6 +117,7 @@ const MainNavigation = () => {
                 ...TransitionPresets.SlideFromRightIOS,
                 gestureDirection: 'horizontal-inverted',
                 headerLeft: () => null,
+				
             })}/>
 
             <Stack.Screen name="EditProfile" component={EditProfileScreen}

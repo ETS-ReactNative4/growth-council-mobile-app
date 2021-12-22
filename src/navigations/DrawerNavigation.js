@@ -11,7 +11,7 @@ const DrawerNavigation = () => {
 
     return (
         <Drawer.Navigator initialRouteName="Dashboard">
-            <Drawer.Screen name="Dashboard" component={BottomTabNavigation}/>
+            <Drawer.Screen name="Dashboard" component={BottomTabNavigation} options={{headerTitle:false}}/>
             <Drawer.Screen name="Community" component={CommunityScreen}/>
             <Drawer.Screen name="Calendar" component={CalendarScreen}/>
         </Drawer.Navigator>
