@@ -12,7 +12,6 @@ import * as Colors from "../theme/colors";
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
-    console.log("props", props);
     const toggleDrawer = () => {
         props.navigation.closeDrawer();
     };
