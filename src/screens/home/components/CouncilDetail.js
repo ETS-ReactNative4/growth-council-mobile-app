@@ -50,7 +50,7 @@ const CouncilDetail = (props) => {
                 </View>
 
                 <View style = {{ alignItems: 'center', justifyContent: 'center',}}>
-                     <Button style={styles.moreButton}>
+                     <Button style={styles.moreButton} onPress={() => navigation.navigate('Detail')}>
                     <Text style={styles.moreButtonText}>Load More</Text>
                 </Button>
 
@@ -100,6 +100,8 @@ const styles = StyleSheet.create({
     moreButtonText: {
         color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
         fontFamily: Typography.FONT_BOLD,
+        fontSize : 13,
+        fontWeight: "bold",
     },
 });
 export default CouncilDetail;
