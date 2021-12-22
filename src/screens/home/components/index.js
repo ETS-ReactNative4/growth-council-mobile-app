@@ -4,7 +4,11 @@ import {
     StyleSheet,
     Text,
     View,
+
     Image, TouchableOpacity, Dimensions
+
+
+
 } from 'react-native';
 import {Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -72,6 +76,7 @@ const Home = ({navigation}) => {
                 <Text style={styles.headingText1}>Welcome</Text>
                 <Text style={styles.headingText2}>To The Growth Council</Text>
             </View>
+
             <Ionicons
                 name={'chevron-back-outline'}
                 size={30}
@@ -130,6 +135,70 @@ const Home = ({navigation}) => {
                 <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop: 10}}/>
             </View>
 
+
+
+                <StatusBar hidden/>
+                <Swiper style={styles.wrapper} autoplay
+                        paginationStyle={{top: '95%', backgroundColor: 'transparent'}}
+                        activeDot={
+                            <View
+                                style={{
+                                    backgroundColor: '#2189b1',
+                                    width: 20,
+                                    height: 8,
+                                    borderRadius: 2,
+                                    marginLeft: 3,
+                                    marginRight: 3,
+                                    marginTop: 3,
+                                    marginBottom: 3,
+                                }}
+                            />
+                        }
+                        showsButtons={true}
+                >
+
+                    <View style={styles.slide1}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/community_slider_image.png')}/>
+                            <Text style={styles.text}></Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.slide1}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/growth_coaching_slider_image.png')}/>
+                            <Text style={styles.text}></Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.slide1}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                            <Image style={styles.iconImage} source={require('../../../assets/img/best_practices_slider_image.png')}/>
+                            <Text style={styles.text}></Text>
+                        </TouchableOpacity>
+                    </View>
+                </Swiper>
+
+                <View style={styles.buttonWrapper}>
+
+                    <Button style={[styles.button, styles.plainButton]}
+                            onPress={() => navigation.navigate('SignUpNext')}>
+
+                    <Button style={[styles.button, styles.plainButton , {backgroundColor: Colors.PRIMARY_BUTTON_COLOR}]}
+                            onPress={() => navigation.navigate('HomeDetail')}>
+
+                        <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
+                    </Button>
+                    <Button style={[styles.button1]}
+                            onPress={() => navigation.navigate('SignIn')}>
+                        <Text style={[styles.buttonText, {color : '#709caf' } ]}>I already have an account </Text>
+                    </Button>
+                </View>
+
+                <View style={styles.footer}>
+                    <Image style={styles.footerlogo} source={require('../../../assets/img/footer_logo.png')} />
+                    <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop:10}} />
+                </View>
+
+
         </View>
     );
 };
@@ -147,9 +216,15 @@ const styles = StyleSheet.create({
     wrapper: {
         top: '20%',
     },
+
     slider: {
         marginTop: 30,
         overflow: 'visible'
+
+    slide1: {
+        flex: 1,
+        alignItems: 'center',
+
     },
     sliderContent: {
         paddingVertical: 10
@@ -209,16 +284,28 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
+
         fontSize: 35,
         fontWeight: "bold",
         color: '#1f3354',
         textAlign: 'center',
         marginBottom: 10,
+
+       fontSize : 35,
+       fontWeight: "bold",
+        color: '#1f3354',
+        textAlign: 'center',
+        marginBottom : 10,
+
     },
     headingText2: {
         ...CommonStyles.headingText2,
         fontFamily: Typography.FONT_NORMAL,
+
         fontSize: 20,
+
+         fontSize : 20,
+
         textAlign: 'center',
 
     },
