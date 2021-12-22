@@ -10,6 +10,7 @@ import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 import ModelNavigation from '../navigations/ModelNavigation';
 
+import LogoTitle from "../shared/logo";
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
 
@@ -22,7 +23,6 @@ import JourneyScreen from '../screens/auth/Journey';
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import Ionicons from "react-native-vector-icons/Ionicons";
-import * as Colors from "../theme/colors";
 
 const Stack = createStackNavigator();
 
@@ -41,18 +41,16 @@ const MainNavigation = () => {
         }
     };
 
-    const headerTitle = (route) => {
+    const headerTitle = (route, props) => {
         // If the focused route is not found, we need to assume it's the initial screen
         // This can happen during if there hasn't been any navigation inside the screen
         // In our case, it's "Home" as that's the first screen inside the navigator
         const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
         switch (routeName) {
-            case 'Home':
-                return '';
-            case 'Account':
-                return 'Account';
+            case 'Dashboard':
+                return <LogoTitle title={'Edward'} right {...props} />;
             default:
-                return '';
+                return null;
         }
     };
 
@@ -85,6 +83,7 @@ const MainNavigation = () => {
 
 			
             <Stack.Screen name="SignIn" component={SignInScreen} options={{
+
             <Stack.Screen name="SignIn" component={SignInScreen} options={({route, navigation}) => ({
 
                 headerTitle: '',
@@ -136,11 +135,12 @@ const MainNavigation = () => {
             <Stack.Screen name="Model" component={ModelNavigation} options={{headerShown: false}}/>
 
             <Stack.Screen name="Dashboard" component={DrawerNavigation} options={({route, navigation}) => ({
-                headerShown: isHeaderShown(route),
+               headerShown: isHeaderShown(route),
                 headerTitle: headerTitle(route),
                 ...TransitionPresets.SlideFromRightIOS,
                 gestureDirection: 'horizontal-inverted',
                 headerLeft: () => null,
+				
             })}/>
             <Stack.Screen name="EditProfile" component={EditProfileScreen}
                           options={{

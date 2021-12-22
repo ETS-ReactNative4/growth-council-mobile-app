@@ -78,12 +78,17 @@ export default StyleSheet.create({
         fontSize: Typography.FONT_SIZE_MEDIUM,
     },
     headingText1: {
-        fontSize: Typography.FONT_SIZE_DOUBLE_EXTRA_LARGE,
+        fontSize: Typography. FONT_SIZE_EXTRA_LARGE  ,
         color: Colors.PRIMARY_HEADING_COLOR,
         marginBottom: 2,
     },
     headingText2: {
         fontSize: Typography.FONT_SIZE_MEDIUM,
+        color: Colors.SECONDARY_HEADING_COLOR,
+        lineHeight: 22,
+    },
+	headingText3: {
+        fontSize: Typography.FONT_SIZE_SMALL,
         color: Colors.SECONDARY_HEADING_COLOR,
         lineHeight: 22,
     },

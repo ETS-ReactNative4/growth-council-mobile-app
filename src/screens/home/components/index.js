@@ -1,24 +1,141 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {
     StatusBar,
     StyleSheet,
     Text,
     View,
-    Image, TouchableOpacity
+
+    Image, TouchableOpacity, Dimensions
+
+
+
 } from 'react-native';
 import {Button} from 'native-base';
-import Swiper from 'react-native-swiper'
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 
 const Home = ({navigation}) => {
 
+    const [activeSlider, setActiveSlider] = useState(1);
+    const sliderRef = useRef(null);
+
+    const wp = (percentage) => {
+        const value = (percentage * viewportWidth) / 100;
+        return Math.round(value);
+    };
+
+    const slideHeight = viewportHeight * 0.36;
+    const slideWidth = wp(50);
+    const sliderWidth = viewportWidth;
+    const itemHorizontalMargin = wp(2);
+    const itemWidth = slideWidth + itemHorizontalMargin * 2;
+
+    const carouselItems = [
+        {
+            uri: require('../../../assets/img/growth_coaching_slider_image.png'),
+            text: "Growth Coaching",
+        },
+        {
+            uri: require('../../../assets/img/community_slider_image.png'),
+            text: "Community",
+        },
+        {
+            uri: require('../../../assets/img/best_practices_slider_image.png'),
+            text: "Best Practices",
+        },
+    ];
+
+    const _renderItem = ({item, index}) => {
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                <View
+                    style={{
+                        backgroundColor: "floralwhite",
+                        borderRadius: 5,
+                        height: 180,
+                        padding: 20,
+                        marginLeft: 20,
+                        marginRight: 20,
+                    }}
+                >
+                    <Image source={item?.uri} style={{width: 190}}/>
+                    <Text>{item.text}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    };
+
     return (
         <View style={styles.container}>
+            <StatusBar hidden/>
             <View style={styles.header}>
                 <Text style={styles.headingText1}>Welcome</Text>
                 <Text style={styles.headingText2}>To The Growth Council</Text>
             </View>
+
+            <Ionicons
+                name={'chevron-back-outline'}
+                size={30}
+                color={Colors.PRIMARY_HEADING_COLOR}
+                onPress={() => {
+                    sliderRef.current.snapToNext();
+                }}
+            />
+            <Carousel
+                ref={sliderRef}
+                layout={"default"}
+                data={carouselItems}
+                sliderWidth={sliderWidth}
+                itemWidth={itemWidth}
+                renderItem={_renderItem}
+                firstItem={1}
+                containerCustomStyle={styles.slider}
+                contentContainerCustomStyle={styles.sliderContent}
+                loop={true}
+                loopClonesPerSide={2}
+                autoplay={true}
+                autoplayDelay={500}
+                autoplayInterval={5000}
+                hasParallaxImages={true}
+                inactiveSlideScale={0.94}
+                inactiveSlideOpacity={0.7}
+                onSnapToItem={(index) => setActiveSlider(index)}
+            />
+            <Ionicons
+                name={'chevron-forward-outline'}
+                size={30}
+                color={Colors.PRIMARY_HEADING_COLOR}
+                onPress={() => {
+                    sliderRef.current.snapToPrev();
+                }}
+            />
+            <Pagination
+                dotsLength={carouselItems.length}
+                activeDotIndex={activeSlider}
+                dotColor={'rgba(255, 255, 255, 0.92)'}
+                inactiveDotOpacity={0.4}
+                inactiveDotScale={0.6}
+            />
+
+            <View style={styles.buttonWrapper}>
+                <Button style={[styles.button, styles.plainButton]} onPress={() => navigation.navigate('HomeDetail')}>
+                    <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
+                </Button>
+                <Button style={[styles.button, styles.plainButton]} onPress={() => navigation.navigate('SignIn')}>
+                    <Text style={styles.buttonText}>I already have an account </Text>
+                </Button>
+            </View>
+
+            <View style={styles.footer}>
+                <Image style={styles.footerlogo} source={require('../../../assets/img/footer_logo.png')}/>
+                <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop: 10}}/>
+            </View>
+
+
 
                 <StatusBar hidden/>
                 <Swiper style={styles.wrapper} autoplay
@@ -81,6 +198,7 @@ const Home = ({navigation}) => {
                     <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop:10}} />
                 </View>
 
+
         </View>
     );
 };
@@ -98,35 +216,33 @@ const styles = StyleSheet.create({
     wrapper: {
         top: '20%',
     },
+
+    slider: {
+        marginTop: 30,
+        overflow: 'visible'
+
     slide1: {
         flex: 1,
         alignItems: 'center',
+
     },
-    slide2: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    sliderContent: {
+        paddingVertical: 10
     },
-    slide3: {
+    slide: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     text: {
-        color: '#ACACAC',
-        fontSize: 30,
-        fontFamily: Typography.FONT_NORMAL,
-        marginTop: 30,
-    },
-    text1: {
-        color: Colors.NONARY_TEXT_COLOR,
+        color: 'white',
         fontSize: Typography.FONT_SIZE_MEDIUM,
         fontFamily: Typography.FONT_NORMAL,
-        margin: 30,
+        top: -40,
         textAlign: 'center',
     },
     buttonWrapper: {
-        alignItems : 'center',
+        alignItems: 'center',
         justifyContent: 'space-around',
         marginBottom: 20,
     },
@@ -139,12 +255,12 @@ const styles = StyleSheet.create({
     buttonText: {
         ...CommonStyles.buttonText,
         fontFamily: Typography.FONT_BOLD,
-         fontSize : 15,
+        fontSize: 15,
     },
     iconImage: {
         width: 300,
         height: 350,
-        borderRadius : 10
+        borderRadius: 10
     },
     plainButton: {
         width: '70%',
@@ -159,7 +275,7 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_BOLD,
     },
     header: {
-        top : '5%',
+        top: '5%',
         height: 50,
         width: '100%',
         alignItems: 'center',
@@ -168,16 +284,28 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
+
+        fontSize: 35,
+        fontWeight: "bold",
+        color: '#1f3354',
+        textAlign: 'center',
+        marginBottom: 10,
+
        fontSize : 35,
        fontWeight: "bold",
         color: '#1f3354',
         textAlign: 'center',
         marginBottom : 10,
+
     },
     headingText2: {
         ...CommonStyles.headingText2,
         fontFamily: Typography.FONT_NORMAL,
+
+        fontSize: 20,
+
          fontSize : 20,
+
         textAlign: 'center',
 
     },
@@ -188,19 +316,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: 5,
-        backgroundColor : '#faf9f8',
+        backgroundColor: '#faf9f8',
         borderWidth: 3,
-        borderColor:'#709caf',
+        borderColor: '#709caf',
     },
-    footer:{
-         alignItems: 'center',
+    footer: {
+        alignItems: 'center',
         justifyContent: 'center',
-        marginBottom : 10,
+        marginBottom: 10,
 
     },
-    footerlogo:{
+    footerlogo: {
         width: '50%',
-        height : 20,
+        height: 20,
     }
 
 });
