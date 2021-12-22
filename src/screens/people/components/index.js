@@ -7,12 +7,12 @@ import {
 
 import {CommonStyles, Colors} from '../../../theme';
 
-const Search = ({navigation}) => {
+const People = ({navigation}) => {
 
     return (
         <View style={styles.container}>
             <View>
-                <Text>Search</Text>
+                <Text>People</Text>
             </View>
         </View>
     );
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Search;
+export default People;
