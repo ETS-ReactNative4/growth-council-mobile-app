@@ -1,6 +1,8 @@
 import React from 'react';
 import {Text, View, StyleSheet, StatusBar, ScrollView, Dimensions, ImageBackground} from 'react-native';
 import {Button} from 'native-base';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -24,6 +26,13 @@ const Detail = (props) => {
 
                         <View>
                             <Text style={styles.headingText1}>WHY THE RIGHT COMMUNIITY MATTERS TO YOUR SUCCESS</Text>
+                             <View style = {{left : 0}}>
+                                <Ionicons
+                                    name={'remove-outline'}
+                                    size={70}
+                                    color={'#173762'}                                    
+                                />
+                            </View>  
                             <Text style={styles.paragraph}>
                                 This Agreement governs your use of Apple’s services (“Services”),
                                 through which you can buy, get, license, rent or subscribe to content,
@@ -76,13 +85,13 @@ const styles = StyleSheet.create({
         color: Colors.NONARY_TEXT_COLOR,
         fontWeight: "bold",
         marginTop: 20,
-        marginBottom: 20,
+        marginBottom: 5,
     },
     paragraph: {
         fontFamily: Typography.FONT_NORMAL,
         fontSize: Typography.FONT_SIZE_MEDIUM,
         lineHeight: 24,
-        marginTop: 15,
+        marginTop: 5,
         marginBottom: 25,
         color: Colors.TERTIARY_TEXT_COLOR,
         textAlign: 'left',

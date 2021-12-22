@@ -82,17 +82,40 @@ const MainNavigation = () => {
                 ...TransitionPresets.RevealFromBottomAndroid,
                 gestureDirection: 'horizontal-inverted',
             })}/>
+
 			
             <Stack.Screen name="SignIn" component={SignInScreen} options={{
+            <Stack.Screen name="SignIn" component={SignInScreen} options={({route, navigation}) => ({
+
                 headerTitle: '',
+                headerStyle: {height: 80},
                 headerTransparent: true,
+                headerLeft: (props) => (
+                    <Ionicons
+                        name={'arrow-back'}
+                        size={70}
+                        color={'white'}
+                        onPress={() => navigation.navigate('Home')}
+                    />
+                ),
                 ...TransitionPresets.RevealFromBottomAndroid,
-            }}/>
-            <Stack.Screen name="SignUp" component={SignUpScreen} options={{
+                gestureDirection: 'horizontal-inverted',
+            })}/>
+            <Stack.Screen name="SignUp" component={SignUpScreen} options={({route, navigation}) => ({
                 headerTitle: '',
+                headerStyle: {height: 80},
                 headerTransparent: true,
+                headerLeft: (props) => (
+                    <Ionicons
+                        name={'arrow-back'}
+                        size={80}
+                        color={'white'}
+                        onPress={() => navigation.navigate('Home')}
+                    />
+                ),
                 ...TransitionPresets.RevealFromBottomAndroid,
-            }}/>
+                gestureDirection: 'horizontal-inverted',
+            })}/>
             <Stack.Screen name="Forgot" component={ForgotScreen} options={{
                 headerTitle: '',
                 headerTransparent: true,
@@ -119,7 +142,6 @@ const MainNavigation = () => {
                 gestureDirection: 'horizontal-inverted',
                 headerLeft: () => null,
             })}/>
-
             <Stack.Screen name="EditProfile" component={EditProfileScreen}
                           options={{
                               headerTitle: 'Edit Profile',
