@@ -11,124 +11,120 @@ import {
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import Swiper from 'react-native-swiper';
-
-const Data = [
-	{
-		uri: require('../../../assets/img/profile_image.png'),
-		text: "Jay",
-	},
-	{
-		uri: require('../../../assets/img/welcome_profile_image.png'),
-		text: "John",
-	},
-	{
-		uri: require('../../../assets/img/dash_member_image.png'),
-		text: "John",
-	},
-	{
-		uri: require('../../../assets/img/profile_image.png'),
-		text: "Jay",
-	},
-	
-];
-
-
-const _renderItem = ({item, index}) => {
-	return (
-	<View style={styles.bottomWrapper}>
-		<Image 
-			style={styles.bottomImage}
-			source={item?.uri}/>
-		<Text>{item.text}</Text>
-	</View>)
-}
-
-const data1=[
-	{
-		icon:"brain",
-		text:"Executive MindChange"
-	},
-	{
-		icon:"location-arrow",
-		text:"Megatrends Workshop"
-	},
-	{
-		icon:"brain",
-		text:"Executive MindChange"
-	},
-	{
-		icon:"location-arrow",
-		text:"Megatrends Workshop"
-	},
-]
-
-const _renderMiddleItem = ({item, index}) => {
-	return (
-		<View style={styles.middleWrapper}>
-		<View style={styles.middleW}>
-			<Font
-				name={item.icon}
-				size={40}
-				color="skyblue"
-			/>
-		</View>
-		<Text style={{marginTop:10}}>{item.text}</Text>
-	</View>)
-}
-
-const data2=[
-	{
-		date:"10",
-		month:"july",
-		text:"Executive Coaching Clinic On Goal Setting",
-		text1:"Hosted by Michael Cooper"
-	},
-	{
-		date:"10",
-		month:"Oct",
-		text:"Associate Member Meeting",
-		text1:"Hosted by Michael Cooper"
-	},
-]
-
-const _renderTopItem = ({item, index}) => {
-	return (
-		<View style={styles.topWrapper} >
-			<ImageBackground
-				style={{width:'100%',
-					height:170,
-					borderRadius:20}}
-					source={require('../../../assets/img/blank_event_design.png')}>
-
-			<View style={{
-				width:"15%",
-				height:50,
-				marginTop:10,
-				marginLeft:240,
-				backgroundColor:'#EBECF0',
-				borderRadius:10,
-				padding:5,
-				alignItems:'center'				
-				}}>
-					<Text>{item.date}</Text>
-					<Text>{item.month}</Text>
-			</View>
-							
-			<View style={styles.header}>
-				<Text style={styles.headingText1}>{item.text}</Text>
-				<Text style={styles.headingText2}>{item.text1}</Text>
-			</View>
-			</ImageBackground>
-		</View>)
-}
-
-
 
 const Dashboard = ({navigation}) => {
+
+	const Data = [
+		{
+			uri: require('../../../assets/img/profile_image.png'),
+			text: "Jay",
+		},
+		{
+			uri: require('../../../assets/img/welcome_profile_image.png'),
+			text: "John",
+		},
+		{
+			uri: require('../../../assets/img/dash_member_image.png'),
+			text: "John",
+		},
+		{
+			uri: require('../../../assets/img/profile_image.png'),
+			text: "Jay",
+		},
+		
+	];
+	
+	
+	const _renderItem = ({item, index}) => {
+		return (
+		<View style={styles.bottomWrapper}>
+			<Image 
+				style={styles.bottomImage}
+				source={item?.uri}/>
+			<Text>{item.text}</Text>
+		</View>)
+	}
+	
+	const data1=[
+		{
+			icon:"brain",
+			text:"Executive MindChange"
+		},
+		{
+			icon:"location-arrow",
+			text:"Megatrends Workshop"
+		},
+		{
+			icon:"brain",
+			text:"Executive MindChange"
+		},
+		{
+			icon:"location-arrow",
+			text:"Megatrends Workshop"
+		},
+	]
+	
+	const _renderMiddleItem = ({item, index}) => {
+		return (
+			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'EngagementDetail'})}>
+			<View style={styles.middleWrapper}>
+			<View style={styles.middleW}>
+				<Font
+					name={item.icon}
+					size={40}
+					color="skyblue"
+				/>
+			</View>
+			<Text style={{marginTop:10}}>{item.text}</Text>
+		</View>
+		</TouchableOpacity>)
+	}
+	
+	const data2=[
+		{
+			date:"10",
+			month:"july",
+			text:"Executive Coaching Clinic On Goal Setting",
+			text1:"Hosted by Michael Cooper"
+		},
+		{
+			date:"10",
+			month:"Oct",
+			text:"Associate Member Meeting",
+			text1:"Hosted by Michael Cooper"
+		},
+	]
+	
+	const _renderTopItem = ({item, index}) => {
+		return (
+			<View style={styles.topWrapper} >
+				<ImageBackground
+					style={{width:'100%',
+						height:170,
+						borderRadius:20}}
+						source={require('../../../assets/img/blank_event_design.png')}>
+	
+				<View style={{
+					width:"15%",
+					height:50,
+					marginTop:10,
+					marginLeft:240,
+					backgroundColor:'#EBECF0',
+					borderRadius:10,
+					padding:5,
+					alignItems:'center'				
+					}}>
+						<Text>{item.date}</Text>
+						<Text>{item.month}</Text>
+				</View>
+								
+				<View style={styles.header}>
+					<Text style={styles.headingText1}>{item.text}</Text>
+					<Text style={styles.headingText2}>{item.text1}</Text>
+				</View>
+				</ImageBackground>
+			</View>)
+	}
 	
     return (
 		<ScrollView>
