@@ -129,16 +129,22 @@ const Home = ({navigation}) => {
 
       <View style={styles.buttonWrapper}>
         <Button
-          style={[styles.button, styles.plainButton]}
+          style={[
+            styles.button,
+            styles.plainButton,
+            {backgroundColor: Colors.PRIMARY_BUTTON_COLOR},
+          ]}
           onPress={() => navigation.navigate('HomeDetail')}>
           <Text style={[styles.buttonText, styles.plainButtonText]}>
             Get Started
           </Text>
         </Button>
         <Button
-          style={[styles.button, styles.plainButton]}
+          style={[styles.button1]}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text style={styles.buttonText}>I already have an account </Text>
+          <Text style={[styles.buttonText, {color: '#709caf'}]}>
+            I already have an account{' '}
+          </Text>
         </Button>
       </View>
 
@@ -184,10 +190,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: 'white',
+    color: '#ACACAC',
+    fontSize: 30,
+    fontFamily: Typography.FONT_NORMAL,
+    marginTop: 30,
+  },
+  text1: {
+    color: Colors.NONARY_TEXT_COLOR,
     fontSize: Typography.FONT_SIZE_MEDIUM,
     fontFamily: Typography.FONT_NORMAL,
-    top: -40,
+    margin: 30,
     textAlign: 'center',
   },
   buttonWrapper: {
@@ -232,7 +244,6 @@ const styles = StyleSheet.create({
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-
     fontSize: 35,
     fontWeight: 'bold',
     color: '#1f3354',
@@ -242,17 +253,15 @@ const styles = StyleSheet.create({
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-
     fontSize: 20,
-
-    fontSize: 20,
-
     textAlign: 'center',
   },
   button1: {
     height: 56,
+    width: '40%',
     width: '70%',
     borderRadius: 25,
+    height: 56,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 5,
