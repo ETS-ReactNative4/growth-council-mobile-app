@@ -153,7 +153,7 @@ const MainNavigation = () => {
           headerLeft: props => (
             <Ionicons
               name={'arrow-back'}
-              size={80}
+              size={50}
               color={'white'}
               onPress={() => navigation.navigate('Home')}
             />

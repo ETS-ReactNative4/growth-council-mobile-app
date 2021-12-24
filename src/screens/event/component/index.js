@@ -1,168 +1,238 @@
 import React from 'react';
 import {
-  StatusBar,
-  StyleSheet,
   Text,
   View,
-  Image,
+  StyleSheet,
+  StatusBar,
+  ScrollView,
+  Dimensions,
   ImageBackground,
-  TouchableOpacity,
+  Image,
 } from 'react-native';
 import {Button} from 'native-base';
-import Swiper from 'react-native-swiper';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+const screenHeight = Math.round(Dimensions.get('window').height);
+
 const Event = props => {
-  const {navigation} = props;
-
-  const [hidePass, setHidePass] = useState(true);
-
-  const {loading, setLoading, message, setMessage, signIn} =
-    useAuthentication();
-
-  const {
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    values,
-    errors,
-    touched,
-    isValid,
-  } = useFormik({
-    validationSchema: signInSchema,
-    initialValues: {email: '', password: ''},
-    onSubmit: values => {
-      signIn(values);
-    },
-  });
-
-  useFocusEffect(
-    useCallback(() => {
-      setMessage(null);
-      setLoading(false);
-    }, []),
-  );
+  const {navigation, route} = props;
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
+    <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
         <ImageBackground
-          source={require('../../../assets/img/splash-screen.png')}
+          source={require('../../../assets/img/event_main_image.png')}
           resizeMode="cover">
           <StatusBar
             barStyle="dark-content"
             backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
           />
-
-          <View style={{height: '15%'}}></View>
-
+          <View
+            style={{
+              alignItems: 'center',
+            }}>
+            <View style={styles.topbanner}>
+              <Text style={styles.headingText1}>Executive Coaching</Text>
+              <Text style={styles.headingText1}>Clinic On Goal Setting</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              height: 28,
+              position: 'absolute',
+              top: 90,
+              left: 40,
+              backgroundColor: '#ffff',
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}>
+            <Text>Megatrend Workshop</Text>
+          </View>
           <View>
-            <View style={styles.content}>
-              <View style={styles.header}>
-                <Text style={styles.headingText1}>Growth Innovation </Text>
-                <Text style={[styles.headingText1, {marginBottom: 10}]}>
-                  Leadership Portal
-                </Text>
-                <Text>
-                  Login to your account below. If you are having trouble logging
-                  into your account contact us.
-                </Text>
-              </View>
-
-              {!message?.success && (
-                <View style={styles.message}>
-                  <Text style={styles.errorText}>{message?.message}</Text>
-                </View>
-              )}
-
-              {loading && (
+            <View style={[styles.content, {height: 'auto'}]}>
+              <View style={{height: 150, flexDirection: 'column'}}>
                 <View
                   style={{
                     flex: 1,
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                    position: 'absolute',
-                    zIndex: 1011,
+                    paddingTop: 5,
+                    paddingBottom: 5,
+                    flexDirection: 'row',
                   }}>
-                  <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} />
+                  <View
+                    style={{
+                      flex: 1,
+                      backgroundColor: 'rgba(54,147,172,1)',
+                      height: 60,
+                      width: 30,
+                      borderRadius: 15,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <MaterialIcons name={'event'} size={35} color={'white'} />
+                  </View>
+                  <View
+                    style={{
+                      flex: 4,
+                      paddingLeft: 10,
+                    }}>
+                    <Text style={styles.contentHeading}>
+                      11 August, Wednesday
+                    </Text>
+                    <Text> 09:00 pm / 11:30 pm (PDT)</Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      height: 60,
+                      width: 30,
+                      borderRadius: 15,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Feather
+                      name={'plus-circle'}
+                      size={35}
+                      color={'rgba(54,147,172,1)'}
+                    />
+                  </View>
                 </View>
-              )}
-
-              <View style={styles.body}>
-                <FlatTextInput
-                  label="Email"
-                  value={values.email}
-                  onChangeText={handleChange('email')}
-                  onFocus={handleBlur('email')}
-                  error={errors.email}
-                  touched={touched.email}
-                  keyboardType={'email-address'}
-                />
-
-                <FlatTextInput
-                  label="Password"
-                  value={values.password}
-                  secureTextEntry={hidePass}
-                  onChangeText={handleChange('password')}
-                  onFocus={handleBlur('password')}
-                  error={errors.password}
-                  touched={touched.password}
-                />
-                <Ionicons
-                  name={hidePass ? 'eye-outline' : 'eye-off-outline'}
-                  size={25}
-                  color={Colors.PRIMARY_HEADING_COLOR}
-                  onPress={() => setHidePass(!hidePass)}
+                <View
                   style={{
-                    position: 'absolute',
-                    bottom: 25,
-                    right: 15,
-                  }}
-                />
+                    flex: 1,
+                    paddingTop: 5,
+                    paddingBottom: 5,
+                    flexDirection: 'row',
+                  }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      backgroundColor: 'rgba(54,147,172,1)',
+                      height: 60,
+                      width: 30,
+                      borderRadius: 15,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Ionicons
+                      name={'location-outline'}
+                      size={35}
+                      color={'white'}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      flex: 4,
+                      paddingLeft: 10,
+                    }}>
+                    <Text style={styles.contentHeading}>Albany , USA</Text>
+                    <Text> Long Street, Ullam Corporis</Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      height: 60,
+                      width: 30,
+                      borderRadius: 15,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Image
+                      source={require('../../../assets/img/live_image.png')}
+                    />
+                  </View>
+                </View>
               </View>
 
-              <View style={styles.loginButtonWrapper}>
+              <View style={{height: 150}}>
+                <View style={{marginTop: 25}}>
+                  <Text style={styles.contentHeading}>Hosted By</Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    paddingTop: 5,
+                    paddingBottom: 5,
+                    flexDirection: 'row',
+                    marginTop: 10,
+                  }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      backgroundColor: 'rgba(54,147,172,1)',
+                      height: 60,
+                      width: 30,
+                      borderRadius: 15,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Image
+                      source={require('../../../assets/img/host_image.png')}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      flex: 3,
+                      paddingLeft: 20,
+                    }}>
+                    <Text style={styles.contentHeading}>Andrew Deutscher</Text>
+                    <Text>Founder, Regenerate</Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 2,
+                      height: 60,
+                      width: 30,
+                      borderRadius: 15,
+                      justifyContent: 'center',
+                      alignItems: 'flex-end',
+                    }}>
+                    <Button
+                      style={{
+                        width: '85%',
+                        height: 40,
+                        backgroundColor: '#183863',
+                        borderRadius: 15,
+                      }}
+                      onPress={() => navigation.navigate('SignUp')}>
+                      <Text
+                        style={[
+                          styles.acceptButtonText,
+                          {fontWeight: 'bold', fontSize: 15},
+                        ]}>
+                        Follow
+                      </Text>
+                    </Button>
+                  </View>
+                </View>
+              </View>
+
+              <View>
+                <Text style={styles.contentHeading}>Event Info</Text>
+                <Text style={styles.contentText}>
+                  It’s time to account for the full toll that modern work is
+                  exacting on our ability to keep up with and stay ahead of the
+                  pace of change. With our boundaries broken down by a more
+                  interconnected world, time has proven to be an insufficient
+                  resource in this era. It is energy, not time, that is our most
+                  precious and undervalued resource to solve this extraordinary
+                  challenge.
+                </Text>
+              </View>
+
+              <View>
                 <Button
-                  style={styles.loginButton}
-                  onPress={handleSubmit}
-                  disabled={!isValid}>
-                  <Text style={styles.loginButtonText}>Sign In</Text>
-                </Button>
-              </View>
-              <View style={styles.forgotButtonWrapper}>
-                <TouchableOpacity>
-                  <Text
-                    style={styles.forgotButtonText}
-                    onPress={() => navigation.navigate('Forgot')}>
-                    Forgot Password?
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.signuptext}>
-                <Text>Not a member ?</Text>
-                <Text
-                  style={{color: '#31ade5'}}
+                  style={styles.acceptButton}
                   onPress={() => navigation.navigate('SignUp')}>
-                  {' '}
-                  Sign Up{' '}
-                </Text>
-              </View>
-              <View style={[styles.signuptext, {marginTop: 40}]}>
-                <Ionicons
-                  name="help-circle-outline"
-                  size={20}
-                  color={'#31ade5'}
-                />
-                <Text>Need Help? </Text>
-                <Text
-                  style={{color: '#31ade5'}}
-                  onPress={() => navigation.navigate('ContactUs')}>
-                  {' '}
-                  Contact Us{' '}
-                </Text>
+                  <Text style={styles.acceptButtonText}>
+                    Sign Up in One Click
+                  </Text>
+                </Button>
               </View>
             </View>
           </View>
@@ -175,123 +245,66 @@ const Event = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
   },
-  background: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
+  headingTitle: {
+    ...CommonStyles.headingTitle,
+    textAlign: 'left',
   },
-  swiper: {
-    marginTop: 30,
-    maxHeight: 350,
-  },
-  slide1: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: '#ACACAC',
-    fontSize: 30,
-    fontFamily: Typography.FONT_NORMAL,
-    marginTop: 30,
-  },
-  text1: {
-    color: Colors.NONARY_TEXT_COLOR,
-    fontSize: Typography.FONT_SIZE_MEDIUM,
-    fontFamily: Typography.FONT_NORMAL,
-    margin: 30,
-    textAlign: 'center',
-  },
-  buttonWrapper: {
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    marginBottom: 20,
-  },
-  button: {
-    ...CommonStyles.button,
-    height: 56,
-    width: '40%',
-    marginBottom: 10,
-  },
-  buttonText: {
-    ...CommonStyles.buttonText,
-    fontFamily: Typography.FONT_BOLD,
-    fontSize: 15,
-  },
-  iconImage: {
-    width: 300,
-    height: 350,
-    borderRadius: 15,
-    overflow: 'hidden',
-  },
-  plainButton: {
-    width: '70%',
-    borderRadius: 25,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 5,
-  },
-  plainButtonText: {
-    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-    fontFamily: Typography.FONT_BOLD,
-  },
-  header: {
-    // top: '5%',
-    // height: 50,
-    paddingTop: 30,
+  content: {
+    backgroundColor: 'white',
+    height: '100%',
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 20,
+    padding: 20,
   },
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    fontSize: 35,
+    color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
-    color: '#1f3354',
-    textAlign: 'center',
-    marginBottom: 10,
+    fontSize: 22,
+    color: '#ffff',
   },
-  headingText2: {
-    ...CommonStyles.headingText2,
+  contentHeading: {
+    ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    fontSize: 20,
-    textAlign: 'center',
+    color: Colors.NONARY_TEXT_COLOR,
+    fontWeight: 'bold',
+    fontSize: 17,
   },
-  button1: {
-    height: 56,
-    width: '40%',
-    width: '70%',
-    borderRadius: 25,
-    height: 56,
-    alignItems: 'center',
+  contentText: {
+    fontFamily: Typography.FONT_NORMAL,
+    fontSize: Typography.FONT_SIZE_MEDIUM,
+    lineHeight: 24,
+    marginTop: 5,
+    marginBottom: 25,
+    color: Colors.TERTIARY_TEXT_COLOR,
+    textAlign: 'left',
+  },
+  acceptButton: {
+    borderRadius: 10,
+    width: '100%',
+    height: 50,
+    backgroundColor: 'rgba(242,103,34,1)',
+  },
+  acceptButtonText: {
+    color: '#ffffff',
+  },
+  topbanner: {
+    backgroundColor: 'rgba(54,147,172,1)',
+    height: 100,
+    width: '80%',
     justifyContent: 'center',
-    marginLeft: 5,
-    backgroundColor: '#faf9f8',
-    borderWidth: 3,
-    borderColor: '#709caf',
-  },
-  footer: {
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
+    marginTop: 100,
+    marginBottom: 20,
+    borderRadius: 12,
+    padding: 10,
   },
-  footerlogo: {
-    width: '50%',
-    height: 20,
+  scrollBox: {
+    height: '100%',
+    width: '100%',
+    marginBottom: 0,
   },
 });
-
 export default Event;
