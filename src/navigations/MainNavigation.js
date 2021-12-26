@@ -26,6 +26,9 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 
+import FrostRadarScreen from '../screens/radar';
+import SettingScreen from '../screens/setting/index';
+
 const Stack = createStackNavigator();
 
 const MainNavigation = () => {
@@ -81,6 +84,18 @@ const MainNavigation = () => {
                 ),
                 ...TransitionPresets.RevealFromBottomAndroid,
                 gestureDirection: 'horizontal-inverted',
+            })}/>
+			<Stack.Screen name="FrostRadar" component={FrostRadarScreen} options={( {
+                   headerLeft: () => null,
+				   headerTitle: '',
+				   headerTransparent: true,
+				   ...TransitionPresets.RevealFromBottomAndroid,
+            })}/>
+			<Stack.Screen name="Setting" component={SettingScreen} options={( {
+                   headerLeft: () => null,
+				   headerTitle: '',
+				   headerTransparent: true,
+				   ...TransitionPresets.RevealFromBottomAndroid,
             })}/>
 
             <Stack.Screen name="SignIn" component={SignInScreen} options={({route, navigation}) => ({

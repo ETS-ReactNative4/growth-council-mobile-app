@@ -66,7 +66,7 @@ const Dashboard = ({navigation}) => {
 	
 	const _renderMiddleItem = ({item, index}) => {
 		return (
-			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'EngagementDetail'})}>
+			
 			<View style={styles.middleWrapper}>
 			<View style={styles.middleW}>
 				<Font
@@ -77,7 +77,7 @@ const Dashboard = ({navigation}) => {
 			</View>
 			<Text style={{marginTop:10}}>{item.text}</Text>
 		</View>
-		</TouchableOpacity>)
+		)
 	}
 	
 	const data2=[
@@ -166,7 +166,7 @@ const Dashboard = ({navigation}) => {
 						marginLeft:10,
 						borderRadius:50,
 					}}
-				/>
+						/>
 						</View>
 						<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
 							<Image
@@ -195,7 +195,7 @@ const Dashboard = ({navigation}) => {
 						}}
 					/>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
+				<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'GrowthDetail'})}>
 					<Image
 						source={require("../../../assets/img/massk.png")}
 						style={{

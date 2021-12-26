@@ -69,7 +69,9 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
+					
                 }}
+				
             />
             <Tab.Screen
                 name="People"
