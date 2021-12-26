@@ -165,6 +165,19 @@ const MainNavigation = () => {
           ...TransitionPresets.RevealFromBottomAndroid,
         }}
       />
+	   <Stack.Screen name="radar" component={FrostRadarScreen} options={{
+                headerLeft: () => null,
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.RevealFromBottomAndroid,
+            }}/>
+
+	{/* <Stack.Screen name="Setting" component={SettingScreen} options={{
+                headerLeft: () => null,
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.RevealFromBottomAndroid,
+            }}/> */}
       <Stack.Screen
         name="Journey"
         component={JourneyScreen}
@@ -174,13 +187,11 @@ const MainNavigation = () => {
           ...TransitionPresets.RevealFromBottomAndroid,
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Model"
         component={ModelNavigation}
         options={{headerShown: false}}
       />
-
-
             <Stack.Screen name="SignIn" component={SignInScreen} options={({route, navigation}) => ({
                 headerTitle: '',
                 headerStyle: {height: 80},
@@ -223,11 +234,17 @@ const MainNavigation = () => {
                 headerTransparent: true,
                 ...TransitionPresets.RevealFromBottomAndroid,
             }}/>
-            <Stack.Screen name="Journey" component={JourneyScreen} options={{
+			 <Stack.Screen name="radar" component={FrostRadarScreen} options={{
+                headerLeft: () => null,
                 headerTitle: '',
                 headerTransparent: true,
                 ...TransitionPresets.RevealFromBottomAndroid,
             }}/>
+            <Stack.Screen name="Journey" component={JourneyScreen} options={{
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.RevealFromBottomAndroid,
+            }}/> */}
             <Stack.Screen name="Model" component={ModelNavigation} options={{headerShown: false}}/>
 
             <Stack.Screen name="Dashboard" component={DrawerNavigation} options={({route, navigation}) => ({

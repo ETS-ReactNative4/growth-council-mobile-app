@@ -17,88 +17,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 const Home = ({navigation}) => {
   return (
     <>
-      <StatusBar hidden />
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headingText1}>Welcome</Text>
-          <Text style={styles.headingText2}>To The Growth Council</Text>
-        </View>
-        <Swiper
-          style={styles.swiper}
-          autoplay
-          paginationStyle={{top: '95%', backgroundColor: 'transparent'}}
-          dot={
-            <View
-              style={{
-                backgroundColor: '#2189b1',
-                opacity: 0.3,
-                width: 20,
-                height: 8,
-                borderRadius: 4,
-                marginLeft: 3,
-                marginRight: 3,
-              }}
-            />
-          }
-          activeDot={
-            <View
-              style={{
-                backgroundColor: '#2189b1',
-                width: 20,
-                height: 8,
-                borderRadius: 4,
-                marginLeft: 3,
-                marginRight: 3,
-              }}
-            />
-          }
-          nextButton={
-            <FeatherIcon name={'chevron-right'} size={40} color={'#0aade7'} />
-          }
-          prevButton={
-            <FeatherIcon name={'chevron-left'} size={40} color={'#0aade7'} />
-          }
-          showsButtons={true}>
-          <View style={styles.slide1}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('Model', {screen: 'CouncilDetail'})
-              }>
-              <Image
-                style={styles.iconImage}
-                source={require('../../../assets/img/community_slider_image.png')}
-              />
-              <Text style={styles.text}></Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.slide1}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('Model', {screen: 'CouncilDetail'})
-              }>
-              <Image
-                style={styles.iconImage}
-                source={require('../../../assets/img/growth_coaching_slider_image.png')}
-              />
-              <Text style={styles.text}></Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.slide1}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('Model', {screen: 'CouncilDetail'})
-              }>
-              <Image
-                style={styles.iconImage}
-                source={require('../../../assets/img/best_practices_slider_image.png')}
-              />
-              <Text style={styles.text}></Text>
-            </TouchableOpacity>
-          </View>
-        </Swiper>
-
-
-    return (
+    
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headingText1}>Welcome</Text>
@@ -151,17 +70,13 @@ const Home = ({navigation}) => {
                     <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
                 </Button>
                 <Button style={[styles.button1]}
-                        onPress={() => navigation.navigate('Setting')}>
+                        onPress={() => navigation.navigate('radar')}>
                     <Text style={[styles.buttonText, {color : '#709caf' } ]}>I already have an account </Text>
                 </Button>
             </View>
 
-            <View style={styles.footer}>
-                <Image style={styles.footerlogo} source={require('../../../assets/img/footer_logo.png')} />
-                <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop:10}} />
-            </View>
 
-        <View style={styles.buttonWrapper}>
+        {/* <View style={styles.buttonWrapper}>
           <Button
             style={[
               styles.button,
@@ -180,7 +95,7 @@ const Home = ({navigation}) => {
               I already have an account{' '}
             </Text>
           </Button>
-        </View>
+        </View> */}
 
         <View style={styles.footer}>
           <Image
