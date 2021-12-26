@@ -24,6 +24,7 @@ import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
 import AboutScreen from '../screens/about';
+import EventDetailScreen from '../screens/event';
 
 const Stack = createStackNavigator();
 
@@ -144,6 +145,25 @@ const MainNavigation = () => {
         })}
       />
       <Stack.Screen
+        name="Event"
+        component={EventDetailScreen}
+        options={({route, navigation}) => ({
+          headerTitle: '',
+          headerStyle: {height: 80},
+          headerTransparent: true,
+          headerLeft: props => (
+            <Ionicons
+              name={'arrow-back'}
+              size={50}
+              color={'white'}
+              onPress={() => navigation.navigate('Home')}
+            />
+          ),
+          ...TransitionPresets.RevealFromBottomAndroid,
+          gestureDirection: 'horizontal-inverted',
+        })}
+      />
+      <Stack.Screen
         name="Forgot"
         component={ForgotScreen}
         options={{
@@ -177,7 +197,6 @@ const MainNavigation = () => {
         component={ModelNavigation}
         options={{headerShown: false}}
       />
-
       <Stack.Screen
         name="Dashboard"
         component={DrawerNavigation}
