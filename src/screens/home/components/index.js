@@ -97,6 +97,70 @@ const Home = ({navigation}) => {
           </View>
         </Swiper>
 
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.headingText1}>Welcome</Text>
+                <Text style={styles.headingText2}>To The Growth Council</Text>
+            </View>
+
+            <StatusBar hidden/>
+            <Swiper style={styles.wrapper} autoplay
+                    paginationStyle={{top: '95%', backgroundColor: 'transparent'}}
+                    activeDot={
+                        <View
+                            style={{
+                                backgroundColor: '#2189b1',
+                                width: 20,
+                                height: 8,
+                                borderRadius: 2,
+                                marginLeft: 3,
+                                marginRight: 3,
+                                marginTop: 3,
+                                marginBottom: 3,
+                            }}
+                        />
+                    }
+                    showsButtons={true}
+            >
+
+                <View style={styles.slide1}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                        <Image style={styles.iconImage} source={require('../../../assets/img/community_slider_image.png')}/>
+                        <Text style={styles.text}/>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.slide1}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                        <Image style={styles.iconImage} source={require('../../../assets/img/growth_coaching_slider_image.png')}/>
+                        <Text style={styles.text}/>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.slide1}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+                        <Image style={styles.iconImage} source={require('../../../assets/img/best_practices_slider_image.png')}/>
+                        <Text style={styles.text}/>
+                    </TouchableOpacity>
+                </View>
+            </Swiper>
+
+            <View style={styles.buttonWrapper}>
+                <Button style={[styles.button, styles.plainButton , {backgroundColor: Colors.PRIMARY_BUTTON_COLOR}]}
+                        onPress={() => navigation.navigate('Dashboard')}>
+                    <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
+                </Button>
+                <Button style={[styles.button1]}
+                        onPress={() => navigation.navigate('SignIn')}>
+                    <Text style={[styles.buttonText, {color : '#709caf' } ]}>I already have an account </Text>
+                </Button>
+            </View>
+
+            <View style={styles.footer}>
+                <Image style={styles.footerlogo} source={require('../../../assets/img/footer_logo.png')} />
+                <Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop:10}} />
+            </View>
+
         <View style={styles.buttonWrapper}>
           <Button
             style={[

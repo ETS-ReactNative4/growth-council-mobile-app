@@ -189,6 +189,80 @@ const MainNavigation = () => {
         options={{headerShown: false}}
       />
 
+
+            <Stack.Screen name="SignIn" component={SignInScreen} options={({route, navigation}) => ({
+                headerTitle: '',
+                headerStyle: {height: 80},
+                headerTransparent: true,
+                headerLeft: (props) => (
+                    <Ionicons
+                        name={'arrow-back'}
+                        size={70}
+                        color={'white'}
+                        onPress={() => navigation.navigate('Home')}
+                    />
+                ),
+                ...TransitionPresets.RevealFromBottomAndroid,
+                gestureDirection: 'horizontal-inverted',
+            })}/>
+            <Stack.Screen name="SignUp" component={SignUpScreen} options={({route, navigation}) => ({
+                headerTitle: '',
+                headerStyle: {height: 80},
+                headerTransparent: true,
+                headerLeft: (props) => (
+                    <Ionicons
+                        name={'arrow-back'}
+                        size={80}
+                        color={'white'}
+                        onPress={() => navigation.navigate('Home')}
+                    />
+                ),
+                ...TransitionPresets.RevealFromBottomAndroid,
+                gestureDirection: 'horizontal-inverted',
+            })}/>
+            <Stack.Screen name="Forgot" component={ForgotScreen} options={{
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.SlideFromRightIOS,
+                gestureDirection: 'horizontal-inverted',
+            }}/>
+            <Stack.Screen name="SignUpNext" component={SignUpNextScreen} options={{
+                headerLeft: () => null,
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.RevealFromBottomAndroid,
+            }}/>
+            <Stack.Screen name="Journey" component={JourneyScreen} options={{
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.RevealFromBottomAndroid,
+            }}/>
+            <Stack.Screen name="Model" component={ModelNavigation} options={{headerShown: false}}/>
+
+            <Stack.Screen name="Dashboard" component={DrawerNavigation} options={({route, navigation}) => ({
+                headerShown: isHeaderShown(route),
+                headerTitle: headerTitle(route),
+                ...TransitionPresets.SlideFromRightIOS,
+                gestureDirection: 'horizontal-inverted',
+                headerLeft: () => null,
+
+            })}/>
+			
+            <Stack.Screen name="EditProfile" component={EditProfileScreen}
+                          options={{
+                              headerTitle: 'Edit Profile',
+                          }}/>
+            <Stack.Screen name="ChangePassword" component={ChangePasswordScreen}
+                          options={{
+                              headerTitle: 'Change Password',
+                          }}/>
+            <Stack.Screen name="ContactUs" component={ContactUsScreen}
+                          options={{
+                              headerTitle: 'Contact Us',
+                          }}/>
+        </Stack.Navigator>
+    );
+
       <Stack.Screen
         name="Dashboard"
         component={DrawerNavigation}
