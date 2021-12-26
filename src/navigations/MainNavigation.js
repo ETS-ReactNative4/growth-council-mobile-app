@@ -1,14 +1,14 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {HeaderBackButton} from '@react-navigation/elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {DrawerActions} from '@react-navigation/native';
 
+import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 import ModelNavigation from '../navigations/ModelNavigation';
-import DrawerNavigation from '../navigations/DrawerNavigation';
 
+import LogoTitle from '../shared/logo';
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
 
@@ -23,11 +23,15 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
+import AboutScreen from '../screens/about';
+import FeedbackScreen from '../screens/feedback';
+import IdeasScreen from '../screens/ideas';
+import EventDetailScreen from '../screens/event';
+import SearchScreen from '../screens/search';
 
 const Stack = createStackNavigator();
 
 const MainNavigation = () => {
-
     const isHeaderShown = route => {
         // If the focused route is not found, we need to assume it's the initial screen
         // This can happen during if there hasn't been any navigation inside the screen
@@ -95,14 +99,14 @@ const MainNavigation = () => {
             <Stack.Screen
                 name="CouncilAllDetail"
                 component={CouncilAllDetailScreen}
-                options={{
+                options={({route, navigation}) => ({
                     headerTitle: '',
                     headerStyle: {height: 80},
                     headerTransparent: true,
-                    headerLeft: () => null,
+                    headerLeft: props => null,
                     ...TransitionPresets.RevealFromBottomAndroid,
                     gestureDirection: 'horizontal-inverted',
-                }}
+                })}
             />
 
             <Stack.Screen
@@ -144,6 +148,17 @@ const MainNavigation = () => {
                 })}
             />
             <Stack.Screen
+                name="Search"
+                component={SearchScreen}
+                options={({route, navigation}) => ({
+                    headerTitle: '',
+                    headerStyle: {height: 80},
+                    headerTransparent: true,
+                    ...TransitionPresets.RevealFromBottomAndroid,
+                    gestureDirection: 'horizontal-inverted',
+                })}
+            />
+            <Stack.Screen
                 name="Forgot"
                 component={ForgotScreen}
                 options={{
@@ -177,13 +192,12 @@ const MainNavigation = () => {
                 component={ModelNavigation}
                 options={{headerShown: false}}
             />
-
             <Stack.Screen
                 name="Dashboard"
                 component={DrawerNavigation}
-                options={() => ({
-                    headerTitle: '',
-                    headerTransparent: true,
+                options={({route, navigation}) => ({
+                    headerShown: isHeaderShown(route),
+                    headerTitle: headerTitle(route),
                     ...TransitionPresets.SlideFromRightIOS,
                     gestureDirection: 'horizontal-inverted',
                     headerLeft: () => null,
@@ -208,6 +222,27 @@ const MainNavigation = () => {
                 component={ContactUsScreen}
                 options={{
                     headerTitle: 'Contact Us',
+                }}
+            />
+            <Stack.Screen
+                name="About"
+                component={AboutScreen}
+                options={{
+                    headerTitle: 'About',
+                }}
+            />
+            <Stack.Screen
+                name="Feedback"
+                component={FeedbackScreen}
+                options={{
+                    headerTitle: 'Feedback',
+                }}
+            />
+            <Stack.Screen
+                name="Ideas"
+                component={IdeasScreen}
+                options={{
+                    headerTitle: 'Contribute Ideas',
                 }}
             />
         </Stack.Navigator>
