@@ -16,7 +16,7 @@ import {CommonStyles, Colors, Typography} from '../../theme';
 
 const AboutScreen = () => {
   const win = Dimensions.get('window');
-  const containerWidth = win.width - 60;
+  const imageContainerWidth = win.width - 20;
   return (
     <>
       <StatusBar
@@ -52,7 +52,7 @@ const AboutScreen = () => {
           <View style={styles.aboutImage}>
             <Image
               source={require('../../assets/img/contactus.png')}
-              style={{width: containerWidth}}
+              style={{width: imageContainerWidth}}
               resizeMode={'contain'}
             />
           </View>
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
   },
   aboutImage: {
     marginBottom: 50,
-    paddingLeft: 30,
-    paddingRight: 30,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   backgroundText: {
     padding: 30,
