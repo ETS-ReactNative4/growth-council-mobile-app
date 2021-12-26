@@ -150,7 +150,7 @@ const Dashboard = ({navigation}) => {
               style={{marginLeft: 150, marginTop: 20}}
             />
             <Image
-              source={require('../../../assets/img/small_profile_image.png')}
+              source={require('../../../assets/img/profile_image.png')}
               style={{
                 height: 50,
                 width: 50,
