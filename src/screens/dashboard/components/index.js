@@ -30,14 +30,14 @@ const Data = [
 		uri: require('../../../assets/img/profile_image.png'),
 		text: "Jay",
 	},
-	
+
 ];
 
 
 const _renderItem = ({item, index}) => {
 	return (
 	<View style={styles.bottomWrapper}>
-		<Image 
+		<Image
 			style={styles.bottomImage}
 			source={item?.uri}/>
 		<Text>{item.text}</Text>
@@ -109,12 +109,12 @@ const _renderTopItem = ({item, index}) => {
 				backgroundColor:'#EBECF0',
 				borderRadius:10,
 				padding:5,
-				alignItems:'center'				
+				alignItems:'center'
 				}}>
 					<Text>{item.date}</Text>
 					<Text>{item.month}</Text>
 			</View>
-							
+
 			<View style={styles.header}>
 				<Text style={styles.headingText1}>{item.text}</Text>
 				<Text style={styles.headingText2}>{item.text1}</Text>
@@ -131,41 +131,41 @@ const Dashboard = ({navigation}) => {
 					height:200,
 					}}
 					source={require('../../../assets/img/blank_event_design.png')}>
-						<View style={{display:'flex', flexDirection:'row'}}>
-						<Image
-							source={require("../../../assets/img/dashboard_logo.png")}
-							style={{
-								position: 'absolute',
-								top: 20,
-								height: 30,
-								width: 30,
-								left: 10,
-								borderWidth: 5,
-							}}
-						/>
-						<View style={{marginLeft:50,}}>
-						<Text style={{marginTop:15,  color:"white", fontSize:15}}>Good Morning</Text>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20}}>Edward</Text>
-						</View>
+						{/*<View style={{display:'flex', flexDirection:'row'}}>*/}
+						{/*<Image*/}
+							{/*source={require("../../../assets/img/dashboard_logo.png")}*/}
+							{/*style={{*/}
+								{/*position: 'absolute',*/}
+								{/*top: 20,*/}
+								{/*height: 30,*/}
+								{/*width: 30,*/}
+								{/*left: 10,*/}
+								{/*borderWidth: 5,*/}
+							{/*}}*/}
+						{/*/>*/}
+						{/*<View style={{marginLeft:50,}}>*/}
+						{/*<Text style={{marginTop:15,  color:"white", fontSize:15}}>Good Morning</Text>*/}
+						{/*<Text style={{fontWeight:"700",  color:"white", fontSize:20}}>Edward</Text>*/}
+						{/*</View>*/}
 
-						<Font
-							name={'search'}
-							size={30}
-							color="white"
-							style={{marginLeft:150, marginTop:20}}
-						/>
-						<Image
-						source={require("../../../assets/img/profile_image.png")}
-						style={{
-						height: 50,
-						width:50,
-						marginTop:10,
-						marginLeft:10,
-						borderRadius:50,
-					}}
-				/>
-						</View>
-			
+						{/*<Font*/}
+							{/*name={'search'}*/}
+							{/*size={30}*/}
+							{/*color="white"*/}
+							{/*style={{marginLeft:150, marginTop:20}}*/}
+						{/*/>*/}
+						{/*<Image*/}
+						{/*source={require("../../../assets/img/profile_image.png")}*/}
+						{/*style={{*/}
+						{/*height: 50,*/}
+						{/*width:50,*/}
+						{/*marginTop:10,*/}
+						{/*marginLeft:10,*/}
+						{/*borderRadius:50,*/}
+					{/*}}*/}
+				{/*/>*/}
+						{/*</View>*/}
+
 				<Image
 					source={require("../../../assets/img/massk.png")}
 					style={{
@@ -201,12 +201,12 @@ const Dashboard = ({navigation}) => {
 					}}
 				/>
 				</ImageBackground>
-		
-		
+
+
             <View style={styles.top}>
 				<Text style={{fontWeight:"bold", fontSize:18}}>Upcoming Events</Text>
 				<View style={{
-					display:'flex', 
+					display:'flex',
 					flexDirection:'row',
 				}}>
 					<FlatList
@@ -220,7 +220,7 @@ const Dashboard = ({navigation}) => {
 						loop={false}
 						showsPagination={false}
                 >
-					
+
 						<View style={styles.topWrapper} >
 							<ImageBackground
 								style={{width:'100%',
@@ -237,12 +237,12 @@ const Dashboard = ({navigation}) => {
 								borderRadius:10,
 								padding:5,
 								alignItems:'center'
-								
+
 							}}>
 								<Text>28</Text>
 								<Text>July</Text>
 							</View>
-							
+
 							<View style={styles.header}>
 							<Text style={styles.headingText1}>Executive Coaching Clinic On Goal Setting</Text>
 							<Text style={styles.headingText2}>Hosted by Michael Cooper</Text>
@@ -251,7 +251,7 @@ const Dashboard = ({navigation}) => {
 						</View>
 
 						<View style={styles.topWrapper} >
-						
+
 							<ImageBackground
 								style={{width:'100%',
 								height:170,
@@ -267,29 +267,29 @@ const Dashboard = ({navigation}) => {
 								borderRadius:10,
 								padding:5,
 								alignItems:'center'
-								
+
 							}}>
 								<Text>10</Text>
 								<Text>Oct</Text>
 							</View>
-							
+
 							<View style={styles.header}>
 							<Text style={styles.headingText1}>Associate Member Meeting</Text>
 							<Text style={styles.headingText2}>Hosted by Michael Cooper</Text>
 							</View>
 							</ImageBackground>
-						
+
 						</View>
 
 				</Swiper> */}
 				</View>
             </View>
-			
+
 			<View style={styles.middle}>
 				<Text style={{fontWeight:"bold", fontSize:18}}>Points of Engagement</Text>
-				
-				<View 
-					style={{display:'flex', 
+
+				<View
+					style={{display:'flex',
 					flexDirection:'row',
 					}}>
 						<FlatList
@@ -297,13 +297,13 @@ const Dashboard = ({navigation}) => {
 						showsHorizontalScrollIndicator={false}
                         data={data1}
                         renderItem={_renderMiddleItem}/>
-				
+
 				</View>
-				
-				
+
+
 			</View>
-			
-			
+
+
 
 			<View style={styles.bottom}>
 				<Text style={{fontWeight:"bold" ,fontSize:18}}>Growth Community Member</Text>
@@ -314,9 +314,9 @@ const Dashboard = ({navigation}) => {
                         data={Data}
                         renderItem={_renderItem}/>
 						</View>
-					
+
 			</View>
-		
+
         </View>
 		</ScrollView>
     );
@@ -332,9 +332,9 @@ const styles = StyleSheet.create({
 		height:200,
 		marginTop:80,
 		margin:10,
-		justifyContent:'center',	
+		justifyContent:'center',
 	},
-	
+
 	topWrapper:{
 		height:170,
 		width:300,
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
       	marginTop:10,
 		fontWeight:'800',
 		color:'white',
-		
+
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
 		height:200,
 		marginLeft:10,
 		marginTop:15,
-			
+
 	},
 	middleWrapper:{
 		height:150,
@@ -377,9 +377,9 @@ const styles = StyleSheet.create({
 	},
 	middleW:{
 		backgroundColor:'white',
-		width:80, 
-		height:80, 
-		justifyContent:'center', 
+		width:80,
+		height:80,
+		justifyContent:'center',
 		alignItems:'center',
 		borderRadius:10
 	},
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
 	},
 	bottomImage:{
 		width:'100%',
-		height:100, 
+		height:100,
 		borderRadius:20
 	}
 

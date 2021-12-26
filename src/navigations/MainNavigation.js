@@ -7,6 +7,7 @@ import {DrawerActions} from '@react-navigation/native';
 
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 import ModelNavigation from '../navigations/ModelNavigation';
+import DrawerNavigation from '../navigations/DrawerNavigation';
 
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
@@ -179,24 +180,13 @@ const MainNavigation = () => {
 
             <Stack.Screen
                 name="Dashboard"
-                component={BottomTabNavigation}
-                options={({route, navigation}) => ({
-                    //headerTitle: '',
+                component={DrawerNavigation}
+                options={() => ({
+                    headerTitle: '',
                     headerTransparent: true,
                     ...TransitionPresets.SlideFromRightIOS,
                     gestureDirection: 'horizontal-inverted',
-                    //headerLeft: () => null,
-                    headerLeft: () => (
-                        <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-                            <Ionicons name="bars" size={20} color="#fff"/>
-                        </TouchableOpacity>
-                    ),
-                    headerTitle: () => <Ionicons name="bars" size={20} color="#fff"/>,
-                    headerRight: () => (
-                        <View>
-                            <Ionicons name="bars" size={20} color="#fff"/>
-                        </View>
-                    ),
+                    headerLeft: () => null,
                 })}
             />
             <Stack.Screen
