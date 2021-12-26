@@ -150,7 +150,7 @@ const SignInForm = (props) => {
                             <View style={[styles.signuptext, {marginTop: 40}]}>
                                 <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/>
                                 <Text>Need Help? </Text>
-                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('ContactUs')}> Contact Us </Text>
+                                <Text style={{color: '#31ade5'}}> Contact Us </Text>
                             </View>
 
                         </View>
