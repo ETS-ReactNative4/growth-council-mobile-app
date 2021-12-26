@@ -33,10 +33,11 @@ const DrawerNavigation = () => {
             drawerContentOptions={{
                 activeTintColor: '#e91e63',
                 itemStyle: {marginVertical: 5},
+				header: null,
             }}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
-            <Drawer.Screen name="Dashboard" component={BottomTabNavigation}/>
+            <Drawer.Screen name="Dashboard" component={BottomTabNavigation} />
             <Drawer.Screen name="Community" component={CommunityScreen}/>
             <Drawer.Screen name="Calendar" component={CalendarScreen}/>
         </Drawer.Navigator>

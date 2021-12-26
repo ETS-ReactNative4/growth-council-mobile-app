@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Dashboard = ({navigation}) => {
+const HomeCommunity = ({navigation}) => {
 
 	const Data = [
 		{
@@ -41,7 +42,16 @@ const Dashboard = ({navigation}) => {
 			<Image 
 				style={styles.bottomImage}
 				source={item?.uri}/>
-			<Text>{item.text}</Text>
+			<Text style={{fontWeight:"bold", fontSize:18}}>{item.text}</Text>
+			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60}}>
+				<Ionicons
+					name={'chatbox'}
+					size={20}
+					color="grey"
+					style={{marginLeft:5}}
+				/>
+			</View>
+			
 		</View>)
 	}
 	
@@ -55,12 +65,12 @@ const Dashboard = ({navigation}) => {
 			text:"Megatrends Workshop"
 		},
 		{
-			icon:"brain",
-			text:"Executive MindChange"
+			icon:"window-maximize",
+			text:"Annual Council Meeting"
 		},
 		{
-			icon:"location-arrow",
-			text:"Megatrends Workshop"
+			icon:"clipboard",
+			text:"BrainStorming Strategy Discussion"
 		},
 	]
 	
@@ -71,11 +81,11 @@ const Dashboard = ({navigation}) => {
 			<View style={styles.middleW}>
 				<Font
 					name={item.icon}
-					size={40}
+					size={30}
 					color="skyblue"
 				/>
 			</View>
-			<Text style={{marginTop:10}}>{item.text}</Text>
+			<Text style={{marginTop:10, fontSize:12}}>{item.text}</Text>
 		</View>
 		</TouchableOpacity>)
 	}
@@ -125,13 +135,41 @@ const Dashboard = ({navigation}) => {
 				</ImageBackground>
 			</View>)
 	}
-	
-    return (
+
+	const pic = [
+		{
+			uri: require('../../../assets/img/welcome_screen_info_image.png'),
+			
+		},
+		{
+			uri: require('../../../assets/img/image.png'),
+			
+		},
+		{
+			uri: require('../../../assets/img/contactus.png'),
+			
+		},
+	];
+
+	const _renderContentItem = ({item, index}) => {
+		return (
+			<View style={styles.ContentWrapper} >
+				<ImageBackground
+					style={{width:'100%',
+						height:190,
+						borderRadius:20}}
+						source={item?.uri}>
+				</ImageBackground>
+			</View>)
+	}
+
+	return (
 		<ScrollView>
         <View style={styles.container}>
 				<ImageBackground
 					style={{width:'100%',
-					height:200,
+					height:100,
+					
 					}}
 					source={require('../../../assets/img/blank_event_design.png')}>
 						<View style={{display:'flex', flexDirection:'row'}}>
@@ -139,7 +177,7 @@ const Dashboard = ({navigation}) => {
 							source={require("../../../assets/img/dashboard_logo.png")}
 							style={{
 								position: 'absolute',
-								top: 20,
+								top: 40,
 								height: 30,
 								width: 30,
 								left: 10,
@@ -147,72 +185,31 @@ const Dashboard = ({navigation}) => {
 							}}
 						/>
 						<View style={{marginLeft:50,}}>
-						<Text style={{marginTop:15,  color:"white", fontSize:15}}>Good Morning</Text>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20}}>Edward</Text>
+						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Community</Text>
 						</View>
 
 						<Font
 							name={'search'}
 							size={30}
 							color="white"
-							style={{marginLeft:150, marginTop:20}}
+							style={{marginLeft:150, marginTop:40}}
 						/>
 						<Image
 						source={require("../../../assets/img/profile_image.png")}
 						style={{
 						height: 50,
 						width:50,
-						marginTop:10,
+						marginTop:30,
 						marginLeft:10,
 						borderRadius:50,
 					}}
 				/>
-						</View>
-						<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
-							<Image
-								source={require("../../../assets/img/massk.png")}
-								style={{
-									position: 'absolute',
-									top: 30,
-									height: 150,
-									width: '30%',
-									left: 10,
-									borderRadius:10,
-									borderWidth: 5,
-								}}
-							/>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
-					<Image
-						source={require("../../../assets/img/community_slider_image.png")}
-						style={{
-							position: 'absolute',
-							top: 30,
-							height: 150,
-							width: '30%',
-							left: 138,
-							borderRadius:10,
-						}}
-					/>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
-					<Image
-						source={require("../../../assets/img/massk.png")}
-						style={{
-							position: 'absolute',
-							top: 30,
-							height: 150,
-							width: '30%',
-							right: 10,
-							borderRadius:10,
-						}}
-					/>
-				</TouchableOpacity>
+					</View>
 				</ImageBackground>
 		
 		
             <View style={styles.top}>
-				<Text style={{fontWeight:"bold", fontSize:18}}>Upcoming Events</Text>
+				<Text style={{fontWeight:"bold", fontSize:20}}> Growth Community Events</Text>
 				<View style={{
 					display:'flex', 
 					flexDirection:'row',
@@ -227,7 +224,7 @@ const Dashboard = ({navigation}) => {
             </View>
 			
 			<View style={styles.middle}>
-				<Text style={{fontWeight:"bold", fontSize:18}}>Points of Engagement</Text>
+				<Text style={{fontWeight:"bold", fontSize:20}}>Points of Engagement</Text>
 				
 				<View 
 					style={{display:'flex', 
@@ -238,29 +235,38 @@ const Dashboard = ({navigation}) => {
 						showsHorizontalScrollIndicator={false}
                         data={data1}
                         renderItem={_renderMiddleItem}/>
-				
 				</View>
-				
-				
+
 			</View>
 			
 			
 
 			<View style={styles.bottom}>
-				<Text style={{fontWeight:"bold" ,fontSize:18}}>Growth Community Member</Text>
+				<Text style={{fontWeight:"bold" ,fontSize:20}}>Growth Community Member</Text>
 				<View >
 					<FlatList
                         horizontal
 						showsHorizontalScrollIndicator={false}
                         data={Data}
                         renderItem={_renderItem}/>
-						</View>
-					
+				</View>
 			</View>
 
-		
+			<View style={styles.content}>
+				<Text style={{fontWeight:"bold", fontSize:20, marginTop:20}}> Growth Coaching Content</Text>
+				<View style={{
+					display:'flex', 
+					flexDirection:'row',
+				}}>
+					<FlatList
+                        horizontal
+						showsHorizontalScrollIndicator={false}
+                        data={pic}
+                        renderItem={_renderContentItem}/>
+				
+				</View>
+            </View>
 
-		
         </View>
 		</ScrollView>
     );
@@ -274,7 +280,7 @@ const styles = StyleSheet.create({
     },
 	top:{
 		height:200,
-		marginTop:80,
+		marginTop:20,
 		margin:10,
 		justifyContent:'center',	
 	},
@@ -307,12 +313,12 @@ const styles = StyleSheet.create({
 		width:400,
 		height:200,
 		marginLeft:10,
-		marginTop:15,
+		marginTop:10,
 			
 	},
 	middleWrapper:{
 		height:150,
-		width:100,
+		width:90,
 		borderRadius:20,
 		marginTop:10,
 		// backgroundColor:'white',
@@ -339,9 +345,10 @@ const styles = StyleSheet.create({
 	},
 	bottomWrapper:{
 		width:120,
-		height:140,
+		height:170,
 		borderRadius:10,
-		margin:10,
+		marginRight:10,
+		marginTop:10,
 		backgroundColor:'white',
 		alignItems:'center',
 	},
@@ -350,8 +357,19 @@ const styles = StyleSheet.create({
 		height:100, 
 		borderRadius:20
 	},
-   
-
+	content:{
+		height:250,
+		marginTop:20,
+		margin:10,
+		justifyContent:'center',
+		borderRadius:20,
+	},
+	ContentWrapper:{
+		height:200,
+		width:300,
+		marginTop:20,
+		marginLeft:10,
+	}
 });
 
-export default Dashboard;
+export default HomeCommunity;
