@@ -13,6 +13,7 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Swiper from 'react-native-swiper';
 import Searchbox from '../../../shared/form/SearchBar';
+import {Button} from 'react-native-paper';
 
 const events = [
   {
@@ -63,6 +64,21 @@ const eventItems = ({item, index}) => {
         </View>
       </View>
     </View>
+  );
+};
+
+const searchTags = [
+  'Growth Coaching',
+  'Community',
+  'Artificial Intelligence',
+  'Best Practices',
+];
+
+const searchTag = ({item, index}) => {
+  return (
+    <Button style={styles.searchTagBtn}>
+      <Text style={styles.searchTabBtnText}>{item}</Text>
+    </Button>
   );
 };
 
@@ -169,6 +185,15 @@ const Search = ({navigation}) => {
           </View>
         </ImageBackground>
 
+        <View style={{marginTop: 20}}>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={searchTags}
+            renderItem={searchTag}
+          />
+        </View>
+
         <View style={styles.middle}>
           <Text style={{fontWeight: 'bold', fontSize: 15}}>Suggestions</Text>
 
@@ -274,6 +299,18 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     borderRadius: 20,
+  },
+  searchTagBtn: {
+    backgroundColor: '#ffff',
+    height: 50,
+    width: 170,
+    borderRadius: 20,
+    justifyContent: 'center',
+    marginLeft: 10,
+  },
+  searchTabBtnText: {
+    color: '#060606',
+    fontSize: 12,
   },
   events: {
     padding: 20,
