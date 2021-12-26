@@ -195,9 +195,9 @@ const MainNavigation = () => {
             <Stack.Screen
                 name="Dashboard"
                 component={DrawerNavigation}
-                options={({route, navigation}) => ({
-                    headerShown: isHeaderShown(route),
-                    headerTitle: headerTitle(route),
+                options={() => ({
+                    headerTitle: '',
+                    headerTransparent: true,
                     ...TransitionPresets.SlideFromRightIOS,
                     gestureDirection: 'horizontal-inverted',
                     headerLeft: () => null,
