@@ -25,6 +25,7 @@ import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
 import AboutScreen from '../screens/about';
 import FeedbackScreen from '../screens/feedback';
+import IdeasScreen from '../screens/ideas';
 
 const Stack = createStackNavigator();
 
@@ -223,6 +224,13 @@ const MainNavigation = () => {
         component={FeedbackScreen}
         options={{
           headerTitle: 'Feedback',
+        }}
+      />
+      <Stack.Screen
+        name="Ideas"
+        component={IdeasScreen}
+        options={{
+          headerTitle: 'Contribute Ideas',
         }}
       />
     </Stack.Navigator>
