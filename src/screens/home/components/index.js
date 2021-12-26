@@ -111,7 +111,7 @@ const Home = ({navigation}) => {
           </Button>
           <Button
             style={[styles.button1]}
-            onPress={() => navigation.navigate('Event')}>
+            onPress={() => navigation.navigate('Search')}>
             <Text style={[styles.buttonText, {color: '#709caf'}]}>
               I already have an account{' '}
             </Text>
