@@ -23,6 +23,7 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
+import AboutScreen from '../screens/about';
 
 const Stack = createStackNavigator();
 
@@ -207,6 +208,13 @@ const MainNavigation = () => {
         component={ContactUsScreen}
         options={{
           headerTitle: 'Contact Us',
+        }}
+      />
+      <Stack.Screen
+        name="About"
+        component={AboutScreen}
+        options={{
+          headerTitle: 'About',
         }}
       />
     </Stack.Navigator>
