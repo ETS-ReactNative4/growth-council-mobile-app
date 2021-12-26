@@ -25,6 +25,7 @@ import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
 import AboutScreen from '../screens/about';
 import EventDetailScreen from '../screens/event';
+import SearchScreen from '../screens/search';
 
 const Stack = createStackNavigator();
 
@@ -145,20 +146,12 @@ const MainNavigation = () => {
         })}
       />
       <Stack.Screen
-        name="Event"
-        component={EventDetailScreen}
+        name="Search"
+        component={SearchScreen}
         options={({route, navigation}) => ({
           headerTitle: '',
           headerStyle: {height: 80},
           headerTransparent: true,
-          headerLeft: props => (
-            <Ionicons
-              name={'arrow-back'}
-              size={50}
-              color={'white'}
-              onPress={() => navigation.navigate('Home')}
-            />
-          ),
           ...TransitionPresets.RevealFromBottomAndroid,
           gestureDirection: 'horizontal-inverted',
         })}
