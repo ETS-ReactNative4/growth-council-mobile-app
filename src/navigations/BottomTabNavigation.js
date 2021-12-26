@@ -2,6 +2,7 @@ import React from 'react';
 import {Platform, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {DrawerActions} from '@react-navigation/native';
 
 import {Colors} from '../theme';
 
@@ -18,17 +19,17 @@ const BottomTabNavigation = () => {
     return (
         <Tab.Navigator
             initialRouteName="Dashboard"
-            screenOptions={{
+            screenOptions={({navigation}) => ({
                 headerShown: false,
                 tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
                 tabBarInactiveTintColor: 'gray',
                 tabBarShowLabel: false,
-            }}
+            })}
         >
             <Tab.Screen
                 name="Dashboard"
                 component={DashboardScreen}
-                options={{
+                options={({route, navigation}) => ({
                     tabBarLabel: 'Home',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
@@ -38,7 +39,14 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
-                }}
+                    headerLeft: () => (
+                        <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+                            <Ionicons name="bars" size={20} color="#fff"/>
+                        </TouchableOpacity>
+                    ),
+                    headerTitle: () => <Ionicons name="bars" size={20} color="#fff"/>,
+                    headerRight: () => <Ionicons name="bars" size={20} color="#fff"/>,
+                })}
             />
 
             <Tab.Screen
