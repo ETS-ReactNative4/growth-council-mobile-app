@@ -1,115 +1,165 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {
   StatusBar,
   StyleSheet,
   Text,
   View,
   Image,
-  ImageBackground,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {Button} from 'native-base';
-import Swiper from 'react-native-swiper';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
+
 const Home = ({navigation}) => {
-  return (
-    <>
-    
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headingText1}>Welcome</Text>
-                <Text style={styles.headingText2}>To The Growth Council</Text>
-            </View>
+  const [activeSlider, setActiveSlider] = useState(1);
+  const sliderRef = useRef(null);
 
-            <StatusBar hidden/>
-            <Swiper style={styles.wrapper} autoplay
-                    paginationStyle={{top: '95%', backgroundColor: 'transparent'}}
-                    activeDot={
-                        <View
-                            style={{
-                                backgroundColor: '#2189b1',
-                                width: 20,
-                                height: 8,
-                                borderRadius: 2,
-                                marginLeft: 3,
-                                marginRight: 3,
-                                marginTop: 3,
-                                marginBottom: 3,
-                            }}
-                        />
-                    }
-                    showsButtons={true}
-            >
+  const wp = percentage => {
+    const value = (percentage * viewportWidth) / 100;
+    return Math.round(value);
+  };
 
-                <View style={styles.slide1}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                        <Image style={styles.iconImage} source={require('../../../assets/img/community_slider_image.png')}/>
-                        <Text style={styles.text}/>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.slide1}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                        <Image style={styles.iconImage} source={require('../../../assets/img/growth_coaching_slider_image.png')}/>
-                        <Text style={styles.text}/>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.slide1}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
-                        <Image style={styles.iconImage} source={require('../../../assets/img/best_practices_slider_image.png')}/>
-                        <Text style={styles.text}/>
-                    </TouchableOpacity>
-                </View>
-            </Swiper>
+  const slideHeight = viewportHeight * 0.36;
+  const slideWidth = wp(50);
+  const sliderWidth = viewportWidth;
+  const itemHorizontalMargin = wp(2);
+  const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-            <View style={styles.buttonWrapper}>
-                <Button style={[styles.button, styles.plainButton , {backgroundColor: Colors.PRIMARY_BUTTON_COLOR}]}
-                        onPress={() => navigation.navigate('Dashboard')}>
-                    <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
-                </Button>
-                <Button style={[styles.button1]}
-                        onPress={() => navigation.navigate('Setting')}>
-                    <Text style={[styles.buttonText, {color : '#709caf' } ]}>I already have an account </Text>
-                </Button>
-            </View>
+  const carouselItems = [
+    {
+      uri: require('../../../assets/img/growth_coaching_slider_image.png'),
+      text: 'Growth Coaching',
+    },
+    {
+      uri: require('../../../assets/img/community_slider_image.png'),
+      text: 'Community',
+    },
+    {
+      uri: require('../../../assets/img/best_practices_slider_image.png'),
+      text: 'Best Practices',
+    },
+  ];
 
-
-        {/* <View style={styles.buttonWrapper}>
-          <Button
-            style={[
-              styles.button,
-              styles.plainButton,
-              {backgroundColor: Colors.PRIMARY_BUTTON_COLOR},
-            ]}
-            onPress={() => navigation.navigate('HomeDetail')}>
-            <Text style={[styles.buttonText, styles.plainButtonText]}>
-              Get Started
-            </Text>
-          </Button>
-          <Button
-            style={[styles.button1]}
-            onPress={() => navigation.navigate('SignIn')}>
-            <Text style={[styles.buttonText, {color: '#709caf'}]}>
-              I already have an account{' '}
-            </Text>
-          </Button>
-        </View> */}
-
-        <View style={styles.footer}>
-          <Image
-            style={styles.footerlogo}
-            source={require('../../../assets/img/footer_logo.png')}
-          />
-          <Text style={{fontSize: 7, marginTop: 2}}>Powered By</Text>
-          <Image
-            source={require('../../../assets/img/footer_company_name_image.png')}
-            style={{marginTop: 2}}
-          />
+  const _renderItem = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Model', {screen: 'CouncilDetail'})}>
+        <View
+          style={{
+            backgroundColor: 'floralwhite',
+            borderRadius: 5,
+            height: 250,
+            marginLeft: 20,
+            marginRight: 20,
+            postion: 'relative',
+          }}>
+          <Image source={item?.uri} style={{width: '100%', height: '100%'}} />
+          <Text style={styles.sliderText}>{item.text}</Text>
         </View>
+      </TouchableOpacity>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <StatusBar hidden />
+      <View style={styles.header}>
+        <Text style={styles.headingText1}>Welcome</Text>
+        <Text style={styles.headingText2}>To The Growth Council</Text>
       </View>
-    </>
+      <View styyle={styles.sliderView}>
+        <FeatherIcon
+          name={'chevron-right'}
+          style={styles.carouselRight}
+          size={40}
+          color={'#0aade7'}
+          onPress={() => {
+            sliderRef.current.snapToNext();
+          }}
+        />
+        <FeatherIcon
+          name={'chevron-left'}
+          style={styles.carouselLeft}
+          size={40}
+          color={'#0aade7'}
+          onPress={() => {
+            sliderRef.current.snapToPrev();
+          }}
+        />
+        <Carousel
+          ref={sliderRef}
+          layout={'default'}
+          data={carouselItems}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          renderItem={_renderItem}
+          firstItem={1}
+          containerCustomStyle={styles.slider}
+          contentContainerCustomStyle={styles.sliderContent}
+          loop={true}
+          loopClonesPerSide={2}
+          autoplay={true}
+          autoplayDelay={500}
+          autoplayInterval={5000}
+          hasParallaxImages={true}
+          inactiveSlideScale={0.7}
+          inactiveSlideOpacity={0.7}
+          onSnapToItem={index => setActiveSlider(index)}
+        />
+
+        <Pagination
+          dotsLength={carouselItems.length}
+          activeDotIndex={activeSlider}
+          dotStyle={{
+            width: 20,
+            height: 8,
+            borderRadius: 4,
+            backgroundColor: '#2189b1',
+          }}
+          dotColor={'#2189b1'}
+          inactiveDotOpacity={0.4}
+        />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button
+          style={[
+            styles.button,
+            styles.plainButton,
+            {backgroundColor: Colors.PRIMARY_BUTTON_COLOR},
+          ]}
+          onPress={() => navigation.navigate('Dashboard')}>
+          <Text style={[styles.buttonText, styles.plainButtonText]}>
+            Get Started
+          </Text>
+        </Button>
+        <Button
+          style={[styles.button1]}
+          onPress={() => navigation.navigate('Setting')}>
+          <Text style={[styles.buttonText, {color: '#709caf'}]}>
+            I already have an account{' '}
+          </Text>
+        </Button>
+      </View>
+
+      <View style={styles.footer}>
+        <Image
+          style={styles.footerlogo}
+          source={require('../../../assets/img/footer_logo.png')}
+        />
+        <Text style={{fontSize: 7, marginTop: 4}}>Powered By</Text>
+        <Image
+          source={require('../../../assets/img/footer_company_name_image.png')}
+          style={{marginTop: 4}}
+        />
+      </View>
+    </View>
   );
 };
 
@@ -123,20 +173,18 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
   },
-  swiper: {
+  wrapper: {
+    top: '20%',
+  },
+
+  slider: {
     marginTop: 30,
-    maxHeight: 350,
+    overflow: 'visible',
   },
-  slide1: {
-    flex: 1,
-    alignItems: 'center',
+  sliderContent: {
+    paddingVertical: 10,
   },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  slide3: {
+  slide: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -173,8 +221,7 @@ const styles = StyleSheet.create({
   iconImage: {
     width: 300,
     height: 350,
-    borderRadius: 15,
-    overflow: 'hidden',
+    borderRadius: 10,
   },
   plainButton: {
     width: '70%',
@@ -189,12 +236,10 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_BOLD,
   },
   header: {
-    // top: '5%',
-    // height: 50,
-    paddingTop: 30,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 30,
   },
   headingText1: {
     ...CommonStyles.headingText1,
@@ -232,6 +277,27 @@ const styles = StyleSheet.create({
   footerlogo: {
     width: '50%',
     height: 20,
+  },
+  sliderView: {
+    position: 'relative',
+    marginTop: 30,
+  },
+  sliderText: {
+    postion: 'absolute',
+    top: '45%',
+    left: 10,
+  },
+  carouselLeft: {
+    position: 'absolute',
+    left: 15,
+    top: '45%',
+    zIndex: 99,
+  },
+  carouselRight: {
+    position: 'absolute',
+    right: 15,
+    top: '45%',
+    zIndex: 99,
   },
 });
 
