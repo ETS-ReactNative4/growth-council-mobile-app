@@ -172,12 +172,12 @@ const MainNavigation = () => {
                 ...TransitionPresets.RevealFromBottomAndroid,
             }}/>
 
-	{/* <Stack.Screen name="Setting" component={SettingScreen} options={{
+	<Stack.Screen name="Setting" component={SettingScreen} options={{
                 headerLeft: () => null,
                 headerTitle: '',
                 headerTransparent: true,
                 ...TransitionPresets.RevealFromBottomAndroid,
-            }}/> */}
+            }}/>
       <Stack.Screen
         name="Journey"
         component={JourneyScreen}

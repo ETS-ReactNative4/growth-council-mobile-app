@@ -70,7 +70,7 @@ const Home = ({navigation}) => {
                     <Text style={[styles.buttonText, styles.plainButtonText]}>Get Started</Text>
                 </Button>
                 <Button style={[styles.button1]}
-                        onPress={() => navigation.navigate('radar')}>
+                        onPress={() => navigation.navigate('Setting')}>
                     <Text style={[styles.buttonText, {color : '#709caf' } ]}>I already have an account </Text>
                 </Button>
             </View>
