@@ -27,7 +27,8 @@ export const AuthProvider = ({children}) => {
                             'Content-Type': 'application/json',
                         }, responseType: 'json',
                     });
-                    if (response.data.success) {
+                    // if (response.data.success) {
+                    if (response.data.data.token) {
                         await setAsyncStorage(JWT_TOKEN, response.data.data.token);
                         navigate('Dashboard');
                     } else {

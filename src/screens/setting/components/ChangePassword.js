@@ -35,7 +35,7 @@ const passwordSchema = Yup.object().shape({
 
 const ChangePasswordForm = (props) => {
 
-    const {navigation, loading, error, updateEmployee, cleanEmployeePassword} = props;
+    const {navigation, loading, error, updateCustomerPassword, cleanCustomerPassword} = props;
 
     const [hidePass, setHidePass] = useState(true);
     const [hidePass1, setHidePass1] = useState(true);
@@ -56,7 +56,7 @@ const ChangePasswordForm = (props) => {
             let token = await getAsyncStorage(JWT_TOKEN);
             values.id = decodeUserID(token);
             delete values.confirm_password;
-            await updateEmployee(values).then(response => {
+            await updateCustomerPassword(values).then(response => {
                 if (!response.error) {
                     navigation.navigate('SignIn');
                     ToastMessage.show('Your password has been successfully changed.');
@@ -68,7 +68,7 @@ const ChangePasswordForm = (props) => {
     useEffect(
         () => {
             return () => {
-                cleanEmployeePassword();
+                cleanCustomerPassword();
             };
         },
         [],
