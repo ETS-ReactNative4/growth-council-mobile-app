@@ -377,7 +377,7 @@ export default GrowthDetail
 const styles = StyleSheet.create({
 	container: {
         ...CommonStyles.container,
-		height:2000,	
+		height:2100,	
 		
     },
 	arrow: {
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
 	contentWrapper: {
         backgroundColor: 'white',
         borderRadius: 18,
-        height: 1900,
+        height: 2000,
 		overflow:'scroll',
 		marginTop:10
 
@@ -468,10 +468,10 @@ const styles = StyleSheet.create({
 	},
 
 	radar:{
-		height:250,
+		height:350,
 		margin:10,
 		marginTop:30,
-			
+		// backgroundColor:'red'
 	},
 	bottom:{
 		height:190,

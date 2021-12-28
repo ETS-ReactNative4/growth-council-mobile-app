@@ -3,20 +3,17 @@ import { StyleSheet,
 	Text,
 	View,
 	ScrollView, 
-	ImageBackground, 
-	Dimensions,
-	Image, Switch, TouchableOpacity} from 'react-native';
+	ImageBackground,
+	TextInput,
+	Image, TouchableOpacity} from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
-// import Switch from 'react-native-switch-toggles';
+import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Font from 'react-native-vector-icons/FontAwesome5';
-import ToggleSwitch from 'toggle-switch-react-native';
+import FlatTextInput from '../../../shared/form/FlatTextInput';
 
-
-const screenHeight = Math.round(Dimensions.get('window').height);
-
-const Setting = ({navigation}) => {
+const ManageAccount = () => {
 	const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 	return (
@@ -80,106 +77,55 @@ const Setting = ({navigation}) => {
 											size={20}/>
 										</View>
 										<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Account</Text>
-										<TouchableOpacity onPress={() => navigation.navigate('Account')}>
-											<Ionicons
-												name='chevron-forward-outline'
-												size={20}
-												color='#d7d7d7'
-												style={{marginTop:20, marginLeft:120}}
-												/>
-										</TouchableOpacity>
+										
+								</View>
+								<View style={styles.TextWrapper}>
+										<Text style={{size:7, marginLeft:10}}>Username</Text>
+										<TextInput
+										style={styles.input}
+										placeholder="Edward"
+										keyboardType="text"
+									/>
+										<Text style={{size:7, marginLeft:10}}>First Name</Text>
+										<TextInput
+										style={styles.input}
+										placeholder="useless placeholder"
+										keyboardType="text"
+									/>
+										<Text style={{size:7, marginLeft:10}}>Last Name</Text>
+										<TextInput
+										style={styles.input}
+										placeholder="useless placeholder"
+										keyboardType="text"
+									/>
+										<Text style={{size:7, marginLeft:10}}>Email</Text>
+										<TextInput
+										style={styles.input}
+										placeholder="Edward@frostdigi.com"
+										keyboardType="text"
+									/>
+										 <View style={styles.loginButtonWrapper}>
+										<Button style={styles.loginButton} >
+											{/*<Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>*/}
+											<Text style={styles.loginButtonText}>Update Password</Text>
+										</Button>
+									</View>
+										
+								</View>
+								<View style={styles.middleWrapper}>
+										<View style={styles.middleImage}>
+										<Ionicons
+											name="key" 
+											color='white' 
+											size={20}/>
+										</View>
+										<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Change Password</Text>
+										
 								</View>
 							
-							<View style={styles.middleWrapper}>
-								<View style={styles.middleImage}>
-									<Material
-										name={'payment'}
-										size={20}
-										color="white"
-										
-									/>
-								</View>
-								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Payment Method</Text>
-								<Ionicons
-									name='chevron-forward-outline'
-									size={20}
-									color='#d7d7d7'
-									style={{marginTop:20, marginLeft:50}}
-									/>
-								
-							</View> 
-							<View style={styles.middleWrapper}>
-								<View style={styles.middleImage}>
-									<Ionicons
-										name={'notifications'}
-										size={20}
-										color="white"
-										
-									/>
-								</View>
-								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Notification</Text>
-								
-								
-									<Switch
-										trackColor={{ false: "#767577", true: "#32a32e" }}
-										thumbColor={isEnabled ? "white" : "white" }
-										ios_backgroundColor="#3e3e3e"
-										onValueChange={toggleSwitch}
-										value={isEnabled}
-										style={{ transform: [{ scaleX: 1.4}, { scaleY: 1.5 }] , marginLeft:60}}
-     								 />
-									  {/* <ToggleSwitch
-											isOn={false}
-											onColor="green"
-											labelStyle={{ color: "black", fontWeight: "900" }}
-											size="large"
-											onToggle={isOn => console.log("changed to : ", isOn)}
-											style={{ transform: [{ scaleX: 0.7}, { scaleY: 0.7}] , marginLeft:60}}
-											/> */}
+					
+					</View>
 
-								
-							</View> 
-						</View>
-						<View style={styles.wrapper}>
-							<View style={styles.middleWrapper}>
-								<View style={styles.middleImage1}>
-									<Ionicons
-										name={'headset'}
-										size={20}
-										color="white"
-										
-									/>
-								</View>
-								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Help</Text>
-								
-							</View>
-							
-						
-							<View style={styles.middleWrapper}>
-								<View style={styles.middleImage1}>
-									<Ionicons
-										name={'lock-closed-outline'}
-										size={20}
-										color="white"
-										
-									/>
-								</View>
-								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Private Policy</Text>
-							</View> 
-							<View style={styles.middleWrapper}>
-								<View style={styles.middleImage1}>
-									<Material
-										name={'logout'}
-										size={20}
-										color="white"
-										
-									/>
-								</View>
-								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Logout</Text>
-							</View> 
-						</View>
-						
-						
 						<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
 						<Image source={require('../../../assets/img/footer_company_name_image.png')}
 							style={{width:'60%', marginTop:10, marginBottom:15}}
@@ -193,7 +139,8 @@ const Setting = ({navigation}) => {
 	)
 }
 
-export default Setting
+
+export default ManageAccount
 
 const styles = StyleSheet.create({
 	container: {
@@ -204,7 +151,7 @@ const styles = StyleSheet.create({
     },
 	header:{
 		width:'80%',
-		height:190, 
+		height:160, 
 		backgroundColor:"white",
 		margin:40,
 		marginTop:60,
@@ -238,24 +185,22 @@ const styles = StyleSheet.create({
 		
     },
 	middle:{
-		height:'80%',
+		height:700,
 		backgroundColor:'white',
-		marginTop:150,
+		marginTop:110,
 		justifyContent:'center',
 		alignItems:'center', 
 	},
 	wrapper:{
 		width:'80%',
-		height:180, 
-	
-		marginTop:10,
+		height:500, 
+		// backgroundColor:"red",
+		marginTop:100,
 	},
 	middleWrapper:{
 		height: 60,
 		display:'flex',
 		flexDirection:'row',
-		
-	
 	},
 	
 	middleImage:{
@@ -277,7 +222,35 @@ const styles = StyleSheet.create({
 		borderRadius:10,
 		marginLeft:10,
 		marginTop:10,
-	}
+	},
+	TextWrapper:{
+		height:380,
+		// backgroundColor:'green'
+		marginTop:10,
+	},
+	input: {
+		height: 40,
+		margin: 10,
+		borderWidth:0.5,
+		padding: 10,
+		borderRadius:10,
+	  },
+	
+	loginButtonWrapper: {
+       marginLeft:20,
+        width: '90%',
+    },
+    loginButton: {
+        width: '50%',
+        borderRadius: 10,
+        height: 50,
+        backgroundColor:'#3A9BDC',
+    },
+    loginButtonText: {
+        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
+        fontFamily: Typography.FONT_BOLD,
+		
+    },
 
 	
 })

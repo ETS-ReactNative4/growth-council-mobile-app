@@ -9,6 +9,7 @@ import CommunityDetailScreen from '../screens/dashboard/CommunityDetail';
 import GrowthDetailScreen from '../screens/dashboard/GrowthDetail';
 
 
+
 const Stack = createStackNavigator();
 
 const ModelNavigation = () => {
@@ -21,6 +22,7 @@ const ModelNavigation = () => {
 			<Stack.Screen name="HomeCommunity" component={HomeCommunityScreen} options={{headerShown: false}}/>
 			<Stack.Screen name="CommunityDetail" component={CommunityDetailScreen} options={{headerShown: false}}/>
 			<Stack.Screen name="GrowthDetail" component={GrowthDetailScreen} options={{headerShown: false}}/>
+			
         </Stack.Navigator>
     );
 };
