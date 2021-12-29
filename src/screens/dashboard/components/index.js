@@ -116,7 +116,9 @@ const _renderTopItem = ({item, index}) => {
 
 const Dashboard = (props) => {
 
-    const {navigation, upcomingEvents, upcomingEventLoading, upcomingEventError, fetchAllUpcomingEvent, cleanUpcomingEvent} = props;
+    const {navigation, upcomingEvents, upcomingEventLoading, upcomingEventError, fetchAllUpcomingEvent, cleanUpcomingEvent, 
+		PointOfEngagement, PointOfEngagementLoading, PointOfEngagementError,fetchAllPointOfEngagement,cleanPointOfEngagement,
+		CommunityMember,CommunityMemberLoading, CommunityMemberError,fetchAllCommunityMember,cleanCommunityMember} = props;
 
     useEffect(() => {
         const fetchAllUpcomingEventAsync = async () => {
@@ -126,58 +128,36 @@ const Dashboard = (props) => {
 
     }, []);
 
+	useEffect(()=>{
+		const fetchAllPointOfEngagementAsync = async () => {
+            fetchAllPointOfEngagement();
+        };
+        fetchAllPointOfEngagementAsync();
+	}, []);
+	
+	useEffect(()=>{
+		const fetchAllCommunityMemberAsync = async () => {
+            fetchAllCommunityMember();
+        };
+        fetchAllCommunityMemberAsync();
+	}, []);
+
     console.log("upcomingEvents:::::::::::::::::", upcomingEvents);
+	console.log("PointOfEngagement:::::::::::::::::", PointOfEngagement);
+	console.log("CommunityMember:::::::::::::::::", CommunityMember);
 
     return (
         <ScrollView>
             <View style={styles.container}>
                 <ImageBackground
-                    style={{width: '100%', height: 200}}
+                    style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
-                    {/*<View style={{display: 'flex', flexDirection: 'row'}}>*/}
-                    {/*<Image*/}
-                    {/*source={require('../../../assets/img/dashboard_logo.png')}*/}
-                    {/*style={{*/}
-                    {/*position: 'absolute',*/}
-                    {/*top: 20,*/}
-                    {/*height: 30,*/}
-                    {/*width: 30,*/}
-                    {/*left: 10,*/}
-                    {/*borderWidth: 5,*/}
-                    {/*}}*/}
-                    {/*/>*/}
-                    {/*<View style={{marginLeft: 50}}>*/}
-                    {/*<Text style={{marginTop: 15, color: 'white', fontSize: 15}}>*/}
-                    {/*Good Morning*/}
-                    {/*</Text>*/}
-                    {/*<Text style={{fontWeight: '700', color: 'white', fontSize: 20}}>*/}
-                    {/*Edward*/}
-                    {/*</Text>*/}
-                    {/*</View>*/}
-
-                    {/*<Font*/}
-                    {/*name={'search'}*/}
-                    {/*size={30}*/}
-                    {/*color="white"*/}
-                    {/*style={{marginLeft: 150, marginTop: 20}}*/}
-                    {/*/>*/}
-                    {/*<Image*/}
-                    {/*source={require('../../../assets/img/profile_image.png')}*/}
-                    {/*style={{*/}
-                    {/*height: 50,*/}
-                    {/*width: 50,*/}
-                    {/*marginTop: 10,*/}
-                    {/*marginLeft: 10,*/}
-                    {/*borderRadius: 50,*/}
-                    {/*}}*/}
-                    {/*/>*/}
-                    {/*</View>*/}
 
                     <Image
                         source={require('../../../assets/img/massk.png')}
                         style={{
                             position: 'absolute',
-                            top: 90,
+                            top: 80,
                             height: 150,
                             width: '30%',
                             left: 10,
@@ -189,7 +169,7 @@ const Dashboard = (props) => {
                         source={require('../../../assets/img/community_slider_image.png')}
                         style={{
                             position: 'absolute',
-                            top: 90,
+                            top: 80,
                             height: 150,
                             width: '30%',
                             left: 138,
@@ -200,7 +180,7 @@ const Dashboard = (props) => {
                         source={require('../../../assets/img/massk.png')}
                         style={{
                             position: 'absolute',
-                            top: 90,
+                            top: 80,
                             height: 150,
                             width: '30%',
                             right: 10,
@@ -224,74 +204,7 @@ const Dashboard = (props) => {
                             data={data2}
                             renderItem={_renderTopItem}
                         />
-                        {/* <Swiper style={styles.wrapper} autoplay
-                        paginationStyle={{top: '90%', backgroundColor: 'transparent'}}
-                        showsButtons={false}
-						loop={false}
-						showsPagination={false}
-                >
-
-						<View style={styles.topWrapper} >
-							<ImageBackground
-								style={{width:'100%',
-								height:170,
-								borderRadius:20}}
-								source={require('../../../assets/img/blank_event_design.png')}>
-
-							<View style={{
-								width:"15%",
-								height:50,
-								marginTop:10,
-								marginLeft:240,
-								backgroundColor:'#EBECF0',
-								borderRadius:10,
-								padding:5,
-								alignItems:'center'
-
-							}}>
-								<Text>28</Text>
-								<Text>July</Text>
-							</View>
-
-							<View style={styles.header}>
-							<Text style={styles.headingText1}>Executive Coaching Clinic On Goal Setting</Text>
-							<Text style={styles.headingText2}>Hosted by Michael Cooper</Text>
-							</View>
-							</ImageBackground>
-						</View>
-
-						<View style={styles.topWrapper} >
-
-							<ImageBackground
-								style={{width:'100%',
-								height:170,
-								borderRadius:20}}
-								source={require('../../../assets/img/blank_event_design.png')}>
-
-							<View style={{
-								width:"15%",
-								height:50,
-								marginTop:10,
-								marginLeft:240,
-								backgroundColor:'#EBECF0',
-								borderRadius:10,
-								padding:5,
-								alignItems:'center'
-
-							}}>
-								<Text>10</Text>
-								<Text>Oct</Text>
-							</View>
-
-							<View style={styles.header}>
-							<Text style={styles.headingText1}>Associate Member Meeting</Text>
-							<Text style={styles.headingText2}>Hosted by Michael Cooper</Text>
-							</View>
-							</ImageBackground>
-
-						</View>
-
-				</Swiper> */}
+                        
                     </View>
                 </View>
 

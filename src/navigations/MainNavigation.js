@@ -23,10 +23,10 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
-import AboutScreen from '../screens/about';
-import FeedbackScreen from '../screens/feedback';
-import IdeasScreen from '../screens/ideas';
-import EventDetailScreen from '../screens/event';
+// import AboutScreen from '../screens/about';
+// import FeedbackScreen from '../screens/feedback';
+// import IdeasScreen from '../screens/ideas';
+// import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';
 
 const Stack = createStackNavigator();
@@ -224,7 +224,7 @@ const MainNavigation = () => {
                     headerTitle: 'Contact Us',
                 }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="About"
                 component={AboutScreen}
                 options={{
@@ -244,7 +244,7 @@ const MainNavigation = () => {
                 options={{
                     headerTitle: 'Contribute Ideas',
                 }}
-            />
+            /> */}
         </Stack.Navigator>
     );
 };
