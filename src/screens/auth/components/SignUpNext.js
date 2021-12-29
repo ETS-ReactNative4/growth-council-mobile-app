@@ -20,7 +20,7 @@ const SignUpNext = ({navigation}) => {
             <View style={styles.container}>
 
                 <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
-				<View 
+				<View
 					style={{display:'flex',
 					flexDirection:'row'}}>
 					<View style={{
@@ -47,16 +47,16 @@ const SignUpNext = ({navigation}) => {
 				}}>
 				<Image source={require('../../../assets/img/welcome_profile_image.png')}/>
 				</View>
-				
+
 				<View style={{
 					width:120,
 					height:120,
 					backgroundColor:'#F5F5F5',
 					marginLeft:200,
 					borderRadius:10,
-					
+
 				}}/>
-                
+
 
                 <View style={styles.header}>
                     <Text style={styles.headingText1}>Welcome to John!</Text>
@@ -69,16 +69,16 @@ const SignUpNext = ({navigation}) => {
                         name={'arrow-forward'}
                         size={50}
                         color={Colors.PRIMARY_BACKGROUND_ICON_COLOR}
-                        onPress={() => navigation.navigate('Journey')}
+                        onPress={() => navigation.navigate('Dashboard')}
                     />
-					
+
                 </View>
 				<View style={styles.image}>
 					<Image source={require('../../../assets/img/footer_logo.png')} />
 					<Image source={require('../../../assets/img/footer_company_name_image.png')} style={{marginTop:20}} />
 				</View>
             </View>
-			
+
         </ScrollView>
     );
 };
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_NORMAL,
         width: 220,
     },
-	
+
     arrow: {
 		marginLeft:280,
 		marginTop:80,

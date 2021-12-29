@@ -1,17 +1,17 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import Calendar from './components';
+import EventCalendar from './components';
 
-const CalendarScreen = (props) => {
+const EventCalendarScreen = (props) => {
 
     const dispatch = useDispatch();
 
     return (
-        <Calendar
+        <EventCalendar
             {...props}
         />
     );
 };
 
-export default CalendarScreen;
+export default EventCalendarScreen;

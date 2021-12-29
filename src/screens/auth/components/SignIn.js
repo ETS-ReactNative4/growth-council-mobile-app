@@ -48,7 +48,7 @@ const SignInForm = (props) => {
         isValid,
     } = useFormik({
         validationSchema: signInSchema,
-        initialValues: {email: '', password: ''},
+        initialValues: {username: 'admin', password: 'password'},
         onSubmit: values => {
             signIn(values);
         },
@@ -102,12 +102,12 @@ const SignInForm = (props) => {
                             <View style={styles.body}>
                                 <FlatTextInput
                                     label='Email'
-                                    value={values.email}
-                                    onChangeText={handleChange('email')}
-                                    onFocus={handleBlur('email')}
-                                    error={errors.email}
-                                    touched={touched.email}
-                                    keyboardType={'email-address'}
+                                    value={values.username}
+                                    onChangeText={handleChange('username')}
+                                    onFocus={handleBlur('username')}
+                                    error={errors.username}
+                                    touched={touched.username}
+                                    //keyboardType={'email-address'}
                                 />
 
                                 <FlatTextInput
@@ -150,7 +150,7 @@ const SignInForm = (props) => {
                             <View style={[styles.signuptext, {marginTop: 40}]}>
                                 <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/>
                                 <Text>Need Help? </Text>
-                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('ContactUs')}> Contact Us </Text>
+                                <Text style={{color: '#31ade5'}}> Contact Us </Text>
                             </View>
 
                         </View>

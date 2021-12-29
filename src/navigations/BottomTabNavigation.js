@@ -18,17 +18,17 @@ const BottomTabNavigation = () => {
     return (
         <Tab.Navigator
             initialRouteName="Dashboard"
-            screenOptions={{
+            screenOptions={() => ({
                 headerShown: false,
                 tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
                 tabBarInactiveTintColor: 'gray',
                 tabBarShowLabel: false,
-            }}
+            })}
         >
             <Tab.Screen
                 name="Dashboard"
                 component={DashboardScreen}
-                options={{
+                options={() => ({
                     tabBarLabel: 'Home',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
@@ -38,7 +38,7 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
-                }}
+                })}
             />
 
             <Tab.Screen

@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {update} from '../../utils/httpUtil';
 
-export const updateEmployeeByID = createAsyncThunk(
+export const updateCustomerByID = createAsyncThunk(
     'password/updateByID',
      (formData, {rejectWithValue}) => {
         const {id, ...fields} = formData;
@@ -14,22 +14,22 @@ const passwordSlice = createSlice({
     name: 'password',
     initialState: {entities: {}, loading: false, error: {}},
     reducers: {
-        resetEmployeePassword: (state) => {
+        resetCustomerPassword: (state) => {
             state.entities = {};
             state.loading = false;
             state.error = {};
         },
     },
     extraReducers: {
-        [updateEmployeeByID.pending]: (state, action) => {
+        [updateCustomerByID.pending]: (state, action) => {
             state.loading = true;
             state.error = {};
         },
-        [updateEmployeeByID.fulfilled]: (state, action) => {
+        [updateCustomerByID.fulfilled]: (state, action) => {
             state.loading = false;
             state.entities = action.payload;
         },
-        [updateEmployeeByID.rejected]: (state, action) => {
+        [updateCustomerByID.rejected]: (state, action) => {
             state.loading = false;
             if (action.payload) {
                 state.error = action.payload;
@@ -40,6 +40,6 @@ const passwordSlice = createSlice({
     },
 });
 
-export const {resetEmployeePassword} = passwordSlice.actions;
+export const {resetCustomerPassword} = passwordSlice.actions;
 
 export default passwordSlice.reducer;
