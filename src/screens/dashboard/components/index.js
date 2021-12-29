@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -10,8 +10,6 @@ import {
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import Swiper from 'react-native-swiper';
 
 const Data = [
     {
@@ -35,7 +33,7 @@ const Data = [
 const _renderItem = ({item, index}) => {
     return (
         <View style={styles.bottomWrapper}>
-            <Image style={styles.bottomImage} source={item?.uri} />
+            <Image style={styles.bottomImage} source={item?.uri}/>
             <Text>{item.text}</Text>
         </View>
     );
@@ -64,7 +62,7 @@ const _renderMiddleItem = ({item, index}) => {
     return (
         <View style={styles.middleWrapper}>
             <View style={styles.middleW}>
-                <Font name={item.icon} size={40} color="skyblue" />
+                <Font name={item.icon} size={40} color="skyblue"/>
             </View>
             <Text style={{marginTop: 10}}>{item.text}</Text>
         </View>
@@ -115,7 +113,21 @@ const _renderTopItem = ({item, index}) => {
         </View>
     );
 };
-const Dashboard = ({navigation}) => {
+
+const Dashboard = (props) => {
+
+    const {navigation, upcomingEvents, upcomingEventLoading, upcomingEventError, fetchAllUpcomingEvent, cleanUpcomingEvent} = props;
+
+    useEffect(() => {
+        const fetchAllUpcomingEventAsync = async () => {
+            fetchAllUpcomingEvent();
+        };
+        fetchAllUpcomingEventAsync();
+
+    }, []);
+
+    console.log("upcomingEvents:::::::::::::::::", upcomingEvents);
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -123,42 +135,42 @@ const Dashboard = ({navigation}) => {
                     style={{width: '100%', height: 200}}
                     source={require('../../../assets/img/blank_event_design.png')}>
                     {/*<View style={{display: 'flex', flexDirection: 'row'}}>*/}
-                        {/*<Image*/}
-                            {/*source={require('../../../assets/img/dashboard_logo.png')}*/}
-                            {/*style={{*/}
-                                {/*position: 'absolute',*/}
-                                {/*top: 20,*/}
-                                {/*height: 30,*/}
-                                {/*width: 30,*/}
-                                {/*left: 10,*/}
-                                {/*borderWidth: 5,*/}
-                            {/*}}*/}
-                        {/*/>*/}
-                        {/*<View style={{marginLeft: 50}}>*/}
-                            {/*<Text style={{marginTop: 15, color: 'white', fontSize: 15}}>*/}
-                                {/*Good Morning*/}
-                            {/*</Text>*/}
-                            {/*<Text style={{fontWeight: '700', color: 'white', fontSize: 20}}>*/}
-                                {/*Edward*/}
-                            {/*</Text>*/}
-                        {/*</View>*/}
+                    {/*<Image*/}
+                    {/*source={require('../../../assets/img/dashboard_logo.png')}*/}
+                    {/*style={{*/}
+                    {/*position: 'absolute',*/}
+                    {/*top: 20,*/}
+                    {/*height: 30,*/}
+                    {/*width: 30,*/}
+                    {/*left: 10,*/}
+                    {/*borderWidth: 5,*/}
+                    {/*}}*/}
+                    {/*/>*/}
+                    {/*<View style={{marginLeft: 50}}>*/}
+                    {/*<Text style={{marginTop: 15, color: 'white', fontSize: 15}}>*/}
+                    {/*Good Morning*/}
+                    {/*</Text>*/}
+                    {/*<Text style={{fontWeight: '700', color: 'white', fontSize: 20}}>*/}
+                    {/*Edward*/}
+                    {/*</Text>*/}
+                    {/*</View>*/}
 
-                        {/*<Font*/}
-                            {/*name={'search'}*/}
-                            {/*size={30}*/}
-                            {/*color="white"*/}
-                            {/*style={{marginLeft: 150, marginTop: 20}}*/}
-                        {/*/>*/}
-                        {/*<Image*/}
-                            {/*source={require('../../../assets/img/profile_image.png')}*/}
-                            {/*style={{*/}
-                                {/*height: 50,*/}
-                                {/*width: 50,*/}
-                                {/*marginTop: 10,*/}
-                                {/*marginLeft: 10,*/}
-                                {/*borderRadius: 50,*/}
-                            {/*}}*/}
-                        {/*/>*/}
+                    {/*<Font*/}
+                    {/*name={'search'}*/}
+                    {/*size={30}*/}
+                    {/*color="white"*/}
+                    {/*style={{marginLeft: 150, marginTop: 20}}*/}
+                    {/*/>*/}
+                    {/*<Image*/}
+                    {/*source={require('../../../assets/img/profile_image.png')}*/}
+                    {/*style={{*/}
+                    {/*height: 50,*/}
+                    {/*width: 50,*/}
+                    {/*marginTop: 10,*/}
+                    {/*marginLeft: 10,*/}
+                    {/*borderRadius: 50,*/}
+                    {/*}}*/}
+                    {/*/>*/}
                     {/*</View>*/}
 
                     <Image
@@ -363,7 +375,6 @@ const styles = StyleSheet.create({
         width: 100,
         borderRadius: 20,
         marginTop: 10,
-        // backgroundColor:'white',
         justifyContent: 'center',
         alignItems: 'center',
     },
