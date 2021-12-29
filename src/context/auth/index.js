@@ -28,8 +28,8 @@ export const AuthProvider = ({children}) => {
                         }, responseType: 'json',
                     });
                     // if (response.data.success) {
-                    if (response.data.data.token) {
-                        await setAsyncStorage(JWT_TOKEN, response.data.data.token);
+                    if (response.data.token) {
+                        await setAsyncStorage(JWT_TOKEN, response.data.token);
                         navigate('Dashboard');
                     } else {
                         setLoading(false);

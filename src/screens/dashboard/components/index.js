@@ -116,35 +116,50 @@ const _renderTopItem = ({item, index}) => {
 
 const Dashboard = (props) => {
 
-    const {navigation, upcomingEvents, upcomingEventLoading, upcomingEventError, fetchAllUpcomingEvent, cleanUpcomingEvent, 
-		PointOfEngagement, PointOfEngagementLoading, PointOfEngagementError,fetchAllPointOfEngagement,cleanPointOfEngagement,
-		CommunityMember,CommunityMemberLoading, CommunityMemberError,fetchAllCommunityMember,cleanCommunityMember} = props;
+    const {
+        navigation,
+        upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
+        pointOfEngagements,
+        pointOfEngagementLoading,
+        pointOfEngagementError,
+        fetchAllPointOfEngagement,
+        cleanPointOfEngagement,
+        communityMembers,
+        communityMemberLoading,
+        communityMemberError,
+        fetchAllCommunityMember,
+        cleanCommunityMember
+    } = props;
 
     useEffect(() => {
         const fetchAllUpcomingEventAsync = async () => {
-            fetchAllUpcomingEvent();
+            await fetchAllUpcomingEvent();
         };
         fetchAllUpcomingEventAsync();
 
     }, []);
 
-	useEffect(()=>{
-		const fetchAllPointOfEngagementAsync = async () => {
-            fetchAllPointOfEngagement();
-        };
-        fetchAllPointOfEngagementAsync();
-	}, []);
-	
-	useEffect(()=>{
-		const fetchAllCommunityMemberAsync = async () => {
-            fetchAllCommunityMember();
-        };
-        fetchAllCommunityMemberAsync();
-	}, []);
+    // useEffect(() => {
+    //     const fetchAllPointOfEngagementAsync = async () => {
+    //         fetchAllPointOfEngagement();
+    //     };
+    //     fetchAllPointOfEngagementAsync();
+    // }, []);
+    //
+    // useEffect(() => {
+    //     const fetchAllCommunityMemberAsync = async () => {
+    //         fetchAllCommunityMember();
+    //     };
+    //     fetchAllCommunityMemberAsync();
+    // }, []);
 
     console.log("upcomingEvents:::::::::::::::::", upcomingEvents);
-	console.log("PointOfEngagement:::::::::::::::::", PointOfEngagement);
-	console.log("CommunityMember:::::::::::::::::", CommunityMember);
+    // console.log("pointOfEngagements:::::::::::::::::", pointOfEngagements);
+    // console.log("communityMembers:::::::::::::::::", communityMembers);
 
     return (
         <ScrollView>
@@ -205,7 +220,6 @@ const Dashboard = (props) => {
                             renderItem={_renderTopItem}
                         />
 
-                      
 
                     </View>
                 </View>

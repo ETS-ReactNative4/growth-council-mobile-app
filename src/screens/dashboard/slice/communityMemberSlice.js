@@ -5,7 +5,7 @@ import { fetch } from '../../../utils/httpUtil';
 export const fetchAllCommunityMembers = createAsyncThunk(
     'communityMember/fetchAll',
     (identifier, {rejectWithValue}) => {
-        return fetch(`v1/events`).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
+        return fetch(`/gil_api/v1/users`).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 

@@ -23,7 +23,7 @@ import FlatTextInput from '../../../shared/form/FlatTextInput';
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const signInSchema = Yup.object().shape({
-    email: Yup.string().email('Please enter a valid email.').required('Email is required.'),
+    username: Yup.string().required('Username is required.'),
     password: Yup
         .string()
         .min(6, ({min}) => `Password must be at least ${min} characters.`)
@@ -134,7 +134,7 @@ const SignInForm = (props) => {
                             </View>
 
                             <View style={styles.loginButtonWrapper}>
-                                <Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>
+                                <Button style={styles.loginButton} onPress={handleSubmit}>
                                     <Text style={styles.loginButtonText}>Sign In</Text>
                                 </Button>
                             </View>
@@ -190,7 +190,6 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
-        //marginBottom: 20,
     },
     headingText2: {
         ...CommonStyles.headingText2,
