@@ -141,7 +141,7 @@ const Home = ({navigation}) => {
         </Button>
         <Button
           style={[styles.button1]}
-          onPress={() => navigation.navigate('Setting')}>
+          onPress={() => navigation.navigate('SignIn')}>
           <Text style={[styles.buttonText, {color: '#709caf'}]}>
             I already have an account{' '}
           </Text>
