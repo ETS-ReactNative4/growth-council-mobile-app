@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     Platform,
     StyleSheet,
@@ -7,32 +7,30 @@ import {
     ScrollView,
     StatusBar,
     TouchableOpacity,
-    Dimensions,
     ImageBackground,
 } from 'react-native';
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
+import {BubblesLoader} from "react-native-indicator";
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 import CheckBox from '../../../shared/form/Checkbox';
-
-const screenHeight = Math.round(Dimensions.get('window').height);
+import ToastMessage from "../../../shared/toast";
 
 const signUpSchema = Yup.object().shape({
-    email: Yup.string().email('Please enter a valid email.').required('Email is required.'),
-    password: Yup
-        .string()
-        .min(6, ({min}) => `Password must be at least ${min} characters.`)
-        .required('Password is required.'),
+    firstname: Yup.string().required('First Name is required.'),
+    lastname: Yup.string().required('Last Name is required.'),
+    // password: Yup
+    //     .string()
+    //     .min(6, ({min}) => `Password must be at least ${min} characters.`)
+    //     .required('Password is required.'),
 });
 
 const SignUpForm = (props) => {
 
-    const [hidePass, setHidePass] = useState(true);
-
-    const {navigation} = props;
+    const {navigation, loading, error, registerCustomer, cleanCustomer} = props;
 
     const [checked, setChecked] = React.useState(false);
 
@@ -46,11 +44,13 @@ const SignUpForm = (props) => {
         isValid,
     } = useFormik({
         validationSchema: signUpSchema,
-        initialValues: {email: '', password: ''},
-        onSubmit: values => {
-            navigation.navigate('SignUpNext', {
-                screen: 'SignUpNext',
-                params: {customer: values},
+        initialValues: {firstname: '', lastname: '', title: '', company: '', business_phone: '', business_email: ''},
+        onSubmit: async values => {
+            await registerCustomer(values).then(response => {
+                if (!response.error) {
+                    navigation.navigate('SignUpNext');
+                    ToastMessage.show('You have successfully registered.');
+                }
             });
         },
     });
@@ -73,6 +73,18 @@ const SignUpForm = (props) => {
                         <Text style={styles.headingText1}>Your Account!</Text>
                     </View>
 
+                    {loading &&
+                    <View style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around',
+                        position: 'absolute',
+                        zIndex: 1011,
+                    }}>
+                        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+                    </View>
+                    }
                     <ScrollView
                         style={styles.scrollBox}>
 
@@ -143,8 +155,8 @@ const SignUpForm = (props) => {
                         </View>
 
                         <View style={styles.loginButtonWrapper}>
-                            <Button style={styles.loginButton} onPress={() => navigation.navigate('SignUpNext')}>
-                                {/*<Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>*/}
+                            {/*<Button style={styles.loginButton} onPress={() => navigation.navigate('SignUpNext')}>*/}
+                            <Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>
                                 <Text style={styles.loginButtonText}>Sign Up</Text>
                             </Button>
                         </View>

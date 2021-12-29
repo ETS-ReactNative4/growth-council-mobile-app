@@ -119,66 +119,66 @@ const Search = ({navigation}) => {
         <ImageBackground
           style={{width: '100%', height: 150}}
           source={require('../../../assets/img/search_back_image.png')}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <View style={{flex: 1}}>
-              <Image
-                source={require('../../../assets/img/dashboard_logo.png')}
-                style={{
-                  position: 'absolute',
-                  top: 20,
-                  height: 40,
-                  width: 40,
-                  left: 10,
-                  borderWidth: 5,
-                }}
-              />
-            </View>
-            <View style={{flex: 1}}>
-              <Image
-                source={require('../../../assets/img/dashboard_logo.png')}
-                style={{
-                  position: 'absolute',
-                  top: 20,
-                  height: 40,
-                  width: 40,
-                  left: 10,
-                  borderWidth: 5,
-                }}
-              />
-            </View>
-            <View style={{flex: 3, justifyContent: 'center'}}>
-              <Text
-                style={{
-                  marginTop: 15,
-                  fontWeight: '700',
-                  color: 'white',
-                  fontSize: 24,
-                }}>
-                Search
-              </Text>
-            </View>
-            <View
-              style={{
-                flex: 2,
-                justifyContent: 'center',
-                alignItems: 'flex-end',
-              }}>
-              <Image
-                source={require('../../../assets/img/small_profile_image.png')}
-                style={{
-                  height: 50,
-                  width: 50,
-                  marginTop: 10,
-                  marginRight: 10,
-                  borderRadius: 50,
-                }}
-              />
-            </View>
-          </View>
+          {/*<View*/}
+            {/*style={{*/}
+              {/*flexDirection: 'row',*/}
+              {/*justifyContent: 'center',*/}
+            {/*}}>*/}
+            {/*<View style={{flex: 1}}>*/}
+              {/*<Image*/}
+                {/*source={require('../../../assets/img/dashboard_logo.png')}*/}
+                {/*style={{*/}
+                  {/*position: 'absolute',*/}
+                  {/*top: 20,*/}
+                  {/*height: 40,*/}
+                  {/*width: 40,*/}
+                  {/*left: 10,*/}
+                  {/*borderWidth: 5,*/}
+                {/*}}*/}
+              {/*/>*/}
+            {/*</View>*/}
+            {/*<View style={{flex: 1}}>*/}
+              {/*<Image*/}
+                {/*source={require('../../../assets/img/dashboard_logo.png')}*/}
+                {/*style={{*/}
+                  {/*position: 'absolute',*/}
+                  {/*top: 20,*/}
+                  {/*height: 40,*/}
+                  {/*width: 40,*/}
+                  {/*left: 10,*/}
+                  {/*borderWidth: 5,*/}
+                {/*}}*/}
+              {/*/>*/}
+            {/*</View>*/}
+            {/*<View style={{flex: 3, justifyContent: 'center'}}>*/}
+              {/*<Text*/}
+                {/*style={{*/}
+                  {/*marginTop: 15,*/}
+                  {/*fontWeight: '700',*/}
+                  {/*color: 'white',*/}
+                  {/*fontSize: 24,*/}
+                {/*}}>*/}
+                {/*Search*/}
+              {/*</Text>*/}
+            {/*</View>*/}
+            {/*<View*/}
+              {/*style={{*/}
+                {/*flex: 2,*/}
+                {/*justifyContent: 'center',*/}
+                {/*alignItems: 'flex-end',*/}
+              {/*}}>*/}
+              {/*<Image*/}
+                {/*source={require('../../../assets/img/small_profile_image.png')}*/}
+                {/*style={{*/}
+                  {/*height: 50,*/}
+                  {/*width: 50,*/}
+                  {/*marginTop: 10,*/}
+                  {/*marginRight: 10,*/}
+                  {/*borderRadius: 50,*/}
+                {/*}}*/}
+              {/*/>*/}
+            {/*</View>*/}
+          {/*</View>*/}
 
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <Searchbox />

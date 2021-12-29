@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import ChangePasswordForm from './components/ChangePassword';
-import {updateEmployeeByID, resetEmployeePassword} from './passwordSlice';
+import {updateCustomerByID, resetCustomerPassword} from './passwordSlice';
 
 const ChangePasswordScreen = (props) => {
 
@@ -11,20 +11,20 @@ const ChangePasswordScreen = (props) => {
     const {entities, loading, error} = useSelector((state) => state.password);
 
     /**
-     * Update employee data.
+     * Update customer data.
      * @param {object} formData
      *
      */
-    const updateEmployee = formData => {
-        return dispatch(updateEmployeeByID(formData));
+    const updateCustomerPassword = formData => {
+        return dispatch(updateCustomerByID(formData));
     };
 
     /**
-     * Clear employee data.
+     * Clear customer data.
      *
      */
-    const cleanEmployeePassword = () => {
-        dispatch(resetEmployeePassword());
+    const cleanCustomerPassword = () => {
+        dispatch(resetCustomerPassword());
     };
 
     return (
@@ -34,8 +34,8 @@ const ChangePasswordScreen = (props) => {
             password={entities}
             loading={loading}
             error={error}
-            updateEmployee={updateEmployee}
-            cleanEmployeePassword={cleanEmployeePassword}
+            updateCustomerPassword={updateCustomerPassword}
+            cleanCustomerPassword={cleanCustomerPassword}
         />
     );
 
