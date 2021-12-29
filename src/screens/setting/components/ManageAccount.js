@@ -14,8 +14,7 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 
 const ManageAccount = () => {
-	const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
 	return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,}} >
 			<View style={styles.container} >
@@ -79,6 +78,7 @@ const ManageAccount = () => {
 										<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Account</Text>
 										
 								</View>
+								<View style={{ height: 1,width:'100%', backgroundColor: '#ECECEC'}} />
 								<View style={styles.TextWrapper}>
 										<Text style={{size:7, marginLeft:10}}>Username</Text>
 										<TextInput
@@ -112,6 +112,7 @@ const ManageAccount = () => {
 									</View>
 										
 								</View>
+								<View style={{ height: 1,width:'100%', backgroundColor: '#ECECEC'}} />
 								<View style={styles.middleWrapper}>
 										<View style={styles.middleImage}>
 										<Ionicons
