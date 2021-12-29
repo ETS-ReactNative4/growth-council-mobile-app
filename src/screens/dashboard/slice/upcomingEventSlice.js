@@ -1,12 +1,11 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-// import {fetch, update} from '@/utils/httpUtil';
-import { fetch, update } from '../../utils/httpUtil';
+import { fetch } from '../../../utils/httpUtil';
 
 export const fetchAllUpcomingEvents = createAsyncThunk(
     'upcomingEvent/fetchAll',
     (identifier, {rejectWithValue}) => {
-        return fetch(`https://gc.yakamoztech.com/wp-json/gil_api/v1/pillars/121/events`)
+        return fetch(`/gil_api/v1/pillars/121/events`)
 		.then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );

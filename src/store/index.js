@@ -16,9 +16,9 @@ import authReducer from '../screens/auth/authSlice';
 import profileReducer from '../screens/account/profileSlice';
 import passwordReducer from '../screens/setting/passwordSlice';
 
-import upcomingEventReducer from '../screens/dashboard/upcomingEventSlice';
-import PointOfEngagementReducer from '../screens/dashboard/slice/PointOfEngagementSlice';
-import CommunityMemberReducer from '../screens/dashboard/slice/CommunityMemberSlice';
+import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice';
+import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
+import communityMemberSlice from '../screens/dashboard/slice/communityMemberSlice';
 
 const persistConfig = {
     key: 'root',
@@ -31,8 +31,8 @@ const reducers = combineReducers({
     profile: profileReducer,
     password: passwordReducer,
     upcomingEvents: upcomingEventReducer,
-	PointOfEngagement: PointOfEngagementReducer,
-	CommunityMember:CommunityMemberReducer,
+	pointOfEngagements: pointOfEngagementReducer,
+	communityMembers:communityMemberSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

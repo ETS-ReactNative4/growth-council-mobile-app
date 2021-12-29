@@ -2,16 +2,17 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Dashboard from './components';
-import {fetchAllUpcomingEvents, resetUpcomingEvent} from './upcomingEventSlice';
-import { fetchAllPointOfEngagements, resetPointOfEngagement } from './slice/PointOfEngagementSlice';
-import {fetchAllCommunityMembers, resetCommunityMember} from './slice/CommunityMemberSlice';
+import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
+import {fetchAllPointOfEngagements, resetPointOfEngagement} from './slice/pointOfEngagementSlice';
+import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
+
 const DashboardScreen = (props) => {
 
     const dispatch = useDispatch();
 
     const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
-	const {PointOfEngagement,PointOfEngagementLoading, PointOfEngagementError} = useSelector((state) => state.PointOfEngagement);
-	const {CommunityMember,CommunityMemberLoading, CommunityMemberError} = useSelector((state) => state.CommunityMember);
+    const {pointOfEngagements, pointOfEngagementLoading, pointOfEngagementError} = useSelector((state) => state.pointOfEngagements);
+    const {communityMembers, communityMemberLoading, communityMemberError} = useSelector((state) => state.communityMembers);
 
     /**
      * Fetch all upcoming events data.
@@ -20,10 +21,12 @@ const DashboardScreen = (props) => {
     const fetchAllUpcomingEvent = () => {
         dispatch(fetchAllUpcomingEvents());
     };
-	const fetchAllPointOfEngagement = () => {
+
+    const fetchAllPointOfEngagement = () => {
         dispatch(fetchAllPointOfEngagements());
     };
-	const fetchAllCommunityMember = () => {
+
+    const fetchAllCommunityMember = () => {
         dispatch(fetchAllCommunityMembers());
     };
 
@@ -34,12 +37,15 @@ const DashboardScreen = (props) => {
     const cleanUpcomingEvent = () => {
         dispatch(resetUpcomingEvent());
     };
-	const cleanPointOfEngagement = () => {
+
+    const cleanPointOfEngagement = () => {
         dispatch(resetPointOfEngagement());
     };
-	const cleanCommunityMember = () => {
+
+    const cleanCommunityMember = () => {
         dispatch(resetCommunityMember());
     };
+
     return (
         <Dashboard
             {...props}
@@ -49,17 +55,17 @@ const DashboardScreen = (props) => {
             fetchAllUpcomingEvent={fetchAllUpcomingEvent}
             cleanUpcomingEvent={cleanUpcomingEvent}
 
-			PointOfEngagement={PointOfEngagement}
-			PointOfEngagementLoading={PointOfEngagementLoading}
-			PointOfEngagementError={PointOfEngagementError}
-			fetchAllPointOfEngagement={fetchAllPointOfEngagement}
-			cleanPointOfEngagement={cleanPointOfEngagement}
+            pointOfEngagements={pointOfEngagements}
+            pointOfEngagementLoading={pointOfEngagementLoading}
+            pointOfEngagementError={pointOfEngagementError}
+            fetchAllPointOfEngagement={fetchAllPointOfEngagement}
+            cleanPointOfEngagement={cleanPointOfEngagement}
 
-			CommunityMember={CommunityMember}
-			CommunityMemberLoading={CommunityMemberLoading}
-			CommunityMemberError={CommunityMemberError}
-			fetchAllCommunityMember={fetchAllCommunityMember}
-			cleanCommunityMember={cleanCommunityMember}
+            communityMembers={communityMembers}
+            communityMemberLoading={communityMemberLoading}
+            communityMemberError={communityMemberError}
+            fetchAllCommunityMember={fetchAllCommunityMember}
+            cleanCommunityMember={cleanCommunityMember}
         />
     );
 };
