@@ -16,6 +16,8 @@ import authReducer from '../screens/auth/authSlice';
 import profileReducer from '../screens/account/profileSlice';
 import passwordReducer from '../screens/setting/passwordSlice';
 
+import upcomingEventReducer from '../screens/dashboard/upcomingEventSlice';
+
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
@@ -26,6 +28,7 @@ const reducers = combineReducers({
     auth: authReducer,
     profile: profileReducer,
     password: passwordReducer,
+    upcomingEvents: upcomingEventReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
