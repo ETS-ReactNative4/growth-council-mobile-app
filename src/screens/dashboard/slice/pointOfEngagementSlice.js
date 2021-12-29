@@ -5,7 +5,8 @@ import { fetch } from '../../../utils/httpUtil';
 export const fetchAllPointOfEngagements = createAsyncThunk(
     'pointOfEngagement/fetchAll',
     (identifier, {rejectWithValue}) => {
-        return fetch(`v1/events`).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
+        return fetch(`/gil_api/v1/pillars/121/events`)
+		.then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 

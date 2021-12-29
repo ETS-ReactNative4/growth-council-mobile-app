@@ -5,7 +5,8 @@ import { fetch } from '../../../utils/httpUtil';
 export const fetchAllCommunityMembers = createAsyncThunk(
     'communityMember/fetchAll',
     (identifier, {rejectWithValue}) => {
-        return fetch(`v1/events`).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
+        return fetch(`/gil_api/v1/pillars/121/events`)
+		.then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 
@@ -14,7 +15,7 @@ const communityMemberSlice = createSlice({
     initialState: {communityMembers: [], communityMemberLoading: false, communityMemberError: null},
     reducers: {
         resetCommunityMember: (state) => {
-            state.communityMembers= [];
+            state.communityMembers = [];
             state.communityMemberLoading = false;
             state.communityMemberError = null;
         },
