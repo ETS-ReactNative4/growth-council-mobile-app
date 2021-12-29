@@ -116,68 +116,63 @@ const _renderTopItem = ({item, index}) => {
 
 const Dashboard = (props) => {
 
-    const {navigation, upcomingEvents, upcomingEventLoading, upcomingEventError, fetchAllUpcomingEvent, cleanUpcomingEvent} = props;
+    const {
+        navigation,
+        upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
+        pointOfEngagements,
+        pointOfEngagementLoading,
+        pointOfEngagementError,
+        fetchAllPointOfEngagement,
+        cleanPointOfEngagement,
+        communityMembers,
+        communityMemberLoading,
+        communityMemberError,
+        fetchAllCommunityMember,
+        cleanCommunityMember
+    } = props;
 
     useEffect(() => {
         const fetchAllUpcomingEventAsync = async () => {
-            fetchAllUpcomingEvent();
+            await fetchAllUpcomingEvent();
         };
         fetchAllUpcomingEventAsync();
 
     }, []);
 
+    // useEffect(() => {
+    //     const fetchAllPointOfEngagementAsync = async () => {
+    //         fetchAllPointOfEngagement();
+    //     };
+    //     fetchAllPointOfEngagementAsync();
+    // }, []);
+    //
+    // useEffect(() => {
+    //     const fetchAllCommunityMemberAsync = async () => {
+    //         fetchAllCommunityMember();
+    //     };
+    //     fetchAllCommunityMemberAsync();
+    // }, []);
+
     console.log("upcomingEvents:::::::::::::::::", upcomingEvents);
+    // console.log("pointOfEngagements:::::::::::::::::", pointOfEngagements);
+    // console.log("communityMembers:::::::::::::::::", communityMembers);
 
     return (
         <ScrollView>
             <View style={styles.container}>
                 <ImageBackground
-                    style={{width: '100%', height: 200}}
+                    style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
-                    {/*<View style={{display: 'flex', flexDirection: 'row'}}>*/}
-                    {/*<Image*/}
-                    {/*source={require('../../../assets/img/dashboard_logo.png')}*/}
-                    {/*style={{*/}
-                    {/*position: 'absolute',*/}
-                    {/*top: 20,*/}
-                    {/*height: 30,*/}
-                    {/*width: 30,*/}
-                    {/*left: 10,*/}
-                    {/*borderWidth: 5,*/}
-                    {/*}}*/}
-                    {/*/>*/}
-                    {/*<View style={{marginLeft: 50}}>*/}
-                    {/*<Text style={{marginTop: 15, color: 'white', fontSize: 15}}>*/}
-                    {/*Good Morning*/}
-                    {/*</Text>*/}
-                    {/*<Text style={{fontWeight: '700', color: 'white', fontSize: 20}}>*/}
-                    {/*Edward*/}
-                    {/*</Text>*/}
-                    {/*</View>*/}
-
-                    {/*<Font*/}
-                    {/*name={'search'}*/}
-                    {/*size={30}*/}
-                    {/*color="white"*/}
-                    {/*style={{marginLeft: 150, marginTop: 20}}*/}
-                    {/*/>*/}
-                    {/*<Image*/}
-                    {/*source={require('../../../assets/img/profile_image.png')}*/}
-                    {/*style={{*/}
-                    {/*height: 50,*/}
-                    {/*width: 50,*/}
-                    {/*marginTop: 10,*/}
-                    {/*marginLeft: 10,*/}
-                    {/*borderRadius: 50,*/}
-                    {/*}}*/}
-                    {/*/>*/}
-                    {/*</View>*/}
 
                     <Image
                         source={require('../../../assets/img/massk.png')}
                         style={{
                             position: 'absolute',
-                            top: 90,
+                            top: 80,
                             height: 150,
                             width: '30%',
                             left: 10,
@@ -189,7 +184,7 @@ const Dashboard = (props) => {
                         source={require('../../../assets/img/community_slider_image.png')}
                         style={{
                             position: 'absolute',
-                            top: 90,
+                            top: 80,
                             height: 150,
                             width: '30%',
                             left: 138,
@@ -200,7 +195,7 @@ const Dashboard = (props) => {
                         source={require('../../../assets/img/massk.png')}
                         style={{
                             position: 'absolute',
-                            top: 90,
+                            top: 80,
                             height: 150,
                             width: '30%',
                             right: 10,
@@ -224,7 +219,8 @@ const Dashboard = (props) => {
                             data={data2}
                             renderItem={_renderTopItem}
                         />
-                      
+
+
                     </View>
                 </View>
 

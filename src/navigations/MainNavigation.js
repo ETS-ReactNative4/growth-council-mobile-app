@@ -23,7 +23,11 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
+
+// import AboutScreen from '../screens/about';
+
 // import AboutScreen from '../screens/about/index';
+
 // import FeedbackScreen from '../screens/feedback';
 // import IdeasScreen from '../screens/ideas';
 // import EventDetailScreen from '../screens/event';

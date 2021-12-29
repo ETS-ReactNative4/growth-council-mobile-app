@@ -51,8 +51,8 @@ const DrawerNavigation = () => {
             initialRouteName="Dashboard"
             screenOptions={({navigation}) => ({
                 headerTitle: () => (
-                    <View style={{marginLeft: 50}}>
-                        <Text style={{marginTop: 15, color: "#000", fontSize: 15}}>Good Morning</Text>
+                    <View style={{marginLeft: 40}}>
+                        <Text style={{marginTop: 10, color: "#000", fontSize: 15}}>Good Morning</Text>
                         <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Edward</Text>
                     </View>
                 ),
@@ -64,25 +64,24 @@ const DrawerNavigation = () => {
                         <Image source={require('../assets/img/dashboard_logo.png')}
                                style={{
                                    position: 'absolute',
-                                   top: 20,
+                                   
                                    height: 30,
                                    width: 30,
-                                   left: 10,
+                                   left: 30,
                                    borderWidth: 5,
                                }}
                         />
                     </View>
                 ),
                 headerRight: () => (
-                    <View>
-                        <Ionicons name="search-outline" color={'#000'} size={24}/>
+                    <View style={{display:'flex', flexDirection:'row'}}>
+                        <Ionicons name="search-outline" color={'#000'} size={24} style={{marginTop:10,marginRight:10}}/>
                         <Image source={require('../assets/img/small_profile_image.png')}
                                style={{
-                                   height: 50,
-                                   width: 50,
-                                   marginTop: 10,
-                                   marginLeft: 10,
+                                   height: 40,
+                                   width: 40,
                                    borderRadius: 50,
+								   marginRight:20,
                                }}
                         />
                     </View>
