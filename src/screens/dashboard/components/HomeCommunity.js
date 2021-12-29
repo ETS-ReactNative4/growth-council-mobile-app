@@ -76,7 +76,7 @@ const HomeCommunity = ({navigation}) => {
 	
 	const _renderMiddleItem = ({item, index}) => {
 		return (
-			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'EngagementDetail'})}>
+			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CommunityDetail'})}>
 			<View style={styles.middleWrapper}>
 			<View style={styles.middleW}>
 				<Font

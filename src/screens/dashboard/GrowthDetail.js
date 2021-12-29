@@ -1,18 +1,18 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import EngagementDetail from './components/EngagementDetail';
+import GrowthDetail from './components/GrowthDetails';
 
-const EngagementDetailScreen = (props) => {
+const GrowthDetailScreen = (props) => {
 	const dispatch = useDispatch();
 
 	return (
-		<EngagementDetail
+		<GrowthDetail
 		{...props}
 		/>
 	)
 }
 
-export default EngagementDetailScreen;
+export default GrowthDetailScreen
 
 const styles = StyleSheet.create({})
