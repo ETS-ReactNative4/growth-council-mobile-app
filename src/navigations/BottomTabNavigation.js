@@ -45,7 +45,7 @@ const BottomTabNavigation = () => {
                 name="Option"
                 component={SearchScreen}
                 options={{
-                    tabBarLabel: 'Setting',
+                    tabBarLabel: 'Search',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,
@@ -60,7 +60,7 @@ const BottomTabNavigation = () => {
                 name="Chat"
                 component={ChatScreen}
                 options={{
-                    tabBarLabel: 'Setting',
+                    tabBarLabel: 'Chat',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,
@@ -69,13 +69,15 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
+					
                 }}
+				
             />
             <Tab.Screen
                 name="People"
                 component={PeopleScreen}
                 options={{
-                    tabBarLabel: 'Setting',
+                    tabBarLabel: 'People',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,
@@ -90,7 +92,7 @@ const BottomTabNavigation = () => {
                 name="Person"
                 component={AccountScreen}
                 options={{
-                    tabBarLabel: 'Setting',
+                    tabBarLabel: 'Account',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,

@@ -23,11 +23,16 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
-import AboutScreen from '../screens/about';
-import FeedbackScreen from '../screens/feedback';
-import IdeasScreen from '../screens/ideas';
-import EventDetailScreen from '../screens/event';
+// import AboutScreen from '../screens/about/index';
+// import FeedbackScreen from '../screens/feedback';
+// import IdeasScreen from '../screens/ideas';
+// import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';
+
+import FrostRadarScreen from '../screens/radar';
+import SettingScreen from '../screens/setting/index';
+import ManageAccountScreen from '../screens/setting/ManageAccount'
+
 
 const Stack = createStackNavigator();
 
@@ -187,6 +192,26 @@ const MainNavigation = () => {
                     ...TransitionPresets.RevealFromBottomAndroid,
                 }}
             />
+				<Stack.Screen name="radar" component={FrostRadarScreen} options={{
+					headerLeft: () => null,
+					headerTitle: '',
+					headerTransparent: true,
+					...TransitionPresets.RevealFromBottomAndroid,
+				}}/>
+
+		<Stack.Screen name="Setting" component={SettingScreen} options={{
+					headerLeft: () => null,
+					headerTitle: '',
+					headerTransparent: true,
+					...TransitionPresets.RevealFromBottomAndroid,
+				}}/>
+
+			<Stack.Screen name="Account" component={ManageAccountScreen} options={{
+					headerLeft: () => null,
+					headerTitle: '',
+					headerTransparent: true,
+					...TransitionPresets.RevealFromBottomAndroid,
+				}}/>
             <Stack.Screen
                 name="Model"
                 component={ModelNavigation}
@@ -224,14 +249,14 @@ const MainNavigation = () => {
                     headerTitle: 'Contact Us',
                 }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="About"
                 component={AboutScreen}
                 options={{
                     headerTitle: 'About',
                 }}
-            />
-            <Stack.Screen
+            /> */}
+            {/* <Stack.Screen
                 name="Feedback"
                 component={FeedbackScreen}
                 options={{
@@ -244,7 +269,7 @@ const MainNavigation = () => {
                 options={{
                     headerTitle: 'Contribute Ideas',
                 }}
-            />
+            /> */}
         </Stack.Navigator>
     );
 };

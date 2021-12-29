@@ -224,74 +224,7 @@ const Dashboard = (props) => {
                             data={data2}
                             renderItem={_renderTopItem}
                         />
-                        {/* <Swiper style={styles.wrapper} autoplay
-                        paginationStyle={{top: '90%', backgroundColor: 'transparent'}}
-                        showsButtons={false}
-						loop={false}
-						showsPagination={false}
-                >
-
-						<View style={styles.topWrapper} >
-							<ImageBackground
-								style={{width:'100%',
-								height:170,
-								borderRadius:20}}
-								source={require('../../../assets/img/blank_event_design.png')}>
-
-							<View style={{
-								width:"15%",
-								height:50,
-								marginTop:10,
-								marginLeft:240,
-								backgroundColor:'#EBECF0',
-								borderRadius:10,
-								padding:5,
-								alignItems:'center'
-
-							}}>
-								<Text>28</Text>
-								<Text>July</Text>
-							</View>
-
-							<View style={styles.header}>
-							<Text style={styles.headingText1}>Executive Coaching Clinic On Goal Setting</Text>
-							<Text style={styles.headingText2}>Hosted by Michael Cooper</Text>
-							</View>
-							</ImageBackground>
-						</View>
-
-						<View style={styles.topWrapper} >
-
-							<ImageBackground
-								style={{width:'100%',
-								height:170,
-								borderRadius:20}}
-								source={require('../../../assets/img/blank_event_design.png')}>
-
-							<View style={{
-								width:"15%",
-								height:50,
-								marginTop:10,
-								marginLeft:240,
-								backgroundColor:'#EBECF0',
-								borderRadius:10,
-								padding:5,
-								alignItems:'center'
-
-							}}>
-								<Text>10</Text>
-								<Text>Oct</Text>
-							</View>
-
-							<View style={styles.header}>
-							<Text style={styles.headingText1}>Associate Member Meeting</Text>
-							<Text style={styles.headingText2}>Hosted by Michael Cooper</Text>
-							</View>
-							</ImageBackground>
-
-						</View>
-
-				</Swiper> */}
+                      
                     </View>
                 </View>
 
