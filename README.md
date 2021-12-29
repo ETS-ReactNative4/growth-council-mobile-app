@@ -23,6 +23,8 @@ On the command prompt run the following commands:
  ```
  $ npx react-native start
  $ npx react-native run-android
+ 
+ $ npx react-native start --reset-cache
 ```
 
 ### 3. To generate APK

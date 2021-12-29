@@ -1,12 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import { fetch } from '../../../utils/httpUtil';
+import {fetch} from '../../../utils/httpUtil';
 
 export const fetchAllUpcomingEvents = createAsyncThunk(
     'upcomingEvent/fetchAll',
-    (identifier, {rejectWithValue}) => {
-        return fetch(`/gil_api/v1/pillars/121/events`)
-		.then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
+    (_, {rejectWithValue}) => {
+        return fetch(`gil_api/v1/pillars/121/events`)
+            .then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 
