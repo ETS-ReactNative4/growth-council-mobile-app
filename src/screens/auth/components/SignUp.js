@@ -20,12 +20,12 @@ import CheckBox from '../../../shared/form/Checkbox';
 import ToastMessage from '../../../shared/toast';
 
 const signUpSchema = Yup.object().shape({
-  //first_name: Yup.string().required('First Name is required.'),
-  // last_name: Yup.string().required('Last Name is required.'),
-  // password: Yup
-  //     .string()
-  //     .min(6, ({min}) => `Password must be at least ${min} characters.`)
-  //     .required('Password is required.'),
+  first_name: Yup.string().required('First Name is required.'),
+  last_name: Yup.string().required('Last Name is required.'),
+  password: Yup
+      .string()
+      .min(6, ({min}) => `Password must be at least ${min} characters.`)
+      .required('Password is required.'),
 });
 
 const SignUpForm = props => {
@@ -55,7 +55,6 @@ const SignUpForm = props => {
       email: '',
     },
     onSubmit: async values => {
-      console.log(values);
       await registerCustomer(values).then(response => {
         if (!response.error) {
           navigation.navigate('SignUpNext');
