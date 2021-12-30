@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -13,7 +13,25 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const HomeCommunity = ({navigation}) => {
+const HomeCommunity = (props) => {
+	const {
+        navigation,
+        upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
+        pointOfEngagements,
+        pointOfEngagementLoading,
+        pointOfEngagementError,
+        fetchAllPointOfEngagement,
+        cleanPointOfEngagement,
+        communityMembers,
+        communityMemberLoading,
+        communityMemberError,
+        fetchAllCommunityMember,
+        cleanCommunityMember
+    } = props;
 
 	const Data = [
 		{
@@ -39,9 +57,8 @@ const HomeCommunity = ({navigation}) => {
 		return (
 		<View style={styles.bottomWrapper}>
 			<Image 
-				style={styles.bottomImage}
-				source={item?.uri}/>
-			<Text style={{fontWeight:"bold", fontSize:18}}>{item.text}</Text>
+				style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+			<Text style={{fontSize:14}}>{item.data.display_name}</Text>
 			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
 			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
 				<Ionicons
@@ -124,13 +141,13 @@ const HomeCommunity = ({navigation}) => {
 					padding:5,
 					alignItems:'center'				
 					}}>
-						<Text>{item.date}</Text>
+						<Text>{item.post_date}</Text>
 						<Text>{item.month}</Text>
 				</View>
 								
 				<View style={styles.header}>
-					<Text style={styles.headingText1}>{item.text}</Text>
-					<Text style={styles.headingText2}>{item.text1}</Text>
+					<Text style={styles.headingText1}>{item.post_title}</Text>
+					<Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
 				</View>
 				</ImageBackground>
 			</View>)
@@ -162,6 +179,21 @@ const HomeCommunity = ({navigation}) => {
 				</ImageBackground>
 			</View>)
 	}
+	useEffect(() => {
+        const fetchAllUpcomingEventAsync = async () => {
+            await fetchAllUpcomingEvent();
+        };
+        fetchAllUpcomingEventAsync();
+
+    }, []);
+
+	useEffect(() => {
+        const fetchAllCommunityMemberAsync = async () => {
+           await fetchAllCommunityMember();
+        };
+        fetchAllCommunityMemberAsync();
+    }, []);
+
 
 	return (
 		<ScrollView>
@@ -217,7 +249,7 @@ const HomeCommunity = ({navigation}) => {
 					<FlatList
                         horizontal
 						showsHorizontalScrollIndicator={false}
-                        data={data2}
+                        data={upcomingEvents}
                         renderItem={_renderTopItem}/>
 				
 				</View>
@@ -247,7 +279,7 @@ const HomeCommunity = ({navigation}) => {
 					<FlatList
                         horizontal
 						showsHorizontalScrollIndicator={false}
-                        data={Data}
+                        data={communityMembers}
                         renderItem={_renderItem}/>
 				</View>
 			</View>
