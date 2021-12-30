@@ -120,8 +120,8 @@ const Profile = (props) => {
 		<ScrollView contentContainerStyle={{flexGrow: 1,}} >
 			<View style={styles.container} >
 				<ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover" >
-				<View style={{display:'flex', flexDirection:'row'}}>
-						<Image
+				{/* <View style={{display:'flex', flexDirection:'row'}}> */}
+						{/* <Image
 							source={require("../../../assets/img/dashboard_logo.png")}
 							style={{
 								position: 'absolute',
@@ -135,9 +135,9 @@ const Profile = (props) => {
 						<View style={{marginLeft:50,}}>
 						
 						<Text style={{fontWeight:"700",  color:"white", fontSize:23, marginTop:20}}>Profile</Text>
-						</View>
+						</View> */}
 
-						<Font
+						{/* <Font
 							name={'search'}
 							size={30}
 							color="white"
@@ -153,8 +153,8 @@ const Profile = (props) => {
 							borderRadius:50,
 							
 						}}
-						/>
-					</View>
+						/> */}
+					{/* </View> */}
 
 				<View style={{height: '100%',}}>
 					<View style={styles.icon}>
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
 		backgroundColor:"white", 
 		borderRadius:19, 
 		marginLeft:140, 
-		marginTop:10, 
+		marginTop:30, 
 		justifyContent:'center', 
 		position:'absolute',
 		zIndex: 20,
@@ -296,8 +296,9 @@ const styles = StyleSheet.create({
 		height:50,
 		backgroundColor:"#ECECEC",
 		borderRadius:10,
+		
 		margin:10,
-		marginTop:120,
+		marginTop:140,
 		
 	},
 	btn:{

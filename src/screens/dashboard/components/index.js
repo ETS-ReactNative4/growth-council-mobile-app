@@ -7,6 +7,7 @@ import {
     ImageBackground,
     ScrollView,
     FlatList,
+	TouchableOpacity
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
@@ -167,19 +168,23 @@ const Dashboard = (props) => {
                 <ImageBackground
                     style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
-
-                    <Image
-                        source={require('../../../assets/img/massk.png')}
-                        style={{
-                            position: 'absolute',
-                            top: 80,
-                            height: 150,
-                            width: '30%',
-                            left: 10,
-                            borderRadius: 10,
-                            borderWidth: 5,
-                        }}
-                    />
+						<TouchableOpacity
+							onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
+										<Image
+											source={require('../../../assets/img/massk.png')}
+											style={{
+												position: 'absolute',
+												top: 80,
+												height: 150,
+												width: '30%',
+												left: 10,
+												borderRadius: 10,
+												borderWidth: 5,
+											}}
+										/>
+					</TouchableOpacity>
+					<TouchableOpacity
+							onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
                     <Image
                         source={require('../../../assets/img/community_slider_image.png')}
                         style={{
@@ -191,18 +196,24 @@ const Dashboard = (props) => {
                             borderRadius: 10,
                         }}
                     />
-                    <Image
-                        source={require('../../../assets/img/massk.png')}
-                        style={{
-                            position: 'absolute',
-                            top: 80,
-                            height: 150,
-                            width: '30%',
-                            right: 10,
-                            borderRadius: 10,
-                        }}
-                    />
+					</TouchableOpacity>
+
+					<TouchableOpacity
+							onPress={() => navigation.navigate('Model', {screen: 'GrowthDetail'})}>
+						<Image
+							source={require('../../../assets/img/massk.png')}
+							style={{
+								position: 'absolute',
+								top: 80,
+								height: 150,
+								width: '30%',
+								right: 10,
+								borderRadius: 10,
+							}}
+						/>
+					</TouchableOpacity>
                 </ImageBackground>
+				</View>
 
                 <View style={styles.top}>
                     <Text style={{fontWeight: 'bold', fontSize: 18}}>
@@ -252,7 +263,8 @@ const Dashboard = (props) => {
                         />
                     </View>
                 </View>
-            </View>
+            
+			
         </ScrollView>
     );
 };
