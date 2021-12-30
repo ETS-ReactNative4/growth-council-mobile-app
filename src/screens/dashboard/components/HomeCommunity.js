@@ -58,7 +58,7 @@ const HomeCommunity = (props) => {
 		<View style={styles.bottomWrapper}>
 			<Image 
 				style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
-			<Text style={{fontSize:14}}>{item.data.display_name}</Text>
+			<Text style={{fontSize:13}}>{item.data.display_name}</Text>
 			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
 			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
 				<Ionicons
@@ -132,10 +132,10 @@ const HomeCommunity = (props) => {
 						source={require('../../../assets/img/blank_event_design.png')}>
 	
 				<View style={{
-					width:"15%",
+					width:"30%",
 					height:50,
 					marginTop:10,
-					marginLeft:240,
+					marginLeft:180,
 					backgroundColor:'#EBECF0',
 					borderRadius:10,
 					padding:5,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
 		margin:10,
 	},
     headingText1: {
-		...CommonStyles.headingText1,
+		fontSize:18,
     	fontFamily: Typography.FONT_NORMAL,
       	marginTop:10,
 		fontWeight:'800',
