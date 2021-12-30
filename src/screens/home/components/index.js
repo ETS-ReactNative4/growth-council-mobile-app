@@ -134,7 +134,7 @@ const Home = ({navigation}) => {
             styles.plainButton,
             {backgroundColor: Colors.PRIMARY_BUTTON_COLOR},
           ]}
-          onPress={() => navigation.navigate('Dashboard')}>
+          onPress={() => navigation.navigate('SignUp')}>
           <Text style={[styles.buttonText, styles.plainButtonText]}>
             Get Started
           </Text>
