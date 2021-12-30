@@ -5,11 +5,14 @@ import {
     View,
     ScrollView,
     StatusBar,
-    Dimensions
+    Dimensions,
+    Image
 } from 'react-native';
 
-import {CommonStyles, Colors, Typography} from '../../../theme';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Button} from "native-base";
+
+import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -37,46 +40,45 @@ const Journey = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+     container: {
         ...CommonStyles.container,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
-    header: {
-        height: 50,
-        width: '80%',
+    meta: {
+        width: '100%',
+        marginTop: Platform.OS === 'ios' ? 50 : 10,
     },
-    headingText1: {
-        ...CommonStyles.headingText1,
+    headingTitle: {
+        ...CommonStyles.headingTitle,
+        textAlign: 'left',
+        fontSize : 20,
+        fontWeight: "bold",
+        color: '#1f3354',
+    },
+    paragraph: {
         fontFamily: Typography.FONT_NORMAL,
-        marginBottom: 20,
+        fontSize: Typography.FONT_SIZE_MEDIUM,
+        lineHeight: 24,
+        marginTop: 10,
+        marginBottom: 5,
+        color: Colors.TERTIARY_TEXT_COLOR,
+        textAlign: 'left',
     },
-    buttonWrapper: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginBottom: 20,
-    },
-    button: {
-        ...CommonStyles.button,
-        height: 56,
-        width: '40%'
-    },
-    buttonText: {
-        ...CommonStyles.buttonText,
-        fontFamily: Typography.FONT_BOLD,
-    },
-    plainButton: {
-        width: '50%',
-        borderRadius: 25,
-        height: 56,
+    moreButton: {
+        width: '40%',
+        borderRadius: 10,
+        height: 40,
+        fontSize : 35,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
         marginLeft: 5,
+
     },
-    plainButtonText: {
+    moreButtonText: {
         color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
         fontFamily: Typography.FONT_BOLD,
+        fontSize : 13,
+        fontWeight: "bold",
     },
 });
 

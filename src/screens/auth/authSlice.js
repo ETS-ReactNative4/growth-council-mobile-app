@@ -16,23 +16,6 @@ export const forgotCustomerPassword = createAsyncThunk(
     },
 );
 
-export const verifyOTPByCustomerID = createAsyncThunk(
-    'customers/verify-otp',
-    (formData, {rejectWithValue}) => {
-        const {id, ...fields} = formData;
-        return store(`v1/customers/${id}/verify-otp`, fields).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
-    },
-);
-
-export const resendOTPByCustomerID = createAsyncThunk(
-    'customers/resend-otp',
-    (formData, {rejectWithValue}) => {
-        const {id, ...fields} = formData;
-        return store(`v1/customers/${id}/otp`, {}).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
-    },
-);
-
-
 const authSlice = createSlice({
     name: 'auth',
     initialState: {entities: {}, loading: false, error: null},
@@ -70,38 +53,6 @@ const authSlice = createSlice({
             state.entities = action.payload;
         },
         [forgotCustomerPassword.rejected]: (state, action) => {
-            state.loading = false;
-            if (action.payload) {
-                state.error = action.payload.error.message;
-            } else {
-                state.error = action.error;
-            }
-        },
-        [verifyOTPByCustomerID.pending]: (state, action) => {
-            state.loading = true;
-            state.error = null;
-        },
-        [verifyOTPByCustomerID.fulfilled]: (state, action) => {
-            state.loading = false;
-            state.entities = action.payload;
-        },
-        [verifyOTPByCustomerID.rejected]: (state, action) => {
-            state.loading = false;
-            if (action.payload) {
-                state.error = action.payload.error.message;
-            } else {
-                state.error = action.error;
-            }
-        },
-        [resendOTPByCustomerID.pending]: (state, action) => {
-            state.loading = true;
-            state.error = null;
-        },
-        [resendOTPByCustomerID.fulfilled]: (state, action) => {
-            state.loading = false;
-            state.entities = action.payload;
-        },
-        [resendOTPByCustomerID.rejected]: (state, action) => {
             state.loading = false;
             if (action.payload) {
                 state.error = action.payload.error.message;

@@ -34,13 +34,14 @@ export const QUIDENARY_TEXT_COLOR = '#443F3F';
 export const SENDENARY_TEXT_COLOR = '#22FF00';
 export const SEPTDENARY_TEXT_COLOR = '#3E82C6';
 export const OCTODENARY_TEXT_COLOR = '#FFC44D';
-export const NONDENARY_TEXT_COLOR= '#3E4958';
+export const NONDENARY_TEXT_COLOR = '#3E4958';
 
 export const PRIMARY_HEADING_COLOR = '#626262';
 export const SECONDARY_HEADING_COLOR = '#666977';
+export const PRIMARY_BACKGROUND_ICON_COLOR = '#2f49c4';
 
-export const PRIMARY_BUTTON_COLOR = '#1ABBBC';
-export const SECONDARY_BUTTON_COLOR = '#FFFFFF';
+export const PRIMARY_BUTTON_COLOR = '#0e3560';
+export const SECONDARY_BUTTON_COLOR = '#f26722';
 export const TERTIARY_BUTTON_COLOR = '#FD114A';
 export const PRIMARY_BUTTON_TEXT_COLOR = '#FFFFFF';
 export const SECONDARY_BUTTON_TEXT_COLOR = '#246EE9';
@@ -73,5 +74,3 @@ export const SECONDARY_INPUT_TEXT_BACKGROUND_COLOR = '#FFFFFF';
 export const PRIMARY_ERROR_COLOR = 'red';
 
 export const PRIMARY_SUCCESS_COLOR = 'green';
-
-

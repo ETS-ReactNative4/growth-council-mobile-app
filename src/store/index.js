@@ -11,10 +11,12 @@ import {
     REGISTER,
 } from 'redux-persist';
 import {configureStore} from '@reduxjs/toolkit';
-
 import authReducer from '../screens/auth/authSlice';
 import profileReducer from '../screens/account/profileSlice';
 import passwordReducer from '../screens/setting/passwordSlice';
+import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice';
+import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
+import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
 
 const persistConfig = {
     key: 'root',
@@ -26,6 +28,9 @@ const reducers = combineReducers({
     auth: authReducer,
     profile: profileReducer,
     password: passwordReducer,
+    upcomingEvents: upcomingEventReducer,
+	pointOfEngagements: pointOfEngagementReducer,
+	communityMembers: communityMemberReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

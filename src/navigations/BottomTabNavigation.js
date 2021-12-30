@@ -7,6 +7,9 @@ import {Colors} from '../theme';
 
 import DashboardScreen from '../screens/dashboard';
 import AccountScreen from '../screens/account';
+import SearchScreen from '../screens/search';
+import ChatScreen from '../screens/chat';
+import PeopleScreen from '../screens/people';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,17 +18,17 @@ const BottomTabNavigation = () => {
     return (
         <Tab.Navigator
             initialRouteName="Dashboard"
-            screenOptions={{
+            screenOptions={() => ({
                 headerShown: false,
                 tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
                 tabBarInactiveTintColor: 'gray',
                 tabBarShowLabel: false,
-            }}
+            })}
         >
             <Tab.Screen
                 name="Dashboard"
                 component={DashboardScreen}
-                options={{
+                options={() => ({
                     tabBarLabel: 'Home',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
@@ -35,14 +38,14 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
-                }}
+                })}
             />
 
             <Tab.Screen
                 name="Option"
-                component={DashboardScreen}
+                component={SearchScreen}
                 options={{
-                    tabBarLabel: 'Setting',
+                    tabBarLabel: 'Search',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,
@@ -55,9 +58,9 @@ const BottomTabNavigation = () => {
             />
             <Tab.Screen
                 name="Chat"
-                component={DashboardScreen}
+                component={ChatScreen}
                 options={{
-                    tabBarLabel: 'Setting',
+                    tabBarLabel: 'Chat',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,
@@ -66,13 +69,15 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
+					
                 }}
+				
             />
             <Tab.Screen
                 name="People"
-                component={DashboardScreen}
+                component={PeopleScreen}
                 options={{
-                    tabBarLabel: 'Setting',
+                    tabBarLabel: 'People',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,
@@ -85,9 +90,9 @@ const BottomTabNavigation = () => {
             />
             <Tab.Screen
                 name="Person"
-                component={DashboardScreen}
+                component={AccountScreen}
                 options={{
-                    tabBarLabel: 'Setting',
+                    tabBarLabel: 'Account',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,

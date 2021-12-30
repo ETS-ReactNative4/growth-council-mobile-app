@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     Platform,
     StyleSheet,
@@ -7,31 +7,32 @@ import {
     ScrollView,
     StatusBar,
     TouchableOpacity,
-    Dimensions,
+    ImageBackground,
 } from 'react-native';
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
+import {BubblesLoader} from "react-native-indicator";
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
-import Icon from "react-native-vector-icons/Ionicons";
-
-const screenHeight = Math.round(Dimensions.get('window').height);
+import CheckBox from '../../../shared/form/Checkbox';
+import ToastMessage from "../../../shared/toast";
 
 const signUpSchema = Yup.object().shape({
-    email: Yup.string().email('Please enter a valid email.').required('Email is required.'),
-    password: Yup
-        .string()
-        .min(6, ({min}) => `Password must be at least ${min} characters.`)
-        .required('Password is required.'),
+    firstname: Yup.string().required('First Name is required.'),
+    lastname: Yup.string().required('Last Name is required.'),
+    // password: Yup
+    //     .string()
+    //     .min(6, ({min}) => `Password must be at least ${min} characters.`)
+    //     .required('Password is required.'),
 });
 
 const SignUpForm = (props) => {
 
-    const [hidePass, setHidePass] = useState(true);
+    const {navigation, loading, error, registerCustomer, cleanCustomer} = props;
 
-    const {navigation} = props;
+    const [checked, setChecked] = React.useState(false);
 
     const {
         handleChange,
@@ -43,90 +44,163 @@ const SignUpForm = (props) => {
         isValid,
     } = useFormik({
         validationSchema: signUpSchema,
-        initialValues: {email: '', password: ''},
-        onSubmit: values => {
-            navigation.navigate('SignUpNext', {
-                screen: 'SignUpNext',
-                params: {customer: values},
+        initialValues: {firstname: '', lastname: '', title: '', company: '', business_phone: '', business_email: ''},
+        onSubmit: async values => {
+            await registerCustomer(values).then(response => {
+                if (!response.error) {
+                    navigation.navigate('SignUpNext');
+                    ToastMessage.show('You have successfully registered.');
+                }
             });
         },
     });
 
     return (
-        <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
-            <View style={styles.container}>
+
+        <View style={styles.container}>
+
+            <ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover">
 
                 <StatusBar barStyle="dark-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
 
-                <View style={styles.header}>
-                    <Text style={styles.headingText1}>Let's Create Your Account</Text>
-                </View>
+                <View style={{height: '15%'}}/>
 
-                <View style={styles.body}>
-                    <FlatTextInput
-                        label='Email'
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onFocus={handleBlur('email')}
-                        error={errors.email}
-                        touched={touched.email}
-                    />
 
-                    <FlatTextInput
-                        label='Password'
-                        value={values.password}
-                        isPassword={true}
-                        secureTextEntry={hidePass}
-                        onChangeText={handleChange('password')}
-                        onFocus={handleBlur('password')}
-                        error={errors.password}
-                        touched={touched.password}
-                    />
+                <View style={styles.content}>
 
-                </View>
-                <View style={styles.checkboxWrapper}>
-                    <Icon name="ios-checkbox" size={25} color={Colors.NONARY_TEXT_COLOR}/>
-                    <Text style={styles.checkboxText}>By clicking submit I agree to the <Text  style={styles.linkText}
-                        onPress={() => navigation.navigate('Model', {screen: 'Terms'})}>Terms of Use</Text> and <Text
-                        style={styles.linkText}  onPress={() => navigation.navigate('Model', {screen: 'PrivacyPolicy'})}>Privacy
-                        Policy</Text></Text>
-                </View>
-                <View style={styles.loginButtonWrapper}>
-                    <Button style={styles.loginButton} onPress={() => navigation.navigate('SignUpNext')}>
-                        {/*<Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>*/}
-                        <Text style={styles.loginButtonText}>Sign Up</Text>
-                    </Button>
-                </View>
+                    <View style={styles.header}>
+                        <Text style={styles.headingText1}>Let's Create </Text>
+                        <Text style={styles.headingText1}>Your Account!</Text>
+                    </View>
 
-                <View style={styles.signUpLinkWrapper}>
-                    <Text style={{color: Colors.NONARY_TEXT_COLOR}}>Do you have already an account?</Text>
-                    <TouchableOpacity>
-                        <Text style={styles.linkText} onPress={() => navigation.navigate('SignIn')}>Click
-                            Here</Text>
-                    </TouchableOpacity>
-                </View>
+                    {loading &&
+                    <View style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around',
+                        position: 'absolute',
+                        zIndex: 1011,
+                    }}>
+                        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+                    </View>
+                    }
+                    <ScrollView
+                        style={styles.scrollBox}>
 
-            </View>
-        </ScrollView>
+                        <View style={styles.body}>
+
+                            <FlatTextInput
+                                label='First Name'
+                                value={values.firstname}
+                                onChangeText={handleChange('firstname')}
+                                onFocus={handleBlur('firstname')}
+                                error={errors.firstname}
+                                touched={touched.firstname}
+                            />
+
+                            <FlatTextInput
+                                label='Last Name'
+                                value={values.lastname}
+                                onChangeText={handleChange('lastname')}
+                                onFocus={handleBlur('lastname')}
+                                error={errors.lastname}
+                                touched={touched.lastname}
+                            />
+
+                            <FlatTextInput
+                                label='Title'
+                                value={values.title}
+                                onChangeText={handleChange('title')}
+                                onFocus={handleBlur('title')}
+                                error={errors.title}
+                                touched={touched.title}
+                            />
+
+                            <FlatTextInput
+                                label='Company'
+                                value={values.company}
+                                onChangeText={handleChange('company')}
+                                onFocus={handleBlur('company')}
+                                error={errors.company}
+                                touched={touched.company}
+                            />
+
+                            <FlatTextInput
+                                label='Business Phone'
+                                value={values.business_phone}
+                                onChangeText={handleChange('business_phone')}
+                                onFocus={handleBlur('business_phone')}
+                                error={errors.business_phone}
+                                touched={touched.business_phone}
+                            />
+
+                            <FlatTextInput
+                                label='Business Email'
+                                value={values.business_email}
+                                onChangeText={handleChange('business_email')}
+                                onFocus={handleBlur('business_email')}
+                                error={errors.business_email}
+                                touched={touched.business_email}
+                            />
+
+                            <CheckBox
+                                label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
+                                status={checked ? 'checked' : 'unchecked'}
+                                onPress={() => {
+                                    setChecked(!checked);
+                                }}
+                            />
+
+                        </View>
+
+                        <View style={styles.loginButtonWrapper}>
+                            {/*<Button style={styles.loginButton} onPress={() => navigation.navigate('SignUpNext')}>*/}
+                            <Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>
+                                <Text style={styles.loginButtonText}>Sign Up</Text>
+                            </Button>
+                        </View>
+
+                        <View style={styles.signUpLinkWrapper}>
+                            <Text style={{color: Colors.NONARY_TEXT_COLOR}}>Do you have already an account?</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.signUpButtonText} onPress={() => navigation.navigate('SignIn')}>Click
+                                    Here</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
+                </View>
+            </ImageBackground>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        alignItems: 'center',
+
     },
     header: {
-        justifyContent: 'center',
-        alignItems: 'center',
         height: 50,
-        marginTop: Platform.OS === 'ios' ? 60 : 70,
-        marginBottom: 20,
+        marginTop: Platform.OS === 'ios' ? 60 : 50,
+        marginBottom: 30,
+    },
+    scrollBox: {
+        height: '65%',
+        width: '85%',
+        marginLeft: 32,
+        marginRight: 32,
+        marginBottom: 0,
     },
     body: {
-        width: '90%',
+        width: '80%',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    content: {
+        backgroundColor: 'white',
+        borderRadius: 18,
+        padding: 20
     },
     message: {
         ...CommonStyles.message,
@@ -146,17 +220,6 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_NORMAL,
         width: 210,
         textAlign: 'center',
-    },
-    checkboxWrapper: {
-        flexDirection: 'row',
-        marginLeft: 12,
-    },
-    checkboxText: {
-        fontSize: Typography.FONT_SIZE_MEDIUM,
-        fontFamily: Typography.FONT_MEDIUM,
-        color: Colors.NONARY_TEXT_COLOR,
-        paddingLeft: 5,
-        paddingTop: 5,
     },
     loginButtonWrapper: {
         ...CommonStyles.buttonWrapper,
@@ -180,7 +243,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignItems: 'center',
     },
-    linkText: {
+    signUpButtonText: {
         color: Colors.SENDENARY_TEXT_COLOR,
         fontFamily: Typography.FONT_NORMAL,
         paddingLeft: 5,
