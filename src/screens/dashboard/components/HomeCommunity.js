@@ -43,7 +43,8 @@ const HomeCommunity = ({navigation}) => {
 				style={styles.bottomImage}
 				source={item?.uri}/>
 			<Text style={{fontWeight:"bold", fontSize:18}}>{item.text}</Text>
-			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60}}>
+			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
+			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
 				<Ionicons
 					name={'chatbox'}
 					size={20}
@@ -339,13 +340,13 @@ const styles = StyleSheet.create({
 		padding:4,
     },
 	bottom:{
-		height:190,
+		height:220,
 		margin:10,
 		width:400,
 	},
 	bottomWrapper:{
 		width:120,
-		height:170,
+		height:190,
 		borderRadius:10,
 		marginRight:10,
 		marginTop:10,
