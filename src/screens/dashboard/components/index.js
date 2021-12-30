@@ -145,21 +145,21 @@ const Dashboard = (props) => {
 
     // useEffect(() => {
     //     const fetchAllPointOfEngagementAsync = async () => {
-    //         fetchAllPointOfEngagement();
+    //        await fetchAllPointOfEngagement();
     //     };
     //     fetchAllPointOfEngagementAsync();
     // }, []);
-    //
-    // useEffect(() => {
-    //     const fetchAllCommunityMemberAsync = async () => {
-    //         fetchAllCommunityMember();
-    //     };
-    //     fetchAllCommunityMemberAsync();
-    // }, []);
+    
+    useEffect(() => {
+        const fetchAllCommunityMemberAsync = async () => {
+           await fetchAllCommunityMember();
+        };
+        fetchAllCommunityMemberAsync();
+    }, []);
 
     console.log("upcomingEvents:::::::::::::::::", upcomingEvents);
     // console.log("pointOfEngagements:::::::::::::::::", pointOfEngagements);
-    // console.log("communityMembers:::::::::::::::::", communityMembers);
+    console.log("communityMembers:::::::::::::::::", communityMembers);
 
     return (
         <ScrollView>
