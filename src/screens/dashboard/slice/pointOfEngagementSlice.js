@@ -4,7 +4,7 @@ import { fetch } from '../../../utils/httpUtil';
 
 export const fetchAllPointOfEngagements = createAsyncThunk(
     'pointOfEngagement/fetchAll',
-    (identifier, {rejectWithValue}) => {
+	(_, {rejectWithValue}) => {
         return fetch(`v1/events`).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
