@@ -101,13 +101,13 @@ const _renderTopItem = ({item, index}) => {
                         padding: 5,
                         alignItems: 'center',
                     }}>
-                    <Text>{item.date}</Text>
+                    <Text>{item.post_date}</Text>
                     <Text>{item.month}</Text>
                 </View>
 
                 <View style={styles.header}>
-                    <Text style={styles.headingText1}>{item.text}</Text>
-                    <Text style={styles.headingText2}>{item.text1}</Text>
+                    <Text style={styles.headingText1}>{item.post_title}</Text>
+                    <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
                 </View>
             </ImageBackground>
         </View>
@@ -145,21 +145,21 @@ const Dashboard = (props) => {
 
     // useEffect(() => {
     //     const fetchAllPointOfEngagementAsync = async () => {
-    //         fetchAllPointOfEngagement();
+    //        await fetchAllPointOfEngagement();
     //     };
     //     fetchAllPointOfEngagementAsync();
     // }, []);
-    //
-    // useEffect(() => {
-    //     const fetchAllCommunityMemberAsync = async () => {
-    //         fetchAllCommunityMember();
-    //     };
-    //     fetchAllCommunityMemberAsync();
-    // }, []);
+    
+    useEffect(() => {
+        const fetchAllCommunityMemberAsync = async () => {
+           await fetchAllCommunityMember();
+        };
+        fetchAllCommunityMemberAsync();
+    }, []);
 
     console.log("upcomingEvents:::::::::::::::::", upcomingEvents);
     // console.log("pointOfEngagements:::::::::::::::::", pointOfEngagements);
-    // console.log("communityMembers:::::::::::::::::", communityMembers);
+    console.log("communityMembers:::::::::::::::::", communityMembers);
 
     return (
         <ScrollView>
@@ -216,7 +216,7 @@ const Dashboard = (props) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={data2}
+                            data={upcomingEvents}
                             renderItem={_renderTopItem}
                         />
 
