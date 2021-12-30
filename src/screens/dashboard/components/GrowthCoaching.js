@@ -13,8 +13,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const HomeCommunity = ({navigation}) => {
-
+const GrowthCoaching = ({navigation}) => {
 	const Data = [
 		{
 			uri: require('../../../assets/img/profile_image.png'),
@@ -34,6 +33,7 @@ const HomeCommunity = ({navigation}) => {
 		},
 		
 	];
+	
 	
 	const _renderItem = ({item, index}) => {
 		return (
@@ -76,13 +76,13 @@ const HomeCommunity = ({navigation}) => {
 	
 	const _renderMiddleItem = ({item, index}) => {
 		return (
-			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CommunityDetail'})}>
+			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'GrowthDetail'})}>
 			<View style={styles.middleWrapper}>
 			<View style={styles.middleW}>
 				<Font
 					name={item.icon}
 					size={30}
-					color="skyblue"
+					color="#92CA91"
 				/>
 			</View>
 			<Text style={{marginTop:10, fontSize:12}}>{item.text}</Text>
@@ -112,7 +112,7 @@ const HomeCommunity = ({navigation}) => {
 					style={{width:'100%',
 						height:170,
 						borderRadius:20}}
-						source={require('../../../assets/img/blank_event_design.png')}>
+						source={require('../../../assets/img/green_blank.png')}>
 	
 				<View style={{
 					width:"15%",
@@ -171,7 +171,7 @@ const HomeCommunity = ({navigation}) => {
 					height:100,
 					
 					}}
-					source={require('../../../assets/img/blank_event_design.png')}>
+					source={require('../../../assets/img/green_blank.png')}>
 						<View style={{display:'flex', flexDirection:'row'}}>
 						<Image
 							source={require("../../../assets/img/dashboard_logo.png")}
@@ -185,14 +185,14 @@ const HomeCommunity = ({navigation}) => {
 							}}
 						/>
 						<View style={{marginLeft:50,}}>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Community</Text>
+						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Growth Coaching</Text>
 						</View>
 
 						<Font
 							name={'search'}
 							size={30}
 							color="white"
-							style={{marginLeft:150, marginTop:40}}
+							style={{marginLeft:80, marginTop:40}}
 						/>
 						<Image
 						source={require("../../../assets/img/profile_image.png")}
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
 	top:{
 		height:200,
 		marginTop:20,
-		margin:10,
+		margin:5,
 		justifyContent:'center',	
 	},
 	
@@ -372,4 +372,8 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default HomeCommunity;
+
+
+export default GrowthCoaching
+
+

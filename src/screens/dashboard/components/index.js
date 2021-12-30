@@ -194,7 +194,7 @@ const Dashboard = (props) => {
 										/>
 					</TouchableOpacity>
 					<TouchableOpacity
-							onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
+							onPress={() => navigation.navigate('Model', {screen: 'BestPractice'})}>
                     <Image
                         source={require('../../../assets/img/community_slider_image.png')}
                         style={{
@@ -209,7 +209,7 @@ const Dashboard = (props) => {
 					</TouchableOpacity>
 
 					<TouchableOpacity
-							onPress={() => navigation.navigate('Model', {screen: 'GrowthDetail'})}>
+							onPress={() => navigation.navigate('Model', {screen: 'GrowthCoaching'})}>
 						<Image
 							source={require('../../../assets/img/massk.png')}
 							style={{

@@ -13,8 +13,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const HomeCommunity = ({navigation}) => {
-
+const BestPractice = ({navigation}) => {
 	const Data = [
 		{
 			uri: require('../../../assets/img/profile_image.png'),
@@ -34,6 +33,7 @@ const HomeCommunity = ({navigation}) => {
 		},
 		
 	];
+	
 	
 	const _renderItem = ({item, index}) => {
 		return (
@@ -185,14 +185,14 @@ const HomeCommunity = ({navigation}) => {
 							}}
 						/>
 						<View style={{marginLeft:50,}}>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Community</Text>
+						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Best Practice</Text>
 						</View>
 
 						<Font
 							name={'search'}
 							size={30}
 							color="white"
-							style={{marginLeft:150, marginTop:40}}
+							style={{marginLeft:130, marginTop:40}}
 						/>
 						<Image
 						source={require("../../../assets/img/profile_image.png")}
@@ -209,7 +209,7 @@ const HomeCommunity = ({navigation}) => {
 		
 		
             <View style={styles.top}>
-				<Text style={{fontWeight:"bold", fontSize:20}}> Growth Community Events</Text>
+				<Text style={{fontWeight:"bold", fontSize:20}}> Best Practice Events</Text>
 				<View style={{
 					display:'flex', 
 					flexDirection:'row',
@@ -242,7 +242,7 @@ const HomeCommunity = ({navigation}) => {
 			
 
 			<View style={styles.bottom}>
-				<Text style={{fontWeight:"bold" ,fontSize:20}}>Growth Community Member</Text>
+				<Text style={{fontWeight:"bold" ,fontSize:20}}>Growth Community Members</Text>
 				<View >
 					<FlatList
                         horizontal
@@ -281,14 +281,14 @@ const styles = StyleSheet.create({
 	top:{
 		height:200,
 		marginTop:20,
-		margin:10,
+		margin:5,
 		justifyContent:'center',	
 	},
 	
 	topWrapper:{
 		height:170,
 		width:300,
-		marginTop:20,
+		marginTop:10,
 		marginLeft:10,
 		borderRadius:50,
 	},
@@ -311,16 +311,16 @@ const styles = StyleSheet.create({
     },
 	middle:{
 		width:400,
-		height:200,
+		height:190,
 		marginLeft:10,
 		marginTop:10,
 			
 	},
 	middleWrapper:{
-		height:150,
+		height:160,
 		width:90,
 		borderRadius:20,
-		marginTop:10,
+		marginTop:5,
 		// backgroundColor:'white',
 		justifyContent:"center",
 		alignItems:'center',
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
 		padding:4,
     },
 	bottom:{
-		height:220,
+		height:200,
 		margin:10,
 		width:400,
 	},
@@ -367,9 +367,10 @@ const styles = StyleSheet.create({
 	ContentWrapper:{
 		height:200,
 		width:300,
-		marginTop:20,
+		marginTop:10,
 		marginLeft:10,
 	}
 });
 
-export default HomeCommunity;
+export default BestPractice
+
