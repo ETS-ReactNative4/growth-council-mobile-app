@@ -31,9 +31,8 @@ const ManageAccount = () => {
 								borderWidth: 5,
 							}}
 						/>
-						<View style={{marginLeft:50,}}>
-						
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, marginTop:20}}>Settings</Text>
+						<View style={{marginLeft:50}}>
+							<Text style={{fontWeight:"700",  color:"white", fontSize:20, marginTop:20}}>Settings</Text>
 						</View>
 
 						<Font
