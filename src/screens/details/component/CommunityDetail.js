@@ -125,6 +125,7 @@ const CommunityDetail = ({navigation}) => {
 			<View style={styles.container}>
 				<ImageBackground source={require("../../../assets/img/image.png")}  style={{height:400}}>
 					
+
 						<View style={styles.arrow}>
 						<Ionicons
 							name={'arrow-back'}
@@ -133,6 +134,19 @@ const CommunityDetail = ({navigation}) => {
 							onPress={() => navigation.navigate('Journey')}
 						/>
 						</View>
+
+						<TouchableOpacity
+							onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
+							<View style={styles.arrow}>
+							<Ionicons
+								name={'arrow-back'}
+								size={50}
+								color='white'
+								
+							/>
+							</View>
+						</TouchableOpacity>
+
 				
                    
 					<View style={styles.icon}>
