@@ -4,11 +4,23 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import HomeCommunity from './components/HomeCommunity';
 import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
+
 import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
+
 
 const HomeCommunityScreen = (props) => {
 
 	const dispatch = useDispatch();
+
+	const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
+
+	const fetchAllUpcomingEvent = () => {
+        dispatch(fetchAllUpcomingEvents());
+    };
+	const cleanUpcomingEvent = () => {
+        dispatch(resetUpcomingEvent());
+    };
+
 	
 	const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
 	const {communityMembers, communityMemberLoading, communityMemberError} = useSelector((state) => state.communityMembers);
@@ -26,6 +38,7 @@ const HomeCommunityScreen = (props) => {
 	const cleanCommunityMember = () => {
         dispatch(resetCommunityMember());
     };
+
 	return (
 		<HomeCommunity
 			{...props}
@@ -40,6 +53,7 @@ const HomeCommunityScreen = (props) => {
             communityMemberError={communityMemberError}
             fetchAllCommunityMember={fetchAllCommunityMember}
             cleanCommunityMember={cleanCommunityMember}
+
 		/>
 	)
 }
