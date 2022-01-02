@@ -95,7 +95,7 @@ const DrawerNavigation = () => {
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
             <Drawer.Screen name="Community" component={BottomTabNavigation}/>
-            <Drawer.Screen name="Calendar" component={BottomTabNavigation}/>
+            <Drawer.Screen name="Calendar" component={CalendarScreen}/>
             <Drawer.Screen name="Dashboard" component={BottomTabNavigation}/>
         </Drawer.Navigator>
     );
