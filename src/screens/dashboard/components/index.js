@@ -7,34 +7,45 @@ import {
     ImageBackground,
     ScrollView,
     FlatList,
+	TouchableOpacity
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Data = [
-    {
-        uri: require('../../../assets/img/profile_image.png'),
-        text: 'Jay',
-    },
-    {
-        uri: require('../../../assets/img/welcome_profile_image.png'),
-        text: 'John',
-    },
-    {
-        uri: require('../../../assets/img/dash_member_image.png'),
-        text: 'John',
-    },
-    {
-        uri: require('../../../assets/img/profile_image.png'),
-        text: 'Jay',
-    },
-];
+// const Data = [
+//     {
+//         uri: require('../../../assets/img/profile_image.png'),
+//         text: 'Jay',
+//     },
+//     {
+//         uri: require('../../../assets/img/welcome_profile_image.png'),
+//         text: 'John',
+//     },
+//     {
+//         uri: require('../../../assets/img/dash_member_image.png'),
+//         text: 'John',
+//     },
+//     {
+//         uri: require('../../../assets/img/profile_image.png'),
+//         text: 'Jay',
+//     },
+// ];
 
 const _renderItem = ({item, index}) => {
     return (
         <View style={styles.bottomWrapper}>
-            <Image style={styles.bottomImage} source={item?.uri}/>
-            <Text>{item.text}</Text>
+            <Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+            <Text style={{fontSize:13, marginTop:8}}>{item.data.display_name}</Text>
+			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
+			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
+				<Ionicons
+					name={'chatbox'}
+					size={20}
+					color="grey"
+					style={{marginLeft:5,}}
+				/>
+			</View>
         </View>
     );
 };
@@ -92,10 +103,10 @@ const _renderTopItem = ({item, index}) => {
                 source={require('../../../assets/img/blank_event_design.png')}>
                 <View
                     style={{
-                        width: '15%',
+                        width: '30%',
                         height: 50,
                         marginTop: 10,
-                        marginLeft: 240,
+                        marginLeft: 180,
                         backgroundColor: '#EBECF0',
                         borderRadius: 10,
                         padding: 5,
@@ -167,19 +178,23 @@ const Dashboard = (props) => {
                 <ImageBackground
                     style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
-
-                    <Image
-                        source={require('../../../assets/img/massk.png')}
-                        style={{
-                            position: 'absolute',
-                            top: 80,
-                            height: 150,
-                            width: '30%',
-                            left: 10,
-                            borderRadius: 10,
-                            borderWidth: 5,
-                        }}
-                    />
+						<TouchableOpacity
+							onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
+										<Image
+											source={require('../../../assets/img/massk.png')}
+											style={{
+												position: 'absolute',
+												top: 80,
+												height: 150,
+												width: '30%',
+												left: 10,
+												borderRadius: 10,
+												borderWidth: 5,
+											}}
+										/>
+					</TouchableOpacity>
+					<TouchableOpacity
+							onPress={() => navigation.navigate('Model', {screen: 'BestPractice'})}>
                     <Image
                         source={require('../../../assets/img/community_slider_image.png')}
                         style={{
@@ -191,18 +206,24 @@ const Dashboard = (props) => {
                             borderRadius: 10,
                         }}
                     />
-                    <Image
-                        source={require('../../../assets/img/massk.png')}
-                        style={{
-                            position: 'absolute',
-                            top: 80,
-                            height: 150,
-                            width: '30%',
-                            right: 10,
-                            borderRadius: 10,
-                        }}
-                    />
+					</TouchableOpacity>
+
+					<TouchableOpacity
+							onPress={() => navigation.navigate('Model', {screen: 'GrowthCoaching'})}>
+						<Image
+							source={require('../../../assets/img/massk.png')}
+							style={{
+								position: 'absolute',
+								top: 80,
+								height: 150,
+								width: '30%',
+								right: 10,
+								borderRadius: 10,
+							}}
+						/>
+					</TouchableOpacity>
                 </ImageBackground>
+				</View>
 
                 <View style={styles.top}>
                     <Text style={{fontWeight: 'bold', fontSize: 18}}>
@@ -247,12 +268,13 @@ const Dashboard = (props) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={Data}
+                            data={communityMembers}
                             renderItem={_renderItem}
                         />
                     </View>
                 </View>
-            </View>
+            
+			
         </ScrollView>
     );
 };
@@ -272,20 +294,21 @@ const styles = StyleSheet.create({
 
     topWrapper: {
         height: 170,
-        width: 300,
+        width: 320,
         marginTop: 20,
         marginLeft: 10,
         borderRadius: 50,
     },
     header: {
-        margin: 10,
+        marginLeft: 10,
     },
     headingText1: {
-        ...CommonStyles.headingText1,
+        
         fontFamily: Typography.FONT_NORMAL,
         marginTop: 10,
         fontWeight: '800',
         color: 'white',
+		fontSize:18
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -321,13 +344,13 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     bottom: {
-        height: 190,
+        height: 240,
         margin: 10,
         width: 400,
     },
     bottomWrapper: {
         width: 120,
-        height: 140,
+        height: 190,
         borderRadius: 10,
         margin: 10,
         backgroundColor: 'white',

@@ -1,18 +1,18 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import CommunityDetail from './components/CommunityDetail';
+import GrowthDetail from './component/GrowthDetails';
 
-const CommunityDetailScreen = (props) => {
+const GrowthDetailScreen = (props) => {
 	const dispatch = useDispatch();
 
 	return (
-		<CommunityDetail
+		<GrowthDetail
 		{...props}
 		/>
 	)
 }
 
-export default CommunityDetailScreen;
+export default GrowthDetailScreen
 
 const styles = StyleSheet.create({})

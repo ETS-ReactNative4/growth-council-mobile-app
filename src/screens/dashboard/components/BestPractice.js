@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -13,26 +13,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const HomeCommunity = (props) => {
-	const {
-        navigation,
-        upcomingEvents,
-        upcomingEventLoading,
-        upcomingEventError,
-        fetchAllUpcomingEvent,
-        cleanUpcomingEvent,
-        pointOfEngagements,
-        pointOfEngagementLoading,
-        pointOfEngagementError,
-        fetchAllPointOfEngagement,
-        cleanPointOfEngagement,
-        communityMembers,
-        communityMemberLoading,
-        communityMemberError,
-        fetchAllCommunityMember,
-        cleanCommunityMember
-    } = props;
-
+const BestPractice = ({navigation}) => {
 	const Data = [
 		{
 			uri: require('../../../assets/img/profile_image.png'),
@@ -53,12 +34,14 @@ const HomeCommunity = (props) => {
 		
 	];
 	
+	
 	const _renderItem = ({item, index}) => {
 		return (
 		<View style={styles.bottomWrapper}>
 			<Image 
-				style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
-			<Text style={{fontSize:13}}>{item.data.display_name}</Text>
+				style={styles.bottomImage}
+				source={item?.uri}/>
+			<Text style={{fontWeight:"bold", fontSize:18}}>{item.text}</Text>
 			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
 			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
 				<Ionicons
@@ -132,22 +115,22 @@ const HomeCommunity = (props) => {
 						source={require('../../../assets/img/blank_event_design.png')}>
 	
 				<View style={{
-					width:"30%",
+					width:"15%",
 					height:50,
 					marginTop:10,
-					marginLeft:180,
+					marginLeft:240,
 					backgroundColor:'#EBECF0',
 					borderRadius:10,
 					padding:5,
 					alignItems:'center'				
 					}}>
-						<Text>{item.post_date}</Text>
+						<Text>{item.date}</Text>
 						<Text>{item.month}</Text>
 				</View>
 								
 				<View style={styles.header}>
-					<Text style={styles.headingText1}>{item.post_title}</Text>
-					<Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
+					<Text style={styles.headingText1}>{item.text}</Text>
+					<Text style={styles.headingText2}>{item.text1}</Text>
 				</View>
 				</ImageBackground>
 			</View>)
@@ -179,21 +162,6 @@ const HomeCommunity = (props) => {
 				</ImageBackground>
 			</View>)
 	}
-	useEffect(() => {
-        const fetchAllUpcomingEventAsync = async () => {
-            await fetchAllUpcomingEvent();
-        };
-        fetchAllUpcomingEventAsync();
-
-    }, []);
-
-	useEffect(() => {
-        const fetchAllCommunityMemberAsync = async () => {
-           await fetchAllCommunityMember();
-        };
-        fetchAllCommunityMemberAsync();
-    }, []);
-
 
 	return (
 		<ScrollView>
@@ -217,14 +185,14 @@ const HomeCommunity = (props) => {
 							}}
 						/>
 						<View style={{marginLeft:50,}}>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Community</Text>
+						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Best Practice</Text>
 						</View>
 
 						<Font
 							name={'search'}
 							size={30}
 							color="white"
-							style={{marginLeft:150, marginTop:40}}
+							style={{marginLeft:130, marginTop:40}}
 						/>
 						<Image
 						source={require("../../../assets/img/profile_image.png")}
@@ -241,7 +209,7 @@ const HomeCommunity = (props) => {
 		
 		
             <View style={styles.top}>
-				<Text style={{fontWeight:"bold", fontSize:20}}> Growth Community Events</Text>
+				<Text style={{fontWeight:"bold", fontSize:20}}> Best Practice Events</Text>
 				<View style={{
 					display:'flex', 
 					flexDirection:'row',
@@ -249,7 +217,7 @@ const HomeCommunity = (props) => {
 					<FlatList
                         horizontal
 						showsHorizontalScrollIndicator={false}
-                        data={upcomingEvents}
+                        data={data2}
                         renderItem={_renderTopItem}/>
 				
 				</View>
@@ -274,12 +242,12 @@ const HomeCommunity = (props) => {
 			
 
 			<View style={styles.bottom}>
-				<Text style={{fontWeight:"bold" ,fontSize:20}}>Growth Community Member</Text>
+				<Text style={{fontWeight:"bold" ,fontSize:20}}>Growth Community Members</Text>
 				<View >
 					<FlatList
                         horizontal
 						showsHorizontalScrollIndicator={false}
-                        data={communityMembers}
+                        data={Data}
                         renderItem={_renderItem}/>
 				</View>
 			</View>
@@ -313,14 +281,14 @@ const styles = StyleSheet.create({
 	top:{
 		height:200,
 		marginTop:20,
-		margin:10,
+		margin:5,
 		justifyContent:'center',	
 	},
 	
 	topWrapper:{
 		height:170,
 		width:300,
-		marginTop:20,
+		marginTop:10,
 		marginLeft:10,
 		borderRadius:50,
 	},
@@ -328,7 +296,7 @@ const styles = StyleSheet.create({
 		margin:10,
 	},
     headingText1: {
-		fontSize:18,
+		...CommonStyles.headingText1,
     	fontFamily: Typography.FONT_NORMAL,
       	marginTop:10,
 		fontWeight:'800',
@@ -343,16 +311,16 @@ const styles = StyleSheet.create({
     },
 	middle:{
 		width:400,
-		height:200,
+		height:190,
 		marginLeft:10,
 		marginTop:10,
 			
 	},
 	middleWrapper:{
-		height:150,
+		height:160,
 		width:90,
 		borderRadius:20,
-		marginTop:10,
+		marginTop:5,
 		// backgroundColor:'white',
 		justifyContent:"center",
 		alignItems:'center',
@@ -371,7 +339,7 @@ const styles = StyleSheet.create({
 		padding:4,
     },
 	bottom:{
-		height:220,
+		height:200,
 		margin:10,
 		width:400,
 	},
@@ -399,9 +367,10 @@ const styles = StyleSheet.create({
 	ContentWrapper:{
 		height:200,
 		width:300,
-		marginTop:20,
+		marginTop:10,
 		marginLeft:10,
 	}
 });
 
-export default HomeCommunity;
+export default BestPractice
+
