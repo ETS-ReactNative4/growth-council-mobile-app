@@ -11,12 +11,18 @@ import {
     REGISTER,
 } from 'redux-persist';
 import {configureStore} from '@reduxjs/toolkit';
+
 import authReducer from '../screens/auth/authSlice';
 import profileReducer from '../screens/account/profileSlice';
 import passwordReducer from '../screens/setting/passwordSlice';
 import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice';
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
+
+import eventReducer from '../screens/event/eventSlice';
+
+import pillarReducer from '../screens/home/pillarSlice';
+import pillarSliderReducer from '../screens/home/pillarSliderSlice';
 
 const persistConfig = {
     key: 'root',
@@ -29,8 +35,11 @@ const reducers = combineReducers({
     profile: profileReducer,
     password: passwordReducer,
     upcomingEvents: upcomingEventReducer,
-	pointOfEngagements: pointOfEngagementReducer,
-	communityMembers: communityMemberReducer,
+    pointOfEngagements: pointOfEngagementReducer,
+    communityMembers: communityMemberReducer,
+    events: eventReducer,
+    pillars: pillarReducer,
+    pillarSliders: pillarSliderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

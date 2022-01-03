@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -13,7 +13,25 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const HomeCommunity = ({navigation}) => {
+const HomeCommunity = (props) => {
+	const {
+        navigation,
+        upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
+        pointOfEngagements,
+        pointOfEngagementLoading,
+        pointOfEngagementError,
+        fetchAllPointOfEngagement,
+        cleanPointOfEngagement,
+        communityMembers,
+        communityMemberLoading,
+        communityMemberError,
+        fetchAllCommunityMember,
+        cleanCommunityMember
+    } = props;
 
 	const Data = [
 		{
@@ -32,18 +50,23 @@ const HomeCommunity = ({navigation}) => {
 			uri: require('../../../assets/img/profile_image.png'),
 			text: "Jay",
 		},
-		
+
 	];
-	
-	
+
 	const _renderItem = ({item, index}) => {
 		return (
 		<View style={styles.bottomWrapper}>
-			<Image 
+			<Image
+
 				style={styles.bottomImage}
 				source={item?.uri}/>
 			<Text style={{fontWeight:"bold", fontSize:18}}>{item.text}</Text>
-			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60}}>
+
+				style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+			<Text style={{fontSize:13}}>{item.data.display_name}</Text>
+
+			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
+			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
 				<Ionicons
 					name={'chatbox'}
 					size={20}
@@ -51,10 +74,10 @@ const HomeCommunity = ({navigation}) => {
 					style={{marginLeft:5}}
 				/>
 			</View>
-			
+
 		</View>)
 	}
-	
+
 	const data1=[
 		{
 			icon:"brain",
@@ -73,7 +96,7 @@ const HomeCommunity = ({navigation}) => {
 			text:"BrainStorming Strategy Discussion"
 		},
 	]
-	
+
 	const _renderMiddleItem = ({item, index}) => {
 		return (
 			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CommunityDetail'})}>
@@ -89,7 +112,7 @@ const HomeCommunity = ({navigation}) => {
 		</View>
 		</TouchableOpacity>)
 	}
-	
+
 	const data2=[
 		{
 			date:"10",
@@ -104,7 +127,7 @@ const HomeCommunity = ({navigation}) => {
 			text1:"Hosted by Michael Cooper"
 		},
 	]
-	
+
 	const _renderTopItem = ({item, index}) => {
 		return (
 			<View style={styles.topWrapper} >
@@ -113,24 +136,24 @@ const HomeCommunity = ({navigation}) => {
 						height:170,
 						borderRadius:20}}
 						source={require('../../../assets/img/blank_event_design.png')}>
-	
+
 				<View style={{
-					width:"15%",
+					width:"30%",
 					height:50,
 					marginTop:10,
-					marginLeft:240,
+					marginLeft:180,
 					backgroundColor:'#EBECF0',
 					borderRadius:10,
 					padding:5,
-					alignItems:'center'				
+					alignItems:'center'
 					}}>
-						<Text>{item.date}</Text>
+						<Text>{item.post_date}</Text>
 						<Text>{item.month}</Text>
 				</View>
-								
+
 				<View style={styles.header}>
-					<Text style={styles.headingText1}>{item.text}</Text>
-					<Text style={styles.headingText2}>{item.text1}</Text>
+					<Text style={styles.headingText1}>{item.post_title}</Text>
+					<Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
 				</View>
 				</ImageBackground>
 			</View>)
@@ -139,15 +162,15 @@ const HomeCommunity = ({navigation}) => {
 	const pic = [
 		{
 			uri: require('../../../assets/img/welcome_screen_info_image.png'),
-			
+
 		},
 		{
 			uri: require('../../../assets/img/image.png'),
-			
+
 		},
 		{
 			uri: require('../../../assets/img/contactus.png'),
-			
+
 		},
 	];
 
@@ -161,7 +184,22 @@ const HomeCommunity = ({navigation}) => {
 						source={item?.uri}>
 				</ImageBackground>
 			</View>)
-	}
+	};
+	useEffect(() => {
+        const fetchAllUpcomingEventAsync = async () => {
+            await fetchAllUpcomingEvent();
+        };
+        fetchAllUpcomingEventAsync();
+
+    }, []);
+
+	useEffect(() => {
+        const fetchAllCommunityMemberAsync = async () => {
+           await fetchAllCommunityMember();
+        };
+        fetchAllCommunityMemberAsync();
+    }, []);
+
 
 	return (
 		<ScrollView>
@@ -169,7 +207,7 @@ const HomeCommunity = ({navigation}) => {
 				<ImageBackground
 					style={{width:'100%',
 					height:100,
-					
+
 					}}
 					source={require('../../../assets/img/blank_event_design.png')}>
 						<View style={{display:'flex', flexDirection:'row'}}>
@@ -206,28 +244,28 @@ const HomeCommunity = ({navigation}) => {
 				/>
 					</View>
 				</ImageBackground>
-		
-		
+
+
             <View style={styles.top}>
 				<Text style={{fontWeight:"bold", fontSize:20}}> Growth Community Events</Text>
 				<View style={{
-					display:'flex', 
+					display:'flex',
 					flexDirection:'row',
 				}}>
 					<FlatList
                         horizontal
 						showsHorizontalScrollIndicator={false}
-                        data={data2}
+                        data={upcomingEvents}
                         renderItem={_renderTopItem}/>
-				
+
 				</View>
             </View>
-			
+
 			<View style={styles.middle}>
 				<Text style={{fontWeight:"bold", fontSize:20}}>Points of Engagement</Text>
-				
-				<View 
-					style={{display:'flex', 
+
+				<View
+					style={{display:'flex',
 					flexDirection:'row',
 					}}>
 						<FlatList
@@ -238,8 +276,8 @@ const HomeCommunity = ({navigation}) => {
 				</View>
 
 			</View>
-			
-			
+
+
 
 			<View style={styles.bottom}>
 				<Text style={{fontWeight:"bold" ,fontSize:20}}>Growth Community Member</Text>
@@ -247,7 +285,7 @@ const HomeCommunity = ({navigation}) => {
 					<FlatList
                         horizontal
 						showsHorizontalScrollIndicator={false}
-                        data={Data}
+                        data={communityMembers}
                         renderItem={_renderItem}/>
 				</View>
 			</View>
@@ -255,7 +293,7 @@ const HomeCommunity = ({navigation}) => {
 			<View style={styles.content}>
 				<Text style={{fontWeight:"bold", fontSize:20, marginTop:20}}> Growth Coaching Content</Text>
 				<View style={{
-					display:'flex', 
+					display:'flex',
 					flexDirection:'row',
 				}}>
 					<FlatList
@@ -263,7 +301,7 @@ const HomeCommunity = ({navigation}) => {
 						showsHorizontalScrollIndicator={false}
                         data={pic}
                         renderItem={_renderContentItem}/>
-				
+
 				</View>
             </View>
 
@@ -282,9 +320,9 @@ const styles = StyleSheet.create({
 		height:200,
 		marginTop:20,
 		margin:10,
-		justifyContent:'center',	
+		justifyContent:'center',
 	},
-	
+
 	topWrapper:{
 		height:170,
 		width:300,
@@ -296,12 +334,12 @@ const styles = StyleSheet.create({
 		margin:10,
 	},
     headingText1: {
-		...CommonStyles.headingText1,
+		fontSize:18,
     	fontFamily: Typography.FONT_NORMAL,
       	marginTop:10,
 		fontWeight:'800',
 		color:'white',
-		
+
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -314,7 +352,7 @@ const styles = StyleSheet.create({
 		height:200,
 		marginLeft:10,
 		marginTop:10,
-			
+
 	},
 	middleWrapper:{
 		height:150,
@@ -327,9 +365,9 @@ const styles = StyleSheet.create({
 	},
 	middleW:{
 		backgroundColor:'white',
-		width:80, 
-		height:80, 
-		justifyContent:'center', 
+		width:80,
+		height:80,
+		justifyContent:'center',
 		alignItems:'center',
 		borderRadius:10
 	},
@@ -339,13 +377,13 @@ const styles = StyleSheet.create({
 		padding:4,
     },
 	bottom:{
-		height:190,
+		height:220,
 		margin:10,
 		width:400,
 	},
 	bottomWrapper:{
 		width:120,
-		height:170,
+		height:190,
 		borderRadius:10,
 		marginRight:10,
 		marginTop:10,
@@ -354,7 +392,7 @@ const styles = StyleSheet.create({
 	},
 	bottomImage:{
 		width:'100%',
-		height:100, 
+		height:100,
 		borderRadius:20
 	},
 	content:{

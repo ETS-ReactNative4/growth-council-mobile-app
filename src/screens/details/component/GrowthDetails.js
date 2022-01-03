@@ -2,10 +2,12 @@ import React from 'react'
 import { ScrollView, StyleSheet, Text, View, Dimensions, Image,ImageBackground,FlatList, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import { Radar, RadarChart, PolarGrid, 
+    PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
-const CommunityDetail = ({navigation}) => {
+const GrowthDetail = ({navigation}) => {
 	const Data = [
 		{
 			uri: require('../../../assets/img/profile_image.png'),
@@ -17,12 +19,13 @@ const CommunityDetail = ({navigation}) => {
 		},
 		{
 			uri: require('../../../assets/img/dash_member_image.png'),
-			text: "John",
+			text: "James",
 		},
 		{
 			uri: require('../../../assets/img/profile_image.png'),
 			text: "Jay",
 		},
+		
 		
 	];
 	
@@ -47,7 +50,7 @@ const CommunityDetail = ({navigation}) => {
 	}
 
 	
-	const data2=[
+	const top=[
 		{
 			date:"10",
 			month:"july",
@@ -69,7 +72,7 @@ const CommunityDetail = ({navigation}) => {
 					style={{width:'100%',
 						height:170,
 						borderRadius:20}}
-						source={require('../../../assets/img/blank_event_design.png')}>
+						source={require('../../../assets/img/green_blank.png')}>
 	
 				<View style={{
 					width:"15%",
@@ -90,6 +93,45 @@ const CommunityDetail = ({navigation}) => {
 					<Text style={styles.headingText2}>{item.text1}</Text>
 				</View>
 				</ImageBackground>
+			</View>)
+	}
+
+	const middle=[
+		{
+			date:"10",
+			month:"july",
+			title:"SESSION 1",
+			text:"Coach John Roller"
+		},
+		{
+			date:"10",
+			month:"Oct",
+			title:"SESSION 2",
+			text:"Coach John Roller"
+		},
+	]
+	
+	const _renderMiddleItem = ({item, index}) => {
+		return (
+			<View style={styles.middleWrapper} >		
+				<View >
+					<Text style={{fontWeight:'bold', fontSize:20, margin:10}}>{item.title}</Text>
+					<Text style={{marginTop:10, marginLeft:10}}>{item.text}</Text>
+				</View>
+				<View style={{
+					width:"15%",
+					height:60,
+					marginTop:10,
+					backgroundColor:'#EBECF0',
+					borderRadius:20,
+					marginLeft:50,
+					padding:5,
+					alignItems:'center'				
+					}}>
+						<Text>{item.date}</Text>
+						<Text>{item.month}</Text>
+				</View>
+				
 			</View>)
 	}
 
@@ -120,11 +162,97 @@ const CommunityDetail = ({navigation}) => {
 			</View>)
 	}
 
+	const learn=[
+		{
+			
+			title:"Growth Coaching",
+			text:"Prime Yourself to become Insenely Great Leader",
+			text1:"Frost"
+		},
+		{
+			
+			title:"Growth Coaching",
+			text:"Prime Yourself to become Insenely Great Leader",
+			text1:"Frost"
+		},
+	]
+	
+	const _renderLearnItem = ({item, index}) => {
+		return (
+			<View style={styles.learnWrapper} >
+				<Image 
+				style={{
+					width:100,
+					height:140,
+					margin:10,
+					borderRadius:10,
+
+				}}
+				source={require('../../../assets/img/best_practices_slider_image.png')}/>		
+				<View>
+					<View >
+						<Text style={{fontWeight:'bold', fontSize:18, marginLeft:10, marginTop:10}}>{item.title}</Text>
+						<Text style={{ marginLeft:10, width:180, marginTop:10}}>{item.text}</Text>
+					</View>
+					<View style={{marginTop:40, display:'flex', flexDirection:'row', marginLeft:10 }}>
+						<Text>{item.text1}</Text>
+						<Ionicons
+							name={'book-outline'}
+							size={20}
+							color="#cccccc"
+							style={{marginLeft:100}}
+						/>
+					</View>
+				</View>
+					
+				
+			</View>)
+	}
+
+	// Sample data
+    const data = [
+        { name: 'A', x: 21 },
+        { name: 'B', x: 22 },
+        { name: 'C', x: -32 },
+        { name: 'D', x: -14 },
+        { name: 'E', x: -51 },
+        { name: 'F', x: 16 },
+        { name: 'G', x: 7 },
+        { name: 'H', x: -8 },
+        { name: 'I', x: 9 },
+    ];
+	const options = {
+		width: 290,
+		height: 290,
+		margin: {
+		  top: 20,
+		  left: 20,
+		  right: 30,
+		  bottom: 20
+		},
+		r: 150,
+		max: 100,
+		fill: "#2980B9",
+		stroke: "#2980B9",
+		animate: {
+		  type: 'oneByOne',
+		  duration: 200
+		},
+		label: {
+		  fontFamily: 'Arial',
+		  fontSize: 14,
+		  fontWeight: true,
+		  fill: '#34495E'
+		}
+	  }
+	
 	return (
+
 		<ScrollView >
 			<View style={styles.container}>
 				<ImageBackground source={require("../../../assets/img/image.png")}  style={{height:400}}>
 					
+
 						<View style={styles.arrow}>
 						<Ionicons
 							name={'arrow-back'}
@@ -133,8 +261,20 @@ const CommunityDetail = ({navigation}) => {
 							onPress={() => navigation.navigate('Journey')}
 						/>
 						</View>
-				
-                   
+
+						<TouchableOpacity
+								onPress={() => navigation.navigate('Model', {screen: 'GrowthCoaching'})}>
+								<View style={styles.arrow}>
+								<Ionicons
+									name={'arrow-back'}
+									size={50}
+									color='white'
+									
+								/>
+								</View>
+						</TouchableOpacity>
+
+				                   
 					<View style={styles.icon}>
 						<Image source={require("../../../assets/img/Path203.png")}
 							style={{
@@ -147,7 +287,7 @@ const CommunityDetail = ({navigation}) => {
 					
 					<View style={styles.content}>
                     <View style={styles.contentWrapper}>
-						<Text style={{fontSize:20, fontWeight:"700", textAlign: 'center',marginTop:50 }}>Megatrend Workshop</Text>
+						<Text style={{fontSize:20, fontWeight:"700", textAlign: 'center',marginTop:50 }}>Growth Leadership Coaching</Text>
 						<Text style={styles.paragraph}>
 							Mega trends are transformative, global forces that define the futre world with their far reaching impact on business,
 							societies, economics, cutures and personal lives. Global Mega Trends to 2030.
@@ -166,10 +306,49 @@ const CommunityDetail = ({navigation}) => {
 								<FlatList
 									horizontal
 									showsHorizontalScrollIndicator={false}
-									data={data2}
+									data={top}
 									renderItem={_renderTopItem}/>
 							
 							</View>
+						</View>
+						<View style={styles.middle}>
+						<Text style={{fontWeight:"bold", fontSize:20}}> Sessions</Text>
+						<View style={{
+							display:'flex', 
+							flexDirection:'row',
+						}}>
+							<FlatList
+								horizontal
+								showsHorizontalScrollIndicator={false}
+								data={middle}
+								renderItem={_renderMiddleItem}/>
+
+						</View>
+						</View>
+						<View style={styles.learn}>
+						<Text style={{fontWeight:"bold", fontSize:20}}>Self Learn</Text>
+						<View style={{
+							display:'flex', 
+							flexDirection:'row',
+						}}>
+							<FlatList
+								horizontal
+								showsHorizontalScrollIndicator={false}
+								data={learn}
+								renderItem={_renderLearnItem}/>
+
+						</View>
+						</View>
+						<View style={styles.radar}>
+							<Text style={{fontWeight:"bold", fontSize:20}}>Frost Radar</Text>
+							{/* <RadarChart height={500} width={500} 
+								outerRadius="80%" data={data}>
+								<PolarGrid />
+								<PolarAngleAxis dataKey="name" />
+								<PolarRadiusAxis />
+								<Radar dataKey="x" stroke="green" 
+									fill="green" fillOpacity={0.5} />
+							</RadarChart> */}
 						</View>
 						<View style={styles.bottom}>
 							<Text style={{fontWeight:"bold" ,fontSize:20}}> Members</Text>
@@ -189,10 +368,10 @@ const CommunityDetail = ({navigation}) => {
 								flexDirection:'row',
 							}}>
 								<FlatList
-									horizontal
-									showsHorizontalScrollIndicator={false}
-									data={pic}
-									renderItem={_renderContentItem}/>
+								horizontal
+								showsHorizontalScrollIndicator={false}
+								data={pic}
+								renderItem={_renderContentItem}/>
 							
 							</View>
 						</View>
@@ -206,12 +385,12 @@ const CommunityDetail = ({navigation}) => {
 	)
 }
 
-export default CommunityDetail
+export default GrowthDetail
 
 const styles = StyleSheet.create({
 	container: {
         ...CommonStyles.container,
-		height:1310,	
+		height:2100,	
 		
     },
 	arrow: {
@@ -230,14 +409,14 @@ const styles = StyleSheet.create({
 		borderWidth: 0.3,
 	},
 	content:{
-		backgroundColor:"skyblue", 
+		backgroundColor:"#84e35d", 
 		borderRadius: 18, 
 		marginTop:150,
 	},
 	contentWrapper: {
         backgroundColor: 'white',
         borderRadius: 18,
-        height: 1000,
+        height: 2000,
 		overflow:'scroll',
 		marginTop:10
 
@@ -252,7 +431,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
 	top:{
-		height:200,
+		height:190,
 		marginTop:10,
 		margin:10,
 		justifyContent:'center',	
@@ -265,14 +444,56 @@ const styles = StyleSheet.create({
 		marginLeft:10,
 		borderRadius:50,
 	},
-	bottom:{
+	middle:{
+		height:130,
+		margin:10,
+		marginTop:30,
+		justifyContent:'center',	
+	},
+	
+	middleWrapper:{
+		height:90,
+		width:230,
+		display:'flex',
+		flexDirection:'row',
+		marginTop:20,
+		marginLeft:10,
+		borderRadius:20,
+		borderWidth:0.5,
+	},
+	learn:{
 		height:180,
 		margin:10,
-		width:400,
+		marginTop:30,
+		justifyContent:'center',	
+	},
+	
+	learnWrapper:{
+		height:160,
+		width:330,
+		marginTop:20,
+		marginLeft:10,
+		borderRadius:20,
+		borderWidth:0.5,
+		display:'flex',
+		flexDirection:'row'
+		
+	},
+
+	radar:{
+		height:350,
+		margin:10,
+		marginTop:30,
+		// backgroundColor:'red'
+	},
+	bottom:{
+		height:190,
+		margin:10,
+		marginTop:20,
 		
 	},
 	bottomWrapper:{
-		width:120,
+		width:90,
 		height:160,
 		borderRadius:20,
 		marginRight:10,

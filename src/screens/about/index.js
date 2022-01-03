@@ -10,7 +10,6 @@ import {
   Dimensions,
 } from 'react-native';
 import {Button} from 'native-base';
-import style from 'react-native-datepicker/style';
 
 import {CommonStyles, Colors, Typography} from '../../theme';
 
