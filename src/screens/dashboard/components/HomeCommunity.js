@@ -56,9 +56,9 @@ const HomeCommunity = (props) => {
 	const _renderItem = ({item, index}) => {
 		return (
 		<View style={styles.bottomWrapper}>
-			<Image 
-				style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+			<Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
 			<Text style={{fontSize:13}}>{item.data.display_name}</Text>
+
 			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
 			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
 				<Ionicons

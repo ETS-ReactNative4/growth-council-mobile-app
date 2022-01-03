@@ -112,7 +112,7 @@ const BestPractice = ({navigation}) => {
 					style={{width:'100%',
 						height:170,
 						borderRadius:20}}
-						source={require('../../../assets/img/blank_event_design.png')}>
+						source={require('../../../assets/img/blue_blank.png')}>
 	
 				<View style={{
 					width:"15%",
@@ -171,7 +171,7 @@ const BestPractice = ({navigation}) => {
 					height:100,
 					
 					}}
-					source={require('../../../assets/img/blank_event_design.png')}>
+					source={require('../../../assets/img/blue_blank.png')}>
 						<View style={{display:'flex', flexDirection:'row'}}>
 						<Image
 							source={require("../../../assets/img/dashboard_logo.png")}
