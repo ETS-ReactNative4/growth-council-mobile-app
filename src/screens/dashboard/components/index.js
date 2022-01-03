@@ -165,8 +165,7 @@ const Dashboard = (props) => {
                 <ImageBackground
                     style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
+                  
                         <Image
                             source={require('../../../assets/img/massk.png')}
                             style={{
@@ -179,8 +178,7 @@ const Dashboard = (props) => {
                                 borderWidth: 5,
                             }}
                         />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'BestPractice'})}>
+                   
                         <Image
                             source={require('../../../assets/img/community_slider_image.png')}
                             style={{
@@ -192,9 +190,9 @@ const Dashboard = (props) => {
                                 borderRadius: 10,
                             }}
                         />
-                    </TouchableOpacity>
+                    
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'GrowthCoaching'})}>
+                    
                         <Image
                             source={require('../../../assets/img/massk.png')}
                             style={{
@@ -206,7 +204,7 @@ const Dashboard = (props) => {
                                 borderRadius: 10,
                             }}
                         />
-                    </TouchableOpacity>
+                    
                 </ImageBackground>
             </View>
 

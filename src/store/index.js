@@ -11,6 +11,7 @@ import {
     REGISTER,
 } from 'redux-persist';
 import {configureStore} from '@reduxjs/toolkit';
+
 import authReducer from '../screens/auth/authSlice';
 import profileReducer from '../screens/account/profileSlice';
 import passwordReducer from '../screens/setting/passwordSlice';
@@ -21,6 +22,9 @@ import aboutReducer from '../screens/about/slice/aboutSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
 import IdeaReducer from '../screens/ideas/slice/ideaSlice'
 import eventReducer from '../screens/event/eventSlice';
+
+import pillarReducer from '../screens/home/pillarSlice';
+import pillarSliderReducer from '../screens/home/pillarSliderSlice';
 
 const persistConfig = {
     key: 'root',
@@ -33,12 +37,14 @@ const reducers = combineReducers({
     profile: profileReducer,
     password: passwordReducer,
     upcomingEvents: upcomingEventReducer,
-	pointOfEngagements: pointOfEngagementReducer,
-	communityMembers: communityMemberReducer,
+    pointOfEngagements: pointOfEngagementReducer,
+    communityMembers: communityMemberReducer,
     events: eventReducer,
 	about:aboutReducer,
 	feedback:feedbackReducer,
 	idea:IdeaReducer,
+    pillars: pillarReducer,
+    pillarSliders: pillarSliderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

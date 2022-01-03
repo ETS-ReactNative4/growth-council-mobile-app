@@ -76,7 +76,7 @@ const GrowthCoaching = ({navigation}) => {
 	
 	const _renderMiddleItem = ({item, index}) => {
 		return (
-			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'GrowthDetail'})}>
+			<TouchableOpacity onPress={() => navigation.navigate('GrowthDetail')}>
 			<View style={styles.middleWrapper}>
 			<View style={styles.middleW}>
 				<Font

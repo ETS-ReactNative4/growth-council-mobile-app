@@ -30,21 +30,21 @@ const CustomDrawerContent = (props) => {
             <DrawerContentScrollView {...props}>
                 <DrawerItem
                     label="Community"
-                    onPress={() => props.navigation.navigate('Model', {screen: 'HomeCommunity'})}
+                    onPress={() => props.navigation.navigate('HomeCommunity')}
                     icon={() =>
                         <Feather name="command" color={'#000'} size={24}/>
                     }
                 />
 				 <DrawerItem
                     label="Best Practice"
-                    onPress={() => props.navigation.navigate('Model', {screen: 'BestPractice'})}
+                    onPress={() => props.navigation.navigate('BestPractice')}
                     icon={() =>
                         <Font name="thumbs-o-up" color={'#000'} size={24}/>
                     }
                 />
 				 <DrawerItem
                     label="Growth Coaching"
-                    onPress={() => props.navigation.navigate('Model', {screen: 'GrowthCoaching'})}
+                    onPress={() => props.navigation.navigate('GrowthCoaching')}
                     icon={() =>
                         <Ionicons name="calendar-outline" color={'#000'} size={24}/>
                     }
