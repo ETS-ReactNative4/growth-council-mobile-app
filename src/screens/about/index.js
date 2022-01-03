@@ -13,9 +13,11 @@ import {Button} from 'native-base';
 
 import {CommonStyles, Colors, Typography} from '../../theme';
 
-const AboutScreen = () => {
+const AboutScreen = ({navigation}) => {
+
   const win = Dimensions.get('window');
   const imageContainerWidth = win.width - 20;
+
   return (
     <>
       <StatusBar
@@ -32,7 +34,7 @@ const AboutScreen = () => {
               <Text style={styles.titleText}>
                 About the Growth Innovation Leadership Council
               </Text>
-              <View style={styles.titleBorder}></View>
+              <View style={styles.titleBorder}/>
             </View>
             <Text style={styles.paragraph}>
               The Growth Innovation Leadership Council’s mission is to enable
