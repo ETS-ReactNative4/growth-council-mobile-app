@@ -8,24 +8,26 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import {Button} from 'native-base';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
+  
 
-const About = (props) => {
-
-	const {navigation, about, aboutLoading, aboutError, fetchAbout} = props
-
+const Ideas = (props) => {
   const win = Dimensions.get('window');
-  const imageContainerWidth = win.width - 20;
+  const containerWidth = win.width - 60;
 
-  useEffect(() => {
-	const fetchAboutAsync = async () => {
-		await fetchAbout();
-	};
-		fetchAboutAsync();
+  const {navigation, idea, ideaLoading, ideaError, fetchIdea, cleanIdea} = props
+
+	useEffect(() => {
+		const fetchAllIdeaAsync = async () => {
+			await fetchIdea();
+		};
+		fetchAllIdeaAsync();
+
 	}, []);
+
 
   return (
     <>
@@ -37,43 +39,23 @@ const About = (props) => {
         style={{
           height: Platform.OS === 'ios' ? 400 : 350,
         }}>
-        <View style={styles.container}>
-          <View style={styles.about}>
-
+        <View style={[styles.container, {height: win.height}]}>
+          <View style={styles.feedback}>
             <View style={styles.title}>
-              <Text style={styles.titleText}>
-				{about.heading1}
-              </Text>
+              <Text style={styles.titleText}>{idea.heading1}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-
             <Text style={styles.paragraph}>
-			  {about.content1}
+              {/* You’re leading your team to greatness and others can learn from
+              your success. We are eager to learn about your progress and
+              successes in the world of customer engagement. Drop us a line to
+              let us know if you’d be willing to be interviewed or if you have
+              recently written an article we should share with the Council
+              membership. */}
+			  {idea.content1}
             </Text>
-
           </View>
-          <View style={styles.aboutImage}>
-            <Image
-              source={require('../../../assets/img/contactus.png')}
-              style={{width: imageContainerWidth}}
-              resizeMode={'contain'}
-            />
-          </View>
-          <View style={styles.backgroundText}>
-            <View style={styles.backgroundTitle}>
-
-              <Text style={styles.backgroundTitleText}>
-				{about.heading2}
-              </Text>
-			  
-              <View style={styles.backgroundTitleBorder}></View>
-            </View>
-
-            <Text style={styles.backgroundParagraph}>
-			  {about.content2}
-            </Text>
-			
-          </View>
+		   
           <View style={styles.cta}>
             <Button
               style={[
@@ -83,7 +65,7 @@ const About = (props) => {
               ]}
               onPress={() => navigation.navigate('About')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
-                Contact Us
+                Email
               </Text>
             </Button>
           </View>
@@ -111,8 +93,7 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     marginRight: 32,
   },
-  about: {
-    marginBottom: 20,
+  feedback: {
     padding: 30,
   },
   title: {
@@ -131,8 +112,8 @@ const styles = StyleSheet.create({
   },
   aboutImage: {
     marginBottom: 50,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
   backgroundText: {
     padding: 30,
@@ -196,9 +177,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 30,
   },
-  paragraph:{
-	  fontSize:16
-  }
 });
 
-export default About;
+export default Ideas;

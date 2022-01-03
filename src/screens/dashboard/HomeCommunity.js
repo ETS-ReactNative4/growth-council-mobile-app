@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import HomeCommunity from './components/HomeCommunity';
-import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
 
+import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
 import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
 
 
@@ -13,7 +13,7 @@ const HomeCommunityScreen = (props) => {
 	const dispatch = useDispatch();
 
 	const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
-	const {communityMembers, communityMemberLoading, communityMemberError} = useSelector((state) => state.communityMembers)
+	const {communityMembers, communityMemberLoading, communityMemberError} = useSelector((state) => state.communityMembers);
 
 	const fetchAllUpcomingEvent = () => {
         dispatch(fetchAllUpcomingEvents());

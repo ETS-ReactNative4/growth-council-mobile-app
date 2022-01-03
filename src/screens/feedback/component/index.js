@@ -10,23 +10,21 @@ import {
   Dimensions,
 } from 'react-native';
 import {Button} from 'native-base';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const About = (props) => {
-
-	const {navigation, about, aboutLoading, aboutError, fetchAbout} = props
-
+const Feedback = (props) => {
+	const {navigation, feedback, feedbackLoading, feedbackError, fetchFeedback} = props
   const win = Dimensions.get('window');
-  const imageContainerWidth = win.width - 20;
+  const containerWidth = win.width - 60;
 
   useEffect(() => {
-	const fetchAboutAsync = async () => {
-		await fetchAbout();
+	const fetchFeedbackAsync = async () => {
+		await fetchFeedback();
 	};
-		fetchAboutAsync();
+		fetchFeedbackAsync();
 	}, []);
 
+	console.log("feedback::::::", feedback)
   return (
     <>
       <StatusBar
@@ -37,42 +35,19 @@ const About = (props) => {
         style={{
           height: Platform.OS === 'ios' ? 400 : 350,
         }}>
-        <View style={styles.container}>
-          <View style={styles.about}>
-
+        <View style={[styles.container, {height: win.height}]}>
+          <View style={styles.feedback}>
             <View style={styles.title}>
-              <Text style={styles.titleText}>
-				{about.heading1}
-              </Text>
+              <Text style={styles.titleText}>{feedback.heading1}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-
             <Text style={styles.paragraph}>
-			  {about.content1}
+              {/* As a member-driven organization, we thrive on maintaining an open
+              and continuous dialog with our members. If you have feedback or an
+              idea for making your membership experience most impactful, we
+              welcome your input! */}
+			  {feedback.content1}
             </Text>
-
-          </View>
-          <View style={styles.aboutImage}>
-            <Image
-              source={require('../../../assets/img/contactus.png')}
-              style={{width: imageContainerWidth}}
-              resizeMode={'contain'}
-            />
-          </View>
-          <View style={styles.backgroundText}>
-            <View style={styles.backgroundTitle}>
-
-              <Text style={styles.backgroundTitleText}>
-				{about.heading2}
-              </Text>
-			  
-              <View style={styles.backgroundTitleBorder}></View>
-            </View>
-
-            <Text style={styles.backgroundParagraph}>
-			  {about.content2}
-            </Text>
-			
           </View>
           <View style={styles.cta}>
             <Button
@@ -83,7 +58,7 @@ const About = (props) => {
               ]}
               onPress={() => navigation.navigate('About')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
-                Contact Us
+                Contact Our Program Team
               </Text>
             </Button>
           </View>
@@ -99,7 +74,7 @@ const About = (props) => {
     </>
   );
 };
-
+export default Feedback;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
@@ -111,8 +86,7 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     marginRight: 32,
   },
-  about: {
-    marginBottom: 20,
+  feedback: {
     padding: 30,
   },
   title: {
@@ -131,8 +105,8 @@ const styles = StyleSheet.create({
   },
   aboutImage: {
     marginBottom: 50,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
   backgroundText: {
     padding: 30,
@@ -196,9 +170,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 30,
   },
-  paragraph:{
-	  fontSize:16
-  }
 });
 
-export default About;
+

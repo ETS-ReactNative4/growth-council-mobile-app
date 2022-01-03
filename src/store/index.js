@@ -18,6 +18,9 @@ import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice'
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
 import aboutReducer from '../screens/about/slice/aboutSlice';
+import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
+import IdeaReducer from '../screens/ideas/slice/ideaSlice'
+import eventReducer from '../screens/event/eventSlice';
 
 const persistConfig = {
     key: 'root',
@@ -32,7 +35,10 @@ const reducers = combineReducers({
     upcomingEvents: upcomingEventReducer,
 	pointOfEngagements: pointOfEngagementReducer,
 	communityMembers: communityMemberReducer,
+    events: eventReducer,
 	about:aboutReducer,
+	feedback:feedbackReducer,
+	idea:IdeaReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
