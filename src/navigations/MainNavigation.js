@@ -24,12 +24,9 @@ import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
 
-// import AboutScreen from '../screens/about';
-
-// import AboutScreen from '../screens/about/index';
-
-// import FeedbackScreen from '../screens/feedback';
-// import IdeasScreen from '../screens/ideas';
+import AboutScreen from '../screens/about';
+import FeedbackScreen from '../screens/feedback';
+import IdeasScreen from '../screens/ideas';
 // import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';
 
@@ -253,14 +250,14 @@ const MainNavigation = () => {
                     headerTitle: 'Contact Us',
                 }}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
                 name="About"
                 component={AboutScreen}
                 options={{
                     headerTitle: 'About',
                 }}
-            /> */}
-            {/* <Stack.Screen
+            />
+            <Stack.Screen
                 name="Feedback"
                 component={FeedbackScreen}
                 options={{
@@ -273,7 +270,7 @@ const MainNavigation = () => {
                 options={{
                     headerTitle: 'Contribute Ideas',
                 }}
-            /> */}
+            />
         </Stack.Navigator>
     );
 };

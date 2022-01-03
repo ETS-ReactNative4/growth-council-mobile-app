@@ -181,7 +181,7 @@ const Dashboard = (props) => {
                     style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
 						<TouchableOpacity
-							onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
+							onPress={() => navigation.navigate("About")}>
 										<Image
 											source={require('../../../assets/img/massk.png')}
 											style={{

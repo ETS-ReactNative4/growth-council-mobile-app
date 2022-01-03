@@ -2,10 +2,13 @@ import React from 'react';
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {SafeAreaView, StyleSheet, TouchableOpacity, View, Image, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 
 import CommunityScreen from '../screens/community';
 import CalendarScreen from '../screens/calendar';
 import DashboardScreen from '../screens/dashboard';
+
 
 import BottomTabNavigation from "./BottomTabNavigation";
 
@@ -27,7 +30,21 @@ const CustomDrawerContent = (props) => {
             <DrawerContentScrollView {...props}>
                 <DrawerItem
                     label="Community"
-                    onPress={() => props.navigation.navigate('Community')}
+                    onPress={() => props.navigation.navigate('Model', {screen: 'HomeCommunity'})}
+                    icon={() =>
+                        <Feather name="command" color={'#000'} size={24}/>
+                    }
+                />
+				 <DrawerItem
+                    label="Best Practice"
+                    onPress={() => props.navigation.navigate('Model', {screen: 'BestPractice'})}
+                    icon={() =>
+                        <Font name="thumbs-o-up" color={'#000'} size={24}/>
+                    }
+                />
+				 <DrawerItem
+                    label="Growth Coaching"
+                    onPress={() => props.navigation.navigate('Model', {screen: 'GrowthCoaching'})}
                     icon={() =>
                         <Ionicons name="calendar-outline" color={'#000'} size={24}/>
                     }
@@ -39,7 +56,40 @@ const CustomDrawerContent = (props) => {
                         <Ionicons name="calendar-outline" color={'#000'} size={24}/>
                     }
                 />
+				 <DrawerItem
+                    label="About"
+                    onPress={() => props.navigation.navigate('About')}
+                    icon={() =>
+                        <Ionicons name="information-circle-outline" color={'#000'} size={24}/>
+                    }
+                />
+				 <DrawerItem
+                    label="Setting"
+                    onPress={() => props.navigation.navigate('Setting')}
+                    icon={() =>
+                        <Ionicons name="settings-outline" color={'#000'} size={24}/>
+                    }
+                />
+				 <DrawerItem
+                    label="Feedback"
+                    onPress={() => props.navigation.navigate('Feedback')}
+                    icon={() =>
+                        <Font name="thumbs-o-up" color={'#000'} size={24}/>
+                    }
+                />
+				 <DrawerItem
+                    label="Contribute Ideas"
+                    onPress={() => props.navigation.navigate('Ideas')}
+                    icon={() =>
+                        <Ionicons name="bulb-outline" color={'#000'} size={24}/>
+                    }
+                />
             </DrawerContentScrollView>
+			<View style={styles.footer}>
+				<Image source={require("../../src/assets/img/footer_logo.png")}/>
+				<Text style={styles.footerText}>EmpoweredBy</Text>
+				<Image source={require("../../src/assets/img/footer_company_name_image.png")} style={{width:200}}/>
+			</View>
         </SafeAreaView>
     );
 };
@@ -112,6 +162,17 @@ const styles = StyleSheet.create({
         height: 15,
         marginHorizontal: 5,
     },
+	footer:{
+		
+		justifyContent:"center",
+		alignItems:"center",
+		marginBottom:50,
+	
+	},
+	footerText:{
+		margin:8,
+		fontSize:8,
+	}
 });
 
 export default DrawerNavigation;

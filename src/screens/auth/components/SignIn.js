@@ -100,6 +100,11 @@ const SignInForm = (props) => {
                             } */}
 
                             <View style={styles.body}>
+								{loading &&
+								<View style={styles.loading}>
+									<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+								</View>
+								}
                                 <FlatTextInput
                                     label='Email'
                                     value={values.username}
@@ -134,11 +139,7 @@ const SignInForm = (props) => {
                             </View>
 
                             <View style={styles.loginButtonWrapper}>
-							{loading &&
-								<View style={styles.loading}>
-									<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
-								</View>
-								}
+							
                                 <Button style={styles.loginButton} onPress={handleSubmit}>
                                     <Text style={styles.loginButtonText}>Sign In</Text>
                                 </Button>
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 10,
         width: '50%',
-		marginLeft:80,
+	
     },
     loginButtonText: {
         ...CommonStyles.buttonText,
@@ -241,6 +242,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 	loading:{
+		width:80,
+		height:80,
 		flex: 1,
 		alignItems: 'center',
 		flexDirection: 'column',
