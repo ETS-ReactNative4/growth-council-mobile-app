@@ -7,49 +7,39 @@ import {
     ImageBackground,
     ScrollView,
     FlatList,
-	TouchableOpacity
+    TouchableOpacity
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// const Data = [
-//     {
-//         uri: require('../../../assets/img/profile_image.png'),
-//         text: 'Jay',
-//     },
-//     {
-//         uri: require('../../../assets/img/welcome_profile_image.png'),
-//         text: 'John',
-//     },
-//     {
-//         uri: require('../../../assets/img/dash_member_image.png'),
-//         text: 'John',
-//     },
-//     {
-//         uri: require('../../../assets/img/profile_image.png'),
-//         text: 'Jay',
-//     },
-// ];
-
 const _renderItem = ({item, index}) => {
+
     return (
         <View style={styles.bottomWrapper}>
             <Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
 
-            <Text style={{fontSize:16, marginTop:8}}>{item.data.display_name}</Text>
+            <Text style={{fontSize: 16, marginTop: 8}}>{item.data.display_name}</Text>
 
-            <Text style={{fontSize:13, marginTop:8}}>{item.data.display_name}</Text>
+            <Text style={{fontSize: 13, marginTop: 8}}>{item.data.display_name}</Text>
 
-			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
-			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
-				<Ionicons
-					name={'chatbox'}
-					size={20}
-					color="grey"
-					style={{marginLeft:5,}}
-				/>
-			</View>
+            <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
+            <View style={{
+                borderRadius: 50,
+                backgroundColor: "#EBECF0",
+                width: 30,
+                height: 30,
+                justifyContent: "center",
+                marginLeft: 60,
+                marginTop: 10
+            }}>
+                <Ionicons
+                    name={'chatbox'}
+                    size={20}
+                    color="grey"
+                    style={{marginLeft: 5,}}
+                />
+            </View>
         </View>
     );
 };
@@ -99,32 +89,35 @@ const data2 = [
     },
 ];
 
-const _renderTopItem = ({item, index}) => {
-    return (
-        <View style={styles.topWrapper}>
-            <ImageBackground
-                style={{width: '100%', height: 170, borderRadius: 20}}
-                source={require('../../../assets/img/blank_event_design.png')}>
-                <View
-                    style={{
-                        width: '30%',
-                        height: 50,
-                        marginTop: 10,
-                        marginLeft: 180,
-                        backgroundColor: '#EBECF0',
-                        borderRadius: 10,
-                        padding: 5,
-                        alignItems: 'center',
-                    }}>
-                    <Text>{item.post_date}</Text>
-                    <Text>{item.month}</Text>
-                </View>
+const _renderTopItem = ({item, index}, navigation) => {
 
-                <View style={styles.header}>
-                    <Text style={styles.headingText1}>{item.post_title}</Text>
-                    <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
-                </View>
-            </ImageBackground>
+    return (
+        <View key={index} style={styles.topWrapper}>
+            <TouchableOpacity onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+                <ImageBackground
+                    style={{width: '100%', height: 170, borderRadius: 20}}
+                    source={require('../../../assets/img/blank_event_design.png')}>
+                    <View
+                        style={{
+                            width: '30%',
+                            height: 50,
+                            marginTop: 10,
+                            marginLeft: 180,
+                            backgroundColor: '#EBECF0',
+                            borderRadius: 10,
+                            padding: 5,
+                            alignItems: 'center',
+                        }}>
+                        <Text>{item.post_date}</Text>
+                        <Text>{item.month}</Text>
+                    </View>
+
+                    <View style={styles.header}>
+                        <Text style={styles.headingText1}>{item.post_title}</Text>
+                        <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
+                    </View>
+                </ImageBackground>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -164,10 +157,10 @@ const Dashboard = (props) => {
     //     };
     //     fetchAllPointOfEngagementAsync();
     // }, []);
-    
+
     useEffect(() => {
         const fetchAllCommunityMemberAsync = async () => {
-           await fetchAllCommunityMember();
+            await fetchAllCommunityMember();
         };
         fetchAllCommunityMemberAsync();
     }, []);
@@ -182,103 +175,102 @@ const Dashboard = (props) => {
                 <ImageBackground
                     style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
-										<Image
-											source={require('../../../assets/img/massk.png')}
-											style={{
-												position: 'absolute',
-												top: 80,
-												height: 150,
-												width: '30%',
-												left: 10,
-												borderRadius: 10,
-												borderWidth: 5,
-											}}
-										/>
-					</TouchableOpacity>
-					<TouchableOpacity
-							onPress={() => navigation.navigate('Model', {screen: 'BestPractice'})}>
-                    <Image
-                        source={require('../../../assets/img/community_slider_image.png')}
-                        style={{
-                            position: 'absolute',
-                            top: 80,
-                            height: 150,
-                            width: '30%',
-                            left: 138,
-                            borderRadius: 10,
-                        }}
-                    />
-					</TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
+                        <Image
+                            source={require('../../../assets/img/massk.png')}
+                            style={{
+                                position: 'absolute',
+                                top: 80,
+                                height: 150,
+                                width: '30%',
+                                left: 10,
+                                borderRadius: 10,
+                                borderWidth: 5,
+                            }}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'BestPractice'})}>
+                        <Image
+                            source={require('../../../assets/img/community_slider_image.png')}
+                            style={{
+                                position: 'absolute',
+                                top: 80,
+                                height: 150,
+                                width: '30%',
+                                left: 138,
+                                borderRadius: 10,
+                            }}
+                        />
+                    </TouchableOpacity>
 
-					<TouchableOpacity
-							onPress={() => navigation.navigate('Model', {screen: 'GrowthCoaching'})}>
-						<Image
-							source={require('../../../assets/img/massk.png')}
-							style={{
-								position: 'absolute',
-								top: 80,
-								height: 150,
-								width: '30%',
-								right: 10,
-								borderRadius: 10,
-							}}
-						/>
-					</TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'GrowthCoaching'})}>
+                        <Image
+                            source={require('../../../assets/img/massk.png')}
+                            style={{
+                                position: 'absolute',
+                                top: 80,
+                                height: 150,
+                                width: '30%',
+                                right: 10,
+                                borderRadius: 10,
+                            }}
+                        />
+                    </TouchableOpacity>
                 </ImageBackground>
-				</View>
+            </View>
 
-                <View style={styles.top}>
-                    <Text style={{fontWeight: 'bold', fontSize: 18}}>
-                        Upcoming Events
-                    </Text>
-                    <View
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                        }}>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={upcomingEvents}
-                            renderItem={_renderTopItem}
-                        />
+            <View style={styles.top}>
+                <Text style={{fontWeight: 'bold', fontSize: 18}}>
+                    Upcoming Events
+                </Text>
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                    }}>
+                    <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={upcomingEvents}
+                        renderItem={(item) => _renderTopItem(item, navigation)}
+                        //renderItem={_renderTopItem}
+                    />
 
 
-                    </View>
                 </View>
+            </View>
 
-                <View style={styles.middle}>
-                    <Text style={{fontWeight: 'bold', fontSize: 18}}>
-                        Points of Engagement
-                    </Text>
+            <View style={styles.middle}>
+                <Text style={{fontWeight: 'bold', fontSize: 18}}>
+                    Points of Engagement
+                </Text>
 
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={data1}
-                            renderItem={_renderMiddleItem}
-                        />
-                    </View>
+                <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={data1}
+                        renderItem={_renderMiddleItem}
+                    />
                 </View>
+            </View>
 
-                <View style={styles.bottom}>
-                    <Text style={{fontWeight: 'bold', fontSize: 18}}>
-                        Growth Community Member
-                    </Text>
-                    <View>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={communityMembers}
-                            renderItem={_renderItem}
-                        />
-                    </View>
+            <View style={styles.bottom}>
+                <Text style={{fontWeight: 'bold', fontSize: 18}}>
+                    Growth Community Member
+                </Text>
+                <View>
+                    <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={communityMembers}
+                        renderItem={_renderItem}
+                    />
                 </View>
-            
-			
+            </View>
+
+
         </ScrollView>
     );
 };
@@ -307,12 +299,12 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     headingText1: {
-        
+
         fontFamily: Typography.FONT_NORMAL,
         marginTop: 10,
         fontWeight: '800',
         color: 'white',
-		fontSize:18
+        fontSize: 18
     },
     headingText2: {
         ...CommonStyles.headingText2,

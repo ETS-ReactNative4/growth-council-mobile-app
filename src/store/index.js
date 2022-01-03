@@ -18,6 +18,8 @@ import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice'
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
 
+import eventReducer from '../screens/event/eventSlice';
+
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
@@ -31,6 +33,7 @@ const reducers = combineReducers({
     upcomingEvents: upcomingEventReducer,
 	pointOfEngagements: pointOfEngagementReducer,
 	communityMembers: communityMemberReducer,
+    events: eventReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

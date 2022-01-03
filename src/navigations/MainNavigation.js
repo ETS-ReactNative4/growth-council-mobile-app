@@ -30,7 +30,7 @@ import CouncilAllDetailScreen from '../screens/home/CouncilALLDetail';
 
 // import FeedbackScreen from '../screens/feedback';
 // import IdeasScreen from '../screens/ideas';
-// import EventDetailScreen from '../screens/event';
+import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
@@ -196,26 +196,26 @@ const MainNavigation = () => {
                     ...TransitionPresets.RevealFromBottomAndroid,
                 }}
             />
-				<Stack.Screen name="radar" component={FrostRadarScreen} options={{
-					headerLeft: () => null,
-					headerTitle: '',
-					headerTransparent: true,
-					...TransitionPresets.RevealFromBottomAndroid,
-				}}/>
+            <Stack.Screen name="radar" component={FrostRadarScreen} options={{
+                headerLeft: () => null,
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.RevealFromBottomAndroid,
+            }}/>
 
-		<Stack.Screen name="Setting" component={SettingScreen} options={{
-					headerLeft: () => null,
-					headerTitle: '',
-					headerTransparent: true,
-					...TransitionPresets.RevealFromBottomAndroid,
-				}}/>
+            <Stack.Screen name="Setting" component={SettingScreen} options={{
+                headerLeft: () => null,
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.RevealFromBottomAndroid,
+            }}/>
 
-			<Stack.Screen name="Account" component={ManageAccountScreen} options={{
-					headerLeft: () => null,
-					headerTitle: '',
-					headerTransparent: true,
-					...TransitionPresets.RevealFromBottomAndroid,
-				}}/>
+            <Stack.Screen name="Account" component={ManageAccountScreen} options={{
+                headerLeft: () => null,
+                headerTitle: '',
+                headerTransparent: true,
+                ...TransitionPresets.RevealFromBottomAndroid,
+            }}/>
             <Stack.Screen
                 name="Model"
                 component={ModelNavigation}
@@ -253,6 +253,16 @@ const MainNavigation = () => {
                     headerTitle: 'Contact Us',
                 }}
             />
+
+            <Stack.Screen
+                name="EventDetail"
+                component={EventDetailScreen}
+                options={({route}) => ({
+                    id: route?.params?.id,
+                    headerTitle: 'Event Detail',
+                })}
+            />
+
             {/* <Stack.Screen
                 name="About"
                 component={AboutScreen}
