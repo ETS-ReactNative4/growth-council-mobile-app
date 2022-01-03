@@ -86,7 +86,7 @@ const SignInForm = (props) => {
                             </View>
                             }
 
-                            {loading &&
+                            {/* {loading &&
                             <View style={{
                                 flex: 1,
                                 alignItems: 'center',
@@ -97,7 +97,7 @@ const SignInForm = (props) => {
                             }}>
                                 <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
                             </View>
-                            }
+                            } */}
 
                             <View style={styles.body}>
                                 <FlatTextInput
@@ -134,9 +134,15 @@ const SignInForm = (props) => {
                             </View>
 
                             <View style={styles.loginButtonWrapper}>
+							{loading &&
+								<View style={styles.loading}>
+									<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+								</View>
+								}
                                 <Button style={styles.loginButton} onPress={handleSubmit}>
                                     <Text style={styles.loginButtonText}>Sign In</Text>
                                 </Button>
+								
                             </View>
                             <View style={styles.forgotButtonWrapper}>
                                 <TouchableOpacity>
@@ -206,7 +212,8 @@ const styles = StyleSheet.create({
         height: 40,
         marginBottom: 15,
         borderRadius: 10,
-        width: '50%'
+        width: '50%',
+		marginLeft:80,
     },
     loginButtonText: {
         ...CommonStyles.buttonText,
@@ -232,7 +239,15 @@ const styles = StyleSheet.create({
     },
     signuptext: {
         flexDirection: 'row',
-    }
+    },
+	loading:{
+		flex: 1,
+		alignItems: 'center',
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		position: 'absolute',
+		zIndex: 1011,
+	}
 });
 
 

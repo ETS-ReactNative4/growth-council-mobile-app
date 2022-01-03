@@ -178,7 +178,8 @@ const EventCalendar = (props) => {
                 <View style={styles.events}>
 					<Text style={{fontSize:20, fontWeight:"bold"}}>August Events</Text>
 					<FlatList
-						showsHorizontalScrollIndicator={false}
+						Vertical
+						showsVerticalScrollIndicator={false}
 						data={events}
 						renderItem={eventItems}
 					/>
