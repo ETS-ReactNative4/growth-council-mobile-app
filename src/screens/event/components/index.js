@@ -12,8 +12,8 @@ import {Button} from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import HTMLView from 'react-native-htmlview';
 
 const Event = props => {
   const {
@@ -34,7 +34,7 @@ const Event = props => {
   }, []);
 
   console.log('route.params.id:::::::::::::::::', route.params.id);
-  console.log('Event Detail:::::::::::::::::', events);
+  console.log('Event Detail:::::::::::::::::', Object.keys(events).length);
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -52,7 +52,9 @@ const Event = props => {
               alignItems: 'center',
             }}>
             <View style={styles.topbanner}>
-              <Text style={styles.headingText1}>{events.post_title}</Text>
+              {Object.keys(events).length > 0 && (
+                <Text style={styles.headingText1}>{events.title}</Text>
+              )}
             </View>
           </View>
           <View
@@ -99,14 +101,17 @@ const Event = props => {
                     <Text style={styles.contentHeading}>
                       11 August, Wednesday
                     </Text>
-                    <Text>
-                      {events.event_metadata._start_hour}:
-                      {events.event_metadata._start_minute}
-                      {events.event_metadata._start_ampm} /
-                      {events.event_metadata._end_hour}:
-                      {events.event_metadata._end_minute}
-                      {events.event_metadata._end_ampm} (PDT)
-                    </Text>
+
+                    {Object.keys(events).length > 0 && (
+                      <Text>
+                        {events.event_meta._start_hour}:
+                        {events.event_meta._start_minute}
+                        {events.event_meta._start_ampm} /
+                        {events.event_meta._end_hour}:
+                        {events.event_meta._end_minute}
+                        {events.event_meta._end_ampm} (PDT)
+                      </Text>
+                    )}
                   </View>
                   <View
                     style={{
@@ -147,18 +152,20 @@ const Event = props => {
                       color={'white'}
                     />
                   </View>
-                  <View
-                    style={{
-                      flex: 4,
-                      paddingLeft: 10,
-                    }}>
-                    <Text style={styles.contentHeading}>
-                      {events.location.location_city} ,
-                      {events.location.location_state} ,
-                      {events.location.location_country}
-                    </Text>
-                    <Text>{events.location.location_address}</Text>
-                  </View>
+                  {Object.keys(events).length > 0 && (
+                    <View
+                      style={{
+                        flex: 4,
+                        paddingLeft: 10,
+                      }}>
+                      <Text style={styles.contentHeading}>
+                        {events.location.location_city} ,
+                        {events.location.location_state} ,
+                        {events.location.location_country}
+                      </Text>
+                      <Text>{events.location.location_address}</Text>
+                    </View>
+                  )}
                   <View
                     style={{
                       flex: 1,
@@ -240,15 +247,12 @@ const Event = props => {
 
               <View>
                 <Text style={styles.contentHeading}>Event Info</Text>
-                <Text style={styles.contentText}>
-                  It’s time to account for the full toll that modern work is
-                  exacting on our ability to keep up with and stay ahead of the
-                  pace of change. With our boundaries broken down by a more
-                  interconnected world, time has proven to be an insufficient
-                  resource in this era. It is energy, not time, that is our most
-                  precious and undervalued resource to solve this extraordinary
-                  challenge.
-                </Text>
+                {Object.keys(events).length > 0 && (
+                  <HTMLView value={events.description} stylesheet={styles} />
+                  // <Text style={styles.contentText}>
+
+                  // </Text>
+                )}
               </View>
 
               <View>
