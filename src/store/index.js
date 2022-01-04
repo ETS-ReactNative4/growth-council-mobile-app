@@ -20,8 +20,9 @@ import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngageme
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
 import aboutReducer from '../screens/about/slice/aboutSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
-import IdeaReducer from '../screens/ideas/slice/ideaSlice'
+import ideaReducer from '../screens/ideas/slice/ideaSlice'
 import eventReducer from '../screens/event/eventSlice';
+import connectionReducer from '../screens/people/slice/connetionSlice'
 
 import pillarReducer from '../screens/home/pillarSlice';
 import pillarSliderReducer from '../screens/home/pillarSliderSlice';
@@ -42,9 +43,11 @@ const reducers = combineReducers({
     events: eventReducer,
 	about:aboutReducer,
 	feedback:feedbackReducer,
-	idea:IdeaReducer,
+	idea:ideaReducer,
     pillars: pillarReducer,
     pillarSliders: pillarSliderReducer,
+	connection:connectionReducer,
+	
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

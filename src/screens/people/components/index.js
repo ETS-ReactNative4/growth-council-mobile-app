@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -14,73 +14,93 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome';
 import {Picker} from '@react-native-picker/picker';
 
-const People = ({navigation}) => {
+const data = [
+	{
+		url: require('../../../assets/img/profile_image.png'),
+		text: "Basim Abdalla",
+		text1: "Director",
+		text2: "West Canadian Digital Imaging"
+	},
+	{
+		url: require('../../../assets/img/welcome_profile_image.png'),
+		text: "Basim Abdalla",
+		text1: "Director",
+		text2: "West Canadian Digital Imaging"
+	},
+	{
+		url: require('../../../assets/img/profile_image.png'),
+		text: "Basim Abdalla",
+		text1: "Director",
+		text2: "West Canadian Digital Imaging"
+	},
+	{
+		url: require('../../../assets/img/welcome_profile_image.png'),
+		text: "Basim Abdalla",
+		text1: "Director",
+		text2: "West Canadian Digital Imaging"
+	},
+	{
+		url: require('../../../assets/img/profile_image.png'),
+		text: "Basim Abdalla",
+		text1: "Director",
+		text2: "West Canadian Digital Imaging"
+	},
+	{
+		url: require('../../../assets/img/welcome_profile_image.png'),
+		text: "Basim Abdalla",
+		text1: "Director",
+		text2: "West Canadian Digital Imaging"
+	},
+	
+	
+];
+const _renderItem = ({item, index}) => {
+	return (
+		<View style={styles.wrapper}>
+		<Image source={require('../../../assets/img/welcome_profile_image.png')}
+			style={{
+				width:"30%",
+				height:90,
+				margin:8,
+			}}	
+			/>
+		<View style={{margin:10, width:'50%'}}>
+			<Text style={{fontSize:18, fontWeight:"bold"}}>{item.data.display_name}</Text>
+			<Text style={{fontSize:16}}>Director</Text>
+			<Text style={{fontSize:10}}>West Canadian Digital Imaging</Text>
+		</View>
+		<Ionicons
+				name='checkmark-circle'
+				size={30}
+				color='skyblue'
+				style={{marginTop:25 }}
+			/>
+		</View>
+	)
+}
+
+
+const People = (props) => {
+
+	const {
+		navigation,
+		connection, 
+		connectionLoading,
+		connectionError,
+		fetchAllConnection,
+		cleanConnection
+	} = props;
 
 	const [category, setCategory] = useState("Categorty");
-	const data = [
-		{
-			url: require('../../../assets/img/profile_image.png'),
-			text: "Basim Abdalla",
-			text1: "Director",
-			text2: "West Canadian Digital Imaging"
-		},
-		{
-			url: require('../../../assets/img/welcome_profile_image.png'),
-			text: "Basim Abdalla",
-			text1: "Director",
-			text2: "West Canadian Digital Imaging"
-		},
-		{
-			url: require('../../../assets/img/profile_image.png'),
-			text: "Basim Abdalla",
-			text1: "Director",
-			text2: "West Canadian Digital Imaging"
-		},
-		{
-			url: require('../../../assets/img/welcome_profile_image.png'),
-			text: "Basim Abdalla",
-			text1: "Director",
-			text2: "West Canadian Digital Imaging"
-		},
-		{
-			url: require('../../../assets/img/profile_image.png'),
-			text: "Basim Abdalla",
-			text1: "Director",
-			text2: "West Canadian Digital Imaging"
-		},
-		{
-			url: require('../../../assets/img/welcome_profile_image.png'),
-			text: "Basim Abdalla",
-			text1: "Director",
-			text2: "West Canadian Digital Imaging"
-		},
-		
-		
-	];
-	const _renderItem = ({item, index}) => {
-		return (
-			<View style={styles.wrapper}>
-			<Image source={item.url}
-				style={{
-					width:"30%",
-					height:90,
-					margin:8,
-				}}	
-				/>
-			<View style={{margin:10, width:'50%'}}>
-				<Text style={{fontSize:18, fontWeight:"bold"}}>{item.text}</Text>
-				<Text style={{fontSize:16}}>{item.text1}</Text>
-				<Text style={{fontSize:10}}>{item.text2}</Text>
-			</View>
-			<Ionicons
-					name='checkmark-circle'
-					size={30}
-					color='skyblue'
-					style={{marginTop:25 }}
-				/>
-			</View>
-		)
-	}
+
+	useEffect(() => {
+        const fetchAllConnectionAsync = async () => {
+            await fetchAllConnection();
+        };
+        fetchAllConnectionAsync();
+    }, []);
+
+	console.log("connection::::", connection);
 
     return (
 		<ScrollView>
@@ -138,29 +158,8 @@ const People = ({navigation}) => {
 				<FlatList
                         vertical
 						showsVerticalScrollIndicator={false}
-                        data={data}
+                        data={connection}
                         renderItem={_renderItem}/>
-
-				{/* <View style={styles.wrapper}>
-					<Image source={require("../../../assets/img/profile_image.png")}
-						style={{
-							width:"30%",
-							height:90,
-							margin:8,
-						}}	
-						/>
-					<View style={{margin:10, width:'50%'}}>
-						<Text style={{fontSize:18, fontWeight:"bold"}}>Basim Abdalla</Text>
-						<Text style={{fontSize:16}}>Director</Text>
-						<Text style={{fontSize:10}}>West Canadian Digital Imaging</Text>
-					</View>
-					<Ionicons
-							name='checkmark-circle'
-							size={30}
-							color='skyblue'
-							style={{marginTop:25 }}
-						/>
-					</View> */}
 		   </View>
 		</ScrollView>
         

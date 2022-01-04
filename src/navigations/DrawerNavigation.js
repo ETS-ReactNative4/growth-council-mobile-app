@@ -50,12 +50,14 @@ const CustomDrawerContent = (props) => {
                 {/*<Ionicons name="calendar-outline" color={'#000'} size={24}/>*/}
                 {/*}*/}
                 {/*/>*/}
-            </DrawerContentScrollView>
-			<View style={styles.footer}>
+
+				{/* <View style={styles.footer}>
 				<Image source={require("../../src/assets/img/footer_logo.png")}/>
 				<Text style={styles.footerText}>EmpoweredBy</Text>
 				<Image source={require("../../src/assets/img/footer_company_name_image.png")} style={{width:200}}/>
-			</View>
+			</View> */}
+            </DrawerContentScrollView>
+			
         </SafeAreaView>
     );
 };
@@ -193,6 +195,7 @@ const DrawerNavigation = () => {
                     )
                 })}
             />
+		
         </Drawer.Navigator>
     );
 };
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
 		
 		justifyContent:"center",
 		alignItems:"center",
-		marginBottom:50,
+		marginTop:150
 	
 	},
 	footerText:{
