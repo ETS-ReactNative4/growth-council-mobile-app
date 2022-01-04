@@ -21,7 +21,7 @@ const Detail = props => {
 
     return (
         <View style={styles.container}>
-            <ScrollView style={{flexGrow: 1, height: screenHeight}}>
+            <ScrollView >
                 <ImageBackground
                     source={require('../../../assets/img/splash-screen.png')}
                     resizeMode="cover">
@@ -57,10 +57,11 @@ const Detail = props => {
                                 (latest version recommended and sometimes required) and Internet
                                 access (fees may apply).
                             </Text>
+							
                         </View>
 
                         <View>
-                            <Button
+							<Button
                                 style={styles.acceptButton}
                                 onPress={() => navigation.navigate('SignUp')}>
                                 <Text style={styles.acceptButtonText}>Create Your Account</Text>
@@ -76,6 +77,7 @@ const Detail = props => {
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
+		height:'100%'
     },
     headingTitle: {
         ...CommonStyles.headingTitle,
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     content: {
         backgroundColor: 'white',
         borderRadius: 18,
-        height: '100%',
+		height:780,
         padding: 25,
     },
     headingText1: {
@@ -98,15 +100,15 @@ const styles = StyleSheet.create({
     paragraph: {
         fontFamily: Typography.FONT_NORMAL,
         fontSize: Typography.FONT_SIZE_MEDIUM,
-        lineHeight: 24,
-        marginTop: 5,
+        lineHeight: 20,
+        marginTop: 1,
         marginBottom: 25,
         color: Colors.TERTIARY_TEXT_COLOR,
         textAlign: 'left',
     },
     acceptButton: {
         borderRadius: 10,
-        marginTop: 30,
+        marginTop: 5,
         width: '45%',
         height: 50,
         backgroundColor: '#183863',

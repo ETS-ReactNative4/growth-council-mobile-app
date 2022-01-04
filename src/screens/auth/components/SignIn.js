@@ -86,7 +86,7 @@ const SignInForm = (props) => {
                             </View>
                             }
 
-                            {loading &&
+                            {/* {loading &&
                             <View style={{
                                 flex: 1,
                                 alignItems: 'center',
@@ -97,9 +97,14 @@ const SignInForm = (props) => {
                             }}>
                                 <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
                             </View>
-                            }
+                            } */}
 
                             <View style={styles.body}>
+								{loading &&
+								<View style={styles.loading}>
+									<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+								</View>
+								}
                                 <FlatTextInput
                                     label='Email'
                                     value={values.username}
@@ -134,9 +139,11 @@ const SignInForm = (props) => {
                             </View>
 
                             <View style={styles.loginButtonWrapper}>
+							
                                 <Button style={styles.loginButton} onPress={handleSubmit}>
                                     <Text style={styles.loginButtonText}>Sign In</Text>
                                 </Button>
+								
                             </View>
                             <View style={styles.forgotButtonWrapper}>
                                 <TouchableOpacity>
@@ -190,6 +197,7 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
+		fontWeight:"bold",
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -206,7 +214,8 @@ const styles = StyleSheet.create({
         height: 40,
         marginBottom: 15,
         borderRadius: 10,
-        width: '50%'
+        width: '50%',
+	
     },
     loginButtonText: {
         ...CommonStyles.buttonText,
@@ -232,7 +241,17 @@ const styles = StyleSheet.create({
     },
     signuptext: {
         flexDirection: 'row',
-    }
+    },
+	loading:{
+		width:80,
+		height:80,
+		flex: 1,
+		alignItems: 'center',
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		position: 'absolute',
+		zIndex: 1011,
+	}
 });
 
 

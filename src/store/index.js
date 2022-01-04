@@ -18,8 +18,11 @@ import passwordReducer from '../screens/setting/passwordSlice';
 import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice';
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
-
+import aboutReducer from '../screens/about/slice/aboutSlice';
+import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
+import ideaReducer from '../screens/ideas/slice/ideaSlice'
 import eventReducer from '../screens/event/eventSlice';
+import connectionReducer from '../screens/people/slice/connetionSlice'
 
 import pillarReducer from '../screens/home/pillarSlice';
 import pillarSliderReducer from '../screens/home/pillarSliderSlice';
@@ -38,8 +41,13 @@ const reducers = combineReducers({
     pointOfEngagements: pointOfEngagementReducer,
     communityMembers: communityMemberReducer,
     events: eventReducer,
+	about:aboutReducer,
+	feedback:feedbackReducer,
+	idea:ideaReducer,
     pillars: pillarReducer,
     pillarSliders: pillarSliderReducer,
+	connection:connectionReducer,
+	
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
