@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import HTMLView from 'react-native-htmlview';
+import moment from 'moment';
 
 const Event = props => {
   const {
@@ -32,15 +33,19 @@ const Event = props => {
     };
     fetchEventDetailAsync();
   }, []);
+  const isEventLoaded = Object.keys(events).length === 0;
+  const actualDate = moment('20111031').format('LLLL');
+  const date = actualDate.split(',', 2);
+  const dateMonth = date[1].split(' ', 3);
 
   console.log('route.params.id:::::::::::::::::', route.params.id);
-  console.log('Event Detail:::::::::::::::::', Object.keys(events).length);
+  console.log('Event Detail:::::::::::::::::', events.ID);
 
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
         <ImageBackground
-          source={require('../../../assets/img/event_main_image.png')}
+          source={events.image}
           resizeMode="cover"
           style={{height: '55%'}}>
           <StatusBar
@@ -52,7 +57,7 @@ const Event = props => {
               alignItems: 'center',
             }}>
             <View style={styles.topbanner}>
-              {Object.keys(events).length > 0 && (
+              {!isEventLoaded && (
                 <Text style={styles.headingText1}>{events.title}</Text>
               )}
             </View>
@@ -98,11 +103,13 @@ const Event = props => {
                       flex: 4,
                       paddingLeft: 10,
                     }}>
-                    <Text style={styles.contentHeading}>
-                      11 August, Wednesday
-                    </Text>
+                    {!isEventLoaded && (
+                      <Text style={styles.contentHeading}>
+                        {dateMonth[2]} {dateMonth[1]}, {date[0]}
+                      </Text>
+                    )}
 
-                    {Object.keys(events).length > 0 && (
+                    {!isEventLoaded && (
                       <Text>
                         {events.event_meta._start_hour}:
                         {events.event_meta._start_minute}
@@ -152,7 +159,7 @@ const Event = props => {
                       color={'white'}
                     />
                   </View>
-                  {Object.keys(events).length > 0 && (
+                  {!isEventLoaded && (
                     <View
                       style={{
                         flex: 4,
@@ -194,20 +201,20 @@ const Event = props => {
                     flexDirection: 'row',
                     marginTop: 10,
                   }}>
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'rgba(54,147,172,1)',
-                      height: 60,
-                      width: 30,
-                      borderRadius: 15,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Image
-                      source={require('../../../assets/img/host_image.png')}
-                    />
-                  </View>
+                  {!isEventLoaded && (
+                    <View
+                      style={{
+                        flex: 1,
+                        backgroundColor: 'rgba(54,147,172,1)',
+                        height: 60,
+                        width: 30,
+                        borderRadius: 15,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Image source={events.organizer_image} />
+                    </View>
+                  )}
                   <View
                     style={{
                       flex: 3,
@@ -247,7 +254,7 @@ const Event = props => {
 
               <View>
                 <Text style={styles.contentHeading}>Event Info</Text>
-                {Object.keys(events).length > 0 && (
+                {!isEventLoaded && (
                   <HTMLView value={events.description} stylesheet={styles} />
                   // <Text style={styles.contentText}>
 
