@@ -5,7 +5,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import DashboardScreen from '../screens/dashboard';
 
-import CommunityScreen from '../screens/community';
 import CalendarScreen from '../screens/calendar';
 import AboutScreen from '../screens/about';
 import FeedbackScreen from '../screens/feedback';
@@ -14,8 +13,6 @@ import HomeCommunityScreen from "../screens/dashboard/HomeCommunity";
 import BestPracticeScreen from "../screens/dashboard/BestPractice";
 import GrowthCoachingScreen from "../screens/dashboard/GrowthCoaching";
 import SettingScreen from '../screens/setting/index';
-
-
 
 import BottomTabNavigation from "./BottomTabNavigation";
 
@@ -51,13 +48,13 @@ const CustomDrawerContent = (props) => {
                 {/*}*/}
                 {/*/>*/}
 
-				{/* <View style={styles.footer}>
+                {/* <View style={styles.footer}>
 				<Image source={require("../../src/assets/img/footer_logo.png")}/>
 				<Text style={styles.footerText}>EmpoweredBy</Text>
 				<Image source={require("../../src/assets/img/footer_company_name_image.png")} style={{width:200}}/>
 			</View> */}
             </DrawerContentScrollView>
-			
+
         </SafeAreaView>
     );
 };
@@ -111,12 +108,12 @@ const DrawerNavigation = () => {
                 itemStyle: {marginVertical: 5},
             }}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
-		
+
         >
             <Drawer.Screen
                 name="Dashboard"
                 component={BottomTabNavigation}
-				
+
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="calendar-outline" color={'blue'} size={24}/>
@@ -144,7 +141,7 @@ const DrawerNavigation = () => {
             <Drawer.Screen
                 name="Growth Coaching"
                 component={GrowthCoachingScreen}
-				
+
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="git-compare-outline" color={'green'} size={24}/>
@@ -168,7 +165,7 @@ const DrawerNavigation = () => {
                     )
                 })}
             />
-			  <Drawer.Screen
+            <Drawer.Screen
                 name="Setting"
                 component={SettingScreen}
                 options={() => ({
@@ -195,7 +192,7 @@ const DrawerNavigation = () => {
                     )
                 })}
             />
-		
+
         </Drawer.Navigator>
     );
 };
@@ -211,17 +208,17 @@ const styles = StyleSheet.create({
         height: 15,
         marginHorizontal: 5,
     },
-	footer:{
-		
-		justifyContent:"center",
-		alignItems:"center",
-		marginTop:150
-	
-	},
-	footerText:{
-		margin:8,
-		fontSize:8,
-	}
+    footer: {
+
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 150
+
+    },
+    footerText: {
+        margin: 8,
+        fontSize: 8,
+    }
 });
 
 export default DrawerNavigation;

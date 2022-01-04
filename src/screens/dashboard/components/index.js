@@ -9,9 +9,10 @@ import {
     FlatList,
     TouchableOpacity
 } from 'react-native';
-import {CommonStyles, Colors, Typography} from '../../../theme';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const _renderItem = ({item, index}) => {
 
@@ -19,7 +20,7 @@ const _renderItem = ({item, index}) => {
         <View style={styles.bottomWrapper}>
             <Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
 
-            <Text style={{fontSize:13, marginTop:8}}>{item.data.display_name}</Text>
+            <Text style={{fontSize: 13, marginTop: 8}}>{item.data.display_name}</Text>
 
             <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
             <View style={{
@@ -150,7 +151,6 @@ const Dashboard = (props) => {
     }, []);
 
 
-
     useEffect(() => {
         const fetchAllCommunityMemberAsync = async () => {
             await fetchAllCommunityMember();
@@ -166,30 +166,29 @@ const Dashboard = (props) => {
                     style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
 
-						<View style={{display:'flex', flexDirection:'row'}}>
-							<View style={styles.ImageWrapper}>		
-								<Image
-									source={require('../../../assets/img/massk.png')}
-									style={styles.ImageStyle}
-								/>
-							</View>
-							<View style={styles.ImageWrapper1}>
-								<Image
-									source={require('../../../assets/img/community_slider_image.png')}
-									style={styles.ImageStyle}
-								/>
-							</View>
-							
-							<View style={styles.ImageWrapper2}>
-								<Image
-									source={require('../../../assets/img/massk.png')}
-									style={styles.ImageStyle}
-								/>
-							</View>
-						</View>
-						
-                      
-                    
+                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                        <View style={styles.ImageWrapper}>
+                            <Image
+                                source={require('../../../assets/img/massk.png')}
+                                style={styles.ImageStyle}
+                            />
+                        </View>
+                        <View style={styles.ImageWrapper1}>
+                            <Image
+                                source={require('../../../assets/img/community_slider_image.png')}
+                                style={styles.ImageStyle}
+                            />
+                        </View>
+
+                        <View style={styles.ImageWrapper2}>
+                            <Image
+                                source={require('../../../assets/img/massk.png')}
+                                style={styles.ImageStyle}
+                            />
+                        </View>
+                    </View>
+
+
                 </ImageBackground>
             </View>
 
@@ -254,39 +253,39 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
         width: '100%',
     },
-	ImageWrapper:{
-		position: 'absolute',
-		top: 80,
-		height: 160,
-		width: '30%',
-		left: 10,
-		borderRadius: 20,
-		backgroundColor:"#ADD8E6"
-	},
-	ImageWrapper1:{
-		position: 'absolute',
-		top: 80,
-		height: 160,
-		width: '30%',
-		left: 140,
-		borderRadius: 20,
-		backgroundColor:"#2a9df4"
-	},
-	ImageWrapper2:{
-		position: 'absolute',
-		top: 80,
-		height: 160,
-		width: '30%',
-		right:10,
-		borderRadius: 20,
-		backgroundColor:"#90EE90"
-	},
-	ImageStyle:{
-		height: 150,
-		width: '90%',
-		margin:5,
-		borderRadius: 10,
-	},
+    ImageWrapper: {
+        position: 'absolute',
+        top: 80,
+        height: 160,
+        width: '30%',
+        left: 10,
+        borderRadius: 20,
+        backgroundColor: "#ADD8E6"
+    },
+    ImageWrapper1: {
+        position: 'absolute',
+        top: 80,
+        height: 160,
+        width: '30%',
+        left: 140,
+        borderRadius: 20,
+        backgroundColor: "#2a9df4"
+    },
+    ImageWrapper2: {
+        position: 'absolute',
+        top: 80,
+        height: 160,
+        width: '30%',
+        right: 10,
+        borderRadius: 20,
+        backgroundColor: "#90EE90"
+    },
+    ImageStyle: {
+        height: 150,
+        width: '90%',
+        margin: 5,
+        borderRadius: 10,
+    },
     top: {
         height: 200,
         marginTop: 80,

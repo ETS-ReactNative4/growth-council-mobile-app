@@ -8,24 +8,24 @@ import {fetchAllConnections, resetConnection} from './slice/connetionSlice';
 const PeopleScreen = (props) => {
 
     const dispatch = useDispatch();
-	const {connection, connectionLoading, connectionError} = useSelector((state) => state.connection);
+    const {connection, connectionLoading, connectionError} = useSelector((state) => state.connection);
 
-	const fetchAllConnection = () =>{
-		dispatch(fetchAllConnections());
-	}
+    const fetchAllConnection = () => {
+        dispatch(fetchAllConnections());
+    };
 
-	const cleanConnection =()=>{
-		dispatch(resetConnection());
-	}
+    const cleanConnection = () => {
+        dispatch(resetConnection());
+    };
 
     return (
         <People
             {...props}
-			connection ={connection}
-			connectionLoading={connectionLoading}
-			connectionError={connectionError}
-			fetchAllConnection={fetchAllConnection}
-			cleanConnection={cleanConnection}
+            connection={connection}
+            connectionLoading={connectionLoading}
+            connectionError={connectionError}
+            fetchAllConnection={fetchAllConnection}
+            cleanConnection={cleanConnection}
         />
     );
 };
