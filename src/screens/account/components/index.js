@@ -120,41 +120,7 @@ const Profile = (props) => {
 		<ScrollView contentContainerStyle={{flexGrow: 1,}} >
 			<View style={styles.container} >
 				<ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover" >
-				{/* <View style={{display:'flex', flexDirection:'row'}}> */}
-						{/* <Image
-							source={require("../../../assets/img/dashboard_logo.png")}
-							style={{
-								position: 'absolute',
-								top: 20,
-								height: 30,
-								width: 30,
-								left: 10,
-								borderWidth: 5,
-							}}
-						/>
-						<View style={{marginLeft:50,}}>
-						
-						<Text style={{fontWeight:"700",  color:"white", fontSize:23, marginTop:20}}>Profile</Text>
-						</View> */}
 
-						{/* <Font
-							name={'search'}
-							size={30}
-							color="white"
-							style={{marginLeft:170, marginTop:20}}
-						/>
-						<Image
-						source={require("../../../assets/img/profile_image.png")}
-						style={{
-							height: 45,
-							width:45,
-							marginTop:10,
-							marginLeft:10,
-							borderRadius:50,
-							
-						}}
-						/> */}
-					{/* </View> */}
 
 				<View style={{height: '100%',}}>
 					<View style={styles.icon}>
@@ -162,15 +128,7 @@ const Profile = (props) => {
 							
 						/>
 					</View>
-					<View style={{width:'20%',
-					height:30, 
-					backgroundColor:'white', 
-					display:'flex', 
-					flexDirection:'row', 
-					borderRadius:20,
-					position:'absolute',
-					zIndex: 30,
-					marginLeft:160, marginTop:90, borderWidth:0.5}}>
+					<View style={styles.textWrapper}>
 					<Ionicon
 							name={'star'}
 							size={20}
@@ -236,7 +194,7 @@ const styles = StyleSheet.create({
 		height:230, 
 		backgroundColor:"white",
 		margin:40,
-		marginTop:60,
+		marginTop:70,
 		borderRadius:10, 
 		justifyContent:'center',
 		alignItems:'center', 
@@ -267,6 +225,17 @@ const styles = StyleSheet.create({
 		position:'absolute',
 		zIndex: 20,
 		borderWidth: 0.3,
+	},
+	textWrapper:{
+		width:'20%',
+		height:30, 
+		backgroundColor:'white', 
+		display:'flex', 
+		flexDirection:'row', 
+		borderRadius:20,
+		position:'absolute',
+		zIndex: 30,
+		marginLeft:160, marginTop:110, borderWidth:0.5
 	},
 	headingText1: {
 		...CommonStyles.headingText1,

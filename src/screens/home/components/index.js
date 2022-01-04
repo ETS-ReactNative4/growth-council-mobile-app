@@ -300,9 +300,13 @@ const styles = StyleSheet.create({
     },
     sliderText: {
         postion: 'absolute',
-        top: '45%',
-        left: 10,
-    },
+        top: '85%',
+        left: 30,
+		fontWeight:"bold",
+		color:"white",
+		zIndex:10,
+		position:"absolute"
+	},
     carouselLeft: {
         position: 'absolute',
         left: 15,

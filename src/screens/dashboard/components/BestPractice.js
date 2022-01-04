@@ -76,7 +76,7 @@ const BestPractice = ({navigation}) => {
 	
 	const _renderMiddleItem = ({item, index}) => {
 		return (
-			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CommunityDetail'})}>
+			<TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
 			<View style={styles.middleWrapper}>
 			<View style={styles.middleW}>
 				<Font
@@ -112,7 +112,7 @@ const BestPractice = ({navigation}) => {
 					style={{width:'100%',
 						height:170,
 						borderRadius:20}}
-						source={require('../../../assets/img/blank_event_design.png')}>
+						source={require('../../../assets/img/blue_blank.png')}>
 	
 				<View style={{
 					width:"15%",
@@ -166,12 +166,12 @@ const BestPractice = ({navigation}) => {
 	return (
 		<ScrollView>
         <View style={styles.container}>
-				<ImageBackground
+				{/* <ImageBackground
 					style={{width:'100%',
 					height:100,
 					
 					}}
-					source={require('../../../assets/img/blank_event_design.png')}>
+					source={require('../../../assets/img/blue_blank.png')}>
 						<View style={{display:'flex', flexDirection:'row'}}>
 						<Image
 							source={require("../../../assets/img/dashboard_logo.png")}
@@ -205,7 +205,7 @@ const BestPractice = ({navigation}) => {
 					}}
 				/>
 					</View>
-				</ImageBackground>
+				</ImageBackground> */}
 		
 		
             <View style={styles.top}>
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     },
 	top:{
 		height:200,
-		marginTop:20,
+		marginTop:50,
 		margin:5,
 		justifyContent:'center',	
 	},

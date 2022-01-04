@@ -19,9 +19,7 @@ const _renderItem = ({item, index}) => {
         <View style={styles.bottomWrapper}>
             <Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
 
-            <Text style={{fontSize: 16, marginTop: 8}}>{item.data.display_name}</Text>
-
-            <Text style={{fontSize: 13, marginTop: 8}}>{item.data.display_name}</Text>
+            <Text style={{fontSize:13, marginTop:8}}>{item.data.display_name}</Text>
 
             <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
             <View style={{
@@ -95,7 +93,7 @@ const _renderTopItem = ({item, index}, navigation) => {
         <View key={index} style={styles.topWrapper}>
             <TouchableOpacity onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
                 <ImageBackground
-                    style={{width: '100%', height: 170, borderRadius: 20}}
+                    style={{width: '100%', height: 170, borderRadius: 20,}}
                     source={require('../../../assets/img/blank_event_design.png')}>
                     <View
                         style={{
@@ -151,12 +149,7 @@ const Dashboard = (props) => {
 
     }, []);
 
-    // useEffect(() => {
-    //     const fetchAllPointOfEngagementAsync = async () => {
-    //        await fetchAllPointOfEngagement();
-    //     };
-    //     fetchAllPointOfEngagementAsync();
-    // }, []);
+
 
     useEffect(() => {
         const fetchAllCommunityMemberAsync = async () => {
@@ -165,9 +158,6 @@ const Dashboard = (props) => {
         fetchAllCommunityMemberAsync();
     }, []);
 
-    console.log("upcomingEvents:::::::::::::::::", upcomingEvents);
-    // console.log("pointOfEngagements:::::::::::::::::", pointOfEngagements);
-    console.log("communityMembers:::::::::::::::::", communityMembers);
 
     return (
         <ScrollView>
@@ -175,48 +165,31 @@ const Dashboard = (props) => {
                 <ImageBackground
                     style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/blank_event_design.png')}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
-                        <Image
-                            source={require('../../../assets/img/massk.png')}
-                            style={{
-                                position: 'absolute',
-                                top: 80,
-                                height: 150,
-                                width: '30%',
-                                left: 10,
-                                borderRadius: 10,
-                                borderWidth: 5,
-                            }}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'BestPractice'})}>
-                        <Image
-                            source={require('../../../assets/img/community_slider_image.png')}
-                            style={{
-                                position: 'absolute',
-                                top: 80,
-                                height: 150,
-                                width: '30%',
-                                left: 138,
-                                borderRadius: 10,
-                            }}
-                        />
-                    </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'GrowthCoaching'})}>
-                        <Image
-                            source={require('../../../assets/img/massk.png')}
-                            style={{
-                                position: 'absolute',
-                                top: 80,
-                                height: 150,
-                                width: '30%',
-                                right: 10,
-                                borderRadius: 10,
-                            }}
-                        />
-                    </TouchableOpacity>
+						<View style={{display:'flex', flexDirection:'row'}}>
+							<View style={styles.ImageWrapper}>		
+								<Image
+									source={require('../../../assets/img/massk.png')}
+									style={styles.ImageStyle}
+								/>
+							</View>
+							<View style={styles.ImageWrapper1}>
+								<Image
+									source={require('../../../assets/img/community_slider_image.png')}
+									style={styles.ImageStyle}
+								/>
+							</View>
+							
+							<View style={styles.ImageWrapper2}>
+								<Image
+									source={require('../../../assets/img/massk.png')}
+									style={styles.ImageStyle}
+								/>
+							</View>
+						</View>
+						
+                      
+                    
                 </ImageBackground>
             </View>
 
@@ -281,6 +254,39 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
         width: '100%',
     },
+	ImageWrapper:{
+		position: 'absolute',
+		top: 80,
+		height: 160,
+		width: '30%',
+		left: 10,
+		borderRadius: 20,
+		backgroundColor:"#ADD8E6"
+	},
+	ImageWrapper1:{
+		position: 'absolute',
+		top: 80,
+		height: 160,
+		width: '30%',
+		left: 140,
+		borderRadius: 20,
+		backgroundColor:"#2a9df4"
+	},
+	ImageWrapper2:{
+		position: 'absolute',
+		top: 80,
+		height: 160,
+		width: '30%',
+		right:10,
+		borderRadius: 20,
+		backgroundColor:"#90EE90"
+	},
+	ImageStyle:{
+		height: 150,
+		width: '90%',
+		margin:5,
+		borderRadius: 10,
+	},
     top: {
         height: 200,
         marginTop: 80,

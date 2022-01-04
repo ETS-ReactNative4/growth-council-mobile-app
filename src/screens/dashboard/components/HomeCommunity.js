@@ -56,13 +56,7 @@ const HomeCommunity = (props) => {
 	const _renderItem = ({item, index}) => {
 		return (
 		<View style={styles.bottomWrapper}>
-			<Image
-
-				style={styles.bottomImage}
-				source={item?.uri}/>
-			<Text style={{fontWeight:"bold", fontSize:18}}>{item.text}</Text>
-
-				style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+			<Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
 			<Text style={{fontSize:13}}>{item.data.display_name}</Text>
 
 			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
@@ -99,7 +93,7 @@ const HomeCommunity = (props) => {
 
 	const _renderMiddleItem = ({item, index}) => {
 		return (
-			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CommunityDetail'})}>
+			<TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
 			<View style={styles.middleWrapper}>
 			<View style={styles.middleW}>
 				<Font
@@ -204,7 +198,7 @@ const HomeCommunity = (props) => {
 	return (
 		<ScrollView>
         <View style={styles.container}>
-				<ImageBackground
+				{/* <ImageBackground
 					style={{width:'100%',
 					height:100,
 
@@ -243,7 +237,7 @@ const HomeCommunity = (props) => {
 					}}
 				/>
 					</View>
-				</ImageBackground>
+				</ImageBackground> */}
 
 
             <View style={styles.top}>
@@ -318,7 +312,7 @@ const styles = StyleSheet.create({
     },
 	top:{
 		height:200,
-		marginTop:20,
+		marginTop:40,
 		margin:10,
 		justifyContent:'center',
 	},
