@@ -13,13 +13,13 @@ import Material from 'react-native-vector-icons/MaterialIcons';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 
-const ManageAccount = () => {
+const ManageAccount = ({navigation}) => {
 
 	return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,}} >
 			<View style={styles.container} >
 				<ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover" >
-				<View style={{display:'flex', flexDirection:'row'}}>
+				{/* <View style={{display:'flex', flexDirection:'row'}}>
 						<Image
 							source={require("../../../assets/img/dashboard_logo.png")}
 							style={{
@@ -52,10 +52,21 @@ const ManageAccount = () => {
 							
 						}}
 						/>
-					</View>
+					</View> */}
+					<TouchableOpacity
+                        onPress={() => navigation.navigate('Dashboard')}>
+                        <View style={styles.arrow}>
+                            <Ionicons
+                                name={'arrow-back'}
+                                size={50}
+                                color='white'
+
+                            />
+                        </View>
+                    </TouchableOpacity>
 
 				<View style={{height: '100%'}}>
-				<View style={styles.icon}>
+					<View style={styles.icon}>
 						<Image source={require("../../../assets/img/profile_image.png")}
 							
 						/>
@@ -74,7 +85,7 @@ const ManageAccount = () => {
 											color='white' 
 											size={20}/>
 										</View>
-										<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Account</Text>
+										<Text style={{fontSize:18,fontWeight:'500', margin:10}}>Account</Text>
 										
 								</View>
 								<View style={{ height: 1,width:'100%', backgroundColor: '#ECECEC'}} />
@@ -154,7 +165,7 @@ const styles = StyleSheet.create({
 		height:160, 
 		backgroundColor:"white",
 		margin:40,
-		marginTop:60,
+		marginTop:80,
 		borderRadius:10, 
 		justifyContent:'center',
 		alignItems:'center', 
@@ -169,7 +180,7 @@ const styles = StyleSheet.create({
 		backgroundColor:"white", 
 		borderRadius:19, 
 		marginLeft:140, 
-		marginTop:30, 
+		marginTop:50, 
 		justifyContent:'center', 
 		position:'absolute',
 		zIndex: 20,
@@ -187,7 +198,7 @@ const styles = StyleSheet.create({
 	middle:{
 		height:700,
 		backgroundColor:'white',
-		marginTop:110,
+		marginTop:150,
 		justifyContent:'center',
 		alignItems:'center', 
 	},

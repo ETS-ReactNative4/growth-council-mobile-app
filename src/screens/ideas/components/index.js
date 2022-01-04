@@ -65,7 +65,7 @@ const Ideas = (props) => {
               ]}
               onPress={() => navigation.navigate('About')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
-                Email
+                Email Us
               </Text>
             </Button>
           </View>

@@ -14,6 +14,7 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 
+
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const Setting = ({navigation}) => {
@@ -23,41 +24,7 @@ const Setting = ({navigation}) => {
 		<ScrollView contentContainerStyle={{flexGrow: 1,}} >
 			<View style={styles.container} >
 				<ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover" >
-				<View style={{display:'flex', flexDirection:'row'}}>
-						<Image
-							source={require("../../../assets/img/dashboard_logo.png")}
-							style={{
-								position: 'absolute',
-								top: 20,
-								height: 30,
-								width: 30,
-								left: 10,
-								borderWidth: 5,
-							}}
-						/>
-						<View style={{marginLeft:50,}}>
-						
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, marginTop:20}}>Settings</Text>
-						</View>
-
-						<Font
-							name={'search'}
-							size={30}
-							color="white"
-							style={{marginLeft:170, marginTop:20}}
-						/>
-						<Image
-						source={require("../../../assets/img/profile_image.png")}
-						style={{
-							height: 40,
-							width:40,
-							marginTop:10,
-							marginLeft:10,
-							borderRadius:50,
-							
-						}}
-						/>
-					</View>
+				
 
 				<View style={{height: '100%'}}>
 				<View style={styles.icon}>
@@ -128,14 +95,7 @@ const Setting = ({navigation}) => {
 										value={isEnabled}
 										style={{ transform: [{ scaleX: 1.4}, { scaleY: 1.5 }] , marginLeft:60}}
      								 />
-									  {/* <ToggleSwitch
-											isOn={false}
-											onColor="green"
-											labelStyle={{ color: "black", fontWeight: "900" }}
-											size="large"
-											onToggle={isOn => console.log("changed to : ", isOn)}
-											style={{ transform: [{ scaleX: 0.7}, { scaleY: 0.7}] , marginLeft:60}}
-											/> */}
+									  
 
 								
 							</View> 
@@ -239,15 +199,16 @@ const styles = StyleSheet.create({
     },
 	middle:{
 		height:'80%',
+		width:'100%',
 		backgroundColor:'white',
-		marginTop:150,
+		marginTop:180,
 		justifyContent:'center',
 		alignItems:'center', 
+		position:"absolute"
 	},
 	wrapper:{
 		width:'80%',
 		height:180, 
-	
 		marginTop:10,
 	},
 	middleWrapper:{

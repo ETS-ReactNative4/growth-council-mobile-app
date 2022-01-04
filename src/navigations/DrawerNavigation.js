@@ -2,8 +2,6 @@ import React from 'react';
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 import {SafeAreaView, StyleSheet, TouchableOpacity, View, Image, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Font from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 
 import DashboardScreen from '../screens/dashboard';
 
@@ -15,6 +13,7 @@ import ContributeIdeasScreen from '../screens/ideas';
 import HomeCommunityScreen from "../screens/dashboard/HomeCommunity";
 import BestPracticeScreen from "../screens/dashboard/BestPractice";
 import GrowthCoachingScreen from "../screens/dashboard/GrowthCoaching";
+import SettingScreen from '../screens/setting/index';
 
 
 
@@ -110,13 +109,15 @@ const DrawerNavigation = () => {
                 itemStyle: {marginVertical: 5},
             }}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
+		
         >
             <Drawer.Screen
                 name="Dashboard"
                 component={BottomTabNavigation}
+				
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
-                        <Ionicons name="calendar-outline" color={'#000'} size={24}/>
+                        <Ionicons name="calendar-outline" color={'blue'} size={24}/>
                     )
                 })}
             />
@@ -125,7 +126,7 @@ const DrawerNavigation = () => {
                 component={HomeCommunityScreen}
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
-                        <Ionicons name="calendar-outline" color={'#000'} size={24}/>
+                        <Ionicons name="calendar-outline" color={'blue'} size={24}/>
                     )
                 })}
             />
@@ -134,16 +135,17 @@ const DrawerNavigation = () => {
                 component={BestPracticeScreen}
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
-                        <Ionicons name="ear-outline" color={'#000'} size={24}/>
+                        <Ionicons name="ear-outline" color={'blue'} size={24}/>
                     )
                 })}
             />
             <Drawer.Screen
                 name="Growth Coaching"
                 component={GrowthCoachingScreen}
+				
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
-                        <Ionicons name="git-compare-outline" color={'#000'} size={24}/>
+                        <Ionicons name="git-compare-outline" color={'green'} size={24}/>
                     )
                 })}
             />
@@ -152,7 +154,7 @@ const DrawerNavigation = () => {
                 component={CalendarScreen}
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
-                        <Ionicons name="calendar-outline" color={'#000'} size={24}/>
+                        <Ionicons name="calendar-outline" color={'#00008B'} size={24}/>
                     )
                 })}/>
             <Drawer.Screen
@@ -160,7 +162,16 @@ const DrawerNavigation = () => {
                 component={AboutScreen}
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
-                        <Ionicons name="information-circle-outline" color={'#000'} size={24}/>
+                        <Ionicons name="information-circle-outline" color={'#00008B'} size={24}/>
+                    )
+                })}
+            />
+			  <Drawer.Screen
+                name="Setting"
+                component={SettingScreen}
+                options={() => ({
+                    drawerIcon: ({focused, size}) => (
+                        <Ionicons name="settings-outline" color={'#00008B'} size={24}/>
                     )
                 })}
             />
@@ -169,7 +180,7 @@ const DrawerNavigation = () => {
                 component={FeedbackScreen}
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
-                        <Ionicons name="thumbs-up-outline" color={'#000'} size={24}/>
+                        <Ionicons name="thumbs-up-outline" color={'#00008B'} size={24}/>
                     )
                 })}
             />
@@ -178,7 +189,7 @@ const DrawerNavigation = () => {
                 component={ContributeIdeasScreen}
                 options={() => ({
                     drawerIcon: ({focused, size}) => (
-                        <Ionicons name="bulb-outline" color={'#000'} size={24}/>
+                        <Ionicons name="bulb-outline" color={'#00008B'} size={24}/>
                     )
                 })}
             />

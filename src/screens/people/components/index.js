@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -12,8 +12,11 @@ import {
 import {CommonStyles, Colors} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome';
+import {Picker} from '@react-native-picker/picker';
 
 const People = ({navigation}) => {
+
+	const [category, setCategory] = useState("Categorty");
 	const data = [
 		{
 			url: require('../../../assets/img/profile_image.png'),
@@ -90,18 +93,21 @@ const People = ({navigation}) => {
 						keyboardType="numeric"
 					/>
 					<Ionicons name='list-outline' color="blue" size={40} style={{ marginTop:10}}/>
-					<Ionicons name='menu' color={'#000'} size={40} style={{marginLeft:10, marginTop:10}}/>
+					<Ionicons name='ios-grid-outline' color={'#000'} size={30} style={{marginLeft:10, marginTop:15}}/>
 					
 				</View>
 				<View style={{display:'flex',flexDirection:'row'}}>
 
-						<Text style={{margin:25}}>Category</Text>
-						<Ionicons
-							name='chevron-down-outline'
-							size={20}
-							color='#d7d7d7'
-							style={{marginTop:20, marginLeft:40, marginRight:20}}
-						/>
+						<Picker
+								selectedValue={category}
+								mode={'dropdown'}
+								style={{height: 30, width: 170, }}
+								onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+							>
+								<Picker.Item label="Category" value="Category"/>
+								<Picker.Item label="Kathmandu" value="kathmandu" />
+								<Picker.Item label="Bhaktapur" value="bhaktapur"/>
+							</Picker>
 
 						<View style={{ height:"100%", width:1,backgroundColor: '#808080'}} />
 

@@ -277,7 +277,7 @@ const GrowthDetail = ({navigation}) => {
                 <ImageBackground source={require("../../../assets/img/image.png")} style={{height: 400}}>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('GrowthCoaching')}>
+                        onPress={() => navigation.navigate('Dashboard')}>
                         <View style={styles.arrow}>
                             <Ionicons
                                 name={'arrow-back'}

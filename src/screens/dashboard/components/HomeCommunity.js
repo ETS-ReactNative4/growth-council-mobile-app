@@ -198,7 +198,7 @@ const HomeCommunity = (props) => {
 	return (
 		<ScrollView>
         <View style={styles.container}>
-				<ImageBackground
+				{/* <ImageBackground
 					style={{width:'100%',
 					height:100,
 
@@ -237,7 +237,7 @@ const HomeCommunity = (props) => {
 					}}
 				/>
 					</View>
-				</ImageBackground>
+				</ImageBackground> */}
 
 
             <View style={styles.top}>
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     },
 	top:{
 		height:200,
-		marginTop:20,
+		marginTop:40,
 		margin:10,
 		justifyContent:'center',
 	},

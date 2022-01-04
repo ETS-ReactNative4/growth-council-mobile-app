@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
+		fontWeight:"bold",
     },
     headingText2: {
         ...CommonStyles.headingText2,

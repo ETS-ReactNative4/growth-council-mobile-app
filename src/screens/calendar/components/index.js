@@ -122,8 +122,8 @@ const EventCalendar = (props) => {
 						onValueChange={(itemValue, itemIndex) => setRegion(itemValue)}
 					>
 						<Picker.Item label="Region" value="region" style={{fontSize:12}}/>
-						<Picker.Item label="Kathmandu" value="kathmandu"/>
-						<Picker.Item label="Bhaktapur" value="bhaktapur"/>
+						<Picker.Item label="Kathmandu" value="kathmandu" style={{fontSize:10}}/>
+						<Picker.Item label="Bhaktapur" value="bhaktapur" style={{fontSize:10}}/>
 					</Picker>
 
 					<Picker
@@ -133,8 +133,8 @@ const EventCalendar = (props) => {
 						onValueChange={(itemValue, itemIndex) => setTimezone(itemValue)}
 					>
 						<Picker.Item label="Timezone" value="timezone" style={{fontSize:10}}/>
-						<Picker.Item label="Kathmandu" value="kathmandu"/>
-						<Picker.Item label="Bhaktapur" value="bhaktapur"/>
+						<Picker.Item label="Kathmandu" value="kathmandu" style={{fontSize:10}}/>
+						<Picker.Item label="Bhaktapur" value="bhaktapur" style={{fontSize:10}}/>
 					</Picker>
 					<Picker
 						selectedValue={industry}
@@ -143,8 +143,8 @@ const EventCalendar = (props) => {
 						onValueChange={(itemValue, itemIndex) => setIndustry(itemValue)}
 					>
 						<Picker.Item label="Industry" value="industry" style={{fontSize:10}}/>
-						<Picker.Item label="Kathmandu" value="kathmandu"/>
-						<Picker.Item label="Bhaktapur" value="bhaktapur"/>
+						<Picker.Item label="Kathmandu" value="kathmandu" style={{fontSize:10}}/>
+						<Picker.Item label="Bhaktapur" value="bhaktapur" style={{fontSize:10}}/>
 					</Picker>
 					<Picker
 						selectedValue={pillar}
@@ -153,8 +153,9 @@ const EventCalendar = (props) => {
 						onValueChange={(itemValue, itemIndex) => setPillar(itemValue)}
 					>
 						<Picker.Item label="Pillar" value="pillar" style={{fontSize:10}}/>
-						<Picker.Item label="Kathmandu" value="kathmandu"/>
-						<Picker.Item label="Bhaktapur" value="bhaktapur"/>
+						<Picker.Item label="Growth Community" value="Growth Community" style={{fontSize:10}}/>
+						<Picker.Item label="Best Practice" value="Best Practice" style={{fontSize:10}}/>
+						<Picker.Item label="Growth Coaching" value="Growth Coaching" style={{fontSize:10}}/>
 					</Picker>
 				</View>
 

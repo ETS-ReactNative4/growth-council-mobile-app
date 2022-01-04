@@ -149,7 +149,7 @@ const CommunityDetail = ({navigation}) => {
 
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('HomeCommunity')}>
+                        onPress={() => navigation.navigate('Dashboard')}>
                         <View style={styles.arrow}>
                             <Ionicons
                                 name={'arrow-back'}
