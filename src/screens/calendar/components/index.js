@@ -106,9 +106,7 @@ const EventCalendar = (props) => {
                     {years.map((year, i) => {
                         return (
                             <>
-                                <TouchableOpacity key={i}
-                                                  style={activeYear === year.title ? styles.activeWrapper : styles.passiveWrapper}
-                                                  onPress={() => alert(year.title)}>
+                                <TouchableOpacity key={i} style={activeYear === year.title ? styles.activeWrapper : styles.passiveWrapper} onPress={() => alert(year.title)}>
                                     <Text style={styles.linkText}>{year.title}</Text>
 									
                                 </TouchableOpacity>

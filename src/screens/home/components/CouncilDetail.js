@@ -22,7 +22,7 @@ const CouncilDetail = props => {
 
     const {navigation, route, pillars, pillarLoading, pillarError, fetchPillarByIdentifier, cleanPillar} = props;
 
-    const [loadMore, setLoadMore] = useState(true);
+    const [loadMore, setLoadMore] = useState(false);
 
 
     useEffect(() => {

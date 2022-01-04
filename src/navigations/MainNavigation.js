@@ -1,13 +1,11 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
-import {HeaderBackButton} from '@react-navigation/elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 
-import LogoTitle from '../shared/logo';
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
 
@@ -22,9 +20,6 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 
-import AboutScreen from '../screens/about';
-import FeedbackScreen from '../screens/feedback';
-import IdeasScreen from '../screens/ideas';
 import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';
 
@@ -43,33 +38,6 @@ import GrowthDetailScreen from "../screens/details/GrowthDetail";
 const Stack = createStackNavigator();
 
 const MainNavigation = () => {
-    const isHeaderShown = route => {
-        // If the focused route is not found, we need to assume it's the initial screen
-        // This can happen during if there hasn't been any navigation inside the screen
-        // In our case, it's "Home" as that's the first screen inside the navigator
-        const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
-        switch (routeName) {
-            case 'Home':
-                return false;
-            default:
-                return true;
-        }
-    };
-
-    const headerTitle = route => {
-        // If the focused route is not found, we need to assume it's the initial screen
-        // This can happen during if there hasn't been any navigation inside the screen
-        // In our case, it's "Home" as that's the first screen inside the navigator
-        const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
-        switch (routeName) {
-            case 'Home':
-                return '';
-            case 'Account':
-                return 'Account';
-            default:
-                return '';
-        }
-    };
 
     return (
         <Stack.Navigator
@@ -77,6 +45,7 @@ const MainNavigation = () => {
             screenOptions={({route}) => ({
                 headerTitleAlign: 'center',
             })}>
+
             <Stack.Group>
                 <Stack.Screen
                     name="Home"
@@ -107,7 +76,6 @@ const MainNavigation = () => {
                         gestureDirection: 'horizontal-inverted',
                     })}
                 />
-
                 <Stack.Screen
                     name="SignIn"
                     component={SignInScreen}
@@ -192,14 +160,12 @@ const MainNavigation = () => {
                     headerTransparent: true,
                     ...TransitionPresets.RevealFromBottomAndroid,
                 }}/>
-
                 <Stack.Screen name="Setting" component={SettingScreen} options={{
                     headerLeft: () => null,
                     headerTitle: '',
                     headerTransparent: true,
                     ...TransitionPresets.RevealFromBottomAndroid,
                 }}/>
-
                 <Stack.Screen name="Account" component={ManageAccountScreen} options={{
                     headerLeft: () => null,
                     headerTitle: '',
@@ -238,7 +204,6 @@ const MainNavigation = () => {
                         headerTitle: 'Contact Us',
                     }}
                 />
-
                 <Stack.Screen
                     name="EventDetail"
                     component={EventDetailScreen}
@@ -248,6 +213,7 @@ const MainNavigation = () => {
                     })}
                 />
             </Stack.Group>
+
             <Stack.Group screenOptions={{presentation: 'modal'}}>
                 <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Terms" component={TermsConditionsScreen} options={{headerShown: false}}/>
@@ -264,30 +230,8 @@ const MainNavigation = () => {
                 <Stack.Screen name="GrowthCoaching" component={GrowthCoachingScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CommunityDetail" component={CommunityDetailScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="GrowthDetail" component={GrowthDetailScreen} options={{headerShown: false}}/>
-
             </Stack.Group>
 
-            <Stack.Screen
-                name="About"
-                component={AboutScreen}
-                options={{
-                    headerTitle: 'About',
-                }}
-            />
-            <Stack.Screen
-                name="Feedback"
-                component={FeedbackScreen}
-                options={{
-                    headerTitle: 'Feedback',
-                }}
-            />
-            <Stack.Screen
-                name="Ideas"
-                component={IdeasScreen}
-                options={{
-                    headerTitle: 'Contribute Ideas',
-                }}
-            />
         </Stack.Navigator>
     );
 };
