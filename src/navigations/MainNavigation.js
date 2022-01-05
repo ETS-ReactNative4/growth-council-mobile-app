@@ -22,6 +22,7 @@ import ChangePasswordScreen from '../screens/setting/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';
+import AccountScreen from '../screens/account/index';
 
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
@@ -167,6 +168,12 @@ const MainNavigation = () => {
                     ...TransitionPresets.RevealFromBottomAndroid,
                 }}/>
                 <Stack.Screen name="Account" component={ManageAccountScreen} options={{
+                    headerLeft: () => null,
+                    headerTitle: '',
+                    headerTransparent: true,
+                    ...TransitionPresets.RevealFromBottomAndroid,
+                }}/>
+				<Stack.Screen name="Profile" component={AccountScreen} options={{
                     headerLeft: () => null,
                     headerTitle: '',
                     headerTransparent: true,

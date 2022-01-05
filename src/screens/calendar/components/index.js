@@ -191,10 +191,11 @@ const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
         backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+
     },
     yearTab: {
         width: "90%",
-        marginTop: 10,
+        marginTop: 20,
         marginLeft: 20,
         borderRadius: 10,
         flexDirection: 'row',

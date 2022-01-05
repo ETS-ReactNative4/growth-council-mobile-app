@@ -86,23 +86,10 @@ const SignInForm = (props) => {
                             </View>
                             }
 
-                            {/* {loading &&
-                            <View style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                flexDirection: 'column',
-                                justifyContent: 'space-around',
-                                position: 'absolute',
-                                zIndex: 1011,
-                            }}>
-                                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
-                            </View>
-                            } */}
-
                             <View style={styles.body}>
 								{loading &&
-								<View style={styles.loading}>
-									<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+								<View style={styles.loading1}>
+									<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
 								</View>
 								}
                                 <FlatTextInput
@@ -198,6 +185,7 @@ const styles = StyleSheet.create({
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
 		fontWeight:"bold",
+		fontSize:20
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -242,13 +230,10 @@ const styles = StyleSheet.create({
     signuptext: {
         flexDirection: 'row',
     },
-	loading:{
-		width:80,
-		height:80,
+	loading1:{
+		marginLeft:50,
 		flex: 1,
-		alignItems: 'center',
 		flexDirection: 'column',
-		justifyContent: 'space-around',
 		position: 'absolute',
 		zIndex: 1011,
 	}

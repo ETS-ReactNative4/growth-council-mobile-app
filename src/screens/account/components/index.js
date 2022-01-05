@@ -21,79 +21,60 @@ import {BubblesLoader} from 'react-native-indicator';
 import { Button, Flex } from 'native-base';
 
 const Profile = (props) => {
+	const {
+        navigation,
+		route,
+        upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
+		profile,
+		profileLoading,
+		profileError,
+		fetchProfileByIdentifier,
+		cleanProfile,  
+    } = props;
+
 	const [value, setValue] = useState('My Events');
-	const data = [
-		{
-		  text: 'Executive Coaching Clinic On Goal Setting',
-		  text1: 'Hosted by Michael Cooper',
-		  text2:"3 persons",
-		  text3:"17 June 2021",
-		  text4:"10:00 am",
-		  text5:"Minima Room",
-		},
-		{
-		  text: 'Associate Member Meeting',
-		  text1: 'Hosted by Michael Cooper',
-		  text2:"3 persons",
-		  text3:"17 June 2021",
-		  text4:"10:00 am",
-		  text5:"Minima Room",
-		},
-		{
-			text: 'Executive Coaching Clinic On Goal Setting',
-			text1: 'Hosted by Michael Cooper',
-			text2:"3 persons",
-			text3:"17 June 2021",
-			text4:"10:00 am",
-		  	text5:"Minima Room",
-		  },
-		  {
-			text: 'Associate Member Meeting',
-			text1: 'Hosted by Michael Cooper',
-			text2:"3 persons",
-			text3:"17 June 2021",
-			text4:"10:00 am",
-		 	 text5:"Minima Room",
-		  },
-		
-	  ];
+
 	  
 	  const _renderItem = ({item, index}) => {
 		return (
 			<View style={[styles.middleWrapper, styles.shadowProp]}>
 			<View style={styles.wrapper}>
-				<Text style={{fontSize:15, fontWeight:"bold", color:"black"}}>{item.text}</Text>
-				<Text style={{fontSize:10}}>{item.text1}</Text>
+				<Text style={{fontSize:15, fontWeight:"bold", color:"black"}}>{item.title}</Text>
+				<Text style={{fontSize:10}}>{item.location.location_address}</Text>
 				<View style={styles.iconWrapper}>
-				<Font
-					name={'search'}
+				<Ionicon
+					name={'person'}
 					size={15}
 					color="#0B0B45"
 					
 				/><Text style={{color:'black', marginLeft:5}}>{item.text2}</Text>
-				<Font
-					name={'search'}
+				<Ionicon
+					name={'calendar'}
 					size={15}
 					color="#0B0B45"
 					style={{marginLeft:20}}
 					
-				/><Text style={{color:'black',  marginLeft:5}}>{item.text3}</Text>
+				/><Text style={{color:'black',  marginLeft:5}}>{item.post_date}</Text>
 				</View>
 				<View style={styles.iconWrapper}>
-				<Font
-					name={'search'}
+				<Ionicon
+					name={'time'}
 					size={15}
 					color="#0B0B45"
 					
 					
 				/><Text style={{color:'black',  marginLeft:5}}>{item.text4}</Text>
-				<Font
-					name={'search'}
+				<Ionicon
+					name={'location'}
 					size={15}
 					color="#0B0B45"
 					style={{marginLeft:20}}
 					
-				/><Text style={{color:'black',  marginLeft:5}}>{item.text5}</Text>
+				/><Text style={{color:'black',  marginLeft:5}}>{item.location.location_country}</Text>
 				</View>
 				
 				
@@ -103,33 +84,57 @@ const Profile = (props) => {
 		 
 		);
 	  };
+
+	useEffect(() => {
+        const fetchAllUpcomingEventAsync = async () => {
+            await fetchAllUpcomingEvent();
+        };
+        fetchAllUpcomingEventAsync();
+
+    }, []);
+	useEffect(() => {
+        const fetchProfileAsync = async () => {
+            await fetchProfileByIdentifier(route.params.id);
+        };
+        fetchProfileAsync();
+
+    }, []);
+
+	console.log('route.params.id:::::::::::::::::', route.params.id);
+	console.log("profile::::::", profile.ID);
+	
     return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,}} >
 			<View style={styles.container} >
 				<ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover" >
 
 
-				<View style={{height: '100%',}}>
+				<View style={{height: '100%',marginTop:30}}>
 					<View style={{
 						marginTop:80,	
 						justifyContent:'center', 
 						position:'absolute',
 						zIndex: 20,
 						marginLeft:310}}>
-						<Font
-							name={'edit'}
-							size={20}
-							color="#808080"
-							style={{marginTop:5, marginLeft:5}}
-							
-						/>
+						<TouchableOpacity onPress={() => navigation.navigate('Account')}>
+							<Font
+								name={'edit'}
+								size={20}
+								color="#808080"
+								style={{marginTop:5, marginLeft:5}}
+								
+							/>
+						</TouchableOpacity>
+						
+						<TouchableOpacity onPress={() => navigation.navigate('Setting')}>
 							<Ionicon
-							name={'settings-outline'}
-							size={20}
-							color="#808080"
-							style={{marginTop:10, marginLeft:5}}
-							
-						/>
+								name={'settings-outline'}
+								size={20}
+								color="#808080"
+								style={{marginTop:10, marginLeft:5}}
+								
+							/>
+						</TouchableOpacity>
 						</View>
 					<View style={styles.icon}>
 						<Image source={require("../../../assets/img/profile_image.png")}
@@ -148,8 +153,8 @@ const Profile = (props) => {
 						<Text style={{fontSize:18, marginTop:5}}>1457</Text>
 					</View>
 					<View style={styles.header}>
-						<Text style={styles.headingText1}>Edward Junior</Text>
-						<Text style={{width:'60%',}}>Hi I am an AI analyst. Expert in Data Technology </Text>
+						<Text style={styles.headingText1}>Edward</Text>
+						{/* <Text style={{width:'60%', marginLeft:40}}>{profile.data.user_email} </Text> */}
 						<View style={{ height: 1,width:'90%', backgroundColor: '#ECECEC', marginTop:20}} />
 						<View style={styles.headerWrapper}>
 							<View>
@@ -178,7 +183,7 @@ const Profile = (props) => {
 						<FlatList
 							Vertical
 							showsVerticalScrollIndicator={false}
-							data={data}
+							data={upcomingEvents}
 							renderItem={_renderItem}
 							/>
 							
@@ -285,7 +290,7 @@ const styles = StyleSheet.create({
 		height:50
 	},
 	middleWrapper:{
-		height: 130,
+		height: 150,
 		width:"100%",
 		borderRadius:15,
 		display:'flex',
@@ -329,131 +334,6 @@ const styles = StyleSheet.create({
 		marginLeft:10,
 		marginTop:10,
 	},
-
-	
-
-
-
-    // container: {
-    //     ...CommonStyles.container,
-    // },
-    // content: {
-    //     ...CommonStyles.content,
-    // },
-    // profile: {
-    //     paddingTop: 25,
-    //     paddingBottom: 25,
-    //     paddingLeft: 25,
-    //     paddingRight: 25,
-    //     justifyContent: 'space-between',
-    //     alignItems: 'center',
-    //     borderColor: Colors.QUATERNARY_BORDER_COLOR,
-    //     borderTopWidth: 1,
-    //     borderBottomWidth: 1,
-    //     height: 150,
-    //     width: '100%',
-    //     flexDirection: 'row',
-    // },
-    // circleProfile: {
-    //     backgroundColor: Colors.NONARY_BACKGROUND_COLOR,
-    //     height: 106,
-    //     width: 106,
-    //     borderRadius: 53,
-    //     borderColor: Colors.OCTONARY_BORDER_COLOR,
-    //     borderWidth: 2,
-    //     marginBottom: 5,
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    // },
-    // name: {
-    //     color: Colors.UNDENARY_TEXT_COLOR,
-    //     fontSize: Typography.FONT_SIZE_EXTRA_LARGE,
-    //     fontFamily: Typography.FONT_SEMI_BOLD,
-    //     lineHeight: 27,
-    // },
-    // address: {
-    //     color: Colors.UNDENARY_TEXT_COLOR,
-    //     fontSize: Typography.FONT_SIZE_MEDIUM,
-    //     fontFamily: Typography.FONT_BOLD,
-    // },
-    // phone: {
-    //     color: Colors.SECONDARY_TEXT_COLOR,
-    //     fontSize: Typography.FONT_SIZE_MEDIUM,
-    //     fontFamily: Typography.FONT_SEMI_BOLD,
-    //     marginTop: 15,
-    // },
-    // date: {
-    //     color: Colors.UNDENARY_TEXT_COLOR,
-    //     fontSize: Typography.FONT_SIZE_SMALL,
-    //     fontFamily: Typography.FONT_BOLD,
-    // },
-    // circleImage: {
-    //     height: 106,
-    //     width: 106,
-    //     borderRadius: 53,
-    //     borderColor: Colors.OCTONARY_BORDER_COLOR,
-    //     borderWidth: 2,
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    // },
-    // button: {
-    //     ...CommonStyles.button,
-    //     width: 246,
-    //     height: 50,
-    //     backgroundColor: 'rgba(0,0,0,0.25)',
-    //     borderColor: 'rgba(112,112,112,0.25)',
-    //     borderWidth: 1,
-    //     borderRadius: 10,
-    //     padding: 10,
-    //     marginTop: 10,
-    // },
-    // buttonText: {
-    //     ...CommonStyles.buttonText,
-    //     color: 'rgba(177,177,177,0.72)',
-    //     fontSize: Typography.FONT_SIZE_EXTRA_LARGE,
-    //     fontFamily: Typography.FONT_SEMI_BOLD,
-    // },
-    // middleContent: {
-    //     padding: 25,
-    //     paddingTop: 20,
-    //     height: '50%',
-    //     marginTop: 10,
-    // },
-    // contentList: {
-    //     justifyContent: 'space-between',
-    //     flexDirection: 'row',
-    //     width: '100%',
-    // },
-    // contentListItem: {
-    //     width: '48%',
-    //     alignItems: 'center',
-    //     borderColor: Colors.QUATERNARY_BORDER_COLOR,
-    //     borderWidth: 1,
-    //     borderRadius: 10,
-    //     padding: 20,
-    // },
-    // contentListName: {
-    //     ...CommonStyles.listName,
-    //     color: '#8DA2C7',
-    //     fontSize: Typography.FONT_SIZE_EXTRA_LARGE,
-    // },
-    // bottomWrapper: {
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    // },
-    // signout: {
-    //     fontSize: Typography.FONT_SIZE_LARGE,
-    //     fontFamily: Typography.FONT_NORMAL,
-    //     lineHeight: 20,
-    //     marginBottom: 10,
-    // },
-    // version: {
-    //     ...CommonStyles.listName,
-    //     color: Colors.SECONDARY_TEXT_COLOR,
-    //     fontSize: Typography.FONT_SIZE_SMALL,
-    //     fontFamily: Typography.FONT_NORMAL,
-    //     lineHeight: 15,
-    // },
 });
 
 export default Profile;

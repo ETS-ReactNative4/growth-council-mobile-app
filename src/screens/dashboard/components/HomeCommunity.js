@@ -34,25 +34,7 @@ const HomeCommunity = (props) => {
         cleanCommunityMember
     } = props;
 
-    const Data = [
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
-        },
-        {
-            uri: require('../../../assets/img/welcome_profile_image.png'),
-            text: "John",
-        },
-        {
-            uri: require('../../../assets/img/dash_member_image.png'),
-            text: "John",
-        },
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
-        },
 
-    ];
 
     const _renderItem = ({item, index}) => {
         return (
@@ -116,21 +98,6 @@ const HomeCommunity = (props) => {
             </TouchableOpacity>)
     };
 
-    const data2 = [
-        {
-            date: "10",
-            month: "july",
-            text: "Executive Coaching Clinic On Goal Setting",
-            text1: "Hosted by Michael Cooper"
-        },
-        {
-            date: "10",
-            month: "Oct",
-            text: "Associate Member Meeting",
-            text1: "Hosted by Michael Cooper"
-        },
-    ];
-
     const _renderTopItem = ({item, index}) => {
         return (
             <View style={styles.topWrapper}>
@@ -157,7 +124,7 @@ const HomeCommunity = (props) => {
                     </View>
 
                     <View style={styles.header}>
-                        <Text style={styles.headingText1}>{item.post_title}</Text>
+                        <Text style={styles.headingText1}>{item.title}</Text>
                         <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
                     </View>
                 </ImageBackground>

@@ -73,20 +73,7 @@ const _renderMiddleItem = ({item, index}) => {
     );
 };
 
-const data2 = [
-    {
-        date: '10',
-        month: 'july',
-        text: 'Executive Coaching Clinic On Goal Setting',
-        text1: 'Hosted by Michael Cooper',
-    },
-    {
-        date: '10',
-        month: 'Oct',
-        text: 'Associate Member Meeting',
-        text1: 'Hosted by Michael Cooper',
-    },
-];
+
 
 const _renderTopItem = ({item, index}, navigation) => {
 
@@ -112,8 +99,8 @@ const _renderTopItem = ({item, index}, navigation) => {
                     </View>
 
                     <View style={styles.header}>
-                        <Text style={styles.headingText1}>{item.post_title}</Text>
-                        <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
+                        <Text style={styles.headingText1}>{item.title}</Text>
+                        <Text style={styles.headingText2}>{item.location.location_address}</Text>
                     </View>
                 </ImageBackground>
             </TouchableOpacity>
@@ -306,10 +293,10 @@ const styles = StyleSheet.create({
     headingText1: {
 
         fontFamily: Typography.FONT_NORMAL,
-        marginTop: 10,
+        marginTop: 15,
         fontWeight: '800',
         color: 'white',
-        fontSize: 18
+        fontSize: 16
     },
     headingText2: {
         ...CommonStyles.headingText2,

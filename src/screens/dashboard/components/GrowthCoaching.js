@@ -18,6 +18,11 @@ const GrowthCoaching = (props) => {
 
 	const {
         navigation,
+		upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
         communityMembers,
         communityMemberLoading,
         communityMemberError,
@@ -87,20 +92,6 @@ const GrowthCoaching = (props) => {
             </TouchableOpacity>)
     };
 
-    const data2 = [
-        {
-            date: "10",
-            month: "july",
-            text: "Executive Coaching Clinic On Goal Setting",
-            text1: "Hosted by Michael Cooper"
-        },
-        {
-            date: "10",
-            month: "Oct",
-            text: "Associate Member Meeting",
-            text1: "Hosted by Michael Cooper"
-        },
-    ];
 
     const _renderTopItem = ({item, index}) => {
         return (
@@ -113,23 +104,23 @@ const GrowthCoaching = (props) => {
                     }}
                     source={require('../../../assets/img/green_blank.png')}>
 
-                    <View style={{
-                        width: "15%",
+					<View style={{
+                        width: "30%",
                         height: 50,
                         marginTop: 10,
-                        marginLeft: 240,
+                        marginLeft: 180,
                         backgroundColor: '#EBECF0',
                         borderRadius: 10,
                         padding: 5,
                         alignItems: 'center'
                     }}>
-                        <Text>{item.date}</Text>
+                        <Text>{item.post_date}</Text>
                         <Text>{item.month}</Text>
                     </View>
 
                     <View style={styles.header}>
-                        <Text style={styles.headingText1}>{item.text}</Text>
-                        <Text style={styles.headingText2}>{item.text1}</Text>
+                        <Text style={styles.headingText1}>{item.title}</Text>
+                        <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
                     </View>
                 </ImageBackground>
             </View>)
@@ -218,7 +209,7 @@ const GrowthCoaching = (props) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={data2}
+                            data={upcomingEvents}
                             renderItem={_renderTopItem}/>
 
                     </View>

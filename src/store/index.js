@@ -13,7 +13,7 @@ import {
 import {configureStore} from '@reduxjs/toolkit';
 
 import authReducer from '../screens/auth/authSlice';
-import profileReducer from '../screens/account/profileSlice';
+// import profileReducer from '../screens/account/profileSlice';
 import passwordReducer from '../screens/setting/passwordSlice';
 import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice';
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
@@ -22,7 +22,8 @@ import aboutReducer from '../screens/about/slice/aboutSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
 import ideaReducer from '../screens/ideas/slice/ideaSlice'
 import eventReducer from '../screens/event/eventSlice';
-import connectionReducer from '../screens/people/slice/connetionSlice'
+import connectionReducer from '../screens/people/slice/connetionSlice';
+import profileReducer from '../screens/account/slice/profileSlice';
 
 import pillarReducer from '../screens/home/pillarSlice';
 import pillarSliderReducer from '../screens/home/pillarSliderSlice';
@@ -35,7 +36,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
     auth: authReducer,
-    profile: profileReducer,
+    // profile: profileReducer,
     password: passwordReducer,
     upcomingEvents: upcomingEventReducer,
     pointOfEngagements: pointOfEngagementReducer,
@@ -47,6 +48,7 @@ const reducers = combineReducers({
     pillars: pillarReducer,
     pillarSliders: pillarSliderReducer,
 	connection:connectionReducer,
+	profile:profileReducer,
 	
 });
 

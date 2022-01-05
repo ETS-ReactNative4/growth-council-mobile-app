@@ -13,7 +13,7 @@ import PeopleScreen from '../screens/people';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigation = () => {
+const BottomTabNavigation = ({navigation}) => {
 
     return (
         <Tab.Navigator
@@ -91,7 +91,8 @@ const BottomTabNavigation = () => {
             <Tab.Screen
                 name="Person"
                 component={AccountScreen}
-                options={{
+                options={({route}) => ({
+					id: route?.params?.id,
                     tabBarLabel: 'Account',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
@@ -101,7 +102,7 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
-                }}
+                })}
             />
         </Tab.Navigator>
     );

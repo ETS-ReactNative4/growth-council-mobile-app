@@ -13,72 +13,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome';
 import {Picker} from '@react-native-picker/picker';
 
-const data = [
-    {
-        url: require('../../../assets/img/profile_image.png'),
-        text: "Basim Abdalla",
-        text1: "Director",
-        text2: "West Canadian Digital Imaging"
-    },
-    {
-        url: require('../../../assets/img/welcome_profile_image.png'),
-        text: "Basim Abdalla",
-        text1: "Director",
-        text2: "West Canadian Digital Imaging"
-    },
-    {
-        url: require('../../../assets/img/profile_image.png'),
-        text: "Basim Abdalla",
-        text1: "Director",
-        text2: "West Canadian Digital Imaging"
-    },
-    {
-        url: require('../../../assets/img/welcome_profile_image.png'),
-        text: "Basim Abdalla",
-        text1: "Director",
-        text2: "West Canadian Digital Imaging"
-    },
-    {
-        url: require('../../../assets/img/profile_image.png'),
-        text: "Basim Abdalla",
-        text1: "Director",
-        text2: "West Canadian Digital Imaging"
-    },
-    {
-        url: require('../../../assets/img/welcome_profile_image.png'),
-        text: "Basim Abdalla",
-        text1: "Director",
-        text2: "West Canadian Digital Imaging"
-    },
-
-
-];
-const _renderItem = ({item, index}) => {
-    return (
-        <View style={styles.wrapper}>
-            <Image source={require('../../../assets/img/welcome_profile_image.png')}
-                   style={{
-                       width: "30%",
-                       height: 90,
-                       margin: 8,
-                   }}
-            />
-            <View style={{margin: 10, width: '50%'}}>
-                <Text style={{fontSize: 18, fontWeight: "bold"}}>{item.data.display_name}</Text>
-                <Text style={{fontSize: 16}}>Director</Text>
-                <Text style={{fontSize: 10}}>West Canadian Digital Imaging</Text>
-            </View>
-            <Ionicons
-                name='checkmark-circle'
-                size={30}
-                color='skyblue'
-                style={{marginTop: 25}}
-            />
-        </View>
-    )
-};
-
-
 const People = (props) => {
 
     const {
@@ -91,6 +25,30 @@ const People = (props) => {
     } = props;
 
     const [category, setCategory] = useState("Category");
+	const _renderItem = ({item, index}) => {
+		return (
+			<View style={styles.wrapper}>
+				<Image source={require('../../../assets/img/welcome_profile_image.png')}
+					   style={{
+						   width: "30%",
+						   height: 90,
+						   margin: 8,
+					   }}
+				/>
+				<View style={{margin: 10, width: '50%'}}>
+					<Text style={{fontSize: 18, fontWeight: "bold"}}>{item.data.display_name}</Text>
+					<Text style={{fontSize: 16}}>Director</Text>
+					<Text style={{fontSize: 10}}>West Canadian Digital Imaging</Text>
+				</View>
+				<Ionicons
+					name='checkmark-circle'
+					size={30}
+					color='skyblue'
+					style={{marginTop: 25}}
+				/>
+			</View>
+		)
+	};
 
     useEffect(() => {
         const fetchAllConnectionAsync = async () => {
@@ -99,8 +57,7 @@ const People = (props) => {
         fetchAllConnectionAsync();
     }, []);
 
-    console.log("connection::::", connection);
-
+	
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -108,9 +65,12 @@ const People = (props) => {
                     <Ionicons name="search-outline" color={'#000'} size={24}
                               style={{marginLeft: 20, marginTop: 20, zIndex: 20, position: 'absolute'}}/>
                     <TextInput
+						
                         style={styles.input}
                         placeholder="Search"
-                        keyboardType="numeric"
+                        keyboardType="text"
+						
+						
                     />
                     <Ionicons name='list-outline' color="blue" size={40} style={{marginTop: 10}}/>
                     <Ionicons name='ios-grid-outline' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 15}}/>
