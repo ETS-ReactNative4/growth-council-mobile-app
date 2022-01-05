@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -20,8 +20,8 @@ const HomeCommunity = props => {
         sessions,
         sessionLoading,
         sessionError,
-        fetchAllsession,
-        cleansession,
+        fetchAllSession,
+        cleanSession,
         pointOfEngagements,
         pointOfEngagementLoading,
         pointOfEngagementError,
@@ -34,28 +34,11 @@ const HomeCommunity = props => {
         cleanCommunityMember,
     } = props;
 
-    const Data = [
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: 'Jay',
-        },
-        {
-            uri: require('../../../assets/img/welcome_profile_image.png'),
-            text: 'John',
-        },
-        {
-            uri: require('../../../assets/img/dash_member_image.png'),
-            text: 'John',
-        },
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: 'Jay',
-        },
-    ];
+    console.log('Sessions:::::::::::::::::', sessions);
 
     const _renderItem = ({item, index}) => {
         return (
-            <View style={styles.bottomWrapper}>
+            <View style={styles.bottomWrapper} key={index}>
                 <Image
                     style={styles.bottomImage}
                     source={require('../../../assets/img/profile_image.png')}
@@ -134,34 +117,37 @@ const HomeCommunity = props => {
 
     const _renderTopItem = ({item, index}) => {
         return (
-            <View style={styles.topWrapper}>
-                <ImageBackground
-                    style={{
-                        width: '100%',
-                        height: 170,
-                        borderRadius: 20,
-                    }}
-                    source={require('../../../assets/img/blank_event_design.png')}>
-                    <View
+            <View style={styles.topWrapper} key={index}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('CommunityDetail', {id: item.ID})}>
+                    <ImageBackground
                         style={{
-                            width: '30%',
-                            height: 50,
-                            marginTop: 10,
-                            marginLeft: 180,
-                            backgroundColor: '#EBECF0',
-                            borderRadius: 10,
-                            padding: 5,
-                            alignItems: 'center',
-                        }}>
-                        <Text>{item.post_date}</Text>
-                        <Text>{item.month}</Text>
-                    </View>
+                            width: '100%',
+                            height: 170,
+                            borderRadius: 20,
+                        }}
+                        source={require('../../../assets/img/blank_event_design.png')}>
+                        <View
+                            style={{
+                                width: '30%',
+                                height: 50,
+                                marginTop: 10,
+                                marginLeft: 180,
+                                backgroundColor: '#EBECF0',
+                                borderRadius: 10,
+                                padding: 5,
+                                alignItems: 'center',
+                            }}>
+                            <Text>{item.post_date}</Text>
+                            <Text>{item.month}</Text>
+                        </View>
 
-                    <View style={styles.header}>
-                        <Text style={styles.headingText1}>{item.post_title}</Text>
-                        <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
-                    </View>
-                </ImageBackground>
+                        <View style={styles.header}>
+                            <Text style={styles.headingText1}>{item.post_title}</Text>
+                            <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
+                        </View>
+                    </ImageBackground>
+                </TouchableOpacity>
             </View>
         );
     };
@@ -187,16 +173,16 @@ const HomeCommunity = props => {
                         height: 190,
                         borderRadius: 20,
                     }}
-                    source={item?.uri}></ImageBackground>
+                    source={item?.uri}/>
             </View>
         );
     };
 
     useEffect(() => {
-        const fetchAllsessionAsync = async () => {
-            await fetchAllsession();
+        const fetchAllSessionAsync = async () => {
+            await fetchAllSession();
         };
-        fetchAllsessionAsync();
+        fetchAllSessionAsync();
     }, []);
 
     useEffect(() => {
@@ -209,47 +195,6 @@ const HomeCommunity = props => {
     return (
         <ScrollView>
             <View style={styles.container}>
-                {/* <ImageBackground
-					style={{width:'100%',
-					height:100,
-
-					}}
-					source={require('../../../assets/img/blank_event_design.png')}>
-						<View style={{display:'flex', flexDirection:'row'}}>
-						<Image
-							source={require("../../../assets/img/dashboard_logo.png")}
-							style={{
-								position: 'absolute',
-								top: 40,
-								height: 30,
-								width: 30,
-								left: 10,
-								borderWidth: 5,
-							}}
-						/>
-						<View style={{marginLeft:50,}}>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Community</Text>
-						</View>
-
-						<Font
-							name={'search'}
-							size={30}
-							color="white"
-							style={{marginLeft:150, marginTop:40}}
-						/>
-						<Image
-						source={require("../../../assets/img/profile_image.png")}
-						style={{
-						height: 50,
-						width:50,
-						marginTop:30,
-						marginLeft:10,
-						borderRadius:50,
-					}}
-				/>
-					</View>
-				</ImageBackground> */}
-
                 <View style={styles.top}>
                     <Text style={{fontWeight: 'bold', fontSize: 20}}>
                         {' '}
