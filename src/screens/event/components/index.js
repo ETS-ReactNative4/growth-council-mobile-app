@@ -33,19 +33,20 @@ const Event = props => {
     };
     fetchEventDetailAsync();
   }, []);
+
   const isEventLoaded = Object.keys(events).length === 0;
   const actualDate = moment('20111031').format('LLLL');
   const date = actualDate.split(',', 2);
   const dateMonth = date[1].split(' ', 3);
 
   console.log('route.params.id:::::::::::::::::', route.params.id);
-  console.log('Event Detail:::::::::::::::::', events.ID);
+  console.log('Event Detail:::::::::::::::::', events.organizer_image);
 
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
         <ImageBackground
-          source={events.image}
+          source={{uri: events.image}}
           resizeMode="cover"
           style={{height: '55%'}}>
           <StatusBar
@@ -212,7 +213,7 @@ const Event = props => {
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}>
-                      <Image source={events.organizer_image} />
+                      <Image source={{uri: events.organizer_image}} />
                     </View>
                   )}
                   <View
