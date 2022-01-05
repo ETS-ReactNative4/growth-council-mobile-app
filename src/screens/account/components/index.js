@@ -100,8 +100,8 @@ const Profile = (props) => {
 
     }, []);
 
-	console.log('route.params.id:::::::::::::::::', route.params.id);
-	console.log("profile::::::", profile.ID);
+	// console.log('route.params.id:::::::::::::::::', route.params.id);
+	// console.log("profile::::::", profile.ID);
 	
     return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,}} >
