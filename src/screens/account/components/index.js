@@ -21,19 +21,6 @@ import {BubblesLoader} from 'react-native-indicator';
 import { Button, Flex } from 'native-base';
 
 const Profile = (props) => {
-
-    // const {navigation, profile, loading, error, fetchEmployeeByIdentifier} = props;
-    // const {signOut} = useAuthentication();
-
-    // useEffect(() => {
-    //     const fetchEmployeeAsync = async () => {
-    //         let token = await getAsyncStorage(JWT_TOKEN);
-    //         let customerID = decodeUserID(token);
-    //         fetchEmployeeByIdentifier(customerID);
-    //     };
-    //     fetchEmployeeAsync();
-
-    // }, [navigation]);
 	const [value, setValue] = useState('My Events');
 	const data = [
 		{
@@ -123,10 +110,32 @@ const Profile = (props) => {
 
 
 				<View style={{height: '100%',}}>
+					<View style={{
+						marginTop:80,	
+						justifyContent:'center', 
+						position:'absolute',
+						zIndex: 20,
+						marginLeft:310}}>
+						<Font
+							name={'edit'}
+							size={20}
+							color="#808080"
+							style={{marginTop:5, marginLeft:5}}
+							
+						/>
+							<Ionicon
+							name={'settings-outline'}
+							size={20}
+							color="#808080"
+							style={{marginTop:10, marginLeft:5}}
+							
+						/>
+						</View>
 					<View style={styles.icon}>
 						<Image source={require("../../../assets/img/profile_image.png")}
 							
 						/>
+						
 					</View>
 					<View style={styles.textWrapper}>
 					<Ionicon
@@ -225,6 +234,7 @@ const styles = StyleSheet.create({
 		position:'absolute',
 		zIndex: 20,
 		borderWidth: 0.3,
+		
 	},
 	textWrapper:{
 		width:'20%',

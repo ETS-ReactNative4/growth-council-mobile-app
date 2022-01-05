@@ -44,7 +44,7 @@ const Home = props => {
 
   const carouselItems = [
     {
-      uri: require('../../../assets/img/growth_coaching_slider_image.png'),
+      uri: require('../../../assets/img/welcome_screen_learn_more_image.png'),
       text: 'Growth Coaching',
       id: 121,
     },
@@ -54,7 +54,7 @@ const Home = props => {
       id: 120,
     },
     {
-      uri: require('../../../assets/img/best_practices_slider_image.png'),
+      uri: require('../../../assets/img/massk.png'),
       text: 'Best Practices',
       id: 119,
     },
@@ -77,13 +77,13 @@ const Home = props => {
         <View
           style={{
             backgroundColor: 'floralwhite',
-            borderRadius: 5,
-            height: 250,
+            height: 300,
+			width:200,
             marginLeft: 20,
             marginRight: 20,
             position: 'relative',
           }}>
-          <Image source={item?.uri} style={{width: '100%', height: '100%'}} />
+          <Image source={item?.uri} style={{width: '100%', height: '100%', borderRadius:20}} />
           <Text style={styles.sliderText}>{item.text}</Text>
         </View>
       </TouchableOpacity>
@@ -307,8 +307,11 @@ const styles = StyleSheet.create({
   },
   sliderText: {
     position: 'absolute',
-    top: '45%',
+    top: '85%',
     left: 10,
+	color:"white",
+	fontWeight:"bold",
+	fontSize:18
   },
   carouselLeft: {
     position: 'absolute',

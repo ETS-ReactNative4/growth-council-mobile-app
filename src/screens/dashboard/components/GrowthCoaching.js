@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -14,54 +14,43 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const GrowthCoaching = ({navigation}) => {
-    const Data = [
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
-        },
-        {
-            uri: require('../../../assets/img/welcome_profile_image.png'),
-            text: "John",
-        },
-        {
-            uri: require('../../../assets/img/dash_member_image.png'),
-            text: "John",
-        },
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
-        },
+const GrowthCoaching = (props) => {
 
-    ];
+	const {
+        navigation,
+        communityMembers,
+        communityMemberLoading,
+        communityMemberError,
+        fetchAllCommunityMember,
+        cleanCommunityMember
+    } = props;
 
     const _renderItem = ({item, index}) => {
         return (
-            <View style={styles.bottomWrapper}>
-                <Image
-                    style={styles.bottomImage}
-                    source={item?.uri}/>
-                <Text style={{fontWeight: "bold", fontSize: 18}}>{item.text}</Text>
-                <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
-                <View style={{
-                    borderRadius: 50,
-                    backgroundColor: "#EBECF0",
-                    width: 30,
-                    height: 30,
-                    justifyContent: "center",
-                    marginLeft: 60,
-                    marginTop: 10
-                }}>
-                    <Ionicons
-                        name={'chatbox'}
-                        size={20}
-                        color="grey"
-                        style={{marginLeft: 5}}
-                    />
-                </View>
+			<View style={styles.bottomWrapper}>
+			<Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+			<Text style={{fontSize: 13}}>{item.data.display_name}</Text>
 
-            </View>)
-    };
+			<Text style={{fontSize: 10}}>Frost and Sullivan</Text>
+			<View style={{
+				borderRadius: 50,
+				backgroundColor: "#EBECF0",
+				width: 30,
+				height: 30,
+				justifyContent: "center",
+				marginLeft: 60,
+				marginTop: 10
+			}}>
+				<Ionicons
+					name={'chatbox'}
+					size={20}
+					color="grey"
+					style={{marginLeft: 5}}
+				/>
+			</View>
+
+		</View>)
+    }
 
     const data1 = [
         {
@@ -259,7 +248,7 @@ const GrowthCoaching = ({navigation}) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={Data}
+                            data={communityMembers}
                             renderItem={_renderItem}/>
                     </View>
                 </View>
