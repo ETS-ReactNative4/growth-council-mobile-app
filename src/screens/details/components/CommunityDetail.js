@@ -1,58 +1,72 @@
-import React from 'react'
+import React, {useEffect} from 'react';
 import {
     ScrollView,
     StyleSheet,
     Text,
     View,
-    Dimensions,
     Image,
     ImageBackground,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const screenHeight = Math.round(Dimensions.get('window').height);
+const CommunityDetail = props => {
+    const {
+        navigation,
+        route,
+        sessionDetails,
+        sessionDetailLoading,
+        sessionDetailError,
+        fetchSessionDetailByIdentifier,
+        cleanSessionDetail,
+    } = props;
 
-const CommunityDetail = ({navigation}) => {
-    
+    useEffect(() => {
+        const fetchEventDetailAsync = async () => {
+            await fetchSessionDetailByIdentifier(route.params.id);
+        };
+        fetchEventDetailAsync();
+    }, []);
+
+    console.log('route.params.id:::::::::::::::::', route.params.id);
+    console.log('Session Detail:::::::::::::::::', sessionDetails.ID);
+
     const Data = [
         {
             uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
+            text: 'Jay',
         },
         {
             uri: require('../../../assets/img/welcome_profile_image.png'),
-            text: "John",
+            text: 'John',
         },
         {
             uri: require('../../../assets/img/dash_member_image.png'),
-            text: "John",
+            text: 'John',
         },
         {
             uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
+            text: 'Jay',
         },
-
     ];
 
     const _renderItem = ({item, index}) => {
         return (
             <View style={styles.bottomWrapper}>
-                <Image
-                    style={styles.bottomImage}
-                    source={item?.uri}/>
-                <Text style={{fontWeight: "bold", fontSize: 18}}>{item.text}</Text>
-                <View style={{
-                    borderRadius: 50,
-                    backgroundColor: "#eeeeee",
-                    width: 30,
-                    height: 30,
-                    justifyContent: "center",
-                    marginLeft: 60
-                }}>
+                <Image style={styles.bottomImage} source={item?.uri}/>
+                <Text style={{fontWeight: 'bold', fontSize: 18}}>{item.text}</Text>
+                <View
+                    style={{
+                        borderRadius: 50,
+                        backgroundColor: '#eeeeee',
+                        width: 30,
+                        height: 30,
+                        justifyContent: 'center',
+                        marginLeft: 60,
+                    }}>
                     <Ionicons
                         name={'chatbox'}
                         size={20}
@@ -60,23 +74,22 @@ const CommunityDetail = ({navigation}) => {
                         style={{marginLeft: 5}}
                     />
                 </View>
-
-            </View>)
+            </View>
+        );
     };
-
 
     const data2 = [
         {
-            date: "10",
-            month: "july",
-            text: "Executive Coaching Clinic On Goal Setting",
-            text1: "Hosted by Michael Cooper"
+            date: '10',
+            month: 'july',
+            text: 'Executive Coaching Clinic On Goal Setting',
+            text1: 'Hosted by Michael Cooper',
         },
         {
-            date: "10",
-            month: "Oct",
-            text: "Associate Member Meeting",
-            text1: "Hosted by Michael Cooper"
+            date: '10',
+            month: 'Oct',
+            text: 'Associate Member Meeting',
+            text1: 'Hosted by Michael Cooper',
         },
     ];
 
@@ -87,20 +100,20 @@ const CommunityDetail = ({navigation}) => {
                     style={{
                         width: '100%',
                         height: 170,
-                        borderRadius: 20
+                        borderRadius: 20,
                     }}
                     source={require('../../../assets/img/blank_event_design.png')}>
-
-                    <View style={{
-                        width: "15%",
-                        height: 50,
-                        marginTop: 10,
-                        marginLeft: 240,
-                        backgroundColor: '#EBECF0',
-                        borderRadius: 10,
-                        padding: 5,
-                        alignItems: 'center'
-                    }}>
+                    <View
+                        style={{
+                            width: '15%',
+                            height: 50,
+                            marginTop: 10,
+                            marginLeft: 240,
+                            backgroundColor: '#EBECF0',
+                            borderRadius: 10,
+                            padding: 5,
+                            alignItems: 'center',
+                        }}>
                         <Text>{item.date}</Text>
                         <Text>{item.month}</Text>
                     </View>
@@ -110,21 +123,19 @@ const CommunityDetail = ({navigation}) => {
                         <Text style={styles.headingText2}>{item.text1}</Text>
                     </View>
                 </ImageBackground>
-            </View>)
-    }
+            </View>
+        );
+    };
 
     const pic = [
         {
             uri: require('../../../assets/img/welcome_screen_info_image.png'),
-
         },
         {
             uri: require('../../../assets/img/image.png'),
-
         },
         {
             uri: require('../../../assets/img/contactus.png'),
-
         },
     ];
 
@@ -135,11 +146,11 @@ const CommunityDetail = ({navigation}) => {
                     style={{
                         width: '100%',
                         height: 190,
-                        borderRadius: 20
+                        borderRadius: 20,
                     }}
-                    source={item?.uri}>
-                </ImageBackground>
-            </View>)
+                    source={item?.uri}/>
+            </View>
+        );
     };
 
     return (
@@ -151,90 +162,101 @@ const CommunityDetail = ({navigation}) => {
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}>
                         <View style={styles.arrow}>
-                            <Ionicons
-                                name={'arrow-back'}
-                                size={50}
-                                color='white'
-                            />
+                            <Ionicons name={'arrow-back'} size={50} color="white"/>
                         </View>
                     </TouchableOpacity>
 
                     <View style={styles.icon}>
-                        <Image source={require("../../../assets/img/Path203.png")}
-                               style={{
-                                   width: 35,
-                                   height: 35,
-                                   marginLeft: 25,
-                               }}
+                        <Image
+                            source={require('../../../assets/img/Path203.png')}
+                            style={{
+                                width: 35,
+                                height: 35,
+                                marginLeft: 25,
+                            }}
                         />
                     </View>
 
                     <View style={styles.content}>
                         <View style={styles.contentWrapper}>
-                            <Text style={{fontSize: 20, fontWeight: "700", textAlign: 'center', marginTop: 50}}>Megatrend
-                                Workshop</Text>
+                            <Text
+                                style={{
+                                    fontSize: 20,
+                                    fontWeight: '700',
+                                    textAlign: 'center',
+                                    marginTop: 50,
+                                }}>
+                                Megatrend Workshop
+                            </Text>
                             <Text style={styles.paragraph}>
-                                Mega trends are transformative, global forces that define the futre world with their far
-                                reaching impact on business,
-                                societies, economics, cutures and personal lives. Global Mega Trends to 2030.
-                                Futurecasting key themes that will shape our futures lives, provides a comprehensive
-                                analysis of the transformative,
-                                global forces that define the future world with their far-reaching impact on business,
-                                societies, economics, culture and personal lives.
+                                Mega trends are transformative, global forces that define the
+                                futre world with their far reaching impact on business,
+                                societies, economics, cutures and personal lives. Global Mega
+                                Trends to 2030. Futurecasting key themes that will shape our
+                                futures lives, provides a comprehensive analysis of the
+                                transformative, global forces that define the future world with
+                                their far-reaching impact on business, societies, economics,
+                                culture and personal lives.
                             </Text>
 
                             <View style={styles.top}>
-
-                                <Text style={{fontWeight: "bold", fontSize: 20}}> Events</Text>
-                                <View style={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                }}>
+                                <Text style={{fontWeight: 'bold', fontSize: 20}}> Events</Text>
+                                <View
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                    }}>
                                     <FlatList
                                         horizontal
                                         showsHorizontalScrollIndicator={false}
                                         data={data2}
-                                        renderItem={_renderTopItem}/>
-
+                                        renderItem={_renderTopItem}
+                                    />
                                 </View>
                             </View>
                             <View style={styles.bottom}>
-                                <Text style={{fontWeight: "bold", fontSize: 20}}> Members</Text>
+                                <Text style={{fontWeight: 'bold', fontSize: 20}}> Members</Text>
                                 <View>
                                     <FlatList
                                         horizontal
                                         showsHorizontalScrollIndicator={false}
                                         data={Data}
-                                        renderItem={_renderItem}/>
+                                        renderItem={_renderItem}
+                                    />
                                 </View>
                             </View>
 
                             <View>
-                                <Text style={{fontWeight: "bold", fontSize: 20, marginTop: 30, marginLeft: 10}}> Growth
-                                    Coaching Content</Text>
-                                <View style={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                }}>
+                                <Text
+                                    style={{
+                                        fontWeight: 'bold',
+                                        fontSize: 20,
+                                        marginTop: 30,
+                                        marginLeft: 10,
+                                    }}>
+                                    {' '}
+                                    Growth Coaching Content
+                                </Text>
+                                <View
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                    }}>
                                     <FlatList
                                         horizontal
                                         showsHorizontalScrollIndicator={false}
                                         data={pic}
-                                        renderItem={_renderContentItem}/>
-
+                                        renderItem={_renderContentItem}
+                                    />
                                 </View>
                             </View>
-
                         </View>
                     </View>
                 </ImageBackground>
             </View>
         </ScrollView>
-
-    )
+    );
 };
-
-export default CommunityDetail
 
 const styles = StyleSheet.create({
     container: {
@@ -247,7 +269,7 @@ const styles = StyleSheet.create({
     icon: {
         width: 90,
         height: 90,
-        backgroundColor: "white",
+        backgroundColor: 'white',
         borderRadius: 19,
         marginLeft: 150,
         marginTop: 190,
@@ -257,7 +279,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.3,
     },
     content: {
-        backgroundColor: "skyblue",
+        backgroundColor: 'skyblue',
         borderRadius: 18,
         marginTop: 150,
     },
@@ -266,7 +288,7 @@ const styles = StyleSheet.create({
         borderRadius: 18,
         height: 1000,
         overflow: 'scroll',
-        marginTop: 10
+        marginTop: 10,
     },
     paragraph: {
         fontFamily: Typography.FONT_NORMAL,
@@ -303,12 +325,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         borderWidth: 0.3,
-        shadowColor: "#000000",
+        shadowColor: '#000000',
         shadowOpacity: 0.8,
         shadowRadius: 2,
         shadowOffset: {
             height: 1,
-            width: 1
+            width: 1,
         },
     },
     bottomImage: {
@@ -337,7 +359,8 @@ const styles = StyleSheet.create({
         width: 310,
         marginTop: 20,
         marginLeft: 10,
-        borderRadius: 50
-    }
+        borderRadius: 50,
+    },
+});
 
-})
+export default CommunityDetail;

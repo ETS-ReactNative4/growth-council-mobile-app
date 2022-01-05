@@ -36,9 +36,9 @@ const People = (props) => {
 					   }}
 				/>
 				<View style={{margin: 10, width: '50%'}}>
-					<Text style={{fontSize: 18, fontWeight: "bold"}}>{item.data.display_name}</Text>
-					<Text style={{fontSize: 16}}>Director</Text>
-					<Text style={{fontSize: 10}}>West Canadian Digital Imaging</Text>
+					<Text style={{fontSize: 18, fontWeight: "bold"}}>{item.displayname}</Text>
+					<Text style={{fontSize: 16}}>{item.user_meta.Title}</Text>
+					<Text style={{fontSize: 14}}>{item.user_meta.company}</Text>
 				</View>
 				<Ionicons
 					name='checkmark-circle'

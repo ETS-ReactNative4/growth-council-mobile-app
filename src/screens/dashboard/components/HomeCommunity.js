@@ -7,21 +7,21 @@ import {
     ImageBackground,
     ScrollView,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const HomeCommunity = (props) => {
+const HomeCommunity = props => {
     const {
         navigation,
-        upcomingEvents,
-        upcomingEventLoading,
-        upcomingEventError,
-        fetchAllUpcomingEvent,
-        cleanUpcomingEvent,
+        sessions,
+        sessionLoading,
+        sessionError,
+        fetchAllsession,
+        cleansession,
         pointOfEngagements,
         pointOfEngagementLoading,
         pointOfEngagementError,
@@ -31,27 +31,48 @@ const HomeCommunity = (props) => {
         communityMemberLoading,
         communityMemberError,
         fetchAllCommunityMember,
-        cleanCommunityMember
+        cleanCommunityMember,
     } = props;
 
-
+    const Data = [
+        {
+            uri: require('../../../assets/img/profile_image.png'),
+            text: 'Jay',
+        },
+        {
+            uri: require('../../../assets/img/welcome_profile_image.png'),
+            text: 'John',
+        },
+        {
+            uri: require('../../../assets/img/dash_member_image.png'),
+            text: 'John',
+        },
+        {
+            uri: require('../../../assets/img/profile_image.png'),
+            text: 'Jay',
+        },
+    ];
 
     const _renderItem = ({item, index}) => {
         return (
             <View style={styles.bottomWrapper}>
-                <Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+                <Image
+                    style={styles.bottomImage}
+                    source={require('../../../assets/img/profile_image.png')}
+                />
                 <Text style={{fontSize: 13}}>{item.data.display_name}</Text>
 
                 <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
-                <View style={{
-                    borderRadius: 50,
-                    backgroundColor: "#EBECF0",
-                    width: 30,
-                    height: 30,
-                    justifyContent: "center",
-                    marginLeft: 60,
-                    marginTop: 10
-                }}>
+                <View
+                    style={{
+                        borderRadius: 50,
+                        backgroundColor: '#EBECF0',
+                        width: 30,
+                        height: 30,
+                        justifyContent: 'center',
+                        marginLeft: 60,
+                        marginTop: 10,
+                    }}>
                     <Ionicons
                         name={'chatbox'}
                         size={20}
@@ -59,44 +80,57 @@ const HomeCommunity = (props) => {
                         style={{marginLeft: 5}}
                     />
                 </View>
-
-            </View>)
+            </View>
+        );
     };
 
     const data1 = [
         {
-            icon: "brain",
-            text: "Executive MindChange"
+            icon: 'brain',
+            text: 'Executive MindChange',
         },
         {
-            icon: "location-arrow",
-            text: "Megatrends Workshop"
+            icon: 'location-arrow',
+            text: 'Megatrends Workshop',
         },
         {
-            icon: "window-maximize",
-            text: "Annual Council Meeting"
+            icon: 'window-maximize',
+            text: 'Annual Council Meeting',
         },
         {
-            icon: "clipboard",
-            text: "BrainStorming Strategy Discussion"
+            icon: 'clipboard',
+            text: 'BrainStorming Strategy Discussion',
         },
     ];
 
     const _renderMiddleItem = ({item, index}) => {
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('CommunityDetail', {id: item.ID})}>
                 <View style={styles.middleWrapper}>
                     <View style={styles.middleW}>
-                        <Font
-                            name={item.icon}
-                            size={30}
-                            color="skyblue"
-                        />
+                        <Font name={item.icon} size={30} color="skyblue"/>
                     </View>
                     <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
                 </View>
-            </TouchableOpacity>)
+            </TouchableOpacity>
+        );
     };
+
+    const data2 = [
+        {
+            date: '10',
+            month: 'july',
+            text: 'Executive Coaching Clinic On Goal Setting',
+            text1: 'Hosted by Michael Cooper',
+        },
+        {
+            date: '10',
+            month: 'Oct',
+            text: 'Associate Member Meeting',
+            text1: 'Hosted by Michael Cooper',
+        },
+    ];
 
     const _renderTopItem = ({item, index}) => {
         return (
@@ -105,20 +139,20 @@ const HomeCommunity = (props) => {
                     style={{
                         width: '100%',
                         height: 170,
-                        borderRadius: 20
+                        borderRadius: 20,
                     }}
                     source={require('../../../assets/img/blank_event_design.png')}>
-
-                    <View style={{
-                        width: "30%",
-                        height: 50,
-                        marginTop: 10,
-                        marginLeft: 180,
-                        backgroundColor: '#EBECF0',
-                        borderRadius: 10,
-                        padding: 5,
-                        alignItems: 'center'
-                    }}>
+                    <View
+                        style={{
+                            width: '30%',
+                            height: 50,
+                            marginTop: 10,
+                            marginLeft: 180,
+                            backgroundColor: '#EBECF0',
+                            borderRadius: 10,
+                            padding: 5,
+                            alignItems: 'center',
+                        }}>
                         <Text>{item.post_date}</Text>
                         <Text>{item.month}</Text>
                     </View>
@@ -128,21 +162,19 @@ const HomeCommunity = (props) => {
                         <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
                     </View>
                 </ImageBackground>
-            </View>)
+            </View>
+        );
     };
 
     const pic = [
         {
             uri: require('../../../assets/img/welcome_screen_info_image.png'),
-
         },
         {
             uri: require('../../../assets/img/image.png'),
-
         },
         {
             uri: require('../../../assets/img/contactus.png'),
-
         },
     ];
 
@@ -153,19 +185,18 @@ const HomeCommunity = (props) => {
                     style={{
                         width: '100%',
                         height: 190,
-                        borderRadius: 20
+                        borderRadius: 20,
                     }}
-                    source={item?.uri}>
-                </ImageBackground>
-            </View>)
+                    source={item?.uri}></ImageBackground>
+            </View>
+        );
     };
 
     useEffect(() => {
-        const fetchAllUpcomingEventAsync = async () => {
-            await fetchAllUpcomingEvent();
+        const fetchAllsessionAsync = async () => {
+            await fetchAllsession();
         };
-        fetchAllUpcomingEventAsync();
-
+        fetchAllsessionAsync();
     }, []);
 
     useEffect(() => {
@@ -174,7 +205,6 @@ const HomeCommunity = (props) => {
         };
         fetchAllCommunityMemberAsync();
     }, []);
-
 
     return (
         <ScrollView>
@@ -220,24 +250,29 @@ const HomeCommunity = (props) => {
 					</View>
 				</ImageBackground> */}
 
-
                 <View style={styles.top}>
-                    <Text style={{fontWeight: "bold", fontSize: 20}}> Growth Community Events</Text>
-                    <View style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                    }}>
+                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                        {' '}
+                        Growth Community Events
+                    </Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}>
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={upcomingEvents}
-                            renderItem={_renderTopItem}/>
-
+                            data={sessions}
+                            renderItem={_renderTopItem}
+                        />
                     </View>
                 </View>
 
                 <View style={styles.middle}>
-                    <Text style={{fontWeight: "bold", fontSize: 20}}>Points of Engagement</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                        Points of Engagement
+                    </Text>
 
                     <View
                         style={{
@@ -248,38 +283,43 @@ const HomeCommunity = (props) => {
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             data={data1}
-                            renderItem={_renderMiddleItem}/>
+                            renderItem={_renderMiddleItem}
+                        />
                     </View>
-
                 </View>
 
-
                 <View style={styles.bottom}>
-                    <Text style={{fontWeight: "bold", fontSize: 20}}>Growth Community Member</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                        Growth Community Member
+                    </Text>
                     <View>
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             data={communityMembers}
-                            renderItem={_renderItem}/>
+                            renderItem={_renderItem}
+                        />
                     </View>
                 </View>
 
                 <View style={styles.content}>
-                    <Text style={{fontWeight: "bold", fontSize: 20, marginTop: 20}}> Growth Coaching Content</Text>
-                    <View style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                    }}>
+                    <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
+                        {' '}
+                        Growth Coaching Content
+                    </Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}>
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             data={pic}
-                            renderItem={_renderContentItem}/>
-
+                            renderItem={_renderContentItem}
+                        />
                     </View>
                 </View>
-
             </View>
         </ScrollView>
     );
@@ -289,7 +329,7 @@ const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
         backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-        width: "100%",
+        width: '100%',
     },
     top: {
         height: 200,
@@ -314,7 +354,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontWeight: '800',
         color: 'white',
-
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -327,14 +366,13 @@ const styles = StyleSheet.create({
         height: 200,
         marginLeft: 10,
         marginTop: 10,
-
     },
     middleWrapper: {
         height: 150,
         width: 90,
         borderRadius: 20,
         marginTop: 10,
-        justifyContent: "center",
+        justifyContent: 'center',
         alignItems: 'center',
     },
     middleW: {
@@ -343,7 +381,7 @@ const styles = StyleSheet.create({
         height: 80,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 10,
     },
     headingText3: {
         ...CommonStyles.headingText3,
@@ -367,7 +405,7 @@ const styles = StyleSheet.create({
     bottomImage: {
         width: '100%',
         height: 100,
-        borderRadius: 20
+        borderRadius: 20,
     },
     content: {
         height: 250,
@@ -381,7 +419,7 @@ const styles = StyleSheet.create({
         width: 300,
         marginTop: 20,
         marginLeft: 10,
-    }
+    },
 });
 
 export default HomeCommunity;
