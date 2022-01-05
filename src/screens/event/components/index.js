@@ -40,11 +40,11 @@ const Event = props => {
   const dateMonth = date[1].split(' ', 3);
 
   console.log('route.params.id:::::::::::::::::', route.params.id);
-  console.log('Event Detail:::::::::::::::::', events.image);
+  console.log('Event Detail:::::::::::::::::', events.organizer_image);
 
   return (
     <ScrollView style={styles.scrollBox}>
-      <View style={{uri: styles.container}}>
+      <View style={styles.container}>
         <ImageBackground
           source={{uri: events.image}}
           resizeMode="cover"

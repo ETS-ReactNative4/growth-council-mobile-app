@@ -1,8 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import sessionDetail from './components/CommunityDetail';
-
 import CommunityDetail from './components/CommunityDetail';
 
 import {
@@ -14,7 +12,7 @@ const CommunityDetailScreen = props => {
   const dispatch = useDispatch();
 
   const {sessionDetails, sessionDetailLoading, sessionDetailError} =
-    useSelector(state => state.sessionDetail);
+    useSelector(state => state.CommunityDetail);
 
   /**
    * Fetch event data.

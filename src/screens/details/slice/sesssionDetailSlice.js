@@ -3,7 +3,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {fetch} from '../../../utils/httpUtil';
 
 export const fetchSessionDetailByID = createAsyncThunk(
-  'session/fetchByID',
+  'sessionDetail/fetchByID',
   (identifier, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/sessions/${identifier}`)
       .then(response => response.data.body_response)
@@ -19,7 +19,7 @@ const sessionDetailSlice = createSlice({
     sessionDetailError: null,
   },
   reducers: {
-    resetsessionDetail: state => {
+    resetSessionDetail: state => {
       state.sessionDetails = [];
       state.sessionDetailLoading = false;
       state.sessionDetailError = null;
