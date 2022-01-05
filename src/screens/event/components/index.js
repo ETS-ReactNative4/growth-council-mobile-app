@@ -33,6 +33,7 @@ const Event = props => {
     };
     fetchEventDetailAsync();
   }, []);
+
   const isEventLoaded = Object.keys(events).length === 0;
   const actualDate = moment('20111031').format('LLLL');
   const date = actualDate.split(',', 2);
