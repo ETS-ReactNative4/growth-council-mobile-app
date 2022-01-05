@@ -4,51 +4,46 @@ import {useDispatch, useSelector} from 'react-redux';
 import HomeCommunity from './components/HomeCommunity';
 
 import {fetchAllsessions, resetsession} from './slice/sessionSlice';
-import {
-  fetchAllCommunityMembers,
-  resetCommunityMember,
-} from './slice/communityMemberSlice';
+import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
 
 const HomeCommunityScreen = props => {
-  const dispatch = useDispatch();
 
-  const {sessions, sessionLoading, sessionError} = useSelector(
-    state => state.sessions,
-  );
-  const {communityMembers, communityMemberLoading, communityMemberError} =
-    useSelector(state => state.communityMembers);
+    const dispatch = useDispatch();
 
-  const fetchAllsession = () => {
-    dispatch(fetchAllsessions());
-  };
+    const {sessions, sessionLoading, sessionError} = useSelector(state => state.sessions);
+    const {communityMembers, communityMemberLoading, communityMemberError} = useSelector(state => state.communityMembers);
 
-  const fetchAllCommunityMember = () => {
-    dispatch(fetchAllCommunityMembers());
-  };
+    const fetchAllSession = () => {
+        dispatch(fetchAllsessions());
+    };
 
-  const cleansession = () => {
-    dispatch(resetsession());
-  };
+    const fetchAllCommunityMember = () => {
+        dispatch(fetchAllCommunityMembers());
+    };
 
-  const cleanCommunityMember = () => {
-    dispatch(resetCommunityMember());
-  };
+    const cleanSession = () => {
+        dispatch(resetsession());
+    };
 
-  return (
-    <HomeCommunity
-      {...props}
-      sessions={sessions}
-      sessionLoading={sessionLoading}
-      sessionError={sessionError}
-      fetchAllsession={fetchAllsession}
-      cleansession={cleansession}
-      communityMembers={communityMembers}
-      communityMemberLoading={communityMemberLoading}
-      communityMemberError={communityMemberError}
-      fetchAllCommunityMember={fetchAllCommunityMember}
-      cleanCommunityMember={cleanCommunityMember}
-    />
-  );
+    const cleanCommunityMember = () => {
+        dispatch(resetCommunityMember());
+    };
+
+    return (
+        <HomeCommunity
+            {...props}
+            sessions={sessions}
+            sessionLoading={sessionLoading}
+            sessionError={sessionError}
+            fetchAllSession={fetchAllSession}
+            cleansession={cleanSession}
+            communityMembers={communityMembers}
+            communityMemberLoading={communityMemberLoading}
+            communityMemberError={communityMemberError}
+            fetchAllCommunityMember={fetchAllCommunityMember}
+            cleanCommunityMember={cleanCommunityMember}
+        />
+    );
 };
 
 export default HomeCommunityScreen;

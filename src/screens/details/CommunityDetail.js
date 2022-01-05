@@ -3,44 +3,41 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import CommunityDetail from './components/CommunityDetail';
 
-import {
-  fetchSessionDetailByID,
-  resetSessionDetail,
-} from './slice/sesssionDetailSlice';
+import {fetchSessionDetailByID, resetSessionDetail} from './slice/sesssionDetailSlice';
 
 const CommunityDetailScreen = props => {
-  const dispatch = useDispatch();
 
-  const {sessionDetails, sessionDetailLoading, sessionDetailError} =
-    useSelector(state => state.CommunityDetail);
+    const dispatch = useDispatch();
 
-  /**
-   * Fetch event data.
-   * @param {string} identifier
-   *
-   */
-  const fetchSessionDetailByIdentifier = identifier => {
-    dispatch(fetchSessionDetailByID(identifier));
-  };
+    const {sessionDetails, sessionDetailLoading, sessionDetailError} = useSelector(state => state.sessionDetails);
 
-  /**
-   * Clear event data.
-   *
-   */
-  const cleanSessionDetail = () => {
-    dispatch(resetSessionDetail());
-  };
+    /**
+     * Fetch event data.
+     * @param {string} identifier
+     *
+     */
+    const fetchSessionDetailByIdentifier = identifier => {
+        dispatch(fetchSessionDetailByID(identifier));
+    };
 
-  return (
-    <CommunityDetail
-      {...props}
-      sessionDetails={sessionDetails}
-      sessionDetailLoading={sessionDetailLoading}
-      sessionDetailError={sessionDetailError}
-      fetchSessionDetailByIdentifier={fetchSessionDetailByIdentifier}
-      cleanSessionDetail={cleanSessionDetail}
-    />
-  );
+    /**
+     * Clear event data.
+     *
+     */
+    const cleanSessionDetail = () => {
+        dispatch(resetSessionDetail());
+    };
+
+    return (
+        <CommunityDetail
+            {...props}
+            sessionDetails={sessionDetails}
+            sessionDetailLoading={sessionDetailLoading}
+            sessionDetailError={sessionDetailError}
+            fetchSessionDetailByIdentifier={fetchSessionDetailByIdentifier}
+            cleanSessionDetail={cleanSessionDetail}
+        />
+    );
 };
 
 export default CommunityDetailScreen;

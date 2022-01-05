@@ -52,6 +52,7 @@ const reducers = combineReducers({
     connection: connectionReducer,
     sessions: sessionReducer,
     sessionDetails: sessionDetailReducer,
+	profile:profileReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
