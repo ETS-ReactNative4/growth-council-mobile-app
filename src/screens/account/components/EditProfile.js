@@ -32,7 +32,7 @@ const profileUpdateSchema = Yup.object().shape({
 
 const EditProfileForm = (props) => {
 
-    const {navigation, profile, loading, error, fetchEmployeeByIdentifier, updateEmployee} = props;
+    const {navigation, profile, profileLoading, profileError, fetchProfileByIdentifier, updateUser} = props;
 
     const {
         handleChange,
@@ -53,7 +53,7 @@ const EditProfileForm = (props) => {
         },
         onSubmit: async values => {
             values.id = profile?.id;
-            await updateEmployee(values).then(response => {
+            await updateUser(values).then(response => {
                 if (!response.error) {
                     navigation.navigate('Account');
                     ToastMessage.show('Your information has been successfully updated.');
@@ -63,12 +63,12 @@ const EditProfileForm = (props) => {
     });
 
     useEffect(() => {
-        const fetchEmployeeAsync = async () => {
+        const fetchUserAsync = async () => {
             let token = await getAsyncStorage(JWT_TOKEN);
             let customerID = decodeUserID(token);
-            await fetchEmployeeByIdentifier(customerID);
+            await fetchProfileByIdentifier(customerID);
         };
-        fetchEmployeeAsync();
+        fetchUserAsync();
 
     }, []);
 
@@ -80,12 +80,12 @@ const EditProfileForm = (props) => {
                 <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
                 <View style={styles.content}>
 
-                    {error && <View style={styles.message}>
-                        <Text style={styles.errorText}>{error.message}</Text>
+                    {profileError && <View style={styles.message}>
+                        <Text style={styles.errorText}>{profileError.message}</Text>
                     </View>
                     }
 
-                    {loading && (
+                    {profileLoading && (
                         <>
                             <View style={{
                                 flex: 1,

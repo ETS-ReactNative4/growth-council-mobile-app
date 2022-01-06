@@ -55,7 +55,7 @@ const ManageAccount = ({navigation}) => {
 						/>
 					</View> */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Dashboard')}>
+                        onPress={() => navigation.goBack()}>
                         <View style={styles.arrow}>
                             <Ionicons
                                 name={'arrow-back'}

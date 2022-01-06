@@ -89,7 +89,7 @@ const GrowthDetail = ({navigation}) => {
                         height: 170,
                         borderRadius: 20
                     }}
-                    source={require('../../../assets/img/green_blank.png')}>
+                    source={require('../../../assets/img/green_blank1.png')}>
 
                     <View style={{
                         width: "15%",
@@ -277,7 +277,7 @@ const GrowthDetail = ({navigation}) => {
                 <ImageBackground source={require("../../../assets/img/image.png")} style={{height: 400}}>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Dashboard')}>
+                        onPress={() => navigation.goBack()}>
                         <View style={styles.arrow}>
                             <Ionicons
                                 name={'arrow-back'}

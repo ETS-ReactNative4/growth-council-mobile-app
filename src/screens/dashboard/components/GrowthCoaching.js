@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -14,54 +14,48 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const GrowthCoaching = ({navigation}) => {
-    const Data = [
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
-        },
-        {
-            uri: require('../../../assets/img/welcome_profile_image.png'),
-            text: "John",
-        },
-        {
-            uri: require('../../../assets/img/dash_member_image.png'),
-            text: "John",
-        },
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
-        },
+const GrowthCoaching = (props) => {
 
-    ];
+	const {
+        navigation,
+		upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
+        communityMembers,
+        communityMemberLoading,
+        communityMemberError,
+        fetchAllCommunityMember,
+        cleanCommunityMember
+    } = props;
 
     const _renderItem = ({item, index}) => {
         return (
-            <View style={styles.bottomWrapper}>
-                <Image
-                    style={styles.bottomImage}
-                    source={item?.uri}/>
-                <Text style={{fontWeight: "bold", fontSize: 18}}>{item.text}</Text>
-                <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
-                <View style={{
-                    borderRadius: 50,
-                    backgroundColor: "#EBECF0",
-                    width: 30,
-                    height: 30,
-                    justifyContent: "center",
-                    marginLeft: 60,
-                    marginTop: 10
-                }}>
-                    <Ionicons
-                        name={'chatbox'}
-                        size={20}
-                        color="grey"
-                        style={{marginLeft: 5}}
-                    />
-                </View>
+			<View style={styles.bottomWrapper}>
+			<Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+			<Text style={{fontSize: 13}}>{item.data.display_name}</Text>
 
-            </View>)
-    };
+			<Text style={{fontSize: 10}}>Frost and Sullivan</Text>
+			<View style={{
+				borderRadius: 50,
+				backgroundColor: "#EBECF0",
+				width: 30,
+				height: 30,
+				justifyContent: "center",
+				marginLeft: 60,
+				marginTop: 10
+			}}>
+				<Ionicons
+					name={'chatbox'}
+					size={20}
+					color="grey"
+					style={{marginLeft: 5}}
+				/>
+			</View>
+
+		</View>)
+    }
 
     const data1 = [
         {
@@ -98,20 +92,6 @@ const GrowthCoaching = ({navigation}) => {
             </TouchableOpacity>)
     };
 
-    const data2 = [
-        {
-            date: "10",
-            month: "july",
-            text: "Executive Coaching Clinic On Goal Setting",
-            text1: "Hosted by Michael Cooper"
-        },
-        {
-            date: "10",
-            month: "Oct",
-            text: "Associate Member Meeting",
-            text1: "Hosted by Michael Cooper"
-        },
-    ];
 
     const _renderTopItem = ({item, index}) => {
         return (
@@ -124,23 +104,23 @@ const GrowthCoaching = ({navigation}) => {
                     }}
                     source={require('../../../assets/img/green_blank.png')}>
 
-                    <View style={{
-                        width: "15%",
+					<View style={{
+                        width: "30%",
                         height: 50,
                         marginTop: 10,
-                        marginLeft: 240,
+                        marginLeft: 180,
                         backgroundColor: '#EBECF0',
                         borderRadius: 10,
                         padding: 5,
                         alignItems: 'center'
                     }}>
-                        <Text>{item.date}</Text>
+                        <Text>{item.post_date}</Text>
                         <Text>{item.month}</Text>
                     </View>
 
                     <View style={styles.header}>
-                        <Text style={styles.headingText1}>{item.text}</Text>
-                        <Text style={styles.headingText2}>{item.text1}</Text>
+                        <Text style={styles.headingText1}>{item.title}</Text>
+                        <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
                     </View>
                 </ImageBackground>
             </View>)
@@ -229,7 +209,7 @@ const GrowthCoaching = ({navigation}) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={data2}
+                            data={upcomingEvents}
                             renderItem={_renderTopItem}/>
 
                     </View>
@@ -259,7 +239,7 @@ const GrowthCoaching = ({navigation}) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={Data}
+                            data={communityMembers}
                             renderItem={_renderItem}/>
                     </View>
                 </View>

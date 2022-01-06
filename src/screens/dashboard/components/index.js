@@ -77,32 +77,14 @@ const _renderMiddleItem = ({item, index}) => {
   );
 };
 
-const data2 = [
-  {
-    date: '10',
-    month: 'july',
-    text: 'Executive Coaching Clinic On Goal Setting',
-    text1: 'Hosted by Michael Cooper',
-  },
-  {
-    date: '10',
-    month: 'Oct',
-    text: 'Associate Member Meeting',
-    text1: 'Hosted by Michael Cooper',
-  },
-];
+
 
 const _renderTopItem = ({item, index}, navigation) => {
-  const actualDate = moment('20111031').format('ll');
+	const actualDate = moment('20111031').format('ll');
   const date = actualDate.split(' ', 4);
   const day = date[1].split(',', 3);
-
-  //   const dateObj = new Date('1631152800');
-  //   const actualDate1 = moment(dateObj).format('yyyy-MM-DDThh:mm:ss');
-  //   console.log('DATE1====', actualDate1);
-
-  return (
-    <View key={index} style={styles.topWrapper}>
+    return (
+        <View key={index} style={styles.topWrapper}>
       <TouchableOpacity
         onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
         <ImageBackground
@@ -130,7 +112,7 @@ const _renderTopItem = ({item, index}, navigation) => {
         </ImageBackground>
       </TouchableOpacity>
     </View>
-  );
+    );
 };
 
 const Dashboard = props => {

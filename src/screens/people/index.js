@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import People from './components';
@@ -8,6 +8,7 @@ import {fetchAllConnections, resetConnection} from './slice/connetionSlice';
 const PeopleScreen = (props) => {
 
     const dispatch = useDispatch();
+	
     const {connection, connectionLoading, connectionError} = useSelector((state) => state.connection);
 
     const fetchAllConnection = () => {
@@ -18,6 +19,8 @@ const PeopleScreen = (props) => {
         dispatch(resetConnection());
     };
 
+	
+ 
     return (
         <People
             {...props}
@@ -26,6 +29,7 @@ const PeopleScreen = (props) => {
             connectionError={connectionError}
             fetchAllConnection={fetchAllConnection}
             cleanConnection={cleanConnection}
+			
         />
     );
 };

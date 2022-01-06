@@ -13,7 +13,7 @@ import PeopleScreen from '../screens/people';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigation = () => {
+const BottomTabNavigation = ({navigation}) => {
 
     return (
         <Tab.Navigator
@@ -69,9 +69,9 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
-					
+
                 }}
-				
+
             />
             <Tab.Screen
                 name="People"

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -14,54 +14,42 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const BestPractice = ({navigation}) => {
-    const Data = [
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
-        },
-        {
-            uri: require('../../../assets/img/welcome_profile_image.png'),
-            text: "John",
-        },
-        {
-            uri: require('../../../assets/img/dash_member_image.png'),
-            text: "John",
-        },
-        {
-            uri: require('../../../assets/img/profile_image.png'),
-            text: "Jay",
-        },
+const BestPractice = (props) => {
 
-    ];
-
+	const {
+        navigation,
+        communityMembers,
+        communityMemberLoading,
+        communityMemberError,
+        fetchAllCommunityMember,
+        cleanCommunityMember
+    } = props;
 
     const _renderItem = ({item, index}) => {
         return (
-            <View style={styles.bottomWrapper}>
-                <Image
-                    style={styles.bottomImage}
-                    source={item?.uri}/>
-                <Text style={{fontWeight: "bold", fontSize: 18}}>{item.text}</Text>
-                <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
-                <View style={{
-                    borderRadius: 50,
-                    backgroundColor: "#EBECF0",
-                    width: 30,
-                    height: 30,
-                    justifyContent: "center",
-                    marginLeft: 60,
-                    marginTop: 10
-                }}>
-                    <Ionicons
-                        name={'chatbox'}
-                        size={20}
-                        color="grey"
-                        style={{marginLeft: 5}}
-                    />
-                </View>
+			<View style={styles.bottomWrapper}>
+			<Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
+			<Text style={{fontSize: 13}}>{item.data.display_name}</Text>
 
-            </View>)
+			<Text style={{fontSize: 10}}>Frost and Sullivan</Text>
+			<View style={{
+				borderRadius: 50,
+				backgroundColor: "#EBECF0",
+				width: 30,
+				height: 30,
+				justifyContent: "center",
+				marginLeft: 60,
+				marginTop: 10
+			}}>
+				<Ionicons
+					name={'chatbox'}
+					size={20}
+					color="grey"
+					style={{marginLeft: 5}}
+				/>
+			</View>
+
+		</View>)
     }
 
     const data1 = [
@@ -176,51 +164,17 @@ const BestPractice = ({navigation}) => {
             </View>)
     }
 
+	useEffect(() => {
+        const fetchAllCommunityMemberAsync = async () => {
+            await fetchAllCommunityMember();
+        };
+        fetchAllCommunityMemberAsync();
+    }, []);
+
     return (
         <ScrollView>
             <View style={styles.container}>
-                {/* <ImageBackground
-					style={{width:'100%',
-					height:100,
-
-					}}
-					source={require('../../../assets/img/blue_blank.png')}>
-						<View style={{display:'flex', flexDirection:'row'}}>
-						<Image
-							source={require("../../../assets/img/dashboard_logo.png")}
-							style={{
-								position: 'absolute',
-								top: 40,
-								height: 30,
-								width: 30,
-								left: 10,
-								borderWidth: 5,
-							}}
-						/>
-						<View style={{marginLeft:50,}}>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Best Practice</Text>
-						</View>
-
-						<Font
-							name={'search'}
-							size={30}
-							color="white"
-							style={{marginLeft:130, marginTop:40}}
-						/>
-						<Image
-						source={require("../../../assets/img/profile_image.png")}
-						style={{
-						height: 50,
-						width:50,
-						marginTop:30,
-						marginLeft:10,
-						borderRadius:50,
-					}}
-				/>
-					</View>
-				</ImageBackground> */}
-
-
+               
                 <View style={styles.top}>
                     <Text style={{fontWeight: "bold", fontSize: 20}}> Best Practice Events</Text>
                     <View style={{
@@ -260,7 +214,7 @@ const BestPractice = ({navigation}) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={Data}
+                            data={communityMembers}
                             renderItem={_renderItem}/>
                     </View>
                 </View>
@@ -351,7 +305,7 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     bottom: {
-        height: 200,
+        height: 220,
         margin: 10,
         width: 400,
     },

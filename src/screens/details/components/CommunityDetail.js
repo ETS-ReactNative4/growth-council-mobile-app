@@ -156,10 +156,11 @@ const CommunityDetail = props => {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <ImageBackground
-                    source={require('../../../assets/img/image.png')}
-                    style={{height: 400}}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
+                <ImageBackground source={require("../../../assets/img/image.png")} style={{height: 400}}>
+
+
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}>
                         <View style={styles.arrow}>
                             <Ionicons name={'arrow-back'} size={50} color="white"/>
                         </View>
