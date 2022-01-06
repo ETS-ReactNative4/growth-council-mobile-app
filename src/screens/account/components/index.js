@@ -138,8 +138,8 @@ const Profile = (props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.icon}>
-                            <Image source={require("../../../assets/img/profile_image.png")}
-
+                            <Image source={{uri:profile.avatar}}
+							style={{width:90, height:90, borderRadius: 19,}}
                             />
 
                         </View>
@@ -154,16 +154,18 @@ const Profile = (props) => {
                             <Text style={{fontSize: 18, marginTop: 5}}>1457</Text>
                         </View>
                         <View style={styles.header}>
-                            <Text style={styles.headingText1}>Edward</Text>
-                            {/* <Text style={{width:'60%', marginLeft:40}}>{profile.data.user_email} </Text> */}
-                            <View style={{height: 1, width: '90%', backgroundColor: '#ECECEC', marginTop: 20}}/>
-                            <View style={styles.headerWrapper}>
+                            <Text style={styles.headingText1}>{profile.display_name} </Text>
+                            <Text style={{width:'60%', marginLeft:40}}>{profile.user_email} </Text>
+
+                            {/* <View style={{height: 1, width: '90%', backgroundColor: '#ECECEC', marginTop: 20}}/> */}
+
+                            {/* <View style={styles.headerWrapper}>
                                 <View>
                                     <Text style={{fontSize: 15, fontWeight: '600', marginLeft: 30}}>124</Text>
                                     <Text>My Connection</Text>
                                 </View>
                                 <Button style={styles.button}>Refer a Member</Button>
-                            </View>
+                            </View> */}
                         </View>
 
                         <View style={styles.middle}>
@@ -206,7 +208,7 @@ const styles = StyleSheet.create({
     },
     header: {
         width: '80%',
-        height: 230,
+        height: 180,
         backgroundColor: "white",
         margin: 40,
         marginTop: 70,
@@ -234,7 +236,7 @@ const styles = StyleSheet.create({
         height: 90,
         backgroundColor: "white",
         borderRadius: 19,
-        marginLeft: 140,
+        marginLeft: 150,
         marginTop: 30,
         justifyContent: 'center',
         position: 'absolute',
@@ -266,7 +268,7 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
         backgroundColor: 'white',
-        marginTop: 180,
+        marginTop: 150,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -283,7 +285,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
 
         margin: 10,
-        marginTop: 140,
+        marginTop: 110,
 
     },
     btn: {
@@ -297,7 +299,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         borderWidth: 0.5,
-        marginTop: 20,
+        marginTop: 10,
         // backgroundColor:"red"
     },
 

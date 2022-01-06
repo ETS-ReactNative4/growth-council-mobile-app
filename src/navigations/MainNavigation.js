@@ -26,7 +26,7 @@ import AccountScreen from '../screens/account/index';
 
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
-import ManageAccountScreen from '../screens/setting/ManageAccount';
+import ManageAccountScreen from '../screens/account/ManageAccount';
 import PrivacyPolicyScreen from '../screens/static/PrivacyPolicy';
 import TermsConditionsScreen from '../screens/static/TermsConditions';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';

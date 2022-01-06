@@ -25,19 +25,26 @@ const People = (props) => {
     } = props;
 
     const [category, setCategory] = useState("Category");
+	const [searchTerm, setSearchTerm] = useState("");
 	const _renderItem = ({item, index}) => {
+		if(searchTerm == ""){
+			return term
+		}else if(term.user_meta.title.toLowerCase().toUpperCase().includes(searchTerm.toLowerCase().toUpperCase())){
+			return term
+		}
 		return (
 			<View style={styles.wrapper}>
-				<Image source={require('../../../assets/img/welcome_profile_image.png')}
+				<Image source={{uri:item.avatar}}
 					   style={{
 						   width: "30%",
 						   height: 90,
 						   margin: 8,
+						   borderRadius:20,
 					   }}
 				/>
 				<View style={{margin: 10, width: '50%'}}>
 					<Text style={{fontSize: 18, fontWeight: "bold"}}>{item.displayname}</Text>
-					<Text style={{fontSize: 16}}>{item.user_meta.Title}</Text>
+					<Text style={{fontSize: 16}}>{item.user_meta.title}</Text>
 					<Text style={{fontSize: 14}}>{item.user_meta.company}</Text>
 				</View>
 				<Ionicons
@@ -69,7 +76,9 @@ const People = (props) => {
                         style={styles.input}
                         placeholder="Search"
                         keyboardType="text"
-						
+						onChange={(event) =>{
+							setSearchTerm(event.target.value);
+						}}
 						
                     />
                     <Ionicons name='list-outline' color="blue" size={40} style={{marginTop: 10}}/>

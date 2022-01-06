@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import {
     StyleSheet,
     Text,
@@ -11,49 +11,95 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import FlatOutlineTextInput from '../../../shared/form/FlatOutlineTextInput';
+import ToastMessage from '../../../shared/toast';
+import {getAsyncStorage} from '../../../utils/storageUtil';
+import {decodeUserID} from '../../../utils/jwtUtil';
+import {JWT_TOKEN} from '../../../constants';
 
-const ManageAccount = ({navigation}) => {
+const profileUpdateSchema = Yup.object().shape({
+    display_name: Yup
+        .string()
+        .required('Name is required.'),
+		
+	first_name: Yup
+        .string()
+        .required('First name is required.'),
+	
+	last_name: Yup
+        .string()
+        .required('last Name is required.'),
+		
+	user_email: Yup.string()
+		.email('Please enter a valid email.')
+		.required('Email is required.'),
+
+  
+});
+
+const ManageAccount = (props) => {
+	const {
+        navigation,
+        route,
+        profile,
+        profileLoading,
+        profileError,
+        fetchProfileByIdentifier,
+        cleanProfile,
+		updateUser
+    } = props;
+
+	const {
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+        touched,
+        isValid,
+    } = useFormik({
+        enableReinitialize: true,
+        validationSchema: profileUpdateSchema,
+        initialValues: {
+            display_name: profile?.display_name,
+            first_name: profile?.user_login,
+            last_name: profile?.user_meta.last_name,
+            user_email: profile?.user_email,
+        },
+        onSubmit: async values => {
+            values.id = profile?.ID;
+            await updateUser(initialValues).then(response => {
+                if (!response.error) {
+                    navigation.navigate('Profile');
+                    ToastMessage.show('Your information has been successfully updated.');
+                }
+            });
+        },
+    });
+
+
+	useEffect(() => {
+        const fetchProfileAsync = async () => {
+            let token = await getAsyncStorage(JWT_TOKEN);
+            let userID = decodeUserID(token);
+            await fetchProfileByIdentifier(userID);
+        };
+        fetchProfileAsync();
+
+    }, []);
+
+    console.log("profile::::::", profile);
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>
             <View style={styles.container}>
                 <ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover">
-                    {/* <View style={{display:'flex', flexDirection:'row'}}>
-						<Image
-							source={require("../../../assets/img/dashboard_logo.png")}
-							style={{
-								position: 'absolute',
-								top: 20,
-								height: 30,
-								width: 30,
-								left: 10,
-								borderWidth: 5,
-							}}
-						/>
-						<View style={{marginLeft:50}}>
-							<Text style={{fontWeight:"700",  color:"white", fontSize:20, marginTop:20}}>Settings</Text>
-						</View>
-
-						<Font
-							name={'search'}
-							size={30}
-							color="white"
-							style={{marginLeft:170, marginTop:20}}
-						/>
-						<Image
-						source={require("../../../assets/img/profile_image.png")}
-						style={{
-							height: 40,
-							width:40,
-							marginTop:10,
-							marginLeft:10,
-							borderRadius:50,
-
-						}}
-						/>
-					</View> */}
+                
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}>
                         <View style={styles.arrow}>
@@ -67,17 +113,41 @@ const ManageAccount = ({navigation}) => {
                     </TouchableOpacity>
 
                     <View style={{height: '100%'}}>
-                        <View style={styles.icon}>
-                            <Image source={require("../../../assets/img/profile_image.png")}
 
+                        <View style={styles.icon}>
+							<Image source={{uri:profile.avatar}}
+							style={{width:90, height:90, borderRadius: 19,}}
                             />
                         </View>
                         <View style={styles.header}>
-                            <Text style={styles.headingText1}>Edward</Text>
-                            <Text>Edward@frostdigi.com</Text>
+                            <Text style={styles.headingText1}>{profile.display_name} </Text>
+                            <Text>{profile.user_email} </Text>
                         </View>
+
                         <View style={styles.middle}>
                             <View style={styles.wrapper}>
+
+								{profileError && <View style={styles.message}>
+									<Text style={styles.errorText}>{profileError.message}</Text>
+								</View>
+								}
+								{profileLoading && (
+									<>
+										<View style={{
+											flex: 1,
+											alignItems: 'center',
+											flexDirection: 'column',
+											justifyContent: 'space-around',
+											position: 'absolute',
+											zIndex: 1011,
+											top: 120,
+											left:100
+										}}>
+											<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+										</View>
+									</>
+								)}
+
 
                                 <View style={styles.middleWrapper}>
                                     <View style={styles.middleImage}>
@@ -87,43 +157,73 @@ const ManageAccount = ({navigation}) => {
                                             size={20}/>
                                     </View>
                                     <Text style={{fontSize: 18, fontWeight: '500', margin: 10}}>Account</Text>
-
                                 </View>
+
                                 <View style={{height: 1, width: '100%', backgroundColor: '#ECECEC'}}/>
+
                                 <View style={styles.TextWrapper}>
+
                                     <Text style={{size: 7, marginLeft: 10}}>Username</Text>
                                     <TextInput
                                         style={styles.input}
-                                        placeholder="Edward"
+                                        // placeholder="Edward"
                                         keyboardType="text"
+										value={values.display_name}
+										onChangeText={handleChange('display_name')}
+										onBlur={handleBlur('display_name')}
+										error={errors.display_name}
+										touched={touched.display_name}
                                     />
+
                                     <Text style={{size: 7, marginLeft: 10}}>First Name</Text>
                                     <TextInput
                                         style={styles.input}
-                                        placeholder="useless placeholder"
+                                        // placeholder="useless placeholder"
                                         keyboardType="text"
+										value={values.first_name}
+										onChangeText={handleChange('first_name')}
+										onBlur={handleBlur('first_name')}
+										error={errors.first_name}
+										touched={touched.first_name}
                                     />
+
                                     <Text style={{size: 7, marginLeft: 10}}>Last Name</Text>
                                     <TextInput
                                         style={styles.input}
-                                        placeholder="useless placeholder"
+                                        // placeholder="useless placeholder"
                                         keyboardType="text"
+										value={values.last_name}
+										onChangeText={handleChange('last_name')}
+										onBlur={handleBlur('last_name')}
+										error={errors.last_name}
+										touched={touched.last_name}
                                     />
+
                                     <Text style={{size: 7, marginLeft: 10}}>Email</Text>
                                     <TextInput
                                         style={styles.input}
-                                        placeholder="Edward@frostdigi.com"
+                                        // placeholder="Edward@frostdigi.com"
                                         keyboardType="text"
+										value={values.user_email}
+										onChangeText={handleChange('user_email')}
+										onBlur={handleBlur('user_email')}
+										error={errors.user_email}
+										touched={touched.user_email}
                                     />
+
                                     <View style={styles.loginButtonWrapper}>
-                                        <Button style={styles.loginButton}>
-                                            {/*<Button style={styles.loginButton} onPress={handleSubmit} disabled={!isValid}>*/}
-                                            <Text style={styles.loginButtonText}>Update Password</Text>
+										<TouchableOpacity onPress={handleSubmit} disabled={!isValid}>
+										<Button style={styles.loginButton} >
+                                            <Text style={styles.loginButtonText}>Update</Text>
                                         </Button>
+										</TouchableOpacity>
+                                        
                                     </View>
 
                                 </View>
+
                                 <View style={{height: 1, width: '100%', backgroundColor: '#ECECEC'}}/>
+
                                 <View style={styles.middleWrapper}>
                                     <View style={styles.middleImage}>
                                         <Ionicons
@@ -132,9 +232,7 @@ const ManageAccount = ({navigation}) => {
                                             size={20}/>
                                     </View>
                                     <Text style={{fontSize: 18, fontWeight: '500', margin: 15}}>Change Password</Text>
-
                                 </View>
-
 
                             </View>
 
@@ -180,7 +278,7 @@ const styles = StyleSheet.create({
         height: 90,
         backgroundColor: "white",
         borderRadius: 19,
-        marginLeft: 140,
+        marginLeft: 150,
         marginTop: 50,
         justifyContent: 'center',
         position: 'absolute',
@@ -262,6 +360,16 @@ const styles = StyleSheet.create({
         color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
         fontFamily: Typography.FONT_BOLD,
 
+    },
+	message: {
+        ...CommonStyles.message,
+        width: '86%',
+    },
+	errorWrapper: {
+        width: '70%',
+    },
+    errorText: {
+        ...CommonStyles.errorText,
     },
 
 });

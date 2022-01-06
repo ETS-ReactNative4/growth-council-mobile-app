@@ -15,7 +15,9 @@ export const updateUserByID = createAsyncThunk(
     'profile/updateByID',
     (formData, {rejectWithValue}) => {
         const {id, ...fields} = formData;
-        return update(`jwt-auth/v1/users/${id}`, fields).then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
+        return update(`jwt-auth/v1/users/${id}`, fields)
+			.then(response => response.data.body_response)
+			.catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 
