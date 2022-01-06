@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
+import { Linking } from 'react-native'
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
@@ -126,11 +127,11 @@ const SignInForm = (props) => {
                             </View>
 
                             <View style={styles.loginButtonWrapper}>
-							
+
                                 <Button style={styles.loginButton} onPress={handleSubmit}>
                                     <Text style={styles.loginButtonText}>Sign In</Text>
                                 </Button>
-								
+
                             </View>
                             <View style={styles.forgotButtonWrapper}>
                                 <TouchableOpacity>
@@ -144,7 +145,7 @@ const SignInForm = (props) => {
                             <View style={[styles.signuptext, {marginTop: 40}]}>
                                 <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/>
                                 <Text>Need Help? </Text>
-                                <Text style={{color: '#31ade5'}}> Contact Us </Text>
+                                <Text style={{color: '#31ade5'}} onPress={() => Linking.openURL('mailto:contact@frost.com') }> Contact Us </Text>
                             </View>
 
                         </View>
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 10,
         width: '50%',
-	
+
     },
     loginButtonText: {
         ...CommonStyles.buttonText,
