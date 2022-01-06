@@ -69,9 +69,9 @@ const BottomTabNavigation = ({navigation}) => {
                         </View>
                     ),
                     tabBarVisible: true,
-					
+
                 }}
-				
+
             />
             <Tab.Screen
                 name="People"
@@ -91,8 +91,7 @@ const BottomTabNavigation = ({navigation}) => {
             <Tab.Screen
                 name="Person"
                 component={AccountScreen}
-                options={({route}) => ({
-					id: route?.params?.id,
+                options={{
                     tabBarLabel: 'Account',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
@@ -102,7 +101,7 @@ const BottomTabNavigation = ({navigation}) => {
                         </View>
                     ),
                     tabBarVisible: true,
-                })}
+                }}
             />
         </Tab.Navigator>
     );

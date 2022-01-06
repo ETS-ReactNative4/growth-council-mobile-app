@@ -2,38 +2,38 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import EditProfileForm from './components/EditProfile';
-import {fetchEmployeeByID, updateEmployeeByID, resetProfile} from './profileSlice';
+import {fetchProfileByID, updateUserByID, resetProfile} from './slice/profileSlice';
 
 const EditProfileFormScreen = (props) => {
 
     const dispatch = useDispatch();
 
-    const {profile, loading, error} = useSelector((state) => state.profile);
+    const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
 
     /**
-     * Fetch employee data.
+     * Fetch user data.
      * @param {string} identifier
      *
      */
-    const fetchEmployeeByIdentifier = identifier => {
-        dispatch(fetchEmployeeByID(identifier));
+    const fetchProfileByIdentifier = identifier => {
+        dispatch(fetchProfileByID(identifier));
     };
 
 
     /**
-     * Update employee data.
+     * Update user data.
      * @param {object} formData
      *
      */
-    const updateEmployee = formData => {
-        return dispatch(updateEmployeeByID(formData));
+    const updateUser = formData => {
+        return dispatch(updateUserByID(formData));
     };
 
     /**
      * Clear employee data.
      *
      */
-    const cleanEmployee = () => {
+    const cleanProfile = () => {
         dispatch(resetProfile());
     };
 
@@ -41,11 +41,11 @@ const EditProfileFormScreen = (props) => {
         <EditProfileForm
             {...props}
             profile={profile}
-            loading={loading}
-            error={error}
-            fetchEmployeeByIdentifier={fetchEmployeeByIdentifier}
-            updateEmployee={updateEmployee}
-            cleanEmployee={cleanEmployee}
+            profileLoading={profileLoading}
+            profileError={profileError}
+            fetchProfileByIdentifier={fetchProfileByIdentifier}
+            updateUser={updateUser}
+            cleanProfile={cleanProfile}
         />
     );
 
