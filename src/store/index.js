@@ -24,6 +24,7 @@ import ideaReducer from '../screens/ideas/slice/ideaSlice';
 import eventReducer from '../screens/event/eventSlice';
 import connectionReducer from '../screens/people/slice/connetionSlice';
 import profileReducer from '../screens/account/slice/profileSlice';
+import profileEventReducer from '../screens/account/slice/profileEventSlice';
 import sessionReducer from '../screens/dashboard/slice/sessionSlice';
 import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
 import bestPracticesReducer from '../screens/dashboard/slice/bestPracticesSlice';
@@ -58,6 +59,7 @@ const reducers = combineReducers({
   sessions: sessionReducer,
   sessionDetails: sessionDetailReducer,
   profile: profileReducer,
+  profileEvent: profileEventReducer,
   bestPractices: bestPracticesReducer,
   growthCoachings: growthCoachingsReducer,
   bestPracticesMemberContents: bestPracticesMemberContentReducer,
