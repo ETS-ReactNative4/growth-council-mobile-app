@@ -49,7 +49,8 @@ const ManageAccount = (props) => {
         profile,
         profileLoading,
         profileError,
-        fetchProfileByIdentifier,
+        // fetchProfileByIdentifier,
+		fetchProfile,
         cleanProfile,
 		updateUser
     } = props;
@@ -67,13 +68,13 @@ const ManageAccount = (props) => {
         validationSchema: profileUpdateSchema,
         initialValues: {
             display_name: profile?.display_name,
-            first_name: profile?.user_login,
-            last_name: profile?.user_meta.last_name,
+            first_name: profile?.user_meta.nickname[0],
+            last_name: profile?.user_meta.account_status[0],
             user_email: profile?.user_email,
         },
         onSubmit: async values => {
-            values.id = profile?.ID;
-            await updateUser(initialValues).then(response => {
+            // values.id = profile?.id;
+            await updateUser(values).then(response => {
                 if (!response.error) {
                     navigation.navigate('Profile');
                     ToastMessage.show('Your information has been successfully updated.');
@@ -82,18 +83,20 @@ const ManageAccount = (props) => {
         },
     });
 
+	
 
 	useEffect(() => {
         const fetchProfileAsync = async () => {
             let token = await getAsyncStorage(JWT_TOKEN);
             let userID = decodeUserID(token);
-            await fetchProfileByIdentifier(userID);
+            await fetchProfile(userID);
         };
         fetchProfileAsync();
 
     }, []);
 
-    console.log("profile::::::", profile);
+	console.log("user_meta.nickname::::::", profile.user_meta.nickname[0]);
+	console.log("usermeta::::::", profile.user_meta);
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>
@@ -212,8 +215,8 @@ const ManageAccount = (props) => {
                                     />
 
                                     <View style={styles.loginButtonWrapper}>
-										<TouchableOpacity onPress={handleSubmit} disabled={!isValid}>
-										<Button style={styles.loginButton} >
+										<TouchableOpacity >
+										<Button style={styles.loginButton} onPress={handleSubmit} >
                                             <Text style={styles.loginButtonText}>Update</Text>
                                         </Button>
 										</TouchableOpacity>

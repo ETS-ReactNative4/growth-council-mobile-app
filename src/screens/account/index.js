@@ -2,14 +2,14 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Profile from './components';
-import {fetchProfileByID, resetProfile} from './slice/profileSlice';
-import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
+import {fetchProfileByID, fetchProfiles, resetProfile} from './slice/profileSlice';
+import {fetchProfileEvents, resetProfileEvent} from './slice/profileEventSlice';
 
 const ProfileScreen = (props) => {
 
     const dispatch = useDispatch();
 
-    const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
+    const {profileEvent, profileEventLoading, profileEventError} = useSelector((state) => state.profileEvent);
     const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
 
     /**
@@ -17,36 +17,36 @@ const ProfileScreen = (props) => {
      * @param {string} identifier
      *
      */
-    const fetchProfileByIdentifier = identifier => {
-        dispatch(fetchProfileByID(identifier));
-    };
 
+	const fetchProfile=()=>{
+		dispatch(fetchProfiles());
+	}
     const cleanProfile = () => {
         dispatch(resetProfile());
     };
 
-    const fetchAllUpcomingEvent = () => {
-        dispatch(fetchAllUpcomingEvents());
+    const fetchProfileEventIdentifier = identifier => {
+        dispatch(fetchProfileEvents(identifier));
     };
 
-    const cleanUpcomingEvent = () => {
-        dispatch(resetUpcomingEvent());
+    const cleanProfileEvent = () => {
+        dispatch(resetProfileEvent());
     };
 
     return (
         <Profile
             {...props}
 
-            upcomingEvents={upcomingEvents}
-            upcomingEventLoading={upcomingEventLoading}
-            upcomingEventError={upcomingEventError}
-            fetchAllUpcomingEvent={fetchAllUpcomingEvent}
-            cleanUpcomingEvent={cleanUpcomingEvent}
+            profileEvent={profileEvent}
+            profileEventLoading={profileEventLoading}
+            profileEventError={profileEventError}
+            fetchProfileEventIdentifier={fetchProfileEventIdentifier}
+            cleanProfileEvent={cleanProfileEvent}
 
             profile={profile}
             profileLoading={profileLoading}
             profileError={profileError}
-            fetchProfileByIdentifier={fetchProfileByIdentifier}
+			fetchProfile={fetchProfile}
             cleanProfile={cleanProfile}
         />
     );

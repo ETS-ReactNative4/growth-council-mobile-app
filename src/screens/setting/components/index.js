@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { StyleSheet,
 	Text,
 	View,
@@ -12,14 +12,44 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import ToggleSwitch from 'toggle-switch-react-native';
+import {clearAsyncStorage} from '../../../utils/storageUtil';
 
 
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
-const Setting = ({navigation}) => {
+const Setting = (props) => {
+	const {
+        navigation,
+        route,
+        upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
+        profile,
+        profileLoading,
+        profileError,
+        fetchProfile,
+        cleanProfile,
+    } = props;
 	const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  useEffect(() => {
+	const fetchProfileAsync = async () => {
+		await fetchProfile();
+	};
+	fetchProfileAsync();
+
+}, []);
+
+		const logout = () => {
+			clearAsyncStorage();
+			navigation.navigate('SignIn')
+		}
+
+
 	return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,}} >
 			<View style={styles.container} >
@@ -27,19 +57,20 @@ const Setting = ({navigation}) => {
 				
 
 				<View style={{height: '100%'}}>
-				<View style={styles.icon}>
-						<Image source={require("../../../assets/img/profile_image.png")}
-							
-						/>
+					<View style={styles.icon}>
+					<Image source={{uri:profile.avatar}}
+							style={{width:90, height:90, borderRadius: 19,}}
+                            />
 					</View>
 					<View style={styles.header}>
-						<Text style={styles.headingText1}>Edward</Text>
-						<Text>Edward@frostdigi.com</Text>
+						<Text style={styles.headingText1}>{profile.display_name}</Text>
+						<Text>{profile.user_email}</Text>
 					</View>
 					<View style={styles.middle}>
-					<View style={styles.wrapper}>
-							
+						<View style={styles.wrapper}>
+						
 								<View style={styles.middleWrapper}>
+									
 										<View style={styles.middleImage}>
 										<Ionicons
 											name="person-outline" 
@@ -48,14 +79,17 @@ const Setting = ({navigation}) => {
 										</View>
 										<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Account</Text>
 										<TouchableOpacity onPress={() => navigation.navigate('Account')}>
-											<Ionicons
+										<Ionicons
 												name='chevron-forward-outline'
 												size={20}
 												color='#d7d7d7'
 												style={{marginTop:20, marginLeft:120}}
 												/>
 										</TouchableOpacity>
+											
+										
 								</View>
+								
 							
 							<View style={styles.middleWrapper}>
 								<View style={styles.middleImage}>
@@ -86,57 +120,61 @@ const Setting = ({navigation}) => {
 								</View>
 								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Notification</Text>
 								
-								
-									<Switch
-										trackColor={{ false: "#767577", true: "#32a32e" }}
-										thumbColor={isEnabled ? "white" : "white" }
-										ios_backgroundColor="#3e3e3e"
-										onValueChange={toggleSwitch}
-										value={isEnabled}
-										style={{ transform: [{ scaleX: 1.4}, { scaleY: 1.5 }] , marginLeft:60}}
-     								 />
-									  
+								<Switch
+									trackColor={{ false: "#767577", true: "#32a32e" }}
+									thumbColor={isEnabled ? "white" : "white" }
+									ios_backgroundColor="#3e3e3e"
+									onValueChange={toggleSwitch}
+									value={isEnabled}
+									style={{ transform: [{ scaleX: 1.4}, { scaleY: 1.5 }] , marginLeft:60}}
+     							 />
 
-								
 							</View> 
 						</View>
 						<View style={styles.wrapper}>
-							<View style={styles.middleWrapper}>
-								<View style={styles.middleImage1}>
-									<Ionicons
-										name={'headset'}
-										size={20}
-										color="white"
-										
-									/>
+
+							<TouchableOpacity onPress={() => navigation.navigate('Terms')}>
+								<View style={styles.middleWrapper}>
+									<View style={styles.middleImage1}>
+										<Ionicons
+											name={'headset'}
+											size={20}
+											color="white"
+											
+										/>
+									</View>
+									<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Help</Text>
+									
 								</View>
-								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Help</Text>
-								
-							</View>
+							</TouchableOpacity>
 							
-						
-							<View style={styles.middleWrapper}>
-								<View style={styles.middleImage1}>
-									<Ionicons
-										name={'lock-closed-outline'}
-										size={20}
-										color="white"
-										
-									/>
-								</View>
-								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Private Policy</Text>
-							</View> 
+							<TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')}>
+								<View style={styles.middleWrapper}>
+									<View style={styles.middleImage1}>
+										<Ionicons
+											name={'lock-closed-outline'}
+											size={20}
+											color="white"
+											
+										/>
+									</View>
+									<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Privacy Policy</Text>
+								</View> 
+							</TouchableOpacity>
+							
+							<TouchableOpacity onPress={logout}>
 							<View style={styles.middleWrapper}>
 								<View style={styles.middleImage1}>
 									<Material
 										name={'logout'}
 										size={20}
 										color="white"
-										
 									/>
 								</View>
 								<Text style={{fontSize:18,fontWeight:'500', margin:15}}>Logout</Text>
 							</View> 
+							</TouchableOpacity>
+							
 						</View>
 						
 						
@@ -181,7 +219,7 @@ const styles = StyleSheet.create({
 		height:90, 
 		backgroundColor:"white", 
 		borderRadius:19, 
-		marginLeft:140, 
+		marginLeft:150, 
 		marginTop:30, 
 		justifyContent:'center', 
 		position:'absolute',

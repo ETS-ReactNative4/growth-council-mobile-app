@@ -26,6 +26,7 @@ import connectionReducer from '../screens/people/slice/connetionSlice';
 import profileReducer from '../screens/account/slice/profileSlice';
 import sessionReducer from '../screens/dashboard/slice/sessionSlice';
 import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
+import profileEventReducer from '../screens/account/slice/profileEventSlice';
 
 import pillarReducer from '../screens/home/pillarSlice';
 import pillarSliderReducer from '../screens/home/pillarSliderSlice';
@@ -53,6 +54,7 @@ const reducers = combineReducers({
     sessions: sessionReducer,
     sessionDetails: sessionDetailReducer,
 	profile:profileReducer,
+	profileEvent:profileEventReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

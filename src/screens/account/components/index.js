@@ -16,34 +16,68 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
-import {BubblesLoader} from 'react-native-indicator';
 import {Button} from 'native-base';
 
 const Profile = (props) => {
     const {
         navigation,
         route,
-        upcomingEvents,
-        upcomingEventLoading,
-        upcomingEventError,
-        fetchAllUpcomingEvent,
-        cleanUpcomingEvent,
+        profileEvent,
+        profileEventLoading,
+        profileEventError,
+        fetchProfileEventIdentifier,
+        cleanProfileEvent,
         profile,
         profileLoading,
-        profileError,
-        fetchProfileByIdentifier,
+        profileError,    
+		fetchProfile,
         cleanProfile,
     } = props;
 
     const [value, setValue] = useState('My Events');
 
+	const data = [
+		{
+		  text: 'Executive Coaching Clinic On Goal Setting',
+		  text1: 'Hosted by Michael Cooper',
+		  text2:"3 persons",
+		  text3:"17 June 2021",
+		  text4:"10:00 am",
+		  text5:"Minima Room",
+		},
+		{
+		  text: 'Associate Member Meeting',
+		  text1: 'Hosted by Michael Cooper',
+		  text2:"3 persons",
+		  text3:"17 June 2021",
+		  text4:"10:00 am",
+		  text5:"Minima Room",
+		},
+		{
+			text: 'Executive Coaching Clinic On Goal Setting',
+			text1: 'Hosted by Michael Cooper',
+			text2:"3 persons",
+			text3:"17 June 2021",
+			text4:"10:00 am",
+		  	text5:"Minima Room",
+		  },
+		  {
+			text: 'Associate Member Meeting',
+			text1: 'Hosted by Michael Cooper',
+			text2:"3 persons",
+			text3:"17 June 2021",
+			text4:"10:00 am",
+		 	 text5:"Minima Room",
+		  },
+
+	  ];
 
     const _renderItem = ({item, index}) => {
         return (
             <View style={[styles.middleWrapper, styles.shadowProp]}>
                 <View style={styles.wrapper}>
-                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.title}</Text>
-                    <Text style={{fontSize: 10}}>{item.location.location_address}</Text>
+                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.text}</Text>
+                    <Text style={{fontSize: 10}}>{item.text1}</Text>
                     <View style={styles.iconWrapper}>
                         <Ionicon
                             name={'person'}
@@ -57,7 +91,7 @@ const Profile = (props) => {
                             color="#0B0B45"
                             style={{marginLeft: 20}}
 
-                        /><Text style={{color: 'black', marginLeft: 5}}>{item.post_date}</Text>
+                        /><Text style={{color: 'black', marginLeft: 5}}>{item.text3}</Text>
                     </View>
                     <View style={styles.iconWrapper}>
                         <Ionicon
@@ -73,7 +107,7 @@ const Profile = (props) => {
                             color="#0B0B45"
                             style={{marginLeft: 20}}
 
-                        /><Text style={{color: 'black', marginLeft: 5}}>{item.location.location_country}</Text>
+                        /><Text style={{color: 'black', marginLeft: 5}}>{item.text5}</Text>
                     </View>
 
 
@@ -85,23 +119,26 @@ const Profile = (props) => {
     };
 
     useEffect(() => {
-        const fetchAllUpcomingEventAsync = async () => {
-            await fetchAllUpcomingEvent();
+        const fetchProfileEventAsync = async () => {
+			let token = await getAsyncStorage(JWT_TOKEN);
+            let userID = decodeUserID(token);
+            await fetchProfileEventIdentifier(userID);
         };
-        fetchAllUpcomingEventAsync();
+        fetchProfileEventAsync();
 
     }, []);
+	console.log("profileEvent..", profileEvent)
+
     useEffect(() => {
         const fetchProfileAsync = async () => {
-            let token = await getAsyncStorage(JWT_TOKEN);
-            let userID = decodeUserID(token);
-            await fetchProfileByIdentifier(userID);
+            // let token = await getAsyncStorage(JWT_TOKEN);
+            // let userID = decodeUserID(token);
+            await fetchProfile();
         };
         fetchProfileAsync();
 
     }, []);
-
-    console.log("profile::::::", profile);
+    // console.log("profile::::::", profile);
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>
@@ -186,7 +223,7 @@ const Profile = (props) => {
                             <FlatList
                                 Vertical
                                 showsVerticalScrollIndicator={false}
-                                data={upcomingEvents}
+                                data={data}
                                 renderItem={_renderItem}
                             />
 
@@ -211,7 +248,7 @@ const styles = StyleSheet.create({
         height: 180,
         backgroundColor: "white",
         margin: 40,
-        marginTop: 70,
+        marginTop: 50,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -300,6 +337,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderWidth: 0.5,
         marginTop: 10,
+		marginBottom:10,
         // backgroundColor:"red"
     },
 
