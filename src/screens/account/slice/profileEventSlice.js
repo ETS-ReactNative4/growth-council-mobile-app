@@ -2,10 +2,10 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {fetch} from '../../../utils/httpUtil';
 
-export const fetchProfileEvents = createAsyncThunk(
+export const fetchEventsByUserID = createAsyncThunk(
   'profileEvent/fetchAllByID',
   (identifier, {rejectWithValue}) => {
-    return fetch(`/jwt-auth/v1/users/${identifier}/events`)
+    return fetch(`jwt-auth/v1/users/${identifier}/events`)
       	.then(response => response.data.body_response)
       	.catch(error => rejectWithValue(error?.response?.data || error));
   },
@@ -26,16 +26,16 @@ const profileEventSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchProfileEvents.pending]: (state, action) => {
+    [fetchEventsByUserID.pending]: (state, action) => {
       state.profileEventLoading = true;
       state.profileEventError = null;
     },
-    [fetchProfileEvents.fulfilled]: (state, action) => {
+    [fetchEventsByUserID.fulfilled]: (state, action) => {
       state.profileEvent = action.payload;
       state.profileEventLoading = false;
       state.profileEventError = null;
     },
-    [fetchProfileEvents.rejected]: (state, action) => {
+    [fetchEventsByUserID.rejected]: (state, action) => {
       state.profileEventLoading = false;
       if (action.payload) {
         state.profileEventError = action.payload.error.message;

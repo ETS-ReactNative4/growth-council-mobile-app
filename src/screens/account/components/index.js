@@ -25,52 +25,52 @@ const Profile = (props) => {
         profileEvent,
         profileEventLoading,
         profileEventError,
-        fetchProfileEventIdentifier,
+        fetchEventsByUserIdentifier,
         cleanProfileEvent,
         profile,
         profileLoading,
-        profileError,    
-		fetchProfile,
+        profileError,
+        fetchProfileByIdentifier,
         cleanProfile,
     } = props;
 
     const [value, setValue] = useState('My Events');
 
-	const data = [
-		{
-		  text: 'Executive Coaching Clinic On Goal Setting',
-		  text1: 'Hosted by Michael Cooper',
-		  text2:"3 persons",
-		  text3:"17 June 2021",
-		  text4:"10:00 am",
-		  text5:"Minima Room",
-		},
-		{
-		  text: 'Associate Member Meeting',
-		  text1: 'Hosted by Michael Cooper',
-		  text2:"3 persons",
-		  text3:"17 June 2021",
-		  text4:"10:00 am",
-		  text5:"Minima Room",
-		},
-		{
-			text: 'Executive Coaching Clinic On Goal Setting',
-			text1: 'Hosted by Michael Cooper',
-			text2:"3 persons",
-			text3:"17 June 2021",
-			text4:"10:00 am",
-		  	text5:"Minima Room",
-		  },
-		  {
-			text: 'Associate Member Meeting',
-			text1: 'Hosted by Michael Cooper',
-			text2:"3 persons",
-			text3:"17 June 2021",
-			text4:"10:00 am",
-		 	 text5:"Minima Room",
-		  },
+    const data = [
+        {
+            text: 'Executive Coaching Clinic On Goal Setting',
+            text1: 'Hosted by Michael Cooper',
+            text2: "3 persons",
+            text3: "17 June 2021",
+            text4: "10:00 am",
+            text5: "Minima Room",
+        },
+        {
+            text: 'Associate Member Meeting',
+            text1: 'Hosted by Michael Cooper',
+            text2: "3 persons",
+            text3: "17 June 2021",
+            text4: "10:00 am",
+            text5: "Minima Room",
+        },
+        {
+            text: 'Executive Coaching Clinic On Goal Setting',
+            text1: 'Hosted by Michael Cooper',
+            text2: "3 persons",
+            text3: "17 June 2021",
+            text4: "10:00 am",
+            text5: "Minima Room",
+        },
+        {
+            text: 'Associate Member Meeting',
+            text1: 'Hosted by Michael Cooper',
+            text2: "3 persons",
+            text3: "17 June 2021",
+            text4: "10:00 am",
+            text5: "Minima Room",
+        },
 
-	  ];
+    ];
 
     const _renderItem = ({item, index}) => {
         return (
@@ -120,25 +120,25 @@ const Profile = (props) => {
 
     useEffect(() => {
         const fetchProfileEventAsync = async () => {
-			let token = await getAsyncStorage(JWT_TOKEN);
+            let token = await getAsyncStorage(JWT_TOKEN);
             let userID = decodeUserID(token);
-            await fetchProfileEventIdentifier(userID);
+            await fetchEventsByUserIdentifier(userID);
         };
         fetchProfileEventAsync();
 
     }, []);
-	console.log("profileEvent..", profileEvent)
+
+    console.log("profileEvent::::::::::::::::::::;", profileEvent);
 
     useEffect(() => {
         const fetchProfileAsync = async () => {
             // let token = await getAsyncStorage(JWT_TOKEN);
             // let userID = decodeUserID(token);
-            await fetchProfile();
+            await fetchProfileByIdentifier();
         };
         fetchProfileAsync();
 
     }, []);
-    // console.log("profile::::::", profile);
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>
@@ -154,7 +154,7 @@ const Profile = (props) => {
                             zIndex: 20,
                             marginLeft: 310
                         }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
                                 <Font
                                     name={'edit'}
                                     size={20}
@@ -175,8 +175,8 @@ const Profile = (props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.icon}>
-                            <Image source={{uri:profile.avatar}}
-							style={{width:90, height:90, borderRadius: 19,}}
+                            <Image source={{uri: profile.avatar}}
+                                   style={{width: 90, height: 90, borderRadius: 19,}}
                             />
 
                         </View>
@@ -192,7 +192,7 @@ const Profile = (props) => {
                         </View>
                         <View style={styles.header}>
                             <Text style={styles.headingText1}>{profile.display_name} </Text>
-                            <Text style={{width:'60%', marginLeft:40}}>{profile.user_email} </Text>
+                            <Text style={{width: '60%', marginLeft: 40}}>{profile.user_email} </Text>
 
                             {/* <View style={{height: 1, width: '90%', backgroundColor: '#ECECEC', marginTop: 20}}/> */}
 
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderWidth: 0.5,
         marginTop: 10,
-		marginBottom:10,
+        marginBottom: 10,
         // backgroundColor:"red"
     },
 
