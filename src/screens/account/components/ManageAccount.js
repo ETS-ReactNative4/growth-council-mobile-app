@@ -96,7 +96,9 @@ const ManageAccount = (props) => {
     }, []);
 
 	console.log("user_meta.nickname::::::", profile.user_meta.nickname[0]);
-	console.log("usermeta::::::", profile.user_meta);
+
+	console.log(values);
+	
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>

@@ -48,22 +48,19 @@ const _renderItem = ({item, index}) => {
 };
 
 const data1 = [
-  {
-    icon: 'brain',
-    text: 'Executive MindChange',
-  },
+  
   {
     icon: 'location-arrow',
     text: 'Megatrends Workshop',
   },
-  {
-    icon: 'brain',
-    text: 'Executive MindChange',
-  },
-  {
-    icon: 'location-arrow',
-    text: 'Megatrends Workshop',
-  },
+//   {
+//     icon: 'brain',
+//     text: 'Executive MindChange',
+//   },
+//   {
+//     icon: 'location-arrow',
+//     text: 'Megatrends Workshop',
+//   },
 ];
 
 const _renderMiddleItem = ({item, index}) => {
@@ -115,6 +112,7 @@ const _renderTopItem = ({item, index}, navigation) => {
     );
 };
 
+
 const Dashboard = props => {
   const {
     navigation,
@@ -149,6 +147,7 @@ const Dashboard = props => {
     fetchAllCommunityMemberAsync();
   }, []);
 
+  console.log("upcoming events", upcomingEvents)
   return (
     <ScrollView>
       <View style={styles.container}>
