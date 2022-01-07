@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Setting from './components/index';
-import {fetchProfiles, resetProfile} from '../account/slice/profileSlice';
+import {fetchProfileByID, resetProfile} from '../account/slice/profileSlice';
 
 
 const SettingScreen = (props) => {
@@ -10,7 +10,7 @@ const SettingScreen = (props) => {
 	const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
 
 	const fetchProfile = () => {
-        dispatch(fetchProfiles());
+        dispatch(fetchProfileByID());
     };
 
     const cleanProfile = () => {
@@ -19,7 +19,7 @@ const SettingScreen = (props) => {
 	return (
 		<Setting
 		{...props}
-		
+
 		profile={profile}
 		profileLoading={profileLoading}
 		profileError={profileError}
@@ -32,5 +32,5 @@ const SettingScreen = (props) => {
 export default SettingScreen;
 
 const styles = StyleSheet.create({
-	
+
 })
