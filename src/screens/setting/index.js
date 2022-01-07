@@ -2,12 +2,30 @@ import React from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Setting from './components/index';
+import {fetchProfiles, resetProfile} from '../account/slice/profileSlice';
+
 
 const SettingScreen = (props) => {
 	const dispatch = useDispatch();
+	const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
+
+	const fetchProfile = () => {
+        dispatch(fetchProfiles());
+    };
+
+    const cleanProfile = () => {
+        dispatch(resetProfile());
+    };
 	return (
 		<Setting
-		{...props}/>
+		{...props}
+		
+		profile={profile}
+		profileLoading={profileLoading}
+		profileError={profileError}
+		fetchProfile={fetchProfile}
+		cleanProfile={cleanProfile}
+		/>
 	)
 }
 

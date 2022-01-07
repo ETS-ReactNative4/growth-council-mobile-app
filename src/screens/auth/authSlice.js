@@ -5,7 +5,7 @@ import {store} from '../../utils/httpUtil';
 export const signUpCustomer = createAsyncThunk(
   'customer/signUp',
   (formData, {rejectWithValue}) => {
-    return store(`gil_api/v1/user/register`, formData)
+    return store(`gil_api/v1/users/register`, formData)
       .then(response => response.data.body_response.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },

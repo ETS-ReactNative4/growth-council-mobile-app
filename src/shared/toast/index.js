@@ -4,9 +4,9 @@ import {Toast} from 'native-base';
 const ToastMessage = {
     show: (message, duration = 4000) => {
         Toast.show({
-            text: message,
+            title: message,
             duration,
-            position: 'bottom',
+            placement: 'bottom',
             textStyle: {textAlign: 'center'},
         });
     },

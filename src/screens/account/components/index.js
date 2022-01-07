@@ -16,18 +16,17 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
-import {BubblesLoader} from 'react-native-indicator';
 import {Button} from 'native-base';
 
 const Profile = (props) => {
     const {
         navigation,
         route,
-        upcomingEvents,
-        upcomingEventLoading,
-        upcomingEventError,
-        fetchAllUpcomingEvent,
-        cleanUpcomingEvent,
+        profileEvent,
+        profileEventLoading,
+        profileEventError,
+        fetchEventsByUserIdentifier,
+        cleanProfileEvent,
         profile,
         profileLoading,
         profileError,
@@ -37,13 +36,48 @@ const Profile = (props) => {
 
     const [value, setValue] = useState('My Events');
 
+    const data = [
+        {
+            text: 'Executive Coaching Clinic On Goal Setting',
+            text1: 'Hosted by Michael Cooper',
+            text2: "3 persons",
+            text3: "17 June 2021",
+            text4: "10:00 am",
+            text5: "Minima Room",
+        },
+        {
+            text: 'Associate Member Meeting',
+            text1: 'Hosted by Michael Cooper',
+            text2: "3 persons",
+            text3: "17 June 2021",
+            text4: "10:00 am",
+            text5: "Minima Room",
+        },
+        {
+            text: 'Executive Coaching Clinic On Goal Setting',
+            text1: 'Hosted by Michael Cooper',
+            text2: "3 persons",
+            text3: "17 June 2021",
+            text4: "10:00 am",
+            text5: "Minima Room",
+        },
+        {
+            text: 'Associate Member Meeting',
+            text1: 'Hosted by Michael Cooper',
+            text2: "3 persons",
+            text3: "17 June 2021",
+            text4: "10:00 am",
+            text5: "Minima Room",
+        },
+
+    ];
 
     const _renderItem = ({item, index}) => {
         return (
             <View style={[styles.middleWrapper, styles.shadowProp]}>
                 <View style={styles.wrapper}>
-                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.title}</Text>
-                    <Text style={{fontSize: 10}}>{item.location.location_address}</Text>
+                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.text}</Text>
+                    <Text style={{fontSize: 10}}>{item.text1}</Text>
                     <View style={styles.iconWrapper}>
                         <Ionicon
                             name={'person'}
@@ -57,7 +91,7 @@ const Profile = (props) => {
                             color="#0B0B45"
                             style={{marginLeft: 20}}
 
-                        /><Text style={{color: 'black', marginLeft: 5}}>{item.post_date}</Text>
+                        /><Text style={{color: 'black', marginLeft: 5}}>{item.text3}</Text>
                     </View>
                     <View style={styles.iconWrapper}>
                         <Ionicon
@@ -73,7 +107,7 @@ const Profile = (props) => {
                             color="#0B0B45"
                             style={{marginLeft: 20}}
 
-                        /><Text style={{color: 'black', marginLeft: 5}}>{item.location.location_country}</Text>
+                        /><Text style={{color: 'black', marginLeft: 5}}>{item.text5}</Text>
                     </View>
 
 
@@ -85,23 +119,26 @@ const Profile = (props) => {
     };
 
     useEffect(() => {
-        const fetchAllUpcomingEventAsync = async () => {
-            await fetchAllUpcomingEvent();
-        };
-        fetchAllUpcomingEventAsync();
-
-    }, []);
-    useEffect(() => {
-        const fetchProfileAsync = async () => {
+        const fetchProfileEventAsync = async () => {
             let token = await getAsyncStorage(JWT_TOKEN);
             let userID = decodeUserID(token);
-            await fetchProfileByIdentifier(userID);
+            await fetchEventsByUserIdentifier(userID);
+        };
+        fetchProfileEventAsync();
+
+    }, []);
+
+    console.log("profileEvent::::::::::::::::::::;", profileEvent);
+
+    useEffect(() => {
+        const fetchProfileAsync = async () => {
+            // let token = await getAsyncStorage(JWT_TOKEN);
+            // let userID = decodeUserID(token);
+            await fetchProfileByIdentifier();
         };
         fetchProfileAsync();
 
     }, []);
-
-    console.log("profile::::::", profile);
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>
@@ -117,7 +154,7 @@ const Profile = (props) => {
                             zIndex: 20,
                             marginLeft: 310
                         }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
                                 <Font
                                     name={'edit'}
                                     size={20}
@@ -138,8 +175,8 @@ const Profile = (props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.icon}>
-                            <Image source={require("../../../assets/img/profile_image.png")}
-
+                            <Image source={{uri: profile.avatar}}
+                                   style={{width: 90, height: 90, borderRadius: 19,}}
                             />
 
                         </View>
@@ -154,16 +191,18 @@ const Profile = (props) => {
                             <Text style={{fontSize: 18, marginTop: 5}}>1457</Text>
                         </View>
                         <View style={styles.header}>
-                            <Text style={styles.headingText1}>Edward</Text>
-                            {/* <Text style={{width:'60%', marginLeft:40}}>{profile.data.user_email} </Text> */}
-                            <View style={{height: 1, width: '90%', backgroundColor: '#ECECEC', marginTop: 20}}/>
-                            <View style={styles.headerWrapper}>
+                            <Text style={styles.headingText1}>{profile.display_name} </Text>
+                            <Text style={{width: '60%', marginLeft: 40}}>{profile.user_email} </Text>
+
+                            {/* <View style={{height: 1, width: '90%', backgroundColor: '#ECECEC', marginTop: 20}}/> */}
+
+                            {/* <View style={styles.headerWrapper}>
                                 <View>
                                     <Text style={{fontSize: 15, fontWeight: '600', marginLeft: 30}}>124</Text>
                                     <Text>My Connection</Text>
                                 </View>
                                 <Button style={styles.button}>Refer a Member</Button>
-                            </View>
+                            </View> */}
                         </View>
 
                         <View style={styles.middle}>
@@ -184,7 +223,7 @@ const Profile = (props) => {
                             <FlatList
                                 Vertical
                                 showsVerticalScrollIndicator={false}
-                                data={upcomingEvents}
+                                data={data}
                                 renderItem={_renderItem}
                             />
 
@@ -206,10 +245,10 @@ const styles = StyleSheet.create({
     },
     header: {
         width: '80%',
-        height: 230,
+        height: 180,
         backgroundColor: "white",
         margin: 40,
-        marginTop: 70,
+        marginTop: 50,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -234,7 +273,7 @@ const styles = StyleSheet.create({
         height: 90,
         backgroundColor: "white",
         borderRadius: 19,
-        marginLeft: 140,
+        marginLeft: 150,
         marginTop: 30,
         justifyContent: 'center',
         position: 'absolute',
@@ -266,7 +305,7 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
         backgroundColor: 'white',
-        marginTop: 180,
+        marginTop: 150,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -283,7 +322,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
 
         margin: 10,
-        marginTop: 140,
+        marginTop: 110,
 
     },
     btn: {
@@ -297,7 +336,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         borderWidth: 0.5,
-        marginTop: 20,
+        marginTop: 10,
+        marginBottom: 10,
         // backgroundColor:"red"
     },
 
