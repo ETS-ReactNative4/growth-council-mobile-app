@@ -23,7 +23,7 @@ const _renderItem = ({item, index}) => {
         source={require('../../../assets/img/profile_image.png')}
       />
 
-      <Text style={{fontSize: 13, marginTop: 8}}>{item.data.display_name}</Text>
+      <Text style={{fontSize: 13, marginTop: 8}}>{item.display_name}</Text>
 
       <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
       <View
@@ -77,14 +77,12 @@ const _renderMiddleItem = ({item, index}) => {
   );
 };
 
-
-
 const _renderTopItem = ({item, index}, navigation) => {
-	const actualDate = moment('20111031').format('ll');
+  const actualDate = moment('20111031').format('ll');
   const date = actualDate.split(' ', 4);
   const day = date[1].split(',', 3);
-    return (
-        <View key={index} style={styles.topWrapper}>
+  return (
+    <View key={index} style={styles.topWrapper}>
       <TouchableOpacity
         onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
         <ImageBackground
@@ -112,7 +110,7 @@ const _renderTopItem = ({item, index}, navigation) => {
         </ImageBackground>
       </TouchableOpacity>
     </View>
-    );
+  );
 };
 
 const Dashboard = props => {

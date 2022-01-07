@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers} from 'redux';
 import {
-    persistReducer,
-    persistStore,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
 } from 'redux-persist';
 import {configureStore} from '@reduxjs/toolkit';
 
@@ -26,53 +26,61 @@ import connectionReducer from '../screens/people/slice/connetionSlice';
 import profileReducer from '../screens/account/slice/profileSlice';
 import sessionReducer from '../screens/dashboard/slice/sessionSlice';
 import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
+import bestPracticesReducer from '../screens/dashboard/slice/bestPracticesSlice';
+import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPracticesMemberContentSlice';
+import growthCoachingsReducer from '../screens/dashboard/slice/growthCoachingSlice';
+import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growthCoachingMemberContentSlice';
 
 import pillarReducer from '../screens/home/pillarSlice';
 import pillarSliderReducer from '../screens/home/pillarSliderSlice';
 
 const persistConfig = {
-    key: 'root',
-    storage: AsyncStorage,
-    whitelist: [],
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: [],
 };
 
 const reducers = combineReducers({
-    auth: authReducer,
-    // profile: profileReducer,
-    password: passwordReducer,
-    upcomingEvents: upcomingEventReducer,
-    pointOfEngagements: pointOfEngagementReducer,
-    communityMembers: communityMemberReducer,
-    events: eventReducer,
-    about: aboutReducer,
-    feedback: feedbackReducer,
-    idea: ideaReducer,
-    pillars: pillarReducer,
-    pillarSliders: pillarSliderReducer,
-    connection: connectionReducer,
-    sessions: sessionReducer,
-    sessionDetails: sessionDetailReducer,
-	profile:profileReducer,
+  auth: authReducer,
+  // profile: profileReducer,
+  password: passwordReducer,
+  upcomingEvents: upcomingEventReducer,
+  pointOfEngagements: pointOfEngagementReducer,
+  communityMembers: communityMemberReducer,
+  events: eventReducer,
+  about: aboutReducer,
+  feedback: feedbackReducer,
+  idea: ideaReducer,
+  pillars: pillarReducer,
+  pillarSliders: pillarSliderReducer,
+  connection: connectionReducer,
+  sessions: sessionReducer,
+  sessionDetails: sessionDetailReducer,
+  profile: profileReducer,
+  bestPractices: bestPracticesReducer,
+  growthCoachings: growthCoachingsReducer,
+  bestPracticesMemberContents: bestPracticesMemberContentReducer,
+  growthCoachingMemberContents: growthCoachingMemberContentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
-    reducer: persistedReducer,
-    middleware: getDefaultMiddleware => {
-        let middlewares = getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        });
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware => {
+    let middlewares = getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
 
-        if (__DEV__ && !process.env.JEST_WORKER_ID) {
-            const createDebugger = require('redux-flipper').default;
-            middlewares.push(createDebugger());
-        }
+    if (__DEV__ && !process.env.JEST_WORKER_ID) {
+      const createDebugger = require('redux-flipper').default;
+      middlewares.push(createDebugger());
+    }
 
-        return middlewares;
-    },
+    return middlewares;
+  },
 });
 
 const persistor = persistStore(store);

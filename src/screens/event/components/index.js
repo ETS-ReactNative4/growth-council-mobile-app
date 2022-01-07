@@ -221,8 +221,10 @@ const Event = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
-                    <Text style={styles.contentHeading}>Andrew Deutscher</Text>
-                    <Text>Founder, Regenerate</Text>
+                    <Text style={styles.contentHeading}>
+                      {events.organizer.term_name}
+                    </Text>
+                    <Text>{events.organizer.description}</Text>
                   </View>
                   <View
                     style={{
