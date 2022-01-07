@@ -68,8 +68,8 @@ const ManageAccount = (props) => {
         validationSchema: profileUpdateSchema,
         initialValues: {
             display_name: profile?.display_name,
-            first_name: profile?.user_meta.nickname[0],
-            last_name: profile?.user_meta.account_status[0],
+            first_name: profile?.user_meta.first_name[0],
+            last_name: profile?.user_meta.last_name[0],
             user_email: profile?.user_email,
         },
         onSubmit: async values => {
