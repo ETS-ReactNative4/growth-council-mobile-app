@@ -21,7 +21,6 @@ import ChangePasswordScreen from '../screens/setting/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';
-import AccountScreen from '../screens/account';
 
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
