@@ -53,6 +53,7 @@ const reducers = combineReducers({
   idea: ideaReducer,
   pillars: pillarReducer,
   pillarSliders: pillarSliderReducer,
+
   connection: connectionReducer,
   sessions: sessionReducer,
   sessionDetails: sessionDetailReducer,

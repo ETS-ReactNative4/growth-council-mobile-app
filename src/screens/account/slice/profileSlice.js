@@ -1,11 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {fetch} from '../../../utils/httpUtil';
+import {fetch, update} from '../../../utils/httpUtil';
+
 
 export const fetchProfileByID = createAsyncThunk(
     'profile/fetchByID',
-    (identifier, {rejectWithValue}) => {
-        return fetch(`jwt-auth/v1/users/${identifier}`)
+    (_, {rejectWithValue}) => {
+        return fetch(`jwt-auth/v1/users/profile`)
             .then(response => response.data.body_response)
             .catch(error => rejectWithValue(error?.response?.data || error));
     },
@@ -14,8 +15,10 @@ export const fetchProfileByID = createAsyncThunk(
 export const updateUserByID = createAsyncThunk(
     'profile/updateByID',
     (formData, {rejectWithValue}) => {
-        const {id, ...fields} = formData;
-        return update(`jwt-auth/v1/users/${id}`, fields).then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
+        const { ...fields} = formData;
+        return update(`jwt-auth/v1/users/profile`, fields)
+			.then(response => response.data)
+			.catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 

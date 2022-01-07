@@ -17,16 +17,14 @@ import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
 
-import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';
-import AccountScreen from '../screens/account/index';
 
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
-import ManageAccountScreen from '../screens/setting/ManageAccount';
+import ManageAccountScreen from '../screens/account/ManageAccount';
 import PrivacyPolicyScreen from '../screens/static/PrivacyPolicy';
 import TermsConditionsScreen from '../screens/static/TermsConditions';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
@@ -174,7 +172,7 @@ const MainNavigation = () => {
           }}
         />
         <Stack.Screen
-          name="Account"
+          name="ManageAccount"
           component={ManageAccountScreen}
           options={{
             headerLeft: () => null,
@@ -193,13 +191,6 @@ const MainNavigation = () => {
             gestureDirection: 'horizontal-inverted',
             headerLeft: () => null,
           })}
-        />
-        <Stack.Screen
-          name="EditProfile"
-          component={EditProfileScreen}
-          options={{
-            headerTitle: 'Edit Profile',
-          }}
         />
         <Stack.Screen
           name="ChangePassword"

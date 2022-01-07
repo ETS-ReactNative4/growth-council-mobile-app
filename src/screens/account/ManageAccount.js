@@ -1,44 +1,30 @@
-import React from 'react';
+import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 
-import EditProfileForm from './components/EditProfile';
+import ManageAccount from './components/ManageAccount';
 import {fetchProfileByID, updateUserByID, resetProfile} from './slice/profileSlice';
 
-const EditProfileFormScreen = (props) => {
+const ManageAccountScreen = (props) => {
 
     const dispatch = useDispatch();
-
     const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
 
-    /**
-     * Fetch user data.
-     * @param {string} identifier
-     *
-     */
-    const fetchProfileByIdentifier = identifier => {
-        dispatch(fetchProfileByID(identifier));
+
+    const fetchProfileByIdentifier = () => {
+        dispatch(fetchProfileByID());
     };
 
-
-    /**
-     * Update user data.
-     * @param {object} formData
-     *
-     */
     const updateUser = formData => {
         return dispatch(updateUserByID(formData));
     };
 
-    /**
-     * Clear employee data.
-     *
-     */
+
     const cleanProfile = () => {
         dispatch(resetProfile());
     };
 
     return (
-        <EditProfileForm
+        <ManageAccount
             {...props}
             profile={profile}
             profileLoading={profileLoading}
@@ -47,8 +33,7 @@ const EditProfileFormScreen = (props) => {
             updateUser={updateUser}
             cleanProfile={cleanProfile}
         />
-    );
-
+    )
 };
 
-export default EditProfileFormScreen;
+export default ManageAccountScreen
