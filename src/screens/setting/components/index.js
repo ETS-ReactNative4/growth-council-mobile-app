@@ -36,18 +36,18 @@ const Setting = (props) => {
 	const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-  useEffect(() => {
-	const fetchProfileAsync = async () => {
-		await fetchProfile();
-	};
-	fetchProfileAsync();
+	useEffect(() => {
+		const fetchProfileAsync = async () => {
+			await fetchProfile();
+		};
+		fetchProfileAsync();
 
-}, []);
+	}, []);
 
-		const logout = () => {
-			clearAsyncStorage();
-			navigation.navigate('SignIn')
-		}
+	const logout = () => {
+		clearAsyncStorage();
+		navigation.navigate('Home')
+	}
 
 
 	return (
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     },
 	header:{
 		width:'80%',
-		height:190, 
+		height:170, 
 		backgroundColor:"white",
 		margin:40,
 		marginTop:60,

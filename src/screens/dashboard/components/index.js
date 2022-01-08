@@ -23,7 +23,7 @@ const _renderItem = ({item, index}) => {
         source={require('../../../assets/img/profile_image.png')}
       />
 
-      <Text style={{fontSize: 13, marginTop: 8}}>{item.data.display_name}</Text>
+      <Text style={{fontSize: 13, marginTop: 8}}>{item?.data?.display_name}</Text>
 
       <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
       <View

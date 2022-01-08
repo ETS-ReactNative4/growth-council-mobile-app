@@ -16,7 +16,6 @@ import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import FlatOutlineTextInput from '../../../shared/form/FlatOutlineTextInput';
 import ToastMessage from '../../../shared/toast';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {decodeUserID} from '../../../utils/jwtUtil';
@@ -26,36 +25,34 @@ const profileUpdateSchema = Yup.object().shape({
     display_name: Yup
         .string()
         .required('Name is required.'),
-		
-	first_name: Yup
+
+    first_name: Yup
         .string()
         .required('First name is required.'),
-	
-	last_name: Yup
+
+    last_name: Yup
         .string()
         .required('last Name is required.'),
-		
-	user_email: Yup.string()
-		.email('Please enter a valid email.')
-		.required('Email is required.'),
 
-  
+    email: Yup.string()
+        .email('Please enter a valid email.')
+        .required('Email is required.'),
+
 });
 
 const ManageAccount = (props) => {
-	const {
+    const {
         navigation,
         route,
         profile,
         profileLoading,
         profileError,
-        // fetchProfileByIdentifier,
-		fetchProfile,
+        fetchProfileByIdentifier,
         cleanProfile,
-		updateUser
+        updateUser
     } = props;
 
-	const {
+    const {
         handleChange,
         handleBlur,
         handleSubmit,
@@ -68,34 +65,33 @@ const ManageAccount = (props) => {
         validationSchema: profileUpdateSchema,
         initialValues: {
             display_name: profile?.display_name,
-            first_name: profile?.user_meta.first_name[0],
-            last_name: profile?.user_meta.last_name[0],
-            user_email: profile?.user_email,
+            first_name: profile?.user_meta?.first_name[0],
+            last_name: profile?.user_meta?.last_name[0],
+            email: profile?.user_email,
         },
         onSubmit: async values => {
-            // values.id = profile?.id;
             await updateUser(values).then(response => {
-                if (!response.error) {
-                    navigation.navigate('Profile');
+                if (response?.payload?.status === 200) {
+                    navigation.navigate('Person');
                     ToastMessage.show('Your information has been successfully updated.');
                 }
             });
         },
     });
 
-	
 
-	useEffect(() => {
+    useEffect(() => {
         const fetchProfileAsync = async () => {
-            let token = await getAsyncStorage(JWT_TOKEN);
-            let userID = decodeUserID(token);
-            await fetchProfile(userID);
+            // let token = await getAsyncStorage(JWT_TOKEN);
+            // let userID = decodeUserID(token);
+            //  await fetchProfileByIdentifier(userID);
+            await fetchProfileByIdentifier();
         };
         fetchProfileAsync();
 
     }, []);
 
-	console.log("user_meta.nickname::::::", profile.user_meta.nickname[0]);
+
 
 	console.log(values);
 	
@@ -104,7 +100,7 @@ const ManageAccount = (props) => {
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>
             <View style={styles.container}>
                 <ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover">
-                
+
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}>
                         <View style={styles.arrow}>
@@ -120,8 +116,8 @@ const ManageAccount = (props) => {
                     <View style={{height: '100%'}}>
 
                         <View style={styles.icon}>
-							<Image source={{uri:profile.avatar}}
-							style={{width:90, height:90, borderRadius: 19,}}
+                            <Image source={{uri: profile.avatar}}
+                                   style={{width: 90, height: 90, borderRadius: 19,}}
                             />
                         </View>
                         <View style={styles.header}>
@@ -132,26 +128,26 @@ const ManageAccount = (props) => {
                         <View style={styles.middle}>
                             <View style={styles.wrapper}>
 
-								{profileError && <View style={styles.message}>
-									<Text style={styles.errorText}>{profileError.message}</Text>
-								</View>
-								}
-								{profileLoading && (
-									<>
-										<View style={{
-											flex: 1,
-											alignItems: 'center',
-											flexDirection: 'column',
-											justifyContent: 'space-around',
-											position: 'absolute',
-											zIndex: 1011,
-											top: 120,
-											left:100
-										}}>
-											<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
-										</View>
-									</>
-								)}
+                                {profileError && <View style={styles.message}>
+                                    <Text style={styles.errorText}>{profileError.message}</Text>
+                                </View>
+                                }
+                                {profileLoading && (
+                                    <>
+                                        <View style={{
+                                            flex: 1,
+                                            alignItems: 'center',
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-around',
+                                            position: 'absolute',
+                                            zIndex: 1011,
+                                            top: 120,
+                                            left: 100
+                                        }}>
+                                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                                        </View>
+                                    </>
+                                )}
 
 
                                 <View style={styles.middleWrapper}>
@@ -171,58 +167,54 @@ const ManageAccount = (props) => {
                                     <Text style={{size: 7, marginLeft: 10}}>Username</Text>
                                     <TextInput
                                         style={styles.input}
-                                        // placeholder="Edward"
                                         keyboardType="text"
-										value={values.display_name}
-										onChangeText={handleChange('display_name')}
-										onBlur={handleBlur('display_name')}
-										error={errors.display_name}
-										touched={touched.display_name}
+                                        value={values.display_name}
+                                        onChangeText={handleChange('display_name')}
+                                        onBlur={handleBlur('display_name')}
+                                        error={errors.display_name}
+                                        touched={touched.display_name}
                                     />
 
                                     <Text style={{size: 7, marginLeft: 10}}>First Name</Text>
                                     <TextInput
                                         style={styles.input}
-                                        // placeholder="useless placeholder"
                                         keyboardType="text"
-										value={values.first_name}
-										onChangeText={handleChange('first_name')}
-										onBlur={handleBlur('first_name')}
-										error={errors.first_name}
-										touched={touched.first_name}
+                                        value={values.first_name}
+                                        onChangeText={handleChange('first_name')}
+                                        onBlur={handleBlur('first_name')}
+                                        error={errors.first_name}
+                                        touched={touched.first_name}
                                     />
 
                                     <Text style={{size: 7, marginLeft: 10}}>Last Name</Text>
                                     <TextInput
                                         style={styles.input}
-                                        // placeholder="useless placeholder"
                                         keyboardType="text"
-										value={values.last_name}
-										onChangeText={handleChange('last_name')}
-										onBlur={handleBlur('last_name')}
-										error={errors.last_name}
-										touched={touched.last_name}
+                                        value={values.last_name}
+                                        onChangeText={handleChange('last_name')}
+                                        onBlur={handleBlur('last_name')}
+                                        error={errors.last_name}
+                                        touched={touched.last_name}
                                     />
 
                                     <Text style={{size: 7, marginLeft: 10}}>Email</Text>
                                     <TextInput
                                         style={styles.input}
-                                        // placeholder="Edward@frostdigi.com"
                                         keyboardType="text"
-										value={values.user_email}
-										onChangeText={handleChange('user_email')}
-										onBlur={handleBlur('user_email')}
-										error={errors.user_email}
-										touched={touched.user_email}
+                                        value={values.email}
+                                        onChangeText={handleChange('email')}
+                                        onBlur={handleBlur('email')}
+                                        error={errors.email}
+                                        touched={touched.email}
                                     />
 
                                     <View style={styles.loginButtonWrapper}>
-										<TouchableOpacity >
-										<Button style={styles.loginButton} onPress={handleSubmit} >
-                                            <Text style={styles.loginButtonText}>Update</Text>
-                                        </Button>
-										</TouchableOpacity>
-                                        
+                                        <TouchableOpacity>
+                                            <Button style={styles.loginButton} onPress={handleSubmit}>
+                                                <Text style={styles.loginButtonText}>Update</Text>
+                                            </Button>
+                                        </TouchableOpacity>
+
                                     </View>
 
                                 </View>
@@ -366,11 +358,11 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_BOLD,
 
     },
-	message: {
+    message: {
         ...CommonStyles.message,
         width: '86%',
     },
-	errorWrapper: {
+    errorWrapper: {
         width: '70%',
     },
     errorText: {

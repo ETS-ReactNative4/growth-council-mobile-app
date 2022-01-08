@@ -1,9 +1,9 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {fetch} from '../../../utils/httpUtil';
+import {fetch, update} from '../../../utils/httpUtil';
 
 
-export const fetchProfiles = createAsyncThunk(
+export const fetchProfileByID = createAsyncThunk(
     'profile/fetchByID',
     (_, {rejectWithValue}) => {
         return fetch(`jwt-auth/v1/users/profile`)
@@ -17,7 +17,7 @@ export const updateUserByID = createAsyncThunk(
     (formData, {rejectWithValue}) => {
         const { ...fields} = formData;
         return update(`jwt-auth/v1/users/profile`, fields)
-			.then(response => response.data.body_response)
+			.then(response => response.data)
 			.catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
@@ -37,16 +37,16 @@ const profileSlice = createSlice({
         },
     },
     extraReducers: {
-        [fetchProfiles.pending]: (state, action) => {
+        [fetchProfileByID.pending]: (state, action) => {
             state.profileLoading = true;
             state.profileError = null;
         },
-        [fetchProfiles.fulfilled]: (state, action) => {
+        [fetchProfileByID.fulfilled]: (state, action) => {
             state.profile = action.payload;
             state.profileLoading = false;
             state.profileError = null;
         },
-        [fetchProfiles.rejected]: (state, action) => {
+        [fetchProfileByID.rejected]: (state, action) => {
             state.profileLoading = false;
             if (action.payload) {
                 state.profileError = action.payload.error.message;

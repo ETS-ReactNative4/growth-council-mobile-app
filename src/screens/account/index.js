@@ -2,8 +2,8 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Profile from './components';
-import {fetchProfileByID, fetchProfiles, resetProfile} from './slice/profileSlice';
-import {fetchProfileEvents, resetProfileEvent} from './slice/profileEventSlice';
+import {fetchProfileByID, resetProfile} from './slice/profileSlice';
+import {fetchEventsByUserID, resetProfileEvent} from './slice/profileEventSlice';
 
 const ProfileScreen = (props) => {
 
@@ -14,19 +14,19 @@ const ProfileScreen = (props) => {
 
     /**
      * Fetch profile data.
-     * @param {string} identifier
+     *
      *
      */
+    const fetchProfileByIdentifier = () => {
+        dispatch(fetchProfileByID());
+    };
 
-	const fetchProfile=()=>{
-		dispatch(fetchProfiles());
-	}
     const cleanProfile = () => {
         dispatch(resetProfile());
     };
 
-    const fetchProfileEventIdentifier = identifier => {
-        dispatch(fetchProfileEvents(identifier));
+    const fetchEventsByUserIdentifier = identifier => {
+        dispatch(fetchEventsByUserID(identifier));
     };
 
     const cleanProfileEvent = () => {
@@ -40,13 +40,13 @@ const ProfileScreen = (props) => {
             profileEvent={profileEvent}
             profileEventLoading={profileEventLoading}
             profileEventError={profileEventError}
-            fetchProfileEventIdentifier={fetchProfileEventIdentifier}
+            fetchEventsByUserIdentifier={fetchEventsByUserIdentifier}
             cleanProfileEvent={cleanProfileEvent}
 
             profile={profile}
             profileLoading={profileLoading}
             profileError={profileError}
-			fetchProfile={fetchProfile}
+            fetchProfileByIdentifier={fetchProfileByIdentifier}
             cleanProfile={cleanProfile}
         />
     );
