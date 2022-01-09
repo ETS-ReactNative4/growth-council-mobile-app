@@ -201,7 +201,8 @@ const Dashboard = props => {
     fetchAllCommunityMemberAsync();
   }, []);
 
-  
+  console.log('Events ============== ', upcomingEvents);
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -210,15 +211,13 @@ const Dashboard = props => {
           source={require('../../../assets/img/blank_event_design.png')}>
           <View style={{display: 'flex', flexDirection: 'row'}}>
 			  
-				<View style={styles.ImageWrapper}>
+			<View style={styles.ImageWrapper}>
 				<Image
 					source={require('../../../assets/img/massk.png')}
 					style={styles.ImageStyle}
 				/>
-					</View>
-			  
-           
-          
+			</View>
+
             <View style={styles.ImageWrapper1}>
               <Image
                 source={require('../../../assets/img/community_slider_image.png')}
@@ -276,7 +275,7 @@ const Dashboard = props => {
       <View style={styles.bottom}>
 	  <View style={{display:"flex", flexDirection:"row"}}>
 		  <Text style={{fontWeight: 'bold', fontSize: 18}}> Growth Community Member</Text>
-		  <Text style={{ fontSize: 12, marginTop:8,marginLeft:90}}>View all</Text>
+		  <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text>
 		</View>
         <View>
           <FlatList
