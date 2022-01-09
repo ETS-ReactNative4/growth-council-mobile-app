@@ -147,6 +147,8 @@ const Dashboard = props => {
     fetchAllCommunityMemberAsync();
   }, []);
 
+  console.log('Events ============== ', upcomingEvents);
+
   return (
     <ScrollView>
       <View style={styles.container}>

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -108,6 +109,9 @@ const GrowthCoaching = props => {
   //   };
 
   const _renderTopItem = ({item, index}) => {
+    const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const date = actualDate[0].split(' ', 3);
+    console.log(date[1]);
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -130,8 +134,8 @@ const GrowthCoaching = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>10</Text>
-              <Text>Aug</Text>
+              <Text>{date[1]}</Text>
+              <Text>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>

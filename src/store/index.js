@@ -25,7 +25,8 @@ import eventReducer from '../screens/event/eventSlice';
 import connectionReducer from '../screens/people/slice/connetionSlice';
 import profileReducer from '../screens/account/slice/profileSlice';
 import profileEventReducer from '../screens/account/slice/profileEventSlice';
-import sessionReducer from '../screens/dashboard/slice/sessionSlice';
+import communityReducer from '../screens/dashboard/slice/communitySlice';
+import communityMemberContentReducer from '../screens/dashboard/slice/communityMemberContentSlice';
 import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
 import bestPracticesReducer from '../screens/dashboard/slice/bestPracticesSlice';
 import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPracticesMemberContentSlice';
@@ -47,7 +48,7 @@ const reducers = combineReducers({
   password: passwordReducer,
   upcomingEvents: upcomingEventReducer,
   pointOfEngagements: pointOfEngagementReducer,
-  communityMembers: communityMemberReducer,
+  communityMembers: communityMemberReducer,  
   events: eventReducer,
   about: aboutReducer,
   feedback: feedbackReducer,
@@ -56,7 +57,8 @@ const reducers = combineReducers({
   pillarSliders: pillarSliderReducer,
 
   connection: connectionReducer,
-  sessions: sessionReducer,
+  communities: communityReducer,
+  communityMemberContents: communityMemberContentReducer,
   sessionDetails: sessionDetailReducer,
   profile: profileReducer,
   profileEvent: profileEventReducer,

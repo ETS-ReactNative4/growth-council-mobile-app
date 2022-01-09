@@ -92,6 +92,9 @@ const BestPractice = props => {
   // };
 
   const _renderTopItem = ({item, index}) => {
+    const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const date = actualDate[0].split(' ', 3);
+    console.log(date[1]);
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -114,8 +117,8 @@ const BestPractice = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>10</Text>
-              <Text>Jan</Text>
+              <Text>{date[1]}</Text>
+              <Text>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>

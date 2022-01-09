@@ -11,39 +11,38 @@ import {
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const HomeCommunity = props => {
   const {
     navigation,
-    sessions,
-    sessionLoading,
-    sessionError,
-    fetchAllSession,
-    cleanSession,
+    communities,
+    communityLoading,
+    communityError,
+    fetchAllCommunity,
+    cleanCommunity,
     pointOfEngagements,
     pointOfEngagementLoading,
     pointOfEngagementError,
     fetchAllPointOfEngagement,
     cleanPointOfEngagement,
-    communityMembers,
-    communityMemberLoading,
-    communityMemberError,
-    fetchAllCommunityMember,
-    cleanCommunityMember,
+    communityMemberContents,
+    communityMemberContentLoading,
+    communityMemberContentError,
+    fetchAllCommunityMemberContent,
+    cleanCommunityMemberContent,
   } = props;
 
-  console.log('Community :::::::::::::::::', sessions);
+  console.log('Communities :::::::::::::::::', communities);
+  console.log('Members :::::::::::::::::', communityMemberContents);
 
   const _renderItem = ({item, index}) => {
     return (
       <View style={styles.bottomWrapper} key={index}>
-        <Image
-          style={styles.bottomImage}
-          source={require('../../../assets/img/profile_image.png')}
-        />
-        <Text style={{fontSize: 13}}>{item.data.display_name}</Text>
+        <Image style={styles.bottomImage} source={{uri: item.avatar}} />
+        <Text style={{fontSize: 13}}>{item.display_name}</Text>
 
         <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
         <View
@@ -116,6 +115,9 @@ const HomeCommunity = props => {
   ];
 
   const _renderTopItem = ({item, index}) => {
+    const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const date = actualDate[0].split(' ', 3);
+    console.log(date[1]);
     return (
       <View style={styles.topWrapper} key={index}>
         <TouchableOpacity
@@ -138,13 +140,13 @@ const HomeCommunity = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{item.post_date}</Text>
-              <Text>{item.month}</Text>
+              <Text>{date[1]}</Text>
+              <Text>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
-              <Text style={styles.headingText1}>{item.post_title}</Text>
-              <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
+              <Text style={styles.headingText1}>{item.title}</Text>
+              <Text style={styles.headingText2}>Hosted by </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -180,17 +182,17 @@ const HomeCommunity = props => {
   };
 
   useEffect(() => {
-    const fetchAllSessionAsync = async () => {
-      await fetchAllSession();
+    const fetchAllCommunityAsync = async () => {
+      await fetchAllCommunity();
     };
-    fetchAllSessionAsync();
+    fetchAllCommunityAsync();
   }, []);
 
   useEffect(() => {
-    const fetchAllCommunityMemberAsync = async () => {
-      await fetchAllCommunityMember();
+    const fetchAllCommunityMemberContentAsync = async () => {
+      await fetchAllCommunityMemberContent();
     };
-    fetchAllCommunityMemberAsync();
+    fetchAllCommunityMemberContentAsync();
   }, []);
 
   return (
@@ -209,7 +211,7 @@ const HomeCommunity = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={sessions}
+              data={communities}
               renderItem={_renderTopItem}
             />
           </View>
@@ -242,7 +244,7 @@ const HomeCommunity = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={communityMembers}
+              data={communityMemberContents.members}
               renderItem={_renderItem}
             />
           </View>
