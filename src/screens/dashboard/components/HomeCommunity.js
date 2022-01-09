@@ -146,7 +146,10 @@ const HomeCommunity = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>Hosted by </Text>
+              <Text style={styles.headingText2}>
+                Hosted by {item?.organizer?.term_name}
+                {item?.organizer?.description}
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -297,16 +300,16 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   headingText1: {
-    fontSize: 18,
+    fontSize: 15,
     fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    marginTop: 5,
     fontWeight: '800',
     color: 'white',
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    fontWeight: '700',
+    fontWeight: '400',
     color: 'white',
   },
   middle: {

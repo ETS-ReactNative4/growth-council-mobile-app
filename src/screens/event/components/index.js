@@ -213,7 +213,7 @@ const Event = props => {
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}>
-                      <Image source={{uri: events.organizer_image}} />
+                      <Image source={{uri: events?.organizer_image}} />
                     </View>
                   )}
                   <View
@@ -222,9 +222,9 @@ const Event = props => {
                       paddingLeft: 20,
                     }}>
                     <Text style={styles.contentHeading}>
-                      {/* {events.organizer.term_name} */}
+                      {events?.organizer?.term_name}
                     </Text>
-                    {/* <Text>{events.organizer.description}</Text> */}
+                    <Text>{events?.organizer?.description}</Text>
                   </View>
                   <View
                     style={{

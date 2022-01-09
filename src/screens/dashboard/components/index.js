@@ -12,6 +12,11 @@ import {
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import Video from 'react-native-video';
+import YouTube, {
+  YouTubeStandaloneIOS,
+  YouTubeStandaloneAndroid,
+} from 'react-native-youtube';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -49,20 +54,7 @@ const _renderItem = ({item, index}) => {
 
 const data1 = [
   {
-    icon: 'brain',
-    text: 'Executive MindChange',
-  },
-  {
-    icon: 'location-arrow',
-    text: 'Megatrends Workshop',
-  },
-  {
-    icon: 'brain',
-    text: 'Executive MindChange',
-  },
-  {
-    icon: 'location-arrow',
-    text: 'Megatrends Workshop',
+    uri: require('../../../assets/img/welcome_screen_info_image.png'),
   },
 ];
 
@@ -113,6 +105,24 @@ const _renderTopItem = ({item, index}, navigation) => {
   );
 };
 
+const _renderContentItem = ({item, index}) => {
+  return (
+    // <View style={styles.ContentWrapper}>
+    //   <ImageBackground
+    //     style={{
+    //       width: '100%',
+    //       height: 190,
+    //       borderRadius: 20,
+    //     }}
+    //     source={item?.uri}></ImageBackground>
+    // </View>
+    <Video
+      source={{uri: '../../../assets/test.mkv'}} // Can be a URL or a local file.
+      style={styles.backgroundVideo}
+    />
+  );
+};
+
 const Dashboard = props => {
   const {
     navigation,
@@ -148,6 +158,8 @@ const Dashboard = props => {
   }, []);
 
   console.log('Events ============== ', upcomingEvents);
+
+  const API_KEY = 'paste yout api key here';
 
   return (
     <ScrollView>
@@ -224,6 +236,26 @@ const Dashboard = props => {
           />
         </View>
       </View>
+
+      <View style={styles.content}>
+        <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
+          Growth Coaching Content
+        </Text>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}></View>
+      </View>
+
+      <YouTube
+        apiKey={API_KEY}
+        videoId="wKQH_iemSvs" // The YouTube video ID
+        play // control playback of video with true/false
+        fullscreen // control whether the video should play in fullscreen or inline
+        loop // control whether the video should loop when ended
+        style={{alignSelf: 'stretch', height: 300}}
+      />
     </ScrollView>
   );
 };
@@ -341,6 +373,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     borderRadius: 20,
+  },
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
   },
 });
 
