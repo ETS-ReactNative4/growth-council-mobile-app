@@ -183,8 +183,6 @@ const Profile = (props) => {
 
     useEffect(() => {
         const fetchProfileAsync = async () => {
-            // let token = await getAsyncStorage(JWT_TOKEN);
-            // let userID = decodeUserID(token);
             await fetchProfileByIdentifier();
         };
         fetchProfileAsync();
@@ -226,7 +224,7 @@ const Profile = (props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.icon}>
-                            <Image source={{uri: profile.avatar}}
+                            <Image source={{uri: profile?.avatar}}
                                    style={{width: 90, height: 90, borderRadius: 19,}}
                             />
 
@@ -261,7 +259,7 @@ const Profile = (props) => {
                                     style={{height: 40, marginTop: 5, width: '90%', marginLeft: 10,}}
                                 />
                             </View>
-							{profileLoading && (
+							{profileLoading && profileEventLoading &&(
                                     <>
                                         <View style={{
                                             flex: 1,

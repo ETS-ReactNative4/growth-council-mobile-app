@@ -28,28 +28,33 @@ const BestPractice = (props) => {
     const _renderItem = ({item, index}) => {
         return (
 			<View style={styles.bottomWrapper}>
-			<Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
-			<Text style={{fontSize: 13}}>{item.data.display_name}</Text>
-
-			<Text style={{fontSize: 10}}>Frost and Sullivan</Text>
-			<View style={{
-				borderRadius: 50,
-				backgroundColor: "#EBECF0",
-				width: 30,
-				height: 30,
-				justifyContent: "center",
-				marginLeft: 60,
-				marginTop: 10
-			}}>
-				<Ionicons
-					name={'chatbox'}
-					size={20}
-					color="grey"
-					style={{marginLeft: 5}}
-				/>
-			</View>
-
-		</View>)
+		<Image source={{uri:item.avatar}}
+			style={{
+				width: "90%",
+				height: 80,
+				marginTop:6,
+				borderRadius:20,
+			}}/>
+		<Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
+		<Text style={{fontSize: 8}}>Frost and Sullivan</Text>
+		<View
+		  style={{
+			borderRadius: 50,
+			backgroundColor: '#EBECF0',
+			width: 25,
+			height: 23,
+			justifyContent: 'center',
+			marginLeft: 40,
+			marginTop: 5,
+		  }}>
+		  <Ionicons
+			name={'chatbox'}
+			size={17}
+			color="grey"
+			style={{marginLeft: 3}}
+		  />
+		</View>
+	  </View>)
     }
 
     const data1 = [
@@ -305,19 +310,18 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     bottom: {
-        height: 220,
-        margin: 10,
-        width: 400,
-    },
-    bottomWrapper: {
-        width: 120,
-        height: 190,
-        borderRadius: 10,
-        marginRight: 10,
-        marginTop: 10,
-        backgroundColor: 'white',
-        alignItems: 'center',
-    },
+		height: 200,
+		margin: 10,
+	
+	  },
+	  bottomWrapper: {
+		width: 90,
+		height: 170,
+		borderRadius: 10,
+		margin: 5,
+		backgroundColor: 'white',
+		alignItems: 'center',
+	  },
     bottomImage: {
         width: '100%',
         height: 100,

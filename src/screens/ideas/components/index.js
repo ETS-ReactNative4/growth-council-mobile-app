@@ -11,6 +11,7 @@ import {
     FlatList,
 } from 'react-native';
 import {Button} from 'native-base';
+import { Linking } from 'react-native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -59,7 +60,7 @@ const Ideas = (props) => {
                                 styles.plainButton,
                                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
                             ]}
-                            onPress={() => navigation.navigate('About')}>
+                            onPress={() => Linking.openURL('mailto:contact@frost.com') }>
                             <Text style={[styles.buttonText, styles.plainButtonText]}>
                                 Email Us
                             </Text>
