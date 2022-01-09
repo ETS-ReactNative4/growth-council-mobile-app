@@ -2,47 +2,57 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import GrowthCoaching from './components/GrowthCoaching';
-import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
-import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
+import {
+  fetchAllgrowthCoachings,
+  resetgrowthCoaching,
+} from './slice/growthCoachingSlice';
+import {
+  fetchAllgrowthCoachingMemberContents,
+  resetgrowthCoachingMemberContent,
+} from './slice/growthCoachingMemberContentSlice';
 
-const GrowthCoachingScreen = (props) => {
-	const dispatch = useDispatch();
+const GrowthCoachingScreen = props => {
+  const dispatch = useDispatch();
 
-	const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
-    const {communityMembers, communityMemberLoading, communityMemberError} = useSelector((state) => state.communityMembers);
+  const {growthCoachings, growthCoachingLoading, growthCoachingError} =
+    useSelector(state => state.growthCoachings);
+  const {
+    growthCoachingMemberContents,
+    growthCoachingMemberContentLoading,
+    growthCoachingMemberContentError,
+  } = useSelector(state => state.growthCoachingMemberContents);
 
-	const fetchAllUpcomingEvent = () => {
-        dispatch(fetchAllUpcomingEvents());
-    };
+  const fetchAllgrowthCoaching = () => {
+    dispatch(fetchAllgrowthCoachings());
+  };
 
-	const fetchAllCommunityMember = () => {
-        dispatch(fetchAllCommunityMembers());
-    };
+  const fetchAllgrowthCoachingMemberContent = () => {
+    dispatch(fetchAllgrowthCoachingMemberContents());
+  };
 
-	const cleanUpcomingEvent = () => {
-        dispatch(resetUpcomingEvent());
-    };
+  const cleangrowthCoaching = () => {
+    dispatch(resetgrowthCoaching());
+  };
 
-	const cleanCommunityMember = () => {
-        dispatch(resetCommunityMember());
-    };
+  const cleangrowthCoachingMemberContent = () => {
+    dispatch(resetgrowthCoachingMemberContent());
+  };
 
-    return (
-        <GrowthCoaching
-            {...props}
-			upcomingEvents={upcomingEvents}
-            upcomingEventLoading={upcomingEventLoading}
-            upcomingEventError={upcomingEventError}
-            fetchAllUpcomingEvent={fetchAllUpcomingEvent}
-            cleanUpcomingEvent={cleanUpcomingEvent}
-			
-			communityMembers={communityMembers}
-            communityMemberLoading={communityMemberLoading}
-            communityMemberError={communityMemberError}
-            fetchAllCommunityMember={fetchAllCommunityMember}
-            cleanCommunityMember={cleanCommunityMember}
-        />
-    )
+  return (
+    <GrowthCoaching
+      {...props}
+      growthCoachings={growthCoachings}
+      growthCoachingLoading={growthCoachingLoading}
+      growthCoachingError={growthCoachingError}
+      fetchAllgrowthCoaching={fetchAllgrowthCoaching}
+      cleangrowthCoaching={cleangrowthCoaching}
+      growthCoachingMemberContents={growthCoachingMemberContents}
+      growthCoachingMemberContentLoading={growthCoachingMemberContentLoading}
+      growthCoachingMemberContentError={growthCoachingMemberContentError}
+      fetchAllgrowthCoachingMemberContent={fetchAllgrowthCoachingMemberContent}
+      cleangrowthCoachingMemberContent={cleangrowthCoachingMemberContent}
+    />
+  );
 };
 
-export default GrowthCoachingScreen
+export default GrowthCoachingScreen;
