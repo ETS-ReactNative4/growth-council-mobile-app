@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Platform,
   StyleSheet,
@@ -12,6 +12,7 @@ import {
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
+import {Picker} from '@react-native-picker/picker';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -62,6 +63,8 @@ const SignUpForm = props => {
       });
     },
   });
+
+  const [country, setCountry] = useState('Select Country');
 
   const countries = [
     'Afghanistan',
@@ -352,13 +355,25 @@ const SignUpForm = props => {
               <Picker
                 selectedValue={country}
                 mode={'dropdown'}
-                style={{height: 50, width: 110}}
-                onValueChange={(itemValue, itemIndex) => setRegion(itemValue)}>
+                style={{
+                  height: 70,
+                  width: '100%',
+                }}
+                onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
                 <Picker.Item
-                  label="Country"
+                  label="Select Country"
                   value="country"
                   style={{fontSize: 12}}
                 />
+                {countries.map((value, index) => {
+                  return (
+                    <Picker.Item
+                      label={value}
+                      value={value}
+                      style={{fontSize: 12}}
+                    />
+                  );
+                })}
               </Picker>
 
               <CheckBox
