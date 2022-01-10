@@ -12,6 +12,7 @@ import {
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import Video from 'react-native-video';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -128,7 +129,10 @@ const BestPractice = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>{item.text1}</Text>
+              <Text style={styles.headingText2}>
+                Hosted by {item?.organizer?.term_name}
+                {item?.organizer?.description}
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -237,7 +241,6 @@ const BestPractice = props => {
 
         <View style={styles.content}>
           <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
-            {' '}
             Growth Coaching Content
           </Text>
           <View
@@ -283,8 +286,9 @@ const styles = StyleSheet.create({
   },
   headingText1: {
     ...CommonStyles.headingText1,
+    fontSize: 15,
     fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    marginTop: 5,
     fontWeight: '800',
     color: 'white',
 	fontSize:16
@@ -292,7 +296,7 @@ const styles = StyleSheet.create({
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    fontWeight: '700',
+    fontWeight: '400',
     color: 'white',
   },
   middle: {
