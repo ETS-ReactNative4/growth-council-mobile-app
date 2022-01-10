@@ -213,7 +213,14 @@ const Event = props => {
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}>
-                      <Image source={{uri: events?.organizer_image}} />
+                      <Image
+                        source={{uri: events?.organizer_image}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          borderRadius: 15,
+                        }}
+                      />
                     </View>
                   )}
                   <View
