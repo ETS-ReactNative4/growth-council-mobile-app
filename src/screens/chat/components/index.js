@@ -14,6 +14,8 @@ const Chat = (props) => {
     const friendID = route.params.friendID;
     const userID = route.params.userID;
 
+    console.log("CHAT:::::::::::::::", friendID, userID);
+    
     const [messages, setMessages] = useState([]);
 
     useEffect(async () => {

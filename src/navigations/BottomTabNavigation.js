@@ -57,10 +57,10 @@ const BottomTabNavigation = ({navigation}) => {
                 }}
             />
             <Tab.Screen
-                name="Chat"
+                name="UserList"
                 component={UserListScreen}
                 options={{
-                    tabBarLabel: 'Chat',
+                    tabBarLabel: 'UserList',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,

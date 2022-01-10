@@ -1,8 +1,10 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     StyleSheet,
     View,
-    FlatList, Text,
+    FlatList,
+    Text,
+    TouchableOpacity
 } from 'react-native';
 
 import {CommonStyles, Colors} from '../../../theme';
@@ -13,7 +15,7 @@ import {decodeUserID} from "../../../utils/jwtUtil";
 const UserList = (props) => {
 
     const {navigation, route} = props;
-
+    const [userID, setUserID] = useState(null);
     const data = [
         {
             ID: '1',
@@ -32,20 +34,23 @@ const UserList = (props) => {
         },
     ];
 
-
-    const _renderItems = async ({item, index}) => {
-        
+    useEffect(async () => {
         let token = await getAsyncStorage(JWT_TOKEN);
-        let userID = decodeUserID(token);
+        setUserID(decodeUserID(token));
+    }, []);
+
+
+    const _renderItems = ({item, index}) => {
 
         return (
             <View
                 style={styles.wrapper}
                 key={index}
-                onPress={() => navigation.navigate('Chat', {friendID: item.ID, userID: userID})}
             >
-                <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.name}</Text>
-                <Text style={{fontSize: 10}}>{item.description}</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat', {friendID: item.ID, userID: userID})}>
+                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.name}</Text>
+                    <Text style={{fontSize: 10}}>{item.description}</Text>
+                </TouchableOpacity>
             </View>
 
         );
