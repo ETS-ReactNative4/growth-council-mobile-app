@@ -12,8 +12,6 @@ import {
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-import Video from 'react-native-video';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const BestPractice = props => {
@@ -33,34 +31,36 @@ const BestPractice = props => {
 
   const _renderItem = ({item, index}) => {
     return (
-		<View style={styles.bottomWrapper}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: "90%",
-				height: 80,
-				marginTop:6,
-				borderRadius:20,
-			}}/>
-		<Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-		<Text style={{fontSize: 8}}>Frost and Sullivan</Text>
-		<View
-		  style={{
-			borderRadius: 50,
-			backgroundColor: '#EBECF0',
-			width: 25,
-			height: 23,
-			justifyContent: 'center',
-			marginLeft: 40,
-			marginTop: 5,
-		  }}>
-		  <Ionicons
-			name={'chatbox'}
-			size={17}
-			color="grey"
-			style={{marginLeft: 3}}
-		  />
-		</View>
-	  </View>
+      <View style={styles.bottomWrapper}>
+        <Image
+          source={{uri: item.avatar}}
+          style={{
+            width: '90%',
+            height: 80,
+            marginTop: 6,
+            borderRadius: 20,
+          }}
+        />
+        <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
+        <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: '#EBECF0',
+            width: 25,
+            height: 23,
+            justifyContent: 'center',
+            marginLeft: 40,
+            marginTop: 5,
+          }}>
+          <Ionicons
+            name={'chatbox'}
+            size={17}
+            color="grey"
+            style={{marginLeft: 3}}
+          />
+        </View>
+      </View>
     );
   };
 
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontWeight: '800',
     color: 'white',
-	fontSize:16
+    fontSize: 16,
   },
   headingText2: {
     ...CommonStyles.headingText2,
@@ -329,7 +329,6 @@ const styles = StyleSheet.create({
   bottom: {
     height: 200,
     margin: 10,
-
   },
   bottomWrapper: {
     width: 90,
