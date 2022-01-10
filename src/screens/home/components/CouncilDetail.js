@@ -10,20 +10,29 @@ import {
     Image,
 } from 'react-native';
 import {Button} from 'native-base';
-
+import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import LoadMore from './LoadMore';
-
+import {fetchAllUpcomingEvents, resetUpcomingEvent} from '../slice/upcomingEventSlice';
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const CouncilDetail = props => {
 
+	const dispatch = useDispatch();
+
     const {navigation, route, pillars, pillarLoading, pillarError, fetchPillarByIdentifier, cleanPillar} = props;
+	const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
 
     const [loadMore, setLoadMore] = useState(false);
 
+	const fetchAllUpcomingEvent = () => {
+        dispatch(fetchAllUpcomingEvents());
+    };
+	const cleanUpcomingEvent = () => {
+        dispatch(resetUpcomingEvent());
+    };
 
     useEffect(() => {
         const fetchPillarDetailAsync = async () => {
@@ -33,11 +42,11 @@ const CouncilDetail = props => {
 
     }, []);
 
-    console.log("route.params.id:::::::::::::::::", route.params.id);
-    console.log("Pillar Detail:::::::::::::::::", pillars);
+    // console.log("route.params.id:::::::::::::::::", route.params.id);
+    // console.log("Pillar Detail:::::::::::::::::", pillars);
 
     return (
-        <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
+        <ScrollView >
             <View style={styles.container}>
                 <StatusBar
                     barStyle="dark-content"
@@ -88,7 +97,16 @@ const CouncilDetail = props => {
                         <Text style={styles.moreButtonText}>Load More</Text>
                     </Button>
                 </View>
-                {loadMore && <LoadMore {...props}/>}
+                {loadMore && 
+					<LoadMore 
+						{...props}
+						
+						upcomingEvents={upcomingEvents}
+						upcomingEventLoading={upcomingEventLoading}
+						upcomingEventError={upcomingEventError}
+						fetchAllUpcomingEvent={fetchAllUpcomingEvent}
+						cleanUpcomingEvent={cleanUpcomingEvent}/>
+				}
             </View>
         </ScrollView>
     );

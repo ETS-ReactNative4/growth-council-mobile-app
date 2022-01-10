@@ -31,6 +31,7 @@ const Setting = (props) => {
         cleanProfile,
     } = props;
 
+	
     const [isEnabled, setIsEnabled] = useState(false);
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -45,7 +46,7 @@ const Setting = (props) => {
 
     const logout = () => {
         clearAsyncStorage();
-        navigation.navigate('SignIn')
+        navigation.navigate('Home')
     };
 
 
@@ -77,7 +78,7 @@ const Setting = (props) => {
                                             size={20}/>
                                     </View>
                                     <Text style={{fontSize: 18, fontWeight: '500', margin: 15}}>Account</Text>
-                                    <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
                                         <Ionicons
                                             name='chevron-forward-outline'
                                             size={20}

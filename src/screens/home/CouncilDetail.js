@@ -5,11 +5,13 @@ import CouncilDetail from './components/CouncilDetail';
 
 import {fetchPillarByID, resetPillar} from './pillarSlice';
 
+
 const CouncilDetailScreen = (props) => {
 
     const dispatch = useDispatch();
 
     const {pillars, pillarLoading, pillarError} = useSelector((state) => state.pillars);
+
 
     /**
      * Fetch pillar data.
@@ -20,6 +22,8 @@ const CouncilDetailScreen = (props) => {
         dispatch(fetchPillarByID(identifier));
     };
 
+	
+
     /**
      * Clear pillar data.
      *
@@ -27,6 +31,7 @@ const CouncilDetailScreen = (props) => {
     const cleanPillar = () => {
         dispatch(resetPillar());
     };
+	
 
     return (
         <CouncilDetail
@@ -36,6 +41,8 @@ const CouncilDetailScreen = (props) => {
             pillarError={pillarError}
             fetchPillarByIdentifier={fetchPillarByIdentifier}
             cleanPillar={cleanPillar}
+
+			
         />
     );
 };
