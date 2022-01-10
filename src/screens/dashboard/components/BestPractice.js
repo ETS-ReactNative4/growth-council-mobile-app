@@ -66,36 +66,23 @@ const BestPractice = props => {
 
   const data1 = [
     {
-      icon: 'brain',
-      text: 'Executive MindChange',
-    },
-    {
       icon: 'location-arrow',
       text: 'Megatrends Workshop',
     },
-    {
-      icon: 'window-maximize',
-      text: 'Annual Council Meeting',
-    },
-    {
-      icon: 'clipboard',
-      text: 'BrainStorming Strategy Discussion',
-    },
   ];
 
-  // const _renderMiddleItem = ({item, index}) => {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-  //       <View style={styles.middleWrapper}>
-  //         <View style={styles.middleW}>
-  //           <Font name={item.icon} size={30} color="skyblue" />
-  //         </View>
-  //         <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
-  //       </View>
-  //     </TouchableOpacity>
-  //   );
-  // };
+  const _renderMiddleItem = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
+        <View style={styles.middleWrapper}>
+          <View style={styles.middleW}>
+            <Font name={item.icon} size={30} color="skyblue" />
+          </View>
+          <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -130,7 +117,7 @@ const BestPractice = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
+                Hosted by {item?.organizer?.term_name}{' '}
                 {item?.organizer?.description}
               </Text>
             </View>
@@ -206,7 +193,7 @@ const BestPractice = props => {
           </View>
         </View>
 
-        {/* <View style={styles.middle}>
+        <View style={styles.middle}>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
             Points of Engagement
           </Text>
@@ -223,7 +210,7 @@ const BestPractice = props => {
               renderItem={_renderMiddleItem}
             />
           </View>
-        </View> */}
+        </View>
 
         <View style={styles.bottom}>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>

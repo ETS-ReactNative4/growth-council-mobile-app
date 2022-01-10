@@ -19,6 +19,7 @@ import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice'
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
 import aboutReducer from '../screens/about/slice/aboutSlice';
+import detailReducer from '../screens/home/slice/detailSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
 import ideaReducer from '../screens/ideas/slice/ideaSlice';
 import eventReducer from '../screens/event/eventSlice';
@@ -48,9 +49,10 @@ const reducers = combineReducers({
   password: passwordReducer,
   upcomingEvents: upcomingEventReducer,
   pointOfEngagements: pointOfEngagementReducer,
-  communityMembers: communityMemberReducer,  
+  communityMembers: communityMemberReducer,
   events: eventReducer,
   about: aboutReducer,
+  details: detailReducer,
   feedback: feedbackReducer,
   idea: ideaReducer,
   pillars: pillarReducer,

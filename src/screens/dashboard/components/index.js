@@ -320,14 +320,14 @@ const Dashboard = props => {
           }}></View>
       </View>
 
-      <YouTube
+      {/* <YouTube
         apiKey={API_KEY}
         videoId="wKQH_iemSvs" // The YouTube video ID
         play // control playback of video with true/false
         fullscreen // control whether the video should play in fullscreen or inline
         loop // control whether the video should loop when ended
         style={{alignSelf: 'stretch', height: 300}}
-      />
+      /> */}
     </ScrollView>
   );
 };
