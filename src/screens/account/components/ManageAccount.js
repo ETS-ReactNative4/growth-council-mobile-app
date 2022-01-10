@@ -74,6 +74,7 @@ const ManageAccount = (props) => {
                 if (response?.payload?.status === 200) {
                     navigation.navigate('Person');
                     ToastMessage.show('Your information has been successfully updated.');
+					ToastMessage.show(values.email)
                 }
             });
         },
@@ -90,6 +91,11 @@ const ManageAccount = (props) => {
         fetchProfileAsync();
 
     }, []);
+
+
+
+	console.log(values);
+	
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>

@@ -40,26 +40,33 @@ const HomeCommunity = props => {
 
   const _renderItem = ({item, index}) => {
     return (
-      <View style={styles.bottomWrapper} key={index}>
-        <Image style={styles.bottomImage} source={{uri: item.avatar}} />
-        <Text style={{fontSize: 13}}>{item.display_name}</Text>
-
-        <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
+      <View style={styles.bottomWrapper}>
+        <Image
+          source={{uri: item.avatar}}
+          style={{
+            width: '90%',
+            height: 80,
+            marginTop: 6,
+            borderRadius: 20,
+          }}
+        />
+        <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
+        <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
         <View
           style={{
             borderRadius: 50,
             backgroundColor: '#EBECF0',
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 23,
             justifyContent: 'center',
-            marginLeft: 60,
-            marginTop: 10,
+            marginLeft: 40,
+            marginTop: 5,
           }}>
           <Ionicons
             name={'chatbox'}
-            size={20}
+            size={17}
             color="grey"
-            style={{marginLeft: 5}}
+            style={{marginLeft: 3}}
           />
         </View>
       </View>

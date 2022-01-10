@@ -20,109 +20,6 @@ import YouTube, {
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const _renderItem = ({item, index}) => {
-  return (
-    <View style={styles.bottomWrapper}>
-      <Image
-        style={styles.bottomImage}
-        source={require('../../../assets/img/profile_image.png')}
-      />
-
-      <Text style={{fontSize: 13, marginTop: 8}}>{item.display_name}</Text>
-
-      <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
-      <View
-        style={{
-          borderRadius: 50,
-          backgroundColor: '#EBECF0',
-          width: 30,
-          height: 30,
-          justifyContent: 'center',
-          marginLeft: 60,
-          marginTop: 10,
-        }}>
-        <Ionicons
-          name={'chatbox'}
-          size={20}
-          color="grey"
-          style={{marginLeft: 5}}
-        />
-      </View>
-    </View>
-  );
-};
-
-const data1 = [
-  {
-    uri: require('../../../assets/img/welcome_screen_info_image.png'),
-  },
-];
-
-const _renderMiddleItem = ({item, index}) => {
-  return (
-    <View style={styles.middleWrapper}>
-      <View style={styles.middleW}>
-        <Font name={item.icon} size={40} color="skyblue" />
-      </View>
-      <Text style={{marginTop: 10}}>{item.text}</Text>
-    </View>
-  );
-};
-
-const _renderTopItem = ({item, index}, navigation) => {
-  const actualDate = moment('20111031').format('ll');
-  const date = actualDate.split(' ', 4);
-  const day = date[1].split(',', 3);
-  return (
-    <View key={index} style={styles.topWrapper}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-        <ImageBackground
-          style={{width: '100%', height: 170, borderRadius: 20}}
-          source={require('../../../assets/img/blank_event_design.png')}>
-          <View
-            style={{
-              width: '30%',
-              height: 50,
-              marginTop: 10,
-              marginLeft: 180,
-              backgroundColor: '#EBECF0',
-              borderRadius: 10,
-              padding: 5,
-              alignItems: 'center',
-            }}>
-            <Text>{day[0]}</Text>
-            <Text>{date[0]}</Text>
-          </View>
-
-          <View style={styles.header}>
-            <Text style={styles.headingText1}>{item.title}</Text>
-            <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
-          </View>
-        </ImageBackground>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const _renderContentItem = ({item, index}) => {
-  return (
-    // <View style={styles.ContentWrapper}>
-    //   <ImageBackground
-    //     style={{
-    //       width: '100%',
-    //       height: 190,
-    //       borderRadius: 20,
-    //     }}
-    //     source={item?.uri}></ImageBackground>
-    // </View>
-    <Video
-      source={{uri: '../../../assets/test.mkv'}} // Can be a URL or a local file.
-      style={styles.backgroundVideo}
-    />
-  );
-};
-
 const Dashboard = props => {
   const {
     navigation,
@@ -143,6 +40,162 @@ const Dashboard = props => {
     cleanCommunityMember,
   } = props;
 
+  const _renderItem = ({item, index}) => {
+    return (
+      <View style={styles.bottomWrapper}>
+        <Image
+          source={{uri: item.avatar}}
+          style={{
+            width: '90%',
+            height: 80,
+            marginTop: 6,
+            borderRadius: 20,
+          }}
+        />
+        <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
+        <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: '#EBECF0',
+            width: 25,
+            height: 23,
+            justifyContent: 'center',
+            marginLeft: 40,
+            marginTop: 5,
+          }}>
+          <Ionicons
+            name={'chatbox'}
+            size={17}
+            color="grey"
+            style={{marginLeft: 3}}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  const data1 = [
+    {
+      icon: 'location-arrow',
+      text: 'Megatrends Workshop',
+    },
+  ];
+
+  const _renderMiddleItem = ({item, index}) => {
+    return (
+      <View style={styles.middleWrapper}>
+        <View style={styles.middleW}>
+          <Font name={item.icon} size={40} color="skyblue" />
+        </View>
+        <Text style={{marginTop: 10}}>{item.text}</Text>
+      </View>
+    );
+  };
+
+  const _renderTopItem = ({item, index}, navigation) => {
+    const actualDate = moment('20111031').format('ll');
+    const date = actualDate.split(' ', 4);
+    const day = date[1].split(',', 3);
+
+    return (
+      <View key={index} style={styles.topWrapper}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          {item?.pillar_categories[0]?.slug === 'growth-community' && (
+            <ImageBackground
+              style={{width: '100%', height: 170, borderRadius: 20}}
+              source={require('../../../assets/img/blank_event_design.png')}>
+              <View
+                style={{
+                  width: '20%',
+                  height: 50,
+                  marginTop: 10,
+                  marginLeft: 200,
+                  backgroundColor: '#EBECF0',
+                  borderRadius: 10,
+                  padding: 5,
+                  alignItems: 'center',
+                }}>
+                <Text>{day[0]}</Text>
+                <Text>{date[0]}</Text>
+              </View>
+
+              <View style={styles.header}>
+                <Text style={styles.headingText1}>{item.title}</Text>
+                <Text style={styles.headingText2}>
+                  Hosted by {item?.organizer?.term_name}{' '}
+                </Text>
+                <Text style={styles.headingText2}>
+                  {item?.organizer?.description}
+                </Text>
+              </View>
+            </ImageBackground>
+          )}
+          {item?.pillar_categories[0]?.slug === 'basic-practices' ? (
+            <ImageBackground
+              style={{width: '100%', height: 170, borderRadius: 20}}
+              source={require('../../../assets/img/blue_blank.png')}>
+              <View
+                style={{
+                  width: '20%',
+                  height: 50,
+                  marginTop: 10,
+                  marginLeft: 200,
+                  backgroundColor: '#EBECF0',
+                  borderRadius: 10,
+                  padding: 5,
+                  alignItems: 'center',
+                }}>
+                <Text>{day[0]}</Text>
+                <Text>{date[0]}</Text>
+              </View>
+
+              <View style={styles.header}>
+                <Text style={styles.headingText1}>{item.title}</Text>
+                <Text style={styles.headingText2}>
+                  Hosted by {item?.organizer?.term_name}{' '}
+                </Text>
+                <Text style={styles.headingText2}>
+                  {item?.organizer?.description}
+                </Text>
+              </View>
+            </ImageBackground>
+          ) : (
+            <ImageBackground
+              style={{width: '100%', height: 170, borderRadius: 20}}
+              source={require('../../../assets/img/green_blank.png')}>
+              <View
+                style={{
+                  width: '20%',
+                  height: 50,
+                  marginTop: 10,
+                  marginLeft: 200,
+                  backgroundColor: '#EBECF0',
+                  borderRadius: 10,
+                  padding: 5,
+                  alignItems: 'center',
+                }}>
+                <Text>{day[0]}</Text>
+                <Text>{date[0]}</Text>
+              </View>
+
+              <View style={styles.header}>
+                <Text style={styles.headingText1}>{item.title}</Text>
+                <Text style={styles.headingText2}>
+                  Hosted by {item?.organizer?.term_name}{' '}
+                </Text>
+                <Text style={styles.headingText2}>
+                  {item?.organizer?.description}
+                </Text>
+              </View>
+            </ImageBackground>
+          )}
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -159,7 +212,7 @@ const Dashboard = props => {
 
   console.log('Events ============== ', upcomingEvents);
 
-  const API_KEY = 'paste yout api key here';
+  const API_KEY = 'AIzaSyCIrwNfePDp3TOeOVUpVe59FjBQ_x9M6GM';
 
   return (
     <ScrollView>
@@ -174,6 +227,7 @@ const Dashboard = props => {
                 style={styles.ImageStyle}
               />
             </View>
+
             <View style={styles.ImageWrapper1}>
               <Image
                 source={require('../../../assets/img/community_slider_image.png')}
@@ -192,7 +246,15 @@ const Dashboard = props => {
       </View>
 
       <View style={styles.top}>
-        <Text style={{fontWeight: 'bold', fontSize: 18}}>Upcoming Events</Text>
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <Text style={{fontWeight: 'bold', fontSize: 18}}>
+            Upcoming Events
+          </Text>
+          <Text style={{fontSize: 12, marginTop: 8, marginLeft: 180}}>
+            View all
+          </Text>
+        </View>
+
         <View
           style={{
             display: 'flex',
@@ -209,9 +271,14 @@ const Dashboard = props => {
       </View>
 
       <View style={styles.middle}>
-        <Text style={{fontWeight: 'bold', fontSize: 18}}>
-          Points of Engagement
-        </Text>
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <Text style={{fontWeight: 'bold', fontSize: 18}}>
+            Points of Engagement
+          </Text>
+          <Text style={{fontSize: 12, marginTop: 8, marginLeft: 140}}>
+            View all
+          </Text>
+        </View>
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
           <FlatList
@@ -224,9 +291,15 @@ const Dashboard = props => {
       </View>
 
       <View style={styles.bottom}>
-        <Text style={{fontWeight: 'bold', fontSize: 18}}>
-          Growth Community Member
-        </Text>
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <Text style={{fontWeight: 'bold', fontSize: 18}}>
+            {' '}
+            Growth Community Member
+          </Text>
+          <Text style={{fontSize: 12, marginTop: 8, marginLeft: 85}}>
+            View all
+          </Text>
+        </View>
         <View>
           <FlatList
             horizontal
@@ -273,7 +346,7 @@ const styles = StyleSheet.create({
     width: '30%',
     left: 10,
     borderRadius: 20,
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#2a9df4',
   },
   ImageWrapper1: {
     position: 'absolute',
@@ -282,7 +355,7 @@ const styles = StyleSheet.create({
     width: '30%',
     left: 140,
     borderRadius: 20,
-    backgroundColor: '#2a9df4',
+    backgroundColor: '#ADD8E6',
   },
   ImageWrapper2: {
     position: 'absolute',
@@ -308,26 +381,29 @@ const styles = StyleSheet.create({
 
   topWrapper: {
     height: 170,
-    width: 320,
+    width: 300,
     marginTop: 20,
-    marginLeft: 10,
-    borderRadius: 50,
+    marginLeft: 8,
+    borderRadius: 60,
   },
   header: {
     marginLeft: 10,
   },
   headingText1: {
     fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    marginTop: 20,
     fontWeight: '800',
+    width: '98%',
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
   },
   headingText2: {
-    ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
+    color: Colors.SECONDARY_HEADING_COLOR,
     fontWeight: '700',
     color: 'white',
+    fontSize: 10,
+    lineHeight: 12,
   },
   middle: {
     width: 400,
@@ -357,15 +433,14 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   bottom: {
-    height: 240,
+    height: 200,
     margin: 10,
-    width: 400,
   },
   bottomWrapper: {
-    width: 120,
-    height: 190,
+    width: 90,
+    height: 170,
     borderRadius: 10,
-    margin: 10,
+    margin: 5,
     backgroundColor: 'white',
     alignItems: 'center',
   },
