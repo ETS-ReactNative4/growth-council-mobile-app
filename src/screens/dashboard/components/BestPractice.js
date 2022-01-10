@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-import Video from 'react-native-video';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -22,24 +21,26 @@ const BestPractice = props => {
         bestPracticeLoading,
         bestPracticeError,
         fetchAllbestPractice,
-        cleanbestPractice,
+        cleanBestPractice,
         bestPracticesMemberContents,
         bestPracticesMemberContentLoading,
         bestPracticesMemberContentError,
         fetchAllbestPracticesMemberContent,
-        cleanbestPracticesMemberContent,
+        cleanBestPracticesMemberContent,
     } = props;
 
     const _renderItem = ({item, index}) => {
         return (
             <View style={styles.bottomWrapper} key={index}>
-                <Image source={{uri: item.avatar}}
-                       style={{
-                           width: "90%",
-                           height: 80,
-                           marginTop: 6,
-                           borderRadius: 20,
-                       }}/>
+                <Image
+                    source={{uri: item.avatar}}
+                    style={{
+                        width: '90%',
+                        height: 80,
+                        marginTop: 6,
+                        borderRadius: 20,
+                    }}
+                />
                 <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
                 <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
                 <View
@@ -97,10 +98,9 @@ const BestPractice = props => {
     // };
 
     const _renderTopItem = ({item, index}) => {
-
         const actualDate = moment(item.event_start).format('ll').split(',', 3);
         const date = actualDate[0].split(' ', 3);
-
+        console.log(date[1]);
         return (
             <View style={styles.topWrapper}>
                 <TouchableOpacity
@@ -154,7 +154,7 @@ const BestPractice = props => {
 
     const _renderContentItem = ({item, index}) => {
         return (
-            <View style={styles.ContentWrapper} key={index}>
+            <View style={styles.ContentWrapper}>
                 <ImageBackground
                     style={{
                         width: '100%',
@@ -210,7 +210,6 @@ const BestPractice = props => {
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
             Points of Engagement
           </Text>
-
           <View
             style={{
               display: 'flex',
@@ -290,7 +289,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontWeight: '800',
         color: 'white',
-        fontSize: 16
+        fontSize: 16,
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -328,7 +327,6 @@ const styles = StyleSheet.create({
     bottom: {
         height: 200,
         margin: 10,
-
     },
     bottomWrapper: {
         width: 90,

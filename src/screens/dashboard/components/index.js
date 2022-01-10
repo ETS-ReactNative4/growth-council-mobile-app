@@ -12,7 +12,6 @@ import {
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-import Video from 'react-native-video';
 import YouTube, {
   YouTubeStandaloneIOS,
   YouTubeStandaloneAndroid,
