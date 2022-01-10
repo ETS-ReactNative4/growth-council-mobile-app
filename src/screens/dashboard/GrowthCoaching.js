@@ -12,10 +12,12 @@ import {
 } from './slice/growthCoachingMemberContentSlice';
 
 const GrowthCoachingScreen = props => {
+
   const dispatch = useDispatch();
 
   const {growthCoachings, growthCoachingLoading, growthCoachingError} =
     useSelector(state => state.growthCoachings);
+
   const {
     growthCoachingMemberContents,
     growthCoachingMemberContentLoading,
@@ -30,11 +32,11 @@ const GrowthCoachingScreen = props => {
     dispatch(fetchAllgrowthCoachingMemberContents());
   };
 
-  const cleangrowthCoaching = () => {
+  const cleanGrowthCoaching = () => {
     dispatch(resetgrowthCoaching());
   };
 
-  const cleangrowthCoachingMemberContent = () => {
+  const cleanGrowthCoachingMemberContent = () => {
     dispatch(resetgrowthCoachingMemberContent());
   };
 
@@ -45,12 +47,12 @@ const GrowthCoachingScreen = props => {
       growthCoachingLoading={growthCoachingLoading}
       growthCoachingError={growthCoachingError}
       fetchAllgrowthCoaching={fetchAllgrowthCoaching}
-      cleangrowthCoaching={cleangrowthCoaching}
+      cleanGrowthCoaching={cleanGrowthCoaching}
       growthCoachingMemberContents={growthCoachingMemberContents}
       growthCoachingMemberContentLoading={growthCoachingMemberContentLoading}
       growthCoachingMemberContentError={growthCoachingMemberContentError}
       fetchAllgrowthCoachingMemberContent={fetchAllgrowthCoachingMemberContent}
-      cleangrowthCoachingMemberContent={cleangrowthCoachingMemberContent}
+      cleanGrowthCoachingMemberContent={cleanGrowthCoachingMemberContent}
     />
   );
 };

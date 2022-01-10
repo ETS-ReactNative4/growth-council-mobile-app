@@ -13,7 +13,7 @@ import {
 import {configureStore} from '@reduxjs/toolkit';
 
 import authReducer from '../screens/auth/authSlice';
-// import profileReducer from '../screens/account/profileSlice';
+import userReducer from '../screens/account/slice/userSlice';
 import passwordReducer from '../screens/setting/passwordSlice';
 import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice';
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
@@ -45,7 +45,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   auth: authReducer,
-  // profile: profileReducer,
+  users: userReducer,
   password: passwordReducer,
   upcomingEvents: upcomingEventReducer,
   pointOfEngagements: pointOfEngagementReducer,

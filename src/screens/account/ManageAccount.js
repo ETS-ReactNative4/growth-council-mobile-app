@@ -2,12 +2,15 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 
 import ManageAccount from './components/ManageAccount';
-import {fetchProfileByID, updateUserByID, resetProfile} from './slice/profileSlice';
+import {fetchProfileByID, resetProfile} from './slice/profileSlice';
+import {updateUserByID, resetUser} from './slice/userSlice';
 
 const ManageAccountScreen = (props) => {
 
     const dispatch = useDispatch();
+
     const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
+    const {users, userLoading, userError} = useSelector((state) => state.users);
 
 
     const fetchProfileByIdentifier = () => {

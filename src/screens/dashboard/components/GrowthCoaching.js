@@ -9,7 +9,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
@@ -22,12 +21,12 @@ const GrowthCoaching = props => {
     growthCoachingLoading,
     growthCoachingError,
     fetchAllgrowthCoaching,
-    cleangrowthCoaching,
+    cleanGrowthCoaching,
     growthCoachingMemberContents,
     growthCoachingMemberContentLoading,
     growthCoachingMemberContentError,
     fetchAllgrowthCoachingMemberContent,
-    cleangrowthCoachingMemberContent,
+    cleanGrowthCoachingMemberContent,
   } = props;
 
   useEffect(() => {
@@ -85,7 +84,7 @@ const GrowthCoaching = props => {
   const data1 = [
     {
       icon: 'brain',
-      text: 'Groeth Leadership Coaching',
+      text: 'Growth Leadership Coaching',
     },
   ];
 
@@ -105,7 +104,7 @@ const GrowthCoaching = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -160,14 +159,15 @@ const GrowthCoaching = props => {
 
   const _renderContentItem = ({item, index}) => {
     return (
-      <View style={styles.ContentWrapper}>
+      <View style={styles.ContentWrapper} key={index}>
         <ImageBackground
           style={{
             width: '100%',
             height: 190,
             borderRadius: 20,
           }}
-          source={item?.uri}></ImageBackground>
+          source={item?.uri}
+        />
       </View>
     );
   };
@@ -316,7 +316,6 @@ const styles = StyleSheet.create({
   },
   headingText1: {
     ...CommonStyles.headingText1,
-    fontSize: 15,
     fontFamily: Typography.FONT_NORMAL,
     marginTop: 5,
     fontWeight: '800',
@@ -357,11 +356,6 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   bottom: {
-    height: 220,
-    margin: 10,
-    width: 400,
-  },
-  bottom: {
     height: 200,
     margin: 10,
   },
@@ -373,7 +367,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
-
   content: {
     height: 250,
     marginTop: 20,

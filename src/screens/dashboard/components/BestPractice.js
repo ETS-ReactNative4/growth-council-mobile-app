@@ -9,9 +9,9 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const BestPractice = props => {
@@ -21,17 +21,17 @@ const BestPractice = props => {
     bestPracticeLoading,
     bestPracticeError,
     fetchAllbestPractice,
-    cleanbestPractice,
+    cleanBestPractice,
     bestPracticesMemberContents,
     bestPracticesMemberContentLoading,
     bestPracticesMemberContentError,
     fetchAllbestPracticesMemberContent,
-    cleanbestPracticesMemberContent,
+    cleanBestPracticesMemberContent,
   } = props;
 
   const _renderItem = ({item, index}) => {
     return (
-      <View style={styles.bottomWrapper}>
+      <View style={styles.bottomWrapper} key={index}>
         <Image
           source={{uri: item.avatar}}
           style={{
@@ -117,7 +117,8 @@ const BestPractice = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}{' '}
+                Hosted by {item?.organizer?.term_name}
+                {', '}
                 {item?.organizer?.description}
               </Text>
             </View>
@@ -148,7 +149,8 @@ const BestPractice = props => {
             height: 190,
             borderRadius: 20,
           }}
-          source={item?.uri}></ImageBackground>
+          source={item?.uri}
+        />
       </View>
     );
   };
@@ -197,7 +199,6 @@ const BestPractice = props => {
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
             Points of Engagement
           </Text>
-
           <View
             style={{
               display: 'flex',
@@ -273,7 +274,6 @@ const styles = StyleSheet.create({
   },
   headingText1: {
     ...CommonStyles.headingText1,
-    fontSize: 15,
     fontFamily: Typography.FONT_NORMAL,
     marginTop: 5,
     fontWeight: '800',

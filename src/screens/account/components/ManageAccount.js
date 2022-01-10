@@ -49,6 +49,7 @@ const ManageAccount = (props) => {
         profileError,
         fetchProfileByIdentifier,
         cleanProfile,
+        userLoading,
         updateUser
     } = props;
 
@@ -74,12 +75,11 @@ const ManageAccount = (props) => {
                 if (response?.payload?.status === 200) {
                     navigation.navigate('Person');
                     ToastMessage.show('Your information has been successfully updated.');
-					ToastMessage.show(values.email)
+                    ToastMessage.show(values.email)
                 }
             });
         },
     });
-
 
     useEffect(() => {
         const fetchProfileAsync = async () => {
@@ -93,9 +93,8 @@ const ManageAccount = (props) => {
     }, []);
 
 
+    console.log(values);
 
-	console.log(values);
-	
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>
@@ -133,7 +132,7 @@ const ManageAccount = (props) => {
                                     <Text style={styles.errorText}>{profileError.message}</Text>
                                 </View>
                                 }
-                                {profileLoading && (
+                                {profileLoading  && (
                                     <>
                                         <View style={{
                                             flex: 1,
@@ -149,6 +148,24 @@ const ManageAccount = (props) => {
                                         </View>
                                     </>
                                 )}
+
+                                {userLoading && (
+                                    <>
+                                        <View style={{
+                                            flex: 1,
+                                            alignItems: 'center',
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-around',
+                                            position: 'absolute',
+                                            zIndex: 1011,
+                                            top: 120,
+                                            left: 100
+                                        }}>
+                                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                                        </View>
+                                    </>
+                                )}
+
 
 
                                 <View style={styles.middleWrapper}>
