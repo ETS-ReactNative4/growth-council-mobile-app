@@ -7,10 +7,16 @@ import {GiftedChat} from 'react-native-gifted-chat'
 
 import {CommonStyles, Colors} from '../../../theme';
 
-const Chat = ({navigation}) => {
+const Chat = (props) => {
+
+    const {navigation, route} = props;
+
+    const friendID = route.params.friendID;
+    const userID = route.params.userID;
+
     const [messages, setMessages] = useState([]);
 
-    useEffect(() => {
+    useEffect(async () => {
         setMessages([
             {
                 _id: 1,
@@ -35,7 +41,7 @@ const Chat = ({navigation}) => {
                 messages={messages}
                 onSend={messages => onSend(messages)}
                 user={{
-                    _id: 1,
+                    _id: userID,
                 }}
             />
         </View>
