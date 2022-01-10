@@ -13,7 +13,7 @@ import {
 import {configureStore} from '@reduxjs/toolkit';
 
 import authReducer from '../screens/auth/authSlice';
-// import profileReducer from '../screens/account/profileSlice';
+import userReducer from '../screens/account/slice/userSlice';
 import passwordReducer from '../screens/setting/passwordSlice';
 import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice';
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
@@ -24,9 +24,14 @@ import ideaReducer from '../screens/ideas/slice/ideaSlice';
 import eventReducer from '../screens/event/eventSlice';
 import connectionReducer from '../screens/people/slice/connetionSlice';
 import profileReducer from '../screens/account/slice/profileSlice';
-import sessionReducer from '../screens/dashboard/slice/sessionSlice';
-import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
 import profileEventReducer from '../screens/account/slice/profileEventSlice';
+import communityReducer from '../screens/dashboard/slice/communitySlice';
+import communityMemberContentReducer from '../screens/dashboard/slice/communityMemberContentSlice';
+import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
+import bestPracticesReducer from '../screens/dashboard/slice/bestPracticesSlice';
+import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPracticesMemberContentSlice';
+import growthCoachingsReducer from '../screens/dashboard/slice/growthCoachingSlice';
+import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growthCoachingMemberContentSlice';
 
 import pillarReducer from '../screens/home/pillarSlice';
 import pillarSliderReducer from '../screens/home/pillarSliderSlice';
@@ -39,7 +44,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
     auth: authReducer,
-    // profile: profileReducer,
+    users: userReducer,
     password: passwordReducer,
     upcomingEvents: upcomingEventReducer,
     pointOfEngagements: pointOfEngagementReducer,
@@ -50,11 +55,17 @@ const reducers = combineReducers({
     idea: ideaReducer,
     pillars: pillarReducer,
     pillarSliders: pillarSliderReducer,
+
     connection: connectionReducer,
-    sessions: sessionReducer,
+    communities: communityReducer,
+    communityMemberContents: communityMemberContentReducer,
     sessionDetails: sessionDetailReducer,
-	profile:profileReducer,
-	profileEvent:profileEventReducer,
+    profile: profileReducer,
+    profileEvent: profileEventReducer,
+    bestPractices: bestPracticesReducer,
+    growthCoachings: growthCoachingsReducer,
+    bestPracticesMemberContents: bestPracticesMemberContentReducer,
+    growthCoachingMemberContents: growthCoachingMemberContentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

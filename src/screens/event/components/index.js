@@ -35,9 +35,9 @@ const Event = props => {
   }, []);
 
   const isEventLoaded = Object.keys(events).length === 0;
-  const actualDate = moment('20111031').format('LLLL');
-  const date = actualDate.split(',', 2);
-  const dateMonth = date[1].split(' ', 3);
+  const actualDate = moment(events.event_start).format('LLLL').split(',', 6);
+  const date = actualDate[1].split(' ', 3);
+  console.log(date);
 
   console.log('route.params.id:::::::::::::::::', route.params.id);
   console.log('Event Detail:::::::::::::::::', events.organizer_image);
@@ -106,7 +106,7 @@ const Event = props => {
                     }}>
                     {!isEventLoaded && (
                       <Text style={styles.contentHeading}>
-                        {dateMonth[2]} {dateMonth[1]}, {date[0]}
+                        {date[2]} {date[1]}, {actualDate[0]}
                       </Text>
                     )}
 
@@ -221,8 +221,10 @@ const Event = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
-                    <Text style={styles.contentHeading}>Andrew Deutscher</Text>
-                    <Text>Founder, Regenerate</Text>
+                    <Text style={styles.contentHeading}>
+                      {/* {events.organizer.term_name} */}
+                    </Text>
+                    {/* <Text>{events.organizer.description}</Text> */}
                   </View>
                   <View
                     style={{
