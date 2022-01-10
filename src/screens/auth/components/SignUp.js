@@ -20,12 +20,19 @@ import FlatTextInput from '../../../shared/form/FlatTextInput';
 import CheckBox from '../../../shared/form/Checkbox';
 import ToastMessage from '../../../shared/toast';
 
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const signUpSchema = Yup.object().shape({
   first_name: Yup.string().required('First Name is required.'),
   last_name: Yup.string().required('Last Name is required.'),
   password: Yup.string()
     .min(6, ({min}) => `Password must be at least ${min} characters.`)
     .required('Password is required.'),
+  email: Yup.string()
+    .email('Please enter valid email')
+    .required('Email Address is Required'),
+  phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
 
 const SignUpForm = props => {
@@ -53,6 +60,7 @@ const SignUpForm = props => {
       company: '',
       phone: '',
       email: '',
+      country: '',
     },
     onSubmit: async values => {
       await registerCustomer(values).then(response => {
@@ -64,7 +72,7 @@ const SignUpForm = props => {
     },
   });
 
-  const [country, setCountry] = useState('Select Country');
+  const [country, setCountry] = useState('Country');
 
   const countries = [
     'Afghanistan',

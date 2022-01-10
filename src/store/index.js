@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers} from 'redux';
 import {
-    persistReducer,
-    persistStore,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
 } from 'redux-persist';
 import {configureStore} from '@reduxjs/toolkit';
 
@@ -19,6 +19,7 @@ import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice'
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
 import aboutReducer from '../screens/about/slice/aboutSlice';
+import detailReducer from '../screens/home/slice/detailSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
 import ideaReducer from '../screens/ideas/slice/ideaSlice';
 import eventReducer from '../screens/event/eventSlice';
@@ -37,55 +38,56 @@ import pillarReducer from '../screens/home/pillarSlice';
 import pillarSliderReducer from '../screens/home/pillarSliderSlice';
 
 const persistConfig = {
-    key: 'root',
-    storage: AsyncStorage,
-    whitelist: [],
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: [],
 };
 
 const reducers = combineReducers({
-    auth: authReducer,
-    users: userReducer,
-    password: passwordReducer,
-    upcomingEvents: upcomingEventReducer,
-    pointOfEngagements: pointOfEngagementReducer,
-    communityMembers: communityMemberReducer,
-    events: eventReducer,
-    about: aboutReducer,
-    feedback: feedbackReducer,
-    idea: ideaReducer,
-    pillars: pillarReducer,
-    pillarSliders: pillarSliderReducer,
+  auth: authReducer,
+  users: userReducer,
+  password: passwordReducer,
+  upcomingEvents: upcomingEventReducer,
+  pointOfEngagements: pointOfEngagementReducer,
+  communityMembers: communityMemberReducer,
+  events: eventReducer,
+  about: aboutReducer,
+  details: detailReducer,
+  feedback: feedbackReducer,
+  idea: ideaReducer,
+  pillars: pillarReducer,
+  pillarSliders: pillarSliderReducer,
 
-    connection: connectionReducer,
-    communities: communityReducer,
-    communityMemberContents: communityMemberContentReducer,
-    sessionDetails: sessionDetailReducer,
-    profile: profileReducer,
-    profileEvent: profileEventReducer,
-    bestPractices: bestPracticesReducer,
-    growthCoachings: growthCoachingsReducer,
-    bestPracticesMemberContents: bestPracticesMemberContentReducer,
-    growthCoachingMemberContents: growthCoachingMemberContentReducer,
+  connection: connectionReducer,
+  communities: communityReducer,
+  communityMemberContents: communityMemberContentReducer,
+  sessionDetails: sessionDetailReducer,
+  profile: profileReducer,
+  profileEvent: profileEventReducer,
+  bestPractices: bestPracticesReducer,
+  growthCoachings: growthCoachingsReducer,
+  bestPracticesMemberContents: bestPracticesMemberContentReducer,
+  growthCoachingMemberContents: growthCoachingMemberContentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
-    reducer: persistedReducer,
-    middleware: getDefaultMiddleware => {
-        let middlewares = getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        });
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware => {
+    let middlewares = getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
 
-        if (__DEV__ && !process.env.JEST_WORKER_ID) {
-            const createDebugger = require('redux-flipper').default;
-            middlewares.push(createDebugger());
-        }
+    if (__DEV__ && !process.env.JEST_WORKER_ID) {
+      const createDebugger = require('redux-flipper').default;
+      middlewares.push(createDebugger());
+    }
 
-        return middlewares;
-    },
+    return middlewares;
+  },
 });
 
 const persistor = persistStore(store);
