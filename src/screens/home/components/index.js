@@ -40,25 +40,7 @@ const Home = props => {
   const slideWidth = wp(50);
   const sliderWidth = viewportWidth;
   const itemHorizontalMargin = wp(2);
-  const itemWidth = slideWidth + itemHorizontalMargin * 2;
-
-  // const carouselItems = [
-  //   {
-  //     uri: require('../../../assets/img/welcome_screen_learn_more_image.png'),
-  //     text: 'Growth Coaching',
-  //     id: 121,
-  //   },
-  //   {
-  //     uri: require('../../../assets/img/community_slider_image.png'),
-  //     text: 'Growth Community',
-  //     id: 120,
-  //   },
-  //   {
-  //     uri: require('../../../assets/img/massk.png'),
-  //     text: 'Best Practices',
-  //     id: 119,
-  //   },
-  // ];
+  const itemWidth = slideWidth + r * 2;
 
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
@@ -160,19 +142,16 @@ const Home = props => {
       <View style={styles.buttonWrapper}>
         <Button
           style={[
-            styles.button,
-            styles.plainButton,
+            styles.signupbutton,
             {backgroundColor: Colors.PRIMARY_BUTTON_COLOR},
           ]}
           onPress={() => navigation.navigate('HomeDetail')}>
-          <Text style={[styles.buttonText, styles.plainButtonText]}>
-            Get Started
-          </Text>
+          <Text style={[styles.signupbuttonText]}>Get Started</Text>
         </Button>
         <Button
-          style={[styles.button1]}
+          style={[styles.signinbutton]}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text style={[styles.buttonText, {color: '#709caf'}]}>
+          <Text style={[styles.signinbuttonText, {color: '#709caf'}]}>
             I already have an account{' '}
           </Text>
         </Button>
@@ -181,12 +160,14 @@ const Home = props => {
       <View style={styles.footer}>
         <Image
           style={styles.footerlogo}
-          source={require('../../../assets/img/footer_logo.png')}
+          source={require('../../../assets/img/footer_first_logo_image.svg')}
         />
-        <Text style={{fontSize: 7, marginTop: 4}}>Powered By</Text>
+        <Text style={{fontSize: 8, marginTop: 10, marginBottom: 10}}>
+          Powered By
+        </Text>
         <Image
-          source={require('../../../assets/img/footer_company_name_image.png')}
-          style={{marginTop: 4}}
+          style={styles.footerlogo}
+          source={require('../../../assets/img/footer_company_name_logo_image.svg')}
         />
       </View>
     </View>
@@ -237,33 +218,34 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 20,
   },
-  button: {
+  signupbutton: {
     ...CommonStyles.button,
     height: 56,
-    width: '40%',
+    width: 334,
     marginBottom: 10,
+    borderRadius: 25,
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  buttonText: {
+  signupbuttonText: {
     ...CommonStyles.buttonText,
+    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
     fontFamily: Typography.FONT_BOLD,
-    fontSize: 15,
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  signinbuttonText: {
+    ...CommonStyles.buttonText,
+    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
+    fontWeight: 'medium',
+    fontSize: 16,
+    marginBottom: 26,
   },
   iconImage: {
     width: 300,
     height: 350,
     borderRadius: 10,
-  },
-  plainButton: {
-    width: '70%',
-    borderRadius: 25,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 5,
-  },
-  plainButtonText: {
-    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-    fontFamily: Typography.FONT_BOLD,
   },
   header: {
     width: '100%',
@@ -274,36 +256,36 @@ const styles = StyleSheet.create({
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#1f3354',
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 25,
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: 'semi-bold',
     textAlign: 'center',
+    marginBottom: 30,
   },
-  button1: {
-    width: '70%',
+  signinbutton: {
+    width: 336,
     borderRadius: 25,
-    height: 56,
+    height: 52,
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 5,
     backgroundColor: '#faf9f8',
-    borderWidth: 3,
-    borderColor: '#709caf',
+    borderWidth: 2,
+    borderColor: '#1580B7',
   },
   footer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
   },
   footerlogo: {
-    width: '50%',
+    width: 120,
     height: 20,
   },
   sliderView: {

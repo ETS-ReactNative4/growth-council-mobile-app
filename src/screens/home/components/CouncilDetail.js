@@ -71,7 +71,7 @@ const CouncilDetail = props => {
               height: 230,
               alignItems: 'center',
             }}
-            source={require('../../../assets/img/welcome_screen_info_image.png')}
+            source={{URI: pillars?.pillar_detail_image}}
           />
           <View
             style={{
@@ -101,15 +101,15 @@ const CouncilDetail = props => {
             country or territory you are specifying it as your Home Country.
           </Text> */}
         </View>
-          {!loadMore && (
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
-          <Button
-            style={styles.moreButton}
-            onPress={() => setLoadMore(!loadMore)}>
-            <Text style={styles.moreButtonText}>Load More</Text>
-          </Button>
-        </View>
-          )}
+        {!loadMore && (
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Button
+              style={styles.moreButton}
+              onPress={() => setLoadMore(!loadMore)}>
+              <Text style={styles.moreButtonText}>Load More</Text>
+            </Button>
+          </View>
+        )}
         {loadMore && (
           <LoadMore
             {...props}
