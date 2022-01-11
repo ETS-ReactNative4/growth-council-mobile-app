@@ -61,19 +61,7 @@ const Event = props => {
               {!isEventLoaded && (
                 <Text style={styles.headingText1}>{events.title}</Text>
               )}
-              <View
-                style={{
-                  height: 22,
-                  width: 148,
-                  position: 'absolute',
-                  top: -15,
-                  left: 0,
-                  backgroundColor: '#ffff',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                }}>
+              <View style={styles.poe}>
                 <Text style={{fontSize: 12}}>Megatrend Workshop</Text>
               </View>
             </View>
@@ -88,16 +76,7 @@ const Event = props => {
                     paddingTop: 20,
                     flexDirection: 'row',
                   }}>
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'rgba(54,147,172,1)',
-                      height: 48,
-                      width: 48,
-                      borderRadius: 14,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
+                  <View style={styles.infoicon}>
                     <MaterialIcons name={'event'} size={18} color={'white'} />
                   </View>
                   <View
@@ -136,23 +115,8 @@ const Event = props => {
                   </View>
                 </View>
 
-                <View
-                  style={{
-                    flex: 1,
-                    paddingTop: 20,
-                    paddingBottom: 20,
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'rgba(54,147,172,1)',
-                      height: 48,
-                      width: 48,
-                      borderRadius: 14,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
+                <View style={styles.address}>
+                  <View style={styles.infoicon}>
                     <Ionicons
                       name={'location-outline'}
                       size={18}
@@ -189,38 +153,15 @@ const Event = props => {
                 </View>
               </View>
 
-              <View
-                style={{
-                  marginTop: 20,
-                  marginBottom: 20,
-                  borderBottomColor: '#F6F4F4',
-                  borderBottomWidth: 1,
-                }}
-              />
+              <View style={styles.seperationline} />
 
-              <View style={{height: 103}}>
+              <View>
                 <View>
                   <Text style={styles.contentHeading}>Hosted By</Text>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                    paddingTop: 5,
-                    paddingBottom: 5,
-                    flexDirection: 'row',
-                    marginTop: 10,
-                  }}>
+                <View style={styles.hostdetail}>
                   {!isEventLoaded && (
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: 'rgba(54,147,172,1)',
-                        height: 64,
-                        width: 62,
-                        borderRadius: 14,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
+                    <View style={styles.hostimage}>
                       <Image
                         source={{uri: events?.organizer_image}}
                         style={{
@@ -240,22 +181,8 @@ const Event = props => {
                     </Text>
                     <Text>{events?.organizer?.description}</Text>
                   </View>
-                  <View
-                    style={{
-                      flex: 2,
-                      height: 60,
-                      width: 30,
-                      borderRadius: 15,
-                      justifyContent: 'center',
-                      alignItems: 'flex-end',
-                    }}>
-                    <Button
-                      style={{
-                        width: 92,
-                        height: 36,
-                        backgroundColor: '#183863',
-                        borderRadius: 15,
-                      }}>
+                  <View style={styles.eventaddress}>
+                    <Button style={styles.followbtn}>
                       <Text
                         style={{
                           fontWeight: 'bold',
@@ -269,22 +196,12 @@ const Event = props => {
                 </View>
               </View>
 
-              <View
-                style={{
-                  marginTop: 20,
-                  marginBottom: 20,
-                  borderBottomColor: '#F6F4F4',
-                  borderBottomWidth: 1,
-                }}
-              />
+              <View style={styles.seperationline} />
 
               <View>
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
                   <HTMLView value={events.description} style={{fontSize: 14}} />
-                  // <Text style={styles.contentText}>
-
-                  // </Text>
                 )}
               </View>
 
@@ -376,6 +293,69 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     marginBottom: 0,
+  },
+  poe: {
+    height: 22,
+    width: 148,
+    position: 'absolute',
+    top: -15,
+    left: 0,
+    backgroundColor: '#ffff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  infoicon: {
+    flex: 1,
+    backgroundColor: 'rgba(54,147,172,1)',
+    height: 48,
+    width: 48,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  address: {
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    flexDirection: 'row',
+  },
+  seperationline: {
+    marginTop: 20,
+    marginBottom: 20,
+    borderBottomColor: '#F6F4F4',
+    borderBottomWidth: 1,
+  },
+  hostdetail: {
+    flex: 1,
+    paddingTop: 5,
+    paddingBottom: 5,
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  hostimage: {
+    flex: 1,
+    backgroundColor: 'rgba(54,147,172,1)',
+    height: 64,
+    width: 62,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  eventaddress: {
+    flex: 2,
+    height: 60,
+    width: 30,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  followbtn: {
+    width: 92,
+    height: 36,
+    backgroundColor: '#183863',
+    borderRadius: 15,
   },
 });
 export default Event;
