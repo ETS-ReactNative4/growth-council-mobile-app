@@ -58,19 +58,29 @@ const Event = props => {
               alignItems: 'center',
             }}>
 			
-			<View style={styles.topbanner}>
-              {!isEventLoaded && (
-                <Text style={styles.headingText1}>{events.title}</Text>
-              )}
-              <View style={styles.poe}>
-                <Text style={{fontSize: 12}}>Megatrend Workshop</Text>
-              </View>
-            </View>
+				<View style={styles.topbanner}>
+				{!isEventLoaded && (
+					<Text style={styles.headingText1}>{events.title}</Text>
+				)}
+				</View>
 			
 			
           </View>
-          
-        
+          <View
+            style={{
+              height: 28,
+              position: 'absolute',
+              top: 90,
+              left: 40,
+              backgroundColor: '#ffff',
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}>
+            <Text>Megatrend Workshop</Text>
+          </View>
+          <View>
             <View style={[styles.content, {height: 'auto'}]}>
               <View style={{height: 150, flexDirection: 'column'}}>
                 <View
@@ -96,10 +106,6 @@ const Event = props => {
 			
 				  
 				
-					<View style={styles.infoicon}>
-                    <MaterialIcons name={'event'} size={18} color={'white'} />
-                  </View>
-
                   <View
                     style={{
                       flex: 4,
@@ -123,15 +129,50 @@ const Event = props => {
                     )}
                   </View>
 				  
-				  <View style={styles.address}>
-                  <View style={styles.infoicon}>
-                    <Ionicons
-                      name={'location-outline'}
-                      size={18}
-                      color={'white'}
+                  <View
+                    style={{
+                      flex: 1,
+                      height: 60,
+                      width: 30,
+                      borderRadius: 15,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Feather
+                      name={'plus-circle'}
+                      size={35}
+                      color={'rgba(54,147,172,1)'}
                     />
                   </View>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    paddingTop: 5,
+                    paddingBottom: 5,
+                    flexDirection: 'row',
+                  }}>
 
+			
+					<View
+						style={{
+						flex: 1,
+						backgroundColor: 'rgba(54,147,172,1)',
+						height: 60,
+						width: 30,
+						borderRadius: 15,
+						justifyContent: 'center',
+						alignItems: 'center',
+						}}>
+						 <Ionicons
+							name={'location-outline'}
+							size={35}
+							color={'white'}
+							/>
+					</View>
+					
+				
+                 
                   {!isEventLoaded && (
                     <View
                       style={{
@@ -149,8 +190,8 @@ const Event = props => {
                   <View
                     style={{
                       flex: 1,
-                      height: 22,
-                      width: 54,
+                      height: 60,
+                      width: 30,
                       borderRadius: 15,
                       justifyContent: 'center',
                       alignItems: 'center',
