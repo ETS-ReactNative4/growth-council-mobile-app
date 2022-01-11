@@ -14,7 +14,16 @@ import {decodeUserID} from "../../../utils/jwtUtil";
 
 const UserList = (props) => {
 
-    const {navigation, route} = props;
+    const {
+        navigation,
+        route,
+        connection,
+        connectionLoading,
+        connectionError,
+        fetchAllConnection,
+        cleanConnection
+    } = props;
+
     const [userID, setUserID] = useState(null);
     const data = [
         {
@@ -39,7 +48,15 @@ const UserList = (props) => {
         setUserID(decodeUserID(token));
     }, []);
 
+    useEffect(() => {
+        const fetchAllConnectionAsync = async () => {
+            await fetchAllConnection();
+        };
+        fetchAllConnectionAsync();
+    }, []);
 
+    console.log("connection:::::::::::::", connection);
+    
     const _renderItems = ({item, index}) => {
 
         return (

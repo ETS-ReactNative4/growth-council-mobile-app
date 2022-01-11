@@ -36,7 +36,8 @@ const EventDetailScreen = props => {
             eventError={eventError}
             fetchEventByIdentifier={fetchEventByIdentifier}
             cleanEvent={cleanEvent}
-        />);
+        />
+    )
 };
 
 export default EventDetailScreen;
