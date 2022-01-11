@@ -209,10 +209,6 @@ const Dashboard = props => {
     fetchAllCommunityMemberAsync();
   }, []);
 
-  console.log('Events ============== ', upcomingEvents);
-
-  const API_KEY = 'AIzaSyCIrwNfePDp3TOeOVUpVe59FjBQ_x9M6GM';
-
   return (
     <ScrollView>
       <View style={styles.container}>
