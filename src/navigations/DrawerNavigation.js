@@ -16,6 +16,7 @@ import GrowthCoachingScreen from "../screens/dashboard/GrowthCoaching";
 import SettingScreen from '../screens/setting/index';
 
 import BottomTabNavigation from "./BottomTabNavigation";
+import {CommonStyles, Colors, Typography} from '../theme';
 
 const Drawer = createDrawerNavigator();
 
@@ -139,15 +140,15 @@ const DrawerNavigation = ({navigation}) => {
 					headerBackground:()=>(
 						<View>
 							<ImageBackground
-							source={require('../../src/assets/img/blank_event_design.png')}
+							source={require('../../src/assets/img/Rectangle2.png')}
 							style={{width:"100%", height:60}}>
 							</ImageBackground>
 						</View>
 					),
 					headerTitle: () => (
-						<View style={{marginLeft: 40}}>
+						<View style={{marginLeft: 30}}>
 							
-							<Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Community</Text>
+							<Text style={{color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>Community</Text>
 						</View>
 					),
 					
@@ -163,15 +164,15 @@ const DrawerNavigation = ({navigation}) => {
 					headerBackground:()=>(
 						<View>
 							<ImageBackground
-							source={require('../../src/assets/img/blue_blank.png')}
+							source={require('../../src/assets/img/Rectangle1.png')}
 							style={{width:"100%", height:60}}>
 							</ImageBackground>
 						</View>
 					),
 					headerTitle: () => (
-						<View style={{marginLeft: 40}}>
+						<View style={{marginLeft: 30}}>
 							
-							<Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Best Practice</Text>
+							<Text style={{ color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>Best Practice</Text>
 						</View>
 					),
                 })}
@@ -187,15 +188,15 @@ const DrawerNavigation = ({navigation}) => {
 					headerBackground:()=>(
 						<View>
 							<ImageBackground
-							source={require('../../src/assets/img/green_blank.png')}
+							source={require('../../src/assets/img/Rectangle.png')}
 							style={{width:"100%", height:60}}>
 							</ImageBackground>
 						</View>
 					),
 					headerTitle: () => (
-						<View style={{marginLeft: 40}}>
+						<View style={{marginLeft: 30}}>
 							
-							<Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Growth Coaching</Text>
+							<Text style={{color: Colors.PRIMARY_BACKGROUND_COLOR,fontSize: 20}}>Growth Coaching</Text>
 						</View>
 					),
                 })}

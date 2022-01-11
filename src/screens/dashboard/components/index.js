@@ -272,7 +272,7 @@ const Dashboard = props => {
       </View>
 
 	  <View style={styles.content}>
-          <Text style={{fontWeight: 'semi-bold', fontSize: 14, color:'#1E2022' ,marginLeft:15, marginRight:15}}>
+          <Text style={styles.title}>
             {' '}
             Growth Coaching Content
           </Text>
@@ -287,7 +287,15 @@ const Dashboard = props => {
               data={pic}
               renderItem={_renderContentItem}
             />
-          </View>
+        </View>
+
+		<View style={{ alignItems:'center'}}>
+			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
+			<Image 
+				source={require('../../../assets/img/footer_company_name_image.png')}
+				style={{width: '60%', marginTop: 10, marginBottom: 15}}
+			/>
+		</View>
         </View>
     </ScrollView>
   );
@@ -351,7 +359,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   title:{
-	fontWeight: 'semi-bold',
+	fontWeight: '700',
 	fontSize: 14,
 	color:PRIMARY_TEXT_COLOR
   },

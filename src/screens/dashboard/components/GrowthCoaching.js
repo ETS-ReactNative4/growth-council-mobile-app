@@ -52,27 +52,23 @@ const GrowthCoaching = props => {
 		<View style={styles.bottomWrapper}>
 		<Image source={{uri:item.avatar}}
 			style={{
-				width: "90%",
-				height: 78,
+				width: 83,
+				height: 83,
 				borderRadius:10,
 			}}/>
-		<Text style={{fontSize: 9, marginTop: 5, fontWeight:"500"}}>{item?.display_name}</Text>
-		<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+		<View style={{padding:10, paddingBottom:20}}>
+			<Text style={{fontSize: 10, fontWeight:"semi-bold", color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
+			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+		</View>
+		
 		<View
-		  style={{
-			borderRadius: 50,
-			backgroundColor: '#EBECF0',
-			width: 18,
-			height: 18,
-			justifyContent: 'center',
-			marginLeft: 40,
-			marginTop: 5,
-		  }}>
+		  style={styles.chatIcon}>
 		  <Ionicons
 			name={'chatbox'}
 			size={10}
-			color="grey"
-			style={{marginLeft: 3}}
+			color="#B1AFAF"
+		
+		
 		  />
 		</View>
 	  </View>
@@ -223,7 +219,7 @@ const GrowthCoaching = props => {
 				</ImageBackground> */}
 
         <View style={styles.top}>
-          <Text style={{fontWeight: 'bold',  fontSize: 14 ,color:'#1E2022', marginLeft:15, marginRight:15}}>
+          <Text style={styles.title}>
             {' '}
             Growth Community Events
           </Text>
@@ -262,7 +258,7 @@ const GrowthCoaching = props => {
         </View> */}
 
         <View style={styles.bottom}>
-          <Text style={{fontWeight: 'bold',  fontSize: 14 ,color:'#1E2022', marginLeft:15, marginRight:15}}>
+          <Text style={styles.title}>
             Growth Community Member
           </Text>
           <View>
@@ -276,7 +272,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={{fontWeight: 'bold',  fontSize: 14 ,color:'#1E2022', marginLeft:15, marginRight:15}}>
+          <Text style={styles.title}>
             {' '}
             Growth Coaching Content
           </Text>
@@ -293,6 +289,13 @@ const GrowthCoaching = props => {
             />
           </View>
         </View>
+		<View style={{ alignItems:'center'}}>
+			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
+			<Image 
+				source={require('../../../assets/img/footer_company_name_image.png')}
+				style={{width: '60%', marginTop: 10, marginBottom: 15}}
+			/>
+		</View>
       </View>
     </ScrollView>
   );
@@ -309,6 +312,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
 	marginLeft:5
+  },
+  title:{
+	fontWeight: '700',
+	fontSize: 14,
+	color:Colors.PRIMARY_TEXT_COLOR,
+	marginLeft:15, 
+	marginRight:15
   },
 
   topWrapper: {
@@ -365,18 +375,26 @@ const styles = StyleSheet.create({
   },
  
   bottom: {
-	height: 172,
+    height: 172,
 	margin:5,
-	marginTop:10,
+	marginTop:25,
   },
   bottomWrapper: {
-	width: 84,
-    height: 132,
+   position:'relative',
     borderRadius: 10,
 	marginTop:15,
 	marginLeft: 15,
     backgroundColor: 'white',
-    alignItems: 'center',
+    overflow:"hidden"
+  },
+  chatIcon:{
+	borderRadius: 50,
+	backgroundColor: '#F1F1F1',
+	padding:6,
+	justifyContent: 'center',
+	position:'absolute',
+	right:4,
+	bottom:4
   },
   bottomImage: {
     width: '100%',
