@@ -6,7 +6,7 @@ export const signUpCustomer = createAsyncThunk(
     'customer/signUp',
     (formData, {rejectWithValue}) => {
         return store(`jwt-auth/v1/users/register`, formData)
-            .then(response => response.data.body_response)
+            .then(response => response.data)
             .catch(error => rejectWithValue(error?.response?.data || error));
     },
 );

@@ -44,6 +44,10 @@ const SignUpForm = props => {
 
     const [checked, setChecked] = React.useState(false);
 
+    const min = 1;
+    const max = 100;
+    const rand = min + Math.random() * (max - min);
+
     const {
         handleChange,
         handleBlur,
@@ -59,7 +63,7 @@ const SignUpForm = props => {
             name: '',
             first_name: '',
             last_name: '',
-            username: 'admin21',
+            username: `admin${rand}`,
             password: 'admin21',
             title: '',
             company: '',
@@ -70,16 +74,17 @@ const SignUpForm = props => {
         },
         onSubmit: async values => {
             values.name = values.first_name + " " + values.last_name;
-            console.log("values:::::::::::::::::", values);
             try {
                 const response = await createUserWithEmailAndPassword(auth, values?.email, values?.firebase_password);
                 const token = await response.user.getIdToken();
-
                 if (token) {
                     await registerCustomer(values).then(response => {
-                        if (!response.error) {
+                        console.log("response:::::::::::::::", response);
+                        if (response?.payload?.status === 200) {
                             navigation.navigate('SignUpNext');
                             ToastMessage.show('You have successfully registered.');
+                        } else {
+                            ToastMessage.show(response?.payload?.response);
                         }
                     });
                 }
@@ -90,6 +95,15 @@ const SignUpForm = props => {
                         break;
                     case 'auth/argument-error':
                         ToastMessage.show('Authentication error. Please try again.');
+                        break;
+                    case 'auth/invalid-email':
+                        ToastMessage.show('Please enter valid email.');
+                        break;
+                    case 'auth/user-not-found':
+                        ToastMessage.show('User not found.');
+                        break;
+                    case 'auth/wrong-password':
+                        ToastMessage.show('Invalid password.');
                         break;
 
                 }
@@ -308,7 +322,7 @@ const SignUpForm = props => {
                     backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
                 />
 
-                <View style={{height: '15%'}} />
+                <View style={{height: '15%'}}/>
 
                 <View style={styles.content}>
                     <View style={styles.header}>
@@ -326,7 +340,7 @@ const SignUpForm = props => {
                                 position: 'absolute',
                                 zIndex: 1011,
                             }}>
-                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} />
+                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
                         </View>
                     )}
                     <ScrollView style={styles.scrollBox}>
@@ -340,7 +354,7 @@ const SignUpForm = props => {
                                 touched={touched.first_name}
                             />
                             {errors.first_name &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.first_name}</Text>
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.first_name}</Text>
                             }
 
                             <FlatTextInput
@@ -353,7 +367,7 @@ const SignUpForm = props => {
                             />
 
                             {errors.last_name &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.last_name}</Text>
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.last_name}</Text>
                             }
 
                             <FlatTextInput
@@ -365,7 +379,7 @@ const SignUpForm = props => {
                                 touched={touched.title}
                             />
                             {errors.title &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.title}</Text>
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.title}</Text>
                             }
 
                             <FlatTextInput
@@ -377,7 +391,7 @@ const SignUpForm = props => {
                                 touched={touched.company}
                             />
                             {errors.company &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.company}</Text>
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.company}</Text>
                             }
 
                             <FlatTextInput
@@ -389,7 +403,7 @@ const SignUpForm = props => {
                                 touched={touched.phone}
                             />
                             {errors.phone &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.phone}</Text>
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.phone}</Text>
                             }
 
                             <FlatTextInput
@@ -401,7 +415,7 @@ const SignUpForm = props => {
                                 touched={touched.email}
                             />
                             {errors.email &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.email}</Text>
                             }
 
                             <Picker
@@ -411,7 +425,7 @@ const SignUpForm = props => {
                                     height: 70,
                                     width: '100%',
                                 }}
-                               // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
+                                // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
                                 onValueChange={(itemValue, itemIndex) => {
                                     setFieldValue('country', itemValue);
                                     setCountry(itemValue);
