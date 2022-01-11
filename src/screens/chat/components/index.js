@@ -1,12 +1,13 @@
-import React, {useState, useEffect, useCallback, useLayoutEffect} from 'react';
+import React, {useState, useCallback, useLayoutEffect} from 'react';
 import {
     StyleSheet,
     View,
 } from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat'
+import {collection, getDocs, addDoc} from 'firebase/firestore';
 
 import {CommonStyles, Colors} from '../../../theme';
-import {database, auth} from '../../../utils/firebaseUtil';
+import {database} from '../../../utils/firebaseUtil';
 
 const Chat = (props) => {
 
@@ -19,37 +20,31 @@ const Chat = (props) => {
 
     const [messages, setMessages] = useState([]);
 
-    // useEffect(async () => {
-    //     setMessages([
-    //         {
-    //             _id: 1,
-    //             text: 'Hello developer',
-    //             createdAt: new Date(),
-    //             user: {
-    //                 _id: 2,
-    //                 name: 'React Native',
-    //                 avatar: 'https://placeimg.com/140/140/any',
-    //             },
-    //         },
-    //     ])
-    // }, []);
-
     useLayoutEffect(() => {
-        const unsubscribe = database.collection('chats').orderBy('createdAt', 'desc').onSnapshot(snapshot => setMessages(
-            snapshot.docs.map(doc => ({
+        const fetchMessageAsync = async () => {
+            // const chatsCol = collection(database, 'chats').orderBy('createdAt', 'desc');
+            const chatsCol = await collection(database, 'chats');
+            const chatSnapshot = await getDocs(chatsCol);
+            const messageList = chatSnapshot.docs.map(doc => ({
                 _id: doc.data()._id,
                 createdAt: doc.data().createdAt.toDate(),
                 text: doc.data().text,
                 user: doc.data().user,
-            }))
-        ));
-    });
+            }));
+            setMessages(messageList);
+        };
+        fetchMessageAsync();
 
-    const onSend = useCallback((messages = []) => {
+    }, []);
+
+    const onSend = useCallback(async (messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
+        console.log("Message ID::::::::::: ", messages[0]);
         const {_id, createdAt, text, user,} = messages[0];
-        database.collection('chats').add({_id, createdAt, text, user})
-
+        const chatsCol = await collection(database, 'chats');
+        console.log("chatsCol ID::::::::::: ", chatsCol);
+        const newDoc = await addDoc(chatsCol, {_id, createdAt, text, user});
+        console.log("Document ID::::::::::: ", newDoc);
     }, []);
 
     return (
