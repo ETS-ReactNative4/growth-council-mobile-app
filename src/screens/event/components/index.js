@@ -57,39 +57,28 @@ const Event = props => {
             style={{
               alignItems: 'center',
             }}>
-			
-				<View style={styles.topbanner}>
-				{!isEventLoaded && (
-					<Text style={styles.headingText1}>{events.title}</Text>
-				)}
-				</View>
-			
-			
+
+            <View style={styles.topbanner}>
+              {!isEventLoaded && (
+                <Text style={styles.headingText1}>{events.title}</Text>
+              )}
+              <View style={styles.poe}>
+                <Text style={{fontSize: 12}}>Megatrend Workshop</Text>
+              </View>
+            </View>
+
           </View>
-          <View
-            style={{
-              height: 28,
-              position: 'absolute',
-              top: 90,
-              left: 40,
-              backgroundColor: '#ffff',
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingLeft: 10,
-              paddingRight: 10,
-            }}>
-            <Text>Megatrend Workshop</Text>
-          </View>
+
           <View>
             <View style={[styles.content, {height: 'auto'}]}>
-              <View style={{height: 150, flexDirection: 'column'}}>
+              <View style={{flexDirection: 'column'}}>
                 <View
                   style={{
                     flex: 1,
-                    paddingTop: 5,
-                    paddingBottom: 5,
+                    paddingTop: 20,
                     flexDirection: 'row',
                   }}>
+
 				
 					<View
 						style={{
@@ -106,6 +95,11 @@ const Event = props => {
 			
 				  
 				
+
+                  <View style={styles.infoicon}>
+                    <MaterialIcons name={'event'} size={18} color={'white'} />
+                  </View>
+
                   <View
                     style={{
                       flex: 4,
@@ -118,7 +112,7 @@ const Event = props => {
                     )}
 
                     {!isEventLoaded && (
-                      <Text>
+                      <Text style={{fontSize: 14}}>
                         {events.event_meta._start_hour}:
                         {events.event_meta._start_minute}
                         {events.event_meta._start_ampm} /
@@ -132,47 +126,27 @@ const Event = props => {
                   <View
                     style={{
                       flex: 1,
-                      height: 60,
-                      width: 30,
-                      borderRadius: 15,
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}>
                     <Feather
                       name={'plus-circle'}
-                      size={35}
+                      size={30}
                       color={'rgba(54,147,172,1)'}
                     />
                   </View>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                    paddingTop: 5,
-                    paddingBottom: 5,
-                    flexDirection: 'row',
-                  }}>
 
-			
-					<View
-						style={{
-						flex: 1,
-						backgroundColor: 'rgba(54,147,172,1)',
-						height: 60,
-						width: 30,
-						borderRadius: 15,
-						justifyContent: 'center',
-						alignItems: 'center',
-						}}>
-						 <Ionicons
-							name={'location-outline'}
-							size={35}
-							color={'white'}
-							/>
-					</View>
-					
-				
-                 
+
+                <View style={styles.address}>
+                  <View style={styles.infoicon}>
+                    <Ionicons
+                      name={'location-outline'}
+                      size={18}
+                      color={'white'}
+                    />
+                  </View>
+
                   {!isEventLoaded && (
                     <View
                       style={{
@@ -190,8 +164,8 @@ const Event = props => {
                   <View
                     style={{
                       flex: 1,
-                      height: 60,
-                      width: 30,
+                      height: 22,
+                      width: 54,
                       borderRadius: 15,
                       justifyContent: 'center',
                       alignItems: 'center',
@@ -203,29 +177,24 @@ const Event = props => {
                 </View>
               </View>
 
-              <View style={{height: 150}}>
-                <View style={{marginTop: 25}}>
+              <View style={styles.seperationline} />
+
+              <View>
+                <View>
                   <Text style={styles.contentHeading}>Hosted By</Text>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                    paddingTop: 5,
-                    paddingBottom: 5,
-                    flexDirection: 'row',
-                    marginTop: 10,
-                  }}>
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: 'rgba(54,147,172,1)',
-                        height: 60,
-                        width: 30,
-                        borderRadius: 15,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      <Image source={{uri: events?.organizer_image}} style={{width:30, height:60}} />
+
+                <View style={styles.hostdetail}>
+                  {!isEventLoaded && (
+                    <View style={styles.hostimage}>
+                      <Image
+                        source={{uri: events?.organizer_image}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                        }}
+                      />
+
                     </View>
                  
                   <View
@@ -238,28 +207,14 @@ const Event = props => {
                     </Text>
                     <Text>{events?.organizer?.description}</Text>
                   </View>
-                  <View
-                    style={{
-                      flex: 2,
-                      height: 60,
-                      width: 30,
-                      borderRadius: 15,
-                      justifyContent: 'center',
-                      alignItems: 'flex-end',
-                    }}>
-                    <Button
-                      style={{
-                        width: '85%',
-                        height: 40,
-                        backgroundColor: '#183863',
-                        borderRadius: 15,
-                      }}
-                      onPress={() => navigation.navigate('SignUp')}>
+                  <View style={styles.eventaddress}>
+                    <Button style={styles.followbtn}>
                       <Text
-                        style={[
-                          styles.acceptButtonText,
-                          {fontWeight: 'bold', fontSize: 15},
-                        ]}>
+                        style={{
+                          fontWeight: 'bold',
+                          fontSize: 15,
+                          color: '#F5F5F5',
+                        }}>
                         Follow
                       </Text>
                     </Button>
@@ -267,17 +222,16 @@ const Event = props => {
                 </View>
               </View>
 
+              <View style={styles.seperationline} />
+
               <View>
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
-                  <HTMLView value={events.description} stylesheet={styles} />
-                  // <Text style={styles.contentText}>
-
-                  // </Text>
+                  <HTMLView value={events.description} style={{fontSize: 14}} />
                 )}
               </View>
 
-              <View>
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <Button
                   style={styles.acceptButton}
                   onPress={() => navigation.navigate('SignUp')}>
@@ -313,15 +267,16 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 22,
     color: '#ffff',
   },
   contentHeading: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
     color: Colors.NONARY_TEXT_COLOR,
-    fontWeight: 'bold',
-    fontSize: 17,
+    fontWeight: 'semi-bold',
+    fontSize: 14,
+    marginBottom: 15,
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,
@@ -331,26 +286,34 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     color: Colors.TERTIARY_TEXT_COLOR,
     textAlign: 'left',
+    fontWeight: 'regular',
   },
   acceptButton: {
     borderRadius: 10,
+    marginLeft: 15,
+    marginRight: 15,
     width: '100%',
     height: 50,
-    backgroundColor: 'rgba(242,103,34,1)',
+    backgroundColor: '#F26722',
+    marginTop: 25,
   },
   acceptButtonText: {
+    width: 146,
+    height: 20,
+    fontSize: 14,
     color: '#ffffff',
   },
   topbanner: {
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 100,
-    width: '80%',
+    height: 90,
+    width: 318,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 100,
     marginBottom: 20,
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 20,
+    position: 'relative',
   },
   topbanner1: {
     backgroundColor: 'rgba(54,147,172,1)',
@@ -378,6 +341,69 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     marginBottom: 0,
+  },
+  poe: {
+    height: 22,
+    width: 148,
+    position: 'absolute',
+    top: -15,
+    left: 0,
+    backgroundColor: '#ffff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  infoicon: {
+    flex: 1,
+    backgroundColor: 'rgba(54,147,172,1)',
+    height: 48,
+    width: 48,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  address: {
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    flexDirection: 'row',
+  },
+  seperationline: {
+    marginTop: 20,
+    marginBottom: 20,
+    borderBottomColor: '#F6F4F4',
+    borderBottomWidth: 1,
+  },
+  hostdetail: {
+    flex: 1,
+    paddingTop: 5,
+    paddingBottom: 5,
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  hostimage: {
+    flex: 1,
+    backgroundColor: 'rgba(54,147,172,1)',
+    height: 64,
+    width: 62,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  eventaddress: {
+    flex: 2,
+    height: 60,
+    width: 30,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  followbtn: {
+    width: 92,
+    height: 36,
+    backgroundColor: '#183863',
+    borderRadius: 15,
   },
 });
 export default Event;
