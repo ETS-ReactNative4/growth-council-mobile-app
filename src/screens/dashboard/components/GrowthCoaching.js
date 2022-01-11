@@ -9,7 +9,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
@@ -22,12 +21,12 @@ const GrowthCoaching = props => {
     growthCoachingLoading,
     growthCoachingError,
     fetchAllgrowthCoaching,
-    cleangrowthCoaching,
+    cleanGrowthCoaching,
     growthCoachingMemberContents,
     growthCoachingMemberContentLoading,
     growthCoachingMemberContentError,
     fetchAllgrowthCoachingMemberContent,
-    cleangrowthCoachingMemberContent,
+    cleanGrowthCoachingMemberContent,
   } = props;
 
   useEffect(() => {
@@ -49,74 +48,63 @@ const GrowthCoaching = props => {
 
   const _renderItem = ({item, index}) => {
     return (
-		<View style={styles.bottomWrapper}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: "90%",
-				height: 80,
-				marginTop:6,
-				borderRadius:20,
-			}}/>
-		<Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-		<Text style={{fontSize: 8}}>Frost and Sullivan</Text>
-		<View
-		  style={{
-			borderRadius: 50,
-			backgroundColor: '#EBECF0',
-			width: 25,
-			height: 23,
-			justifyContent: 'center',
-			marginLeft: 40,
-			marginTop: 5,
-		  }}>
-		  <Ionicons
-			name={'chatbox'}
-			size={17}
-			color="grey"
-			style={{marginLeft: 3}}
-		  />
-		</View>
-	  </View>
+      <View style={styles.bottomWrapper}>
+        <Image
+          source={{uri: item.avatar}}
+          style={{
+            width: '90%',
+            height: 80,
+            marginTop: 6,
+            borderRadius: 20,
+          }}
+        />
+        <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
+        <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: '#EBECF0',
+            width: 25,
+            height: 23,
+            justifyContent: 'center',
+            marginLeft: 40,
+            marginTop: 5,
+          }}>
+          <Ionicons
+            name={'chatbox'}
+            size={17}
+            color="grey"
+            style={{marginLeft: 3}}
+          />
+        </View>
+      </View>
     );
   };
 
   const data1 = [
     {
       icon: 'brain',
-      text: 'Executive MindChange',
-    },
-    {
-      icon: 'location-arrow',
-      text: 'Megatrends Workshop',
-    },
-    {
-      icon: 'window-maximize',
-      text: 'Annual Council Meeting',
-    },
-    {
-      icon: 'clipboard',
-      text: 'BrainStorming Strategy Discussion',
+      text: 'Growth Leadership Coaching',
     },
   ];
 
-  //   const _renderMiddleItem = ({item, index}) => {
-  //     return (
-  //       <TouchableOpacity
-  //         onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-  //         <View style={styles.middleWrapper}>
-  //           <View style={styles.middleW}>
-  //             <Font name={item.icon} size={30} color="#92CA91" />
-  //           </View>
-  //           <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
-  //         </View>
-  //       </TouchableOpacity>
-  //     );
-  //   };
+  const _renderMiddleItem = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('GrowthDetail')}>
+        <View style={styles.middleWrapper}>
+          <View style={styles.middleW}>
+            <Font name={item.icon} size={30} color="#92CA91" />
+          </View>
+          <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -145,7 +133,11 @@ const GrowthCoaching = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
+              <Text style={styles.headingText2}>
+                {' '}
+                Hosted by {item?.organizer?.term_name}
+                {item?.organizer?.description}
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -167,14 +159,15 @@ const GrowthCoaching = props => {
 
   const _renderContentItem = ({item, index}) => {
     return (
-      <View style={styles.ContentWrapper}>
+      <View style={styles.ContentWrapper} key={index}>
         <ImageBackground
           style={{
             width: '100%',
             height: 190,
             borderRadius: 20,
           }}
-          source={item?.uri}></ImageBackground>
+          source={item?.uri}
+        />
       </View>
     );
   };
@@ -242,7 +235,7 @@ const GrowthCoaching = props => {
           </View>
         </View>
 
-        {/* <View style={styles.middle}>
+        <View style={styles.middle}>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
             Points of Engagement
           </Text>
@@ -259,7 +252,7 @@ const GrowthCoaching = props => {
               renderItem={_renderMiddleItem}
             />
           </View>
-        </View> */}
+        </View>
 
         <View style={styles.bottom}>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
@@ -324,15 +317,15 @@ const styles = StyleSheet.create({
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    marginTop: 5,
     fontWeight: '800',
     color: 'white',
-	fontSize:16
+    fontSize: 16,
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    fontWeight: '700',
+    fontWeight: '400',
     color: 'white',
   },
   middle: {
@@ -363,14 +356,8 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   bottom: {
-    height: 220,
-    margin: 10,
-    width: 400,
-  },
-  bottom: {
     height: 200,
     margin: 10,
-
   },
   bottomWrapper: {
     width: 90,
@@ -380,7 +367,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
- 
   content: {
     height: 250,
     marginTop: 20,

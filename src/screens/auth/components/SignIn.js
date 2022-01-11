@@ -15,7 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
-import { Linking } from 'react-native'
+import {Linking} from 'react-native'
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
@@ -88,11 +88,11 @@ const SignInForm = (props) => {
                             }
 
                             <View style={styles.body}>
-								{loading &&
-								<View style={styles.loading1}>
-									<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-								</View>
-								}
+                                {loading &&
+                                <View style={styles.loading1}>
+                                    <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
+                                </View>
+                                }
                                 <FlatTextInput
                                     label='Email'
                                     value={values.username}
@@ -102,6 +102,9 @@ const SignInForm = (props) => {
                                     touched={touched.username}
                                     //keyboardType={'email-address'}
                                 />
+                                {errors.username &&
+                                <Text style={{fontSize: 10, color: 'red'}}>{errors.username}</Text>
+                                }
 
                                 <FlatTextInput
                                     label='Password'
@@ -112,6 +115,10 @@ const SignInForm = (props) => {
                                     error={errors.password}
                                     touched={touched.password}
                                 />
+                                {errors.password &&
+                                <Text style={{fontSize: 10, color: 'red'}}>{errors.password}</Text>
+                                }
+
                                 <Ionicons
                                     name={hidePass ? 'eye-outline' : 'eye-off-outline'}
                                     size={25}
@@ -135,17 +142,20 @@ const SignInForm = (props) => {
                             </View>
                             <View style={styles.forgotButtonWrapper}>
                                 <TouchableOpacity>
-                                    <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot Password?</Text>
+                                    <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot
+                                        Password?</Text>
                                 </TouchableOpacity>
-                             </View>
+                            </View>
                             <View style={styles.signuptext}>
                                 <Text>Not a member ?</Text>
-                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Sign Up </Text>
+                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Sign
+                                    Up </Text>
                             </View>
                             <View style={[styles.signuptext, {marginTop: 40}]}>
                                 <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/>
                                 <Text>Need Help? </Text>
-                                <Text style={{color: '#31ade5'}} onPress={() => Linking.openURL('mailto:contact@frost.com') }> Contact Us </Text>
+                                <Text style={{color: '#31ade5'}}
+                                      onPress={() => Linking.openURL('mailto:contact@frost.com')}> Contact Us </Text>
                             </View>
 
                         </View>
@@ -185,8 +195,8 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
-		fontWeight:"bold",
-		fontSize:20
+        fontWeight: "bold",
+        fontSize: 20
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -231,13 +241,13 @@ const styles = StyleSheet.create({
     signuptext: {
         flexDirection: 'row',
     },
-	loading1:{
-		marginLeft:50,
-		flex: 1,
-		flexDirection: 'column',
-		position: 'absolute',
-		zIndex: 1011,
-	}
+    loading1: {
+        marginLeft: 50,
+        flex: 1,
+        flexDirection: 'column',
+        position: 'absolute',
+        zIndex: 1011,
+    }
 });
 
 

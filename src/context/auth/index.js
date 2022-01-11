@@ -3,7 +3,7 @@ import axios from 'axios';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import {setAsyncStorage, clearAsyncStorage} from '../../utils/storageUtil';
-import {JWT_TOKEN, API_URL} from '../../constants';
+import {JWT_TOKEN, API_URL, USER_NAME, USER_AVATAR} from '../../constants';
 import {navigate} from '../../utils/navigationUtil';
 import {auth} from '../../utils/firebaseUtil';
 
@@ -31,10 +31,12 @@ export const AuthProvider = ({children}) => {
                     });
                     if (response.data.token) {
                         await setAsyncStorage(JWT_TOKEN, response.data.token);
-                        const response = await signInWithEmailAndPassword(auth, response?.data?.email, response?.data?.firebase_password);
-                        const token = await response.user;
-                        console.log('THIS IS THE RESPONSE', token);
-                        if (token)
+                        await setAsyncStorage(USER_NAME, response.data.user_display_name);
+                        await setAsyncStorage(USER_AVATAR, response.data.avatar);
+                        // const response = await signInWithEmailAndPassword(auth, response?.data?.email, response?.data?.firebase_password);
+                        // const token = await response.user;
+                        // console.log('THIS IS THE RESPONSE', token);
+                        // if (token)
                             navigate('Dashboard');
                     } else {
                         setLoading(false);
@@ -47,6 +49,8 @@ export const AuthProvider = ({children}) => {
             },
             signOut: async () => {
                 await clearAsyncStorage(JWT_TOKEN);
+                await clearAsyncStorage(USER_NAME);
+                await clearAsyncStorage(USER_AVATAR);
                 navigate('SignIn');
             },
         }}>

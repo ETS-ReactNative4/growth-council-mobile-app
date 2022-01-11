@@ -9,7 +9,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
@@ -22,79 +21,68 @@ const BestPractice = props => {
     bestPracticeLoading,
     bestPracticeError,
     fetchAllbestPractice,
-    cleanbestPractice,
+    cleanBestPractice,
     bestPracticesMemberContents,
     bestPracticesMemberContentLoading,
     bestPracticesMemberContentError,
     fetchAllbestPracticesMemberContent,
-    cleanbestPracticesMemberContent,
+    cleanBestPracticesMemberContent,
   } = props;
 
   const _renderItem = ({item, index}) => {
     return (
-		<View style={styles.bottomWrapper}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: "90%",
-				height: 80,
-				marginTop:6,
-				borderRadius:20,
-			}}/>
-		<Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-		<Text style={{fontSize: 8}}>Frost and Sullivan</Text>
-		<View
-		  style={{
-			borderRadius: 50,
-			backgroundColor: '#EBECF0',
-			width: 25,
-			height: 23,
-			justifyContent: 'center',
-			marginLeft: 40,
-			marginTop: 5,
-		  }}>
-		  <Ionicons
-			name={'chatbox'}
-			size={17}
-			color="grey"
-			style={{marginLeft: 3}}
-		  />
-		</View>
-	  </View>
+      <View style={styles.bottomWrapper} key={index}>
+        <Image
+          source={{uri: item.avatar}}
+          style={{
+            width: '90%',
+            height: 80,
+            marginTop: 6,
+            borderRadius: 20,
+          }}
+        />
+        <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
+        <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: '#EBECF0',
+            width: 25,
+            height: 23,
+            justifyContent: 'center',
+            marginLeft: 40,
+            marginTop: 5,
+          }}>
+          <Ionicons
+            name={'chatbox'}
+            size={17}
+            color="grey"
+            style={{marginLeft: 3}}
+          />
+        </View>
+      </View>
     );
   };
 
   const data1 = [
     {
-      icon: 'brain',
-      text: 'Executive MindChange',
-    },
-    {
       icon: 'location-arrow',
       text: 'Megatrends Workshop',
     },
-    {
-      icon: 'window-maximize',
-      text: 'Annual Council Meeting',
-    },
-    {
-      icon: 'clipboard',
-      text: 'BrainStorming Strategy Discussion',
-    },
   ];
 
-  // const _renderMiddleItem = ({item, index}) => {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-  //       <View style={styles.middleWrapper}>
-  //         <View style={styles.middleW}>
-  //           <Font name={item.icon} size={30} color="skyblue" />
-  //         </View>
-  //         <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
-  //       </View>
-  //     </TouchableOpacity>
-  //   );
-  // };
+  const _renderMiddleItem = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
+        <View style={styles.middleWrapper}>
+          <View style={styles.middleW}>
+            <Font name={item.icon} size={30} color="skyblue" />
+          </View>
+          <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -128,7 +116,11 @@ const BestPractice = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>{item.text1}</Text>
+              <Text style={styles.headingText2}>
+                Hosted by {item?.organizer?.term_name}
+                {', '}
+                {item?.organizer?.description}
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -157,7 +149,8 @@ const BestPractice = props => {
             height: 190,
             borderRadius: 20,
           }}
-          source={item?.uri}></ImageBackground>
+          source={item?.uri}
+        />
       </View>
     );
   };
@@ -202,11 +195,10 @@ const BestPractice = props => {
           </View>
         </View>
 
-        {/* <View style={styles.middle}>
+        <View style={styles.middle}>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
             Points of Engagement
           </Text>
-
           <View
             style={{
               display: 'flex',
@@ -219,7 +211,7 @@ const BestPractice = props => {
               renderItem={_renderMiddleItem}
             />
           </View>
-        </View> */}
+        </View>
 
         <View style={styles.bottom}>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
@@ -237,7 +229,6 @@ const BestPractice = props => {
 
         <View style={styles.content}>
           <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
-            {' '}
             Growth Coaching Content
           </Text>
           <View
@@ -284,15 +275,15 @@ const styles = StyleSheet.create({
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    marginTop: 5,
     fontWeight: '800',
     color: 'white',
-	fontSize:16
+    fontSize: 16,
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    fontWeight: '700',
+    fontWeight: '400',
     color: 'white',
   },
   middle: {
@@ -325,7 +316,6 @@ const styles = StyleSheet.create({
   bottom: {
     height: 200,
     margin: 10,
-
   },
   bottomWrapper: {
     width: 90,

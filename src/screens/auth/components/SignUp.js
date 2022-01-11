@@ -23,13 +23,19 @@ import CheckBox from '../../../shared/form/Checkbox';
 import ToastMessage from '../../../shared/toast';
 import {auth} from "../../../utils/firebaseUtil";
 
+const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const signUpSchema = Yup.object().shape({
     first_name: Yup.string().required('First Name is required.'),
     last_name: Yup.string().required('Last Name is required.'),
-    email: Yup.string().email('Please enter a valid email.').required('Email is required.'),
     // password: Yup.string()
     //     .min(6, ({min}) => `Password must be at least ${min} characters.`)
     //     .required('Password is required.'),
+    email: Yup.string()
+        .email('Please enter valid email')
+        .required('Email Address is Required'),
+    phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
 
 const SignUpForm = props => {
@@ -46,10 +52,11 @@ const SignUpForm = props => {
         errors,
         touched,
         isValid,
-        setFieldValue,
+        setFieldValue
     } = useFormik({
         validationSchema: signUpSchema,
         initialValues: {
+            name: '',
             first_name: '',
             last_name: '',
             username: 'admin21',
@@ -58,10 +65,12 @@ const SignUpForm = props => {
             company: '',
             phone: '',
             email: '',
+            country: '',
             firebase_password: uuid.v4()
         },
-        onSubmit: async (values) => {
+        onSubmit: async values => {
             values.name = values.first_name + " " + values.last_name;
+            console.log("values:::::::::::::::::", values);
             try {
                 const response = await createUserWithEmailAndPassword(auth, values?.email, values?.firebase_password);
                 const token = await response.user.getIdToken();
@@ -88,7 +97,7 @@ const SignUpForm = props => {
         },
     });
 
-    const [country, setCountry] = useState('Select Country');
+    const [country, setCountry] = useState('Country');
 
     const countries = [
         'Afghanistan',
@@ -299,7 +308,7 @@ const SignUpForm = props => {
                     backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
                 />
 
-                <View style={{height: '15%'}}/>
+                <View style={{height: '15%'}} />
 
                 <View style={styles.content}>
                     <View style={styles.header}>
@@ -317,7 +326,7 @@ const SignUpForm = props => {
                                 position: 'absolute',
                                 zIndex: 1011,
                             }}>
-                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
+                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} />
                         </View>
                     )}
                     <ScrollView style={styles.scrollBox}>
@@ -330,6 +339,9 @@ const SignUpForm = props => {
                                 error={errors.first_name}
                                 touched={touched.first_name}
                             />
+                            {errors.first_name &&
+                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.first_name}</Text>
+                            }
 
                             <FlatTextInput
                                 label="Last Name"
@@ -340,6 +352,10 @@ const SignUpForm = props => {
                                 touched={touched.last_name}
                             />
 
+                            {errors.last_name &&
+                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.last_name}</Text>
+                            }
+
                             <FlatTextInput
                                 label="Title"
                                 value={values.title}
@@ -348,6 +364,9 @@ const SignUpForm = props => {
                                 error={errors.title}
                                 touched={touched.title}
                             />
+                            {errors.title &&
+                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.title}</Text>
+                            }
 
                             <FlatTextInput
                                 label="Company"
@@ -357,6 +376,9 @@ const SignUpForm = props => {
                                 error={errors.company}
                                 touched={touched.company}
                             />
+                            {errors.company &&
+                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.company}</Text>
+                            }
 
                             <FlatTextInput
                                 label="Business Phone"
@@ -366,6 +388,9 @@ const SignUpForm = props => {
                                 error={errors.phone}
                                 touched={touched.phone}
                             />
+                            {errors.phone &&
+                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.phone}</Text>
+                            }
 
                             <FlatTextInput
                                 label="Business Email"
@@ -375,6 +400,9 @@ const SignUpForm = props => {
                                 error={errors.email}
                                 touched={touched.email}
                             />
+                            {errors.email &&
+                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
+                            }
 
                             <Picker
                                 selectedValue={country}
@@ -383,6 +411,7 @@ const SignUpForm = props => {
                                     height: 70,
                                     width: '100%',
                                 }}
+                               // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
                                 onValueChange={(itemValue, itemIndex) => {
                                     setFieldValue('country', itemValue);
                                     setCountry(itemValue);
