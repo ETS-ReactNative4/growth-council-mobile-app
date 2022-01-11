@@ -12,13 +12,14 @@ import {
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
+import {Button} from 'native-base';
+import {BubblesLoader} from 'react-native-indicator';
+
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
-import {Button} from 'native-base';
 import { PRIMARY_BACKGROUND_COLOR } from '../../../theme/colors';
-import {BubblesLoader} from 'react-native-indicator';
 
 const Profile = (props) => {
     const {
@@ -44,9 +45,9 @@ const Profile = (props) => {
     const [value, setValue] = useState('My Events');
 
 
-	const _renderItems = ({item, index}) => {
+    const _renderItems = ({item, index}) => {
         return (
-            <View style={[styles.middleWrapper, styles.shadowProp]}>
+            <View style={[styles.middleWrapper, styles.shadowProp]} key={index}>
                 <View style={styles.wrapper}>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
@@ -114,7 +115,7 @@ const Profile = (props) => {
                             color="#0B0B45"
 
                         />
-						<Text style={{color: 'black', marginLeft: 5}}></Text>
+                        <Text style={{color: 'black', marginLeft: 5}}/>
                         <Ionicon
                             name={'calendar'}
                             size={15}
@@ -130,7 +131,10 @@ const Profile = (props) => {
                             color="#0B0B45"
 
 
-                        /><Text style={{color: 'black', marginLeft: 5}}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
+                        /><Text style={{
+                        color: 'black',
+                        marginLeft: 5
+                    }}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
                         <Ionicon
                             name={'location'}
                             size={15}
@@ -138,7 +142,7 @@ const Profile = (props) => {
                             style={{marginLeft: 20}}
 
                         />
-						<Text style={{color: 'black', marginLeft: 5}}>{item.location?.location_address}</Text>
+                        <Text style={{color: 'black', marginLeft: 5}}>{item.location?.location_address}</Text>
                     </View>
 
 
@@ -151,6 +155,14 @@ const Profile = (props) => {
 
         );
     };
+
+    useEffect(() => {
+        const fetchProfileAsync = async () => {
+            await fetchProfileByIdentifier();
+        };
+        fetchProfileAsync();
+    }, []);
+
 
     useEffect(() => {
         const fetchProfileEventAsync = async () => {

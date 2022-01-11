@@ -17,6 +17,8 @@ import SettingScreen from '../screens/setting/index';
 
 import BottomTabNavigation from "./BottomTabNavigation";
 import {CommonStyles, Colors, Typography} from '../theme';
+import HeaderTitle from "../shared/header";
+import HeaderRight from "../shared/header/HeaderRight";
 
 const Drawer = createDrawerNavigator();
 
@@ -70,13 +72,10 @@ const DrawerNavigation = ({navigation}) => {
         <Drawer.Navigator
             initialRouteName="Dashboard"
             screenOptions={({navigation}) => ({
-				
-				
+                activeTintColor: '#e91e63',
+                itemStyle: {marginVertical: 5},
                 headerTitle: () => (
-                    <View style={{marginLeft: 40}}>
-                        <Text style={{marginTop: 10, color: "#000", fontSize: 15}}>Good Morning</Text>
-                        <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Edward</Text>
-                    </View>
+                    <HeaderTitle/>
                 ),
                 headerLeft: () => (
                     <View>
@@ -95,31 +94,11 @@ const DrawerNavigation = ({navigation}) => {
                     </View>
                 ),
                 headerRight: () => (
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
-                        <Ionicons name="search-outline" color={'#000'} size={24}
-                                  style={{marginTop: 10, marginRight: 10}}/>
-						<TouchableOpacity
-                        onPress={() => navigation.navigate("Profile")}>
-							 <Image source={require('../assets/img/small_profile_image.png')}
-                               style={{
-                                   height: 40,
-                                   width: 40,
-                                   borderRadius: 50,
-                                   marginRight: 20,
-                               }}
-                        />
-						</TouchableOpacity>
-                       
-                    </View>
+                    <HeaderRight/>
                 ),
 
             })}
-            drawerContentOptions={{
-                activeTintColor: '#e91e63',
-                itemStyle: {marginVertical: 5},
-            }}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
-
         >
             <Drawer.Screen
                 name="Dashboard"
@@ -208,11 +187,11 @@ const DrawerNavigation = ({navigation}) => {
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="calendar-outline" color={'#00008B'} size={24}/>
                     ),
-					headerTitle: () => (
-						<View style={{marginLeft: 40}}>
-							<Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Calendar</Text>
-						</View>
-					),
+                    headerTitle: () => (
+                        <View style={{marginLeft: 40}}>
+                            <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Calendar</Text>
+                        </View>
+                    ),
                 })}/>
             <Drawer.Screen
                 name="About"
@@ -221,11 +200,11 @@ const DrawerNavigation = ({navigation}) => {
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="information-circle-outline" color={'#00008B'} size={24}/>
                     ),
-					headerTitle: () => (
-						<View style={{marginLeft: 40}}>
-							<Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>About</Text>
-						</View>
-					),
+                    headerTitle: () => (
+                        <View style={{marginLeft: 40}}>
+                            <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>About</Text>
+                        </View>
+                    ),
                 })}
             />
             <Drawer.Screen
@@ -235,11 +214,11 @@ const DrawerNavigation = ({navigation}) => {
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="settings-outline" color={'#00008B'} size={24}/>
                     ),
-					headerTitle: () => (
-						<View style={{marginLeft: 40}}>
-							<Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Setting</Text>
-						</View>
-					),
+                    headerTitle: () => (
+                        <View style={{marginLeft: 40}}>
+                            <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Setting</Text>
+                        </View>
+                    ),
                 })}
             />
             <Drawer.Screen
@@ -249,11 +228,11 @@ const DrawerNavigation = ({navigation}) => {
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="thumbs-up-outline" color={'#00008B'} size={24}/>
                     ),
-					headerTitle: () => (
-						<View style={{marginLeft: 40}}>
-							<Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Feedback</Text>
-						</View>
-					),
+                    headerTitle: () => (
+                        <View style={{marginLeft: 40}}>
+                            <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Feedback</Text>
+                        </View>
+                    ),
                 })}
             />
             <Drawer.Screen
@@ -263,11 +242,11 @@ const DrawerNavigation = ({navigation}) => {
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="bulb-outline" color={'#00008B'} size={24}/>
                     ),
-					headerTitle: () => (
-						<View style={{marginLeft: 40}}>
-							<Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Contribute Ideas</Text>
-						</View>
-					),
+                    headerTitle: () => (
+                        <View style={{marginLeft: 40}}>
+                            <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Contribute Ideas</Text>
+                        </View>
+                    ),
                 })}
             />
 

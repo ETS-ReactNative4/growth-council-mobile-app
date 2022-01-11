@@ -1,42 +1,41 @@
 import React, {useEffect} from 'react';
 import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  ImageBackground,
-  ScrollView,
-  FlatList,
-  TouchableOpacity,
+    StyleSheet,
+    View,
+    Image,
+    Text,
+    ImageBackground,
+    ScrollView,
+    FlatList,
+    TouchableOpacity,
 } from 'react-native';
-import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const HomeCommunity = props => {
-  const {
-    navigation,
-    communities,
-    communityLoading,
-    communityError,
-    fetchAllCommunity,
-    cleanCommunity,
-    pointOfEngagements,
-    pointOfEngagementLoading,
-    pointOfEngagementError,
-    fetchAllPointOfEngagement,
-    cleanPointOfEngagement,
-    communityMemberContents,
-    communityMemberContentLoading,
-    communityMemberContentError,
-    fetchAllCommunityMemberContent,
-    cleanCommunityMemberContent,
-  } = props;
+    const {
+        navigation,
+        communities,
+        communityLoading,
+        communityError,
+        fetchAllCommunity,
+        cleanCommunity,
+        pointOfEngagements,
+        pointOfEngagementLoading,
+        pointOfEngagementError,
+        fetchAllPointOfEngagement,
+        cleanPointOfEngagement,
+        communityMemberContents,
+        communityMemberContentLoading,
+        communityMemberContentError,
+        fetchAllCommunityMemberContent,
+        cleanCommunityMemberContent,
+    } = props;
 
-  console.log('Communities :::::::::::::::::', communities);
-  console.log('Members :::::::::::::::::', communityMemberContents);
+    console.log('Communities :::::::::::::::::', communities);
+    console.log('Members :::::::::::::::::', communityMemberContents);
 
     const _renderItem = ({item, index}) => {
         return (
@@ -66,38 +65,38 @@ const HomeCommunity = props => {
         );
     };
 
-  const data1 = [
-    {
-      icon: 'brain',
-      text: 'Executive MindChange',
-    },
-    {
-      icon: 'location-arrow',
-      text: 'Megatrends Workshop',
-    },
-    {
-      icon: 'window-maximize',
-      text: 'Annual Council Meeting',
-    },
-    {
-      icon: 'clipboard',
-      text: 'BrainStorming Strategy Discussion',
-    },
-  ];
+    const data1 = [
+        {
+            icon: 'brain',
+            text: 'Executive MindChange',
+        },
+        {
+            icon: 'location-arrow',
+            text: 'Megatrends Workshop',
+        },
+        {
+            icon: 'window-maximize',
+            text: 'Annual Council Meeting',
+        },
+        {
+            icon: 'clipboard',
+            text: 'BrainStorming Strategy Discussion',
+        },
+    ];
 
-  // const _renderMiddleItem = ({item, index}) => {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() => navigation.navigate('CommunityDetail', {id: item.ID})}>
-  //       <View style={styles.middleWrapper}>
-  //         <View style={styles.middleW}>
-  //           <Font name={item.icon} size={30} color="skyblue" />
-  //         </View>
-  //         <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
-  //       </View>
-  //     </TouchableOpacity>
-  //   );
-  // };
+    // const _renderMiddleItem = ({item, index}) => {
+    //   return (
+    //     <TouchableOpacity
+    //       onPress={() => navigation.navigate('CommunityDetail', {id: item.ID})}>
+    //       <View style={styles.middleWrapper}>
+    //         <View style={styles.middleW}>
+    //           <Font name={item.icon} size={30} color="skyblue" />
+    //         </View>
+    //         <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+    //       </View>
+    //     </TouchableOpacity>
+    //   );
+    // };
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -132,24 +131,27 @@ const HomeCommunity = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
-            </View>
-          </ImageBackground>
-        </TouchableOpacity>
-      </View>
-    );
-  };
+ 
+                        </View>
 
-  const pic = [
-    {
-      uri: require('../../../assets/img/welcome_screen_info_image.png'),
-    },
-    {
-      uri: require('../../../assets/img/image.png'),
-    },
-    {
-      uri: require('../../../assets/img/contactus.png'),
-    },
-  ];
+                       
+                    </ImageBackground>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
+    const pic = [
+        {
+            uri: require('../../../assets/img/welcome_screen_info_image.png'),
+        },
+        {
+            uri: require('../../../assets/img/image.png'),
+        },
+        {
+            uri: require('../../../assets/img/contactus.png'),
+        },
+    ];
 
   const _renderContentItem = ({item, index}) => {
     return (
@@ -166,44 +168,38 @@ const HomeCommunity = props => {
     );
   };
 
-  useEffect(() => {
-    const fetchAllCommunityAsync = async () => {
-      await fetchAllCommunity();
-    };
-    fetchAllCommunityAsync();
-  }, []);
 
-  useEffect(() => {
-    const fetchAllCommunityMemberContentAsync = async () => {
-      await fetchAllCommunityMemberContent();
-    };
-    fetchAllCommunityMemberContentAsync();
-  }, []);
+    useEffect(() => {
+        const fetchAllCommunityAsync = async () => {
+            await fetchAllCommunity();
+        };
+        fetchAllCommunityAsync();
+    }, []);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.top}>
-          <Text style={styles.title}>
-            {' '}
-            Growth Community Events
-          </Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-			  marginTop:10
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={communities}
-              renderItem={_renderTopItem}
-            />
-          </View>
-        </View>
+    
+        <ScrollView>
+            <View style={styles.container}>
+                <View style={styles.top}>
+                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                        {' '}
+                        Growth Community Events
+                    </Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={communities}
+                            renderItem={_renderTopItem}
+                        />
+                    </View>
+                </View>
 
-        {/* <View style={styles.middle}>
+                {/* <View style={styles.middle}>
                     <Text style={{fontWeight: 'bold', fontSize: 20}}>
                         Points of Engagement
                     </Text>
@@ -222,69 +218,55 @@ const HomeCommunity = props => {
                     </View>
                 </View> */}
 
-        <View style={styles.bottom}>
-          <Text style={styles.title}>
-            Growth Community Member
-          </Text>
-          <View>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={communityMemberContents.members}
-              renderItem={_renderItem}
-            />
-          </View>
-        </View>
+                <View style={styles.bottom}>
+                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                        Growth Community Member
+                    </Text>
+                    <View>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={communityMemberContents.members}
+                            renderItem={_renderItem}
+                        />
+                    </View>
+                </View>
 
-        <View style={styles.content}>
-          <Text style={styles.title}>
-            {' '}
-            Growth Coaching Content
-          </Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pic}
-              renderItem={_renderContentItem}
-            />
-          </View>
-        </View>
-		<View style={{ alignItems:'center'}}>
-			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
-			<Image 
-				source={require('../../../assets/img/footer_company_name_image.png')}
-				style={{width: '60%', marginTop: 10, marginBottom: 15}}
-			/>
-		</View>
-      </View>
-    </ScrollView>
-  );
+                <View style={styles.content}>
+                    <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
+                        {' '}
+                        Growth Coaching Content
+                    </Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={pic}
+                            renderItem={_renderContentItem}
+                        />
+                    </View>
+                </View>
+            </View>
+        </ScrollView>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-    width: '100%',
-  },
-  	top: {
-    height: 200,
-    marginTop: 20,
-    justifyContent: 'center',
-	marginLeft:5
-  },
-  title:{
-	fontWeight: '700',
-	fontSize: 14,
-	color:Colors.PRIMARY_TEXT_COLOR,
-	marginLeft:15, 
-	marginRight:15
-  },
+    container: {
+        ...CommonStyles.container,
+        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+        width: '100%',
+    },
+    top: {
+        height: 200,
+        marginTop: 40,
+        margin: 10,
+        justifyContent: 'center',
+    },
 
     topWrapper: {
 		height: 144,
@@ -297,9 +279,9 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     headingText1: {
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: Typography.FONT_NORMAL,
-        marginTop: 10,
+        marginTop: 5,
         fontWeight: '800',
         color: 'white',
 		fontSize: 12,
@@ -307,7 +289,7 @@ const styles = StyleSheet.create({
     headingText2: {
         ...CommonStyles.headingText2,
         fontFamily: Typography.FONT_NORMAL,
-        fontWeight: '700',
+        fontWeight: '400',
         color: 'white',
 		fontSize:8,
     },

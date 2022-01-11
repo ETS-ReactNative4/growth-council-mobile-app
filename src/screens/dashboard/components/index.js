@@ -13,6 +13,10 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import PillarList from './PillarList';
+import YouTube, {
+  YouTubeStandaloneIOS,
+  YouTubeStandaloneAndroid,
+} from 'react-native-youtube';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import { COACHING_COLOR, COMMUNITY_COLOR, PRACTICE_COLOR, PRIMARY_BACKGROUND_COLOR, PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR,TERTIARY_TEXT_COLOR } from '../../../theme/colors';
@@ -200,6 +204,8 @@ const Dashboard = props => {
 
   console.log("component", {pillarSliders})
 
+  const API_KEY = 'AIzaSyCIrwNfePDp3TOeOVUpVe59FjBQ_x9M6GM';
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -372,9 +378,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   headingText2: {
-   
     fontFamily: Typography.FONT_NORMAL,
-	color: Colors.SECONDARY_HEADING_COLOR,
+    color: Colors.SECONDARY_HEADING_COLOR,
     fontWeight: '700',
     color: 'white',
 	fontSize:8,

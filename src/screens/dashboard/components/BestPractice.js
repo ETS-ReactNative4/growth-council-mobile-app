@@ -9,7 +9,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
@@ -22,12 +21,12 @@ const BestPractice = props => {
     bestPracticeLoading,
     bestPracticeError,
     fetchAllbestPractice,
-    cleanbestPractice,
+    cleanBestPractice,
     bestPracticesMemberContents,
     bestPracticesMemberContentLoading,
     bestPracticesMemberContentError,
     fetchAllbestPracticesMemberContent,
-    cleanbestPracticesMemberContent,
+    cleanBestPracticesMemberContent,
   } = props;
 
   const _renderItem = ({item, index}) => {
@@ -60,36 +59,23 @@ const BestPractice = props => {
 
   const data1 = [
     {
-      icon: 'brain',
-      text: 'Executive MindChange',
-    },
-    {
       icon: 'location-arrow',
       text: 'Megatrends Workshop',
     },
-    {
-      icon: 'window-maximize',
-      text: 'Annual Council Meeting',
-    },
-    {
-      icon: 'clipboard',
-      text: 'BrainStorming Strategy Discussion',
-    },
   ];
 
-  // const _renderMiddleItem = ({item, index}) => {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-  //       <View style={styles.middleWrapper}>
-  //         <View style={styles.middleW}>
-  //           <Font name={item.icon} size={30} color="skyblue" />
-  //         </View>
-  //         <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
-  //       </View>
-  //     </TouchableOpacity>
-  //   );
-  // };
+  const _renderMiddleItem = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
+        <View style={styles.middleWrapper}>
+          <View style={styles.middleW}>
+            <Font name={item.icon} size={30} color="skyblue" />
+          </View>
+          <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -151,7 +137,8 @@ const BestPractice = props => {
             width: '100%',
             height:"100%",
           }}
-          source={item?.uri}></ImageBackground>
+          source={item?.uri}
+        />
       </View>
     );
   };
@@ -197,11 +184,10 @@ const BestPractice = props => {
           </View>
         </View>
 
-        {/* <View style={styles.middle}>
+        <View style={styles.middle}>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
             Points of Engagement
           </Text>
-
           <View
             style={{
               display: 'flex',
@@ -214,7 +200,7 @@ const BestPractice = props => {
               renderItem={_renderMiddleItem}
             />
           </View>
-        </View> */}
+        </View>
 
         <View style={styles.bottom}>
 			<Text style={styles.title}>
@@ -294,7 +280,7 @@ const styles = StyleSheet.create({
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    marginTop: 5,
     fontWeight: '800',
     color: 'white',
 	fontSize:12
@@ -302,7 +288,7 @@ const styles = StyleSheet.create({
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    fontWeight: '700',
+    fontWeight: '400',
     color: 'white',
 	fontSize:8,
   },

@@ -9,7 +9,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
@@ -22,12 +21,12 @@ const GrowthCoaching = props => {
     growthCoachingLoading,
     growthCoachingError,
     fetchAllgrowthCoaching,
-    cleangrowthCoaching,
+    cleanGrowthCoaching,
     growthCoachingMemberContents,
     growthCoachingMemberContentLoading,
     growthCoachingMemberContentError,
     fetchAllgrowthCoachingMemberContent,
-    cleangrowthCoachingMemberContent,
+    cleanGrowthCoachingMemberContent,
   } = props;
 
   useEffect(() => {
@@ -78,40 +77,27 @@ const GrowthCoaching = props => {
   const data1 = [
     {
       icon: 'brain',
-      text: 'Executive MindChange',
-    },
-    {
-      icon: 'location-arrow',
-      text: 'Megatrends Workshop',
-    },
-    {
-      icon: 'window-maximize',
-      text: 'Annual Council Meeting',
-    },
-    {
-      icon: 'clipboard',
-      text: 'BrainStorming Strategy Discussion',
+      text: 'Growth Leadership Coaching',
     },
   ];
 
-  //   const _renderMiddleItem = ({item, index}) => {
-  //     return (
-  //       <TouchableOpacity
-  //         onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-  //         <View style={styles.middleWrapper}>
-  //           <View style={styles.middleW}>
-  //             <Font name={item.icon} size={30} color="#92CA91" />
-  //           </View>
-  //           <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
-  //         </View>
-  //       </TouchableOpacity>
-  //     );
-  //   };
+  const _renderMiddleItem = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('GrowthDetail')}>
+        <View style={styles.middleWrapper}>
+          <View style={styles.middleW}>
+            <Font name={item.icon} size={30} color="#92CA91" />
+          </View>
+          <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -162,14 +148,15 @@ const GrowthCoaching = props => {
 
   const _renderContentItem = ({item, index}) => {
     return (
-      <View style={styles.ContentWrapper}>
+      <View style={styles.ContentWrapper} key={index}>
         <ImageBackground
           style={{
             width: '100%',
             height: 190,
             borderRadius: 20,
           }}
-          source={item?.uri}></ImageBackground>
+          source={item?.uri}
+        />
       </View>
     );
   };
@@ -238,7 +225,7 @@ const GrowthCoaching = props => {
           </View>
         </View>
 
-        {/* <View style={styles.middle}>
+        <View style={styles.middle}>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>
             Points of Engagement
           </Text>
@@ -255,7 +242,7 @@ const GrowthCoaching = props => {
               renderItem={_renderMiddleItem}
             />
           </View>
-        </View> */}
+        </View>
 
         <View style={styles.bottom}>
           <Text style={styles.title}>
@@ -334,7 +321,7 @@ const styles = StyleSheet.create({
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    marginTop: 5,
     fontWeight: '800',
     color: 'white',
 	fontSize:12
@@ -342,7 +329,7 @@ const styles = StyleSheet.create({
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    fontWeight: '700',
+    fontWeight: '400',
     color: 'white',
 	fontSize:8,
   },

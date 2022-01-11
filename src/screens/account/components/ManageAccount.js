@@ -50,6 +50,7 @@ const ManageAccount = (props) => {
         profileError,
         fetchProfileByIdentifier,
         cleanProfile,
+        userLoading,
         updateUser
     } = props;
 
@@ -75,11 +76,11 @@ const ManageAccount = (props) => {
                 if (response?.payload?.status === 200) {
                     navigation.navigate('Person');
                     ToastMessage.show('Your information has been successfully updated.');
+                    ToastMessage.show(values.email)
                 }
             });
         },
     });
-
 
     useEffect(() => {
         const fetchProfileAsync = async () => {
@@ -90,9 +91,8 @@ const ManageAccount = (props) => {
     }, []);
 
 
+    console.log(values);
 
-	console.log(values);
-	
 
     return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,}}>

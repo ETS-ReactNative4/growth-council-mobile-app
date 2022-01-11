@@ -34,6 +34,7 @@ import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
+import ChatScreen from '../screens/chat';
 
 const Stack = createStackNavigator();
 
@@ -231,8 +232,15 @@ const MainNavigation = () => {
             headerTitle: 'Session Detail',
           })}
         />
-		
-        
+          <Stack.Screen
+              name="Chat"
+              component={ChatScreen}
+              options={({route}) => ({
+                  userID: route?.params?.userID,
+                  friendID: route?.params?.friendID,
+                  headerTitle: 'Chat',
+              })}
+          />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'modal'}}>
