@@ -2,6 +2,7 @@ import React from 'react';
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 import {SafeAreaView, StyleSheet, TouchableOpacity, View, Image, Text, ImageBackground} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useSelector} from 'react-redux';
 
 import DashboardScreen from '../screens/dashboard';
 
@@ -60,6 +61,9 @@ const CustomDrawerContent = (props) => {
 };
 
 const DrawerNavigation = ({navigation}) => {
+
+	
+    const {profileEvent, profileEventLoading, profileEventError} = useSelector((state) => state.profileEvent);
 
     return (
         <Drawer.Navigator
