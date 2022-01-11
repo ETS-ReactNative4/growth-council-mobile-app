@@ -32,13 +32,13 @@ const People = (props) => {
 			<View style={styles.wrapper}>
 				<Image source={{uri:item.avatar}}
 					   style={{
-						   width: 100,
+						   width: 80,
 						   height: 90,
 						   margin: 8,
 						   borderRadius:20,
 					   }}
 				/>
-				<View style={{margin: 10, width: '50%'}}>
+				<View style={{margin: 10, width: '55%'}}>
 					<Text style={{fontSize: 18, fontWeight: "bold"}}>{item.displayname}</Text>
 					<Text style={{fontSize: 16}}>{item.user_meta.title}</Text>
 					<Text style={{fontSize: 14}}>{item.user_meta.company}</Text>

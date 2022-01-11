@@ -53,25 +53,24 @@ const GrowthCoaching = props => {
 		<Image source={{uri:item.avatar}}
 			style={{
 				width: "90%",
-				height: 80,
-				marginTop:6,
-				borderRadius:20,
+				height: 78,
+				borderRadius:10,
 			}}/>
-		<Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-		<Text style={{fontSize: 8}}>Frost and Sullivan</Text>
+		<Text style={{fontSize: 9, marginTop: 5, fontWeight:"500"}}>{item?.display_name}</Text>
+		<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
 		<View
 		  style={{
 			borderRadius: 50,
 			backgroundColor: '#EBECF0',
-			width: 25,
-			height: 23,
+			width: 18,
+			height: 18,
 			justifyContent: 'center',
 			marginLeft: 40,
 			marginTop: 5,
 		  }}>
 		  <Ionicons
 			name={'chatbox'}
-			size={17}
+			size={10}
 			color="grey"
 			style={{marginLeft: 3}}
 		  />
@@ -123,17 +122,17 @@ const GrowthCoaching = props => {
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
           <ImageBackground
             style={{
-              width: '100%',
-              height: 170,
-              borderRadius: 20,
+				width: '100%',
+				height:150,
+				borderRadius: 20,
             }}
-            source={require('../../../assets/img/green_blank.png')}>
+            source={require('../../../assets/img/Rectangle.png')}>
             <View
               style={{
-                width: '30%',
+                width:40,
                 height: 50,
                 marginTop: 10,
-                marginLeft: 180,
+				marginLeft:200,
                 backgroundColor: '#EBECF0',
                 borderRadius: 10,
                 padding: 5,
@@ -145,7 +144,7 @@ const GrowthCoaching = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
+              <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -224,7 +223,7 @@ const GrowthCoaching = props => {
 				</ImageBackground> */}
 
         <View style={styles.top}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={{fontWeight: 'bold',  fontSize: 14 ,color:'#1E2022', marginLeft:15, marginRight:15}}>
             {' '}
             Growth Community Events
           </Text>
@@ -232,6 +231,7 @@ const GrowthCoaching = props => {
             style={{
               display: 'flex',
               flexDirection: 'row',
+			  marginTop:20
             }}>
             <FlatList
               horizontal
@@ -262,7 +262,7 @@ const GrowthCoaching = props => {
         </View> */}
 
         <View style={styles.bottom}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={{fontWeight: 'bold',  fontSize: 14 ,color:'#1E2022', marginLeft:15, marginRight:15}}>
             Growth Community Member
           </Text>
           <View>
@@ -276,7 +276,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
+          <Text style={{fontWeight: 'bold',  fontSize: 14 ,color:'#1E2022', marginLeft:15, marginRight:15}}>
             {' '}
             Growth Coaching Content
           </Text>
@@ -306,17 +306,17 @@ const styles = StyleSheet.create({
   },
   top: {
     height: 200,
-    marginTop: 50,
-    margin: 5,
+    marginTop: 20,
     justifyContent: 'center',
+	marginLeft:5
   },
 
   topWrapper: {
-    height: 170,
-    width: 300,
-    marginTop: 20,
-    marginLeft: 10,
-    borderRadius: 50,
+	height: 144,
+    width: 256,
+    marginLeft: 15,
+	borderRadius:16,
+	overflow:"hidden"
   },
   header: {
     margin: 10,
@@ -327,13 +327,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: '800',
     color: 'white',
-	fontSize:16
+	fontSize:12
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
     fontWeight: '700',
     color: 'white',
+	fontSize:8,
   },
   middle: {
     width: 400,
@@ -362,37 +363,39 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_NORMAL,
     padding: 4,
   },
+ 
   bottom: {
-    height: 220,
-    margin: 10,
-    width: 400,
-  },
-  bottom: {
-    height: 200,
-    margin: 10,
-
+	height: 172,
+	margin:5,
+	marginTop:10,
   },
   bottomWrapper: {
-    width: 90,
-    height: 170,
+	width: 84,
+    height: 132,
     borderRadius: 10,
-    margin: 5,
+	marginTop:15,
+	marginLeft: 15,
     backgroundColor: 'white',
     alignItems: 'center',
   },
- 
-  content: {
-    height: 250,
-    marginTop: 20,
-    margin: 10,
-    justifyContent: 'center',
+  bottomImage: {
+    width: '100%',
+    height: 100,
     borderRadius: 20,
   },
+  content: {
+	height: 250,
+	marginLeft: 5,
+	justifyContent: 'center',
+	borderRadius: 20,
+  },
   ContentWrapper: {
-    height: 200,
-    width: 300,
-    marginTop: 20,
-    marginLeft: 10,
+	height: 206,
+	width: 364,
+	marginTop: 20,
+	marginLeft: 15,
+   borderRadius:20,
+   overflow:"hidden"
   },
 });
 

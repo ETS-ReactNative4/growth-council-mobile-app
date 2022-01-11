@@ -28,6 +28,11 @@ const Profile = (props) => {
         profileEventError,
         fetchEventsByUserIdentifier,
         cleanProfileEvent,
+		profileSession,
+		profileSessionLoading,
+		profileSessionError,
+		fetchSessionsByUserIdentifier,
+		cleanProfileSession,
         profile,
         profileLoading,
         profileError,
@@ -37,95 +42,15 @@ const Profile = (props) => {
 
     const [value, setValue] = useState('My Events');
 
-    const data = [
-        {
-            text: 'Executive Coaching Clinic On Goal Setting',
-            text1: 'Hosted by Michael Cooper',
-            text2: "3 persons",
-            text3: "17 June 2021",
-            text4: "10:00 am",
-            text5: "Minima Room",
-        },
-        {
-            text: 'Associate Member Meeting',
-            text1: 'Hosted by Michael Cooper',
-            text2: "3 persons",
-            text3: "17 June 2021",
-            text4: "10:00 am",
-            text5: "Minima Room",
-        },
-        {
-            text: 'Executive Coaching Clinic On Goal Setting',
-            text1: 'Hosted by Michael Cooper',
-            text2: "3 persons",
-            text3: "17 June 2021",
-            text4: "10:00 am",
-            text5: "Minima Room",
-        },
-        {
-            text: 'Associate Member Meeting',
-            text1: 'Hosted by Michael Cooper',
-            text2: "3 persons",
-            text3: "17 June 2021",
-            text4: "10:00 am",
-            text5: "Minima Room",
-        },
-
-    ];
 
 	const _renderItems = ({item, index}) => {
         return (
             <View style={[styles.middleWrapper, styles.shadowProp]}>
                 <View style={styles.wrapper}>
-                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.text}</Text>
-                    <Text style={{fontSize: 10}}>{item.text1}</Text>
-                    <View style={styles.iconWrapper}>
-                        <Ionicon
-                            name={'person'}
-                            size={15}
-                            color="#0B0B45"
-
-                        />
-						<Text style={{color: 'black', marginLeft: 5}}></Text>
-                        <Ionicon
-                            name={'calendar'}
-                            size={15}
-                            color="#0B0B45"
-                            style={{marginLeft: 20}}
-
-                        /><Text style={{color: 'black', marginLeft: 5}}>{item.text3}</Text>
-                    </View>
-                    <View style={styles.iconWrapper}>
-                        <Ionicon
-                            name={'time'}
-                            size={15}
-                            color="#0B0B45"
-
-
-                        /><Text style={{color: 'black', marginLeft: 5}}>{item?.text4}</Text>
-                        <Ionicon
-                            name={'location'}
-                            size={15}
-                            color="#0B0B45"
-                            style={{marginLeft: 20}}
-
-                        />
-						<Text style={{color: 'black', marginLeft: 5}}>{item?.text5}</Text>
-                    </View>
-
-
-                </View>
-                <Button style={{height: 40, top: 40, backgroundColor: "#0B0B45", borderRadius: 15}}>Upcoming</Button>
-            </View>
-
-        );
-    };
-
-    const _renderItem = ({item, index}) => {
-        return (
-            <View style={[styles.middleWrapper, styles.shadowProp]}>
-                <View style={styles.wrapper}>
-                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.title}</Text>
+					<TouchableOpacity
+						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+                   		<Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.title}</Text>
+					</TouchableOpacity>
                     <Text style={{fontSize: 10}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
                     <View style={styles.iconWrapper}>
                         <Ionicon
@@ -169,6 +94,61 @@ const Profile = (props) => {
         );
     };
 
+    const _renderItem = ({item, index}) => {
+        return (
+			
+            <View style={[styles.middleWrapper, styles.shadowProp]}>
+			
+                <View style={styles.wrapper}>
+				<TouchableOpacity
+						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.title}</Text>
+					</TouchableOpacity>
+                    <Text style={{fontSize: 10}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+                    <View style={styles.iconWrapper}>
+                        <Ionicon
+                            name={'person'}
+                            size={15}
+                            color="#0B0B45"
+
+                        />
+						<Text style={{color: 'black', marginLeft: 5}}></Text>
+                        <Ionicon
+                            name={'calendar'}
+                            size={15}
+                            color="#0B0B45"
+                            style={{marginLeft: 20}}
+
+                        /><Text style={{color: 'black', marginLeft: 5}}>{item.text3}</Text>
+                    </View>
+                    <View style={styles.iconWrapper}>
+                        <Ionicon
+                            name={'time'}
+                            size={15}
+                            color="#0B0B45"
+
+
+                        /><Text style={{color: 'black', marginLeft: 5}}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
+                        <Ionicon
+                            name={'location'}
+                            size={15}
+                            color="#0B0B45"
+                            style={{marginLeft: 20}}
+
+                        />
+						<Text style={{color: 'black', marginLeft: 5}}>{item.location?.location_address}</Text>
+                    </View>
+
+
+                </View>
+                <Button style={{height: 40, top: 40, backgroundColor: "#0B0B45", borderRadius: 15}}>Upcoming</Button>
+			
+            </View>
+		
+
+        );
+    };
+
     useEffect(() => {
         const fetchProfileEventAsync = async () => {
             let token = await getAsyncStorage(JWT_TOKEN);
@@ -179,7 +159,17 @@ const Profile = (props) => {
 
     }, []);
 
-    console.log("profileEvent::::::::::::::::::::;", profileEvent);
+	useEffect(() => {
+        const fetchProfileSessionAsync = async () => {
+            let token1 = await getAsyncStorage(JWT_TOKEN);
+            let userID = decodeUserID(token1);
+            await fetchSessionsByUserIdentifier(userID);
+        };
+        fetchProfileSessionAsync();
+
+    }, []);
+
+	console.log('profile sessions', profileSession)
 
     useEffect(() => {
         const fetchProfileAsync = async () => {
@@ -197,7 +187,7 @@ const Profile = (props) => {
 
                     <View style={{height: '100%', marginTop: 30}}>
                         <View style={{
-                            marginTop: 80,
+                            marginTop: 50,
                             justifyContent: 'center',
                             position: 'absolute',
                             zIndex: 20,
@@ -229,16 +219,7 @@ const Profile = (props) => {
                             />
 
                         </View>
-                        <View style={styles.textWrapper}>
-                            <Ionicon
-                                name={'star'}
-                                size={20}
-                                color="yellow"
-                                style={{marginTop: 5, marginLeft: 5}}
-
-                            />
-                            <Text style={{fontSize: 18, marginTop: 5}}>1457</Text>
-                        </View>
+                       
                         <View style={styles.header}>
                             <Text style={styles.headingText1}>{profile?.display_name} </Text>
                             <Text style={{width: '60%', marginLeft: 40}}>{profile?.user_email} </Text>
@@ -287,7 +268,7 @@ const Profile = (props) => {
 								<FlatList
 									Vertical
 									showsVerticalScrollIndicator={false}
-									data={data}
+									data={profileSession}
 									renderItem={_renderItems}
 								/>
 							}

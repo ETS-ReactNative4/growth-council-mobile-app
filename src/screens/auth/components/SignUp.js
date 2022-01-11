@@ -283,7 +283,9 @@ const SignUpForm = props => {
             <Text style={styles.headingText1}>Your Account!</Text>
           </View>
 
-          {loading && (
+          
+          <ScrollView style={styles.scrollBox}>
+		  {loading && (
             <View
               style={{
                 flex: 1,
@@ -292,11 +294,12 @@ const SignUpForm = props => {
                 justifyContent: 'space-around',
                 position: 'absolute',
                 zIndex: 1011,
+				marginTop:200,
+				marginLeft:100
               }}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} />
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-          <ScrollView style={styles.scrollBox}>
             <View style={styles.body}>
               <FlatTextInput
                 label="First Name"

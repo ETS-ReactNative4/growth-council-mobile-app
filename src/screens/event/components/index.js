@@ -57,11 +57,14 @@ const Event = props => {
             style={{
               alignItems: 'center',
             }}>
-            <View style={styles.topbanner}>
-              {!isEventLoaded && (
-                <Text style={styles.headingText1}>{events.title}</Text>
-              )}
-            </View>
+			
+				<View style={styles.topbanner}>
+				{!isEventLoaded && (
+					<Text style={styles.headingText1}>{events.title}</Text>
+				)}
+				</View>
+			
+			
           </View>
           <View
             style={{
@@ -87,18 +90,22 @@ const Event = props => {
                     paddingBottom: 5,
                     flexDirection: 'row',
                   }}>
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'rgba(54,147,172,1)',
-                      height: 60,
-                      width: 30,
-                      borderRadius: 15,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <MaterialIcons name={'event'} size={35} color={'white'} />
-                  </View>
+				
+					<View
+						style={{
+						flex: 1,
+						backgroundColor: 'rgba(54,147,172,1)',
+						height: 60,
+						width: 30,
+						borderRadius: 15,
+						justifyContent: 'center',
+						alignItems: 'center',
+						}}>
+						<MaterialIcons name={'event'} size={35} color={'white'} />
+					</View>
+			
+				  
+				
                   <View
                     style={{
                       flex: 4,
@@ -121,6 +128,7 @@ const Event = props => {
                       </Text>
                     )}
                   </View>
+				  
                   <View
                     style={{
                       flex: 1,
@@ -144,22 +152,27 @@ const Event = props => {
                     paddingBottom: 5,
                     flexDirection: 'row',
                   }}>
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'rgba(54,147,172,1)',
-                      height: 60,
-                      width: 30,
-                      borderRadius: 15,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Ionicons
-                      name={'location-outline'}
-                      size={35}
-                      color={'white'}
-                    />
-                  </View>
+
+			
+					<View
+						style={{
+						flex: 1,
+						backgroundColor: 'rgba(54,147,172,1)',
+						height: 60,
+						width: 30,
+						borderRadius: 15,
+						justifyContent: 'center',
+						alignItems: 'center',
+						}}>
+						 <Ionicons
+							name={'location-outline'}
+							size={35}
+							color={'white'}
+							/>
+					</View>
+					
+				
+                 
                   {!isEventLoaded && (
                     <View
                       style={{
@@ -202,7 +215,6 @@ const Event = props => {
                     flexDirection: 'row',
                     marginTop: 10,
                   }}>
-                  {!isEventLoaded && (
                     <View
                       style={{
                         flex: 1,
@@ -213,18 +225,18 @@ const Event = props => {
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}>
-                      <Image source={{uri: events.organizer_image}} />
+                      <Image source={{uri: events?.organizer_image}} style={{width:30, height:60}} />
                     </View>
-                  )}
+                 
                   <View
                     style={{
                       flex: 3,
                       paddingLeft: 20,
                     }}>
                     <Text style={styles.contentHeading}>
-                      {/* {events.organizer.term_name} */}
+					{events?.organizer?.term_name}
                     </Text>
-                    {/* <Text>{events.organizer.description}</Text> */}
+                    <Text>{events?.organizer?.description}</Text>
                   </View>
                   <View
                     style={{
@@ -331,6 +343,28 @@ const styles = StyleSheet.create({
   },
   topbanner: {
     backgroundColor: 'rgba(54,147,172,1)',
+    height: 100,
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 100,
+    marginBottom: 20,
+    borderRadius: 12,
+    padding: 20,
+  },
+  topbanner1: {
+    backgroundColor: 'rgba(54,147,172,1)',
+    height: 100,
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 100,
+    marginBottom: 20,
+    borderRadius: 12,
+    padding: 20,
+  },
+  topbanner2: {
+	backgroundColor: 'rgba(128,186,116,1)',
     height: 100,
     width: '80%',
     justifyContent: 'center',

@@ -32,6 +32,7 @@ import bestPracticesReducer from '../screens/dashboard/slice/bestPracticesSlice'
 import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPracticesMemberContentSlice';
 import growthCoachingsReducer from '../screens/dashboard/slice/growthCoachingSlice';
 import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growthCoachingMemberContentSlice';
+import profileSessionReducer from '../screens/account/slice/profileSessionSlice';
 
 import pillarReducer from '../screens/home/pillarSlice';
 import pillarSliderReducer from '../screens/home/pillarSliderSlice';
@@ -66,6 +67,7 @@ const reducers = combineReducers({
   growthCoachings: growthCoachingsReducer,
   bestPracticesMemberContents: bestPracticesMemberContentReducer,
   growthCoachingMemberContents: growthCoachingMemberContentReducer,
+  profileSession:profileSessionReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

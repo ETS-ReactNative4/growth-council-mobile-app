@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
-
+import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {clearAsyncStorage} from '../../../utils/storageUtil';
 
@@ -47,6 +47,7 @@ const Setting = (props) => {
     const logout = () => {
         clearAsyncStorage();
         navigation.navigate('Home')
+		ToastMessage.show('Your have successfully logout');
     };
 
 

@@ -44,25 +44,24 @@ const HomeCommunity = props => {
 			<Image source={{uri:item.avatar}}
 				style={{
 					width: "90%",
-					height: 80,
-					marginTop:6,
-					borderRadius:20,
+					height: 78,
+					borderRadius:10,
 				}}/>
-			<Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-			<Text style={{fontSize: 8}}>Frost and Sullivan</Text>
+			<Text style={{fontSize: 9, marginTop: 5, fontWeight:"500"}}>{item?.display_name}</Text>
+			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
 			<View
 			  style={{
 				borderRadius: 50,
 				backgroundColor: '#EBECF0',
-				width: 25,
-				height: 23,
+				width: 18,
+				height: 18,
 				justifyContent: 'center',
 				marginLeft: 40,
 				marginTop: 5,
 			  }}>
 			  <Ionicons
 				name={'chatbox'}
-				size={17}
+				size={10}
 				color="grey"
 				style={{marginLeft: 3}}
 			  />
@@ -104,21 +103,6 @@ const HomeCommunity = props => {
   //   );
   // };
 
-  const data2 = [
-    {
-      date: '10',
-      month: 'july',
-      text: 'Executive Coaching Clinic On Goal Setting',
-      text1: 'Hosted by Michael Cooper',
-    },
-    {
-      date: '10',
-      month: 'Oct',
-      text: 'Associate Member Meeting',
-      text1: 'Hosted by Michael Cooper',
-    },
-  ];
-
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
@@ -130,16 +114,16 @@ const HomeCommunity = props => {
           <ImageBackground
             style={{
               width: '100%',
-              height: 170,
+              height:'100%',
               borderRadius: 20,
             }}
-            source={require('../../../assets/img/blank_event_design.png')}>
+            source={require('../../../assets/img/Rectangle2.png')}>
             <View
               style={{
-                width: '30%',
+                width:40,
                 height: 50,
                 marginTop: 10,
-                marginLeft: 180,
+				marginLeft:200,
                 backgroundColor: '#EBECF0',
                 borderRadius: 10,
                 padding: 5,
@@ -151,7 +135,7 @@ const HomeCommunity = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>Hosted by </Text>
+              <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -177,8 +161,8 @@ const HomeCommunity = props => {
         <ImageBackground
           style={{
             width: '100%',
-            height: 190,
-            borderRadius: 20,
+            height:"100%",
+           
           }}
           source={item?.uri}
         />
@@ -204,7 +188,7 @@ const HomeCommunity = props => {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.top}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={{fontWeight: 'bold', fontSize: 14, color:'#1E2022', marginLeft:15, marginRight:15}}>
             {' '}
             Growth Community Events
           </Text>
@@ -212,6 +196,7 @@ const HomeCommunity = props => {
             style={{
               display: 'flex',
               flexDirection: 'row',
+			  marginTop:10
             }}>
             <FlatList
               horizontal
@@ -242,7 +227,7 @@ const HomeCommunity = props => {
                 </View> */}
 
         <View style={styles.bottom}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={{fontWeight: 'bold', fontSize: 14 ,color:'#1E2022',marginLeft:15, marginRight:15}}>
             Growth Community Member
           </Text>
           <View>
@@ -256,7 +241,7 @@ const HomeCommunity = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
+          <Text style={{fontWeight: 'bold', fontSize: 14,  color:'#1E2022',marginLeft:15, marginRight:15}}>
             {' '}
             Growth Coaching Content
           </Text>
@@ -284,19 +269,19 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
     width: '100%',
   },
-  top: {
+  	top: {
     height: 200,
-    marginTop: 40,
-    margin: 10,
+    marginTop: 20,
     justifyContent: 'center',
+	marginLeft:5
   },
 
     topWrapper: {
-        height: 170,
-        width: 300,
-        marginTop: 20,
-        marginLeft: 10,
-        borderRadius: 50,
+		height: 144,
+		width: 256,
+		marginTop: 10,
+		marginLeft: 15,
+		borderRadius:20,
     },
     header: {
         margin: 10,
@@ -307,12 +292,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontWeight: '800',
         color: 'white',
+		fontSize: 12,
     },
     headingText2: {
         ...CommonStyles.headingText2,
         fontFamily: Typography.FONT_NORMAL,
         fontWeight: '700',
         color: 'white',
+		fontSize:8,
     },
     middle: {
         width: 400,
@@ -342,15 +329,17 @@ const styles = StyleSheet.create({
         padding: 4,
     },
 	bottom: {
-		height: 200,
-		margin: 10,
+		height: 170,
+		marginLeft: 10,
+		marginTop:10,
 	
 	  },
 	  bottomWrapper: {
-		width: 90,
-		height: 170,
+		width: 84,
+		height: 132,
 		borderRadius: 10,
 		margin: 5,
+		marginTop:10,
 		backgroundColor: 'white',
 		alignItems: 'center',
 	  },
@@ -361,16 +350,17 @@ const styles = StyleSheet.create({
     },
     content: {
         height: 250,
-        marginTop: 20,
-        margin: 10,
-        justifyContent: 'center',
-        borderRadius: 20,
+		marginLeft: 5,
+		justifyContent: 'center',
+		borderRadius: 20,
     },
     ContentWrapper: {
-        height: 200,
-        width: 300,
-        marginTop: 20,
-        marginLeft: 10,
+		height: 206,
+		width: 364,
+		marginTop: 20,
+		marginLeft: 15,
+	   borderRadius:20,
+	   overflow:"hidden"
     },
 });
 
