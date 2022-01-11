@@ -177,9 +177,6 @@ const Dashboard = props => {
     );
   };
 
-
-  
-
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -202,7 +199,6 @@ const Dashboard = props => {
   },[]);
 
 
-  console.log("component", {pillarSliders})
 
   const API_KEY = 'AIzaSyCIrwNfePDp3TOeOVUpVe59FjBQ_x9M6GM';
 
@@ -278,7 +274,7 @@ const Dashboard = props => {
       </View>
 
 	  <View style={styles.content}>
-          <Text style={styles.title}>
+          <Text style={[styles.title,{marginLeft:15,}]}>
             {' '}
             Growth Coaching Content
           </Text>
@@ -295,13 +291,13 @@ const Dashboard = props => {
             />
         </View>
 
-		<View style={{ alignItems:'center'}}>
+		{/* <View style={{ alignItems:'center'}}>
 			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
 			<Image 
 				source={require('../../../assets/img/footer_company_name_image.png')}
 				style={{width: '60%', marginTop: 10, marginBottom: 15}}
 			/>
-		</View>
+		</View> */}
         </View>
     </ScrollView>
   );
@@ -367,6 +363,7 @@ const styles = StyleSheet.create({
   title:{
 	fontWeight: '700',
 	fontSize: 14,
+
 	color:PRIMARY_TEXT_COLOR
   },
   headingText1: {
@@ -441,6 +438,7 @@ const styles = StyleSheet.create({
 	marginTop:25,
 	justifyContent: 'center',
 	borderRadius: 20,
+	marginBottom:10,
 },
 ContentWrapper: {
 	height: 206,

@@ -19,7 +19,6 @@ const PillarList =(props)=> {
 		navigation,
 		pillarSliders,}=props
 
-	console.log("pillarslider",{pillarSliders})
 
 	
 	return( 
