@@ -101,7 +101,7 @@ const CouncilDetail = props => {
             country or territory you are specifying it as your Home Country.
           </Text> */}
         </View>
-
+          {!loadMore && (
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Button
             style={styles.moreButton}
@@ -109,6 +109,7 @@ const CouncilDetail = props => {
             <Text style={styles.moreButtonText}>Load More</Text>
           </Button>
         </View>
+          )}
         {loadMore && (
           <LoadMore
             {...props}
