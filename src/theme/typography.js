@@ -1,7 +1,8 @@
-export const FONT_NORMAL = 'Mulish-Regular';
+export const FONT_NORMAL = 'OpenSans-Regular';
 export const FONT_MEDIUM = 'Mulish-Medium';
-export const FONT_BOLD = 'Mulish-Bold';
-export const FONT_SEMI_BOLD = 'Mulish-Semibold';
+export const FONT_BOLD = 'OpenSans-Bold';
+export const FONT_SEMI_BOLD = 'OpenSans-Medium';
+export const FONT_EXTRA_BOLD = 'OpenSans-ExtraBold';
 export const FONT_SIZE_TINY = 9;
 export const FONT_SIZE_TINY_PLUS = 10;
 export const FONT_SIZE_SMALL = 12;
