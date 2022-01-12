@@ -233,11 +233,11 @@ const BestPractice = props => {
           </View>
         </View>
 
-		<View style={{ alignItems:'center'}}>
-			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
+		<View style={{ alignItems:'center', width:'50%',marginLeft:100, marginBottom:10}}>
+			<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
 			<Image 
-				source={require('../../../assets/img/footer_company_name_image.png')}
-				style={{width: '60%', marginTop: 10, marginBottom: 15}}
+				source={require('../../../assets/img/fristDigi.png')}
+				style={{width:"100%", height:20}}
 			/>
 		</View>
       </View>
