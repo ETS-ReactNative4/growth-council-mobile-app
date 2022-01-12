@@ -42,6 +42,18 @@ const Event = props => {
     console.log('route.params.id:::::::::::::::::', route.params.id);
     console.log('Event Detail:::::::::::::::::', events.organizer_image);
 
+    let backgroundColor = Colors.COMMUNITY_COLOR;
+    switch (events?.pillar_categories[0]?.slug) {
+        case "growth-coaching":
+            backgroundColor = Colors.COACHING_COLOR;
+            break;
+        case "basic-practices":
+            backgroundColor = Colors.PRACTICE_COLOR;
+            break;
+        case 'growth-community':
+            backgroundColor = Colors.COMMUNITY_COLOR;
+    }
+
     return (
         <ScrollView style={styles.scrollBox}>
             <View style={styles.container}>
@@ -58,7 +70,7 @@ const Event = props => {
                             alignItems: 'center',
                         }}>
 
-                        <View style={styles.topbanner}>
+                        <View style={[styles.topbanner, {backgroundColor: backgroundColor}]}>
                             {!isEventLoaded && (
                                 <Text style={styles.headingText1}>{events.title}</Text>
                             )}
@@ -90,7 +102,7 @@ const Event = props => {
                                     }}>
 
                                     <View
-                                        style={{
+                                        style={[{
                                             flex: 1,
                                             backgroundColor: 'rgba(54,147,172,1)',
                                             height: 60,
@@ -98,9 +110,10 @@ const Event = props => {
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                        }}>
+                                        }, {backgroundColor: backgroundColor}]}>
                                         <MaterialIcons name={'event'} size={35} color={'white'}/>
                                     </View>
+
 
                                     <View
                                         style={{
@@ -151,7 +164,7 @@ const Event = props => {
 
 
                                     <View
-                                        style={{
+                                        style={[{
                                             flex: 1,
                                             backgroundColor: 'rgba(54,147,172,1)',
                                             height: 60,
@@ -159,13 +172,14 @@ const Event = props => {
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                        }}>
+                                        }, {backgroundColor: backgroundColor}]}>
                                         <Ionicons
                                             name={'location-outline'}
                                             size={35}
                                             color={'white'}
                                         />
                                     </View>
+
 
                                     {!isEventLoaded && (
                                         <View
@@ -210,7 +224,7 @@ const Event = props => {
                                         marginTop: 10,
                                     }}>
                                     <View
-                                        style={{
+                                        style={[{
                                             flex: 1,
                                             backgroundColor: 'rgba(54,147,172,1)',
                                             height: 60,
@@ -218,7 +232,7 @@ const Event = props => {
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                        }}>
+                                        }, {backgroundColor: backgroundColor}]}>
                                         <Image source={{uri: events?.organizer_image}} style={{width: 30, height: 60}}/>
                                     </View>
 

@@ -11,13 +11,12 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-
-import PillarList from './PillarList';
 import YouTube, {
     YouTubeStandaloneIOS,
     YouTubeStandaloneAndroid,
 } from 'react-native-youtube';
 
+import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {
     PRIMARY_BACKGROUND_COLOR,
@@ -27,6 +26,7 @@ import {
 } from '../../../theme/colors';
 
 const Dashboard = props => {
+
     const {
         navigation,
         upcomingEvents,
@@ -49,12 +49,11 @@ const Dashboard = props => {
         pillarSliderError,
         fetchAllPillarSlider,
         cleanPillarSlider,
-
     } = props;
 
     const _renderItem = ({item, index}) => {
         return (
-            <View style={styles.bottomWrapper}>
+            <View style={styles.bottomWrapper} key={index}>
                 <Image source={{uri: item.avatar}}
                        style={{
                            width: 83,
@@ -76,8 +75,6 @@ const Dashboard = props => {
                         name={'chatbox'}
                         size={10}
                         color="#B1AFAF"
-
-
                     />
                 </View>
             </View>
@@ -89,6 +86,7 @@ const Dashboard = props => {
         const date = actualDate[0].split(' ', 3);
 
         let backgroundImage = "";
+
         switch (item?.pillar_categories[0]?.slug) {
             case "growth-community":
                 backgroundImage = (require('../../../assets/img/Rectangle2.png'));
@@ -191,9 +189,7 @@ const Dashboard = props => {
                     style={{width: '100%', height: 180}}
                     source={require('../../../assets/img/appBG.png')}>
                     <View style={styles.pillar}>
-
                         <PillarList pillarSliders={pillarSliders} navigation={navigation}/>
-
                     </View>
                 </ImageBackground>
             </View>
@@ -205,7 +201,6 @@ const Dashboard = props => {
                         onPress={() => navigation.navigate('UpcomingView')}>
                         <Text style={styles.viewAll}>View all</Text>
                     </TouchableOpacity>
-
                 </View>
 
                 <View
@@ -271,14 +266,6 @@ const Dashboard = props => {
                         renderItem={_renderContentItem}
                     />
                 </View>
-
-                {/* <View style={{ alignItems:'center'}}>
-			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
-			<Image
-				source={require('../../../assets/img/footer_company_name_image.png')}
-				style={{width: '60%', marginTop: 10, marginBottom: 15}}
-			/>
-		</View> */}
             </View>
         </ScrollView>
     );
@@ -305,12 +292,10 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         borderColor: PRIMARY_BACKGROUND_COLOR,
         overflow: "hidden"
-
     },
     ImageStyle: {
         width: '100%',
         height: '100%',
-
     },
     viewAll: {
         fontSize: 10,
@@ -330,7 +315,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginLeft: 5
     },
-
     topWrapper: {
         height: 144,
         width: 256,
@@ -361,7 +345,6 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 8,
         lineHeight: 12,
-
     },
     middle: {
         width: 400,
