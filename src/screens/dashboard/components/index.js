@@ -291,13 +291,7 @@ const Dashboard = props => {
             />
         </View>
 
-		{/* <View style={{ alignItems:'center'}}>
-			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
-			<Image 
-				source={require('../../../assets/img/footer_company_name_image.png')}
-				style={{width: '60%', marginTop: 10, marginBottom: 15}}
-			/>
-		</View> */}
+		
         </View>
     </ScrollView>
   );
