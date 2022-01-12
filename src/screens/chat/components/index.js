@@ -1,11 +1,13 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useCallback, useLayoutEffect} from 'react';
 import {
     StyleSheet,
     View,
 } from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat'
+import {collection, getDocs, addDoc, query, orderBy} from 'firebase/firestore';
 
 import {CommonStyles, Colors} from '../../../theme';
+import {database} from '../../../utils/firebaseUtil';
 
 const Chat = (props) => {
 
@@ -18,23 +20,30 @@ const Chat = (props) => {
 
     const [messages, setMessages] = useState([]);
 
-    useEffect(async () => {
-        setMessages([
-            {
-                _id: 1,
-                text: 'Hello developer',
-                createdAt: new Date(),
-                user: {
-                    _id: 2,
-                    name: 'React Native',
-                    avatar: 'https://placeimg.com/140/140/any',
-                },
-            },
-        ])
+    useLayoutEffect(() => {
+        const fetchMessageAsync = async () => {
+            const chatsCol = await collection(database, 'chats');
+            const chatSnapshot = await getDocs(query(chatsCol, orderBy('createdAt', 'desc')));
+            const messageList = chatSnapshot.docs.map(doc => ({
+                _id: doc.data()._id,
+                createdAt: doc.data().createdAt.toDate(),
+                text: doc.data().text,
+                user: doc.data().user,
+            }));
+            setMessages(messageList);
+        };
+        fetchMessageAsync();
+
     }, []);
 
-    const onSend = useCallback((messages = []) => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    const onSend = useCallback(async (messages = []) => {
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
+        console.log("Message ID::::::::::: ", messages[0]);
+        const {_id, createdAt, text, user,} = messages[0];
+        const chatsCol = await collection(database, 'chats');
+        console.log("chatsCol ID::::::::::: ", chatsCol);
+        const newDoc = await addDoc(chatsCol, {_id, createdAt, text, user});
+        console.log("Document ID::::::::::: ", newDoc);
     }, []);
 
     return (
@@ -44,6 +53,8 @@ const Chat = (props) => {
                 onSend={messages => onSend(messages)}
                 user={{
                     _id: userID,
+                    //name: auth?.currentUser?.displayName,
+                    // avatar: auth?.currentUser?.photoURL
                 }}
             />
         </View>
