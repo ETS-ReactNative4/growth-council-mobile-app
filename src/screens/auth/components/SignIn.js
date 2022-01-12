@@ -24,7 +24,8 @@ import FlatTextInput from '../../../shared/form/FlatTextInput';
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const signInSchema = Yup.object().shape({
-    username: Yup.string().required('Username is required.'),
+    username: Yup.string()
+	.required('Username is required.'),
     password: Yup
         .string()
         .min(6, ({min}) => `Password must be at least ${min} characters.`)
@@ -100,6 +101,7 @@ const SignInForm = (props) => {
                                     onFocus={handleBlur('username')}
                                     error={errors.username}
                                     touched={touched.username}
+									
                                     //keyboardType={'email-address'}
                                 />
                                 {errors.username &&

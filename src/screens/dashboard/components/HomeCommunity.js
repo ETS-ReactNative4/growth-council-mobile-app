@@ -39,36 +39,29 @@ const HomeCommunity = props => {
 
     const _renderItem = ({item, index}) => {
         return (
-            <View style={styles.bottomWrapper}>
-                <Image
-                    source={{uri: item.avatar}}
-                    style={{
-                        width: '90%',
-                        height: 80,
-                        marginTop: 6,
-                        borderRadius: 20,
-                    }}
-                />
-                <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-                <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
-                <View
-                    style={{
-                        borderRadius: 50,
-                        backgroundColor: '#EBECF0',
-                        width: 25,
-                        height: 23,
-                        justifyContent: 'center',
-                        marginLeft: 40,
-                        marginTop: 5,
-                    }}>
-                    <Ionicons
-                        name={'chatbox'}
-                        size={17}
-                        color="grey"
-                        style={{marginLeft: 3}}
-                    />
-                </View>
-            </View>
+			<View style={styles.bottomWrapper}>
+			<Image source={{uri:item.avatar}}
+				style={{
+					width: 83,
+					height: 83,
+					borderRadius:10,
+				}}/>
+			<View style={{padding:10, paddingBottom:20}}>
+				<Text style={{fontSize: 10, fontWeight:"semi-bold", color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
+				<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+			</View>
+			
+			<View
+			  style={styles.chatIcon}>
+			  <Ionicons
+				name={'chatbox'}
+				size={10}
+				color="#B1AFAF"
+			
+			
+			  />
+			</View>
+		  </View>
         );
     };
 
@@ -105,58 +98,43 @@ const HomeCommunity = props => {
     //   );
     // };
 
-    const data2 = [
-        {
-            date: '10',
-            month: 'july',
-            text: 'Executive Coaching Clinic On Goal Setting',
-            text1: 'Hosted by Michael Cooper',
-        },
-        {
-            date: '10',
-            month: 'Oct',
-            text: 'Associate Member Meeting',
-            text1: 'Hosted by Michael Cooper',
-        },
-    ];
+  const _renderTopItem = ({item, index}) => {
+    const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const date = actualDate[0].split(' ', 3);
+    console.log(date[1]);
+    return (
+      <View style={styles.topWrapper} key={index}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          <ImageBackground
+            style={{
+              width: '100%',
+              height:'100%',
+              borderRadius: 20,
+            }}
+            source={require('../../../assets/img/Rectangle2.png')}>
+            <View
+              style={{
+                width:40,
+                height: 50,
+                marginTop: 10,
+				marginLeft:200,
+                backgroundColor: '#EBECF0',
+                borderRadius: 10,
+                padding: 5,
+                alignItems: 'center',
+              }}>
+              <Text>{date[1]}</Text>
+              <Text>{date[0]}</Text>
+            </View>
 
-    const _renderTopItem = ({item, index}) => {
-        const actualDate = moment(item.event_start).format('ll').split(',', 3);
-        const date = actualDate[0].split(' ', 3);
-        console.log(date[1]);
-        return (
-            <View style={styles.topWrapper} key={index}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                    <ImageBackground
-                        style={{
-                            width: '100%',
-                            height: 170,
-                            borderRadius: 20,
-                        }}
-                        source={require('../../../assets/img/blank_event_design.png')}>
-                        <View
-                            style={{
-                                width: '30%',
-                                height: 50,
-                                marginTop: 10,
-                                marginLeft: 180,
-                                backgroundColor: '#EBECF0',
-                                borderRadius: 10,
-                                padding: 5,
-                                alignItems: 'center',
-                            }}>
-                            <Text>{date[1]}</Text>
-                            <Text>{date[0]}</Text>
+            <View style={styles.header}>
+              <Text style={styles.headingText1}>{item.title}</Text>
+              <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
+ 
                         </View>
 
-                        <View style={styles.header}>
-                            <Text style={styles.headingText1}>{item.title}</Text>
-                            <Text style={styles.headingText2}>
-                                Hosted by {item?.organizer?.term_name}
-                                {item?.organizer?.description}
-                            </Text>
-                        </View>
+                       
                     </ImageBackground>
                 </TouchableOpacity>
             </View>
@@ -175,20 +153,21 @@ const HomeCommunity = props => {
         },
     ];
 
-    const _renderContentItem = ({item, index}) => {
-        return (
-            <View style={styles.ContentWrapper}>
-                <ImageBackground
-                    style={{
-                        width: '100%',
-                        height: 190,
-                        borderRadius: 20,
-                    }}
-                    source={item?.uri}
-                />
-            </View>
-        );
-    };
+  const _renderContentItem = ({item, index}) => {
+    return (
+      <View style={styles.ContentWrapper}>
+        <ImageBackground
+          style={{
+            width: '100%',
+            height:"100%",
+           
+          }}
+          source={item?.uri}
+        />
+      </View>
+    );
+  };
+
 
     useEffect(() => {
         const fetchAllCommunityAsync = async () => {
@@ -197,14 +176,8 @@ const HomeCommunity = props => {
         fetchAllCommunityAsync();
     }, []);
 
-    useEffect(() => {
-        const fetchAllCommunityMemberContentAsync = async () => {
-            await fetchAllCommunityMemberContent();
-        };
-        fetchAllCommunityMemberContentAsync();
-    }, []);
-
-    return (
+  return (
+    
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.top}>
@@ -296,11 +269,11 @@ const styles = StyleSheet.create({
     },
 
     topWrapper: {
-        height: 170,
-        width: 300,
-        marginTop: 20,
-        marginLeft: 10,
-        borderRadius: 50,
+		height: 144,
+		width: 256,
+		marginTop: 10,
+		marginLeft: 15,
+		borderRadius:20,
     },
     header: {
         margin: 10,
@@ -311,12 +284,14 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontWeight: '800',
         color: 'white',
+		fontSize: 12,
     },
     headingText2: {
         ...CommonStyles.headingText2,
         fontFamily: Typography.FONT_NORMAL,
         fontWeight: '400',
         color: 'white',
+		fontSize:8,
     },
     middle: {
         width: 400,
@@ -345,20 +320,28 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_NORMAL,
         padding: 4,
     },
-    bottom: {
-        height: 220,
-        margin: 10,
-        width: 400,
-    },
-    bottomWrapper: {
-        width: 120,
-        height: 190,
-        borderRadius: 10,
-        marginRight: 10,
-        marginTop: 10,
-        backgroundColor: 'white',
-        alignItems: 'center',
-    },
+	bottom: {
+		height: 172,
+		margin:5,
+		marginTop:25,
+	  },
+	  bottomWrapper: {
+	   position:'relative',
+		borderRadius: 10,
+		marginTop:15,
+		marginLeft: 15,
+		backgroundColor: 'white',
+		overflow:"hidden"
+	  },
+	  chatIcon:{
+		borderRadius: 50,
+		backgroundColor: '#F1F1F1',
+		padding:6,
+		justifyContent: 'center',
+		position:'absolute',
+		right:4,
+		bottom:4
+	  },
     bottomImage: {
         width: '100%',
         height: 100,
@@ -366,16 +349,17 @@ const styles = StyleSheet.create({
     },
     content: {
         height: 250,
-        marginTop: 20,
-        margin: 10,
-        justifyContent: 'center',
-        borderRadius: 20,
+		marginLeft: 5,
+		justifyContent: 'center',
+		borderRadius: 20,
     },
     ContentWrapper: {
-        height: 200,
-        width: 300,
-        marginTop: 20,
-        marginLeft: 10,
+		height: 206,
+		width: 364,
+		marginTop: 20,
+		marginLeft: 15,
+	   borderRadius:20,
+	   overflow:"hidden"
     },
 });
 

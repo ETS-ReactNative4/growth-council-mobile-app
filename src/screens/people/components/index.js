@@ -12,6 +12,8 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome';
 import {Picker} from '@react-native-picker/picker';
+import {CommonStyles, Colors, Typography} from '../../../theme';
+
 
 const People = (props) => {
 
@@ -32,13 +34,13 @@ const People = (props) => {
 			<View style={styles.wrapper}>
 				<Image source={{uri:item.avatar}}
 					   style={{
-						   width: 100,
-						   height: 90,
+						   width: 68,
+						   height: 68,
 						   margin: 8,
-						   borderRadius:20,
+						   borderRadius:8,
 					   }}
 				/>
-				<View style={{margin: 10, width: '50%'}}>
+				<View style={{margin: 10, width: '55%'}}>
 					<Text style={{fontSize: 18, fontWeight: "bold"}}>{item.displayname}</Text>
 					<Text style={{fontSize: 16}}>{item.user_meta.title}</Text>
 					<Text style={{fontSize: 14}}>{item.user_meta.company}</Text>
@@ -76,22 +78,24 @@ const People = (props) => {
                     <Ionicons name='ios-grid-outline' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 15}}/>
 
                 </View>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
+                <View style={{display: 'flex', flexDirection: 'row', height:48, marginTop:16}}>
 
-                    <Picker
-                        selectedValue={category}
-                        mode={'dropdown'}
-                        style={{height: 30, width: 170,}}
-                        onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-                    >
-                        <Picker.Item label="Category" value="Category"/>
-                        <Picker.Item label="Kathmandu" value="kathmandu"/>
-                        <Picker.Item label="Bhaktapur" value="bhaktapur"/>
-                    </Picker>
-
-                    <View style={{height: "100%", width: 1, backgroundColor: '#808080'}}/>
-
-                    <Ionicons
+				
+					<View style={{borderRightWidth:1,borderColor:'#707070'}}>
+						<Picker
+							selectedValue={category}
+							mode={'dropdown'}
+							style={{height: 30, width: 170,}}
+							onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+						>
+							<Picker.Item label="Category" value="Category" style={{fontSize:14,}}/>
+							<Picker.Item label="Kathmandu" value="kathmandu"/>
+							<Picker.Item label="Bhaktapur" value="bhaktapur"/>
+						</Picker>
+					</View>
+                  
+					<View style={{borderRightWidth:1,borderColor:'#707070', display:'flex', flexDirection:'row'}}>
+					<Ionicons
                         name='arrow-up'
                         size={20}
                         color='#d7d7d7'
@@ -103,9 +107,10 @@ const People = (props) => {
                         color='#d7d7d7'
                         style={{marginTop: 20}}
                     />
-                    <Text style={{marginTop: 20, marginRight: 40}}>Sort</Text>
-
-                    <View style={{height: "100%", width: 0.5, backgroundColor: '#808080'}}/>
+					   <Text style={{marginTop: 20, marginRight: 40}}>Sort</Text>
+					</View>
+                   
+                 
 
                     <Font
                         name='filter'
@@ -115,11 +120,21 @@ const People = (props) => {
                     />
                     <Text style={{marginTop: 20, marginLeft: 10}}>Filter</Text>
                 </View>
-                <FlatList
+				<View style={{marginTop:30}}>
+				<FlatList
                     vertical
                     showsVerticalScrollIndicator={false}
                     data={connection}
                     renderItem={_renderItem}/>
+				</View>
+
+				<View style={{ alignItems:'center'}}>
+					<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
+					<Image source={require('../../../assets/img/footer_company_name_image.png')}
+						style={{width: '60%', marginTop: 10, marginBottom: 15}}
+					/>
+				</View>
+              
             </View>
         </ScrollView>
 
@@ -129,6 +144,7 @@ const People = (props) => {
 const styles = StyleSheet.create({
     container: {
         // ...CommonStyles.container,
+		backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR
     },
     input: {
         height: 40,
@@ -136,16 +152,16 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 0.5,
         paddingLeft: 40,
-        borderRadius: 10,
+        borderRadius: 8,
         backgroundColor: 'white',
     },
     wrapper: {
-        width: '95%',
-        height: 110,
+       
+        height: 88,
         display: 'flex',
         flexDirection: 'row',
         backgroundColor: 'white',
-        margin: 8,
+        margin: 10,
         borderRadius: 10,
         borderWidth: 0.3,
     }
