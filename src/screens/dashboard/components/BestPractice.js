@@ -358,11 +358,6 @@ const styles = StyleSheet.create({
    overflow:"hidden"
   },
   shadowProp: {
-    // shadowColor: '#171717',
-    // shadowOffset: {width: -2, height: 4},
-    // shadowOpacity: 1,
-    // shadowRadius: 3,
-
 	shadowColor: "#000",
 	shadowOffset: {
 		width: 0,
