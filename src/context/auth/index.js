@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useState} from 'react';
 import axios from 'axios';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {signInWithEmailAndPassword} from 'firebase/auth';
 
 import {setAsyncStorage, clearAsyncStorage} from '../../utils/storageUtil';
 import {JWT_TOKEN, API_URL, USER_NAME, USER_AVATAR} from '../../constants';
@@ -33,10 +33,11 @@ export const AuthProvider = ({children}) => {
                         await setAsyncStorage(JWT_TOKEN, response.data.token);
                         await setAsyncStorage(USER_NAME, response.data.user_display_name);
                         await setAsyncStorage(USER_AVATAR, response.data.avatar);
-                        // const response = await signInWithEmailAndPassword(auth, response?.data?.email, response?.data?.firebase_password);
-                        // const token = await response.user;
-                        // console.log('THIS IS THE RESPONSE', token);
-                        // if (token)
+                        const firebaseResponse = await signInWithEmailAndPassword(auth, response?.data?.user_email, response?.data?.firebase_password);
+                        //const firebaseResponse = await signInWithEmailAndPassword(auth, response?.data?.user_email, '55c20a44-6136-4c16-aa48-f5638d031a03');
+                        const token = await firebaseResponse.user;
+                        console.log('RESPONSE::::::::', firebaseResponse);
+                        if (token)
                             navigate('Dashboard');
                     } else {
                         setLoading(false);
