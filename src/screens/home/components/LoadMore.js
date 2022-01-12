@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
     Text,
     View,
@@ -6,57 +6,55 @@ import {
     StyleSheet,
     StatusBar,
     Dimensions,
-    Image,
-	FlatList,
+    FlatList,
 } from 'react-native';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const screenHeight = Math.round(Dimensions.get('window').height);
-
-
 const CouncilAllDetail = props => {
 
-    const {navigation,
-		route,
-		upcomingEvents,
-		upcomingEventLoading,
-		upcomingEventError,
-		fetchAllUpcomingEvent,
-		cleanUpcomingEvent,
-	}= props;
+    const {
+        navigation,
+        route,
+        upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchUpcomingEventsByIdentifier,
+        cleanUpcomingEvent,
+        pillar_id
+    } = props;
 
-		const _renderItem = ({item, index}) => {
-			return (
-				<View style={styles.eventCard}>
-				<View style={styles.eventTheme}/>
-				<View style={styles.eventDetails}>
-					<View style={styles.eventInfo}>
-						<Text style={styles.evnetTitle}>
-							{item.title}
-						</Text>
-						<Text style={styles.eventParagraph}>
-							Hosted by {item?.organizer?.term_name} {item?.pillar_categories[0]?.slug}
-						</Text>
-					</View>
-					<View style={styles.eventDate}>
-						<Text style={styles.eventDateText}>01{'\n'}AUG</Text>
-					</View>
-				</View>
-			</View>
-			);
-		  };
-		  
-		  useEffect(() => {
-			const fetchAllUpcomingEventAsync = async () => {
-			  await fetchAllUpcomingEvent();
-			};
-			fetchAllUpcomingEventAsync();
-		  }, []);
+    useEffect(() => {
+        const fetchUpcomingEventAsync = async () => {
+            await fetchUpcomingEventsByIdentifier(pillar_id);
+        };
 
-		  console.log("load more:::", upcomingEvents)
+        fetchUpcomingEventAsync();
+    }, []);
+
+    console.log('Pillar Upcoming Detail:::::::::::::::::', upcomingEvents);
+
+    const _renderItem = ({item, index}) => {
+
+        return (
+            <View style={styles.eventCard} key={index}>
+                <View style={styles.eventTheme}/>
+                <View style={styles.eventDetails}>
+                    <View style={styles.eventInfo}>
+                        <Text style={styles.evnetTitle}>
+                            {item.title}
+                        </Text>
+                        <Text style={styles.eventParagraph}>
+                            Hosted by {item?.organizer?.term_name} {item?.pillar_categories[0]?.slug}
+                        </Text>
+                    </View>
+                    <View style={styles.eventDate}>
+                        <Text style={styles.eventDateText}>01{'\n'}AUG</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    };
 
     return (
         <>
@@ -65,17 +63,17 @@ const CouncilAllDetail = props => {
                 backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
             />
             <View style={styles.container}>
-                <ScrollView > 
+                <ScrollView>
                     <View style={styles.events}>
                         <Text style={styles.eventsTitle}>UPCOMING EVENTS</Text>
                         <View styles={styles.eventList}>
 
-						<FlatList
-							vertical
-							showsHorizontalScrollIndicator={false}
-							data={upcomingEvents}
-							renderItem={_renderItem}
-						/>     
+                            <FlatList
+                                vertical
+                                showsHorizontalScrollIndicator={false}
+                                data={upcomingEvents}
+                                renderItem={_renderItem}
+                            />
                         </View>
                     </View>
                 </ScrollView>
@@ -89,8 +87,8 @@ const styles = StyleSheet.create({
         ...CommonStyles.container,
         padding: 0,
         backgroundColor: 'rgba(0,0,0,0.01)',
-		width:"100%",
-		height:"100%"
+        width: "100%",
+        height: "100%"
     },
     meta: {
         width: '100%',
@@ -129,20 +127,20 @@ const styles = StyleSheet.create({
     },
     events: {
         padding: 30,
-		width:'100%'
+        width: '100%'
     },
     eventsTitle: {
         marginBottom: 15,
     },
     eventList: {},
     eventCard: {
-		width:"100%",
+        width: "100%",
         marginTop: 5,
         flexDirection: 'row',
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
-		marginBottom:5
+        marginBottom: 5
     },
     eventTheme: {
         height: '100%',

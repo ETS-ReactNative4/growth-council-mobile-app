@@ -34,8 +34,8 @@ import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPr
 import growthCoachingsReducer from '../screens/dashboard/slice/growthCoachingSlice';
 import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growthCoachingMemberContentSlice';
 
-import pillarReducer from '../screens/home/pillarSlice';
-import pillarSliderReducer from '../screens/home/pillarSliderSlice';
+import pillarReducer from '../screens/home/slice/pillarSlice';
+import pillarSliderReducer from '../screens/home/slice/pillarSliderSlice';
 
 const persistConfig = {
   key: 'root',
