@@ -129,8 +129,8 @@ const Dashboard = props => {
 				height: 50,
 				marginTop: 10,
 				marginLeft: 200,
-				backgroundColor: '#EBECF0',
-				borderRadius: 10,
+				backgroundColor: '#B0E0E6',
+				borderRadius: 14,
 				padding: 5,
 				alignItems: 'center',
 			  }}>
@@ -260,7 +260,7 @@ const Dashboard = props => {
 
       <View style={styles.bottom}>
 	  <View style={{display:"flex", flexDirection:"row", marginLeft:15, marginRight:15}}>
-		  <Text style={styles.title}> Growth Community Member</Text>
+		  <Text style={styles.title}> Growth Community Members</Text>
 		  {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
 		</View>
         <View>
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
 	flexDirection:"row",
 	marginLeft:10,
 	 marginRight:10, 
-	 marginTop:70,
+	 marginTop:50,
 	 justifyContent:"space-between"
   },
   ImageWrapper: {
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
   },
   top: {
     height: 200,
-    marginTop: 80,
+    marginTop: 60,
     justifyContent: 'center',
 	marginLeft:5
   },
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
   headingText1: {
     fontFamily: Typography.FONT_SF_MEDIUM,
     marginTop: 20,
-    fontWeight: '700',
+    fontWeight: '600',
 	width:"98%",
     color: 'white',
     fontSize: 12,

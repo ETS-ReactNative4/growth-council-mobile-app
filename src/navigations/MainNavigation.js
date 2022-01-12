@@ -177,10 +177,9 @@ const MainNavigation = () => {
           name="ManageAccount"
           component={ManageAccountScreen}
           options={{
-            headerLeft: () => null,
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.RevealFromBottomAndroid,
+            headerTitle: 'ManageAccount',
+            // headerTransparent: true,
+            // ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
 		

@@ -98,18 +98,18 @@ const ManageAccount = (props) => {
 		<ScrollView contentContainerStyle={{flexGrow: 1,}}>
 		<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 	
-		<Image source={require("../../../assets/img/appBG.png")} />
-			<TouchableOpacity
-                         onPress={() => navigation.goBack()}>
-                         <View>
+		<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
+			{/* <TouchableOpacity
+                         onPress={() => navigation.goBack()}> */}
+                         {/* <View style={{zIndex:10, position:'absolute', marginBottom:50}}>
                              <Ionicons
                                  name={'arrow-back'}
                                  size={20}
                                  color='black'
 
                              />
-                         </View>
-                 </TouchableOpacity>
+                         </View> */}
+                 {/* </TouchableOpacity> */}
 					<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
 							<View style={styles.profileWrapper}>
 									<View style={styles.icon}>
@@ -157,14 +157,13 @@ const ManageAccount = (props) => {
 										size={20}/>
 								</View>
 								<Text style={styles.menuText}>Account</Text>
-								<TouchableOpacity onPress={() => navigation.navigate('ManageAccount')} style={{right:0,  position:'absolute'}}>
 									<Ionicons
-										name='chevron-forward-outline'
+										name='chevron-down-outline'
 										size={20}
 										color='#d7d7d7'
-										
+										style={{right:0,  position:'absolute'}}
 									/>
-								</TouchableOpacity>
+								
 
 							</View>
 
@@ -354,10 +353,8 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
-        fontSize: Typography.FONT_SIZE_DOUBLE_EXTRA_LARGE_MINUS,
-        fontWeight: '800',
-
-
+        fontSize: 22,
+        fontWeight: '600',
     },
     middle: {
      

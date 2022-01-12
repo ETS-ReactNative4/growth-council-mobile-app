@@ -194,7 +194,7 @@ const Profile = (props) => {
     return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,}}>
 			<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
-			<Image source={require("../../../assets/img/appBG.png")} />
+			<Image source={require("../../../assets/img/appBG.png")} style={{height:160}} />
 						<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
 
 								<View style={{
@@ -335,8 +335,8 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
-        fontSize: Typography.FONT_SIZE_DOUBLE_EXTRA_LARGE_MINUS,
-        fontWeight: '800',
+        fontSize: 22,
+        fontWeight: '600',
 
 
     },
