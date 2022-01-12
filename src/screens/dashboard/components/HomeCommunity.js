@@ -40,7 +40,7 @@ const HomeCommunity = props => {
 
     const _renderItem = ({item, index}) => {
         return (
-			<View style={styles.bottomWrapper}>
+			<View style={[styles.bottomWrapper, styles.shadowProp]}>
 			<Image source={{uri:item.avatar}}
 				style={{
 					width: 83,
@@ -48,7 +48,7 @@ const HomeCommunity = props => {
 					borderRadius:10,
 				}}/>
 			<View style={{padding:10, paddingBottom:20}}>
-				<Text style={{fontSize: 10, fontWeight:"semi-bold", color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
+				<Text style={{fontSize: 10,fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
 				<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
 			</View>
 			
@@ -107,8 +107,8 @@ const HomeCommunity = props => {
                 height: 50,
                 marginTop: 10,
 				marginLeft:200,
-                backgroundColor: '#EBECF0',
-                borderRadius: 10,
+                backgroundColor: '#B0E0E6',
+                borderRadius: 14,
                 padding: 5,
                 alignItems: 'center',
               }}>
@@ -213,7 +213,7 @@ const HomeCommunity = props => {
 
                 <View style={styles.bottom}>
                     <Text style={styles.title}>
-                        Growth Community Member
+                        Growth Community Members
                     </Text>
                     <View>
                         <FlatList
@@ -244,7 +244,7 @@ const HomeCommunity = props => {
                     </View>
                 </View>
 
-				<View style={{ alignItems:'center', width:'50%',marginLeft:100, marginBottom:10}}>
+				<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
 					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
 					<Image 
 						source={require('../../../assets/img/fristDigi.png')}
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 	
     },
 	title:{
-		fontWeight: '450',
+		fontFamily:Typography.FONT_SF_SEMIBOLD,
 		fontSize: 14,
 		marginLeft:15,
 		color:Colors.PRIMARY_TEXT_COLOR,
@@ -287,15 +287,15 @@ const styles = StyleSheet.create({
     },
     headingText1: {
         fontSize: 15,
-        fontFamily: Typography.FONT_NORMAL,
+        fontFamily: Typography.FONT_SF_MEDIUM,
         marginTop: 5,
-        fontWeight: '800',
+        fontWeight: '600',
         color: 'white',
 		fontSize: 12,
     },
     headingText2: {
         ...CommonStyles.headingText2,
-        fontFamily: Typography.FONT_NORMAL,
+        fontFamily: Typography.FONT_SF_MEDIUM,
         fontWeight: '400',
         color: 'white',
 		fontSize:8,
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 		backgroundColor: 'white',
 		overflow:"hidden",
-		borderWidth:0.2,
+		// borderWidth:0.2,
 	  },
 	  chatIcon:{
 		borderRadius: 50,
@@ -369,6 +369,17 @@ const styles = StyleSheet.create({
 	   borderRadius:20,
 	   overflow:"hidden"
     },
+	shadowProp: {
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
 });
 
 export default HomeCommunity;

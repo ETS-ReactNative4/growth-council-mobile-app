@@ -80,7 +80,7 @@ const DrawerNavigation = ({navigation}) => {
                 headerLeft: () => (
                     <View>
                         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-                            <Ionicons name="menu-outline" color={'#000'} size={24}/>
+                            <Ionicons name="menu-outline" color={'#000'} size={24} style={{marginLeft:15}}/>
                         </TouchableOpacity>
                         <Image source={require('../assets/img/dashboard_logo.png')}
                                style={{
@@ -88,6 +88,7 @@ const DrawerNavigation = ({navigation}) => {
                                    height: 30,
                                    width: 30,
                                    left: 30,
+								   marginLeft:20,
                                    borderWidth: 5,
                                }}
                         />
@@ -127,7 +128,7 @@ const DrawerNavigation = ({navigation}) => {
 					headerTitle: () => (
 						<View style={{marginLeft: 30}}>
 							
-							<Text style={{color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>Community</Text>
+							<Text style={{color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20, marginLeft:15}}>Community</Text>
 						</View>
 					),
 					

@@ -62,74 +62,35 @@ const CommunityDetail = props => {
   // console.log('route.params.id:::::::::::::::::', route.params.id);
   // console.log('Session Detail:::::::::::::::::', sessionDetails.ID);
 
-  const Data = [
-    {
-      uri: require('../../../assets/img/profile_image.png'),
-      text: 'Jay',
-    },
-    {
-      uri: require('../../../assets/img/welcome_profile_image.png'),
-      text: 'John',
-    },
-    {
-      uri: require('../../../assets/img/dash_member_image.png'),
-      text: 'John',
-    },
-    {
-      uri: require('../../../assets/img/profile_image.png'),
-      text: 'Jay',
-    },
-  ];
+
 
   const _renderItem = ({item, index}) => {
     return (
-      <View style={styles.bottomWrapper}>
-        <Image
-          source={{uri: item?.avatar}}
-          style={{
-            width: '90%',
-            height: 80,
-            marginTop: 6,
-            borderRadius: 20,
-          }}
-        />
-        <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-        <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: '#EBECF0',
-            width: 25,
-            height: 23,
-            justifyContent: 'center',
-            marginLeft: 40,
-            marginTop: 5,
-          }}>
-          <Ionicons
-            name={'chatbox'}
-            size={17}
-            color="grey"
-            style={{marginLeft: 3}}
-          />
-        </View>
-      </View>
+		<View style={[styles.bottomWrapper, styles.shadowProp]}>
+		<Image source={{uri:item.avatar}}
+			style={{
+				width: 83,
+				height: 83,
+				borderRadius:10,
+			}}/>
+		<View style={{padding:10, paddingBottom:20}}>
+			<Text style={{fontSize: 10, fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
+			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+		</View>
+		
+		<View
+		  style={styles.chatIcon}>
+		  <Ionicons
+			name={'chatbox'}
+			size={10}
+			color="#B1AFAF"
+		  />
+		</View>
+	  </View>
     );
   };
 
-  const data2 = [
-    {
-      date: '10',
-      month: 'july',
-      text: 'Executive Coaching Clinic On Goal Setting',
-      text1: 'Hosted by Michael Cooper',
-    },
-    {
-      date: '10',
-      month: 'Oct',
-      text: 'Associate Member Meeting',
-      text1: 'Hosted by Michael Cooper',
-    },
-  ];
+
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -139,21 +100,21 @@ const CommunityDetail = props => {
       <View style={styles.topWrapper}>
         <ImageBackground
           style={{
-            width: '100%',
-            height: 170,
-            borderRadius: 20,
+			width: '100%',
+			height: "100%",
+			borderRadius: 20,
           }}
           source={require('../../../assets/img/blank_event_design.png')}>
           <View
             style={{
-              width: '15%',
-              height: 50,
-              marginTop: 10,
-              marginLeft: 240,
-              backgroundColor: '#EBECF0',
-              borderRadius: 10,
-              padding: 5,
-              alignItems: 'center',
+				width: 40,
+                height: 50,
+                marginTop: 10,
+                marginLeft: 200,
+                backgroundColor: '#EBECF0',
+                borderRadius: 10,
+                padding: 5,
+                alignItems: 'center',
             }}>
             <Text>{date[1]}</Text>
             <Text>{date[0]}</Text>
@@ -190,7 +151,7 @@ const CommunityDetail = props => {
         <ImageBackground
           style={{
             width: '100%',
-            height: 190,
+            height: '100%',
             borderRadius: 20,
           }}
           source={item?.uri}
@@ -226,8 +187,9 @@ const CommunityDetail = props => {
             <View style={styles.contentWrapper}>
               <Text
                 style={{
-                  fontSize: 20,
-                  fontWeight: '700',
+                  fontSize: 16,
+                  fontWeight: '500',
+				  color:"#1E2022",
                   textAlign: 'center',
                   marginTop: 50,
                 }}>
@@ -245,7 +207,7 @@ const CommunityDetail = props => {
               </Text>
 
               <View style={styles.top}>
-                <Text style={{fontWeight: 'bold', fontSize: 20}}> Events</Text>
+                <Text style={styles.title}> Events</Text>
                 <View
                   style={{
                     display: 'flex',
@@ -260,7 +222,7 @@ const CommunityDetail = props => {
                 </View>
               </View>
               <View style={styles.bottom}>
-                <Text style={{fontWeight: 'bold', fontSize: 20}}> Members</Text>
+                <Text style={styles.title}> Members</Text>
                 <View>
                   <FlatList
                     horizontal
@@ -271,14 +233,9 @@ const CommunityDetail = props => {
                 </View>
               </View>
 
-              <View>
+              <View style={styles.growthContent}>
                 <Text
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: 20,
-                    marginTop: 30,
-                    marginLeft: 10,
-                  }}>
+                  style={styles.title}>
                   {' '}
                   Growth Coaching Content
                 </Text>
@@ -306,11 +263,19 @@ const CommunityDetail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1310,
+    height: 1230,
+	backgroundColor:"blue"
   },
   arrow: {
     marginTop: 30,
   },
+  title:{
+	fontFamily:Typography.FONT_SF_SEMIBOLD,
+	fontSize: 14,
+	color:Colors.PRIMARY_TEXT_COLOR,
+	marginLeft:15, 
+  },
+
   icon: {
     width: 90,
     height: 90,
@@ -336,47 +301,47 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   paragraph: {
-    fontFamily: Typography.FONT_NORMAL,
-    fontSize: 15,
+    fontFamily: Typography.FONT_SF_REGULAR,
+    fontSize: 14,
     lineHeight: 24,
-    margin: 20,
-    color: Colors.TERTIARY_TEXT_COLOR,
+    margin: 10,
     textAlign: 'left',
+	color:'#77838F'
   },
   top: {
-    height: 200,
+	height: 200,
     marginTop: 10,
-    margin: 10,
     justifyContent: 'center',
   },
   topWrapper: {
-    height: 170,
-    width: 300,
-    marginTop: 20,
-    marginLeft: 10,
-    borderRadius: 50,
+	height: 144,
+	width: 256,
+	marginTop: 20,
+	marginLeft: 15,
+	borderRadius:20,
   },
   bottom: {
-    height: 180,
-    margin: 10,
-    width: 400,
+    height: 172,
+	marginTop:25,
   },
   bottomWrapper: {
-    width: 120,
-    height: 160,
-    borderRadius: 20,
-    marginRight: 10,
-    marginTop: 10,
+	width:84,
+   position:'relative',
+    borderRadius: 10,
+	marginTop:15,
+	marginLeft: 15,
     backgroundColor: 'white',
-    alignItems: 'center',
-    borderWidth: 0.3,
-    shadowColor: '#000000',
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 1,
-    },
+    overflow:"hidden",
+	// borderWidth:0.2,
+  },
+  chatIcon:{
+	borderRadius: 50,
+	backgroundColor: '#F1F1F1',
+	padding:6,
+	justifyContent: 'center',
+	position:'absolute',
+	right:4,
+	bottom:4
   },
   bottomImage: {
     width: '100%',
@@ -388,23 +353,45 @@ const styles = StyleSheet.create({
   },
   headingText1: {
     ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    fontFamily: Typography.FONT_SF_REGULAR,
+    marginTop: 5,
     fontWeight: '800',
     color: 'white',
+	fontSize:12
   },
   headingText2: {
     ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_NORMAL,
-    fontWeight: '700',
+    fontFamily: Typography.FONT_SF_REGULAR,
+    fontWeight: '400',
     color: 'white',
+	fontSize:8,
+  },
+ 
+  growthContent:{
+	height: 260,
+	marginTop: 20,
+	justifyContent: 'center',
+	borderRadius: 20,
+
   },
   contentWrapper2: {
-    height: 200,
-    width: 310,
-    marginTop: 20,
-    marginLeft: 10,
-    borderRadius: 50,
+    	height: 206,
+	width: 364,
+	marginTop: 20,
+	marginLeft: 15,
+   borderRadius:20,
+   overflow:"hidden"
+  },
+  shadowProp: {
+	shadowColor: "#000",
+	shadowOffset: {
+		width: 0,
+		height: 2,
+	},
+	shadowOpacity: 0.25,
+	shadowRadius: 3.84,
+
+	elevation: 5,
   },
 });
 

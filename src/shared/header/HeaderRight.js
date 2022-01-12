@@ -20,7 +20,7 @@ const HeaderRight = ({navigation}) => {
 
     return (
         <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Ionicons name="search-outline" color={'#000'} size={24} style={{marginTop: 10, marginRight: 10}}/>
+            <Ionicons name="search-outline" color={'#000'} size={26} style={{marginTop: 10, marginRight: 15}}/>
             <TouchableOpacity
                 onPress={() => navigation.navigate("Profile")}>
                 <Image

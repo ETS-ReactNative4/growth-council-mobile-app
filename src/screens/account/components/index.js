@@ -47,13 +47,13 @@ const Profile = (props) => {
 
     const _renderItems = ({item, index}) => {
         return (
-            <View style={[styles.middleWrapper, styles.shadowProp]} key={index}>
+            <View style={styles.middleWrapper} key={index}>
                 <View style={styles.wrapper}>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                   		<Text style={{fontSize: 14, color: "#343537"}}>{item.title}</Text>
+                   		<Text style={styles.text}>{item.title}</Text>
 					</TouchableOpacity>
-                    <Text style={{fontSize: 6}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+                    <Text style={{fontSize: 6, fontFamily:Typography.FONT_SF_REGULAR,}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
                     <View style={styles.iconWrapper}>
                         <Ionicon
                             name={'person'}
@@ -61,14 +61,14 @@ const Profile = (props) => {
                             color="#0B0B45"
 
                         />
-						<Text style={{color: '#343537', fontSize: 14,}}></Text>
+						<Text style={styles.text}></Text>
                         <Ionicon
                             name={'calendar'}
                             size={15}
                             color="#0B0B45"
                             style={{marginLeft: 20}}
 
-                        /><Text style={{color: '#343537', fontSize: 14,}}>{item.text3}</Text>
+                        /><Text style={styles.text}>{item.text3}</Text>
                     </View>
                     <View style={styles.iconWrapper}>
                         <Ionicon
@@ -77,7 +77,7 @@ const Profile = (props) => {
                             color="#0B0B45"
 
 
-                        /><Text style={{color: '#343537',  fontSize: 14,}}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
+                        /><Text style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
                         <Ionicon
                             name={'location'}
                             size={15}
@@ -85,7 +85,7 @@ const Profile = (props) => {
                             style={{marginLeft: 20}}
 
                         />
-						<Text style={{color: '#343537', fontSize: 14,}}>{item.location?.location_address}</Text>
+						<Text style={styles.text}>{item.location?.location_address}</Text>
                     </View>
 
 
@@ -100,14 +100,14 @@ const Profile = (props) => {
     const _renderItem = ({item, index}) => {
         return (
 			
-            <View style={[styles.middleWrapper, styles.shadowProp]}>
+            <View style={styles.middleWrapper }>
 			
-                <View style={styles.wrapper}>
+                <View style={[styles.wrapper]}>
 				<TouchableOpacity
 						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                    <Text style={{fontSize: 14, color: "#343537"}}>{item.title}</Text>
+                    <Text style={styles.text}>{item.title}</Text>
 					</TouchableOpacity>
-                    <Text style={{fontSize: 6}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+                    <Text style={{fontSize: 6,fontFamily:Typography.FONT_SF_REGULAR,}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
                     <View style={styles.iconWrapper}>
                         <Ionicon
                             name={'person'}
@@ -115,14 +115,14 @@ const Profile = (props) => {
                             color="#0B0B45"
 
                         />
-                        <Text style={{color: 'black', marginLeft: 5}}/>
+                        <Text style={styles.text}/>
                         <Ionicon
                             name={'calendar'}
                             size={15}
                             color="#0B0B45"
                             style={{marginLeft: 20}}
 
-                        /><Text style={{color: 'black', marginLeft: 5}}>{item.text3}</Text>
+                        /><Text style={styles.text}>{item.text3}</Text>
                     </View>
                     <View style={styles.iconWrapper}>
                         <Ionicon
@@ -131,10 +131,7 @@ const Profile = (props) => {
                             color="#0B0B45"
 
 
-                        /><Text style={{
-                        color: 'black',
-                        marginLeft: 5
-                    }}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
+                        /><Text style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
                         <Ionicon
                             name={'location'}
                             size={15}
@@ -142,7 +139,7 @@ const Profile = (props) => {
                             style={{marginLeft: 20}}
 
                         />
-                        <Text style={{color: 'black', marginLeft: 5}}>{item.location?.location_address}</Text>
+                        <Text style={styles.text}>{item.location?.location_address}</Text>
                     </View>
 
 
@@ -197,19 +194,21 @@ const Profile = (props) => {
     return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,}}>
 			<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
-			<Image source={require("../../../assets/img/appBG.png")} />
+			<Image source={require("../../../assets/img/appBG.png")} style={{height:160}} />
 						<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
-								<View style={styles.profileWrapper}>
-								{/* <View style={{
+
+								<View style={{
 										zIndex:30,
 										position:'absolute',
-										marginLeft:180,
+										right:5,
+										marginTop:10,
+										marginRight:10
 									}}>
 										<TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
 										<Font
 												name={'edit'}
 												size={20}
-												color="#808080"
+												color="#C4C8CC"
 												style={{marginTop: 5, marginLeft: 5}}
 
 											/>
@@ -219,13 +218,13 @@ const Profile = (props) => {
 											<Ionicon
 												name={'settings-outline'}
 												size={20}
-												color="#808080"
+												color="#C4C8CC"
 												style={{marginTop: 10, marginLeft: 5}}
 
 											/>
 										</TouchableOpacity>
-									</View> */}
-									
+									</View>
+								<View style={styles.profileWrapper}>		
 										<View style={styles.icon}>
 											<Image source={{uri: profile.avatar}} style={{width:"100%", height:"100%"}} resizeMode='cover'
 											/>
@@ -328,11 +327,16 @@ const styles = StyleSheet.create({
 		position:"absolute",
 		top:-35,
     },
+	text:{
+		color: '#343537',
+		marginLeft: 5,
+		fontFamily:Typography.FONT_SF_REGULAR,
+	},
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
-        fontSize: Typography.FONT_SIZE_DOUBLE_EXTRA_LARGE_MINUS,
-        fontWeight: '800',
+        fontSize: 22,
+        fontWeight: '600',
 
 
     },
@@ -408,6 +412,19 @@ const styles = StyleSheet.create({
          marginLeft: 10,
          marginTop: 10,
     },
+	shadowProp: {
+		
+	
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
 
 
 

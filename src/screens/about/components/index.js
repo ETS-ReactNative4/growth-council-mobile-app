@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     },
     backgroundParagraph: {
         color: '#fff',
+		fontSize:14,
     },
     cta: {
         marginTop: 30,
@@ -164,8 +165,8 @@ const styles = StyleSheet.create({
     },
     button: {
         ...CommonStyles.button,
-        height: 56,
-        width: '40%',
+        height: 60,
+        width: 380,
         backgroundColor: Colors.SECONDARY_BUTTON_COLOR,
     },
     buttonText: {
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     paragraph: {
-        fontSize: 16
+        fontSize: 14
     }
 });
 

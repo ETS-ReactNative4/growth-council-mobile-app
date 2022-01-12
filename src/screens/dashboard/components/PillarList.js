@@ -75,7 +75,9 @@ const styles = StyleSheet.create({
 		top: '80%',
 		left:8,
 		color:QUATERNARY_TEXT_COLOR,
-		fontWeight:"semi-bold",
+		marginTop:10,
+		fontFamily:Typography.FONT_SF_SEMIBOLD,
+		fontWeight:'500',
 		fontSize:12
 	  },
 })
