@@ -33,6 +33,7 @@ import BestPracticeScreen from '../screens/dashboard/BestPractice';
 import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
 
 const Stack = createStackNavigator();
@@ -182,6 +183,7 @@ const MainNavigation = () => {
             ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
+		
         <Stack.Screen
           name="Dashboard"
           component={DrawerNavigation}
@@ -205,6 +207,13 @@ const MainNavigation = () => {
           component={ContactUsScreen}
           options={{
             headerTitle: 'Contact Us',
+          }}
+        />
+		<Stack.Screen
+          name="UpcomingView"
+          component={UpcomingScreen}
+          options={{
+            headerTitle: '',
           }}
         />
         <Stack.Screen

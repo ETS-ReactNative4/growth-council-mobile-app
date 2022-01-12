@@ -2,6 +2,7 @@ import React from 'react';
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 import {SafeAreaView, StyleSheet, TouchableOpacity, View, Image, Text, ImageBackground} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useSelector} from 'react-redux';
 
 import DashboardScreen from '../screens/dashboard';
 
@@ -15,6 +16,7 @@ import GrowthCoachingScreen from "../screens/dashboard/GrowthCoaching";
 import SettingScreen from '../screens/setting/index';
 
 import BottomTabNavigation from "./BottomTabNavigation";
+import {CommonStyles, Colors, Typography} from '../theme';
 import HeaderTitle from "../shared/header";
 import HeaderRight from "../shared/header/HeaderRight";
 
@@ -62,6 +64,9 @@ const CustomDrawerContent = (props) => {
 };
 
 const DrawerNavigation = ({navigation}) => {
+
+	
+    const {profileEvent, profileEventLoading, profileEventError} = useSelector((state) => state.profileEvent);
 
     return (
         <Drawer.Navigator
@@ -111,21 +116,21 @@ const DrawerNavigation = ({navigation}) => {
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="calendar-outline" color={'blue'} size={24}/>
                     ),
-                    headerBackground: () => (
-                        <View>
-                            <ImageBackground
-                                source={require('../../src/assets/img/blank_event_design.png')}
-                                style={{width: "100%", height: 60}}>
-                            </ImageBackground>
-                        </View>
-                    ),
-                    headerTitle: () => (
-                        <View style={{marginLeft: 40}}>
-
-                            <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Community</Text>
-                        </View>
-                    ),
-
+					headerBackground:()=>(
+						<View>
+							<ImageBackground
+							source={require('../../src/assets/img/Rectangle2.png')}
+							style={{width:"100%", height:60}}>
+							</ImageBackground>
+						</View>
+					),
+					headerTitle: () => (
+						<View style={{marginLeft: 30}}>
+							
+							<Text style={{color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>Community</Text>
+						</View>
+					),
+					
                 })}
             />
             <Drawer.Screen
@@ -135,20 +140,20 @@ const DrawerNavigation = ({navigation}) => {
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="ear-outline" color={'blue'} size={24}/>
                     ),
-                    headerBackground: () => (
-                        <View>
-                            <ImageBackground
-                                source={require('../../src/assets/img/blue_blank.png')}
-                                style={{width: "100%", height: 60}}>
-                            </ImageBackground>
-                        </View>
-                    ),
-                    headerTitle: () => (
-                        <View style={{marginLeft: 40}}>
-
-                            <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Best Practice</Text>
-                        </View>
-                    ),
+					headerBackground:()=>(
+						<View>
+							<ImageBackground
+							source={require('../../src/assets/img/Rectangle1.png')}
+							style={{width:"100%", height:60}}>
+							</ImageBackground>
+						</View>
+					),
+					headerTitle: () => (
+						<View style={{marginLeft: 30}}>
+							
+							<Text style={{ color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>Best Practice</Text>
+						</View>
+					),
                 })}
             />
             <Drawer.Screen
@@ -159,20 +164,20 @@ const DrawerNavigation = ({navigation}) => {
                     drawerIcon: ({focused, size}) => (
                         <Ionicons name="git-compare-outline" color={'green'} size={24}/>
                     ),
-                    headerBackground: () => (
-                        <View>
-                            <ImageBackground
-                                source={require('../../src/assets/img/green_blank.png')}
-                                style={{width: "100%", height: 60}}>
-                            </ImageBackground>
-                        </View>
-                    ),
-                    headerTitle: () => (
-                        <View style={{marginLeft: 40}}>
-
-                            <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>Growth Coaching</Text>
-                        </View>
-                    ),
+					headerBackground:()=>(
+						<View>
+							<ImageBackground
+							source={require('../../src/assets/img/Rectangle.png')}
+							style={{width:"100%", height:60}}>
+							</ImageBackground>
+						</View>
+					),
+					headerTitle: () => (
+						<View style={{marginLeft: 30}}>
+							
+							<Text style={{color: Colors.PRIMARY_BACKGROUND_COLOR,fontSize: 20}}>Growth Coaching</Text>
+						</View>
+					),
                 })}
             />
             <Drawer.Screen
