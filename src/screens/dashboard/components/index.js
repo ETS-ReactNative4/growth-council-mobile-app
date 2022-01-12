@@ -52,7 +52,7 @@ const Dashboard = props => {
 
   const _renderItem = ({item, index}) => {
 	return (
-	  <View style={styles.bottomWrapper}>
+	  <View style={[styles.bottomWrapper, styles.shadowProp]}>
 		<Image source={{uri:item.avatar}}
 			style={{
 				width: 83,
@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
   },
   bottomWrapper: {
 	  width:84,
-   position:'relative',
+   	position:'relative',
     borderRadius: 10,
 	marginTop:15,
 	marginLeft: 15,
@@ -443,6 +443,17 @@ ContentWrapper: {
    borderRadius:20,
    overflow:"hidden"
 },
+shadowProp: {
+	shadowColor: "#000",
+	shadowOffset: {
+		width: 0,
+		height: 2,
+	},
+	shadowOpacity: 0.25,
+	shadowRadius: 3.84,
+
+	elevation: 5,
+  },
  
 });
 

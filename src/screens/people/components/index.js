@@ -31,7 +31,7 @@ const People = (props) => {
 	const _renderItem = ({item, index}) => {
 		
 		return (
-			<View style={styles.wrapper}>
+			<View style={[styles.wrapper, styles.shadowProp]}>
 				<Image source={{uri:item.avatar}}
 					   style={{
 						   width: 68,
@@ -163,8 +163,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         margin: 10,
         borderRadius: 10,
-        borderWidth: 0.3,
-    }
+        // borderWidth: 0.3,
+    },
+	shadowProp: {
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
 });
 
 export default People;

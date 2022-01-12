@@ -32,7 +32,7 @@ const BestPractice = props => {
 
   const _renderItem = ({item, index}) => {
     return (
-		<View style={styles.bottomWrapper}>
+		<View style={[styles.bottomWrapper, styles.shadowProp]}>
 		<Image source={{uri:item.avatar}}
 			style={{
 				width: 83,
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
 
   },
   title:{
-	fontWeight:'450',
+	fontWeight:'600',
 	fontSize: 14,
 	color:Colors.PRIMARY_TEXT_COLOR,
 	marginLeft:15, 
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
 	marginLeft: 15,
     backgroundColor: 'white',
     overflow:"hidden",
-	borderWidth:0.2,
+	// borderWidth:0.2,
   },
   chatIcon:{
 	borderRadius: 50,
@@ -356,6 +356,22 @@ const styles = StyleSheet.create({
 	marginLeft: 15,
    borderRadius:20,
    overflow:"hidden"
+  },
+  shadowProp: {
+    // shadowColor: '#171717',
+    // shadowOffset: {width: -2, height: 4},
+    // shadowOpacity: 1,
+    // shadowRadius: 3,
+
+	shadowColor: "#000",
+	shadowOffset: {
+		width: 0,
+		height: 2,
+	},
+	shadowOpacity: 0.25,
+	shadowRadius: 3.84,
+
+	elevation: 5,
   },
 });
 
