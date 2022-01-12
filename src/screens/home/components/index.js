@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  FlatList,
 } from 'react-native';
 import {Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -42,23 +41,23 @@ const Home = props => {
   const itemHorizontalMargin = wp(2);
   const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-  const carouselItems = [
-    {
-      uri: require('../../../assets/img/growth_coaching_slider_image.png'),
-      text: 'Growth Coaching',
-      id: 121,
-    },
-    {
-      uri: require('../../../assets/img/community_slider_image.png'),
-      text: 'Growth Community',
-      id: 120,
-    },
-    {
-      uri: require('../../../assets/img/best_practices_slider_image.png'),
-      text: 'Best Practices',
-      id: 119,
-    },
-  ];
+  // const carouselItems = [
+  //   {
+  //     uri: require('../../../assets/img/welcome_screen_learn_more_image.png'),
+  //     text: 'Growth Coaching',
+  //     id: 121,
+  //   },
+  //   {
+  //     uri: require('../../../assets/img/community_slider_image.png'),
+  //     text: 'Growth Community',
+  //     id: 120,
+  //   },
+  //   {
+  //     uri: require('../../../assets/img/massk.png'),
+  //     text: 'Best Practices',
+  //     id: 119,
+  //   },
+  // ];
 
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
@@ -73,18 +72,23 @@ const Home = props => {
     return (
       <TouchableOpacity
         key={index}
-        onPress={() => navigation.navigate('CouncilDetail', {id: item?.id})}>
+        onPress={() =>
+          navigation.navigate('CouncilDetail', {id: item?.term_id})
+        }>
         <View
           style={{
             backgroundColor: 'floralwhite',
-            borderRadius: 5,
-            height: 250,
+            height: 300,
+            width: 200,
             marginLeft: 20,
             marginRight: 20,
             position: 'relative',
           }}>
-          <Image source={item?.uri} style={{width: '100%', height: '100%'}} />
-          <Text style={styles.sliderText}>{item.text}</Text>
+          <Image
+            source={{uri: item?.image}}
+            style={{width: '100%', height: '100%', borderRadius: 20}}
+          />
+          <Text style={styles.sliderText}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -119,10 +123,9 @@ const Home = props => {
         <Carousel
           ref={sliderRef}
           layout={'default'}
-          data={carouselItems}
+          data={pillarSliders}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
-          //renderItem={_renderItem}
           renderItem={item => _renderItem(item, navigation)}
           firstItem={1}
           containerCustomStyle={styles.slider}
@@ -139,7 +142,7 @@ const Home = props => {
         />
 
         <Pagination
-          dotsLength={carouselItems.length}
+          dotsLength={pillarSliders.length}
           activeDotIndex={activeSlider}
           dotStyle={{
             width: 20,
@@ -307,8 +310,11 @@ const styles = StyleSheet.create({
   },
   sliderText: {
     position: 'absolute',
-    top: '45%',
+    top: '85%',
     left: 10,
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
   carouselLeft: {
     position: 'absolute',

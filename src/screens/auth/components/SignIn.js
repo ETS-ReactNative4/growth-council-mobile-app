@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
+import {Linking} from 'react-native'
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
@@ -23,7 +24,8 @@ import FlatTextInput from '../../../shared/form/FlatTextInput';
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const signInSchema = Yup.object().shape({
-    username: Yup.string().required('Username is required.'),
+    username: Yup.string()
+	.required('Username is required.'),
     password: Yup
         .string()
         .min(6, ({min}) => `Password must be at least ${min} characters.`)
@@ -86,25 +88,12 @@ const SignInForm = (props) => {
                             </View>
                             }
 
-                            {/* {loading &&
-                            <View style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                flexDirection: 'column',
-                                justifyContent: 'space-around',
-                                position: 'absolute',
-                                zIndex: 1011,
-                            }}>
-                                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
-                            </View>
-                            } */}
-
                             <View style={styles.body}>
-								{loading &&
-								<View style={styles.loading}>
-									<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
-								</View>
-								}
+                                {loading &&
+                                <View style={styles.loading1}>
+                                    <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
+                                </View>
+                                }
                                 <FlatTextInput
                                     label='Email'
                                     value={values.username}
@@ -112,8 +101,12 @@ const SignInForm = (props) => {
                                     onFocus={handleBlur('username')}
                                     error={errors.username}
                                     touched={touched.username}
+									
                                     //keyboardType={'email-address'}
                                 />
+                                {errors.username &&
+                                <Text style={{fontSize: 10, color: 'red'}}>{errors.username}</Text>
+                                }
 
                                 <FlatTextInput
                                     label='Password'
@@ -124,6 +117,10 @@ const SignInForm = (props) => {
                                     error={errors.password}
                                     touched={touched.password}
                                 />
+                                {errors.password &&
+                                <Text style={{fontSize: 10, color: 'red'}}>{errors.password}</Text>
+                                }
+
                                 <Ionicons
                                     name={hidePass ? 'eye-outline' : 'eye-off-outline'}
                                     size={25}
@@ -139,25 +136,28 @@ const SignInForm = (props) => {
                             </View>
 
                             <View style={styles.loginButtonWrapper}>
-							
+
                                 <Button style={styles.loginButton} onPress={handleSubmit}>
                                     <Text style={styles.loginButtonText}>Sign In</Text>
                                 </Button>
-								
+
                             </View>
                             <View style={styles.forgotButtonWrapper}>
                                 <TouchableOpacity>
-                                    <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot Password?</Text>
+                                    <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot
+                                        Password?</Text>
                                 </TouchableOpacity>
-                             </View>
+                            </View>
                             <View style={styles.signuptext}>
                                 <Text>Not a member ?</Text>
-                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Sign Up </Text>
+                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Sign
+                                    Up </Text>
                             </View>
                             <View style={[styles.signuptext, {marginTop: 40}]}>
                                 <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/>
                                 <Text>Need Help? </Text>
-                                <Text style={{color: '#31ade5'}}> Contact Us </Text>
+                                <Text style={{color: '#31ade5'}}
+                                      onPress={() => Linking.openURL('mailto:contact@frost.com')}> Contact Us </Text>
                             </View>
 
                         </View>
@@ -197,7 +197,8 @@ const styles = StyleSheet.create({
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
-		fontWeight:"bold",
+        fontWeight: "bold",
+        fontSize: 20
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 10,
         width: '50%',
-	
+
     },
     loginButtonText: {
         ...CommonStyles.buttonText,
@@ -242,16 +243,13 @@ const styles = StyleSheet.create({
     signuptext: {
         flexDirection: 'row',
     },
-	loading:{
-		width:80,
-		height:80,
-		flex: 1,
-		alignItems: 'center',
-		flexDirection: 'column',
-		justifyContent: 'space-around',
-		position: 'absolute',
-		zIndex: 1011,
-	}
+    loading1: {
+        marginLeft: 50,
+        flex: 1,
+        flexDirection: 'column',
+        position: 'absolute',
+        zIndex: 1011,
+    }
 });
 
 

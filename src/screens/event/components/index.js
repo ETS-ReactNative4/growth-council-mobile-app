@@ -35,12 +35,25 @@ const Event = props => {
   }, []);
 
   const isEventLoaded = Object.keys(events).length === 0;
-  const actualDate = moment('20111031').format('LLLL');
-  const date = actualDate.split(',', 2);
-  const dateMonth = date[1].split(' ', 3);
+  const actualDate = moment(events.event_start).format('LLLL').split(',', 6);
+  const date = actualDate[1].split(' ', 3);
+  console.log(date);
 
   console.log('route.params.id:::::::::::::::::', route.params.id);
   console.log('Event Detail:::::::::::::::::', events.organizer_image);
+
+
+  let backgroundColor = Colors.COMMUNITY_COLOR
+		switch(events?.pillar_categories[0]?.slug ){
+			case "growth-coaching":
+				backgroundColor=Colors.COACHING_COLOR
+				break;
+			case "basic-practices":
+				backgroundColor=Colors.PRACTICE_COLOR
+				break;
+			case 'growth-community':
+				backgroundColor=Colors.COMMUNITY_COLOR
+		}
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -57,11 +70,14 @@ const Event = props => {
             style={{
               alignItems: 'center',
             }}>
-            <View style={styles.topbanner}>
-              {!isEventLoaded && (
-                <Text style={styles.headingText1}>{events.title}</Text>
-              )}
-            </View>
+			
+				<View style={[styles.topbanner,{backgroundColor:backgroundColor}]}>
+				{!isEventLoaded && (
+					<Text style={styles.headingText1}>{events.title}</Text>
+				)}
+				</View>
+			
+			
           </View>
           <View
             style={{
@@ -87,18 +103,22 @@ const Event = props => {
                     paddingBottom: 5,
                     flexDirection: 'row',
                   }}>
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'rgba(54,147,172,1)',
-                      height: 60,
-                      width: 30,
-                      borderRadius: 15,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <MaterialIcons name={'event'} size={35} color={'white'} />
-                  </View>
+				
+					<View
+						style={[{
+						flex: 1,
+						backgroundColor: 'rgba(54,147,172,1)',
+						height: 60,
+						width: 30,
+						borderRadius: 15,
+						justifyContent: 'center',
+						alignItems: 'center',
+						},{backgroundColor:backgroundColor}]}>
+						<MaterialIcons name={'event'} size={35} color={'white'} />
+					</View>
+			
+				  
+				
                   <View
                     style={{
                       flex: 4,
@@ -106,7 +126,7 @@ const Event = props => {
                     }}>
                     {!isEventLoaded && (
                       <Text style={styles.contentHeading}>
-                        {dateMonth[2]} {dateMonth[1]}, {date[0]}
+                        {date[2]} {date[1]}, {actualDate[0]}
                       </Text>
                     )}
 
@@ -121,6 +141,7 @@ const Event = props => {
                       </Text>
                     )}
                   </View>
+				  
                   <View
                     style={{
                       flex: 1,
@@ -144,22 +165,27 @@ const Event = props => {
                     paddingBottom: 5,
                     flexDirection: 'row',
                   }}>
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'rgba(54,147,172,1)',
-                      height: 60,
-                      width: 30,
-                      borderRadius: 15,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Ionicons
-                      name={'location-outline'}
-                      size={35}
-                      color={'white'}
-                    />
-                  </View>
+
+			
+					<View
+						style={[{
+						flex: 1,
+						backgroundColor: 'rgba(54,147,172,1)',
+						height: 60,
+						width: 30,
+						borderRadius: 15,
+						justifyContent: 'center',
+						alignItems: 'center',
+						},{backgroundColor:backgroundColor}]}>
+						 <Ionicons
+							name={'location-outline'}
+							size={35}
+							color={'white'}
+							/>
+					</View>
+					
+				
+                 
                   {!isEventLoaded && (
                     <View
                       style={{
@@ -202,9 +228,8 @@ const Event = props => {
                     flexDirection: 'row',
                     marginTop: 10,
                   }}>
-                  {!isEventLoaded && (
                     <View
-                      style={{
+                      style={[{
                         flex: 1,
                         backgroundColor: 'rgba(54,147,172,1)',
                         height: 60,
@@ -212,17 +237,19 @@ const Event = props => {
                         borderRadius: 15,
                         justifyContent: 'center',
                         alignItems: 'center',
-                      }}>
-                      <Image source={{uri: events.organizer_image}} />
+                      },{backgroundColor:backgroundColor}]}>
+                      <Image source={{uri: events?.organizer_image}} style={{width:30, height:60}} />
                     </View>
-                  )}
+                 
                   <View
                     style={{
                       flex: 3,
                       paddingLeft: 20,
                     }}>
-                    <Text style={styles.contentHeading}>Andrew Deutscher</Text>
-                    <Text>Founder, Regenerate</Text>
+                    <Text style={styles.contentHeading}>
+					{events?.organizer?.term_name}
+                    </Text>
+                    <Text>{events?.organizer?.description}</Text>
                   </View>
                   <View
                     style={{
@@ -329,6 +356,28 @@ const styles = StyleSheet.create({
   },
   topbanner: {
     backgroundColor: 'rgba(54,147,172,1)',
+    height: 100,
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 100,
+    marginBottom: 20,
+    borderRadius: 12,
+    padding: 20,
+  },
+  topbanner1: {
+    backgroundColor: 'rgba(54,147,172,1)',
+    height: 100,
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 100,
+    marginBottom: 20,
+    borderRadius: 12,
+    padding: 20,
+  },
+  topbanner2: {
+	backgroundColor: 'rgba(128,186,116,1)',
     height: 100,
     width: '80%',
     justifyContent: 'center',

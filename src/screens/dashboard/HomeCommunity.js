@@ -3,45 +3,52 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import HomeCommunity from './components/HomeCommunity';
 
-import {fetchAllsessions, resetsession} from './slice/sessionSlice';
-import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
+import {fetchAllCommunities, resetCommunity} from './slice/communitySlice';
+import {fetchAllCommunityMemberContents, resetCommunityMemberContent} from './slice/communityMemberContentSlice';
 
 const HomeCommunityScreen = props => {
 
     const dispatch = useDispatch();
 
-    const {sessions, sessionLoading, sessionError} = useSelector(state => state.sessions);
-    const {communityMembers, communityMemberLoading, communityMemberError} = useSelector(state => state.communityMembers);
+    const {communities, communityLoading, communityError} = useSelector(
+        state => state.communities,
+    );
 
-    const fetchAllSession = () => {
-        dispatch(fetchAllsessions());
+    const {
+        communityMemberContents,
+        communityMemberContentLoading,
+        communityMemberContentError,
+    } = useSelector(state => state.communityMemberContents);
+
+    const fetchAllCommunity = () => {
+        dispatch(fetchAllCommunities());
     };
 
-    const fetchAllCommunityMember = () => {
-        dispatch(fetchAllCommunityMembers());
+    const fetchAllCommunityMemberContent = () => {
+        dispatch(fetchAllCommunityMemberContents());
     };
 
-    const cleanSession = () => {
-        dispatch(resetsession());
+    const cleanCommunity = () => {
+        dispatch(resetCommunity());
     };
 
-    const cleanCommunityMember = () => {
-        dispatch(resetCommunityMember());
+    const cleanCommunityMemberContent = () => {
+        dispatch(resetCommunityMemberContent());
     };
 
     return (
         <HomeCommunity
             {...props}
-            sessions={sessions}
-            sessionLoading={sessionLoading}
-            sessionError={sessionError}
-            fetchAllSession={fetchAllSession}
-            cleansession={cleanSession}
-            communityMembers={communityMembers}
-            communityMemberLoading={communityMemberLoading}
-            communityMemberError={communityMemberError}
-            fetchAllCommunityMember={fetchAllCommunityMember}
-            cleanCommunityMember={cleanCommunityMember}
+            communities={communities}
+            communityLoading={communityLoading}
+            communityError={communityError}
+            fetchAllCommunity={fetchAllCommunity}
+            cleanCommunity={cleanCommunity}
+            communityMemberContents={communityMemberContents}
+            communityMemberContentLoading={communityMemberContentLoading}
+            communityMemberContentError={communityMemberContentError}
+            fetchAllCommunityMemberContent={fetchAllCommunityMemberContent}
+            cleanCommunityMemberContent={cleanCommunityMemberContent}
         />
     );
 };

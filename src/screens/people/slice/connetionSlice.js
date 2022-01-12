@@ -5,7 +5,7 @@ import {fetch} from '../../../utils/httpUtil';
 export const fetchAllConnections = createAsyncThunk(
     'connection/fetchAll',
     (_, {rejectWithValue}) => {
-        return fetch(`jwt-auth/v1/users`)
+        return fetch(`jwt-auth/v1/users/connection`)
             .then(response => response.data.body_response)
             .catch(error => rejectWithValue(error?.response?.data || error));
     },

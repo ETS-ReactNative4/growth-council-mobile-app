@@ -6,38 +6,41 @@ import {
     ScrollView,
     StyleSheet,
     StatusBar,
-    Dimensions,
     Image,
 } from 'react-native';
 import {Button} from 'native-base';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import HTMLView from 'react-native-htmlview';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import LoadMore from './LoadMore';
 
-const screenHeight = Math.round(Dimensions.get('window').height);
-
 const CouncilDetail = props => {
 
-    const {navigation, route, pillars, pillarLoading, pillarError, fetchPillarByIdentifier, cleanPillar} = props;
+    const {
+        navigation,
+        route,
+        pillars,
+        pillarLoading,
+        pillarError,
+        fetchPillarByIdentifier,
+        cleanPillar,
+    } = props;
 
     const [loadMore, setLoadMore] = useState(false);
-
 
     useEffect(() => {
         const fetchPillarDetailAsync = async () => {
             await fetchPillarByIdentifier(route?.params?.id);
         };
         fetchPillarDetailAsync();
-
     }, []);
 
-    console.log("route.params.id:::::::::::::::::", route.params.id);
-    console.log("Pillar Detail:::::::::::::::::", pillars);
+    console.log('route.params.id:::::::::::::::::', route.params.id);
+    // console.log('Pillar Detail:::::::::::::::::', pillars);
 
     return (
-        <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
+        <ScrollView>
             <View style={styles.container}>
                 <StatusBar
                     barStyle="dark-content"
@@ -68,27 +71,24 @@ const CouncilDetail = props => {
                 </View>
 
                 <View style={{padding: 30}}>
-                    <Text style={styles.headingTitle}>Growth Coaching</Text>
-                    <Text style={styles.paragraph}>
-                        This Agreement governs your use of Apple’s services (“Services”),
-                        through which you can buy, get, license, rent or subscribe to
-                        content, Apps (as defined below), and other in-app services
-                        (collectively, “Content”). ontent may be offered through the
-                    </Text>
-                    <Text style={styles.paragraph}>
-                        By creating an account for use of the Services in a particular
-                        country or territory you are specifying it as your Home Country.
-                    </Text>
+                    <Text style={styles.headingTitle}>{pillars?.name}</Text>
+                    <HTMLView value={pillars?.description} style={styles.paragraph}/>
                 </View>
-
-                <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                    <Button
-                        style={styles.moreButton}
-                        onPress={() => setLoadMore(!loadMore)}>
-                        <Text style={styles.moreButtonText}>Load More</Text>
-                    </Button>
-                </View>
-                {loadMore && <LoadMore {...props}/>}
+                {!loadMore && (
+                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <Button
+                            style={styles.moreButton}
+                            onPress={() => setLoadMore(!loadMore)}>
+                            <Text style={styles.moreButtonText}>Load More</Text>
+                        </Button>
+                    </View>
+                )}
+                {loadMore && (
+                    <LoadMore
+                        {...props}
+                        pillar_id={route?.params?.id}
+                    />
+                )}
             </View>
         </ScrollView>
     );

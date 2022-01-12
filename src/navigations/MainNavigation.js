@@ -17,7 +17,6 @@ import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
 
-import EditProfileScreen from '../screens/account/EditProfile';
 import ChangePasswordScreen from '../screens/setting/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
@@ -25,7 +24,7 @@ import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
-import ManageAccountScreen from '../screens/setting/ManageAccount';
+import ManageAccountScreen from '../screens/account/ManageAccount';
 import PrivacyPolicyScreen from '../screens/static/PrivacyPolicy';
 import TermsConditionsScreen from '../screens/static/TermsConditions';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
@@ -34,6 +33,8 @@ import BestPracticeScreen from '../screens/dashboard/BestPractice';
 import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import UpcomingScreen from '../screens/dashboard/UpcomingView';
+import ChatScreen from '../screens/chat';
 
 const Stack = createStackNavigator();
 
@@ -173,7 +174,7 @@ const MainNavigation = () => {
           }}
         />
         <Stack.Screen
-          name="Account"
+          name="ManageAccount"
           component={ManageAccountScreen}
           options={{
             headerLeft: () => null,
@@ -182,6 +183,7 @@ const MainNavigation = () => {
             ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
+		
         <Stack.Screen
           name="Dashboard"
           component={DrawerNavigation}
@@ -192,13 +194,6 @@ const MainNavigation = () => {
             gestureDirection: 'horizontal-inverted',
             headerLeft: () => null,
           })}
-        />
-        <Stack.Screen
-          name="EditProfile"
-          component={EditProfileScreen}
-          options={{
-            headerTitle: 'Edit Profile',
-          }}
         />
         <Stack.Screen
           name="ChangePassword"
@@ -212,6 +207,13 @@ const MainNavigation = () => {
           component={ContactUsScreen}
           options={{
             headerTitle: 'Contact Us',
+          }}
+        />
+		<Stack.Screen
+          name="UpcomingView"
+          component={UpcomingScreen}
+          options={{
+            headerTitle: '',
           }}
         />
         <Stack.Screen
@@ -230,6 +232,15 @@ const MainNavigation = () => {
             headerTitle: 'Session Detail',
           })}
         />
+          <Stack.Screen
+              name="Chat"
+              component={ChatScreen}
+              options={({route}) => ({
+                  userID: route?.params?.userID,
+                  friendID: route?.params?.friendID,
+                  headerTitle: 'Chat',
+              })}
+          />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'modal'}}>

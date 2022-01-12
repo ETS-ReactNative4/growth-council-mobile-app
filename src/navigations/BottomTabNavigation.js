@@ -8,12 +8,12 @@ import {Colors} from '../theme';
 import DashboardScreen from '../screens/dashboard';
 import AccountScreen from '../screens/account';
 import SearchScreen from '../screens/search';
-import ChatScreen from '../screens/chat';
+import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigation = () => {
+const BottomTabNavigation = ({navigation}) => {
 
     return (
         <Tab.Navigator
@@ -57,10 +57,10 @@ const BottomTabNavigation = () => {
                 }}
             />
             <Tab.Screen
-                name="Chat"
-                component={ChatScreen}
+                name="UserList"
+                component={UserListScreen}
                 options={{
-                    tabBarLabel: 'Chat',
+                    tabBarLabel: 'UserList',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 12 : 0,
@@ -69,9 +69,9 @@ const BottomTabNavigation = () => {
                         </View>
                     ),
                     tabBarVisible: true,
-					
+
                 }}
-				
+
             />
             <Tab.Screen
                 name="People"

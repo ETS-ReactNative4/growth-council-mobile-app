@@ -11,6 +11,7 @@ import {
     FlatList,
 } from 'react-native';
 import {Button} from 'native-base';
+import { Linking } from 'react-native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -19,6 +20,7 @@ const Ideas = (props) => {
     const win = Dimensions.get('window');
 
     const {navigation, idea, ideaLoading, ideaError, fetchIdea, cleanIdea} = props;
+
 
     useEffect(() => {
         const fetchAllIdeaAsync = async () => {
@@ -45,13 +47,8 @@ const Ideas = (props) => {
                             <Text style={styles.titleText}>{idea.heading1}</Text>
                             <View style={styles.titleBorder}></View>
                         </View>
+						
                         <Text style={styles.paragraph}>
-                            {/* You’re leading your team to greatness and others can learn from
-              your success. We are eager to learn about your progress and
-              successes in the world of customer engagement. Drop us a line to
-              let us know if you’d be willing to be interviewed or if you have
-              recently written an article we should share with the Council
-              membership. */}
                             {idea.content1}
                         </Text>
                     </View>
@@ -63,7 +60,7 @@ const Ideas = (props) => {
                                 styles.plainButton,
                                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
                             ]}
-                            onPress={() => navigation.navigate('About')}>
+                            onPress={() => Linking.openURL('mailto:contact@frost.com') }>
                             <Text style={[styles.buttonText, styles.plainButtonText]}>
                                 Email Us
                             </Text>
