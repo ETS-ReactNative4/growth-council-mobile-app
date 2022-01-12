@@ -416,6 +416,7 @@ const styles = StyleSheet.create({
 	marginTop:25,
   },
   bottomWrapper: {
+	  width:84,
    position:'relative',
     borderRadius: 10,
 	marginTop:15,

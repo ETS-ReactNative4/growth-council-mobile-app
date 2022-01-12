@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome5';
 import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';

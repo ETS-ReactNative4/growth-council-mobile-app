@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome5';
 import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -70,33 +71,22 @@ const HomeCommunity = props => {
             icon: 'brain',
             text: 'Executive MindChange',
         },
-        {
-            icon: 'location-arrow',
-            text: 'Megatrends Workshop',
-        },
-        {
-            icon: 'window-maximize',
-            text: 'Annual Council Meeting',
-        },
-        {
-            icon: 'clipboard',
-            text: 'BrainStorming Strategy Discussion',
-        },
+       
     ];
 
-    // const _renderMiddleItem = ({item, index}) => {
-    //   return (
-    //     <TouchableOpacity
-    //       onPress={() => navigation.navigate('CommunityDetail', {id: item.ID})}>
-    //       <View style={styles.middleWrapper}>
-    //         <View style={styles.middleW}>
-    //           <Font name={item.icon} size={30} color="skyblue" />
-    //         </View>
-    //         <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
-    //       </View>
-    //     </TouchableOpacity>
-    //   );
-    // };
+    const _renderMiddleItem = ({item, index}) => {
+      return (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('CommunityDetail', {id: item.ID})}>
+          <View style={styles.middleWrapper}>
+            <View style={styles.middleW}>
+              <Font name={item.icon} size={30} color="skyblue" />
+            </View>
+            <Text style={{marginTop: 10, fontSize: 10}}>{item.text}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    };
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -176,12 +166,19 @@ const HomeCommunity = props => {
         fetchAllCommunityAsync();
     }, []);
 
+	useEffect(() => {
+        const fetchAllCommunityMemberContentAsync = async () => {
+            await fetchAllCommunityMemberContent();
+        };
+        fetchAllCommunityMemberContentAsync();
+    }, []);
+
   return (
     
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.top}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                    <Text style={styles.title}>
                         {' '}
                         Growth Community Events
                     </Text>
@@ -199,8 +196,8 @@ const HomeCommunity = props => {
                     </View>
                 </View>
 
-                {/* <View style={styles.middle}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                <View style={styles.middle}>
+                    <Text style={styles.title}>
                         Points of Engagement
                     </Text>
 
@@ -216,10 +213,10 @@ const HomeCommunity = props => {
                             renderItem={_renderMiddleItem}
                         />
                     </View>
-                </View> */}
+                </View>
 
                 <View style={styles.bottom}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                    <Text style={styles.title}>
                         Growth Community Member
                     </Text>
                     <View>
@@ -233,7 +230,7 @@ const HomeCommunity = props => {
                 </View>
 
                 <View style={styles.content}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
+                    <Text style={styles.title}>
                         {' '}
                         Growth Coaching Content
                     </Text>
@@ -258,20 +255,26 @@ const HomeCommunity = props => {
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         width: '100%',
     },
     top: {
         height: 200,
-        marginTop: 40,
-        margin: 10,
+        marginTop:25,
         justifyContent: 'center',
+	
     },
+	title:{
+		fontWeight: '450',
+		fontSize: 14,
+		marginLeft:15,
+		color:Colors.PRIMARY_TEXT_COLOR,
+	  },
 
     topWrapper: {
 		height: 144,
 		width: 256,
-		marginTop: 10,
+		marginTop: 20,
 		marginLeft: 15,
 		borderRadius:20,
     },
@@ -295,25 +298,25 @@ const styles = StyleSheet.create({
     },
     middle: {
         width: 400,
-        height: 200,
-        marginLeft: 10,
         marginTop: 10,
     },
     middleWrapper: {
-        height: 150,
         width: 90,
         borderRadius: 20,
-        marginTop: 10,
+        marginTop: 15,
+		marginLeft:15,
         justifyContent: 'center',
         alignItems: 'center',
+		
     },
     middleW: {
         backgroundColor: 'white',
-        width: 80,
-        height: 80,
+        width: 64,
+        height: 64,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
+		borderWidth:0.2,
     },
     headingText3: {
         ...CommonStyles.headingText3,
@@ -322,8 +325,7 @@ const styles = StyleSheet.create({
     },
 	bottom: {
 		height: 172,
-		margin:5,
-		marginTop:25,
+		marginTop:15,
 	  },
 	  bottomWrapper: {
 	   position:'relative',
@@ -331,7 +333,8 @@ const styles = StyleSheet.create({
 		marginTop:15,
 		marginLeft: 15,
 		backgroundColor: 'white',
-		overflow:"hidden"
+		overflow:"hidden",
+		borderWidth:0.2,
 	  },
 	  chatIcon:{
 		borderRadius: 50,
@@ -349,7 +352,7 @@ const styles = StyleSheet.create({
     },
     content: {
         height: 250,
-		marginLeft: 5,
+		marginTop:10,
 		justifyContent: 'center',
 		borderRadius: 20,
     },
