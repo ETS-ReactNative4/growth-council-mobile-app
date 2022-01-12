@@ -14,7 +14,7 @@ export const fetchAllUpcomingEvents = createAsyncThunk(
 export const fetchUpcomingEventsByID = createAsyncThunk(
     'upcomingEvent/fetchByID',
     (identifier, {rejectWithValue}) => {
-        return fetch(`jwt-auth/v1/pillars/${identifier}/events`).then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
+        return fetch(`jwt-auth/v1/pillars/${identifier}`).then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 

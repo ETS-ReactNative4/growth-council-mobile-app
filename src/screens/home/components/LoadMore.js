@@ -32,7 +32,7 @@ const CouncilAllDetail = props => {
         fetchUpcomingEventAsync();
     }, []);
 
-    console.log('Pillar Upcoming Detail:::::::::::::::::', upcomingEvents);
+    console.log('Pillar Upcoming Detail:::::::::::::::::', upcomingEvents, pillar_id);
 
     const _renderItem = ({item, index}) => {
 

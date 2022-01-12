@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import UpcomingView from './components/upcomingView';
 
-import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
+import {fetchAllUpcomingEvents, resetUpcomingEvent} from '../home/slice/upcomingEventSlice';
 
 
 const UpcomingScreen = (props) => {
@@ -11,7 +11,7 @@ const UpcomingScreen = (props) => {
     const dispatch = useDispatch();
 
     const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
-   
+
 
     /**
      * Fetch all upcoming events data.
@@ -30,7 +30,7 @@ const UpcomingScreen = (props) => {
         dispatch(resetUpcomingEvent());
     };
 
-   
+
 
     return (
         <UpcomingView
