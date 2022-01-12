@@ -4,7 +4,7 @@ import {
     View,
 } from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat'
-import {collection, getDocs, addDoc} from 'firebase/firestore';
+import {collection, getDocs, addDoc, query, orderBy} from 'firebase/firestore';
 
 import {CommonStyles, Colors} from '../../../theme';
 import {database} from '../../../utils/firebaseUtil';
@@ -22,9 +22,8 @@ const Chat = (props) => {
 
     useLayoutEffect(() => {
         const fetchMessageAsync = async () => {
-            // const chatsCol = collection(database, 'chats').orderBy('createdAt', 'desc');
             const chatsCol = await collection(database, 'chats');
-            const chatSnapshot = await getDocs(chatsCol);
+            const chatSnapshot = await getDocs(query(chatsCol, orderBy('createdAt', 'desc')));
             const messageList = chatSnapshot.docs.map(doc => ({
                 _id: doc.data()._id,
                 createdAt: doc.data().createdAt.toDate(),
