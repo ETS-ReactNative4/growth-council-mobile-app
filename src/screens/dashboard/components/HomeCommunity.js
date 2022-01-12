@@ -58,8 +58,6 @@ const HomeCommunity = props => {
 				name={'chatbox'}
 				size={10}
 				color="#B1AFAF"
-			
-			
 			  />
 			</View>
 		  </View>
@@ -122,12 +120,10 @@ const HomeCommunity = props => {
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
  
-                        </View>
-
-                       
-                    </ImageBackground>
-                </TouchableOpacity>
-            </View>
+             </View>       
+            </ImageBackground>
+            </TouchableOpacity>
+        </View>
         );
     };
 
@@ -328,6 +324,7 @@ const styles = StyleSheet.create({
 		marginTop:15,
 	  },
 	  bottomWrapper: {
+		width:84,
 	   position:'relative',
 		borderRadius: 10,
 		marginTop:15,
@@ -352,7 +349,7 @@ const styles = StyleSheet.create({
     },
     content: {
         height: 250,
-		marginTop:10,
+		marginTop:20,
 		justifyContent: 'center',
 		borderRadius: 20,
     },

@@ -50,8 +50,6 @@ const BestPractice = props => {
 			name={'chatbox'}
 			size={10}
 			color="#B1AFAF"
-		
-		
 		  />
 		</View>
 	  </View>
@@ -72,7 +70,7 @@ const BestPractice = props => {
           <View style={styles.middleW}>
             <Font name={item.icon} size={30} color="skyblue" />
           </View>
-          <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+          <Text style={{marginTop: 10, fontSize: 10}}>{item.text}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -83,13 +81,13 @@ const BestPractice = props => {
     const date = actualDate[0].split(' ', 3);
     console.log(date[1]);
     return (
-      <View style={styles.topWrapper}>
+      <View style={styles.topWrapper} key={index}>
         <TouchableOpacity
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
           <ImageBackground
             style={{
 				width: '100%',
-				height:150,
+				height: "100%",
 				borderRadius: 20,
             }}
             source={require('../../../assets/img/Rectangle1.png')}>
@@ -174,7 +172,6 @@ const BestPractice = props => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-			  marginTop:20
             }}>
             <FlatList
               horizontal
@@ -186,7 +183,7 @@ const BestPractice = props => {
         </View>
 
         <View style={styles.middle}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={styles.title}>
             Points of Engagement
           </Text>
           <View
@@ -251,29 +248,28 @@ const BestPractice = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
   },
   top: {
 	height: 200,
     marginTop: 20,
     justifyContent: 'center',
-	marginLeft:5
+
   },
   title:{
-	fontWeight:'700',
+	fontWeight:'450',
 	fontSize: 14,
 	color:Colors.PRIMARY_TEXT_COLOR,
 	marginLeft:15, 
-	marginRight:15
   },
 
   topWrapper: {
 	height: 144,
-    width: 256,
-    marginLeft: 15,
-	borderRadius:16,
-	overflow:"hidden"
+	width: 256,
+	marginTop: 20,
+	marginLeft: 15,
+	borderRadius:20,
   },
   header: {
     margin: 10,
@@ -295,25 +291,24 @@ const styles = StyleSheet.create({
   },
   middle: {
     width: 400,
-    height: 190,
-    marginLeft: 10,
     marginTop: 10,
   },
   middleWrapper: {
-    height: 160,
     width: 90,
     borderRadius: 20,
-    marginTop: 5,
+    marginTop: 15,
+	marginLeft:15,
     justifyContent: 'center',
     alignItems: 'center',
   },
   middleW: {
     backgroundColor: 'white',
-    width: 80,
-    height: 80,
+    width: 64,
+    height: 64,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
+	borderWidth:0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,
@@ -322,16 +317,17 @@ const styles = StyleSheet.create({
   },
   bottom: {
     height: 172,
-	margin:5,
 	marginTop:25,
   },
   bottomWrapper: {
+	width:84,
    position:'relative',
     borderRadius: 10,
 	marginTop:15,
 	marginLeft: 15,
     backgroundColor: 'white',
-    overflow:"hidden"
+    overflow:"hidden",
+	borderWidth:0.2,
   },
   chatIcon:{
 	borderRadius: 50,
@@ -349,7 +345,7 @@ const styles = StyleSheet.create({
   },
   content: {
 	height: 250,
-	marginLeft: 5,
+	marginTop: 20,
 	justifyContent: 'center',
 	borderRadius: 20,
   },
