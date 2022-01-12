@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
     },
     button: {
         ...CommonStyles.button,
-        height: 56,
-        width: '40%',
+        height: 60,
+        width: 380,
         backgroundColor: Colors.SECONDARY_BUTTON_COLOR,
     },
     buttonText: {
@@ -156,6 +156,9 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         overflow: 'hidden',
     },
+	paragraph:{
+		fontSize:14,
+	},
     plainButton: {
         width: '70%',
         borderRadius: 25,
