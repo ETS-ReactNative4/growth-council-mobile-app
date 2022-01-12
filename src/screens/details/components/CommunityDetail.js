@@ -74,7 +74,7 @@ const CommunityDetail = props => {
 				borderRadius:10,
 			}}/>
 		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10, fontWeight:"semi-bold", color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
+			<Text style={{fontSize: 10, fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
 			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
 		</View>
 		
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   title:{
-	fontWeight:'600',
+	fontFamily:Typography.FONT_SF_SEMIBOLD,
 	fontSize: 14,
 	color:Colors.PRIMARY_TEXT_COLOR,
 	marginLeft:15, 
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   paragraph: {
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
     lineHeight: 24,
     margin: 10,
@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
   },
   headingText1: {
     ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_REGULAR,
     marginTop: 5,
     fontWeight: '800',
     color: 'white',
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
   },
   headingText2: {
     ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_REGULAR,
     fontWeight: '400',
     color: 'white',
 	fontSize:8,

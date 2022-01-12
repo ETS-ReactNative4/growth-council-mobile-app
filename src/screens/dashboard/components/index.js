@@ -60,7 +60,7 @@ const Dashboard = props => {
 				borderRadius:10,
 			}}/>
 		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10, fontWeight:"semi-bold", color:TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
+			<Text style={{fontSize: 10, fontFamily: Typography.FONT_SF_SEMIBOLD,color:TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
 			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
 		</View>
 		
@@ -354,14 +354,13 @@ const styles = StyleSheet.create({
   header: {
     marginLeft: 10,
   },
-  title:{
-	fontWeight: '700',
+  title:{	
 	fontSize: 14,
-
+	fontFamily:Typography.FONT_SF_SEMIBOLD,
 	color:PRIMARY_TEXT_COLOR
   },
   headingText1: {
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     marginTop: 20,
     fontWeight: '700',
 	width:"98%",
@@ -369,7 +368,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   headingText2: {
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.SECONDARY_HEADING_COLOR,
     fontWeight: '700',
     color: 'white',
