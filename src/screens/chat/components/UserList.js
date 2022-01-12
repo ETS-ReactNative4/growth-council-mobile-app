@@ -4,7 +4,7 @@ import {
     View,
     FlatList,
     Text,
-    TouchableOpacity
+    TouchableOpacity, Image
 } from 'react-native';
 
 import {CommonStyles, Colors} from '../../../theme';
@@ -25,23 +25,6 @@ const UserList = (props) => {
     } = props;
 
     const [userID, setUserID] = useState(null);
-    const data = [
-        {
-            ID: '1',
-            name: 'Krishna',
-            description: 'Hosted by Michael Cooper',
-        },
-        {
-            ID: '2',
-            name: 'Shyam',
-            description: 'Hosted by Michael Cooper',
-        },
-        {
-            ID: '3',
-            name: 'Hari',
-            description: 'Hosted by Michael Cooper',
-        },
-    ];
 
     useEffect(async () => {
         let token = await getAsyncStorage(JWT_TOKEN);
@@ -49,14 +32,14 @@ const UserList = (props) => {
     }, []);
 
     useEffect(() => {
-        const fetchAllConnectionAsync = async () => {
+        const fetchMyConnectionAsync = async () => {
             await fetchAllConnection();
         };
-        fetchAllConnectionAsync();
+        fetchMyConnectionAsync();
     }, []);
 
     console.log("connection:::::::::::::", connection);
-    
+
     const _renderItems = ({item, index}) => {
 
         return (
@@ -64,9 +47,20 @@ const UserList = (props) => {
                 style={styles.wrapper}
                 key={index}
             >
-                <TouchableOpacity onPress={() => navigation.navigate('Chat', {friendID: item.ID, userID: userID})}>
-                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.name}</Text>
-                    <Text style={{fontSize: 10}}>{item.description}</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat', {friendID: item.id, userID: userID})}>
+                    <Image
+                        source={{
+                            uri: item.avatar,
+                        }}
+                        style={{
+                            height: 40,
+                            width: 40,
+                            borderRadius: 50,
+                            marginRight: 20,
+                        }}
+                    />
+                    <Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.displayname}</Text>
+                    <Text style={{fontSize: 10}}>{item.email}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -78,7 +72,7 @@ const UserList = (props) => {
             <FlatList
                 Vertical
                 showsVerticalScrollIndicator={false}
-                data={data}
+                data={connection}
                 renderItem={_renderItems}
             />
         </View>

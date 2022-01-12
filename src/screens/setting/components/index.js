@@ -1,3 +1,4 @@
+import { position } from 'native-base/lib/typescript/theme/styled-system';
 import React, {useState, useEffect} from 'react'
 import {
     StyleSheet,
@@ -11,8 +12,9 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
-
+import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import { PRIMARY_BACKGROUND_COLOR } from '../../../theme/colors';
 import {clearAsyncStorage} from '../../../utils/storageUtil';
 
 const Setting = (props) => {
@@ -47,25 +49,31 @@ const Setting = (props) => {
     const logout = () => {
         clearAsyncStorage();
         navigation.navigate('Home')
+		ToastMessage.show('Your have successfully logout');
     };
 
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1,}}>
-            <View style={styles.container}>
-                <ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover">
-
-
-                    <View style={{height: '100%'}}>
-                        <View style={styles.icon}>
-                            <Image source={{uri: profile.avatar}}
-                                   style={{width: 90, height: 90, borderRadius: 19,}}
-                            />
-                        </View>
-                        <View style={styles.header}>
-                            <Text style={styles.headingText1}>{profile.display_name}</Text>
-                            <Text>{profile.user_email}</Text>
-                        </View>
+			<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
+			<Image source={require("../../../assets/img/appBG.png")} />
+						<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
+								<View style={{ padding:20,alignItems:"center", 
+									width:328,backgroundColor:PRIMARY_BACKGROUND_COLOR, borderRadius:12, position:"relative",
+									paddingTop:100, borderWidth: 1 , borderColor:'#707070'}}>
+										<View style={styles.icon}>
+											<Image source={{uri: profile.avatar}} style={{width:"100%", height:"100%"}} resizeMode='cover'
+											/>
+										</View>
+										<View style={styles.header}>
+											<Text style={styles.headingText1}>{profile.display_name}</Text>
+											<Text>{profile.user_email}</Text>
+										</View>
+								</View>
+						</View>
+						
+            	<View style={styles.container}>
+                    <View>
                         <View style={styles.middle}>
                             <View style={styles.wrapper}>
 
@@ -77,13 +85,13 @@ const Setting = (props) => {
                                             color='white'
                                             size={20}/>
                                     </View>
-                                    <Text style={{fontSize: 18, fontWeight: '500', margin: 15}}>Account</Text>
-                                    <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
+                                    <Text style={styles.menuText}>Account</Text>
+                                    <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')} style={{right:0,  position:'absolute'}}>
                                         <Ionicons
                                             name='chevron-forward-outline'
                                             size={20}
                                             color='#d7d7d7'
-                                            style={{marginTop: 20, marginLeft: 120}}
+                                            
                                         />
                                     </TouchableOpacity>
 
@@ -99,16 +107,16 @@ const Setting = (props) => {
 
                                         />
                                     </View>
-                                    <Text style={{fontSize: 18, fontWeight: '500', margin: 15}}>Payment Method</Text>
+                                    <Text style={styles.menuText}>Payment Method</Text>
                                     <Ionicons
                                         name='chevron-forward-outline'
                                         size={20}
                                         color='#d7d7d7'
-                                        style={{marginTop: 20, marginLeft: 50}}
+                                        style={{right:0 ,  position:'absolute'}}
                                     />
 
                                 </View>
-                                <View style={styles.middleWrapper}>
+                                <View style={[styles.middleWrapper,{borderBottomWidth:0}]}>
                                     <View style={styles.middleImage}>
                                         <Ionicons
                                             name={'notifications'}
@@ -117,7 +125,7 @@ const Setting = (props) => {
 
                                         />
                                     </View>
-                                    <Text style={{fontSize: 18, fontWeight: '500', margin: 15}}>Notification</Text>
+                                    <Text style={styles.menuText}>Notification</Text>
 
                                     <Switch
                                         trackColor={{false: "#767577", true: "#32a32e"}}
@@ -125,7 +133,7 @@ const Setting = (props) => {
                                         ios_backgroundColor="#3e3e3e"
                                         onValueChange={toggleSwitch}
                                         value={isEnabled}
-                                        style={{transform: [{scaleX: 1.4}, {scaleY: 1.5}], marginLeft: 60}}
+                                        style={{transform: [{scaleX: 1.4}, {scaleY: 1.5}], right:0, position:'absolute'}}
                                     />
 
                                 </View>
@@ -142,7 +150,7 @@ const Setting = (props) => {
 
                                             />
                                         </View>
-                                        <Text style={{fontSize: 18, fontWeight: '500', margin: 15}}>Help</Text>
+                                        <Text style={styles.menuText}>Help</Text>
 
                                     </View>
                                 </TouchableOpacity>
@@ -157,12 +165,12 @@ const Setting = (props) => {
 
                                             />
                                         </View>
-                                        <Text style={{fontSize: 18, fontWeight: '500', margin: 15}}>Privacy Policy</Text>
+                                        <Text style={styles.menuText}>Privacy Policy</Text>
                                     </View>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity onPress={logout}>
-                                    <View style={styles.middleWrapper}>
+                                    <View style={[styles.middleWrapper,{borderBottomWidth:0}]}>
                                         <View style={styles.middleImage1}>
                                             <Material
                                                 name={'logout'}
@@ -170,22 +178,26 @@ const Setting = (props) => {
                                                 color="white"
                                             />
                                         </View>
-                                        <Text style={{fontSize: 18, fontWeight: '500', margin: 15}}>Logout</Text>
+                                        <Text style={styles.menuText}>Logout</Text>
                                     </View>
                                 </TouchableOpacity>
 
                             </View>
 
-
-                            <Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
-                            <Image source={require('../../../assets/img/footer_company_name_image.png')}
-                                   style={{width: '60%', marginTop: 10, marginBottom: 15}}
-                            />
+							<View style={{ alignItems:'center'}}>
+								<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
+								<Image source={require('../../../assets/img/footer_company_name_image.png')}
+									style={{width: '60%', marginTop: 10, marginBottom: 15}}
+								/>
+							</View>
+                           
 
                         </View>
                     </View>
-                </ImageBackground>
+                
             </View>
+			</View>
+			
         </ScrollView>
     )
 }
@@ -195,65 +207,47 @@ export default Setting
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-        width: "100%",
-        height: '100%',
+        backgroundColor: PRIMARY_BACKGROUND_COLOR,
+		paddingLeft:50,
+		paddingRight:50,
+		
     },
-    header: {
-        width: '80%',
-        height: 190,
-        backgroundColor: "white",
-        margin: 40,
-        marginTop: 60,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        zIndex: 10,
-        borderWidth: 0.5,
-
+    header: {    
+     alignItems:'center',
     },
     icon: {
-        width: 90,
-        height: 90,
-        backgroundColor: "white",
-        borderRadius: 19,
-        marginLeft: 150,
-        marginTop: 30,
-        justifyContent: 'center',
-        position: 'absolute',
-        zIndex: 20,
-        borderWidth: 0.3,
+        width: 110,
+        height: 110,
+        borderColor:PRIMARY_BACKGROUND_COLOR,
+        borderRadius: 16,
+        borderWidth: 3,
+		overflow:"hidden",
+		position:"absolute",
+		top:-35,
     },
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
         fontSize: Typography.FONT_SIZE_DOUBLE_EXTRA_LARGE_MINUS,
-        marginTop: 40,
         fontWeight: '800',
 
 
     },
     middle: {
-        height: '80%',
-        width: '100%',
-        backgroundColor: 'white',
-        marginTop: 180,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: "absolute"
+     
     },
     wrapper: {
-        width: '80%',
-        height: 180,
-        marginTop: 10,
+        marginTop: 35,
     },
     middleWrapper: {
-        height: 60,
         display: 'flex',
         flexDirection: 'row',
-
-
+		paddingTop:15,
+		paddingBottom:15,
+		borderBottomWidth:1 ,
+		alignItems:'center',
+		borderBottomColor:'#EDF1F7',
+		position:'relative',
     },
 
     middleImage: {
@@ -264,7 +258,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         marginLeft: 10,
-        marginTop: 10,
+       
     },
     middleImage1: {
         width: 40,
@@ -274,8 +268,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         marginLeft: 10,
-        marginTop: 10,
-    }
-
+    },
+	menuText:{
+		fontSize: 14, fontWeight: '500', margin: 15
+	}
 
 })

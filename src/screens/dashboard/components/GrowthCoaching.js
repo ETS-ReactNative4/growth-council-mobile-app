@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome5';
 import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -48,36 +49,27 @@ const GrowthCoaching = props => {
 
   const _renderItem = ({item, index}) => {
     return (
-      <View style={styles.bottomWrapper}>
-        <Image
-          source={{uri: item.avatar}}
-          style={{
-            width: '90%',
-            height: 80,
-            marginTop: 6,
-            borderRadius: 20,
-          }}
-        />
-        <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-        <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: '#EBECF0',
-            width: 25,
-            height: 23,
-            justifyContent: 'center',
-            marginLeft: 40,
-            marginTop: 5,
-          }}>
-          <Ionicons
-            name={'chatbox'}
-            size={17}
-            color="grey"
-            style={{marginLeft: 3}}
-          />
-        </View>
-      </View>
+		<View style={styles.bottomWrapper}>
+		<Image source={{uri:item.avatar}}
+			style={{
+				width: 83,
+				height: 83,
+				borderRadius:10,
+			}}/>
+		<View style={{padding:10, paddingBottom:20}}>
+			<Text style={{fontSize: 10, fontWeight:"semi-bold", color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
+			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+		</View>
+		
+		<View
+		  style={styles.chatIcon}>
+		  <Ionicons
+			name={'chatbox'}
+			size={10}
+			color="#B1AFAF"
+		  />
+		</View>
+	  </View>
     );
   };
 
@@ -95,7 +87,7 @@ const GrowthCoaching = props => {
           <View style={styles.middleW}>
             <Font name={item.icon} size={30} color="#92CA91" />
           </View>
-          <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft:7}}>{item.text}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -111,17 +103,17 @@ const GrowthCoaching = props => {
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
           <ImageBackground
             style={{
-              width: '100%',
-              height: 170,
-              borderRadius: 20,
+				width: '100%',
+				height: '100%',
+				borderRadius: 20,
             }}
-            source={require('../../../assets/img/green_blank.png')}>
+            source={require('../../../assets/img/Rectangle.png')}>
             <View
               style={{
-                width: '30%',
+                width:40,
                 height: 50,
                 marginTop: 10,
-                marginLeft: 180,
+				marginLeft:200,
                 backgroundColor: '#EBECF0',
                 borderRadius: 10,
                 padding: 5,
@@ -133,11 +125,7 @@ const GrowthCoaching = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>
-                {' '}
-                Hosted by {item?.organizer?.term_name}
-                {item?.organizer?.description}
-              </Text>
+              <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -163,7 +151,7 @@ const GrowthCoaching = props => {
         <ImageBackground
           style={{
             width: '100%',
-            height: 190,
+            height: '100%',
             borderRadius: 20,
           }}
           source={item?.uri}
@@ -175,51 +163,11 @@ const GrowthCoaching = props => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {/* <ImageBackground
-					style={{width:'100%',
-					height:100,
-
-					}}
-					source={require('../../../assets/img/green_blank.png')}>
-						<View style={{display:'flex', flexDirection:'row'}}>
-						<Image
-							source={require("../../../assets/img/dashboard_logo.png")}
-							style={{
-								position: 'absolute',
-								top: 40,
-								height: 30,
-								width: 30,
-								left: 10,
-								borderWidth: 5,
-							}}
-						/>
-						<View style={{marginLeft:50,}}>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Growth Coaching</Text>
-						</View>
-
-						<Font
-							name={'search'}
-							size={30}
-							color="white"
-							style={{marginLeft:80, marginTop:40}}
-						/>
-						<Image
-						source={require("../../../assets/img/profile_image.png")}
-						style={{
-						height: 50,
-						width:50,
-						marginTop:30,
-						marginLeft:10,
-						borderRadius:50,
-					}}
-				/>
-					</View>
-				</ImageBackground> */}
-
+    
         <View style={styles.top}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={styles.title}>
             {' '}
-            Growth Community Events
+            Growth Coaching Events
           </Text>
           <View
             style={{
@@ -236,7 +184,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.middle}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={styles.title}>
             Points of Engagement
           </Text>
 
@@ -255,7 +203,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.bottom}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={styles.title}>
             Growth Community Member
           </Text>
           <View>
@@ -269,7 +217,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 20}}>
+          <Text style={styles.title}>
             {' '}
             Growth Coaching Content
           </Text>
@@ -286,6 +234,13 @@ const GrowthCoaching = props => {
             />
           </View>
         </View>
+		{/* <View style={{ alignItems:'center'}}>
+			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
+			<Image 
+				source={require('../../../assets/svg/FristDigilogo-17.svg')}
+				style={{width:'40%',height:40}}
+			/>
+		</View> */}
       </View>
     </ScrollView>
   );
@@ -294,22 +249,27 @@ const GrowthCoaching = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
   },
   top: {
     height: 200,
-    marginTop: 50,
-    margin: 5,
+    marginTop: 25,
     justifyContent: 'center',
+  },
+  title:{
+	fontWeight: '450',
+	fontSize: 14,
+	color:Colors.PRIMARY_TEXT_COLOR,
+	marginLeft:15, 
   },
 
   topWrapper: {
-    height: 170,
-    width: 300,
-    marginTop: 20,
-    marginLeft: 10,
-    borderRadius: 50,
+	height: 144,
+	width: 256,
+	marginTop: 20,
+	marginLeft: 15,
+	borderRadius:20,
   },
   header: {
     margin: 10,
@@ -320,65 +280,84 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontWeight: '800',
     color: 'white',
-    fontSize: 16,
+	fontSize:12
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
     fontWeight: '400',
     color: 'white',
+	fontSize:8,
   },
   middle: {
     width: 400,
-    height: 200,
-    marginLeft: 10,
     marginTop: 10,
   },
   middleWrapper: {
-    height: 150,
-    width: 90,
-    borderRadius: 20,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+	width: 90,
+	borderRadius: 20,
+	marginTop: 15,
+	marginLeft:15,
+	justifyContent: 'center',
+	alignItems: 'center',
   },
   middleW: {
-    backgroundColor: 'white',
-    width: 80,
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
+	backgroundColor: 'white',
+	width: 64,
+	height: 64,
+	justifyContent: 'center',
+	alignItems: 'center',
+	borderRadius: 10,
+	borderWidth:0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,
     fontFamily: Typography.FONT_NORMAL,
     padding: 4,
   },
+ 
   bottom: {
-    height: 200,
-    margin: 10,
+    height: 172,
+	marginTop:25,
   },
   bottomWrapper: {
-    width: 90,
-    height: 170,
+	width:84,
+   position:'relative',
     borderRadius: 10,
-    margin: 5,
+	marginTop:15,
+	marginLeft: 15,
     backgroundColor: 'white',
-    alignItems: 'center',
+    overflow:"hidden",
+	borderWidth:0.2,
   },
-  content: {
-    height: 250,
-    marginTop: 20,
-    margin: 10,
-    justifyContent: 'center',
+  chatIcon:{
+	borderRadius: 50,
+	backgroundColor: '#F1F1F1',
+	padding:6,
+	justifyContent: 'center',
+	position:'absolute',
+	right:4,
+	bottom:4
+  },
+  bottomImage: {
+    width: '100%',
+    height: 100,
     borderRadius: 20,
   },
+  content: {
+	height: 250,
+	marginTop:20,
+	justifyContent: 'center',
+	borderRadius: 20,
+	marginBottom:20,
+  },
   ContentWrapper: {
-    height: 200,
-    width: 300,
-    marginTop: 20,
-    marginLeft: 10,
+	height: 206,
+	width: 364,
+	marginTop: 20,
+	marginLeft: 15,
+   borderRadius:20,
+   overflow:"hidden"
   },
 });
 

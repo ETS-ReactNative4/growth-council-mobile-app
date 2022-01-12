@@ -33,8 +33,8 @@ export const AuthProvider = ({children}) => {
                         await setAsyncStorage(JWT_TOKEN, response.data.token);
                         await setAsyncStorage(USER_NAME, response.data.user_display_name);
                         await setAsyncStorage(USER_AVATAR, response.data.avatar);
-                        // const response = await signInWithEmailAndPassword(auth, response?.data?.user_email, response?.data?.firebase_password);
-                        const firebaseResponse = await signInWithEmailAndPassword(auth, response?.data?.user_email, '55c20a44-6136-4c16-aa48-f5638d031a03');
+                         const firebaseResponse = await signInWithEmailAndPassword(auth, response?.data?.user_email, response?.data?.firebase_password);
+                       // const firebaseResponse = await signInWithEmailAndPassword(auth, response?.data?.user_email, '55c20a44-6136-4c16-aa48-f5638d031a03');
                         const token = await firebaseResponse.user;
                         console.log('RESPONSE::::::::', firebaseResponse);
                         if (token)

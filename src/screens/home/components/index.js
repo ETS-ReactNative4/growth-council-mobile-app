@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  FlatList,
 } from 'react-native';
 import {Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -127,7 +126,6 @@ const Home = props => {
           data={pillarSliders}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
-          //renderItem={_renderItem}
           renderItem={item => _renderItem(item, navigation)}
           firstItem={1}
           containerCustomStyle={styles.slider}
