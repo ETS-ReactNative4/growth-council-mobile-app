@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome5';
 import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -66,8 +67,6 @@ const GrowthCoaching = props => {
 			name={'chatbox'}
 			size={10}
 			color="#B1AFAF"
-		
-		
 		  />
 		</View>
 	  </View>
@@ -88,7 +87,7 @@ const GrowthCoaching = props => {
           <View style={styles.middleW}>
             <Font name={item.icon} size={30} color="#92CA91" />
           </View>
-          <Text style={{marginTop: 10, fontSize: 12}}>{item.text}</Text>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft:7}}>{item.text}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -105,7 +104,7 @@ const GrowthCoaching = props => {
           <ImageBackground
             style={{
 				width: '100%',
-				height:150,
+				height: '100%',
 				borderRadius: 20,
             }}
             source={require('../../../assets/img/Rectangle.png')}>
@@ -152,7 +151,7 @@ const GrowthCoaching = props => {
         <ImageBackground
           style={{
             width: '100%',
-            height: 190,
+            height: '100%',
             borderRadius: 20,
           }}
           source={item?.uri}
@@ -164,57 +163,16 @@ const GrowthCoaching = props => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {/* <ImageBackground
-					style={{width:'100%',
-					height:100,
-
-					}}
-					source={require('../../../assets/img/green_blank.png')}>
-						<View style={{display:'flex', flexDirection:'row'}}>
-						<Image
-							source={require("../../../assets/img/dashboard_logo.png")}
-							style={{
-								position: 'absolute',
-								top: 40,
-								height: 30,
-								width: 30,
-								left: 10,
-								borderWidth: 5,
-							}}
-						/>
-						<View style={{marginLeft:50,}}>
-						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Growth Coaching</Text>
-						</View>
-
-						<Font
-							name={'search'}
-							size={30}
-							color="white"
-							style={{marginLeft:80, marginTop:40}}
-						/>
-						<Image
-						source={require("../../../assets/img/profile_image.png")}
-						style={{
-						height: 50,
-						width:50,
-						marginTop:30,
-						marginLeft:10,
-						borderRadius:50,
-					}}
-				/>
-					</View>
-				</ImageBackground> */}
-
+    
         <View style={styles.top}>
           <Text style={styles.title}>
             {' '}
-            Growth Community Events
+            Growth Coaching Events
           </Text>
           <View
             style={{
               display: 'flex',
               flexDirection: 'row',
-			  marginTop:20
             }}>
             <FlatList
               horizontal
@@ -226,7 +184,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.middle}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          <Text style={styles.title}>
             Points of Engagement
           </Text>
 
@@ -276,13 +234,13 @@ const GrowthCoaching = props => {
             />
           </View>
         </View>
-		<View style={{ alignItems:'center'}}>
+		{/* <View style={{ alignItems:'center'}}>
 			<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
 			<Image 
-				source={require('../../../assets/img/footer_company_name_image.png')}
-				style={{width: '60%', marginTop: 10, marginBottom: 15}}
+				source={require('../../../assets/svg/FristDigilogo-17.svg')}
+				style={{width:'40%',height:40}}
 			/>
-		</View>
+		</View> */}
       </View>
     </ScrollView>
   );
@@ -291,29 +249,27 @@ const GrowthCoaching = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
   },
   top: {
     height: 200,
-    marginTop: 20,
+    marginTop: 25,
     justifyContent: 'center',
-	marginLeft:5
   },
   title:{
-	fontWeight: '700',
+	fontWeight: '450',
 	fontSize: 14,
 	color:Colors.PRIMARY_TEXT_COLOR,
 	marginLeft:15, 
-	marginRight:15
   },
 
   topWrapper: {
 	height: 144,
-    width: 256,
-    marginLeft: 15,
-	borderRadius:16,
-	overflow:"hidden"
+	width: 256,
+	marginTop: 20,
+	marginLeft: 15,
+	borderRadius:20,
   },
   header: {
     margin: 10,
@@ -335,25 +291,24 @@ const styles = StyleSheet.create({
   },
   middle: {
     width: 400,
-    height: 200,
-    marginLeft: 10,
     marginTop: 10,
   },
   middleWrapper: {
-    height: 150,
-    width: 90,
-    borderRadius: 20,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+	width: 90,
+	borderRadius: 20,
+	marginTop: 15,
+	marginLeft:15,
+	justifyContent: 'center',
+	alignItems: 'center',
   },
   middleW: {
-    backgroundColor: 'white',
-    width: 80,
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
+	backgroundColor: 'white',
+	width: 64,
+	height: 64,
+	justifyContent: 'center',
+	alignItems: 'center',
+	borderRadius: 10,
+	borderWidth:0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,
@@ -363,16 +318,17 @@ const styles = StyleSheet.create({
  
   bottom: {
     height: 172,
-	margin:5,
 	marginTop:25,
   },
   bottomWrapper: {
+	width:84,
    position:'relative',
     borderRadius: 10,
 	marginTop:15,
 	marginLeft: 15,
     backgroundColor: 'white',
-    overflow:"hidden"
+    overflow:"hidden",
+	borderWidth:0.2,
   },
   chatIcon:{
 	borderRadius: 50,
@@ -390,9 +346,10 @@ const styles = StyleSheet.create({
   },
   content: {
 	height: 250,
-	marginLeft: 5,
+	marginTop:20,
 	justifyContent: 'center',
 	borderRadius: 20,
+	marginBottom:20,
   },
   ContentWrapper: {
 	height: 206,
