@@ -105,8 +105,8 @@ const Home = props => {
         <FeatherIcon
           name={'chevron-right'}
           style={styles.carouselRight}
-          size={40}
-          color={'#0aade7'}
+          size={36}
+          color={'#000000'}
           onPress={() => {
             sliderRef.current.snapToNext();
           }}
@@ -114,8 +114,8 @@ const Home = props => {
         <FeatherIcon
           name={'chevron-left'}
           style={styles.carouselLeft}
-          size={40}
-          color={'#0aade7'}
+          size={36}
+          color={'#000000'}
           onPress={() => {
             sliderRef.current.snapToPrev();
           }}
@@ -137,7 +137,7 @@ const Home = props => {
           autoplayInterval={5000}
           hasParallaxImages={true}
           inactiveSlideScale={0.7}
-          inactiveSlideOpacity={0.7}
+          inactiveSlideOpacity={0.5}
           onSnapToItem={index => setActiveSlider(index)}
         />
 
@@ -145,32 +145,28 @@ const Home = props => {
           dotsLength={pillarSliders.length}
           activeDotIndex={activeSlider}
           dotStyle={{
-            width: 20,
+            width: 16,
             height: 8,
-            borderRadius: 4,
-            backgroundColor: '#2189b1',
+            borderRadius: 3,
+            backgroundColor: '#1580B7',
           }}
-          dotColor={'#2189b1'}
-          inactiveDotOpacity={0.4}
+          dotColor={'#1580B7'}
+          
         />
       </View>
 
       <View style={styles.buttonWrapper}>
         <Button
-          style={[
-            styles.button,
-            styles.plainButton,
-            {backgroundColor: Colors.PRIMARY_BUTTON_COLOR},
-          ]}
+          style={styles.signupbutton}
           onPress={() => navigation.navigate('HomeDetail')}>
-          <Text style={[styles.buttonText, styles.plainButtonText]}>
+          <Text style={styles.signupbuttonText}>
             Get Started
           </Text>
         </Button>
         <Button
-          style={[styles.button1]}
+          style={styles.signinbutton}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text style={[styles.buttonText, {color: '#709caf'}]}>
+          <Text style={[styles.signinbuttonText, {color: '#709caf'}]}>
             I already have an account{' '}
           </Text>
         </Button>
@@ -179,11 +175,11 @@ const Home = props => {
       <View style={styles.footer}>
         <Image
           style={styles.footerlogo}
-          source={require('../../../assets/img/footer_logo.png')}
+          source={require('../../../assets/img/frost_sullivan_footer.svg')}
         />
-        <Text style={{fontSize: 7, marginTop: 4}}>Powered By</Text>
+        <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>Powered By</Text>
         <Image
-          source={require('../../../assets/img/footer_company_name_image.png')}
+          source={require('../../../assets/img/frost_footer.svg')}
           style={{marginTop: 4}}
         />
       </View>
@@ -235,34 +231,46 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 20,
   },
-  button: {
+  signupbutton: {
     ...CommonStyles.button,
     height: 56,
-    width: '40%',
-    marginBottom: 10,
+    width: 336,
+    marginBottom: 20,
+    marginTop: 30,  
+    borderRadius: 25,
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center', 
+    backgroundColor: Colors.PRIMARY_BUTTON_COLOR, 
   },
-  buttonText: {
+  signupbuttonText: {
     ...CommonStyles.buttonText,
     fontFamily: Typography.FONT_BOLD,
-    fontSize: 15,
+    fontSize: 16,    
+    color : '#ffffff',
+  },
+  signinbutton: {
+    width: 336,
+    borderRadius: 25,
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'center',   
+    backgroundColor: '#faf9f8',
+    borderWidth: 2,
+    borderColor: '#709caf',
+  },
+  signinbuttonText: {
+  ...CommonStyles.buttonText,
+    fontFamily: Typography.FONT_BOLD,
+    fontSize: 16,
+    color: '#1580B7',
   },
   iconImage: {
     width: 300,
     height: 350,
     borderRadius: 10,
   },
-  plainButton: {
-    width: '70%',
-    borderRadius: 25,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 5,
-  },
-  plainButtonText: {
-    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-    fontFamily: Typography.FONT_BOLD,
-  },
+
   header: {
     width: '100%',
     alignItems: 'center',
@@ -272,29 +280,21 @@ const styles = StyleSheet.create({
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#1f3354',
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 18,
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
+    fontWeight: 'semi-bold',
+    marginBottom: 30,
   },
-  button1: {
-    width: '70%',
-    borderRadius: 25,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 5,
-    backgroundColor: '#faf9f8',
-    borderWidth: 3,
-    borderColor: '#709caf',
-  },
+  
   footer: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -310,11 +310,11 @@ const styles = StyleSheet.create({
   },
   sliderText: {
     position: 'absolute',
-    top: '85%',
-    left: 10,
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
+    top: '90%',
+    left: 24,
+    color: '#ffffff',
+    fontWeight: 'semi-bold',
+    fontSize: 13,
   },
   carouselLeft: {
     position: 'absolute',
