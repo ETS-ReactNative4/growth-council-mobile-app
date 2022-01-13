@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -14,7 +15,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
+const {width: viewportWidth, height: viewportHeight} = Dimensions.get('screen');
 
 const Home = props => {
   const {
@@ -76,15 +77,16 @@ const Home = props => {
         <View
           style={{
             backgroundColor: 'floralwhite',
-            height: 300,
-            width: 200,
+            height: viewportWidth - 150,
             marginLeft: 20,
             marginRight: 20,
             position: 'relative',
+            borderRadius: 10,
+            overflow: 'hidden',
           }}>
           <Image
             source={{uri: item?.image}}
-            style={{width: '100%', height: '100%', borderRadius: 20}}
+            style={{width: '100%', height: '100%', resizeMode: 'cover'}}
           />
           <Text style={styles.sliderText}>{item.name}</Text>
         </View>
@@ -93,7 +95,7 @@ const Home = props => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar hidden />
       <View style={styles.header}>
         <Text style={styles.headingText1}>Welcome</Text>
@@ -104,7 +106,7 @@ const Home = props => {
           name={'chevron-right'}
           style={styles.carouselRight}
           size={36}
-          color={'#000000'}
+          color={'#00000099'}
           onPress={() => {
             sliderRef.current.snapToNext();
           }}
@@ -113,7 +115,7 @@ const Home = props => {
           name={'chevron-left'}
           style={styles.carouselLeft}
           size={36}
-          color={'#000000'}
+          color={'#00000099'}
           onPress={() => {
             sliderRef.current.snapToPrev();
           }}
@@ -123,18 +125,18 @@ const Home = props => {
           layout={'default'}
           data={pillarSliders}
           sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
+          itemWidth={viewportWidth - 150}
           renderItem={item => _renderItem(item, navigation)}
           firstItem={1}
           containerCustomStyle={styles.slider}
           contentContainerCustomStyle={styles.sliderContent}
-          loop={true}
-          loopClonesPerSide={2}
+          loop={false}
+          loopClonesPerSide={3}
           autoplay={true}
           autoplayDelay={500}
           autoplayInterval={5000}
           hasParallaxImages={true}
-          inactiveSlideScale={0.7}
+          inactiveSlideScale={0.9}
           inactiveSlideOpacity={0.5}
           onSnapToItem={index => setActiveSlider(index)}
         />
@@ -144,10 +146,12 @@ const Home = props => {
           activeDotIndex={activeSlider}
           dotStyle={{
             width: 16,
-            height: 8,
+            height: 6,
             borderRadius: 3,
-            backgroundColor: '#1580B7',
           }}
+          inactiveDotScale={1}
+          inactiveDotOpacity={1}
+          inactiveDotColor="#DDDCFF"
           dotColor={'#1580B7'}
         />
       </View>
@@ -161,7 +165,7 @@ const Home = props => {
         <Button
           style={styles.signinbutton}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text style={[styles.signinbuttonText, {color: '#709caf'}]}>
+          <Text style={[styles.signinbuttonText]}>
             I already have an account{' '}
           </Text>
         </Button>
@@ -170,24 +174,23 @@ const Home = props => {
       <View style={styles.footer}>
         <Image
           style={styles.footerlogo}
-          source={require('../../../assets/img/frost_sullivan_footer.svg')}
+          source={require('../../../assets/img/frost-sullivan.png')}
         />
         <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>
           Powered By
         </Text>
         <Image
-          source={require('../../../assets/img/frost_footer.svg')}
-          style={{marginTop: 4}}
+          source={require('../../../assets/img/frost_digital_logo_1.png')}
+          style={styles.footerlogo}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
   },
   background: {
     flex: 1,
@@ -226,14 +229,13 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   signupbutton: {
     ...CommonStyles.button,
     height: 56,
     width: 336,
     marginBottom: 20,
-    marginTop: 30,
     borderRadius: 25,
     height: 56,
     alignItems: 'center',
@@ -242,8 +244,8 @@ const styles = StyleSheet.create({
   },
   signupbuttonText: {
     ...CommonStyles.buttonText,
-    fontFamily: Typography.FONT_BOLD,
     fontSize: 16,
+    fontFamily: Typography.FONT_SF_BOLD,
     color: '#ffffff',
   },
   signinbutton: {
@@ -252,13 +254,13 @@ const styles = StyleSheet.create({
     height: 52,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#faf9f8',
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     borderWidth: 2,
-    borderColor: '#709caf',
+    borderColor: '#1580B7',
   },
   signinbuttonText: {
     ...CommonStyles.buttonText,
-    fontFamily: Typography.FONT_BOLD,
+    fontFamily: Typography.FONT_SF_BOLD,
     fontSize: 16,
     color: '#1580B7',
   },
@@ -275,31 +277,36 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   headingText1: {
-    ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
+    // ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_SF_BOLD,
     fontSize: 30,
+    lineHeight: 30,
     fontWeight: 'bold',
-    color: '#1f3354',
+    color: '#183863',
     textAlign: 'center',
-    marginBottom: 18,
   },
   headingText2: {
-    ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_NORMAL,
+    // ...CommonStyles.headingText2,
+    fontFamily: Typography.FONT_SEMI_BOLD,
     fontSize: 18,
+    lineHeight: 18,
+    color: '#6F8BA4',
     textAlign: 'center',
     fontWeight: 'semi-bold',
-    marginBottom: 30,
+    marginTop: 30,
   },
 
   footer: {
+    // position: 'absolute',
+    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
   },
   footerlogo: {
-    width: '50%',
-    height: 20,
+    width: 120,
+    height: 18,
+    resizeMode: 'contain',
+    opacity: 0.75,
   },
   sliderView: {
     position: 'relative',
@@ -307,11 +314,13 @@ const styles = StyleSheet.create({
   },
   sliderText: {
     position: 'absolute',
-    top: '90%',
-    left: 24,
+    bottom: 15,
+    left: 15,
     color: '#ffffff',
-    fontWeight: 'semi-bold',
+    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontWeight: '700',
     fontSize: 13,
+    lineHeight: 13,
   },
   carouselLeft: {
     position: 'absolute',

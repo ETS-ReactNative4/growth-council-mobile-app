@@ -30,7 +30,7 @@ const App = () => {
   }, []);
 
   const onBeforeLift = async () => {
-    await fakeApiCallWithoutBadNetwork(100000);
+    await fakeApiCallWithoutBadNetwork(1000);
   };
 
   return (
