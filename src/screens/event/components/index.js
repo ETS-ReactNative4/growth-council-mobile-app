@@ -196,7 +196,7 @@ const Event = props => {
                                             <Text>{events?.location?.location_address}</Text>
                                         </View>
                                     )}
-                                    <View
+                                    {/* <View
                                         style={{
                                             flex: 1,
                                             height: 60,
@@ -208,7 +208,7 @@ const Event = props => {
                                         <Image
                                             source={require('../../../assets/img/live_image.png')}
                                         />
-                                    </View>
+                                    </View> */}
                                 </View>
                             </View>
 
@@ -256,7 +256,7 @@ const Event = props => {
                                             justifyContent: 'center',
                                             alignItems: 'flex-end',
                                         }}>
-                                        <Button
+                                        {/* <Button
                                             style={{
                                                 width: '85%',
                                                 height: 40,
@@ -271,7 +271,7 @@ const Event = props => {
                                                 ]}>
                                                 Follow
                                             </Text>
-                                        </Button>
+                                        </Button> */}
                                     </View>
                                 </View>
                             </View>

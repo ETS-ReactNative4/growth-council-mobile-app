@@ -47,107 +47,114 @@ const Profile = (props) => {
 
     const _renderItems = ({item, index}) => {
         return (
-            <View style={styles.middleWrapper} key={index}>
-                <View style={styles.wrapper}>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                   		<Text style={styles.text}>{item.title}</Text>
-					</TouchableOpacity>
-                    <Text style={{fontSize: 6, fontFamily:Typography.FONT_SF_REGULAR,}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
-                    <View style={styles.iconWrapper}>
-                        <Ionicon
-                            name={'person'}
-                            size={15}
-                            color="#0B0B45"
+			<View>
+				<TouchableOpacity
+							onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+				<View style={styles.middleWrapper} key={index}>
+					<View style={styles.wrapper}>
+						
+							<Text style={styles.text}>{item.title}</Text>
+						
+						<Text style={{fontSize: 6, fontFamily:Typography.FONT_SF_REGULAR,}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+						<View style={styles.iconWrapper}>
+							<Ionicon
+								name={'person'}
+								size={15}
+								color="#0B0B45"
 
-                        />
-						<Text style={styles.text}></Text>
-                        <Ionicon
-                            name={'calendar'}
-                            size={15}
-                            color="#0B0B45"
-                            style={{marginLeft: 20}}
+							/>
+							<Text style={styles.text}></Text>
+							<Ionicon
+								name={'calendar'}
+								size={15}
+								color="#0B0B45"
+								style={{marginLeft: 20}}
 
-                        /><Text style={styles.text}>{item.text3}</Text>
-                    </View>
-                    <View style={styles.iconWrapper}>
-                        <Ionicon
-                            name={'time'}
-                            size={15}
-                            color="#0B0B45"
-
-
-                        /><Text style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
-                        <Ionicon
-                            name={'location'}
-                            size={15}
-                            color="#0B0B45"
-                            style={{marginLeft: 20}}
-
-                        />
-						<Text style={styles.text}>{item.location?.location_address}</Text>
-                    </View>
+							/><Text style={styles.text}>{item.text3}</Text>
+						</View>
+						<View style={styles.iconWrapper}>
+							<Ionicon
+								name={'time'}
+								size={15}
+								color="#0B0B45"
 
 
-                </View>
-                <Button style={{height: 30, top: 40, backgroundColor:'#183863', borderRadius: 15, }}>
-					<Text style={{fontSize:12, color:PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
-            </View>
+							/><Text style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
+							<Ionicon
+								name={'location'}
+								size={15}
+								color="#0B0B45"
+								style={{marginLeft: 20}}
+
+							/>
+							<Text style={styles.text}>{item.location?.location_address}</Text>
+						</View>
+
+
+					</View>
+					<Button style={{height: 30, top: 40, backgroundColor:'#183863', borderRadius: 15, }}>
+						<Text style={{fontSize:12, color:PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
+				</View>
+				</TouchableOpacity>
+			</View>
 
         );
     };
 
     const _renderItem = ({item, index}) => {
         return (
-			
-            <View style={styles.middleWrapper }>
-			
-                <View style={[styles.wrapper]}>
+			<View>
 				<TouchableOpacity
 						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                    <Text style={styles.text}>{item.title}</Text>
-					</TouchableOpacity>
-                    <Text style={{fontSize: 6,fontFamily:Typography.FONT_SF_REGULAR,}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
-                    <View style={styles.iconWrapper}>
-                        <Ionicon
-                            name={'person'}
-                            size={15}
-                            color="#0B0B45"
+					<View style={styles.middleWrapper }>
+					
+						<View style={[styles.wrapper]}>
+						
+							<Text style={styles.text}>{item.title}</Text>
+							
+							<Text style={{fontSize: 6,fontFamily:Typography.FONT_SF_REGULAR,}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+							<View style={styles.iconWrapper}>
+								<Ionicon
+									name={'person'}
+									size={15}
+									color="#0B0B45"
 
-                        />
-                        <Text style={styles.text}/>
-                        <Ionicon
-                            name={'calendar'}
-                            size={15}
-                            color="#0B0B45"
-                            style={{marginLeft: 20}}
+								/>
+								<Text style={styles.text}/>
+								<Ionicon
+									name={'calendar'}
+									size={15}
+									color="#0B0B45"
+									style={{marginLeft: 20}}
 
-                        /><Text style={styles.text}>{item.text3}</Text>
-                    </View>
-                    <View style={styles.iconWrapper}>
-                        <Ionicon
-                            name={'time'}
-                            size={15}
-                            color="#0B0B45"
-
-
-                        /><Text style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
-                        <Ionicon
-                            name={'location'}
-                            size={15}
-                            color="#0B0B45"
-                            style={{marginLeft: 20}}
-
-                        />
-                        <Text style={styles.text}>{item.location?.location_address}</Text>
-                    </View>
+								/><Text style={styles.text}>{item.text3}</Text>
+							</View>
+							<View style={styles.iconWrapper}>
+								<Ionicon
+									name={'time'}
+									size={15}
+									color="#0B0B45"
 
 
-                </View>
-                <Button style={{height: 30, top: 40, backgroundColor:'#183863', borderRadius: 15, }}>
-					<Text style={{fontSize:12, color:PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
-			
-            </View>
+								/><Text style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
+								<Ionicon
+									name={'location'}
+									size={15}
+									color="#0B0B45"
+									style={{marginLeft: 20}}
+
+								/>
+								<Text style={styles.text}>{item.location?.location_address}</Text>
+							</View>
+
+
+						</View>
+						<Button style={{height: 30, top: 40, backgroundColor:'#183863', borderRadius: 15, }}>
+							<Text style={{fontSize:12, color:PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
+					
+					</View>
+			</TouchableOpacity>
+			</View>
 		
 
         );
@@ -192,7 +199,7 @@ const Profile = (props) => {
     }, []);
 
     return (
-		<ScrollView contentContainerStyle={{flexGrow: 1,}}>
+		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 			<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 			<Image source={require("../../../assets/img/appBG.png")} style={{height:160}} />
 						<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
@@ -285,19 +292,21 @@ const Profile = (props) => {
 		 					}
                            
 
-							<View style={{ alignItems:'center'}}>
-								<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
-								<Image source={require('../../../assets/img/footer_company_name_image.png')}
-									style={{width: '60%', marginTop: 10, marginBottom: 15}}
-								/>
-							</View>
+							
                            
 
                         </View>
                     </View>
                 
             </View>
+				{/* <View style={{ alignItems:'center',width:'45%'}}>
+									<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
+									<Image source={require('../../../assets/img/fristDigi.png')}
+										style={{width: '100%', marginBottom: 15}}
+									/>
+					</View> */}
 			</View>
+		
 			
         </ScrollView>
 
@@ -312,6 +321,7 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
 		paddingLeft:20,
 		paddingRight:20,
+		height:'100%',
 		
     },
     header: {    
