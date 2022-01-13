@@ -64,7 +64,7 @@ const People = (props) => {
 
 	
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             <View style={styles.container}>
                 <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
                     <Ionicons name="search-outline" color={'#000'} size={24}
@@ -128,7 +128,7 @@ const People = (props) => {
                     renderItem={_renderItem}/>
 				</View>
 
-				<View style={{ alignItems:'center'}}>
+				<View style={{ alignItems:'center',}}>
 					<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
 					<Image source={require('../../../assets/img/footer_company_name_image.png')}
 						style={{width: '60%', marginTop: 10, marginBottom: 15}}
