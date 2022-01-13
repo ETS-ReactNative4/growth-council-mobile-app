@@ -11,7 +11,7 @@ const FlatTextInput = forwardRef(({error, touched, ...otherProps}, ref) => {
     return (
             <FLTextInput
                 style={styles.textInput}
-               // underlineColor={validationColor}
+                underlineColor={validationColor}
                 selectionColor={Colors.PRIMARY_INPUT_TEXT_COLOR}
                 theme={{
                     colors: {

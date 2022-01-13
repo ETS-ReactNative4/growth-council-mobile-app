@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Home from './components';
 
-import {fetchAllPillarSliders, resetPillarSlider} from './slice/pillarSliderSlice';
+import {fetchAllPillarSliders, resetPillarSlider} from './pillarSliderSlice';
 
 const HomeScreen = (props) => {
 

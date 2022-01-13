@@ -1,56 +1,53 @@
-import React from 'react';
+import React from 'react'
+import { StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import HomeCommunity from './components/HomeCommunity';
 
-import {fetchAllCommunities, resetCommunity} from './slice/communitySlice';
-import {fetchAllCommunityMemberContents, resetCommunityMemberContent} from './slice/communityMemberContentSlice';
+import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
+import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
 
-const HomeCommunityScreen = props => {
 
-    const dispatch = useDispatch();
+const HomeCommunityScreen = (props) => {
 
-    const {communities, communityLoading, communityError} = useSelector(
-        state => state.communities,
-    );
+	const dispatch = useDispatch();
 
-    const {
-        communityMemberContents,
-        communityMemberContentLoading,
-        communityMemberContentError,
-    } = useSelector(state => state.communityMemberContents);
+	const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
+	const {communityMembers, communityMemberLoading, communityMemberError} = useSelector((state) => state.communityMembers);
 
-    const fetchAllCommunity = () => {
-        dispatch(fetchAllCommunities());
+	const fetchAllUpcomingEvent = () => {
+        dispatch(fetchAllUpcomingEvents());
+    };
+	const fetchAllCommunityMember = () => {
+        dispatch(fetchAllCommunityMembers());
     };
 
-    const fetchAllCommunityMemberContent = () => {
-        dispatch(fetchAllCommunityMemberContents());
+	const cleanUpcomingEvent = () => {
+        dispatch(resetUpcomingEvent());
+    };
+	const cleanCommunityMember = () => {
+        dispatch(resetCommunityMember());
     };
 
-    const cleanCommunity = () => {
-        dispatch(resetCommunity());
-    };
+	return (
+		<HomeCommunity
+			{...props}
+			upcomingEvents={upcomingEvents}
+			upcomingEventLoading={upcomingEventLoading}
+			upcomingEventError={upcomingEventError}
+			fetchAllUpcomingEvent={fetchAllUpcomingEvent}
+			cleanUpcomingEvent={cleanUpcomingEvent}
 
-    const cleanCommunityMemberContent = () => {
-        dispatch(resetCommunityMemberContent());
-    };
+			communityMembers={communityMembers}
+            communityMemberLoading={communityMemberLoading}
+            communityMemberError={communityMemberError}
+            fetchAllCommunityMember={fetchAllCommunityMember}
+            cleanCommunityMember={cleanCommunityMember}
 
-    return (
-        <HomeCommunity
-            {...props}
-            communities={communities}
-            communityLoading={communityLoading}
-            communityError={communityError}
-            fetchAllCommunity={fetchAllCommunity}
-            cleanCommunity={cleanCommunity}
-            communityMemberContents={communityMemberContents}
-            communityMemberContentLoading={communityMemberContentLoading}
-            communityMemberContentError={communityMemberContentError}
-            fetchAllCommunityMemberContent={fetchAllCommunityMemberContent}
-            cleanCommunityMemberContent={cleanCommunityMemberContent}
-        />
-    );
-};
+		/>
+	)
+}
 
 export default HomeCommunityScreen;
+
+const styles = StyleSheet.create({})

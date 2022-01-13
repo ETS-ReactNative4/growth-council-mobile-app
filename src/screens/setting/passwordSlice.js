@@ -4,7 +4,7 @@ import {update} from '../../utils/httpUtil';
 
 export const updateCustomerByID = createAsyncThunk(
     'password/updateByID',
-    (formData, {rejectWithValue}) => {
+     (formData, {rejectWithValue}) => {
         const {id, ...fields} = formData;
         return update(`v1/customers/${id}/change-password`, fields).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
     },

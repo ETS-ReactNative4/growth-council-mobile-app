@@ -13,51 +13,47 @@ import {navigationRef} from './utils/navigationUtil';
 import {AuthProvider} from './context/auth';
 import SplashScreen from './screens/splash';
 
-XMLHttpRequest = GLOBAL.originalXMLHttpRequest
-  ? GLOBAL.originalXMLHttpRequest
-  : GLOBAL.XMLHttpRequest;
+XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
+    GLOBAL.originalXMLHttpRequest : GLOBAL.XMLHttpRequest;
 
-let fakeApiCallWithoutBadNetwork = ms =>
-  new Promise(resolve => setTimeout(resolve, ms));
+let fakeApiCallWithoutBadNetwork = (ms) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
 const App = () => {
-  let init = async () => {
-    await RNBootSplash.hide();
-  };
 
-  useEffect(() => {
-    init();
-  }, []);
+    let init = async () => {
+        await RNBootSplash.hide();
+    };
 
-  const onBeforeLift = async () => {
-    await fakeApiCallWithoutBadNetwork(100000);
-  };
+    useEffect(() => {
+        init();
+    }, []);
 
-  return (
-    <Provider store={store}>
-      {/**
-       * PersistGate delays the rendering of the app's UI until the persisted state has been retrieved
-       * and saved to redux.
-       * The `loading` prop can be `null` or any react instance to show during loading (e.g. a splash screen),
-       * for example `loading={<SplashScreen />}`.
-       * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
-       */}
-      <PersistGate
-        loading={<SplashScreen />}
-        onBeforeLift={onBeforeLift}
-        persistor={persistor}>
-        <NativeBaseProvider>
-          <PaperProvider>
-            <AuthProvider>
-              <NavigationContainer ref={navigationRef}>
-                <MainNavigation />
-              </NavigationContainer>
-            </AuthProvider>
-          </PaperProvider>
-        </NativeBaseProvider>
-      </PersistGate>
-    </Provider>
-  );
+    const onBeforeLift = async () => {
+        await fakeApiCallWithoutBadNetwork(3000);
+    };
+
+    return (<Provider store={store}>
+        {/**
+         * PersistGate delays the rendering of the app's UI until the persisted state has been retrieved
+         * and saved to redux.
+         * The `loading` prop can be `null` or any react instance to show during loading (e.g. a splash screen),
+         * for example `loading={<SplashScreen />}`.
+         * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
+         */}
+        <PersistGate loading={<SplashScreen/>} onBeforeLift={onBeforeLift} persistor={persistor}>
+            <NativeBaseProvider>
+                <PaperProvider>
+                    <AuthProvider>
+                        <NavigationContainer ref={navigationRef}>
+                            <MainNavigation/>
+                        </NavigationContainer>
+                    </AuthProvider>
+                </PaperProvider>
+            </NativeBaseProvider>
+        </PersistGate>
+    </Provider>);
 };
+
 
 export default App;

@@ -3,16 +3,13 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Dashboard from './components';
 
-import {fetchAllUpcomingEvents, resetUpcomingEvent} from '../home/slice/upcomingEventSlice';
-import {fetchAllPillarSliders, resetPillarSlider} from '../home/slice/pillarSliderSlice';
+import {fetchAllUpcomingEvents, resetUpcomingEvent} from './slice/upcomingEventSlice';
 import {fetchAllPointOfEngagements, resetPointOfEngagement} from './slice/pointOfEngagementSlice';
 import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
 
 const DashboardScreen = (props) => {
 
     const dispatch = useDispatch();
-
-    const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector((state) => state.pillarSliders);
 
     const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
     const {pointOfEngagements, pointOfEngagementLoading, pointOfEngagementError} = useSelector((state) => state.pointOfEngagements);
@@ -34,11 +31,6 @@ const DashboardScreen = (props) => {
         dispatch(fetchAllCommunityMembers());
     };
 
-    const fetchAllPillarSlider = () => {
-        dispatch(fetchAllPillarSliders());
-    };
-
-
     /**
      * Clear upcoming event data.
      *
@@ -53,9 +45,6 @@ const DashboardScreen = (props) => {
 
     const cleanCommunityMember = () => {
         dispatch(resetCommunityMember());
-    };
-    const cleanPillarSlider = () => {
-        dispatch(resetPillarSlider());
     };
 
     return (
@@ -78,12 +67,6 @@ const DashboardScreen = (props) => {
             communityMemberError={communityMemberError}
             fetchAllCommunityMember={fetchAllCommunityMember}
             cleanCommunityMember={cleanCommunityMember}
-
-            pillarSliders={pillarSliders}
-            pillarSliderLoading={pillarSliderLoading}
-            pillarSliderError={pillarSliderError}
-            fetchAllPillarSlider={fetchAllPillarSlider}
-            cleanPillarSlider={cleanPillarSlider}
         />
     );
 };

@@ -1,373 +1,376 @@
-import React, {useEffect} from 'react';
+import React,{useState} from 'react';
 import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  ImageBackground,
-  ScrollView,
-  FlatList,
-  TouchableOpacity,
+    StyleSheet,
+    View,
+    Image,
+	Text,
+	ImageBackground,
+	ScrollView,
+	FlatList,
+	TouchableOpacity, Dimensions
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Font from 'react-native-vector-icons/FontAwesome5';
-import moment from 'moment';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Font from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const BestPractice = props => {
-  const {
-    navigation,
-    bestPractices,
-    bestPracticeLoading,
-    bestPracticeError,
-    fetchAllbestPractice,
-    cleanBestPractice,
-    bestPracticesMemberContents,
-    bestPracticesMemberContentLoading,
-    bestPracticesMemberContentError,
-    fetchAllbestPracticesMemberContent,
-    cleanBestPracticesMemberContent,
-  } = props;
-
-  const _renderItem = ({item, index}) => {
-    return (
-		<View style={[styles.bottomWrapper, styles.shadowProp]}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: 83,
-				height: 83,
-				borderRadius:10,
-			}}/>
-		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10,fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
-			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-		</View>
+const BestPractice = ({navigation}) => {
+	const Data = [
+		{
+			uri: require('../../../assets/img/profile_image.png'),
+			text: "Jay",
+		},
+		{
+			uri: require('../../../assets/img/welcome_profile_image.png'),
+			text: "John",
+		},
+		{
+			uri: require('../../../assets/img/dash_member_image.png'),
+			text: "John",
+		},
+		{
+			uri: require('../../../assets/img/profile_image.png'),
+			text: "Jay",
+		},
 		
-		<View
-		  style={styles.chatIcon}>
-		  <Ionicons
-			name={'chatbox'}
-			size={10}
-			color="#B1AFAF"
-		  />
+	];
+	
+	
+	const _renderItem = ({item, index}) => {
+		return (
+		<View style={styles.bottomWrapper}>
+			<Image 
+				style={styles.bottomImage}
+				source={item?.uri}/>
+			<Text style={{fontWeight:"bold", fontSize:18}}>{item.text}</Text>
+			<Text style={{fontSize:10}}>Frost and Sullivan</Text>
+			<View style={{borderRadius:50, backgroundColor:"#EBECF0", width:30, height:30, justifyContent:"center", marginLeft:60, marginTop:10}}>
+				<Ionicons
+					name={'chatbox'}
+					size={20}
+					color="grey"
+					style={{marginLeft:5}}
+				/>
+			</View>
+			
+		</View>)
+	}
+	
+	const data1=[
+		{
+			icon:"brain",
+			text:"Executive MindChange"
+		},
+		{
+			icon:"location-arrow",
+			text:"Megatrends Workshop"
+		},
+		{
+			icon:"window-maximize",
+			text:"Annual Council Meeting"
+		},
+		{
+			icon:"clipboard",
+			text:"BrainStorming Strategy Discussion"
+		},
+	]
+	
+	const _renderMiddleItem = ({item, index}) => {
+		return (
+			<TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'CommunityDetail'})}>
+			<View style={styles.middleWrapper}>
+			<View style={styles.middleW}>
+				<Font
+					name={item.icon}
+					size={30}
+					color="skyblue"
+				/>
+			</View>
+			<Text style={{marginTop:10, fontSize:12}}>{item.text}</Text>
 		</View>
-	  </View>
-    );
-  };
+		</TouchableOpacity>)
+	}
+	
+	const data2=[
+		{
+			date:"10",
+			month:"july",
+			text:"Executive Coaching Clinic On Goal Setting",
+			text1:"Hosted by Michael Cooper"
+		},
+		{
+			date:"10",
+			month:"Oct",
+			text:"Associate Member Meeting",
+			text1:"Hosted by Michael Cooper"
+		},
+	]
+	
+	const _renderTopItem = ({item, index}) => {
+		return (
+			<View style={styles.topWrapper} >
+				<ImageBackground
+					style={{width:'100%',
+						height:170,
+						borderRadius:20}}
+						source={require('../../../assets/img/blank_event_design.png')}>
+	
+				<View style={{
+					width:"15%",
+					height:50,
+					marginTop:10,
+					marginLeft:240,
+					backgroundColor:'#EBECF0',
+					borderRadius:10,
+					padding:5,
+					alignItems:'center'				
+					}}>
+						<Text>{item.date}</Text>
+						<Text>{item.month}</Text>
+				</View>
+								
+				<View style={styles.header}>
+					<Text style={styles.headingText1}>{item.text}</Text>
+					<Text style={styles.headingText2}>{item.text1}</Text>
+				</View>
+				</ImageBackground>
+			</View>)
+	}
 
-  const data1 = [
-    {
-      icon: 'location-arrow',
-      text: 'Megatrends Workshop',
-    },
-  ];
+	const pic = [
+		{
+			uri: require('../../../assets/img/welcome_screen_info_image.png'),
+			
+		},
+		{
+			uri: require('../../../assets/img/image.png'),
+			
+		},
+		{
+			uri: require('../../../assets/img/contactus.png'),
+			
+		},
+	];
 
-  const _renderMiddleItem = ({item, index}) => {
-    return (
-      <TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
-        <View style={styles.middleWrapper}>
-          <View style={styles.middleW}>
-            <Font name={item.icon} size={30} color="skyblue" />
-          </View>
-          <Text style={{marginTop: 10, fontSize: 10}}>{item.text}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
+	const _renderContentItem = ({item, index}) => {
+		return (
+			<View style={styles.ContentWrapper} >
+				<ImageBackground
+					style={{width:'100%',
+						height:190,
+						borderRadius:20}}
+						source={item?.uri}>
+				</ImageBackground>
+			</View>)
+	}
 
-  const _renderTopItem = ({item, index}) => {
-    const actualDate = moment(item.event_start).format('ll').split(',', 3);
-    const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
-    return (
-      <View style={styles.topWrapper} key={index}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-          <ImageBackground
-            style={{
-				width: '100%',
-				height: "100%",
-				borderRadius: 20,
-            }}
-            source={require('../../../assets/img/Rectangle1.png')}>
-            <View
-              style={{
-                width: 40,
-                height: 50,
-                marginTop: 10,
-                marginLeft: 200,
-                backgroundColor: '#B0E0E6',
-                borderRadius: 14,
-                padding: 5,
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize:12, fontFamily:Typography.FONT_SF_REGULAR}}>{date[1]}</Text>
-              <Text style={{fontSize:12,fontFamily:Typography.FONT_SF_REGULAR}}>{date[0]}</Text>
+	return (
+		<ScrollView>
+        <View style={styles.container}>
+				<ImageBackground
+					style={{width:'100%',
+					height:100,
+					
+					}}
+					source={require('../../../assets/img/blank_event_design.png')}>
+						<View style={{display:'flex', flexDirection:'row'}}>
+						<Image
+							source={require("../../../assets/img/dashboard_logo.png")}
+							style={{
+								position: 'absolute',
+								top: 40,
+								height: 30,
+								width: 30,
+								left: 10,
+								borderWidth: 5,
+							}}
+						/>
+						<View style={{marginLeft:50,}}>
+						<Text style={{fontWeight:"700",  color:"white", fontSize:20, top:40}}>Best Practice</Text>
+						</View>
+
+						<Font
+							name={'search'}
+							size={30}
+							color="white"
+							style={{marginLeft:130, marginTop:40}}
+						/>
+						<Image
+						source={require("../../../assets/img/profile_image.png")}
+						style={{
+						height: 50,
+						width:50,
+						marginTop:30,
+						marginLeft:10,
+						borderRadius:50,
+					}}
+				/>
+					</View>
+				</ImageBackground>
+		
+		
+            <View style={styles.top}>
+				<Text style={{fontWeight:"bold", fontSize:20}}> Best Practice Events</Text>
+				<View style={{
+					display:'flex', 
+					flexDirection:'row',
+				}}>
+					<FlatList
+                        horizontal
+						showsHorizontalScrollIndicator={false}
+                        data={data2}
+                        renderItem={_renderTopItem}/>
+				
+				</View>
+            </View>
+			
+			<View style={styles.middle}>
+				<Text style={{fontWeight:"bold", fontSize:20}}>Points of Engagement</Text>
+				
+				<View 
+					style={{display:'flex', 
+					flexDirection:'row',
+					}}>
+						<FlatList
+                        horizontal
+						showsHorizontalScrollIndicator={false}
+                        data={data1}
+                        renderItem={_renderMiddleItem}/>
+				</View>
+
+			</View>
+			
+			
+
+			<View style={styles.bottom}>
+				<Text style={{fontWeight:"bold" ,fontSize:20}}>Growth Community Members</Text>
+				<View >
+					<FlatList
+                        horizontal
+						showsHorizontalScrollIndicator={false}
+                        data={Data}
+                        renderItem={_renderItem}/>
+				</View>
+			</View>
+
+			<View style={styles.content}>
+				<Text style={{fontWeight:"bold", fontSize:20, marginTop:20}}> Growth Coaching Content</Text>
+				<View style={{
+					display:'flex', 
+					flexDirection:'row',
+				}}>
+					<FlatList
+                        horizontal
+						showsHorizontalScrollIndicator={false}
+                        data={pic}
+                        renderItem={_renderContentItem}/>
+				
+				</View>
             </View>
 
-            <View style={styles.header}>
-              <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
-            </View>
-          </ImageBackground>
-        </TouchableOpacity>
-      </View>
+        </View>
+		</ScrollView>
     );
-  };
-
-  const pic = [
-    {
-      uri: require('../../../assets/img/welcome_screen_info_image.png'),
-    },
-    {
-      uri: require('../../../assets/img/image.png'),
-    },
-    {
-      uri: require('../../../assets/img/contactus.png'),
-    },
-  ];
-
-  const _renderContentItem = ({item, index}) => {
-    return (
-      <View style={styles.ContentWrapper}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height:"100%",
-          }}
-          source={item?.uri}
-        />
-      </View>
-    );
-  };
-
-  useEffect(() => {
-    const fetchAllbestPracticeAsync = async () => {
-      await fetchAllbestPractice();
-    };
-    fetchAllbestPracticeAsync();
-  }, []);
-
-  useEffect(() => {
-    const fetchAllbestPracticeMemberContentAsync = async () => {
-      await fetchAllbestPracticesMemberContent();
-    };
-    fetchAllbestPracticeMemberContentAsync();
-  }, []);
-
-  console.log('Best Practices ============', bestPractices);
-  console.log('Members============', bestPracticesMemberContents.term_id);
-  console.log('Content ============', bestPracticesMemberContents);
-
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.top}>
-		<Text style={styles.title}>        
-		    {' '}
-            Best Practice Events
-          </Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={bestPractices}
-              renderItem={_renderTopItem}
-            />
-          </View>
-        </View>
-
-        <View style={styles.middle}>
-          <Text style={styles.title}>
-            Points of Engagement
-          </Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={data1}
-              renderItem={_renderMiddleItem}
-            />
-          </View>
-        </View>
-
-        <View style={styles.bottom}>
-			<Text style={styles.title}>
-			Growth Community Members
-          </Text>
-          <View>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents.members}
-              renderItem={_renderItem}
-            />
-          </View>
-        </View>
-
-        <View style={styles.content}>
-		<Text style={styles.title}>       
-		     {' '}
-            Growth Coaching Content
-          </Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents.pillar_contents}
-              renderItem={_renderContentItem}
-            />
-          </View>
-        </View>
-
-		<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
-					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-					<Image 
-						source={require('../../../assets/img/fristDigi.png')}
-						style={{width:"100%", height:20}}
-					/>
-		</View>
-      </View>
-    </ScrollView>
-  );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    ...CommonStyles.container,
-    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-    width: '100%',
-  },
-  top: {
-	height: 200,
-    marginTop: 20,
-    justifyContent: 'center',
-
-  },
-  title:{
-	fontFamily:Typography.FONT_SF_SEMIBOLD,
-	fontSize: 14,
-	color:Colors.PRIMARY_TEXT_COLOR,
-	marginLeft:15, 
-  },
-
-  topWrapper: {
-	height: 144,
-	width: 256,
-	marginTop: 20,
-	marginLeft: 15,
-	borderRadius:20,
-  },
-  header: {
-    margin: 10,
-  },
-  headingText1: {
-  
-    fontFamily: Typography.FONT_SF_MEDIUM,
-    marginTop: 5,
-    fontWeight: '600',
-    color: 'white',
-	fontSize:12
-  },
-  headingText2: {
-    ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_SF_MEDIUM,
-    fontWeight: '400',
-    color: 'white',
-	fontSize:8,
-  },
-  middle: {
-    width: 400,
-    marginTop: 10,
-  },
-  middleWrapper: {
-    width: 90,
-    borderRadius: 20,
-    marginTop: 15,
-	marginLeft:15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  middleW: {
-    backgroundColor: 'white',
-    width: 64,
-    height: 64,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-	borderWidth:0.2,
-  },
-  headingText3: {
-    ...CommonStyles.headingText3,
-    fontFamily: Typography.FONT_NORMAL,
-    padding: 4,
-  },
-  bottom: {
-    height: 172,
-	marginTop:25,
-  },
-  bottomWrapper: {
-	width:84,
-   position:'relative',
-    borderRadius: 10,
-	marginTop:15,
-	marginLeft: 15,
-    backgroundColor: 'white',
-    overflow:"hidden",
-	// borderWidth:0.2,
-  },
-  chatIcon:{
-	borderRadius: 50,
-	backgroundColor: '#F1F1F1',
-	padding:6,
-	justifyContent: 'center',
-	position:'absolute',
-	right:4,
-	bottom:4
-  },
-  bottomImage: {
-    width: '100%',
-    height: 100,
-    borderRadius: 20,
-  },
-  content: {
-	height: 250,
-	marginTop: 20,
-	justifyContent: 'center',
-	borderRadius: 20,
-  },
-  ContentWrapper: {
-	height: 206,
-	width: 364,
-	marginTop: 20,
-	marginLeft: 15,
-   borderRadius:20,
-   overflow:"hidden"
-  },
-  shadowProp: {
-	shadowColor: "#000",
-	shadowOffset: {
-		width: 0,
-		height: 2,
+    container: {
+        ...CommonStyles.container,
+        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+		width:"100%",
+    },
+	top:{
+		height:200,
+		marginTop:20,
+		margin:5,
+		justifyContent:'center',	
 	},
-	shadowOpacity: 0.25,
-	shadowRadius: 3.84,
-
-	elevation: 5,
-  },
+	
+	topWrapper:{
+		height:170,
+		width:300,
+		marginTop:10,
+		marginLeft:10,
+		borderRadius:50,
+	},
+	header:{
+		margin:10,
+	},
+    headingText1: {
+		...CommonStyles.headingText1,
+    	fontFamily: Typography.FONT_NORMAL,
+      	marginTop:10,
+		fontWeight:'800',
+		color:'white',
+		
+    },
+    headingText2: {
+        ...CommonStyles.headingText2,
+        fontFamily: Typography.FONT_NORMAL,
+		fontWeight:'700',
+		color:'white',
+    },
+	middle:{
+		width:400,
+		height:190,
+		marginLeft:10,
+		marginTop:10,
+			
+	},
+	middleWrapper:{
+		height:160,
+		width:90,
+		borderRadius:20,
+		marginTop:5,
+		// backgroundColor:'white',
+		justifyContent:"center",
+		alignItems:'center',
+	},
+	middleW:{
+		backgroundColor:'white',
+		width:80, 
+		height:80, 
+		justifyContent:'center', 
+		alignItems:'center',
+		borderRadius:10
+	},
+	headingText3: {
+        ...CommonStyles.headingText3,
+        fontFamily: Typography.FONT_NORMAL,
+		padding:4,
+    },
+	bottom:{
+		height:200,
+		margin:10,
+		width:400,
+	},
+	bottomWrapper:{
+		width:120,
+		height:190,
+		borderRadius:10,
+		marginRight:10,
+		marginTop:10,
+		backgroundColor:'white',
+		alignItems:'center',
+	},
+	bottomImage:{
+		width:'100%',
+		height:100, 
+		borderRadius:20
+	},
+	content:{
+		height:250,
+		marginTop:20,
+		margin:10,
+		justifyContent:'center',
+		borderRadius:20,
+	},
+	ContentWrapper:{
+		height:200,
+		width:300,
+		marginTop:10,
+		marginLeft:10,
+	}
 });
 
-export default BestPractice;
+export default BestPractice
+
