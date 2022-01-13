@@ -75,13 +75,13 @@ const People = (props) => {
                         keyboardType="text"	
                     />
                     <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 15}}/>
+                    <Ionicons name='apps' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 10}}/>
 
                 </View>
                 <View style={{display: 'flex', flexDirection: 'row', height:48, marginTop:16}}>
 
 				
-					<View style={{borderRightWidth:1,borderColor:'#707070'}}>
+					<View style={{borderRightWidth:0.2,borderColor:'#707070'}}>
 						<Picker
 							selectedValue={category}
 							mode={'dropdown'}
@@ -94,7 +94,7 @@ const People = (props) => {
 						</Picker>
 					</View>
                   
-					<View style={{borderRightWidth:1,borderColor:'#707070', display:'flex', flexDirection:'row'}}>
+					<View style={{borderRightWidth:0.2,borderColor:'#707070', display:'flex', flexDirection:'row'}}>
 					<Ionicons
                         name='arrow-up'
                         size={20}
