@@ -182,7 +182,7 @@ const MainNavigation = () => {
             // ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
-		
+
         <Stack.Screen
           name="Dashboard"
           component={DrawerNavigation}
@@ -237,6 +237,8 @@ const MainNavigation = () => {
               options={({route}) => ({
                   userID: route?.params?.userID,
                   friendID: route?.params?.friendID,
+                  friendName: route?.params?.friendName,
+                  //headerTitle: route?.params?.friendName,
                   headerTitle: 'Chat',
               })}
           />

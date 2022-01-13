@@ -2,9 +2,12 @@ import React, {useState, useCallback, useLayoutEffect} from 'react';
 import {
     StyleSheet,
     View,
+    KeyboardAvoidingView,
+    Platform
 } from 'react-native';
-import {GiftedChat} from 'react-native-gifted-chat'
+import {GiftedChat, Send} from 'react-native-gifted-chat'
 import {collection, getDocs, addDoc, query, orderBy} from 'firebase/firestore';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors} from '../../../theme';
 import {database} from '../../../utils/firebaseUtil';
@@ -14,7 +17,11 @@ const Chat = (props) => {
     const {navigation, route} = props;
 
     const friendID = route.params.friendID;
+    const friendName = route.params.friendName;
+    const friendAvatar = route.params.friendAvatar;
     const userID = route.params.userID;
+    const userAvatar = route.params.userAvatar;
+    const userName = route.params.userName;
 
     console.log("CHAT:::::::::::::::", friendID, userID);
 
@@ -51,11 +58,30 @@ const Chat = (props) => {
             <GiftedChat
                 messages={messages}
                 onSend={messages => onSend(messages)}
+                placeholder={'Write a message'}
                 user={{
                     _id: userID,
-                    //name: auth?.currentUser?.displayName,
+                    name: userName,
+                    avatar: userAvatar
+                    // name: auth?.currentUser?.displayName,
                     // avatar: auth?.currentUser?.photoURL
                 }}
+                renderSend={(props) => {
+                    return (
+                        <Send
+                            {...props}
+                            containerStyle={styles.sendContainer}
+                        >
+                            <Ionicons
+                                name={'send-sharp'}
+                                size={22}
+                                color={'white'}
+                            />
+                        </Send>
+                    );
+                }}
+                image={friendAvatar}
+                alwaysShowSend={true}
             />
         </View>
     );
@@ -66,6 +92,16 @@ const styles = StyleSheet.create({
         ...CommonStyles.container,
         backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
     },
+    sendContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginRight: 15,
+        height: 35,
+        width: 35,
+        backgroundColor: '#246EE9',
+        borderRadius: 40,
+    }
 });
 
 export default Chat;

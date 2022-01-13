@@ -9,7 +9,7 @@ import {
 
 import {CommonStyles, Colors,Typography} from '../../../theme';
 import {getAsyncStorage} from "../../../utils/storageUtil";
-import {JWT_TOKEN} from "../../../constants";
+import {JWT_TOKEN, USER_NAME, USER_AVATAR} from "../../../constants";
 import {decodeUserID} from "../../../utils/jwtUtil";
 import {Button} from 'native-base';
 
@@ -26,10 +26,16 @@ const UserList = (props) => {
     } = props;
 
     const [userID, setUserID] = useState(null);
+    const [avatarImg, setAvatarImg] = useState(null);
+    const [userName, setUserName] = useState(null);
 
     useEffect(async () => {
         let token = await getAsyncStorage(JWT_TOKEN);
         setUserID(decodeUserID(token));
+        let avatar = await getAsyncStorage(USER_AVATAR);
+        setAvatarImg(avatar);
+        let username = await getAsyncStorage(USER_NAME);
+        setUserName(username);
     }, []);
 
     useEffect(() => {
