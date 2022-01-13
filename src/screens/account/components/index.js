@@ -299,12 +299,13 @@ const Profile = (props) => {
                     </View>
                 
             </View>
-				{/* <View style={{ alignItems:'center',width:'45%'}}>
-									<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
-									<Image source={require('../../../assets/img/fristDigi.png')}
-										style={{width: '100%', marginBottom: 15}}
-									/>
-					</View> */}
+				<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+					<Image 
+						source={require('../../../assets/img/fristDigi.png')}
+						style={{width:"100%", height:20}}
+					/>
+				</View>
 			</View>
 		
 			
