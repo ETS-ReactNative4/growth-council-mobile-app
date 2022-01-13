@@ -18,7 +18,7 @@ const HeaderTitle = () => {
 
     return (
         <View style={{marginLeft: 40}}>
-            <Text style={{marginTop: 10, color: "#000", fontSize: 15}}>Good Morning</Text>
+            <Text style={{marginTop: 10, color: "#000", fontSize: 15}}>Hello</Text>
             <Text style={{fontWeight: "700", color: "#000", fontSize: 20}}>{username}</Text>
         </View>
     );
