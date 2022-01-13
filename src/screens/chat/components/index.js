@@ -6,7 +6,7 @@ import {
     Image
 } from 'react-native';
 import {GiftedChat, Send} from 'react-native-gifted-chat'
-import {collection, getDocs, addDoc, query, orderBy} from 'firebase/firestore';
+import {collection, getDocs, addDoc, setDoc, query, orderBy,doc} from 'firebase/firestore';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -30,7 +30,8 @@ const Chat = (props) => {
 
     useLayoutEffect(() => {
         const fetchMessageAsync = async () => {
-            const chatsCol = await collection(database, 'chats');
+            //const chatsCol = await collection(database, 'rooms');
+            const chatsCol = await collection(database, 'rooms', `${userID}-${friendID}`, 'messages');
             const chatSnapshot = await getDocs(query(chatsCol, orderBy('createdAt', 'desc')));
             const messageList = chatSnapshot.docs.map(doc => ({
                 _id: doc.data()._id,
@@ -48,9 +49,11 @@ const Chat = (props) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
         console.log("Message ID::::::::::: ", messages[0]);
         const {_id, createdAt, text, user,} = messages[0];
-        const chatsCol = await collection(database, 'chats');
+        // const chatsCol = await collection(database, 'rooms');
+        const chatsCol = await collection(database, 'rooms', `${userID}-${friendID}`, 'messages');
         console.log("chatsCol ID::::::::::: ", chatsCol);
         const newDoc = await addDoc(chatsCol, {_id, createdAt, text, user});
+       // const newDoc = await setDoc(doc(chatsCol, "rooms", userID), {_id, createdAt, text, user});
         console.log("Document ID::::::::::: ", newDoc);
     }, []);
 
