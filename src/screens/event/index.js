@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import Event from './component';
+import Event from './components';
 
 import {fetchEventByID, resetEvent} from './eventSlice';
 
@@ -36,7 +36,8 @@ const EventDetailScreen = props => {
             eventError={eventError}
             fetchEventByIdentifier={fetchEventByIdentifier}
             cleanEvent={cleanEvent}
-        />);
+        />
+    )
 };
 
 export default EventDetailScreen;

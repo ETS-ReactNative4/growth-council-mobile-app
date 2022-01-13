@@ -1,18 +1,59 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import GrowthDetail from './component/GrowthDetails';
 
-const GrowthDetailScreen = (props) => {
-	const dispatch = useDispatch();
+import GrowthDetail from './components/GrowthDetail';
 
-	return (
-		<GrowthDetail
-		{...props}
-		/>
-	)
-}
+import {
+  fetchAllgrowthCoachings,
+  resetgrowthCoaching,
+} from '../dashboard/slice/growthCoachingSlice';
+import {
+  fetchAllgrowthCoachingMemberContents,
+  resetgrowthCoachingMemberContent,
+} from '../dashboard/slice/growthCoachingMemberContentSlice';
 
-export default GrowthDetailScreen
+const GrowthDetailScreen = props => {
+  const dispatch = useDispatch();
 
-const styles = StyleSheet.create({})
+  const {growthCoachings, growthCoachingLoading, growthCoachingError} =
+    useSelector(state => state.growthCoachings);
+  const {
+    growthCoachingMemberContents,
+    growthCoachingMemberContentLoading,
+    growthCoachingMemberContentError,
+  } = useSelector(state => state.growthCoachingMemberContents);
+
+  const fetchAllgrowthCoaching = () => {
+    dispatch(fetchAllgrowthCoachings());
+  };
+
+  const fetchAllgrowthCoachingMemberContent = () => {
+    dispatch(fetchAllgrowthCoachingMemberContents());
+  };
+
+  const cleangrowthCoaching = () => {
+    dispatch(resetgrowthCoaching());
+  };
+
+  const cleangrowthCoachingMemberContent = () => {
+    dispatch(resetgrowthCoachingMemberContent());
+  };
+
+  return (
+    <GrowthDetail
+      {...props}
+      growthCoachings={growthCoachings}
+      growthCoachingLoading={growthCoachingLoading}
+      growthCoachingError={growthCoachingError}
+      fetchAllgrowthCoaching={fetchAllgrowthCoaching}
+      cleangrowthCoaching={cleangrowthCoaching}
+      growthCoachingMemberContents={growthCoachingMemberContents}
+      growthCoachingMemberContentLoading={growthCoachingMemberContentLoading}
+      growthCoachingMemberContentError={growthCoachingMemberContentError}
+      fetchAllgrowthCoachingMemberContent={fetchAllgrowthCoachingMemberContent}
+      cleangrowthCoachingMemberContent={cleangrowthCoachingMemberContent}
+    />
+  );
+};
+
+export default GrowthDetailScreen;
