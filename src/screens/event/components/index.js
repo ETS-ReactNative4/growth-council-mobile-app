@@ -196,7 +196,7 @@ const Event = props => {
                                             <Text>{events?.location?.location_address}</Text>
                                         </View>
                                     )}
-                                    <View
+                                    {/* <View
                                         style={{
                                             flex: 1,
                                             height: 60,
@@ -208,7 +208,7 @@ const Event = props => {
                                         <Image
                                             source={require('../../../assets/img/live_image.png')}
                                         />
-                                    </View>
+                                    </View> */}
                                 </View>
                             </View>
 
@@ -256,7 +256,7 @@ const Event = props => {
                                             justifyContent: 'center',
                                             alignItems: 'flex-end',
                                         }}>
-                                        <Button
+                                        {/* <Button
                                             style={{
                                                 width: '85%',
                                                 height: 40,
@@ -271,7 +271,7 @@ const Event = props => {
                                                 ]}>
                                                 Follow
                                             </Text>
-                                        </Button>
+                                        </Button> */}
                                     </View>
                                 </View>
                             </View>
@@ -295,7 +295,15 @@ const Event = props => {
                         </View>
                     </View>
                 </ImageBackground>
+				
             </View>
+			<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+					<Image 
+						source={require('../../../assets/img/fristDigi.png')}
+						style={{width:"100%", height:20}}
+					/>
+				</View>
         </ScrollView>
     );
 };
@@ -384,6 +392,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         marginBottom: 0,
+		backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR,
     },
 });
 export default Event;
