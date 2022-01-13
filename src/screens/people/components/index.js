@@ -64,7 +64,7 @@ const People = (props) => {
 
 	
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             <View style={styles.container}>
                 <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
                     <Ionicons name="search-outline" color={'#000'} size={24}
@@ -74,8 +74,8 @@ const People = (props) => {
                         placeholder="Search"
                         keyboardType="text"	
                     />
-                    <Ionicons name='list-outline' color="blue" size={40} style={{marginTop: 10}}/>
-                    <Ionicons name='ios-grid-outline' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 15}}/>
+                    <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
+                    <Ionicons name='apps' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 15}}/>
 
                 </View>
                 <View style={{display: 'flex', flexDirection: 'row', height:48, marginTop:16}}>
@@ -128,7 +128,7 @@ const People = (props) => {
                     renderItem={_renderItem}/>
 				</View>
 
-				<View style={{ alignItems:'center'}}>
+				<View style={{ alignItems:'center',}}>
 					<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
 					<Image source={require('../../../assets/img/footer_company_name_image.png')}
 						style={{width: '60%', marginTop: 10, marginBottom: 15}}
