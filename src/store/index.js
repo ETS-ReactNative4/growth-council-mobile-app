@@ -32,6 +32,7 @@ import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPr
 import growthCoachingsReducer from '../screens/dashboard/slice/growthCoachingSlice';
 import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growthCoachingMemberContentSlice';
 import profileSessionReducer from '../screens/account/slice/profileSessionSlice';
+import pillarEventsReducer from '../screens/dashboard/slice/pillarEventsSlice';
 
 import upcomingEventReducer from '../screens/home/slice/upcomingEventSlice';
 import detailReducer from '../screens/home/slice/detailSlice';
@@ -58,6 +59,7 @@ const reducers = combineReducers({
   idea: ideaReducer,
   pillars: pillarReducer,
   pillarSliders: pillarSliderReducer,
+  pillarEvents: pillarEventsReducer,
 
   connection: connectionReducer,
   communities: communityReducer,

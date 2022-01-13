@@ -8,6 +8,7 @@ import {
     Dimensions,
     FlatList,
 } from 'react-native';
+import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -32,16 +33,18 @@ const CouncilAllDetail = props => {
         fetchUpcomingEventAsync();
     }, []);
 
-    console.log('Pillar Upcoming Detail:::::::::::::::::', upcomingEvents, pillar_id);
+    console.log('Pillar Upcoming Events:::::::::::::::::', upcomingEvents, pillar_id);
 
     const _renderItem = ({item, index}) => {
-
+    const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const date = actualDate[0].split(' ', 3);
+    console.log(date[1]);
         return (
             <View style={styles.eventCard} key={index}>
                 <View style={styles.eventTheme}/>
                 <View style={styles.eventDetails}>
                     <View style={styles.eventInfo}>
-                        <Text style={styles.evnetTitle}>
+                        <Text style={styles.eventTitle}>
                             {item.title}
                         </Text>
                         <Text style={styles.eventParagraph}>
@@ -49,7 +52,7 @@ const CouncilAllDetail = props => {
                         </Text>
                     </View>
                     <View style={styles.eventDate}>
-                        <Text style={styles.eventDateText}>01{'\n'}AUG</Text>
+                        <Text style={styles.eventDateText}>{date[1]}{'\n'}{date[0]}</Text>
                     </View>
                 </View>
             </View>
@@ -102,10 +105,9 @@ const styles = StyleSheet.create({
     },
     paragraph: {
         fontFamily: Typography.FONT_NORMAL,
-        fontSize: Typography.FONT_SIZE_MEDIUM,
-        lineHeight: 24,
-        marginTop: 10,
-        marginBottom: 5,
+        fontSize: Typography.FONT_SIZE_MEDIUM,       
+        marginTop: 5,
+        marginBottom: 10,
         color: Colors.TERTIARY_TEXT_COLOR,
         textAlign: 'left',
     },
@@ -130,7 +132,8 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     eventsTitle: {
-        marginBottom: 15,
+        marginBottom: 34,
+        fontWeight: 'semi-bold',
     },
     eventList: {},
     eventCard: {
@@ -140,10 +143,10 @@ const styles = StyleSheet.create({
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
-        marginBottom: 5
+        marginBottom: 14
     },
     eventTheme: {
-        height: '100%',
+        height: 84,
         width: 10,
         borderRadius: 50,
         backgroundColor: 'rgba(128,186,116,1)',
@@ -161,11 +164,14 @@ const styles = StyleSheet.create({
         paddingRight: 5,
         flex: 5,
     },
-    evnetTitle: {
-        marginBottom: 5,
+    eventTitle: {
+        marginBottom: 8,
+        fontSize: 14,
+        fontWeight: 'medium'
     },
     eventParagraph: {
-        fontSize: 10,
+        fontSize: 8,
+        fontWeight: 'regular',
     },
     eventDate: {
         flex: 1,
@@ -173,9 +179,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(245,245,245,1)',
         borderRadius: 10,
         fontSize: 18,
+        height: 62,
+        width: 56,
     },
     eventDateText: {
         textAlign: 'center',
+        fontSize: 14,
+        fontWeight: 'medium',
     },
 });
 export default CouncilAllDetail;

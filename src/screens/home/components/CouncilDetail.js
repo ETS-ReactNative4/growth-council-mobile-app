@@ -37,40 +37,76 @@ const CouncilDetail = props => {
     }, []);
 
     console.log('route.params.id:::::::::::::::::', route.params.id);
-    // console.log('Pillar Detail:::::::::::::::::', pillars);
+    console.log('Pillar Detail:::::::::::::::::', pillars);
 
     return (
         <ScrollView>
+            <View style={styles.meta}>
+            {!loadMore && (
+                <View style={{padding: 20, backgroundColor: '#ffffff'}}>
+                 <Image
+                    style={{
+                        width: '100%',
+                        height: 236,
+                        alignItems: 'center',
+                        borderRadius: 13,
+                        position: 'relative',
+                    }}
+                    source={{ uri : pillars?.pillar_detail_image }}
+                />
+                 <View
+                    style={{
+                        position: 'absolute',
+                        left: 30,
+                        top: 30,
+                    }}>
+                    <Ionicons
+                        name={'md-close-circle-sharp'}
+                        size={40}
+                        color={'#14A2E2'}
+                        onPress={() => navigation.goBack()}
+                    />
+                </View>
+                </View>
+           
+
+            )}
+             {loadMore && (
+           <View style={{backgroundColor: '#ffffff'}}>
+                 <Image
+                    style={{
+                        width: '100%',
+                        height: 236,
+                        alignItems: 'center',                       
+                    }}
+                    source={{ uri : pillars?.pillar_detail_image }}
+                />
+                 <View
+                    style={{
+                        position: 'absolute',
+                        left: 20,
+                        top: 30
+                    }}>
+                    <Ionicons
+                        name={'md-close-circle-sharp'}
+                        size={40}
+                        color={'#14A2E2'}
+                        onPress={() => navigation.goBack()}
+                    />
+                </View>
+                </View>               
+
+            )}
+                
+               
+            </View>
             <View style={styles.container}>
                 <StatusBar
                     barStyle="dark-content"
                     backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
-                />
+                />                
 
-                <View style={styles.meta}>
-                    <Image
-                        style={{
-                            width: '100%',
-                            height: 230,
-                            alignItems: 'center',
-                        }}
-                        source={require('../../../assets/img/welcome_screen_info_image.png')}
-                    />
-                    <View
-                        style={{
-                            position: 'absolute',
-                            right: 0,
-                        }}>
-                        <Ionicons
-                            name={'md-close-circle-sharp'}
-                            size={40}
-                            color={'#0aade7'}
-                            onPress={() => navigation.goBack()}
-                        />
-                    </View>
-                </View>
-
-                <View style={{padding: 30}}>
+                <View style={{ marginLeft: 30, marginRight:30}}>
                     <Text style={styles.headingTitle}>{pillars?.name}</Text>
                     <HTMLView value={pillars?.description} style={styles.paragraph}/>
                 </View>
@@ -98,42 +134,42 @@ const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
         padding: 20,
+       flex: 1
     },
     meta: {
-        width: '100%',
-        marginTop: Platform.OS === 'ios' ? 50 : 10,
+        width: '100%',       
     },
     headingTitle: {
         ...CommonStyles.headingTitle,
         textAlign: 'left',
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#1f3354',
+        color: '#080F18',
+        marginTop: 20,
+        marginBottom: 30,
     },
     paragraph: {
         fontFamily: Typography.FONT_NORMAL,
-        fontSize: Typography.FONT_SIZE_MEDIUM,
-        lineHeight: 24,
-        marginTop: 10,
-        marginBottom: 5,
-        color: Colors.TERTIARY_TEXT_COLOR,
+        fontSize: 14,
+        lineHeight: 10,
+        fontWeight: 'regular',
+        color: '#666767',             
         textAlign: 'left',
     },
     moreButton: {
-        width: '40%',
+        width: 134,
+        marginTop: 30,
         borderRadius: 10,
-        height: 40,
-        fontSize: 35,
+        height: 46,      
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
         marginLeft: 5,
     },
     moreButtonText: {
-        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-        fontFamily: Typography.FONT_BOLD,
-        fontSize: 13,
-        fontWeight: 'bold',
+        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,       
+        fontSize: 12,
+        fontWeight: 'medium',
     },
 });
 export default CouncilDetail;
