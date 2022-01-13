@@ -66,8 +66,6 @@ const Home = props => {
     fetchPillarSliderAsync();
   }, []);
 
-  console.log('Pillar Slider:::::::::::::::::', pillarSliders);
-
   const _renderItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
@@ -151,7 +149,6 @@ const Home = props => {
             backgroundColor: '#1580B7',
           }}
           dotColor={'#1580B7'}
-          
         />
       </View>
 
@@ -159,9 +156,7 @@ const Home = props => {
         <Button
           style={styles.signupbutton}
           onPress={() => navigation.navigate('HomeDetail')}>
-          <Text style={styles.signupbuttonText}>
-            Get Started
-          </Text>
+          <Text style={styles.signupbuttonText}>Get Started</Text>
         </Button>
         <Button
           style={styles.signinbutton}
@@ -177,7 +172,9 @@ const Home = props => {
           style={styles.footerlogo}
           source={require('../../../assets/img/frost_sullivan_footer.svg')}
         />
-        <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>Powered By</Text>
+        <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>
+          Powered By
+        </Text>
         <Image
           source={require('../../../assets/img/frost_footer.svg')}
           style={{marginTop: 4}}
@@ -236,31 +233,31 @@ const styles = StyleSheet.create({
     height: 56,
     width: 336,
     marginBottom: 20,
-    marginTop: 30,  
+    marginTop: 30,
     borderRadius: 25,
     height: 56,
     alignItems: 'center',
-    justifyContent: 'center', 
-    backgroundColor: Colors.PRIMARY_BUTTON_COLOR, 
+    justifyContent: 'center',
+    backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
   },
   signupbuttonText: {
     ...CommonStyles.buttonText,
     fontFamily: Typography.FONT_BOLD,
-    fontSize: 16,    
-    color : '#ffffff',
+    fontSize: 16,
+    color: '#ffffff',
   },
   signinbutton: {
     width: 336,
     borderRadius: 25,
     height: 52,
     alignItems: 'center',
-    justifyContent: 'center',   
+    justifyContent: 'center',
     backgroundColor: '#faf9f8',
     borderWidth: 2,
     borderColor: '#709caf',
   },
   signinbuttonText: {
-  ...CommonStyles.buttonText,
+    ...CommonStyles.buttonText,
     fontFamily: Typography.FONT_BOLD,
     fontSize: 16,
     color: '#1580B7',
@@ -294,7 +291,7 @@ const styles = StyleSheet.create({
     fontWeight: 'semi-bold',
     marginBottom: 30,
   },
-  
+
   footer: {
     alignItems: 'center',
     justifyContent: 'center',
