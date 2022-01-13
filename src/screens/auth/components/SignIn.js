@@ -154,7 +154,7 @@ const SignInForm = (props) => {
                                     Up </Text>
                             </View>
                             <View style={[styles.signuptext, {marginTop: 40}]}>
-                                <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/>
+                                {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                                 <Text>Need Help? </Text>
                                 <Text style={{color: '#31ade5'}}
                                       onPress={() => Linking.openURL('mailto:contact@frost.com')}> Contact Us </Text>

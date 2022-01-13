@@ -28,6 +28,7 @@ const CustomDrawerContent = (props) => {
         props.navigation.toggleDrawer();
     };
 
+
     return (
         <SafeAreaView style={{flex: 1}}>
             <View style={{flexDirection: 'row'}}>
@@ -91,6 +92,7 @@ const DrawerNavigation = ({navigation}) => {
 								   marginLeft:20,
                                    borderWidth: 5,
                                }}
+							   
                         />
                     </View>
                 ),

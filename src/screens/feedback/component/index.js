@@ -66,13 +66,13 @@ const Feedback = (props) => {
                             </Text>
                         </Button>
                     </View>
-                    <View style={styles.poweredBy}>
-                        <Text style={{fontSize: 7, marginTop: 2}}>Powered By</Text>
-                        <Image
-                            source={require('../../../assets/img/footer_company_name_image.png')}
-                            style={{marginTop: 2}}
-                        />
-                    </View>
+					<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+								<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+								<Image 
+									source={require('../../../assets/img/fristDigi.png')}
+									style={{width:"100%", height:20}}
+								/>
+					</View>
                 </View>
             </ScrollView>
         </>

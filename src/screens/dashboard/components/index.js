@@ -201,7 +201,7 @@ const Dashboard = props => {
     }, []);
 
     return (
-        <ScrollView>
+        <ScrollView  style={styles.container}>
             <View style={styles.container}>
                 <ImageBackground
                     style={{width: '100%', height: 180}}
@@ -287,6 +287,14 @@ const Dashboard = props => {
                     />
                 </View>
             </View>
+
+			<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+					<Image 
+						source={require('../../../assets/img/fristDigi.png')}
+						style={{width:"100%", height:20}}
+					/>
+				</View>
         </ScrollView>
     );
 };
@@ -295,7 +303,7 @@ const styles = StyleSheet.create({
 
   container: {
     ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
   },
   pillar:{

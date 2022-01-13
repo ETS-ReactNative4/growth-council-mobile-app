@@ -54,7 +54,7 @@ const Setting = (props) => {
 
 
     return (
-        <ScrollView contentContainerStyle={{flexGrow: 1,}}>
+        <ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 			<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 			<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
 						<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
@@ -184,12 +184,7 @@ const Setting = (props) => {
 
                             </View>
 
-							<View style={{ alignItems:'center'}}>
-								<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
-								<Image source={require('../../../assets/img/footer_company_name_image.png')}
-									style={{width: '60%', marginTop: 10, marginBottom: 15}}
-								/>
-							</View>
+						
                            
 
                         </View>
@@ -197,6 +192,13 @@ const Setting = (props) => {
                 
             </View>
 			</View>
+			<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+								<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+								<Image 
+									source={require('../../../assets/img/fristDigi.png')}
+									style={{width:"100%", height:20}}
+								/>
+							</View>
 			
         </ScrollView>
     )
