@@ -16,7 +16,7 @@ On the command prompt run the following commands:
 ``` 
  $ git clone https://github.com/odeumtech/growth-council-mobile-app.git
  $ cd growth-council-mobile-app
- $ npm install / npm install --legacy-peer-deps
+ $ npm install
  ```
  Finally, start and build the application:
  

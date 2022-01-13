@@ -1,59 +1,18 @@
-import React from 'react';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import GrowthDetail from './component/GrowthDetails';
 
-import GrowthDetail from './components/GrowthDetail';
+const GrowthDetailScreen = (props) => {
+	const dispatch = useDispatch();
 
-import {
-  fetchAllgrowthCoachings,
-  resetgrowthCoaching,
-} from '../dashboard/slice/growthCoachingSlice';
-import {
-  fetchAllgrowthCoachingMemberContents,
-  resetgrowthCoachingMemberContent,
-} from '../dashboard/slice/growthCoachingMemberContentSlice';
+	return (
+		<GrowthDetail
+		{...props}
+		/>
+	)
+}
 
-const GrowthDetailScreen = props => {
-  const dispatch = useDispatch();
+export default GrowthDetailScreen
 
-  const {growthCoachings, growthCoachingLoading, growthCoachingError} =
-    useSelector(state => state.growthCoachings);
-  const {
-    growthCoachingMemberContents,
-    growthCoachingMemberContentLoading,
-    growthCoachingMemberContentError,
-  } = useSelector(state => state.growthCoachingMemberContents);
-
-  const fetchAllgrowthCoaching = () => {
-    dispatch(fetchAllgrowthCoachings());
-  };
-
-  const fetchAllgrowthCoachingMemberContent = () => {
-    dispatch(fetchAllgrowthCoachingMemberContents());
-  };
-
-  const cleangrowthCoaching = () => {
-    dispatch(resetgrowthCoaching());
-  };
-
-  const cleangrowthCoachingMemberContent = () => {
-    dispatch(resetgrowthCoachingMemberContent());
-  };
-
-  return (
-    <GrowthDetail
-      {...props}
-      growthCoachings={growthCoachings}
-      growthCoachingLoading={growthCoachingLoading}
-      growthCoachingError={growthCoachingError}
-      fetchAllgrowthCoaching={fetchAllgrowthCoaching}
-      cleangrowthCoaching={cleangrowthCoaching}
-      growthCoachingMemberContents={growthCoachingMemberContents}
-      growthCoachingMemberContentLoading={growthCoachingMemberContentLoading}
-      growthCoachingMemberContentError={growthCoachingMemberContentError}
-      fetchAllgrowthCoachingMemberContent={fetchAllgrowthCoachingMemberContent}
-      cleangrowthCoachingMemberContent={cleangrowthCoachingMemberContent}
-    />
-  );
-};
-
-export default GrowthDetailScreen;
+const styles = StyleSheet.create({})

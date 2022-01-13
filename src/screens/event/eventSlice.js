@@ -5,9 +5,7 @@ import {fetch} from '../../utils/httpUtil';
 export const fetchEventByID = createAsyncThunk(
     'event/fetchByID',
     (identifier, {rejectWithValue}) => {
-        return fetch(`jwt-auth/v1/events/${identifier}`)
-		.then(response => response.data.body_response)
-		.catch(error => rejectWithValue(error?.response?.data || error));
+        return fetch(`jwt-auth/v1/events/${identifier}`).then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 
