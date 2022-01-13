@@ -9,7 +9,7 @@ import {
 
 import {CommonStyles, Colors} from '../../../theme';
 import {getAsyncStorage} from "../../../utils/storageUtil";
-import {JWT_TOKEN} from "../../../constants";
+import {JWT_TOKEN, USER_NAME, USER_AVATAR} from "../../../constants";
 import {decodeUserID} from "../../../utils/jwtUtil";
 
 const UserList = (props) => {
@@ -25,10 +25,16 @@ const UserList = (props) => {
     } = props;
 
     const [userID, setUserID] = useState(null);
+    const [avatarImg, setAvatarImg] = useState(null);
+    const [userName, setUserName] = useState(null);
 
     useEffect(async () => {
         let token = await getAsyncStorage(JWT_TOKEN);
         setUserID(decodeUserID(token));
+        let avatar = await getAsyncStorage(USER_AVATAR);
+        setAvatarImg(avatar);
+        let username = await getAsyncStorage(USER_NAME);
+        setUserName(username);
     }, []);
 
     useEffect(() => {
@@ -47,7 +53,7 @@ const UserList = (props) => {
                 style={styles.wrapper}
                 key={index}
             >
-                <TouchableOpacity onPress={() => navigation.navigate('Chat', {friendID: item.id, userID: userID})}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat', {friendID: item.id, friendName: item.displayname, friendAvatar: item.avatar, userID: userID, userName:userName, userAvatar:avatarImg})}>
                     <Image
                         source={{
                             uri: item.avatar,

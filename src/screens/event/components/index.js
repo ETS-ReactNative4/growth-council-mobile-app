@@ -36,14 +36,15 @@ const Event = props => {
     }, []);
 
     const isEventLoaded = Object.keys(events).length === 0;
-    const actualDate = moment(events.event_start).format('LLLL').split(',', 6);
+    const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
 
     console.log('route.params.id:::::::::::::::::', route.params.id);
-    console.log('Event Detail:::::::::::::::::', events.organizer_image);
+    console.log('Event Detail:::::::::::::::::', events?.organizer_image);
 
     let backgroundColor = Colors.COMMUNITY_COLOR;
-    switch (events?.pillar_categories[0]?.slug) {
+    const pillarCategory = events?.pillar_categories ? (events?.pillar_categories[0]?.slug) : '';
+    switch (pillarCategory) {
         case "growth-coaching":
             backgroundColor = Colors.COACHING_COLOR;
             break;
@@ -58,7 +59,7 @@ const Event = props => {
         <ScrollView style={styles.scrollBox}>
             <View style={styles.container}>
                 <ImageBackground
-                    source={{uri: events.image}}
+                    source={{uri: events?.image}}
                     resizeMode="cover"
                     style={{height: '55%'}}>
                     <StatusBar
@@ -128,12 +129,12 @@ const Event = props => {
 
                                         {!isEventLoaded && (
                                             <Text>
-                                                {events.event_meta._start_hour}:
-                                                {events.event_meta._start_minute}
-                                                {events.event_meta._start_ampm} /
-                                                {events.event_meta._end_hour}:
-                                                {events.event_meta._end_minute}
-                                                {events.event_meta._end_ampm} (PDT)
+                                                {events?.event_meta?._start_hour}:
+                                                {events?.event_meta?._start_minute}
+                                                {events?.event_meta?._start_ampm} /
+                                                {events?.event_meta?._end_hour}:
+                                                {events?.event_meta?._end_minute}
+                                                {events?.event_meta?._end_ampm} (PDT)
                                             </Text>
                                         )}
                                     </View>
@@ -188,11 +189,11 @@ const Event = props => {
                                                 paddingLeft: 10,
                                             }}>
                                             <Text style={styles.contentHeading}>
-                                                {events.location.location_city} ,
-                                                {events.location.location_state} ,
-                                                {events.location.location_country}
+                                                {events?.location?.location_city} ,
+                                                {events?.location?.location_state} ,
+                                                {events?.location?.location_country}
                                             </Text>
-                                            <Text>{events.location.location_address}</Text>
+                                            <Text>{events?.location?.location_address}</Text>
                                         </View>
                                     )}
                                     <View
@@ -278,7 +279,7 @@ const Event = props => {
                             <View>
                                 <Text style={styles.contentHeading}>Event Info</Text>
                                 {!isEventLoaded && (
-                                    <HTMLView value={events.description} stylesheet={styles}/>
+                                    <HTMLView value={events?.description} stylesheet={styles}/>
                                 )}
                             </View>
 
