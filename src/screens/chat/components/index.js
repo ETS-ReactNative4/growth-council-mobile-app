@@ -3,7 +3,9 @@ import {
     StyleSheet,
     View,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+	Text,
+	Image
 } from 'react-native';
 import {GiftedChat, Send} from 'react-native-gifted-chat'
 import {collection, getDocs, addDoc, query, orderBy} from 'firebase/firestore';
@@ -11,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors} from '../../../theme';
 import {database} from '../../../utils/firebaseUtil';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Chat = (props) => {
 
@@ -55,6 +58,39 @@ const Chat = (props) => {
 
     return (
         <View style={styles.container}>
+
+			<View style={styles.wrapper}>
+				<TouchableOpacity onPress={() =>navigation.goBack()}>
+					<Ionicons
+						name='chevron-back-outline'
+						size={30}
+						color='#02B0F0'
+						style={{marginTop:10}}
+					/>
+				</TouchableOpacity>
+				
+				<Image source={require('../../../assets/img/profile_image.png')}
+							style={{
+								height: 50,
+								width: 50,
+								borderRadius: 50,
+								marginLeft:20,
+							
+							}}
+						/>
+				<View style={{ marginLeft:10, width:"50%"}}>
+					<Text style={{color:'#323232', fontSize:16}}>Hello</Text>
+					<Text style={{color:'#969696', fontSize:14}}>Last seen recently</Text>
+				</View>
+
+				<Ionicons
+						name='ellipsis-horizontal-sharp'
+						size={30}
+						color='#969696'
+						style={{marginTop:10, marginLeft:30}}
+					/>
+		
+			</View>
             <GiftedChat
                 messages={messages}
                 onSend={messages => onSend(messages)}
@@ -74,7 +110,7 @@ const Chat = (props) => {
                         >
                             <Ionicons
                                 name={'send-sharp'}
-                                size={22}
+                                size={20}
                                 color={'white'}
                             />
                         </Send>
@@ -101,7 +137,16 @@ const styles = StyleSheet.create({
         width: 35,
         backgroundColor: '#246EE9',
         borderRadius: 40,
-    }
+    },
+	wrapper:{
+		height:80,
+		backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR,
+		borderTopWidth:0.2,
+		padding:10,
+
+		display:'flex',
+		flexDirection:'row'
+	},
 });
 
 export default Chat;

@@ -74,8 +74,8 @@ const People = (props) => {
                         placeholder="Search"
                         keyboardType="text"	
                     />
-                    <Ionicons name='list-outline' color="blue" size={40} style={{marginTop: 10}}/>
-                    <Ionicons name='ios-grid-outline' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 15}}/>
+                    <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
+                    <Ionicons name='apps' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 15}}/>
 
                 </View>
                 <View style={{display: 'flex', flexDirection: 'row', height:48, marginTop:16}}>

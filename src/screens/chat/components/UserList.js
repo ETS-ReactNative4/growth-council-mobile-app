@@ -12,6 +12,7 @@ import {getAsyncStorage} from "../../../utils/storageUtil";
 import {JWT_TOKEN, USER_NAME, USER_AVATAR} from "../../../constants";
 import {decodeUserID} from "../../../utils/jwtUtil";
 import {Button} from 'native-base';
+import { Linking } from 'react-native';
 
 const UserList = (props) => {
 
@@ -63,8 +64,12 @@ const UserList = (props) => {
 							}}
 						/>
 						<View style={{margin: 10, width: '55%'}}>
-							<Text style={{fontSize: 15, fontWeight: "bold", color: "black"}}>{item.displayname}</Text>
-							<Text style={{fontSize: 10}}>{item.email}</Text>
+							<Text style={{fontSize: 14, fontFamily:Typography.FONT_SF_REGULAR, color: "black"}}>{item.displayname}</Text>
+							<Text style={{fontSize: 12, marginTop:10}}>{item.email}</Text>
+						</View>
+
+						<View style={{marginTop:10}}>
+							<Text style={{fontSize: 12, fontFamily:Typography.FONT_SF_REGULAR}} >15 min</Text>
 						</View>
                 
             		</View>
@@ -84,7 +89,7 @@ const UserList = (props) => {
                         </Button>
                     </TouchableOpacity>
 					<TouchableOpacity>
-                        <Button style={[styles.button,{backgroundColor:"#F26722"}]}>
+                        <Button style={[styles.button,{backgroundColor:"#F26722"}]}  onPress={() => Linking.openURL('mailto:contact@frost.com') }>
                          	<Text style={styles.buttonText}>Contact US</Text>
                         </Button>
                     </TouchableOpacity>
@@ -118,7 +123,8 @@ const styles = StyleSheet.create({
 	buttonWrapper: {
 		display:'flex',
 		flexDirection:'row', 
-		marginTop:10, 
+		marginTop:10,
+		 marginBottom:10,
     }, 
     button: {
         width:180,
@@ -139,7 +145,7 @@ const styles = StyleSheet.create({
 			height: 2,
 		},
 		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
+		shadowRadius: 1.84,
 		elevation: 5,
 	  },
 });
