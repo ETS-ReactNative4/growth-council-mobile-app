@@ -143,6 +143,7 @@ const ChangePasswordForm = (props) => {
                 )}
 
                 <View style={styles.body}>
+				
                     <FlatOutlineTextInput
                         label='Current Password'
                         value={values.current_password}
@@ -154,6 +155,9 @@ const ChangePasswordForm = (props) => {
                         error={errors.current_password}
                         touched={touched.current_password}
                     />
+					 {errors.current_password &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.current_password}</Text>
+                            }
                     <Ionicons
                         name={hidePass ? 'eye-outline' : 'eye-off-outline'}
                         size={25}
@@ -177,6 +181,9 @@ const ChangePasswordForm = (props) => {
                         error={errors.new_password}
                         touched={touched.new_password}
                     />
+					 {errors.new_password &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.new_password}</Text>
+                            }
                     <Ionicons
                         name={hidePass1 ? 'eye-outline' : 'eye-off-outline'}
                         size={25}
@@ -200,6 +207,9 @@ const ChangePasswordForm = (props) => {
                         error={errors.confirm_password}
                         touched={touched.confirm_password}
                     />
+					 {errors.confirm_password &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.confirm_password}</Text>
+                            }
                     <Ionicons
                         name={hidePass2 ? 'eye-outline' : 'eye-off-outline'}
                         size={25}
@@ -239,20 +249,39 @@ const ChangePasswordForm = (props) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+	container: {
         ...CommonStyles.container,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+		paddingLeft:50,
+		paddingRight:50,
+		
     },
+	cancelWrapper: {
+        ...CommonStyles.linkWrapper,
+        paddingTop: 20,
+        paddingBottom: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    cancelText: {
+        color: Colors.SECONDARY_BUTTON_TEXT_COLOR,
+        fontFamily: Typography.FONT_MEDIUM,
+        paddingLeft: 8,
+    },
+	
     content: {
         ...CommonStyles.content,
     },
-    body: {
+    
+    message: {
+        ...CommonStyles.message,
+    },
+	body: {
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
 		borderRadius:20,
-    },
-    message: {
-        ...CommonStyles.message,
+		marginTop:20,
     },
     buttonWrapper: {
         ...CommonStyles.buttonWrapper,
@@ -275,82 +304,7 @@ const styles = StyleSheet.create({
     errorText: {
         ...CommonStyles.errorText,
     },
-    hideShowCustomWrapper: {
-        ...CommonStyles.hideShowWrapper,
-        bottom: 165,
-    },
-    hideShowWrapper: {
-        ...CommonStyles.hideShowWrapper,
-    },
-    hideShowWrapper1: {
-        ...CommonStyles.hideShowWrapper,
-        bottom: 25,
-    },
-    hideShow: {
-        ...CommonStyles.hideShow,
-    },
-    cancelWrapper: {
-        ...CommonStyles.linkWrapper,
-        paddingTop: 20,
-        paddingBottom: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    cancelText: {
-        color: Colors.SECONDARY_BUTTON_TEXT_COLOR,
-        fontFamily: Typography.FONT_MEDIUM,
-        paddingLeft: 8,
-    },
-	container: {
-        ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-        width: "100%",
-        height: '100%',
-    },
- 
- 
-    middleWrapper: {
-        height: 60,
-        display: 'flex',
-        flexDirection: 'row',
-    },
-	TextWrapper: {
-        height: 380,
-        // backgroundColor:'green'
-        marginTop: 10,
-		
-    },
 
-   
-   
-    input: {
-        height: 40,
-        margin: 10,
-        borderWidth: 0.5,
-        padding: 10,
-        borderRadius: 10,
-    },
-
-   loginButtonWrapper: {
-        marginLeft: 10,
-		marginTop:18,
-      
-    }, 
-    loginButton: {
-        width: '50%',
-        borderRadius: 10,
-        height: 50,
-        backgroundColor: '#3A9BDC',
-    },
-    loginButtonText: {
-        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-        fontFamily: Typography.FONT_BOLD,
-
-    },
-    message: {
-        ...CommonStyles.message,
-        width: '86%',
-    },
     errorWrapper: {
         width: '70%',
     },
@@ -358,13 +312,6 @@ const styles = StyleSheet.create({
         ...CommonStyles.errorText,
     },
 
-	container: {
-        ...CommonStyles.container,
-        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-		paddingLeft:50,
-		paddingRight:50,
-		
-    },
 	profileWrapper:{
 		padding:20,
 		alignItems:"center", 
@@ -395,55 +342,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: '600',
     },
-    middle: {
-     
-    },
-    wrapper: {
-        marginTop: 35,
-		borderBottomWidth:1 ,
-		
-		borderBottomColor:'#EDF1F7',
-    },
-    middleWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-		paddingTop:15,
-		paddingBottom:15,
-		borderBottomWidth:1 ,
-		alignItems:'center',
-		borderBottomColor:'#EDF1F7',
-		position:'relative',
-    },
-	TextWrapper: {
-        height: 380,
-        // backgroundColor:'green'
-        marginTop: 10,
-    },
 
-    middleImage: {
-        width: 40,
-        height: 40,
-        backgroundColor: '#3A9BDC',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-        marginLeft: 10,
-       
-    },
-    middleImage1: {
-        width: 40,
-        height: 40,
-        backgroundColor: '#d7d7d7',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-        marginLeft: 10,
-    },
-	menuText:{
-		fontSize: 14, 
-		fontWeight: '500',
-		margin: 15
-	}
+	
 
 });
 
