@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: '#6F8BA4',
     textAlign: 'center',
-    fontWeight: 'semi-bold',
+    fontWeight: '500',
     marginTop: 30,
   },
 
