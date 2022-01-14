@@ -7,8 +7,8 @@ import {fetchOtherProfileByID, resetProfile} from './slice/otherProfileSlice';
 const OtherAccountScreen = props => {
   const dispatch = useDispatch();
 
-  const {otherProfile, otherProfileLoading, otherProfileError} = useSelector(
-    state => state.otherProfile,
+  const {otherProfiles, otherProfileLoading, otherProfileError} = useSelector(
+    state => state.otherProfiles,
   );
 
   /**
@@ -17,8 +17,8 @@ const OtherAccountScreen = props => {
    *
    */
 
-  const fetchOtherProfileByIdentifier = () => {
-    dispatch(fetchOtherProfileByID());
+  const fetchOtherProfileByIdentifier = identifier => {
+    dispatch(fetchOtherProfileByID(identifier));
   };
 
   const cleanProfile = () => {
@@ -28,7 +28,7 @@ const OtherAccountScreen = props => {
   return (
     <OthersAccount
       {...props}
-      otherProfile={otherProfile}
+      otherProfiles={otherProfiles}
       otherProfileLoading={otherProfileLoading}
       otherProfileError={otherProfileError}
       fetchOtherProfileByIdentifier={fetchOtherProfileByIdentifier}

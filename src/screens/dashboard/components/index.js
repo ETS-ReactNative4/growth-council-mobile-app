@@ -53,7 +53,8 @@ const Dashboard = props => {
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
-        <TouchableOpacity onPress={() => navigation.navigate('OthersAccount')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
             source={{uri: item.avatar}}
             style={{

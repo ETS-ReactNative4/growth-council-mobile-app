@@ -5,7 +5,7 @@ import {fetch} from '../../../utils/httpUtil';
 export const fetchOtherProfileByID = createAsyncThunk(
   'profile/fetchProfileByID',
   (identifier, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/users/1`)
+    return fetch(`jwt-auth/v1/users/${identifier}`)
       .then(response => response.data.body_response)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
@@ -14,33 +14,33 @@ export const fetchOtherProfileByID = createAsyncThunk(
 const otherProfileSlice = createSlice({
   name: 'otherProfile',
   initialState: {
-    otherProfile: [],
+    otherProfiles: [],
     otherProfileLoading: false,
     otherProfileError: null,
   },
   reducers: {
     resetProfile: state => {
-      state.otherProfile = [];
+      state.otherProfiles = [];
       state.otherProfileLoading = false;
       state.otherProfileError = null;
     },
   },
   extraReducers: {
     [fetchOtherProfileByID.pending]: (state, action) => {
-      state.otherprofileLoading = true;
-      state.otherprofileError = null;
+      state.otherProfileLoading = true;
+      state.otherProfileError = null;
     },
     [fetchOtherProfileByID.fulfilled]: (state, action) => {
-      state.otherprofile = action.payload;
-      state.otherprofileLoading = false;
-      state.otherprofileError = null;
+      state.otherProfiles = action.payload;
+      state.otherProfileLoading = false;
+      state.otherProfileError = null;
     },
     [fetchOtherProfileByID.rejected]: (state, action) => {
-      state.otherprofileLoading = false;
+      state.otherProfileLoading = false;
       if (action.payload) {
-        state.otherprofileError = action.payload.error.message;
+        state.otherProfileError = action.payload.error.message;
       } else {
-        state.otherprofileError = action.error;
+        state.otherProfileError = action.error;
       }
     },
   },

@@ -9,17 +9,10 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {Button} from 'native-base';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useFormik} from 'formik';
-import * as Yup from 'yup';
-import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import ToastMessage from '../../../shared/toast';
-import {getAsyncStorage} from '../../../utils/storageUtil';
-import {decodeUserID} from '../../../utils/jwtUtil';
-import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 
 const OthersAccount = props => {
@@ -27,19 +20,19 @@ const OthersAccount = props => {
     navigation,
     route,
     cleanProfile,
-    otherProfile,
+    otherProfiles,
     fetchOtherProfileByIdentifier,
   } = props;
 
   useEffect(() => {
     const fetchOtherProfileAsync = async () => {
-      await fetchOtherProfileByIdentifier();
+      await fetchOtherProfileByIdentifier(route.params.id);
     };
     fetchOtherProfileAsync();
   }, []);
 
-  // console.log('profile id =======', route.params.id);
-  console.log('profile other ====== ', otherProfile);
+  console.log('profile id =======', route.params.id);
+  console.log('profile other ====== ', otherProfiles);
 
   return (
     <ScrollView
@@ -63,11 +56,11 @@ const OthersAccount = props => {
           }}>
           <View style={styles.profileWrapper}>
             <View style={styles.icon}>
-              {/* <Image
-                source={{uri: avatar}}
+              <Image
+                source={{uri: otherProfiles?.avatar}}
                 style={{width: '100%', height: '100%'}}
                 resizeMode="cover"
-              /> */}
+              />
             </View>
             <View style={styles.header}></View>
           </View>
@@ -106,7 +99,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value="Read Only"
+                    value={otherProfiles?.display_name}
                     editable={false}
                   />
 
@@ -122,7 +115,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value="Read Only"
+                    value={otherProfiles?.user_meta?.first_name}
                     editable={false}
                   />
 
@@ -138,7 +131,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value="Read Only"
+                    value={otherProfiles?.user_meta?.last_name}
                     editable={false}
                   />
 
@@ -149,7 +142,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value="Read Only"
+                    value={otherProfiles?.user_email}
                     editable={false}
                   />
                 </View>
