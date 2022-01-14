@@ -16,7 +16,7 @@ const ForgotScreen = (props) => {
      *
      */
     const forgotPassword = formData => {
-        dispatch(forgotCustomerPassword(formData));
+        return dispatch(forgotCustomerPassword(formData));
     };
 
     return (
