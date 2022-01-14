@@ -7,6 +7,7 @@ import {
     ScrollView,
     ImageBackground,
     Image,
+    TouchableOpacity
 } from 'react-native';
 import {Button} from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
@@ -16,6 +17,7 @@ import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import ToastMessage from "../../../shared/toast";
 
 const Event = props => {
     const {
@@ -26,6 +28,11 @@ const Event = props => {
         eventError,
         fetchEventByIdentifier,
         cleanEvent,
+        eventRegisters,
+        eventRegisterLoading,
+        eventRegisterError,
+        registerEventByIdentifier,
+        cleanEventRegister
     } = props;
 
     useEffect(() => {
@@ -35,12 +42,18 @@ const Event = props => {
         fetchEventDetailAsync();
     }, []);
 
+    const registerEventByEventID = async (eventID) => {
+        const response = await registerEventByIdentifier({event_id: eventID});
+        if (response?.payload?.status === 200) {
+            ToastMessage.show('You have successfully registered this event.');
+        } else {
+            ToastMessage.show(response?.payload?.response);
+        }
+    };
+
     const isEventLoaded = Object.keys(events).length === 0;
     const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
-
-    console.log('route.params.id:::::::::::::::::', route.params.id);
-    console.log('Event Detail:::::::::::::::::', events?.organizer_image);
 
     let backgroundColor = Colors.COMMUNITY_COLOR;
     const pillarCategory = events?.pillar_categories ? (events?.pillar_categories[0]?.slug) : '';
@@ -138,7 +151,7 @@ const Event = props => {
                                             </Text>
                                         )}
                                     </View>
-
+                                    {!events?.register_status &&
                                     <View
                                         style={{
                                             flex: 1,
@@ -148,12 +161,16 @@ const Event = props => {
                                             justifyContent: 'center',
                                             alignItems: 'center',
                                         }}>
-                                        <Feather
-                                            name={'plus-circle'}
-                                            size={35}
-                                            color={'rgba(54,147,172,1)'}
-                                        />
+
+                                        <TouchableOpacity onPress={() => registerEventByEventID(route?.params?.id)}>
+                                            <Feather
+                                                name={'plus-circle'}
+                                                size={35}
+                                                color={'rgba(54,147,172,1)'}
+                                            />
+                                        </TouchableOpacity>
                                     </View>
+                                    }
                                 </View>
                                 <View
                                     style={{
@@ -162,8 +179,7 @@ const Event = props => {
                                         paddingBottom: 5,
                                         flexDirection: 'row',
                                     }}>
-
-
+                                    
                                     <View
                                         style={[{
                                             flex: 1,
@@ -180,7 +196,6 @@ const Event = props => {
                                             color={'white'}
                                         />
                                     </View>
-
 
                                     {!isEventLoaded && (
                                         <View
@@ -295,15 +310,15 @@ const Event = props => {
                         </View>
                     </View>
                 </ImageBackground>
-				
+
             </View>
-			<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
-					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-					<Image 
-						source={require('../../../assets/img/fristDigi.png')}
-						style={{width:"100%", height:20}}
-					/>
-				</View>
+            <View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
+                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+                <Image
+                    source={require('../../../assets/img/fristDigi.png')}
+                    style={{width: "100%", height: 20}}
+                />
+            </View>
         </ScrollView>
     );
 };
@@ -392,7 +407,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         marginBottom: 0,
-		backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     },
 });
 export default Event;

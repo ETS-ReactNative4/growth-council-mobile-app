@@ -14,8 +14,8 @@ export const signUpCustomer = createAsyncThunk(
 export const forgotCustomerPassword = createAsyncThunk(
     'customer/forgot',
     (formData, {rejectWithValue}) => {
-        return store(`jwt-auth/v1/users/forgot-password`, formData)
-            .then(response => response.data.body_response)
+        return store(`jwt-auth/v1/reset-password`, formData)
+            .then(response => response.data)
             .catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
