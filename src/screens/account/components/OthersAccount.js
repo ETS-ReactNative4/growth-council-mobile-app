@@ -62,7 +62,12 @@ const OthersAccount = props => {
                 resizeMode="cover"
               />
             </View>
-            <View style={styles.header}></View>
+            <View style={styles.header}>
+              <Text style={styles.headingText1}>
+                {otherProfiles?.display_name}
+              </Text>
+              <Text>{otherProfiles?.user_email}</Text>
+            </View>
           </View>
         </View>
 
