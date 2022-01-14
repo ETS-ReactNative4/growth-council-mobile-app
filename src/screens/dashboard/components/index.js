@@ -63,19 +63,18 @@ const Dashboard = props => {
               borderRadius: 10,
             }}
           />
+          <View style={{padding: 10, paddingBottom: 20}}>
+            <Text
+              style={{
+                fontSize: 10,
+                fontFamily: Typography.FONT_SF_SEMIBOLD,
+                color: Colors.TERTIARY_TEXT_COLOR,
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+          </View>
         </TouchableOpacity>
-
-        <View style={{padding: 10, paddingBottom: 20}}>
-          <Text
-            style={{
-              fontSize: 10,
-              fontFamily: Typography.FONT_SF_SEMIBOLD,
-              color: TERTIARY_TEXT_COLOR,
-            }}>
-            {item?.display_name}
-          </Text>
-          <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-        </View>
 
         <View style={styles.chatIcon}>
           <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
