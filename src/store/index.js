@@ -13,27 +13,37 @@ import {
 import {configureStore} from '@reduxjs/toolkit';
 
 import authReducer from '../screens/auth/authSlice';
+
 import userReducer from '../screens/account/slice/userSlice';
 import passwordReducer from '../screens/account/slice/passwordSlice';
+
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
+
 import aboutReducer from '../screens/about/slice/aboutSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
 import ideaReducer from '../screens/ideas/slice/ideaSlice';
-import eventReducer from '../screens/event/eventSlice';
+
+import eventReducer from '../screens/event/slice/eventSlice';
+import eventRegisterReducer from '../screens/event/slice/eventRegisterSlice';
+
 import connectionReducer from '../screens/people/slice/connetionSlice';
+import memberConnectionReducer from '../screens/people/slice/memberConnectionSlice';
+
 import profileReducer from '../screens/account/slice/profileSlice';
 import otherProfileReducer from '../screens/account/slice/otherProfileSlice';
 import profileEventReducer from '../screens/account/slice/profileEventSlice';
+import profileSessionReducer from '../screens/account/slice/profileSessionSlice';
+
 import communityReducer from '../screens/dashboard/slice/communitySlice';
+import pillarEventsReducer from '../screens/dashboard/slice/pillarEventsSlice';
 import communityMemberContentReducer from '../screens/dashboard/slice/communityMemberContentSlice';
-import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
+import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growthCoachingMemberContentSlice';
 import bestPracticesReducer from '../screens/dashboard/slice/bestPracticesSlice';
 import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPracticesMemberContentSlice';
 import growthCoachingsReducer from '../screens/dashboard/slice/growthCoachingSlice';
-import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growthCoachingMemberContentSlice';
-import profileSessionReducer from '../screens/account/slice/profileSessionSlice';
-import pillarEventsReducer from '../screens/dashboard/slice/pillarEventsSlice';
+
+import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
 
 import upcomingEventReducer from '../screens/home/slice/upcomingEventSlice';
 import detailReducer from '../screens/home/slice/detailSlice';

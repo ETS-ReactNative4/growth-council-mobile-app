@@ -189,13 +189,6 @@ const Dashboard = props => {
   }, []);
 
   useEffect(() => {
-    const fetchAllCommunityMemberAsync = async () => {
-      await fetchAllCommunityMember();
-    };
-    fetchAllCommunityMemberAsync();
-  }, []);
-
-  useEffect(() => {
     const fetchPillarSliderAsync = async () => {
       await fetchAllPillarSlider();
     };
@@ -380,7 +373,6 @@ const styles = StyleSheet.create({
   },
   headingText2: {
     fontFamily: Typography.FONT_SF_MEDIUM,
-    color: Colors.SECONDARY_HEADING_COLOR,
     fontWeight: '700',
     color: 'white',
     fontSize: 8,
