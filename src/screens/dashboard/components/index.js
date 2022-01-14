@@ -51,6 +51,7 @@ const Dashboard = props => {
   } = props;
 
   const API_KEY = 'AIzaSyCIrwNfePDp3TOeOVUpVe59FjBQ_x9M6GM';
+  console.log('COntent ===', pillarSliders);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -166,17 +167,7 @@ const Dashboard = props => {
   ];
 
   const _renderContentItem = ({item, index}) => {
-    return (
-      <View style={styles.ContentWrapper}>
-        <YouTube
-          videoId="gunXcTD7TZs" // The YouTube video ID
-          apiKey={API_KEY}
-          play="false" // control playback of video with true/false
-          fullscreen // control whether the video should play in fullscreen or inline
-          loop // control whether the video should loop when ended
-        />
-      </View>
-    );
+    return <View style={styles.ContentWrapper}></View>;
   };
 
   useEffect(() => {
@@ -277,30 +268,25 @@ const Dashboard = props => {
           {' '}
           Growth Coaching Content
         </Text>
-        <YouTube
-          videoId="gunXcTD7TZs" // The YouTube video ID
-          apiKey={API_KEY}
-          play={false} // control playback of video with true/false
-          fullscreen // control whether the video should play in fullscreen or inline
-          loop // control whether the video should loop when ended
-        />
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
           }}>
+          <View style={styles.ContentWrapper}>
+            <YouTube
+              videoId="gunXcTD7TZs" // The YouTube video ID
+              apiKey={API_KEY}
+              play // control playback of video with true/false
+              fullscreen // control whether the video should play in fullscreen or inline
+              loop // control whether the video should loop when ended
+            />
+          </View>
           {/* <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={pic}
             renderItem={_renderContentItem}
-          /> */}
-          {/* <YouTube
-            videoId="gunXcTD7TZs" // The YouTube video ID
-            apiKey={API_KEY}
-            play // control playback of video with true/false
-            fullscreen // control whether the video should play in fullscreen or inline
-            loop // control whether the video should loop when ended
           /> */}
         </View>
       </View>
