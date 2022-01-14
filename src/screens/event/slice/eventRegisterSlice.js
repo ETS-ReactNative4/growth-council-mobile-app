@@ -38,7 +38,7 @@ const eventRegisterSlice = createSlice({
         [registerEventByID.rejected]: (state, action) => {
             state.eventRegisterLoading = false;
             if (action.payload) {
-                state.eventRegisterError = action.payload.error.message;
+                state.eventRegisterError = action.payload.response || action.payload.error.message;
             } else {
                 state.eventRegisterError = action.error;
             }

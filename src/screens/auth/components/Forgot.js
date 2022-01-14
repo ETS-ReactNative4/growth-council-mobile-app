@@ -31,13 +31,15 @@ const ForgotForm = (props) => {
         validationSchema: forgotSchema,
         initialValues: {email: ''},
         onSubmit: async values => {
-            const response = await forgotPassword(values);
-            if (response?.payload?.status === 200) {
-                navigation.navigate('SignIn');
-                ToastMessage.show('Email sent successfully to rest password.');
-            } else {
-                ToastMessage.show(response?.payload?.response);
-            }
+            await forgotPassword(values).then(response => {
+                console.log("response?.payload", response);
+                if (response?.payload?.status === 200) {
+                    navigation.navigate('SignIn');
+                    ToastMessage.show('Email sent successfully to rest password.');
+                } else {
+                    ToastMessage.show(response?.payload?.response);
+                }
+            });
         },
     });
 

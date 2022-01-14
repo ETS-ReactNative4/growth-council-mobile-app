@@ -179,7 +179,7 @@ const Event = props => {
                                         paddingBottom: 5,
                                         flexDirection: 'row',
                                     }}>
-                                    
+
                                     <View
                                         style={[{
                                             flex: 1,
@@ -301,7 +301,7 @@ const Event = props => {
                             <View>
                                 <Button
                                     style={styles.acceptButton}
-                                    onPress={() => navigation.navigate('SignUp')}>
+                                    onPress={() => registerEventByEventID(route?.params?.id)}>
                                     <Text style={styles.acceptButtonText}>
                                         Sign Up in One Click
                                     </Text>

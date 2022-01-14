@@ -38,7 +38,7 @@ const memberConnectionSlice = createSlice({
         [connectMemberByID.rejected]: (state, action) => {
             state.memberConnectionLoading = false;
             if (action.payload) {
-                state.memberConnectionError = action.payload.error.message;
+                state.memberConnectionError = action.payload.response || action.payload.error.message;
             } else {
                 state.memberConnectionError = action.error;
             }

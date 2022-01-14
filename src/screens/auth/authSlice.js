@@ -43,7 +43,7 @@ const authSlice = createSlice({
         [signUpCustomer.rejected]: (state, action) => {
             state.loading = false;
             if (action.payload) {
-                state.error = action.payload.error.message;
+                state.error = action.payload.response || action.payload.error.message;
             } else {
                 state.error = action.error;
             }
@@ -59,7 +59,7 @@ const authSlice = createSlice({
         [forgotCustomerPassword.rejected]: (state, action) => {
             state.loading = false;
             if (action.payload) {
-                state.error = action.payload.error.message;
+                state.error = action.payload.response || action.payload.error.message;
             } else {
                 state.error = action.error;
             }
