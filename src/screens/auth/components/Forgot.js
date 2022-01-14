@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Spinner from '../../../shared/spinner';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
+import ToastMessage from "../../../shared/toast";
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -29,11 +30,16 @@ const ForgotForm = (props) => {
     } = useFormik({
         validationSchema: forgotSchema,
         initialValues: {email: ''},
-        onSubmit: values => {
-            forgotPassword(values);
-            if (error === null) {
-                navigation.navigate('SignIn');
-            }
+        onSubmit: async values => {
+            await forgotPassword(values).then(response => {
+                console.log("response?.payload", response);
+                if (response?.payload?.status === 200) {
+                    navigation.navigate('SignIn');
+                    ToastMessage.show('Email sent successfully to rest password.');
+                } else {
+                    ToastMessage.show(response?.payload?.response);
+                }
+            });
         },
     });
 
@@ -45,7 +51,7 @@ const ForgotForm = (props) => {
 
                 <View style={styles.header}>
                     <Text style={styles.headingText1}>Reset Password</Text>
-                    <Text style={styles.headingText2}>To reset your password, please provide your username.</Text>
+                    <Text style={styles.headingText2}>To reset your password, please provide your email.</Text>
                 </View>
 
                 <View style={styles.message}>
@@ -56,7 +62,7 @@ const ForgotForm = (props) => {
 
                 <View style={styles.body}>
                     <FlatTextInput
-                        label='USERNAME'
+                        label='Email'
                         value={values.email}
                         onChangeText={handleChange('email')}
                         onFocus={handleBlur('email')}

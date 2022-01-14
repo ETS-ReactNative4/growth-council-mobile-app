@@ -51,57 +51,42 @@ const Dashboard = props => {
         cleanPillarSlider,
     } = props;
 
-   
-  const _renderItem = ({item, index}) => {
-	return (
-	  <View style={[styles.bottomWrapper, styles.shadowProp]}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: 83,
-				height: 83,
-				borderRadius:10,
-			}}/>
-		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10, fontFamily: Typography.FONT_SF_SEMIBOLD,color:TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
-			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-		</View>
-		
-		<View
-		  style={styles.chatIcon}>
-		  <Ionicons
-			name={'chatbox'}
-			size={10}
-			color="#B1AFAF"
-		
-		
-		  />
-		</View>
-	  </View>
-	);
-  };
-  
-//   const data1 = [
-// 	{
-// 	  icon: 'location-arrow',
-// 	  text: 'Megatrends Workshop',
-// 	},
-//   ];
-  
-//   const _renderMiddleItem = ({item, index}) => {
-// 	return (
-// 	  <View style={styles.middleWrapper}>
-// 		<View style={styles.middleW}>
-// 		  <Font name={item.icon} size={40} color="skyblue" />
-// 		</View>
-// 		<Text style={{marginTop: 10}}>{item.text}</Text>
-// 	  </View>
-// 	);
-//   };
-  
-  
-  const _renderTopItem = ({item, index}, navigation) => {
-	  const actualDate = moment(item.event_start).format('ll').split(',', 3);
-    const date = actualDate[0].split(' ', 3);
+
+    const _renderItem = ({item, index}) => {
+        return (
+            <View style={[styles.bottomWrapper, styles.shadowProp]}>
+                <Image source={{uri: item.avatar}}
+                       style={{
+                           width: 83,
+                           height: 83,
+                           borderRadius: 10,
+                       }}/>
+                <View style={{padding: 10, paddingBottom: 20}}>
+                    <Text style={{
+                        fontSize: 10,
+                        fontFamily: Typography.FONT_SF_SEMIBOLD,
+                        color: TERTIARY_TEXT_COLOR
+                    }}>{item?.display_name}</Text>
+                    <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+                </View>
+
+                <View
+                    style={styles.chatIcon}>
+                    <Ionicons
+                        name={'chatbox'}
+                        size={10}
+                        color="#B1AFAF"
+
+
+                    />
+                </View>
+            </View>
+        );
+    };
+
+    const _renderTopItem = ({item, index}, navigation) => {
+        const actualDate = moment(item.event_start).format('ll').split(',', 3);
+        const date = actualDate[0].split(' ', 3);
 
         let backgroundImage = "";
         switch (item?.pillar_categories[0]?.slug) {
@@ -201,7 +186,7 @@ const Dashboard = props => {
     }, []);
 
     return (
-        <ScrollView  style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.container}>
                 <ImageBackground
                     style={{width: '100%', height: 180}}
@@ -288,174 +273,173 @@ const Dashboard = props => {
                 </View>
             </View>
 
-			<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
-					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-					<Image 
-						source={require('../../../assets/img/fristDigi.png')}
-						style={{width:"100%", height:20}}
-					/>
-				</View>
+            <View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
+                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+                <Image
+                    source={require('../../../assets/img/fristDigi.png')}
+                    style={{width: "100%", height: 20}}
+                />
+            </View>
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
 
-  container: {
-    ...CommonStyles.container,
-    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-    width: '100%',
-  },
-  pillar:{
-	display: 'flex',
-	flexDirection:"row",
-	marginLeft:10,
-	 marginRight:10, 
-	 marginTop:50,
-	 justifyContent:"space-between"
-  },
-  ImageWrapper: {
-	width:120,
-    height: 172,
-	borderRadius: 10,
-   borderWidth: 4,
-   borderColor:PRIMARY_BACKGROUND_COLOR,
-	overflow:"hidden"
-	
-  },
-  ImageStyle: {
-	width:'100%',
-    height:'100%',
-	
-  },
-  viewAll:{
-	fontSize: 10,
-	color:SECONDARY_TEXT_COLOR
-  },
-  eventWrapper:{
-	display:"flex", 
-	flexDirection:"row", 
-	justifyContent:"space-between",
-	alignItems:"center", 
-	marginLeft:15, 
-	marginRight:15
-  },
-  top: {
-    height: 200,
-    marginTop: 60,
-    justifyContent: 'center',
-	marginLeft:5
-  },
+    container: {
+        ...CommonStyles.container,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+        width: '100%',
+    },
+    pillar: {
+        display: 'flex',
+        flexDirection: "row",
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 50,
+        justifyContent: "space-between"
+    },
+    ImageWrapper: {
+        width: 120,
+        height: 172,
+        borderRadius: 10,
+        borderWidth: 4,
+        borderColor: PRIMARY_BACKGROUND_COLOR,
+        overflow: "hidden"
 
-  topWrapper: {
-    height: 144,
-    width: 256,
-    marginLeft: 15,
-	borderRadius:16,
-	overflow:"hidden"
-  },
-  header: {
-    marginLeft: 10,
-  },
-  title:{	
-	fontSize: 14,
-	fontFamily:Typography.FONT_SF_SEMIBOLD,
-	color:PRIMARY_TEXT_COLOR
-  },
-  headingText1: {
-    fontFamily: Typography.FONT_SF_MEDIUM,
-    marginTop: 20,
-    fontWeight: '600',
-	width:"98%",
-    color: 'white',
-    fontSize: 12,
-  },
-  headingText2: {
-    fontFamily: Typography.FONT_SF_MEDIUM,
-    color: Colors.SECONDARY_HEADING_COLOR,
-    fontWeight: '700',
-    color: 'white',
-	fontSize:8,
-	lineHeight: 12,
+    },
+    ImageStyle: {
+        width: '100%',
+        height: '100%',
 
-  },
-  middle: {
-    width: 400,
-    height: 200,
-    marginLeft: 10,
-    marginTop: 15,
-  },
-  middleWrapper: {
-    height: 64,
-    width: 112,
-    borderRadius: 20,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  middleW: {
-    backgroundColor: 'white',
-    width: 80,
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-  headingText3: {
-    ...CommonStyles.headingText3,
-    fontFamily: Typography.FONT_NORMAL,
-    padding: 4,
-  },
-  bottom: {
-    height: 172,
-	margin:5,
-	marginTop:25,
-  },
-  bottomWrapper: {
-	  width:84,
-   	position:'relative',
-    borderRadius: 10,
-	marginTop:15,
-	marginLeft: 15,
-    backgroundColor: 'white',
-    overflow:"hidden"
-  },
-  chatIcon:{
-	borderRadius: 50,
-	backgroundColor: '#F1F1F1',
-	padding:6,
-	justifyContent: 'center',
-	position:'absolute',
-	right:4,
-	bottom:4
-  },
-  content: {
-	height: 250,
-	marginLeft: 5,
-	marginTop:25,
-	justifyContent: 'center',
-	borderRadius: 20,
-	marginBottom:10,
-},
-ContentWrapper: {
-	height: 206,
-	width: 364,
-	marginTop: 20,
-	marginLeft: 15,
-   borderRadius:20,
-   overflow:"hidden"
-},
-shadowProp: {
-	shadowColor: "#000",
-	shadowOffset: {
-		width: 0,
-		height: 2,
-	},
-	shadowOpacity: 0.25,
-	shadowRadius: 3.84,
+    },
+    viewAll: {
+        fontSize: 10,
+        color: SECONDARY_TEXT_COLOR
+    },
+    eventWrapper: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginLeft: 15,
+        marginRight: 15
+    },
+    top: {
+        height: 200,
+        marginTop: 60,
+        justifyContent: 'center',
+        marginLeft: 5
+    },
 
-	elevation: 5,
-  },
+    topWrapper: {
+        height: 144,
+        width: 256,
+        marginLeft: 15,
+        borderRadius: 16,
+        overflow: "hidden"
+    },
+    header: {
+        marginLeft: 10,
+    },
+    title: {
+        fontSize: 14,
+        fontFamily: Typography.FONT_SF_SEMIBOLD,
+        color: PRIMARY_TEXT_COLOR
+    },
+    headingText1: {
+        fontFamily: Typography.FONT_SF_MEDIUM,
+        marginTop: 20,
+        fontWeight: '600',
+        width: "98%",
+        color: 'white',
+        fontSize: 12,
+    },
+    headingText2: {
+        fontFamily: Typography.FONT_SF_MEDIUM,
+        fontWeight: '700',
+        color: 'white',
+        fontSize: 8,
+        lineHeight: 12,
+
+    },
+    middle: {
+        width: 400,
+        height: 200,
+        marginLeft: 10,
+        marginTop: 15,
+    },
+    middleWrapper: {
+        height: 64,
+        width: 112,
+        borderRadius: 20,
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    middleW: {
+        backgroundColor: 'white',
+        width: 80,
+        height: 80,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    headingText3: {
+        ...CommonStyles.headingText3,
+        fontFamily: Typography.FONT_NORMAL,
+        padding: 4,
+    },
+    bottom: {
+        height: 172,
+        margin: 5,
+        marginTop: 25,
+    },
+    bottomWrapper: {
+        width: 84,
+        position: 'relative',
+        borderRadius: 10,
+        marginTop: 15,
+        marginLeft: 15,
+        backgroundColor: 'white',
+        overflow: "hidden"
+    },
+    chatIcon: {
+        borderRadius: 50,
+        backgroundColor: '#F1F1F1',
+        padding: 6,
+        justifyContent: 'center',
+        position: 'absolute',
+        right: 4,
+        bottom: 4
+    },
+    content: {
+        height: 250,
+        marginLeft: 5,
+        marginTop: 25,
+        justifyContent: 'center',
+        borderRadius: 20,
+        marginBottom: 10,
+    },
+    ContentWrapper: {
+        height: 206,
+        width: 364,
+        marginTop: 20,
+        marginLeft: 15,
+        borderRadius: 20,
+        overflow: "hidden"
+    },
+    shadowProp: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+    },
 
 });
 
