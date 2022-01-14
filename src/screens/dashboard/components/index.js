@@ -53,8 +53,7 @@ const Dashboard = props => {
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+        <TouchableOpacity onPress={() => navigation.navigate('OthersAccount')}>
           <Image
             source={{uri: item.avatar}}
             style={{
@@ -189,6 +188,13 @@ const Dashboard = props => {
   }, []);
 
   useEffect(() => {
+    const fetchAllCommunityMemberAsync = async () => {
+      await fetchAllCommunityMember();
+    };
+    fetchAllCommunityMemberAsync();
+  }, []);
+
+  useEffect(() => {
     const fetchPillarSliderAsync = async () => {
       await fetchAllPillarSlider();
     };
@@ -211,7 +217,7 @@ const Dashboard = props => {
         <View style={styles.eventWrapper}>
           <Text style={styles.title}>Upcoming Events</Text>
           <TouchableOpacity onPress={() => navigation.navigate('UpcomingView')}>
-            <Text style={styles.viewAll}>View all</Text>
+            {/* <Text style={styles.viewAll}>View all</Text> */}
           </TouchableOpacity>
         </View>
 

@@ -3,9 +3,9 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {fetch} from '../../../utils/httpUtil';
 
 export const fetchOtherProfileByID = createAsyncThunk(
-  'profile/fetchOtherProfileByID',
+  'profile/fetchProfileByID',
   (identifier, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/users/${identifier}`)
+    return fetch(`jwt-auth/v1/users/1`)
       .then(response => response.data.body_response)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },

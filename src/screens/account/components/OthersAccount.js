@@ -22,7 +22,7 @@ import {decodeUserID} from '../../../utils/jwtUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 
-const ManageAccount = props => {
+const OthersAccount = props => {
   const {
     navigation,
     route,
@@ -33,12 +33,12 @@ const ManageAccount = props => {
 
   useEffect(() => {
     const fetchOtherProfileAsync = async () => {
-      await fetchOtherProfileByIdentifier(route.params.id);
+      await fetchOtherProfileByIdentifier();
     };
     fetchOtherProfileAsync();
   }, []);
 
-  console.log('profile id =======', route.params.id);
+  // console.log('profile id =======', route.params.id);
   console.log('profile other ====== ', otherProfile);
 
   return (
@@ -80,24 +80,7 @@ const ManageAccount = props => {
                 <View style={styles.message}>
                   <Text style={styles.errorText}></Text>
                 </View>
-                <>
-                  <View
-                    style={{
-                      flex: 1,
-                      alignItems: 'center',
-                      flexDirection: 'column',
-                      justifyContent: 'space-around',
-                      position: 'absolute',
-                      zIndex: 1011,
-                      top: 120,
-                      left: 100,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
+                <></>
                 <View style={styles.middleWrapper}>
                   <View style={styles.middleImage}>
                     <Ionicons name="person-outline" color="white" size={20} />
@@ -192,7 +175,7 @@ const ManageAccount = props => {
   );
 };
 
-export default ManageAccount;
+export default OthersAccount;
 
 const styles = StyleSheet.create({
   container: {

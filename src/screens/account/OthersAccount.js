@@ -11,8 +11,14 @@ const OtherAccountScreen = props => {
     state => state.otherProfile,
   );
 
-  const fetchOtherProfileByIdentifier = identifier => {
-    dispatch(fetchOtherProfileByID(identifier));
+  /**
+   * Fetch other memnber profile data.
+   * @param {string} identifier
+   *
+   */
+
+  const fetchOtherProfileByIdentifier = () => {
+    dispatch(fetchOtherProfileByID());
   };
 
   const cleanProfile = () => {
