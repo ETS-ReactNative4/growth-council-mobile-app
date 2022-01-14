@@ -91,26 +91,23 @@ const ChangePasswordForm = (props) => {
     return (
 
 		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
-		<View style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+			<View style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
 	
-			<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
-			
-					<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
-							<View style={styles.profileWrapper}>
-									<View style={styles.icon}>
-										<Image source={{uri: profile.avatar}} style={{width:"100%", height:"100%"}} resizeMode='cover'
-										/>
-									</View>
-									<View style={styles.header}>
-										<Text style={styles.headingText1}>{profile.display_name}</Text>
-										<Text>{profile.user_email}</Text>
-									</View>
-							</View>
-					</View>
-					
-			
-			
-		</View>
+				<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
+				
+						<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
+								<View style={styles.profileWrapper}>
+										<View style={styles.icon}>
+											<Image source={{uri: profile.avatar}} style={{width:"100%", height:"100%"}} resizeMode='cover'
+											/>
+										</View>
+										<View style={styles.header}>
+											<Text style={styles.headingText1}>{profile.display_name}</Text>
+											<Text>{profile.user_email}</Text>
+										</View>
+								</View>
+						</View>
+			</View>
 
 		<View style={styles.container}>
 
@@ -230,11 +227,7 @@ const ChangePasswordForm = (props) => {
 				style={{width:"100%", height:20}}
 			/>
 		</View>
-	
-		
-	</ScrollView>
-
-        
+	</ScrollView>   
     );
 };
 
