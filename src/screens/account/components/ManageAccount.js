@@ -95,21 +95,11 @@ const ManageAccount = (props) => {
 
 
     return (
-		<ScrollView contentContainerStyle={{flexGrow: 1,}}>
+		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 		<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 	
 		<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
-			{/* <TouchableOpacity
-                         onPress={() => navigation.goBack()}> */}
-                         {/* <View style={{zIndex:10, position:'absolute', marginBottom:50}}>
-                             <Ionicons
-                                 name={'arrow-back'}
-                                 size={20}
-                                 color='black'
-
-                             />
-                         </View> */}
-                 {/* </TouchableOpacity> */}
+			
 					<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
 							<View style={styles.profileWrapper}>
 									<View style={styles.icon}>
@@ -226,27 +216,23 @@ const ManageAccount = (props) => {
 							
 						</View>
 						
-							<View style={[styles.middleWrapper,{borderBottomWidth:0}]}>
-								<View style={styles.middleImage}>
-										<Ionicons
-											name="key"
-											color='white'
-											size={20}/>
+						<View>
+							<TouchableOpacity onPress={()=>navigation.navigate('ChangePassword')}>
+								<View style={[styles.middleWrapper,{borderBottomWidth:0}]}>
+									<View style={styles.middleImage}>
+											<Ionicons
+												name="key"
+												color='white'
+												size={20}/>
+										</View>
+										<Text style={styles.menuText}>Change Password</Text>
+
 									</View>
-									<Text style={styles.menuText}>Change Password</Text>
-
-								</View>
-							</View>
-						
-
-						<View style={{ alignItems:'center'}}>
-							<Text style={{fontSize: 10, marginTop: 10}}>Powered By</Text>
-							<Image source={require('../../../assets/img/footer_company_name_image.png')}
-								style={{width: '60%', marginTop: 10, marginBottom: 15}}
-							/>
+							</TouchableOpacity>
 						</View>
-					   
-
+							
+					</View>
+						
 					</View>
 				</View>
 			

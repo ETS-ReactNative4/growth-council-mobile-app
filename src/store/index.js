@@ -13,8 +13,9 @@ import {
 import {configureStore} from '@reduxjs/toolkit';
 
 import authReducer from '../screens/auth/authSlice';
+
 import userReducer from '../screens/account/slice/userSlice';
-import passwordReducer from '../screens/setting/passwordSlice';
+import passwordReducer from '../screens/account/slice/passwordSlice';
 
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
