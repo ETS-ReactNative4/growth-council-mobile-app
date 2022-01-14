@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
 		paddingLeft:20,
 		paddingRight:20,
-		height:'100%',
+	
 		
     },
     header: {    

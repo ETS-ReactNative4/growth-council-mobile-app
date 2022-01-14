@@ -17,7 +17,7 @@ import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
 
-import ChangePasswordScreen from '../screens/setting/ChangePassword';
+import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
 import SearchScreen from '../screens/search';

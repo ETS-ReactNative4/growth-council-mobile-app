@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {update} from '../../utils/httpUtil';
+import {update} from '../../../utils/httpUtil';
 
 export const updateCustomerByID = createAsyncThunk(
     'password/updateByID',

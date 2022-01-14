@@ -64,7 +64,7 @@ const People = (props) => {
 
 	
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
             <View style={styles.container}>
                 <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
                     <Ionicons name="search-outline" color={'#000'} size={24}
@@ -75,13 +75,13 @@ const People = (props) => {
                         keyboardType="text"	
                     />
                     <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 15}}/>
+                    <Ionicons name='apps' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 10}}/>
 
                 </View>
                 <View style={{display: 'flex', flexDirection: 'row', height:48, marginTop:16}}>
 
 				
-					<View style={{borderRightWidth:1,borderColor:'#707070'}}>
+					<View style={{borderRightWidth:0.2,borderColor:'#707070'}}>
 						<Picker
 							selectedValue={category}
 							mode={'dropdown'}
@@ -94,7 +94,7 @@ const People = (props) => {
 						</Picker>
 					</View>
                   
-					<View style={{borderRightWidth:1,borderColor:'#707070', display:'flex', flexDirection:'row'}}>
+					<View style={{borderRightWidth:0.2,borderColor:'#707070', display:'flex', flexDirection:'row'}}>
 					<Ionicons
                         name='arrow-up'
                         size={20}
@@ -128,15 +128,16 @@ const People = (props) => {
                     renderItem={_renderItem}/>
 				</View>
 
-				<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+				
+              
+            </View>
+			<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
 					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
 					<Image 
 						source={require('../../../assets/img/fristDigi.png')}
 						style={{width:"100%", height:20}}
 					/>
 				</View>
-              
-            </View>
         </ScrollView>
 
     );
@@ -145,7 +146,8 @@ const People = (props) => {
 const styles = StyleSheet.create({
     container: {
         // ...CommonStyles.container,
-		backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR
+		backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR,
+		flex: 1,
     },
     input: {
         height: 40,

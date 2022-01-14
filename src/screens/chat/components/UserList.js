@@ -4,7 +4,8 @@ import {
     View,
     FlatList,
     Text,
-    TouchableOpacity, Image
+    TouchableOpacity, Image,
+	ScrollView
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
@@ -91,7 +92,8 @@ const UserList = (props) => {
     };
 
     return (
-        <View style={styles.container}>
+		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+			  <View style={styles.container}>
             <View style={styles.buttonWrapper}>
                 <TouchableOpacity>
                     <Button style={[styles.button, styles.shadowProp]}>
@@ -113,6 +115,16 @@ const UserList = (props) => {
                 renderItem={_renderItems}
             />
         </View>
+
+		<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+					<Image 
+						source={require('../../../assets/img/fristDigi.png')}
+						style={{width:"100%", height:20}}
+					/>
+				</View>
+		</ScrollView>
+      
     );
 };
 

@@ -161,16 +161,16 @@ const CommunityDetail = props => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <ImageBackground
           source={require('../../../assets/img/image.png')}
           style={{height: 400}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          {/* <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <View style={styles.icon}>
             <Image
@@ -255,7 +255,14 @@ const CommunityDetail = props => {
             </View>
           </View>
         </ImageBackground>
-      </View>
+      	</View>
+	  	<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+			<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+			<Image 
+				source={require('../../../assets/img/fristDigi.png')}
+				style={{width:"100%", height:20}}
+			/>
+		</View>
     </ScrollView>
   );
 };
@@ -291,7 +298,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'skyblue',
     borderRadius: 18,
-    marginTop: 150,
+    marginTop: 230,
   },
   contentWrapper: {
     backgroundColor: 'white',
