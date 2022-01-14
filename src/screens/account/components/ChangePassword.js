@@ -37,7 +37,11 @@ const passwordSchema = Yup.object().shape({
 
 const ChangePasswordForm = (props) => {
 
-    const {navigation, loading, error, updateCustomerPassword, cleanCustomerPassword,
+    const {navigation,
+		loading, 
+		error, 
+		updateCustomerPassword, 
+		cleanCustomerPassword,
 		profile,
         profileLoading,
         profileError,
@@ -58,13 +62,16 @@ const ChangePasswordForm = (props) => {
         isValid,
     } = useFormik({
         validationSchema: passwordSchema,
-        initialValues: {current_password: '', new_password: '', confirm_password: ''},
+        initialValues: {
+			current_password: '', 
+			new_password: '', 
+			confirm_password: ''},
         onSubmit: async (values) => {
-            let token = await getAsyncStorage(JWT_TOKEN);
-            values.id = decodeUserID(token);
+            // let token = await getAsyncStorage(JWT_TOKEN);
+            // values.id = decodeUserID(token);
             delete values.confirm_password;
             await updateCustomerPassword(values).then(response => {
-                if (!response.error) {
+                if (response?.payload?.status === 200) {
                     navigation.navigate('SignIn');
                     ToastMessage.show('Your password has been successfully changed.');
                 }
