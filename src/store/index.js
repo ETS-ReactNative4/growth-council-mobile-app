@@ -23,6 +23,7 @@ import ideaReducer from '../screens/ideas/slice/ideaSlice';
 import eventReducer from '../screens/event/eventSlice';
 import connectionReducer from '../screens/people/slice/connetionSlice';
 import profileReducer from '../screens/account/slice/profileSlice';
+import otherProfileReducer from '../screens/account/slice/otherProfileSlice';
 import profileEventReducer from '../screens/account/slice/profileEventSlice';
 import communityReducer from '../screens/dashboard/slice/communitySlice';
 import communityMemberContentReducer from '../screens/dashboard/slice/communityMemberContentSlice';
@@ -66,12 +67,13 @@ const reducers = combineReducers({
   communityMemberContents: communityMemberContentReducer,
   sessionDetails: sessionDetailReducer,
   profile: profileReducer,
+  otherProfile: otherProfileReducer,
   profileEvent: profileEventReducer,
   bestPractices: bestPracticesReducer,
   growthCoachings: growthCoachingsReducer,
   bestPracticesMemberContents: bestPracticesMemberContentReducer,
   growthCoachingMemberContents: growthCoachingMemberContentReducer,
-  profileSession:profileSessionReducer,
+  profileSession: profileSessionReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
