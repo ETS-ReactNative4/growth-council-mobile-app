@@ -25,6 +25,7 @@ import SearchScreen from '../screens/search';
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
 import ManageAccountScreen from '../screens/account/ManageAccount';
+import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyPolicyScreen from '../screens/static/PrivacyPolicy';
 import TermsConditionsScreen from '../screens/static/TermsConditions';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
@@ -182,6 +183,14 @@ const MainNavigation = () => {
             // ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
+        <Stack.Screen
+          name="OthersAccount"
+          component={OtherAccountScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            headerTitle: 'Account Info',
+          })}
+        />
 
         <Stack.Screen
           name="Dashboard"
@@ -208,7 +217,7 @@ const MainNavigation = () => {
             headerTitle: 'Contact Us',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="UpcomingView"
           component={UpcomingScreen}
           options={{
@@ -231,17 +240,17 @@ const MainNavigation = () => {
             headerTitle: 'Session Detail',
           })}
         />
-          <Stack.Screen
-              name="Chat"
-              component={ChatScreen}
-              options={({route}) => ({
-                  userID: route?.params?.userID,
-                  friendID: route?.params?.friendID,
-                  friendName: route?.params?.friendName,
-                  //headerTitle: route?.params?.friendName,
-                  headerTitle: 'Chat',
-              })}
-          />
+        <Stack.Screen
+          name="Chat"
+          component={ChatScreen}
+          options={({route}) => ({
+            userID: route?.params?.userID,
+            friendID: route?.params?.friendID,
+            friendName: route?.params?.friendName,
+            //headerTitle: route?.params?.friendName,
+            headerTitle: 'Chat',
+          })}
+        />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'modal'}}>
