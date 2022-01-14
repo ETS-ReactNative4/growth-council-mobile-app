@@ -49,13 +49,17 @@ const Dashboard = props => {
     fetchAllPillarSlider,
     cleanPillarSlider,
   } = props;
+<<<<<<< HEAD
 
   const API_KEY = 'AIzaSyCIrwNfePDp3TOeOVUpVe59FjBQ_x9M6GM';
   console.log('COntent ===', pillarSliders);
+=======
+>>>>>>> dev
 
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
+<<<<<<< HEAD
         <Image
           source={{uri: item.avatar}}
           style={{
@@ -64,6 +68,20 @@ const Dashboard = props => {
             borderRadius: 10,
           }}
         />
+=======
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+          <Image
+            source={{uri: item.avatar}}
+            style={{
+              width: 83,
+              height: 83,
+              borderRadius: 10,
+            }}
+          />
+        </TouchableOpacity>
+
+>>>>>>> dev
         <View style={{padding: 10, paddingBottom: 20}}>
           <Text
             style={{
@@ -153,6 +171,7 @@ const Dashboard = props => {
       </View>
     );
   };
+<<<<<<< HEAD
 
   const pic = [
     {
@@ -211,6 +230,69 @@ const Dashboard = props => {
           </TouchableOpacity>
         </View>
 
+=======
+
+  const pic = [
+    {
+      uri: require('../../../assets/img/welcome_screen_info_image.png'),
+    },
+    {
+      uri: require('../../../assets/img/image.png'),
+    },
+    {
+      uri: require('../../../assets/img/contactus.png'),
+    },
+  ];
+
+  const _renderContentItem = ({item, index}) => {
+    return (
+      <View style={styles.ContentWrapper}>
+        <ImageBackground
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          source={item?.uri}
+        />
+      </View>
+    );
+  };
+
+  useEffect(() => {
+    const fetchAllUpcomingEventAsync = async () => {
+      await fetchAllUpcomingEvent();
+    };
+    fetchAllUpcomingEventAsync();
+  }, []);
+
+  useEffect(() => {
+    const fetchPillarSliderAsync = async () => {
+      await fetchAllPillarSlider();
+    };
+    fetchPillarSliderAsync();
+  }, []);
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <ImageBackground
+          style={{width: '100%', height: 180}}
+          source={require('../../../assets/img/appBG.png')}>
+          <View style={styles.pillar}>
+            <PillarList pillarSliders={pillarSliders} navigation={navigation} />
+          </View>
+        </ImageBackground>
+      </View>
+
+      <View style={styles.top}>
+        <View style={styles.eventWrapper}>
+          <Text style={styles.title}>Upcoming Events</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('UpcomingView')}>
+            <Text style={styles.viewAll}>View all</Text>
+          </TouchableOpacity>
+        </View>
+
+>>>>>>> dev
         <View
           style={{
             display: 'flex',
@@ -273,6 +355,7 @@ const Dashboard = props => {
             display: 'flex',
             flexDirection: 'row',
           }}>
+<<<<<<< HEAD
           <View style={styles.ContentWrapper}>
             <YouTube
               videoId="gunXcTD7TZs" // The YouTube video ID
@@ -283,11 +366,18 @@ const Dashboard = props => {
             />
           </View>
           {/* <FlatList
+=======
+          <FlatList
+>>>>>>> dev
             horizontal
             showsHorizontalScrollIndicator={false}
             data={pic}
             renderItem={_renderContentItem}
+<<<<<<< HEAD
           /> */}
+=======
+          />
+>>>>>>> dev
         </View>
       </View>
 
@@ -378,7 +468,6 @@ const styles = StyleSheet.create({
   },
   headingText2: {
     fontFamily: Typography.FONT_SF_MEDIUM,
-    color: Colors.SECONDARY_HEADING_COLOR,
     fontWeight: '700',
     color: 'white',
     fontSize: 8,

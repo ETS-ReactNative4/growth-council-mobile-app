@@ -81,8 +81,9 @@ const SignUpForm = props => {
                     await registerCustomer(values).then(response => {
                         console.log("response:::::::::::::::", response);
                         if (response?.payload?.status === 200) {
-                            navigation.navigate('SignUpNext');
-                            ToastMessage.show('You have successfully registered.');
+                            // navigation.navigate('SignUpNext');
+                            navigation.navigate('SignIn');
+                            ToastMessage.show('You have successfully registered. Please wait for admin approval.');
                         } else {
                             ToastMessage.show(response?.payload?.response);
                         }

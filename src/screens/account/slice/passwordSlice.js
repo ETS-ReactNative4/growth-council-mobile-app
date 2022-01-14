@@ -5,19 +5,25 @@ import {update} from '../../../utils/httpUtil';
 export const updateCustomerByID = createAsyncThunk(
     'password/updateByID',
     (formData, {rejectWithValue}) => {
-        const {id, ...fields} = formData;
-        return update(`v1/customers/${id}/change-password`, fields).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
+        const {...fields} = formData;
+        return update(`jwt-auth/v1/change-password`, fields)
+		.then(response => response.data)
+		.catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 
 const passwordSlice = createSlice({
     name: 'password',
-    initialState: {entities: {}, loading: false, error: {}},
+    initialState: {
+		entities:[], 
+		loading: false, 
+		error: null,
+	},
     reducers: {
         resetCustomerPassword: (state) => {
-            state.entities = {};
+            state.entities = [];
             state.loading = false;
-            state.error = {};
+            state.error = null;
         },
     },
     extraReducers: {
