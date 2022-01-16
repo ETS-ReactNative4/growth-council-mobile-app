@@ -26,7 +26,7 @@ import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
-import PrivacyPolicyScreen from '../screens/static/PrivacyPolicy';
+import PrivacyScreen from '../screens/privacy';
 import TermsConditionsScreen from '../screens/static/TermsConditions';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
@@ -251,14 +251,21 @@ const MainNavigation = () => {
             headerTitle: 'Chat',
           })}
         />
+        <Stack.Screen
+          name="Privacy"
+          component={PrivacyScreen}
+          options={({route}) => ({
+            headerTitle: 'Privacy Policy',
+          })}
+        />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'modal'}}>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="PrivacyPolicy"
           component={PrivacyPolicyScreen}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
           name="Terms"
           component={TermsConditionsScreen}
