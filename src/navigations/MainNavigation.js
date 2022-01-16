@@ -20,6 +20,7 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
+import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
@@ -221,6 +222,14 @@ const MainNavigation = () => {
           options={({route}) => ({
             id: route?.params?.id,
             headerTitle: 'Event Detail',
+          })}
+        />
+		<Stack.Screen
+          name="SessionDetail"
+          component={SessionDetailScreen}
+          options={({route}) => ({
+            // id: route?.params?.id,
+            headerTitle: 'Session Detail',
           })}
         />
         <Stack.Screen

@@ -185,6 +185,8 @@ const Dashboard = props => {
         fetchPillarSliderAsync();
     }, []);
 
+	console.log("upcomingevents", upcomingEvents)
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.container}>
