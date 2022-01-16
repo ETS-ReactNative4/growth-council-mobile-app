@@ -159,7 +159,7 @@ const Home = props => {
       <View style={styles.buttonWrapper}>
         <Button
           style={styles.signupbutton}
-          onPress={() => navigation.navigate('SessionDetail')}>
+          onPress={() => navigation.navigate('radar')}>
           <Text style={styles.signupbuttonText}>Get Started</Text>
         </Button>
         <Button
