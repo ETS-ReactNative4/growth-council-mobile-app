@@ -14,7 +14,7 @@ import {
 import {
   fetchAllPointOfEngagements,
   resetPointOfEngagement,
-} from './slice/bestPracticesPOESlice';
+} from './slice/pointOfEngagementSlice';
 import {
   fetchAllCommunityMembers,
   resetCommunityMember,

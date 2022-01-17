@@ -178,7 +178,7 @@ const DrawerNavigation = ({navigation}) => {
       />
       <Drawer.Screen
         name="Growth Coaching"
-        component={GrowthCoachingScreen}
+        component={() => <GrowthCoachingScreen pillarId={121} />}
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="git-compare-outline" color={'green'} size={24} />

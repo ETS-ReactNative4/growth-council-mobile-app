@@ -12,6 +12,8 @@ import {
   resetgrowthCoachingMemberContent,
 } from './slice/growthCoachingMemberContentSlice';
 
+import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
+
 const GrowthCoachingScreen = props => {
   const dispatch = useDispatch();
 
@@ -23,6 +25,10 @@ const GrowthCoachingScreen = props => {
     growthCoachingMemberContentLoading,
     growthCoachingMemberContentError,
   } = useSelector(state => state.growthCoachingMemberContents);
+
+  const {pillarPOEs, pillarPOELoading, pillarPOEError} = useSelector(
+    state => state.pillarPOEs,
+  );
 
   const fetchAllgrowthCoaching = () => {
     dispatch(fetchAllgrowthCoachings());
@@ -40,6 +46,14 @@ const GrowthCoachingScreen = props => {
     dispatch(resetgrowthCoachingMemberContent());
   };
 
+  const fetchAllPillarPOE = pillarId => {
+    dispatch(fetchAllPillarPOEs(pillarId));
+  };
+
+  const cleanPillarPOE = () => {
+    dispatch(resetPillarPOE());
+  };
+
   return (
     <GrowthCoaching
       {...props}
@@ -53,6 +67,11 @@ const GrowthCoachingScreen = props => {
       growthCoachingMemberContentError={growthCoachingMemberContentError}
       fetchAllgrowthCoachingMemberContent={fetchAllgrowthCoachingMemberContent}
       cleanGrowthCoachingMemberContent={cleanGrowthCoachingMemberContent}
+      pillarPOEs={pillarPOEs}
+      pillarPOELoading={pillarPOELoading}
+      pillarPOEError={pillarPOEError}
+      fetchAllPillarPOE={fetchAllPillarPOE}
+      cleanPillarPOE={cleanPillarPOE}
     />
   );
 };

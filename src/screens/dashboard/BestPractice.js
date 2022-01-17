@@ -26,9 +26,6 @@ const BestPracticeScreen = props => {
     state => state.pillarPOEs,
   );
 
-  // const {bestPracticesPOEs, bestPracticesPOELoading, bestPracticesPOEError} =
-  //   useSelector(state => state.bestPracticesPOEs);
-
   const {
     bestPracticesMemberContents,
     bestPracticesMemberContentLoading,

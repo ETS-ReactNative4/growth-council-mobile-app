@@ -77,7 +77,7 @@ const BestPractice = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('CommunityDetail', {id: item.term_id})
+          navigation.navigate('CommunityDetail', {id: item?.term_id})
         }>
         <View style={styles.middleWrapper}>
           <View style={styles.middleW}>

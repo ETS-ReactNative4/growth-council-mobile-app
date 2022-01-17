@@ -28,6 +28,12 @@ const GrowthCoaching = props => {
     growthCoachingMemberContentError,
     fetchAllgrowthCoachingMemberContent,
     cleanGrowthCoachingMemberContent,
+    pillarPOEs,
+    pillarPOELoading,
+    pillarPOEError,
+    fetchAllPillarPOE,
+    cleanPillarPOE,
+    pillarId,
   } = props;
 
   useEffect(() => {
@@ -44,32 +50,43 @@ const GrowthCoaching = props => {
     fetchAllgrowthCoachingMemberContentAsync();
   }, []);
 
-  console.log('Growth Coaching =========', growthCoachings);
-  console.log('Member================', growthCoachingMemberContents);
+  useEffect(() => {
+    const fetchAllPillarPOEAsync = async () => {
+      await fetchAllPillarPOE(pillarId);
+    };
+    fetchAllPillarPOEAsync();
+  }, []);
+
+  // console.log('Growth Coaching =========', growthCoachings);
+  // console.log('Member================', growthCoachingMemberContents);
 
   const _renderItem = ({item, index}) => {
     return (
-		<View style={[styles.bottomWrapper,styles.shadowProp]}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: 83,
-				height: 83,
-				borderRadius:10,
-			}}/>
-		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10, fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
-			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-		</View>
-		
-		<View
-		  style={styles.chatIcon}>
-		  <Ionicons
-			name={'chatbox'}
-			size={10}
-			color="#B1AFAF"
-		  />
-		</View>
-	  </View>
+      <View style={[styles.bottomWrapper, styles.shadowProp]}>
+        <Image
+          source={{uri: item.avatar}}
+          style={{
+            width: 83,
+            height: 83,
+            borderRadius: 10,
+          }}
+        />
+        <View style={{padding: 10, paddingBottom: 20}}>
+          <Text
+            style={{
+              fontSize: 10,
+              fontFamily: Typography.FONT_SF_SEMIBOLD,
+              color: Colors.TERTIARY_TEXT_COLOR,
+            }}>
+            {item?.display_name}
+          </Text>
+          <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+        </View>
+
+        <View style={styles.chatIcon}>
+          <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+        </View>
+      </View>
     );
   };
 
@@ -82,12 +99,20 @@ const GrowthCoaching = props => {
 
   const _renderMiddleItem = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('GrowthDetail')}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('GrowthDetail', {id: item?.term_id})
+        }>
         <View style={styles.middleWrapper}>
           <View style={styles.middleW}>
-            <Font name={item.icon} size={30} color="#92CA91" />
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft:7}}>{item.text}</Text>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 7}}>
+            {item?.name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -103,17 +128,17 @@ const GrowthCoaching = props => {
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
           <ImageBackground
             style={{
-				width: '100%',
-				height: '100%',
-				borderRadius: 20,
+              width: '100%',
+              height: '100%',
+              borderRadius: 20,
             }}
             source={require('../../../assets/img/Rectangle.png')}>
             <View
               style={{
-                width:40,
+                width: 40,
                 height: 50,
                 marginTop: 10,
-				marginLeft:200,
+                marginLeft: 200,
                 backgroundColor: '#B0E0E6',
                 borderRadius: 14,
                 padding: 5,
@@ -125,7 +150,9 @@ const GrowthCoaching = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
+              <Text style={styles.headingText2}>
+                Hosted by {item?.organizer?.term_name}
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -163,12 +190,8 @@ const GrowthCoaching = props => {
   return (
     <ScrollView>
       <View style={styles.container}>
-    
         <View style={styles.top}>
-          <Text style={styles.title}>
-            {' '}
-            Growth Coaching Events
-          </Text>
+          <Text style={styles.title}> Growth Coaching Events</Text>
           <View
             style={{
               display: 'flex',
@@ -184,9 +207,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.middle}>
-          <Text style={styles.title}>
-            Points of Engagement
-          </Text>
+          <Text style={styles.title}>Points of Engagement</Text>
 
           <View
             style={{
@@ -196,16 +217,14 @@ const GrowthCoaching = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={data1}
+              data={pillarPOEs}
               renderItem={_renderMiddleItem}
             />
           </View>
         </View>
 
         <View style={styles.bottom}>
-          <Text style={styles.title}>
-            Growth Community Members
-          </Text>
+          <Text style={styles.title}>Growth Community Members</Text>
           <View>
             <FlatList
               horizontal
@@ -217,10 +236,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>
-            {' '}
-            Growth Coaching Content
-          </Text>
+          <Text style={styles.title}> Growth Coaching Content</Text>
           <View
             style={{
               display: 'flex',
@@ -234,13 +250,19 @@ const GrowthCoaching = props => {
             />
           </View>
         </View>
-		<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
-					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-					<Image 
-						source={require('../../../assets/img/fristDigi.png')}
-						style={{width:"100%", height:20}}
-					/>
-		</View>
+        <View
+          style={{
+            alignItems: 'center',
+            width: '35%',
+            marginLeft: 140,
+            marginBottom: 10,
+          }}>
+          <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+          <Image
+            source={require('../../../assets/img/fristDigi.png')}
+            style={{width: '100%', height: 20}}
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -257,87 +279,86 @@ const styles = StyleSheet.create({
     marginTop: 25,
     justifyContent: 'center',
   },
-  title:{
-	fontFamily:Typography.FONT_SF_SEMIBOLD,
-	fontSize: 14,
-	color:Colors.PRIMARY_TEXT_COLOR,
-	marginLeft:15, 
+  title: {
+    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontSize: 14,
+    color: Colors.PRIMARY_TEXT_COLOR,
+    marginLeft: 15,
   },
 
   topWrapper: {
-	height: 144,
-	width: 256,
-	marginTop: 20,
-	marginLeft: 15,
-	borderRadius:20,
+    height: 144,
+    width: 256,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
   },
   header: {
     margin: 10,
   },
   headingText1: {
-
     fontFamily: Typography.FONT_SF_MEDIUM,
     marginTop: 5,
     fontWeight: '600',
     color: 'white',
-	fontSize:12
+    fontSize: 12,
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_SF_MEDIUM,
     fontWeight: '400',
     color: 'white',
-	fontSize:8,
+    fontSize: 8,
   },
   middle: {
     width: 400,
     marginTop: 10,
   },
   middleWrapper: {
-	width: 90,
-	borderRadius: 20,
-	marginTop: 15,
-	marginLeft:15,
-	justifyContent: 'center',
-	alignItems: 'center',
+    width: 90,
+    borderRadius: 20,
+    marginTop: 15,
+    marginLeft: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   middleW: {
-	backgroundColor: 'white',
-	width: 64,
-	height: 64,
-	justifyContent: 'center',
-	alignItems: 'center',
-	borderRadius: 10,
-	borderWidth:0.2,
+    backgroundColor: 'white',
+    width: 64,
+    height: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,
     fontFamily: Typography.FONT_NORMAL,
     padding: 4,
   },
- 
+
   bottom: {
     height: 172,
-	marginTop:25,
+    marginTop: 25,
   },
   bottomWrapper: {
-	width:84,
-   position:'relative',
+    width: 84,
+    position: 'relative',
     borderRadius: 10,
-	marginTop:15,
-	marginLeft: 15,
+    marginTop: 15,
+    marginLeft: 15,
     backgroundColor: 'white',
-    overflow:"hidden",
-	// borderWidth:0.2,
+    overflow: 'hidden',
+    // borderWidth:0.2,
   },
-  chatIcon:{
-	borderRadius: 50,
-	backgroundColor: '#F1F1F1',
-	padding:6,
-	justifyContent: 'center',
-	position:'absolute',
-	right:4,
-	bottom:4
+  chatIcon: {
+    borderRadius: 50,
+    backgroundColor: '#F1F1F1',
+    padding: 6,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 4,
+    bottom: 4,
   },
   bottomImage: {
     width: '100%',
@@ -345,30 +366,30 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   content: {
-	height: 250,
-	marginTop:20,
-	justifyContent: 'center',
-	borderRadius: 20,
-	marginBottom:20,
+    height: 250,
+    marginTop: 20,
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginBottom: 20,
   },
   ContentWrapper: {
-	height: 206,
-	width: 364,
-	marginTop: 20,
-	marginLeft: 15,
-   borderRadius:20,
-   overflow:"hidden"
+    height: 206,
+    width: 364,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   shadowProp: {
-	shadowColor: "#000",
-	shadowOffset: {
-		width: 0,
-		height: 2,
-	},
-	shadowOpacity: 0.25,
-	shadowRadius: 3.84,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-	elevation: 5,
+    elevation: 5,
   },
 });
 
