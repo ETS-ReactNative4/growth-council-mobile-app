@@ -194,6 +194,15 @@ const Dashboard = props => {
     };
     fetchPillarSliderAsync();
   }, []);
+  
+  useEffect(() => {
+    const fetchAllPointOfEngagementAsync = async () => {
+      await fetchAllPointOfEngagement();
+    };
+    fetchAllPointOfEngagementAsync();
+  }, []);
+
+  console.log('BEST practices POEs ======= ', pointOfEngagements);
 
   return (
     <ScrollView style={styles.container}>
