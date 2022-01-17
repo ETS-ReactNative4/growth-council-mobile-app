@@ -123,7 +123,7 @@ const DrawerNavigation = ({navigation}) => {
       />
       <Drawer.Screen
         name="Community"
-        component={HomeCommunityScreen}
+        component={() => <HomeCommunityScreen pillarId={120} />}
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="calendar-outline" color={'blue'} size={24} />

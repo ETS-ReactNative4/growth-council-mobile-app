@@ -187,6 +187,8 @@ const GrowthCoaching = props => {
     );
   };
 
+  console.log('Params ==== ', pillarId);
+
   return (
     <ScrollView>
       <View style={styles.container}>
