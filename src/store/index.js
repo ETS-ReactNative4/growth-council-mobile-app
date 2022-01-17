@@ -52,6 +52,7 @@ import pillarReducer from '../screens/home/slice/pillarSlice';
 import pillarSliderReducer from '../screens/home/slice/pillarSliderSlice';
 
 import sessionReducer from '../screens/sessions/slice/sessionSlice';
+import sessionRegisterReducer from '../screens/sessions/slice/sessionRegister';
 
 const persistConfig = {
   key: 'root',
@@ -91,6 +92,7 @@ const reducers = combineReducers({
   memberConnection:memberConnectionReducer,
   eventRegister:eventRegisterReducer,
   sessions:sessionReducer,
+  sessionRegister:sessionRegisterReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
