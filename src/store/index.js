@@ -23,6 +23,7 @@ import communityMemberReducer from '../screens/dashboard/slice/communityMemberSl
 import aboutReducer from '../screens/about/slice/aboutSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
 import ideaReducer from '../screens/ideas/slice/ideaSlice';
+import privacyReducer from '../screens/privacy/slice/privacySlice';
 
 import eventReducer from '../screens/event/slice/eventSlice';
 import eventRegisterReducer from '../screens/event/slice/eventRegisterSlice';
@@ -67,6 +68,7 @@ const reducers = combineReducers({
   about: aboutReducer,
   details: detailReducer,
   feedback: feedbackReducer,
+  privacy: privacyReducer,
   idea: ideaReducer,
   pillars: pillarReducer,
   pillarSliders: pillarSliderReducer,
