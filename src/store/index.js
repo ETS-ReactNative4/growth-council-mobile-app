@@ -63,7 +63,7 @@ const reducers = combineReducers({
   users: userReducer,
   password: passwordReducer,
   upcomingEvents: upcomingEventReducer,
-  pointOfEngagements: pointOfEngagementReducer,
+  poes: pointOfEngagementReducer,
   pillarPOEs: pillarPOEReducer,
   communityMembers: communityMemberReducer,
   events: eventReducer,

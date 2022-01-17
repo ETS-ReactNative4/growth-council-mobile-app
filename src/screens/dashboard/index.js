@@ -11,10 +11,9 @@ import {
   fetchAllPillarSliders,
   resetPillarSlider,
 } from '../home/slice/pillarSliderSlice';
-import {
-  fetchAllPointOfEngagements,
-  resetPointOfEngagement,
-} from './slice/pointOfEngagementSlice';
+
+import {fetchAllPOEs, resetPOE} from './slice/pointOfEngagementSlice';
+
 import {
   fetchAllCommunityMembers,
   resetCommunityMember,
@@ -29,8 +28,9 @@ const DashboardScreen = props => {
 
   const {upcomingEvents, upcomingEventLoading, upcomingEventError} =
     useSelector(state => state.upcomingEvents);
-  const {pointOfEngagements, pointOfEngagementLoading, pointOfEngagementError} =
-    useSelector(state => state.pointOfEngagements);
+
+  const {poes, poeLoading, poeError} = useSelector(state => state.poes);
+
   const {communityMembers, communityMemberLoading, communityMemberError} =
     useSelector(state => state.communityMembers);
 
@@ -42,8 +42,8 @@ const DashboardScreen = props => {
     dispatch(fetchAllUpcomingEvents());
   };
 
-  const fetchAllPointOfEngagement = () => {
-    dispatch(fetchAllPointOfEngagements());
+  const fetchAllPOE = () => {
+    dispatch(fetchAllPOEs());
   };
 
   const fetchAllCommunityMember = () => {
@@ -62,8 +62,8 @@ const DashboardScreen = props => {
     dispatch(resetUpcomingEvent());
   };
 
-  const cleanPointOfEngagement = () => {
-    dispatch(resetPointOfEngagement());
+  const cleanPOE = () => {
+    dispatch(resetPOE());
   };
 
   const cleanCommunityMember = () => {
@@ -81,11 +81,11 @@ const DashboardScreen = props => {
       upcomingEventError={upcomingEventError}
       fetchAllUpcomingEvent={fetchAllUpcomingEvent}
       cleanUpcomingEvent={cleanUpcomingEvent}
-      pointOfEngagements={pointOfEngagements}
-      pointOfEngagementLoading={pointOfEngagementLoading}
-      pointOfEngagementError={pointOfEngagementError}
-      fetchAllPointOfEngagement={fetchAllPointOfEngagement}
-      cleanPointOfEngagement={cleanPointOfEngagement}
+      poes={poes}
+      poeLoading={poeLoading}
+      poeError={poeError}
+      fetchAllPOE={fetchAllPOE}
+      cleanPOE={cleanPOE}
       communityMembers={communityMembers}
       communityMemberLoading={communityMemberLoading}
       communityMemberError={communityMemberError}
