@@ -197,6 +197,13 @@ const Dashboard = props => {
   }, []);
 
   useEffect(() => {
+    const fetchAllCommunityMemberAsync = async () => {
+      await fetchAllCommunityMember();
+    };
+    fetchAllCommunityMemberAsync();
+  }, []);
+
+  useEffect(() => {
     const fetchPillarSliderAsync = async () => {
       await fetchAllPillarSlider();
     };
@@ -210,7 +217,9 @@ const Dashboard = props => {
     fetchAllPOEAsync();
   }, []);
 
-  console.log('All POEs ======= ', poes);
+  //console.log('All POEs ======= ', poes);
+
+  console.log('upcomingevents', upcomingEvents);
 
   return (
     <ScrollView style={styles.container}>

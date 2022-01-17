@@ -96,17 +96,20 @@ const DrawerNavigation = ({navigation}) => {
                 style={{marginLeft: 15}}
               />
             </TouchableOpacity>
-            <Image
-              source={require('../assets/img/dashboard_logo.png')}
-              style={{
-                position: 'absolute',
-                height: 30,
-                width: 30,
-                left: 30,
-                marginLeft: 20,
-                borderWidth: 5,
-              }}
-            />
+            <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
+              <Image
+                source={require('../assets/img/dashboard_logo.png')}
+                style={{
+                  top: -25,
+                  position: 'absolute',
+                  height: 30,
+                  width: 30,
+                  left: 30,
+                  marginLeft: 20,
+                  borderWidth: 5,
+                }}
+              />
+            </TouchableOpacity>
           </View>
         ),
         headerRight: () => <HeaderRight />,
@@ -136,7 +139,7 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 30}}>
+            <View style={{marginLeft: 35}}>
               <Text
                 style={{
                   color: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -164,12 +167,9 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 30}}>
+            <View style={{marginLeft: 35}}>
               <Text
-                style={{
-                  color: Colors.PRIMARY_BACKGROUND_COLOR,
-                  fontSize: 20,
-                }}>
+                style={{color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>
                 Best Practice
               </Text>
             </View>
@@ -191,12 +191,9 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 30}}>
+            <View style={{marginLeft: 35}}>
               <Text
-                style={{
-                  color: Colors.PRIMARY_BACKGROUND_COLOR,
-                  fontSize: 20,
-                }}>
+                style={{color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>
                 Growth Coaching
               </Text>
             </View>
