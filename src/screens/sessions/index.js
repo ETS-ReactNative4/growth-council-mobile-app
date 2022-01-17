@@ -4,21 +4,30 @@ import {useDispatch, useSelector} from 'react-redux';
 import Session from './component';
 
 import {fetchSessionByID, resetSession} from './slice/sessionSlice';
+import {registerSessionByID, resetSessionRegister} from './slice/eventRegisterSlice';
 
 const SessionDetailScreen = props => {
 
     const dispatch = useDispatch();
 
 	const {sessions, sessionLoading, sessionError} = useSelector((state) => state.sessions);
+	const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} = useSelector((state) => state.sessionRegisters);
 
 	const fetchSessionByIdentifier = identifier => {
         dispatch(fetchSessionByID(identifier));
+    };
+
+	const registerSessionByIdentifier = formData => {
+        return dispatch(registerSessionByID(formData));
     };
 
 	const cleanSession = () => {
         dispatch(resetSession());
     };
 
+	const cleanSessionRegister = () => {
+        dispatch(resetSessionRegister());
+    };
 
     return (
         <Session
@@ -28,6 +37,12 @@ const SessionDetailScreen = props => {
 			sessionError={sessionError}
 			fetchSessionByIdentifier={fetchSessionByIdentifier}
 			cleanSession={cleanSession}
+
+			sessionRegisters={sessionRegisters}
+			sessionRegisterLoading={sessionRegisterLoading}
+			sessionRegisterError={sessionRegisterError}
+			registerSessionByIdentifier={registerSessionByIdentifier}
+			cleanSessionRegister={cleanSessionRegister}
            
         />
     )
