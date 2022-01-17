@@ -51,6 +51,8 @@ import detailReducer from '../screens/home/slice/detailSlice';
 import pillarReducer from '../screens/home/slice/pillarSlice';
 import pillarSliderReducer from '../screens/home/slice/pillarSliderSlice';
 
+import sessionReducer from '../screens/sessions/slice/sessionSlice';
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -87,6 +89,8 @@ const reducers = combineReducers({
   growthCoachingMemberContents: growthCoachingMemberContentReducer,
   profileSession: profileSessionReducer,
   memberConnection:memberConnectionReducer,
+  eventRegister:eventRegisterReducer,
+  sessions:sessionReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
