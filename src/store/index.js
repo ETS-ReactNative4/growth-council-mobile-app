@@ -84,6 +84,7 @@ const reducers = combineReducers({
   bestPracticesMemberContents: bestPracticesMemberContentReducer,
   growthCoachingMemberContents: growthCoachingMemberContentReducer,
   profileSession: profileSessionReducer,
+  memberConnection:memberConnectionReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

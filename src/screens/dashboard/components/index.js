@@ -188,32 +188,49 @@ const Dashboard = props => {
     fetchAllUpcomingEventAsync();
   }, []);
 
-  useEffect(() => {
-    const fetchPillarSliderAsync = async () => {
-      await fetchAllPillarSlider();
-    };
-    fetchPillarSliderAsync();
-  }, []);
+    useEffect(() => {
+        const fetchAllUpcomingEventAsync = async () => {
+            await fetchAllUpcomingEvent();
+        };
+        fetchAllUpcomingEventAsync();
+    }, []);
 
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.container}>
-        <ImageBackground
-          style={{width: '100%', height: 180}}
-          source={require('../../../assets/img/appBG.png')}>
-          <View style={styles.pillar}>
-            <PillarList pillarSliders={pillarSliders} navigation={navigation} />
-          </View>
-        </ImageBackground>
-      </View>
+    useEffect(() => {
+        const fetchAllCommunityMemberAsync = async () => {
+            await fetchAllCommunityMember();
+        };
+        fetchAllCommunityMemberAsync();
+    }, []);
 
-      <View style={styles.top}>
-        <View style={styles.eventWrapper}>
-          <Text style={styles.title}>Upcoming Events</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('UpcomingView')}>
-            <Text style={styles.viewAll}>View all</Text>
-          </TouchableOpacity>
-        </View>
+    useEffect(() => {
+        const fetchPillarSliderAsync = async () => {
+            await fetchAllPillarSlider();
+        };
+        fetchPillarSliderAsync();
+    }, []);
+
+	console.log("upcomingevents", upcomingEvents)
+
+    return (
+        <ScrollView style={styles.container}>
+            <View style={styles.container}>
+                <ImageBackground
+                    style={{width: '100%', height: 180}}
+                    source={require('../../../assets/img/appBG.png')}>
+                    <View style={styles.pillar}>
+                        <PillarList pillarSliders={pillarSliders} navigation={navigation}/>
+                    </View>
+                </ImageBackground>
+            </View>
+
+            <View style={styles.top}>
+                <View style={styles.eventWrapper}>
+                    <Text style={styles.title}>Upcoming Events</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('UpcomingView')}>
+                        <Text style={styles.viewAll}>View all</Text>
+                    </TouchableOpacity>
+                </View>
 
         <View
           style={{
