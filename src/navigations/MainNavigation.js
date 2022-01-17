@@ -254,9 +254,9 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Privacy"
           component={PrivacyScreen}
-          options={({route}) => ({
+          options={{
             headerTitle: 'Privacy Policy',
-          })}
+          }}
         />
       </Stack.Group>
 

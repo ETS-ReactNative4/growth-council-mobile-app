@@ -2,10 +2,10 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {fetch} from '../../../utils/httpUtil';
 
-export const fetchPrivacyPolicy = createAsyncThunk(
-  'feedback/fetchAll',
+export const fetchPrivacy = createAsyncThunk(
+  'privacy/fetchAll',
   (_, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/page/4980`)
+    return fetch(`jwt-auth/v1/page/4944`)
       .then(response => response.data.body_response)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
@@ -26,16 +26,16 @@ const privacySlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchPrivacyPolicy.pending]: (state, action) => {
+    [fetchPrivacy.pending]: (state, action) => {
       state.privacyLoading = true;
       state.privacyError = null;
     },
-    [fetchPrivacyPolicy.fulfilled]: (state, action) => {
+    [fetchPrivacy.fulfilled]: (state, action) => {
       state.privacy = action.payload;
       state.privacyLoading = false;
       state.privacyError = null;
     },
-    [fetchPrivacyPolicy.rejected]: (state, action) => {
+    [fetchPrivacy.rejected]: (state, action) => {
       state.privacyLoading = false;
       if (action.payload) {
         state.privacyError = action.payload.error.message;

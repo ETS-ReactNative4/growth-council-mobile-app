@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Privacy from './component';
 
-import {fetchPrivacyPolicy, resetPrivacy} from './slice/privacySlice';
+import {fetchPrivacy, resetPrivacy} from './slice/privacySlice';
 
 const PrivacyScreen = props => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const PrivacyScreen = props => {
 
   // fetch Privacy data
   const fetchPrivacyPolicy = () => {
-    dispatch(fetchPrivacyPolicy());
+    dispatch(fetchPrivacy());
   };
 
   //clear Privacy data

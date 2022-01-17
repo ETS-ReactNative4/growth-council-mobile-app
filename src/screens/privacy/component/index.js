@@ -32,7 +32,7 @@ const privacy = props => {
     fetchPolicyAsync();
   }, []);
 
-  console.log('policy::::::', privacy);
+  console.log('privacy policy::::::', privacy);
 
   return (
     <>
@@ -45,7 +45,7 @@ const privacy = props => {
           height: Platform.OS === 'ios' ? 400 : 350,
         }}>
         <View style={[styles.container, {height: win.height}]}>
-          <View style={styles.policy}>
+          <View style={styles.privacy}>
             <View style={styles.title}>
               <Text style={styles.titleText}>{privacy.heading1}</Text>
               <View style={styles.titleBorder}></View>
