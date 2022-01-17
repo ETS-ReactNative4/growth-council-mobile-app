@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Session from './component';
 
 import {fetchSessionByID, resetSession} from './slice/sessionSlice';
-import {registerSessionByID, resetSessionRegister} from './slice/eventRegisterSlice';
+import {registerSessionByID, resetSessionRegister} from './slice/sessionRegister';
 
 const SessionDetailScreen = props => {
 

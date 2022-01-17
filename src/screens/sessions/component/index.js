@@ -27,7 +27,12 @@ const Session = props => {
 		sessionLoading,
 		sessionError,
 		fetchSessionByIdentifier,
-		cleanSession
+		cleanSession,
+		sessionRegisters,
+		sessionRegisterLoading,
+		sessionRegisterError,
+		registerSessionByIdentifier,
+        cleanSessionRegister
        
     } = props;
 
@@ -37,6 +42,15 @@ const Session = props => {
         };
         fetchSessionDetailAsync();
     }, []);
+
+	const registerSessionBySessionID = async (sessionID) => {
+        const response = await registerSessionByIdentifier({session_id: sessionID});
+        if (response?.payload?.status === 200) {
+            ToastMessage.show('You have successfully registered this event.');
+        } else {
+            ToastMessage.show(response?.payload?.response);
+        }
+    };
 
 	const isSessionLoaded = Object.keys(sessions).length === 0;
     const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
@@ -127,7 +141,7 @@ const Session = props => {
                                         )}
                                     
                                     </View>
-                                  
+                                    {!sessions?.register_status &&
                                     <View
                                         style={{
                                             flex: 1,
@@ -138,7 +152,7 @@ const Session = props => {
                                             alignItems: 'center',
                                         }}>
 
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => registerSessionBySessionID(route?.params?.id)}>
                                             <Feather
                                                 name={'plus-circle'}
                                                 size={35}
@@ -146,6 +160,7 @@ const Session = props => {
                                             />
                                         </TouchableOpacity>
                                     </View>
+                                    }
                               
                                 </View>
                                 <View
@@ -329,7 +344,7 @@ const Session = props => {
                             <View>
                                 <Button
                                     style={styles.acceptButton}
-                                    onPress={() => registerEventByEventID(route?.params?.id)}>
+                                    onPress={() => registerSessionBySessionID(route?.params?.id)}>
                                     <Text style={styles.acceptButtonText}>
                                         Sign Up in One Click
                                     </Text>
