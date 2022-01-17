@@ -49,7 +49,7 @@ const Profile = (props) => {
         return (
 			<View>
 				<TouchableOpacity
-							onPress={() => navigation.navigate('SessionDetail')}>
+							onPress={() => navigation.navigate('SessionDetail', {id: item.ID})}>
 				<View style={styles.middleWrapper} key={index}>
 					<View style={styles.wrapper}>
 						

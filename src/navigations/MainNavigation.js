@@ -237,7 +237,7 @@ const MainNavigation = () => {
           name="SessionDetail"
           component={SessionDetailScreen}
           options={({route}) => ({
-            // id: route?.params?.id,
+            id: route?.params?.id,
             headerTitle: 'Session Detail',
           })}
         />
