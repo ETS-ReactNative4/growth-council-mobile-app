@@ -288,16 +288,17 @@ const Event = props => {
                     </Text>
                   </Button>
                 )}
-
-                <TouchableOpacity style={styles.registeredButton}>
-                  <View style={{paddingLeft: 10}}>
-                    <Image
-                      source={require('../../../assets/img/tick-icon.png')}
-                      style={{width: 30, height: 30}}
-                    />
-                  </View>
-                  <Text style={styles.registeredButtonText}>Registered</Text>
-                </TouchableOpacity>
+                {events?.register_status && (
+                  <TouchableOpacity style={styles.registeredButton}>
+                    <View style={{paddingLeft: 10}}>
+                      <Image
+                        source={require('../../../assets/img/tick-icon.png')}
+                        style={{width: 30, height: 30}}
+                      />
+                    </View>
+                    <Text style={styles.registeredButtonText}>Registered</Text>
+                  </TouchableOpacity>
+                )}
 
                 {/* <Button style={styles.registeredButton}>
                   <Image
