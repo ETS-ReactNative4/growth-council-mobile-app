@@ -215,6 +215,7 @@ const GrowthCoaching = props => {
             style={{
               display: 'flex',
               flexDirection: 'row', 
+			  marginLeft:10,
             }}>
             <FlatList
               horizontal
