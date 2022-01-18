@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
@@ -200,6 +201,12 @@ const Event = props => {
                       <Text>{events?.location?.location_address}</Text>
                     </View>
                   )}
+
+				{eventLoading && (
+						<View style={styles.loading1}>
+							<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+						</View>
+						)}
                   {/* <View
                                         style={{
                                             flex: 1,
@@ -476,6 +483,13 @@ const styles = StyleSheet.create({
     height: 36,
     backgroundColor: '#183863',
     borderRadius: 15,
+  },
+  loading1: {
+    marginLeft: 150,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 export default Event;
