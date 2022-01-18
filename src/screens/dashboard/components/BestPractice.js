@@ -28,6 +28,12 @@ const BestPractice = props => {
     bestPracticesMemberContentError,
     fetchAllbestPracticesMemberContent,
     cleanBestPracticesMemberContent,
+    pillarPOEs,
+    pillarPOELoading,
+    pillarPOEError,
+    fetchAllPillarPOE,
+    cleanPillarPOE,
+    pillarId,
   } = props;
 
   const _renderItem = ({item, index}) => {
@@ -72,12 +78,20 @@ const BestPractice = props => {
 
   const _renderMiddleItem = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('CommunityDetail', {id: item?.term_id})
+        }>
         <View style={styles.middleWrapper}>
           <View style={styles.middleW}>
-            <Font name={item.icon} size={30} color="skyblue" />
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10}}>{item.text}</Text>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+            {item?.name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -165,16 +179,24 @@ const BestPractice = props => {
   }, []);
 
   useEffect(() => {
+    const fetchAllPillarPOEAsync = async () => {
+      await fetchAllPillarPOE(pillarId);
+    };
+    fetchAllPillarPOEAsync();
+  }, []);
+
+  useEffect(() => {
     const fetchAllbestPracticeMemberContentAsync = async () => {
       await fetchAllbestPracticesMemberContent();
     };
     fetchAllbestPracticeMemberContentAsync();
   }, []);
 
-  console.log('Best Practices ============', bestPractices);
-  console.log('Members============', bestPracticesMemberContents.term_id);
-  console.log('Content ============', bestPracticesMemberContents);
+  console.log('Best Practices poe ============', pillarPOEs);
+  //console.log('Members============', bestPracticesMemberContents.term_id);
+  //console.log('Content ============', bestPracticesMemberContents);
 
+  console.log('Params ==== ', pillarId);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -200,11 +222,12 @@ const BestPractice = props => {
             style={{
               display: 'flex',
               flexDirection: 'row',
+              marginLeft: 10,
             }}>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={data1}
+              data={pillarPOEs}
               renderItem={_renderMiddleItem}
             />
           </View>
@@ -303,7 +326,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   middleWrapper: {
-    width: 90,
+    width: 80,
     borderRadius: 20,
     marginTop: 15,
     marginLeft: 15,
@@ -334,6 +357,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+    marginBottom: 10,
     backgroundColor: 'white',
     overflow: 'hidden',
     // borderWidth:0.2,

@@ -17,9 +17,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatOutlineTextInput from '../../../shared/form/FlatOutlineTextInput';
 import ToastMessage from '../../../shared/toast';
-import {getAsyncStorage} from '../../../utils/storageUtil';
-import {decodeUserID} from '../../../utils/jwtUtil';
-import {JWT_TOKEN} from '../../../constants';
 
 const passwordSchema = Yup.object().shape({
     current_password: Yup.string()
@@ -38,9 +35,9 @@ const passwordSchema = Yup.object().shape({
 const ChangePasswordForm = (props) => {
 
     const {navigation,
-		loading, 
-		error, 
-		updateCustomerPassword, 
+		loading,
+		error,
+		updateCustomerPassword,
 		cleanCustomerPassword,
 		profile,
         profileLoading,
@@ -63,12 +60,10 @@ const ChangePasswordForm = (props) => {
     } = useFormik({
         validationSchema: passwordSchema,
         initialValues: {
-			current_password: '', 
-			new_password: '', 
+			current_password: '',
+			new_password: '',
 			confirm_password: ''},
         onSubmit: async (values) => {
-            // let token = await getAsyncStorage(JWT_TOKEN);
-            // values.id = decodeUserID(token);
             delete values.confirm_password;
             await updateCustomerPassword(values).then(response => {
                 if (response?.payload?.status === 200) {
@@ -99,9 +94,9 @@ const ChangePasswordForm = (props) => {
 
 		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
 			<View style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
-	
+
 				<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
-				
+
 						<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
 								<View style={styles.profileWrapper}>
 										<View style={styles.icon}>
@@ -143,7 +138,7 @@ const ChangePasswordForm = (props) => {
                 )}
 
                 <View style={styles.body}>
-				
+
                     <FlatOutlineTextInput
                         label='Current Password'
                         value={values.current_password}
@@ -239,12 +234,12 @@ const ChangePasswordForm = (props) => {
         </View>
 		<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
 			<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-			<Image 
+			<Image
 				source={require('../../../assets/img/fristDigi.png')}
 				style={{width:"100%", height:20}}
 			/>
 		</View>
-	</ScrollView>   
+	</ScrollView>
     );
 };
 
@@ -254,7 +249,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
 		paddingLeft:50,
 		paddingRight:50,
-		
+
     },
 	cancelWrapper: {
         ...CommonStyles.linkWrapper,
@@ -268,11 +263,11 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_MEDIUM,
         paddingLeft: 8,
     },
-	
+
     content: {
         ...CommonStyles.content,
     },
-    
+
     message: {
         ...CommonStyles.message,
     },
@@ -305,25 +300,18 @@ const styles = StyleSheet.create({
         ...CommonStyles.errorText,
     },
 
-    errorWrapper: {
-        width: '70%',
-    },
-    errorText: {
-        ...CommonStyles.errorText,
-    },
-
 	profileWrapper:{
 		padding:20,
-		alignItems:"center", 
+		alignItems:"center",
 		width:328,
 		backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR,
-		borderRadius:12, 
+		borderRadius:12,
 		position:"relative",
-		paddingTop:100, 
-		borderWidth: 1 , 
+		paddingTop:100,
+		borderWidth: 1 ,
 		borderColor:'#707070'
 	},
-    header: {    
+    header: {
      alignItems:'center',
     },
     icon: {
@@ -343,7 +331,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
 
-	
+
 
 });
 

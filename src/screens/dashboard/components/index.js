@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
 import YouTube, {
   YouTubeStandaloneIOS,
@@ -33,11 +34,11 @@ const Dashboard = props => {
     upcomingEventError,
     fetchAllUpcomingEvent,
     cleanUpcomingEvent,
-    pointOfEngagements,
-    pointOfEngagementLoading,
-    pointOfEngagementError,
-    fetchAllPointOfEngagement,
-    cleanPointOfEngagement,
+    poes,
+    poeLoading,
+    poeError,
+    fetchAllPOE,
+    cleanPOE,
     communityMembers,
     communityMemberLoading,
     communityMemberError,
@@ -90,16 +91,26 @@ const Dashboard = props => {
   // 	},
   //   ];
 
-  //   const _renderMiddleItem = ({item, index}) => {
-  // 	return (
-  // 	  <View style={styles.middleWrapper}>
-  // 		<View style={styles.middleW}>
-  // 		  <Font name={item.icon} size={40} color="skyblue" />
-  // 		</View>
-  // 		<Text style={{marginTop: 10}}>{item.text}</Text>
-  // 	  </View>
-  // 	);
-  //   };
+  const _renderMiddleItem = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('CommunityDetail', {id: item?.term_id})
+        }>
+        <View style={styles.middleWrapper}>
+          <View style={styles.middleW}>
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
+          </View>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+            {item?.name}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -201,6 +212,15 @@ const Dashboard = props => {
     fetchPillarSliderAsync();
   }, []);
 
+  useEffect(() => {
+    const fetchAllPOEAsync = async () => {
+      await fetchAllPOE();
+    };
+    fetchAllPOEAsync();
+  }, []);
+
+  console.log('upcomingevents', upcomingEvents);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.container}>
@@ -216,10 +236,17 @@ const Dashboard = props => {
       <View style={styles.top}>
         <View style={styles.eventWrapper}>
           <Text style={styles.title}>Upcoming Events</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('UpcomingView')}>
-            {/* <Text style={styles.viewAll}>View all</Text> */}
-          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('UpcomingView')
+            }></TouchableOpacity>
         </View>
+
+        {upcomingEventLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
 
         <View
           style={{
@@ -236,21 +263,23 @@ const Dashboard = props => {
         </View>
       </View>
 
-      {/* <View style={styles.middle}>
-	  	<View style={{display:"flex", flexDirection:"row"}}>
-		  <Text style={{fontWeight: 'bold', fontSize: 12}}>Points of Engagement</Text>
-
-		</View>
-
-        <View style={{display: 'flex', flexDirection: 'row'}}>
+      <View style={styles.middle}>
+        <Text style={[styles.title, {marginLeft: 15}]}>
+          Points of Engagement
+        </Text>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={data1}
+            data={poes}
             renderItem={_renderMiddleItem}
           />
         </View>
-      </View> */}
+      </View>
 
       <View style={styles.bottom}>
         <View
@@ -386,25 +415,24 @@ const styles = StyleSheet.create({
   },
   middle: {
     width: 400,
-    height: 200,
-    marginLeft: 10,
-    marginTop: 15,
+    marginTop: 10,
+    marginLeft: 5,
   },
   middleWrapper: {
-    height: 64,
-    width: 112,
+    width: 80,
     borderRadius: 20,
-    marginTop: 10,
+    marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
   middleW: {
     backgroundColor: 'white',
-    width: 80,
-    height: 80,
+    width: 64,
+    height: 64,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
+    borderWidth: 0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,
@@ -422,6 +450,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+    marginBottom: 10,
     backgroundColor: 'white',
     overflow: 'hidden',
   },
@@ -460,6 +489,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  loading1: {
+    marginLeft: 150,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 

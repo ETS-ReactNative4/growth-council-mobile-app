@@ -28,6 +28,12 @@ const GrowthCoaching = props => {
     growthCoachingMemberContentError,
     fetchAllgrowthCoachingMemberContent,
     cleanGrowthCoachingMemberContent,
+    pillarPOEs,
+    pillarPOELoading,
+    pillarPOEError,
+    fetchAllPillarPOE,
+    cleanPillarPOE,
+    pillarId,
   } = props;
 
   useEffect(() => {
@@ -44,8 +50,15 @@ const GrowthCoaching = props => {
     fetchAllgrowthCoachingMemberContentAsync();
   }, []);
 
-  console.log('Growth Coaching =========', growthCoachings);
-  console.log('Member================', growthCoachingMemberContents);
+  useEffect(() => {
+    const fetchAllPillarPOEAsync = async () => {
+      await fetchAllPillarPOE(pillarId);
+    };
+    fetchAllPillarPOEAsync();
+  }, []);
+
+  // console.log('Growth Coaching =========', growthCoachings);
+  // console.log('Member================', growthCoachingMemberContents);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -89,13 +102,19 @@ const GrowthCoaching = props => {
 
   const _renderMiddleItem = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('GrowthDetail')}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('GrowthDetail', {id: item?.term_id})
+        }>
         <View style={styles.middleWrapper}>
           <View style={styles.middleW}>
-            <Font name={item.icon} size={30} color="#92CA91" />
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
           </View>
           <Text style={{marginTop: 10, fontSize: 10, marginLeft: 7}}>
-            {item.text}
+            {item?.name}
           </Text>
         </View>
       </TouchableOpacity>
@@ -171,6 +190,8 @@ const GrowthCoaching = props => {
     );
   };
 
+  console.log('Params ==== ', pillarId);
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -197,11 +218,12 @@ const GrowthCoaching = props => {
             style={{
               display: 'flex',
               flexDirection: 'row',
+              marginLeft: 10,
             }}>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={data1}
+              data={pillarPOEs}
               renderItem={_renderMiddleItem}
             />
           </View>
@@ -299,10 +321,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   middleWrapper: {
-    width: 90,
+    width: 80,
     borderRadius: 20,
     marginTop: 15,
-    marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -330,6 +351,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
+    marginBottom: 10,
     marginLeft: 15,
     backgroundColor: 'white',
     overflow: 'hidden',

@@ -26,6 +26,7 @@ const scale = value => (
     />
 );
 const FrostRadar = (props) => {
+	const{navigation}=props
     const [show, setShow] = useState(true);
     // const groups = [];
     // const scales = [];
@@ -36,21 +37,21 @@ const FrostRadar = (props) => {
     // const middleOfChart = (chartSize / 2).toFixed(4);
     return (
 
-        <ScrollView contentContainerStyle={{flexGrow: 1,}}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}}>
             <View style={styles.container}>
-                <ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover">
+                
                     <View style={styles.arrow}>
                         <Ionicons
                             name={'arrow-back'}
                             size={50}
-                            color='white'
-                            onPress={() => navigation.navigate('Journey')}
+                            color='#4287C3'
+                            onPress={() => navigation.goBack()}
                         />
                     </View>
 
                     <View style={{height: '100%'}}>
                         <View style={styles.header}>
-                            <Text style={{fontWeight: "bold", fontSize: 20, color: "blue"}}>Frost Radar</Text>
+                            <Text style={{fontWeight: "bold", fontSize: 20, color:"white"}}>Frost Radar</Text>
                         </View>
                         <View style={styles.radar}>
                             {/* <svg
@@ -80,8 +81,10 @@ const FrostRadar = (props) => {
                                         identifying organistions that consistently develop new growth strategies based o
                                         a visionary understanding of the futures and
                                         a proven ability to effectively address emerging challenges and opportunities.
-                                    </Text>
-                                    <Text style={{marginTop: 20}}>
+										{"\n"}
+       									{"\n"}
+										{"\n"}
+									
                                         In that vein, the Frost Radar serves as a truly dynamic solution to continuously
                                         benchmark companies' future growth
                                         potential with clear insight into their core strengths and weaknesses.
@@ -95,174 +98,72 @@ const FrostRadar = (props) => {
                                     </Button>
                                 </View>
                                 :
-                                <View style={{padding: 20}}>
-                                    <View style={styles.text}>
-                                        <Text>Name</Text>
-                                        <Text style={{marginLeft: 60}}>Growth Index</Text>
-                                        <Text style={{marginLeft: 35}}>Innovation Index</Text>
-                                    </View>
-                                    <View>
-                                        <View style={styles.cardetails}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold"}}>Yamaha</Text>
-                                            <TextInput
-                                                style={{
-                                                    width: 100,
-                                                    height: 30,
-                                                    borderRadius: 10,
-                                                    borderWidth: 0.5,
-                                                    marginLeft: 10,
-                                                }}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                        </View>
-                                        <View style={styles.cardetails}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold"}}>Tata</Text>
-                                            <TextInput
-                                                style={{
-                                                    width: 100,
-                                                    height: 30,
-                                                    borderRadius: 10,
-                                                    borderWidth: 0.5,
-                                                    marginLeft: 32,
-                                                }}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                        </View>
-                                        <View style={styles.cardetails}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold"}}>Toyota</Text>
-                                            <TextInput
-                                                style={{
-                                                    width: 100,
-                                                    height: 30,
-                                                    borderRadius: 10,
-                                                    borderWidth: 0.5,
-                                                    marginLeft: 15
-                                                }}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                        </View>
-                                        <View style={styles.cardetails}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold"}}>Nissan</Text>
-                                            <TextInput
-                                                style={{
-                                                    width: 100,
-                                                    height: 30,
-                                                    borderRadius: 10,
-                                                    borderWidth: 0.5,
-                                                    marginLeft: 15
-                                                }}
-
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                        </View>
-                                        <View style={styles.cardetails}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold"}}>Mahindra</Text>
-                                            <TextInput
-                                                style={{
-                                                    width: 100,
-                                                    height: 30,
-                                                    borderRadius: 10,
-                                                    borderWidth: 0.5,
-                                                }}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                        </View>
-                                        <View style={styles.cardetails}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold"}}>Infiniti</Text>
-                                            <TextInput
-                                                style={{
-                                                    width: 100,
-                                                    height: 30,
-                                                    borderRadius: 10,
-                                                    borderWidth: 0.5,
-                                                    marginLeft: 20
-                                                }}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                        </View>
-                                        <View style={styles.cardetails}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold"}}>Tesla</Text>
-                                            <TextInput
-                                                style={{
-                                                    width: 100,
-                                                    height: 30,
-                                                    borderRadius: 10,
-                                                    borderWidth: 0.5,
-                                                    marginLeft: 30
-                                                }}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                        </View>
-                                        <View style={styles.cardetails}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold"}}>Ford</Text>
-                                            <TextInput
-                                                style={{
-                                                    width: 100,
-                                                    height: 30,
-                                                    borderRadius: 10,
-                                                    borderWidth: 0.5,
-                                                    marginLeft: 33
-                                                }}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder=""
-                                                keyboardType="text"
-                                            />
-                                        </View>
-                                        <Button style={styles.button} onPress={() => setShow(!show)}>
-                                            <Text style={{color: "white"}}>Show on Radar</Text>
-                                        </Button>
-                                    </View>
+								<View>
+                                <View style={{
+									width:"100%",
+									padding: 10,
+									display:'flex',
+									flexDirection:'row',
+									padding:20,
+									 }}>
+                                   <View style={styles.text}>
+									   <Text style={{fontSize:11}}>Name</Text>
+									   <Text style={styles.name}>Elon Musk</Text>
+									   <Text style={styles.name}>Steve Jobs</Text>
+									   <Text style={styles.name}>Jeff Bezos</Text>
+									   <Text style={styles.name}>Bill Gates</Text>
+									   <Text style={styles.name}>Member 1</Text>
+								   </View>
+								   <View style={{width:"30%", marginTop:15, marginRight:10, alignItems:'center'}}>
+										<Text style={{fontSize:11}}>Growth Index</Text>
+										<TextInput
+											style={styles.input}
+										/>
+										<TextInput
+											style={styles.input}
+										/>
+										<TextInput
+											style={styles.input}
+										/>
+										<TextInput
+											style={styles.input}
+										/>
+										<TextInput
+											style={styles.input}
+										/>
+								   </View>
+								   <View style={{width:"30%", marginTop:15, alignItems:"center"}}>
+									   <Text style={{fontSize:11}}>Innovation Index</Text>
+									   <TextInput
+											style={styles.input}
+										/>
+										<TextInput
+											style={styles.input}
+										/>
+										<TextInput
+											style={styles.input}
+										/>
+										<TextInput
+											style={styles.input}
+										/>
+										<TextInput
+											style={styles.input}
+										/>
+								   </View>
+									
+								  
                                 </View>
+								<Button
+                                        style={styles.button1}
+                                        onPress={() => setShow(!show)}
+                                    >
+                                        <Text style={{color: "white"}}>Show on Radar</Text>
+                                    </Button>
+								</View>
                             }
                         </View>
                     </View>
-                </ImageBackground>
+               
             </View>
         </ScrollView>
     )
@@ -273,46 +174,65 @@ export default FrostRadar;
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         width: "100%",
         height: '100%',
     },
     header: {
-        width: 150,
-        height: 50,
-        backgroundColor: "white",
+        width: 145,
+        height:40,
+        backgroundColor: "#4287C3",
         marginLeft: 120,
-        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
 
     },
+	arrow:{
+		marginTop:10,
+		marginLeft:10,
+	},
     radar: {
-
         height: 300,
         margin: 10
     },
     detail: {
-        backgroundColor: "white",
-        height: 500,
+        backgroundColor: "#E4F2F8",
+        height: 400,
         margin: 15,
         borderRadius: 20
     },
     paragraph: {
-        fontFamily: Typography.FONT_NORMAL,
-        fontSize: Typography.FONT_SIZE_MEDIUM
+        fontFamily: Typography.FONT_SF_REGULAR,
+        fontSize: 11,
+		color:"#77838F"
     },
     button: {
-        marginTop: 40,
+        marginTop: 20,
         backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
         height: 40,
         borderRadius: 10,
+		
+    },
+	button1: {
+        marginTop: 20,
+        backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
+        height: 40,
+        borderRadius: 10,
+		margin:20
     },
     text: {
-        display: 'flex',
-        flexDirection: 'row',
-        marginTop: 10,
+		width:"30%",
+		marginTop:15,
     },
+	name:{
+		marginTop:10,
+		fontSize:14,
+		fontWeight:'600',
+		height:30,
+		alignItems:'center',
+		fontFamily:Typography.FONT_SF_REGULAR,
+		color:'black'
+	},
     cardetails: {
         justifyContent: 'space-between',
         display: 'flex',
@@ -324,6 +244,8 @@ const styles = StyleSheet.create({
         height: 30,
         borderRadius: 10,
         borderWidth: 0.5,
+		marginTop:10,
 
     },
+	
 });

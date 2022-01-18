@@ -23,20 +23,18 @@ const HomeCommunity = props => {
     communityError,
     fetchAllCommunity,
     cleanCommunity,
-    pointOfEngagements,
-    pointOfEngagementLoading,
-    pointOfEngagementError,
-    fetchAllPointOfEngagement,
-    cleanPointOfEngagement,
     communityMemberContents,
     communityMemberContentLoading,
     communityMemberContentError,
     fetchAllCommunityMemberContent,
     cleanCommunityMemberContent,
+    pillarPOEs,
+    pillarPOELoading,
+    pillarPOEError,
+    fetchAllPillarPOE,
+    cleanPillarPOE,
+    pillarId,
   } = props;
-
-  console.log('Communities :::::::::::::::::', communities);
-  console.log('Members :::::::::::::::::', communityMemberContents);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -81,12 +79,17 @@ const HomeCommunity = props => {
   const _renderMiddleItem = ({item, index}) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('CommunityDetail', {id: item.ID})}>
+        onPress={() =>
+          navigation.navigate('CommunityDetail', {id: item?.term_id})
+        }>
         <View style={styles.middleWrapper}>
           <View style={styles.middleW}>
-            <Font name={item.icon} size={30} color="skyblue" />
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10}}>{item.text}</Text>
+          <Text style={{marginTop: 10, fontSize: 10}}>{item?.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -174,6 +177,16 @@ const HomeCommunity = props => {
     fetchAllCommunityMemberContentAsync();
   }, []);
 
+  useEffect(() => {
+    const fetchAllPillarPOEAsync = async () => {
+      await fetchAllPillarPOE(pillarId);
+    };
+    fetchAllPillarPOEAsync();
+  }, []);
+
+  console.log('Community ============', pillarPOEs);
+  console.log('Params ==== ', pillarId);
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -204,7 +217,7 @@ const HomeCommunity = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={data1}
+              data={pillarPOEs}
               renderItem={_renderMiddleItem}
             />
           </View>
@@ -335,6 +348,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+    marginBottom: 10,
     backgroundColor: 'white',
     overflow: 'hidden',
     // borderWidth:0.2,
