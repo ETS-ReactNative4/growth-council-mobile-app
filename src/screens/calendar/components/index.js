@@ -102,7 +102,7 @@ const EventCalendar = (props) => {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <View style={styles.yearTab}>
+                {/* <View style={styles.yearTab}>
                     {years.map((year, i) => {
                         return (
                             <>
@@ -112,8 +112,8 @@ const EventCalendar = (props) => {
                             </>
                         )
                     })}
-                </View>
-				<ScrollView horizontal={true} >
+                </View> */}
+				{/* <ScrollView horizontal={true} >
                 
                     <Picker
                         selectedValue={region}
@@ -158,7 +158,7 @@ const EventCalendar = (props) => {
                         <Picker.Item label="Growth Coaching" value="Growth Coaching" style={{fontSize: 10}}/>
                     </Picker>
                
-					</ScrollView>
+					</ScrollView> */}
 
                 <View style={styles.calendar}>
                     <Calendar
@@ -222,7 +222,9 @@ const styles = StyleSheet.create({
     wrapper: {
         top: '20%',
     },
-    calendar: {},
+    calendar: {
+		marginTop:20,
+	},
     events: {
         padding: 20,
     },
