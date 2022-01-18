@@ -238,7 +238,6 @@ const Dashboard = props => {
         <View style={styles.eventWrapper}>
           <Text style={styles.title}>Upcoming Events</Text>
           <TouchableOpacity onPress={() => navigation.navigate('UpcomingView')}>
-            <Text style={styles.viewAll}>View all</Text>
           </TouchableOpacity>
         </View>
 

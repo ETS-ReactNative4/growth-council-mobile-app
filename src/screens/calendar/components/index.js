@@ -120,7 +120,7 @@ const EventCalendar = (props) => {
                         style={{height: 50, width: 110,}}
                         onValueChange={(itemValue, itemIndex) => setRegion(itemValue)}
                     >
-                        <Picker.Item label="Region" value="region" style={{fontSize: 12}}/>
+                        <Picker.Item label="Region" value="region" style={{fontSize: 14}}/>
                         <Picker.Item label="Kathmandu" value="kathmandu" style={{fontSize: 10}}/>
                         <Picker.Item label="Bhaktapur" value="bhaktapur" style={{fontSize: 10}}/>
                     </Picker>
