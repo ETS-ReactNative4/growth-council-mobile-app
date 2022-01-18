@@ -55,7 +55,6 @@ const People = (props) => {
         }
     };
 
-    console.log("connection::::::::", connection);
     const _renderItem = ({item, index}) => {
 
         return (

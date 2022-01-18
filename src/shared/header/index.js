@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {getAsyncStorage} from '../../utils/storageUtil';
 import {USER_NAME} from '../../constants';
+import {Typography} from '../../theme';
 
 const HeaderTitle = () => {
   const [username, setUsername] = useState(null);
@@ -16,18 +17,18 @@ const HeaderTitle = () => {
   }, []);
 
   return (
-    <View style={{marginLeft: 40}}>
+    <View style={{marginLeft: 40, marginTop: 10}}>
       <Text
         style={{
           color: '#000',
-          fontSize: 12,
-          fontWeight: 'medium',
+          fontSize: 10,
+          fontFamily: Typography.FONT_SF_MEDIUM,
         }}>
         Hello
       </Text>
       <Text
         style={{
-          fontWeight: '700',
+          fontFamily: Typography.FONT_SF_MEDIUM,
           color: '#000',
           fontSize: 18,
           fontWeight: 'medium',
