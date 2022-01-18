@@ -102,7 +102,7 @@ const EventCalendar = (props) => {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <View style={styles.yearTab}>
+                {/* <View style={styles.yearTab}>
                     {years.map((year, i) => {
                         return (
                             <>
@@ -112,15 +112,16 @@ const EventCalendar = (props) => {
                             </>
                         )
                     })}
-                </View>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
+                </View> */}
+				{/* <ScrollView horizontal={true} >
+                
                     <Picker
                         selectedValue={region}
-                        mode={'dropdown'}
-                        style={{height: 50, width: 110,}}
+						mode={'dropdown'}
+                        style={{height: 50, width: 130, borderRightWidth:0.2}}
                         onValueChange={(itemValue, itemIndex) => setRegion(itemValue)}
                     >
-                        <Picker.Item label="Region" value="region" style={{fontSize: 12}}/>
+                        <Picker.Item label="Region" value="region" style={{fontSize: 10}}/>
                         <Picker.Item label="Kathmandu" value="kathmandu" style={{fontSize: 10}}/>
                         <Picker.Item label="Bhaktapur" value="bhaktapur" style={{fontSize: 10}}/>
                     </Picker>
@@ -128,7 +129,7 @@ const EventCalendar = (props) => {
                     <Picker
                         selectedValue={timezone}
                         mode={'dropdown'}
-                        style={{height: 50, width: 100}}
+                        style={{height: 50, width: 130}}
                         onValueChange={(itemValue, itemIndex) => setTimezone(itemValue)}
                     >
                         <Picker.Item label="Timezone" value="timezone" style={{fontSize: 10}}/>
@@ -138,7 +139,7 @@ const EventCalendar = (props) => {
                     <Picker
                         selectedValue={industry}
                         mode={'dropdown'}
-                        style={{height: 50, width: 110}}
+                        style={{height: 50, width: 130}}
                         onValueChange={(itemValue, itemIndex) => setIndustry(itemValue)}
                     >
                         <Picker.Item label="Industry" value="industry" style={{fontSize: 10}}/>
@@ -148,7 +149,7 @@ const EventCalendar = (props) => {
                     <Picker
                         selectedValue={pillar}
                         mode={'dropdown'}
-                        style={{height: 50, width: 110}}
+                        style={{height: 50, width: 130}}
                         onValueChange={(itemValue, itemIndex) => setPillar(itemValue)}
                     >
                         <Picker.Item label="Pillar" value="pillar" style={{fontSize: 10}}/>
@@ -156,8 +157,8 @@ const EventCalendar = (props) => {
                         <Picker.Item label="Best Practice" value="Best Practice" style={{fontSize: 10}}/>
                         <Picker.Item label="Growth Coaching" value="Growth Coaching" style={{fontSize: 10}}/>
                     </Picker>
-                </View>
-
+               
+					</ScrollView> */}
 
                 <View style={styles.calendar}>
                     <Calendar
@@ -221,7 +222,9 @@ const styles = StyleSheet.create({
     wrapper: {
         top: '20%',
     },
-    calendar: {},
+    calendar: {
+		marginTop:20,
+	},
     events: {
         padding: 20,
     },
