@@ -20,12 +20,14 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
+import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
 import ManageAccountScreen from '../screens/account/ManageAccount';
-import PrivacyPolicyScreen from '../screens/static/PrivacyPolicy';
+import OtherAccountScreen from '../screens/account/OthersAccount';
+import PrivacyScreen from '../screens/privacy';
 import TermsConditionsScreen from '../screens/static/TermsConditions';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
@@ -182,6 +184,14 @@ const MainNavigation = () => {
             // ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
+        <Stack.Screen
+          name="OthersAccount"
+          component={OtherAccountScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            headerTitle: 'Account Info',
+          })}
+        />
 
         <Stack.Screen
           name="Dashboard"
@@ -208,7 +218,7 @@ const MainNavigation = () => {
             headerTitle: 'Contact Us',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="UpcomingView"
           component={UpcomingScreen}
           options={{
@@ -223,6 +233,14 @@ const MainNavigation = () => {
             headerTitle: 'Event Detail',
           })}
         />
+		<Stack.Screen
+          name="SessionDetail"
+          component={SessionDetailScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            headerTitle: 'Session Detail',
+          })}
+        />
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
@@ -231,25 +249,32 @@ const MainNavigation = () => {
             headerTitle: 'Session Detail',
           })}
         />
-          <Stack.Screen
-              name="Chat"
-              component={ChatScreen}
-              options={({route}) => ({
-                  userID: route?.params?.userID,
-                  friendID: route?.params?.friendID,
-                  friendName: route?.params?.friendName,
-                  //headerTitle: route?.params?.friendName,
-                  headerTitle: 'Chat',
-              })}
-          />
+        <Stack.Screen
+          name="Chat"
+          component={ChatScreen}
+          options={({route}) => ({
+            userID: route?.params?.userID,
+            friendID: route?.params?.friendID,
+            friendName: route?.params?.friendName,
+            //headerTitle: route?.params?.friendName,
+            headerTitle: 'Chat',
+          })}
+        />
+        <Stack.Screen
+          name="Privacy"
+          component={PrivacyScreen}
+          options={{
+            headerTitle: 'Privacy Policy',
+          }}
+        />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'modal'}}>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="PrivacyPolicy"
           component={PrivacyPolicyScreen}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
           name="Terms"
           component={TermsConditionsScreen}

@@ -14,8 +14,8 @@ export const signUpCustomer = createAsyncThunk(
 export const forgotCustomerPassword = createAsyncThunk(
     'customer/forgot',
     (formData, {rejectWithValue}) => {
-        return store(`jwt-auth/v1/users/forgot-password`, formData)
-            .then(response => response.data.body_response)
+        return store(`jwt-auth/v1/reset-password`, formData)
+            .then(response => response.data)
             .catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
@@ -43,7 +43,7 @@ const authSlice = createSlice({
         [signUpCustomer.rejected]: (state, action) => {
             state.loading = false;
             if (action.payload) {
-                state.error = action.payload.error.message;
+                state.error = action.payload.response || action.payload.error.message;
             } else {
                 state.error = action.error;
             }
@@ -59,7 +59,7 @@ const authSlice = createSlice({
         [forgotCustomerPassword.rejected]: (state, action) => {
             state.loading = false;
             if (action.payload) {
-                state.error = action.payload.error.message;
+                state.error = action.payload.response || action.payload.error.message;
             } else {
                 state.error = action.error;
             }

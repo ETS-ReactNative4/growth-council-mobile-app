@@ -81,8 +81,9 @@ const SignUpForm = props => {
                     await registerCustomer(values).then(response => {
                         console.log("response:::::::::::::::", response);
                         if (response?.payload?.status === 200) {
-                            navigation.navigate('SignUpNext');
-                            ToastMessage.show('You have successfully registered.');
+                            // navigation.navigate('SignUpNext');
+                            navigation.navigate('SignIn');
+                            ToastMessage.show('You have successfully registered. Please wait for admin approval.');
                         } else {
                             ToastMessage.show(response?.payload?.response);
                         }
@@ -326,8 +327,10 @@ const SignUpForm = props => {
 
                 <View style={styles.content}>
                     <View style={styles.header}>
-                        <Text style={styles.headingText1}>Let's Create </Text>
-                        <Text style={styles.headingText1}>Your Account!</Text>
+                        <Text style={styles.headingText1}>
+						Let's Create 
+						{"\n"}		
+                        Your Account!</Text>
                     </View>
 
                     {loading && (
@@ -445,14 +448,17 @@ const SignUpForm = props => {
                                     );
                                 })}
                             </Picker>
-
-                            <CheckBox
+							
+							<View style={{marginLeft:10, paddingRight:20}}>
+							<CheckBox
                                 label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
                                 status={checked ? 'checked' : 'unchecked'}
                                 onPress={() => {
                                     setChecked(!checked);
                                 }}
                             />
+							</View>
+                            
                         </View>
 
                         <View style={styles.loginButtonWrapper}>
@@ -488,7 +494,7 @@ const styles = StyleSheet.create({
         ...CommonStyles.container,
     },
     header: {
-        height: 50,
+        height: 70,
         marginTop: Platform.OS === 'ios' ? 60 : 50,
         marginBottom: 30,
     },
@@ -519,8 +525,9 @@ const styles = StyleSheet.create({
     },
     headingText1: {
         ...CommonStyles.headingText1,
-        fontFamily: Typography.FONT_NORMAL,
+        fontFamily: Typography.FONT_SF_SEMIBOLD,
         color: Colors.NONARY_TEXT_COLOR,
+		fontSize:24
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -549,6 +556,7 @@ const styles = StyleSheet.create({
         ...CommonStyles.linkWrapper,
         marginTop: 10,
         alignItems: 'center',
+		marginBottom:30,
     },
     signUpButtonText: {
         color: Colors.SENDENARY_TEXT_COLOR,
