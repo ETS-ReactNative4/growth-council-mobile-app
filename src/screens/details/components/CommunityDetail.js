@@ -67,25 +67,29 @@ const CommunityDetail = props => {
   const _renderItem = ({item, index}) => {
     return (
 		<View style={[styles.bottomWrapper, styles.shadowProp]}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: 83,
-				height: 83,
-				borderRadius:10,
-			}}/>
-		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10, fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
-			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-		</View>
-		
-		<View
-		  style={styles.chatIcon}>
-		  <Ionicons
-			name={'chatbox'}
-			size={10}
-			color="#B1AFAF"
-		  />
-		</View>
+			<TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+			  	<Image source={{uri:item.avatar}}
+					style={{
+						width: 83,
+						height: 83,
+						borderRadius:10,
+					}}/>
+				<View style={{padding:10, paddingBottom:20}}>
+					<Text style={{fontSize: 10, fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
+					<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+				</View>
+				
+				<View
+				style={styles.chatIcon}>
+				<Ionicons
+					name={'chatbox'}
+					size={10}
+					color="#B1AFAF"
+				/>
+				</View>
+		  </TouchableOpacity>
+	
 	  </View>
     );
   };
@@ -98,37 +102,41 @@ const CommunityDetail = props => {
     console.log(date[1]);
     return (
       <View style={styles.topWrapper}>
-        <ImageBackground
-          style={{
-			width: '100%',
-			height: "100%",
-			borderRadius: 20,
-          }}
-          source={require('../../../assets/img/blank_event_design.png')}>
-          <View
-            style={{
-				width: 40,
-                height: 50,
-                marginTop: 10,
-                marginLeft: 200,
-                backgroundColor: '#EBECF0',
-                borderRadius: 10,
-                padding: 5,
-                alignItems: 'center',
-            }}>
-            <Text>{date[1]}</Text>
-            <Text>{date[0]}</Text>
-          </View>
+		  <TouchableOpacity
+          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+			<ImageBackground
+			style={{
+				width: '100%',
+				height: "100%",
+				borderRadius: 20,
+			}}
+			source={require('../../../assets/img/blank_event_design.png')}>
+			<View
+				style={{
+					width: 40,
+					height: 50,
+					marginTop: 10,
+					marginLeft: 200,
+					backgroundColor: '#EBECF0',
+					borderRadius: 10,
+					padding: 5,
+					alignItems: 'center',
+				}}>
+				<Text>{date[1]}</Text>
+				<Text>{date[0]}</Text>
+			</View>
 
-          <View style={styles.header}>
-            <Text style={styles.headingText1}>{item.title}</Text>
-            <Text style={styles.headingText2}>
-              Hosted by {item?.organizer?.term_name}
-              {'  '}
-              {item?.organizer?.description}
-            </Text>
-          </View>
-        </ImageBackground>
+			<View style={styles.header}>
+				<Text style={styles.headingText1}>{item.title}</Text>
+				<Text style={styles.headingText2}>
+				Hosted by {item?.organizer?.term_name}
+				{'  '}
+				{item?.organizer?.description}
+				</Text>
+			</View>
+			</ImageBackground>
+		</TouchableOpacity>
+        
       </View>
     );
   };
@@ -174,11 +182,11 @@ const CommunityDetail = props => {
 
           <View style={styles.icon}>
             <Image
-              source={require('../../../assets/img/Path203.png')}
+              source={require('../../../assets/img/icon.png')}
               style={{
-                width: 35,
+                width: 60,
                 height: 35,
-                marginLeft: 25,
+                marginLeft: 15,
               }}
             />
           </View>
@@ -311,7 +319,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
     lineHeight: 24,
-    margin: 10,
+    padding: 15,
     textAlign: 'left',
 	color:'#77838F'
   },
@@ -329,7 +337,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     height: 172,
-	marginTop:25,
+	marginTop:15,
   },
   bottomWrapper: {
 	width:84,
@@ -337,6 +345,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
 	marginTop:15,
 	marginLeft: 15,
+	marginBottom:10,
     backgroundColor: 'white',
     overflow:"hidden",
 	// borderWidth:0.2,
