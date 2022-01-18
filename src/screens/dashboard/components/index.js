@@ -153,11 +153,9 @@ const Dashboard = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}{' '}
+                Hosted by {item?.organizer?.term_name}{item?.organizer?.description}
               </Text>
-              <Text style={styles.headingText2}>
-                {item?.organizer?.description}
-              </Text>
+              
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -236,10 +234,7 @@ const Dashboard = props => {
       <View style={styles.top}>
         <View style={styles.eventWrapper}>
           <Text style={styles.title}>Upcoming Events</Text>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('UpcomingView')
-            }></TouchableOpacity>
+          
         </View>
 
         {upcomingEventLoading && (
