@@ -100,12 +100,11 @@ const Event = props => {
 
           <View>
             <View style={[styles.content, {height: 'auto'}]}>
-              <View style={{height: 150, flexDirection: 'column'}}>
+              <View style={{flexDirection: 'column'}}>
                 <View
                   style={{
                     flex: 1,
                     paddingTop: 5,
-                    paddingBottom: 5,
                     flexDirection: 'row',
                   }}>
                   <View
@@ -142,9 +141,6 @@ const Event = props => {
                     <View
                       style={{
                         flex: 1,
-                        height: 60,
-                        width: 30,
-                        borderRadius: 15,
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}>
@@ -164,9 +160,6 @@ const Event = props => {
                     <View
                       style={{
                         flex: 1,
-                        height: 60,
-                        width: 30,
-                        borderRadius: 15,
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}>

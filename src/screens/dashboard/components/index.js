@@ -105,7 +105,9 @@ const Dashboard = props => {
               style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10,marginLeft:5}}>{item?.name}</Text>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+            {item?.name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -242,11 +244,11 @@ const Dashboard = props => {
           </TouchableOpacity>
         </View>
 
-		{upcomingEventLoading &&
-            <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
-            </View>
-        }
+        {upcomingEventLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
 
         <View
           style={{
@@ -264,7 +266,9 @@ const Dashboard = props => {
       </View>
 
       <View style={styles.middle}>
-        <Text style={[styles.title,{marginLeft:15}]}>Points of Engagement</Text>
+        <Text style={[styles.title, {marginLeft: 15}]}>
+          Points of Engagement
+        </Text>
         <View
           style={{
             display: 'flex',
@@ -414,7 +418,7 @@ const styles = StyleSheet.create({
   middle: {
     width: 400,
     marginTop: 10,
-	marginLeft:5
+    marginLeft: 5,
   },
   middleWrapper: {
     width: 80,
@@ -448,7 +452,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
-	marginBottom:10,
+    marginBottom: 10,
     backgroundColor: 'white',
     overflow: 'hidden',
   },
@@ -489,12 +493,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loading1: {
-	marginLeft: 150,
-	flex: 1,
-	flexDirection: 'column',
-	position: 'absolute',
-	zIndex: 1011,
-}
+    marginLeft: 150,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
+  },
 });
 
 export default Dashboard;
