@@ -211,7 +211,8 @@ const HomeCommunity = props => {
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             data={communities}
-                            renderItem={_renderTopItem}
+							renderItem={item => _renderTopItem(item, navigation)}
+
                         />
                     </View>
                 </View>

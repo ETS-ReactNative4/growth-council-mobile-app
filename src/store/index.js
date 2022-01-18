@@ -97,7 +97,7 @@ const reducers = combineReducers({
   memberConnections: memberConnectionReducer,
   eventRegisters: eventRegisterReducer,
   sessions: sessionReducer,
-  sessionRegister: sessionRegisterReducer,
+  sessionRegisters: sessionRegisterReducer,
 
   calendarEvents: calendarEventReducer,
 });

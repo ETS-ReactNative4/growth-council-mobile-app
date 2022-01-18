@@ -46,58 +46,56 @@ const Profile = (props) => {
 
     const _renderItems = ({item, index}) => {
         return (
-            <View>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                    <View style={styles.middleWrapper} key={index}>
-                        <View style={styles.wrapper}>
+			<View>
+				<TouchableOpacity
+							onPress={() => navigation.navigate('SessionDetail', {id: item.ID})}>
+				<View style={styles.middleWrapper} key={index}>
+					<View style={styles.wrapper}>
+						
+							<Text style={styles.text}>{item.title}</Text>
+						
+						<Text style={{fontSize: 6, fontFamily:Typography.FONT_SF_REGULAR,}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+						<View style={styles.iconWrapper}>
+							<Ionicon
+								name={'person'}
+								size={15}
+								color="#0B0B45"
 
-                            <Text style={styles.text}>{item.title}</Text>
+							/>
+							<Text style={styles.text}></Text>
+							<Ionicon
+								name={'calendar'}
+								size={15}
+								color="#0B0B45"
+								style={{marginLeft: 20}}
 
-                            <Text style={{fontSize: 6, fontFamily: Typography.FONT_SF_REGULAR,}}>Hosted
-                                by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
-                            <View style={styles.iconWrapper}>
-                                <Ionicon
-                                    name={'person'}
-                                    size={15}
-                                    color="#0B0B45"
-
-                                />
-                                <Text style={styles.text}/>
-                                <Ionicon
-                                    name={'calendar'}
-                                    size={15}
-                                    color="#0B0B45"
-                                    style={{marginLeft: 20}}
-
-                                /><Text style={styles.text}>{item.text3}</Text>
-                            </View>
-                            <View style={styles.iconWrapper}>
-                                <Ionicon
-                                    name={'time'}
-                                    size={15}
-                                    color="#0B0B45"
-
-
-                                /><Text
-                                style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
-                                <Ionicon
-                                    name={'location'}
-                                    size={15}
-                                    color="#0B0B45"
-                                    style={{marginLeft: 20}}
-
-                                />
-                                <Text style={styles.text}>{item.location?.location_address}</Text>
-                            </View>
+							/><Text style={styles.text}>{item.text3}</Text>
+						</View>
+						<View style={styles.iconWrapper}>
+							<Ionicon
+								name={'time'}
+								size={15}
+								color="#0B0B45"
 
 
-                        </View>
-                        <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15,}}>
-                            <Text style={{fontSize: 12, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
-                    </View>
-                </TouchableOpacity>
-            </View>
+							/><Text style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
+							<Ionicon
+								name={'location'}
+								size={15}
+								color="#0B0B45"
+								style={{marginLeft: 20}}
+
+							/>
+							<Text style={styles.text}>{item.location?.location_address}</Text>
+						</View>
+
+
+					</View>
+					<Button style={{height: 30, top: 40, backgroundColor:'#183863', borderRadius: 15, }}>
+						<Text style={{fontSize:12, color:PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
+				</View>
+				</TouchableOpacity>
+			</View>
 
         );
     };

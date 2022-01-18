@@ -58,6 +58,46 @@ const BestPractice = props => {
         fetchAllbestPracticeMemberContentAsync();
     }, []);
 
+  const _renderTopItem = ({item, index}, navigation) => {
+    const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const date = actualDate[0].split(' ', 3);
+    console.log(date[1]);
+    return (
+		<View key={index} style={styles.topWrapper}>
+		<TouchableOpacity
+		onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+		<ImageBackground
+			style={{width: '100%', height: "100%", borderRadius: 20}}
+			source={require('../../../assets/img/Rectangle1.png')}>
+			<View
+			style={{
+				width: 40,
+				height: 50,
+				marginTop: 10,
+				marginLeft: 200,
+				backgroundColor: '#EBECF0',
+				borderRadius: 10,
+				padding: 5,
+				alignItems: 'center',
+			}}>
+			<Text>{date[1]}</Text>
+			<Text>{date[0]}</Text>
+			</View>
+
+			<View style={styles.header}>
+			<Text style={styles.headingText1}>{item.title}</Text>
+			<Text style={styles.headingText2}>
+				Hosted by {item?.organizer?.term_name}{' '}
+			</Text>
+			<Text style={styles.headingText2}>
+				{item?.organizer?.description}
+			</Text>
+			</View>
+		</ImageBackground>
+		</TouchableOpacity>
+		</View>
+    );
+  };
     const _renderItem = ({item, index}, navigation) => {
         return (
             <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -112,54 +152,54 @@ const BestPractice = props => {
         );
     };
 
-    const _renderTopItem = ({item, index}, navigation) => {
-        console.log("navigation::::::::::", navigation);
-        const actualDate = moment(item.event_start).format('ll').split(',', 3);
-        const date = actualDate[0].split(' ', 3);
+    // const _renderTopItem = ({item, index}, navigation) => {
+    //     console.log("navigation::::::::::", navigation);
+    //     const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    //     const date = actualDate[0].split(' ', 3);
 
-        return (
-            <View style={styles.topWrapper} key={index}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                    <ImageBackground
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            borderRadius: 20,
-                        }}
-                        source={require('../../../assets/img/Rectangle1.png')}>
-                        <View
-                            style={{
-                                width: 40,
-                                height: 50,
-                                marginTop: 10,
-                                marginLeft: 200,
-                                backgroundColor: '#B0E0E6',
-                                borderRadius: 14,
-                                padding: 5,
-                                alignItems: 'center',
-                            }}>
-                            <Text
-                                style={{fontSize: 12, fontFamily: Typography.FONT_SF_REGULAR}}>
-                                {date[1]}
-                            </Text>
-                            <Text
-                                style={{fontSize: 12, fontFamily: Typography.FONT_SF_REGULAR}}>
-                                {date[0]}
-                            </Text>
-                        </View>
+    //     return (
+    //         <View style={styles.topWrapper} key={index}>
+    //             <TouchableOpacity
+    //                 onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+    //                 <ImageBackground
+    //                     style={{
+    //                         width: '100%',
+    //                         height: '100%',
+    //                         borderRadius: 20,
+    //                     }}
+    //                     source={require('../../../assets/img/Rectangle1.png')}>
+    //                     <View
+    //                         style={{
+    //                             width: 40,
+    //                             height: 50,
+    //                             marginTop: 10,
+    //                             marginLeft: 200,
+    //                             backgroundColor: '#B0E0E6',
+    //                             borderRadius: 14,
+    //                             padding: 5,
+    //                             alignItems: 'center',
+    //                         }}>
+    //                         <Text
+    //                             style={{fontSize: 12, fontFamily: Typography.FONT_SF_REGULAR}}>
+    //                             {date[1]}
+    //                         </Text>
+    //                         <Text
+    //                             style={{fontSize: 12, fontFamily: Typography.FONT_SF_REGULAR}}>
+    //                             {date[0]}
+    //                         </Text>
+    //                     </View>
 
-                        <View style={styles.header}>
-                            <Text style={styles.headingText1}>{item.title}</Text>
-                            <Text style={styles.headingText2}>
-                                Hosted by {item?.organizer?.term_name}
-                            </Text>
-                        </View>
-                    </ImageBackground>
-                </TouchableOpacity>
-            </View>
-        );
-    };
+    //                     <View style={styles.header}>
+    //                         <Text style={styles.headingText1}>{item.title}</Text>
+    //                         <Text style={styles.headingText2}>
+    //                             Hosted by {item?.organizer?.term_name}
+    //                         </Text>
+    //                     </View>
+    //                 </ImageBackground>
+    //             </TouchableOpacity>
+    //         </View>
+    //     );
+    // };
 
     const _renderContentItem = ({item, index}) => {
         return (
