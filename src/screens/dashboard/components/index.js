@@ -257,7 +257,7 @@ const Dashboard = props => {
       </View>
 
       <View style={styles.middle}>
-        <Text style={styles.title}>Points of Engagement</Text>
+        <Text style={[styles.title,{marginLeft:15}]}>Points of Engagement</Text>
         <View
           style={{
             display: 'flex',
@@ -407,12 +407,13 @@ const styles = StyleSheet.create({
   middle: {
     width: 400,
     marginTop: 10,
+	marginLeft:5
   },
   middleWrapper: {
     width: 90,
     borderRadius: 20,
     marginTop: 15,
-    marginLeft: 15,
+    marginLeft: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },

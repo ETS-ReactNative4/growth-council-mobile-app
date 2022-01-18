@@ -26,6 +26,7 @@ const scale = value => (
     />
 );
 const FrostRadar = (props) => {
+	const{navigation}=props
     const [show, setShow] = useState(true);
     // const groups = [];
     // const scales = [];
@@ -43,14 +44,14 @@ const FrostRadar = (props) => {
                         <Ionicons
                             name={'arrow-back'}
                             size={50}
-                            color='white'
-                            onPress={() => navigation.navigate('Journey')}
+                            color='#4287C3'
+                            onPress={() => navigation.goBack()}
                         />
                     </View>
 
                     <View style={{height: '100%'}}>
                         <View style={styles.header}>
-                            <Text style={{fontWeight: "bold", fontSize: 20, color: "blue"}}>Frost Radar</Text>
+                            <Text style={{fontWeight: "bold", fontSize: 20, color:"white"}}>Frost Radar</Text>
                         </View>
                         <View style={styles.radar}>
                             {/* <svg
@@ -80,6 +81,9 @@ const FrostRadar = (props) => {
                                         identifying organistions that consistently develop new growth strategies based o
                                         a visionary understanding of the futures and
                                         a proven ability to effectively address emerging challenges and opportunities.
+										{"\n"}
+       									{"\n"}
+										{"\n"}
 									
                                         In that vein, the Frost Radar serves as a truly dynamic solution to continuously
                                         benchmark companies' future growth
@@ -170,16 +174,15 @@ export default FrostRadar;
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         width: "100%",
         height: '100%',
     },
     header: {
-        width: 150,
-        height: 50,
-        backgroundColor: "white",
+        width: 145,
+        height:40,
+        backgroundColor: "#4287C3",
         marginLeft: 120,
-        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
 
@@ -193,14 +196,15 @@ const styles = StyleSheet.create({
         margin: 10
     },
     detail: {
-        backgroundColor: "white",
+        backgroundColor: "#E4F2F8",
         height: 400,
         margin: 15,
         borderRadius: 20
     },
     paragraph: {
         fontFamily: Typography.FONT_SF_REGULAR,
-        fontSize: 11
+        fontSize: 11,
+		color:"#77838F"
     },
     button: {
         marginTop: 20,
@@ -225,7 +229,9 @@ const styles = StyleSheet.create({
 		fontSize:14,
 		fontWeight:'600',
 		height:30,
-		alignItems:'center'
+		alignItems:'center',
+		fontFamily:Typography.FONT_SF_REGULAR,
+		color:'black'
 	},
     cardetails: {
         justifyContent: 'space-between',
