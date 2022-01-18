@@ -214,7 +214,7 @@ const GrowthCoaching = props => {
           <View
             style={{
               display: 'flex',
-              flexDirection: 'row',
+              flexDirection: 'row', 
             }}>
             <FlatList
               horizontal
@@ -315,12 +315,12 @@ const styles = StyleSheet.create({
   middle: {
     width: 400,
     marginTop: 10,
+
   },
   middleWrapper: {
-    width: 90,
+    width: 80,
     borderRadius: 20,
     marginTop: 15,
-    marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -348,6 +348,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
+	marginBottom:10,
     marginLeft: 15,
     backgroundColor: 'white',
     overflow: 'hidden',

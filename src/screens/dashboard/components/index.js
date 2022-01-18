@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
 import YouTube, {
   YouTubeStandaloneIOS,
@@ -104,7 +105,7 @@ const Dashboard = props => {
               style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10}}>{item?.name}</Text>
+          <Text style={{marginTop: 10, fontSize: 10,marginLeft:5}}>{item?.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -240,6 +241,12 @@ const Dashboard = props => {
             <Text style={styles.viewAll}>View all</Text>
           </TouchableOpacity>
         </View>
+
+		{upcomingEventLoading &&
+            <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+            </View>
+        }
 
         <View
           style={{
@@ -410,10 +417,9 @@ const styles = StyleSheet.create({
 	marginLeft:5
   },
   middleWrapper: {
-    width: 90,
+    width: 80,
     borderRadius: 20,
     marginTop: 15,
-    marginLeft: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -442,6 +448,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+	marginBottom:10,
     backgroundColor: 'white',
     overflow: 'hidden',
   },
@@ -481,6 +488,13 @@ const styles = StyleSheet.create({
 
     elevation: 5,
   },
+  loading1: {
+	marginLeft: 150,
+	flex: 1,
+	flexDirection: 'column',
+	position: 'absolute',
+	zIndex: 1011,
+}
 });
 
 export default Dashboard;
