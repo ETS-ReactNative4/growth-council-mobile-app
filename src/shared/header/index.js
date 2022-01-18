@@ -29,7 +29,7 @@ const HeaderTitle = () => {
         style={{
           fontWeight: '700',
           color: '#000',
-          fontSize: 20,
+          fontSize: 18,
           fontWeight: 'medium',
         }}>
         {username}
