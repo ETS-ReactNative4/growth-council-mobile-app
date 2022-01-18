@@ -12,6 +12,7 @@ import {
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HTMLView from 'react-native-htmlview';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import LoadMore from './LoadMore';
@@ -107,7 +108,12 @@ const CouncilDetail = props => {
           backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
         />
 
-        <View style={{marginLeft: 30, marginRight: 30}}>
+        <View style={{marginLeft: 20, marginRight: 20}}>
+		{pillarLoading &&
+                                <View style={styles.loading1}>
+                                    <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
+                                </View>
+                                }
           <Text style={styles.headingTitle}>{pillars?.name}</Text>
           <HTMLView value={pillars?.description} style={styles.paragraph} />
         </View>
@@ -167,5 +173,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'medium',
   },
+  loading1: {
+	marginLeft: 100,
+	flex: 1,
+	flexDirection: 'column',
+	position: 'absolute',
+	zIndex: 1011,
+}
 });
 export default CouncilDetail;
