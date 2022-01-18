@@ -95,7 +95,7 @@ const reducers = combineReducers({
   memberConnection:memberConnectionReducer,
   eventRegisters:eventRegisterReducer,
   sessions:sessionReducer,
-  sessionRegister:sessionRegisterReducer,
+  sessionRegisters:sessionRegisterReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
