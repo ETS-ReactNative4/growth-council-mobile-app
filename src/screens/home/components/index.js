@@ -141,7 +141,7 @@ const Home = props => {
           dotColor={'#1580B7'}
         />
 		  </View>
-            
+
 		):(
 			<View style={styles.loading1}>
                 <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
@@ -222,12 +222,11 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'space-around',
-	
+
     marginBottom: 20,
   },
   signupbutton: {
     ...CommonStyles.button,
-    height: 56,
     width: 336,
     marginBottom: 20,
     borderRadius: 25,
