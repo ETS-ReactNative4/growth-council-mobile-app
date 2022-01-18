@@ -218,8 +218,6 @@ const Dashboard = props => {
     fetchAllPOEAsync();
   }, []);
 
-  //console.log('All POEs ======= ', poes);
-
   console.log('upcomingevents', upcomingEvents);
 
   return (
