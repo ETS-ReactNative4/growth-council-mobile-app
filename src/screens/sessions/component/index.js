@@ -23,14 +23,44 @@ const Session = props => {
     const {
         navigation,
         route,
+		sessions,
+		sessionLoading,
+		sessionError,
+		fetchSessionByIdentifier,
+		cleanSession,
+		sessionRegisters,
+		sessionRegisterLoading,
+		sessionRegisterError,
+		registerSessionByIdentifier,
+        cleanSessionRegister
        
     } = props;
+
+	useEffect(() => {
+        const fetchSessionDetailAsync = async () => {
+            await fetchSessionByIdentifier(route.params.id);
+        };
+        fetchSessionDetailAsync();
+    }, []);
+
+	const registerSessionBySessionID = async (sessionID) => {
+        const response = await registerSessionByIdentifier({session_id: sessionID});
+        if (response?.payload?.status === 200) {
+            ToastMessage.show('You have successfully registered this event.');
+        } else {
+            ToastMessage.show(response?.payload?.response);
+        }
+    };
+
+	const isSessionLoaded = Object.keys(sessions).length === 0;
+    const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
+    const date = actualDate[1].split(' ', 3);
 
     return (
         <ScrollView style={styles.scrollBox}>
             <View style={styles.container}>
                 <ImageBackground
-                    source={require('../../../assets/img/blank_event_design.png')}
+                    source={{uri:sessions?.image}}
                     resizeMode="cover"
                     style={{height: '55%'}}>
                     <StatusBar
@@ -43,7 +73,9 @@ const Session = props => {
                         }}>
 
                         <View style={styles.topbanner}>
-                                <Text style={styles.headingText1}>Title</Text>
+							{!isSessionLoaded && (
+                                <Text style={styles.headingText1}>{sessions?.title}</Text>
+							)}
                         </View>
                     </View>
                     {/* <View
@@ -91,17 +123,25 @@ const Session = props => {
                                             flex: 4,
                                             paddingLeft: 10,
                                         }}>
-                                        
+                                          {!isSessionLoaded && (
                                             <Text style={styles.contentHeading}>
-                                               11 Augest Wednesday
+                                                {date[2]} {date[1]}, {actualDate[0]}
                                             </Text>
+                                        )}
 
+                                        {!isSessionLoaded && (
                                             <Text>
-                                              9:00 pm/11:30 pm  (PDT)
+                                                {sessions?.event_meta?._start_hour}:
+                                                {sessions?.event_meta?._start_minute}
+                                                {sessions?.event_meta?._start_ampm} /
+                                                {sessions?.event_meta?._end_hour}:
+                                                {sessions?.event_meta?._end_minute}
+                                                {sessions?.event_meta?._end_ampm} (PDT)
                                             </Text>
+                                        )}
                                     
                                     </View>
-                                  
+                                    {!sessions?.register_status &&
                                     <View
                                         style={{
                                             flex: 1,
@@ -112,7 +152,7 @@ const Session = props => {
                                             alignItems: 'center',
                                         }}>
 
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => registerSessionBySessionID(route?.params?.id)}>
                                             <Feather
                                                 name={'plus-circle'}
                                                 size={35}
@@ -120,6 +160,7 @@ const Session = props => {
                                             />
                                         </TouchableOpacity>
                                     </View>
+                                    }
                               
                                 </View>
                                 <View
@@ -147,17 +188,20 @@ const Session = props => {
                                         />
                                     </View>
 
+                                    {!isSessionLoaded && (
                                         <View
                                             style={{
                                                 flex: 4,
                                                 paddingLeft: 10,
                                             }}>
                                             <Text style={styles.contentHeading}>
-                                                Albany, USA
+                                                {sessions?.location?.location_city} ,
+                                                {sessions?.location?.location_state} ,
+                                                {sessions?.location?.location_country}
                                             </Text>
-                                            <Text>Long Street</Text>
+                                            <Text>{sessions?.location?.location_address}</Text>
                                         </View>
-                                
+                                    )}
                                    
                                 </View>
                             </View>
@@ -248,7 +292,7 @@ const Session = props => {
                                             justifyContent: 'center',
                                             alignItems: 'center',
                                         }}>
-                                        <Image source={require('../../../assets/img/profile_image.png')} style={{width: 30, height: 60}}/>
+                                        <Image source={{uri:sessions?.organizer_image}} style={{width: 30, height: 60}}/>
                                     </View>
 
                                     <View
@@ -257,9 +301,9 @@ const Session = props => {
                                             paddingLeft: 20,
                                         }}>
                                         <Text style={styles.contentHeading}>
-                                            Andrew Deutscher
+                                            {sessions?.organizer?.term_name}
                                         </Text>
-                                        <Text>Founder</Text>
+                                        <Text>{sessions?.organizer?.description}</Text>
                                     </View>
                                     <View
                                         style={{
@@ -292,15 +336,15 @@ const Session = props => {
 
                             <View>
                                 <Text style={styles.contentHeading}>Event Info</Text>
-                                {/* {!isEventLoaded && (
-                                    <HTMLView value={events?.description} stylesheet={styles}/>
-                                )} */}
+                                {!isSessionLoaded && (
+                                    <HTMLView value={sessions?.description} stylesheet={styles}/>
+                                )}
                             </View>
 
                             <View>
                                 <Button
                                     style={styles.acceptButton}
-                                    onPress={() => registerEventByEventID(route?.params?.id)}>
+                                    onPress={() => registerSessionBySessionID(route?.params?.id)}>
                                     <Text style={styles.acceptButtonText}>
                                         Sign Up in One Click
                                     </Text>

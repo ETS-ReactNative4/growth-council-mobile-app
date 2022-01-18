@@ -33,11 +33,11 @@ const Dashboard = props => {
     upcomingEventError,
     fetchAllUpcomingEvent,
     cleanUpcomingEvent,
-    pointOfEngagements,
-    pointOfEngagementLoading,
-    pointOfEngagementError,
-    fetchAllPointOfEngagement,
-    cleanPointOfEngagement,
+    poes,
+    poeLoading,
+    poeError,
+    fetchAllPOE,
+    cleanPOE,
     communityMembers,
     communityMemberLoading,
     communityMemberError,
@@ -91,16 +91,24 @@ const Dashboard = props => {
   // 	},
   //   ];
 
-  //   const _renderMiddleItem = ({item, index}) => {
-  // 	return (
-  // 	  <View style={styles.middleWrapper}>
-  // 		<View style={styles.middleW}>
-  // 		  <Font name={item.icon} size={40} color="skyblue" />
-  // 		</View>
-  // 		<Text style={{marginTop: 10}}>{item.text}</Text>
-  // 	  </View>
-  // 	);
-  //   };
+  const _renderMiddleItem = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('CommunityDetail', {id: item?.term_id})
+        }>
+        <View style={styles.middleWrapper}>
+          <View style={styles.middleW}>
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
+          </View>
+          <Text style={{marginTop: 10, fontSize: 10}}>{item?.name}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -188,49 +196,50 @@ const Dashboard = props => {
     fetchAllUpcomingEventAsync();
   }, []);
 
-    useEffect(() => {
-        const fetchAllUpcomingEventAsync = async () => {
-            await fetchAllUpcomingEvent();
-        };
-        fetchAllUpcomingEventAsync();
-    }, []);
+  useEffect(() => {
+    const fetchAllCommunityMemberAsync = async () => {
+      await fetchAllCommunityMember();
+    };
+    fetchAllCommunityMemberAsync();
+  }, []);
 
-    useEffect(() => {
-        const fetchAllCommunityMemberAsync = async () => {
-            await fetchAllCommunityMember();
-        };
-        fetchAllCommunityMemberAsync();
-    }, []);
+  useEffect(() => {
+    const fetchPillarSliderAsync = async () => {
+      await fetchAllPillarSlider();
+    };
+    fetchPillarSliderAsync();
+  }, []);
 
-    useEffect(() => {
-        const fetchPillarSliderAsync = async () => {
-            await fetchAllPillarSlider();
-        };
-        fetchPillarSliderAsync();
-    }, []);
+  useEffect(() => {
+    const fetchAllPOEAsync = async () => {
+      await fetchAllPOE();
+    };
+    fetchAllPOEAsync();
+  }, []);
 
-	console.log("upcomingevents", upcomingEvents)
+  //console.log('All POEs ======= ', poes);
 
-    return (
-        <ScrollView style={styles.container}>
-            <View style={styles.container}>
-                <ImageBackground
-                    style={{width: '100%', height: 180}}
-                    source={require('../../../assets/img/appBG.png')}>
-                    <View style={styles.pillar}>
-                        <PillarList pillarSliders={pillarSliders} navigation={navigation}/>
-                    </View>
-                </ImageBackground>
-            </View>
+  console.log('upcomingevents', upcomingEvents);
 
-            <View style={styles.top}>
-                <View style={styles.eventWrapper}>
-                    <Text style={styles.title}>Upcoming Events</Text>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('UpcomingView')}>
-                        <Text style={styles.viewAll}>View all</Text>
-                    </TouchableOpacity>
-                </View>
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <ImageBackground
+          style={{width: '100%', height: 180}}
+          source={require('../../../assets/img/appBG.png')}>
+          <View style={styles.pillar}>
+            <PillarList pillarSliders={pillarSliders} navigation={navigation} />
+          </View>
+        </ImageBackground>
+      </View>
+
+      <View style={styles.top}>
+        <View style={styles.eventWrapper}>
+          <Text style={styles.title}>Upcoming Events</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('UpcomingView')}>
+            <Text style={styles.viewAll}>View all</Text>
+          </TouchableOpacity>
+        </View>
 
         <View
           style={{
@@ -247,21 +256,21 @@ const Dashboard = props => {
         </View>
       </View>
 
-      {/* <View style={styles.middle}>
-	  	<View style={{display:"flex", flexDirection:"row"}}>
-		  <Text style={{fontWeight: 'bold', fontSize: 12}}>Points of Engagement</Text>
-
-		</View>
-
-        <View style={{display: 'flex', flexDirection: 'row'}}>
+      <View style={styles.middle}>
+        <Text style={styles.title}>Points of Engagement</Text>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={data1}
+            data={poes}
             renderItem={_renderMiddleItem}
           />
         </View>
-      </View> */}
+      </View>
 
       <View style={styles.bottom}>
         <View
@@ -397,25 +406,24 @@ const styles = StyleSheet.create({
   },
   middle: {
     width: 400,
-    height: 200,
-    marginLeft: 10,
-    marginTop: 15,
+    marginTop: 10,
   },
   middleWrapper: {
-    height: 64,
-    width: 112,
+    width: 90,
     borderRadius: 20,
-    marginTop: 10,
+    marginTop: 15,
+    marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
   middleW: {
     backgroundColor: 'white',
-    width: 80,
-    height: 80,
+    width: 64,
+    height: 64,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
+    borderWidth: 0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,

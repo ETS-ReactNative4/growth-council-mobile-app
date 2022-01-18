@@ -18,11 +18,14 @@ import userReducer from '../screens/account/slice/userSlice';
 import passwordReducer from '../screens/account/slice/passwordSlice';
 
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
+import pillarPOEReducer from '../screens/dashboard/slice/pillarPOESlice';
+
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
 
 import aboutReducer from '../screens/about/slice/aboutSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
 import ideaReducer from '../screens/ideas/slice/ideaSlice';
+import privacyReducer from '../screens/privacy/slice/privacySlice';
 
 import eventReducer from '../screens/event/slice/eventSlice';
 import eventRegisterReducer from '../screens/event/slice/eventRegisterSlice';
@@ -50,6 +53,9 @@ import detailReducer from '../screens/home/slice/detailSlice';
 import pillarReducer from '../screens/home/slice/pillarSlice';
 import pillarSliderReducer from '../screens/home/slice/pillarSliderSlice';
 
+import sessionReducer from '../screens/sessions/slice/sessionSlice';
+import sessionRegisterReducer from '../screens/sessions/slice/sessionRegister';
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -61,12 +67,14 @@ const reducers = combineReducers({
   users: userReducer,
   password: passwordReducer,
   upcomingEvents: upcomingEventReducer,
-  pointOfEngagements: pointOfEngagementReducer,
+  poes: pointOfEngagementReducer,
+  pillarPOEs: pillarPOEReducer,
   communityMembers: communityMemberReducer,
   events: eventReducer,
   about: aboutReducer,
   details: detailReducer,
   feedback: feedbackReducer,
+  privacy: privacyReducer,
   idea: ideaReducer,
   pillars: pillarReducer,
   pillarSliders: pillarSliderReducer,
@@ -85,6 +93,9 @@ const reducers = combineReducers({
   growthCoachingMemberContents: growthCoachingMemberContentReducer,
   profileSession: profileSessionReducer,
   memberConnection:memberConnectionReducer,
+  eventRegister:eventRegisterReducer,
+  sessions:sessionReducer,
+  sessionRegister:sessionRegisterReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
