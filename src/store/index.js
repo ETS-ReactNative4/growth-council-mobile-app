@@ -87,7 +87,7 @@ const reducers = combineReducers({
   communityMemberContents: communityMemberContentReducer,
   sessionDetails: sessionDetailReducer,
   profile: profileReducer,
-  otherProfile: otherProfileReducer,
+  otherProfiles: otherProfileReducer,
   profileEvent: profileEventReducer,
   bestPractices: bestPracticesReducer,
   growthCoachings: growthCoachingsReducer,
