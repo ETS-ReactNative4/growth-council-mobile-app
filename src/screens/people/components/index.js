@@ -38,7 +38,6 @@ const People = (props) => {
     const [category, setCategory] = useState("Category");
     const [memberConnection, setMemberConnection] = useState(connection?.connection);
 
-
     useEffect(() => {
         const fetchAllConnectionAsync = async () => {
             await fetchAllConnection();
@@ -56,6 +55,7 @@ const People = (props) => {
         }
     };
 
+    console.log("connection::::::::", connection);
     const _renderItem = ({item, index}) => {
 
         return (
@@ -74,7 +74,7 @@ const People = (props) => {
                     <Text style={{fontSize: 14}}>{item.user_meta.company}</Text>
                 </View>
                 {!memberConnection &&
-                <TouchableOpacity onPress={() => connectMemberByMemberID(item.ID)}>
+                <TouchableOpacity onPress={() => connectMemberByMemberID(item.id)}>
                     <Feather
                         name='plus-circle'
                         size={30}
