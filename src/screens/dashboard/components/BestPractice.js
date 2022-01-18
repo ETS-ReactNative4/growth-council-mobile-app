@@ -39,25 +39,28 @@ const BestPractice = props => {
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
-        <Image
-          source={{uri: item.avatar}}
-          style={{
-            width: 83,
-            height: 83,
-            borderRadius: 10,
-          }}
-        />
-        <View style={{padding: 10, paddingBottom: 20}}>
-          <Text
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+          <Image
+            source={{uri: item.avatar}}
             style={{
-              fontSize: 10,
-              fontFamily: Typography.FONT_SF_SEMIBOLD,
-              color: Colors.TERTIARY_TEXT_COLOR,
-            }}>
-            {item?.display_name}
-          </Text>
-          <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-        </View>
+              width: 83,
+              height: 83,
+              borderRadius: 10,
+            }}
+          />
+          <View style={{padding: 10, paddingBottom: 20}}>
+            <Text
+              style={{
+                fontSize: 10,
+                fontFamily: Typography.FONT_SF_SEMIBOLD,
+                color: Colors.TERTIARY_TEXT_COLOR,
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+          </View>
+        </TouchableOpacity>
 
         <View style={styles.chatIcon}>
           <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
@@ -86,7 +89,9 @@ const BestPractice = props => {
               style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft:5}}>{item?.name}</Text>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+            {item?.name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -217,7 +222,7 @@ const BestPractice = props => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-			  marginLeft:10,
+              marginLeft: 10,
             }}>
             <FlatList
               horizontal
@@ -324,7 +329,7 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 20,
     marginTop: 15,
- 
+    marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -352,7 +357,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
-	marginBottom:10,
+    marginBottom: 10,
     backgroundColor: 'white',
     overflow: 'hidden',
     // borderWidth:0.2,
