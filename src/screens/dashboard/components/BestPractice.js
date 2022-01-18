@@ -86,7 +86,7 @@ const BestPractice = props => {
               style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10}}>{item?.name}</Text>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft:5}}>{item?.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -217,6 +217,7 @@ const BestPractice = props => {
             style={{
               display: 'flex',
               flexDirection: 'row',
+			  marginLeft:10,
             }}>
             <FlatList
               horizontal
@@ -320,10 +321,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   middleWrapper: {
-    width: 90,
+    width: 80,
     borderRadius: 20,
     marginTop: 15,
-    marginLeft: 15,
+ 
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -351,6 +352,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+	marginBottom:10,
     backgroundColor: 'white',
     overflow: 'hidden',
     // borderWidth:0.2,

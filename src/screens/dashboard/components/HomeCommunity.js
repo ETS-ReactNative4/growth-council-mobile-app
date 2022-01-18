@@ -345,6 +345,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+	marginBottom:10,
     backgroundColor: 'white',
     overflow: 'hidden',
     // borderWidth:0.2,

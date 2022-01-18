@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -34,6 +34,8 @@ const Event = props => {
     registerEventByIdentifier,
     cleanEventRegister,
   } = props;
+
+  const [eventStatus, setEventStatus] = useState(events?.register_status);
 
   useEffect(() => {
     const fetchEventDetailAsync = async () => {
@@ -156,6 +158,23 @@ const Event = props => {
                           color={'rgba(54,147,172,1)'}
                         />
                       </TouchableOpacity>
+                    </View>
+                  )}
+                  {eventStatus && (
+                    <View
+                      style={{
+                        flex: 1,
+                        height: 60,
+                        width: 30,
+                        borderRadius: 15,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Feather
+                        name={'check-circle'}
+                        size={35}
+                        color={'rgba(54,147,172,1)'}
+                      />
                     </View>
                   )}
                 </View>
