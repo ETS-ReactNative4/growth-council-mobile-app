@@ -475,10 +475,11 @@ const styles = StyleSheet.create({
 		paddingBottom: 5,
 		flexDirection: 'row',
 		marginTop: 10,
+
 	  },
 	  hostimage: {
 		flex: 1,
-		backgroundColor: 'rgba(54,147,172,1)',
+		backgroundColor: '#A1BA68',
 		height: 64,
 		width: 62,
 		borderRadius: 14,
