@@ -12,6 +12,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import moment from 'moment';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -197,6 +198,11 @@ const GrowthCoaching = props => {
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Growth Coaching Events</Text>
+		  {growthCoachingLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+          </View>
+        )}
           <View
             style={{
               display: 'flex',
@@ -396,6 +402,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  loading1: {
+    marginLeft: 150,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 
