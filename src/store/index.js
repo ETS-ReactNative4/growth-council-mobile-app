@@ -92,7 +92,7 @@ const reducers = combineReducers({
   bestPracticesMemberContents: bestPracticesMemberContentReducer,
   growthCoachingMemberContents: growthCoachingMemberContentReducer,
   profileSession: profileSessionReducer,
-  memberConnection:memberConnectionReducer,
+  memberConnections:memberConnectionReducer,
   eventRegisters:eventRegisterReducer,
   sessions:sessionReducer,
   sessionRegister:sessionRegisterReducer,
