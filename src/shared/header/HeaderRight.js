@@ -22,8 +22,8 @@ const HeaderRight = ({navigation}) => {
       <Ionicons
         name="search-outline"
         color={'#000'}
-        size={26}
-        style={{marginTop: 10, marginRight: 15}}
+        size={30}
+        style={{marginTop: 15, marginRight: 15}}
       />
       <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
         <Image
@@ -36,6 +36,7 @@ const HeaderRight = ({navigation}) => {
             width: 40,
             borderRadius: 50,
             marginRight: 20,
+			marginTop:10
           }}
         />
       </TouchableOpacity>
