@@ -12,11 +12,11 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from "../../../shared/toast";
-
 
 const People = (props) => {
 
@@ -36,8 +36,7 @@ const People = (props) => {
     } = props;
 
     const [category, setCategory] = useState("Category");
-    const [searchTerm, setSearchTerm] = useState("");
-
+    const [memberConnection, setMemberConnection] = useState(connection?.connection);
 
     useEffect(() => {
         const fetchAllConnectionAsync = async () => {
@@ -49,12 +48,14 @@ const People = (props) => {
     const connectMemberByMemberID = async (memberID) => {
         const response = await connectMemberByIdentifier({member_id: memberID});
         if (response?.payload?.status === 200) {
+            setMemberConnection(true);
             ToastMessage.show('You have successfully connected.');
         } else {
             ToastMessage.show(response?.payload?.response);
         }
     };
 
+    console.log("connection::::::::", connection);
     const _renderItem = ({item, index}) => {
 
         return (
@@ -72,14 +73,24 @@ const People = (props) => {
                     <Text style={{fontSize: 16}}>{item.user_meta.title}</Text>
                     <Text style={{fontSize: 14}}>{item.user_meta.company}</Text>
                 </View>
-                <TouchableOpacity onPress={() => connectMemberByMemberID(item.ID)}>
-                    <Ionicons
-                        name='checkmark-circle'
+                {!memberConnection &&
+                <TouchableOpacity onPress={() => connectMemberByMemberID(item.id)}>
+                    <Feather
+                        name='plus-circle'
                         size={30}
                         color='skyblue'
                         style={{marginTop: 25}}
                     />
                 </TouchableOpacity>
+                }
+                {memberConnection &&
+                <Feather
+                    name='check-circle'
+                    size={30}
+                    color='skyblue'
+                    style={{marginTop: 25}}
+                />
+                }
             </View>
         )
     };

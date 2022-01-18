@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Text,
     View,
@@ -35,6 +35,8 @@ const Event = props => {
         cleanEventRegister
     } = props;
 
+    const [eventStatus, setEventStatus] = useState(events?.register_status);
+
     useEffect(() => {
         const fetchEventDetailAsync = async () => {
             await fetchEventByIdentifier(route.params.id);
@@ -45,6 +47,7 @@ const Event = props => {
     const registerEventByEventID = async (eventID) => {
         const response = await registerEventByIdentifier({event_id: eventID});
         if (response?.payload?.status === 200) {
+            setEventStatus(true);
             ToastMessage.show('You have successfully registered this event.');
         } else {
             ToastMessage.show(response?.payload?.response);
@@ -151,7 +154,26 @@ const Event = props => {
                                             </Text>
                                         )}
                                     </View>
-                                    {!events?.register_status &&
+                                    {!eventStatus &&
+                                    <View
+                                        style={{
+                                            flex: 1,
+                                            height: 60,
+                                            width: 30,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                        }}>
+                                        <TouchableOpacity onPress={() => registerEventByEventID(route?.params?.id)}>
+                                            <Feather
+                                                name={'plus-circle'}
+                                                size={35}
+                                                color={'rgba(54,147,172,1)'}
+                                            />
+                                        </TouchableOpacity>
+                                    </View>
+                                    }
+                                    {eventStatus &&
                                     <View
                                         style={{
                                             flex: 1,
@@ -162,13 +184,11 @@ const Event = props => {
                                             alignItems: 'center',
                                         }}>
 
-                                        <TouchableOpacity onPress={() => registerEventByEventID(route?.params?.id)}>
                                             <Feather
-                                                name={'plus-circle'}
+                                                name={'check-circle'}
                                                 size={35}
                                                 color={'rgba(54,147,172,1)'}
                                             />
-                                        </TouchableOpacity>
                                     </View>
                                     }
                                 </View>
