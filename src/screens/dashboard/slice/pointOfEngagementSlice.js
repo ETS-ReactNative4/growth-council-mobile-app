@@ -1,47 +1,50 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import { fetch } from '../../../utils/httpUtil';
+import {fetch} from '../../../utils/httpUtil';
 
-export const fetchAllPointOfEngagements = createAsyncThunk(
-    'pointOfEngagement/fetchAll',
-	(_, {rejectWithValue}) => {
-        return fetch(`v1/events`).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
-    },
+export const fetchAllPOEs = createAsyncThunk(
+  'POEs/fetchAll',
+  (_, {rejectWithValue}) => {
+    return fetch(`jwt-auth/v1/poes`)
+      .then(response => response.data.body_response)
+      .catch(error => rejectWithValue(error?.response?.data || error));
+  },
 );
 
-const pointOfEngagementSlice = createSlice({
-    name: 'pointOfEngagement',
-    initialState: {pointOfEngagements: [], pointOfEngagementLoading: false, pointOfEngagementError: null},
-    reducers: {
-        resetPointOfEngagement: (state) => {
-            state.pointOfEngagements = [];
-            state.pointOfEngagementLoading = false;
-            state.pointOfEngagementError = null;
-        },
+const poeSlice = createSlice({
+  name: 'poe',
+  initialState: {
+    poes: [],
+    poeLoading: false,
+    poeError: null,
+  },
+  reducers: {
+    resetPOE: state => {
+      state.poes = [];
+      state.poeLoading = false;
+      state.poeError = null;
     },
-    extraReducers: {
-        [fetchAllPointOfEngagements.pending]: (state, action) => {
-            state.pointOfEngagementLoading = true;
-            state.pointOfEngagementError = null;
-        },
-        [fetchAllPointOfEngagements.fulfilled]: (state, action) => {
-            state.pointOfEngagements = action.payload;
-            state.pointOfEngagementLoading = false;
-            state.pointOfEngagementError = null;
-        },
-        [fetchAllPointOfEngagements.rejected]: (state, action) => {
-            state.pointOfEngagementLoading = false;
-            if (action.payload) {
-                state.pointOfEngagementError = action.payload.error.message;
-            } else {
-                state.pointOfEngagementError = action.error;
-            }
-        },
+  },
+  extraReducers: {
+    [fetchAllPOEs.pending]: (state, action) => {
+      state.poeLoading = true;
+      state.poeError = null;
     },
+    [fetchAllPOEs.fulfilled]: (state, action) => {
+      state.poes = action.payload;
+      state.poeLoading = false;
+      state.poeError = null;
+    },
+    [fetchAllPOEs.rejected]: (state, action) => {
+      state.poeLoading = false;
+      if (action.payload) {
+        state.poeError = action.payload.error.message;
+      } else {
+        state.poeError = action.error;
+      }
+    },
+  },
 });
 
-
-
-export const {resetPointOfEngagement} = pointOfEngagementSlice.actions;
-
-export default pointOfEngagementSlice.reducer;
+export const {resetPOE} = poeSlice.actions;
+export default poeSlice.reducer;

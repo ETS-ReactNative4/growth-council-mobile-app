@@ -126,7 +126,7 @@ const DrawerNavigation = ({navigation}) => {
       />
       <Drawer.Screen
         name="Community"
-        component={HomeCommunityScreen}
+        component={() => <HomeCommunityScreen pillarId={120} />}
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="calendar-outline" color={'blue'} size={24} />
@@ -154,7 +154,7 @@ const DrawerNavigation = ({navigation}) => {
       />
       <Drawer.Screen
         name="Best Practices"
-        component={BestPracticeScreen}
+        component={() => <BestPracticeScreen pillarId={119} />}
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="ear-outline" color={'blue'} size={24} />
@@ -178,7 +178,7 @@ const DrawerNavigation = ({navigation}) => {
       />
       <Drawer.Screen
         name="Growth Coaching"
-        component={GrowthCoachingScreen}
+        component={() => <GrowthCoachingScreen pillarId={121} />}
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="git-compare-outline" color={'green'} size={24} />

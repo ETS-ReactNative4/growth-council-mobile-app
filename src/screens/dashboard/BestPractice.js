@@ -7,10 +7,13 @@ import {
   fetchAllbestPractices,
   resetbestPractice,
 } from './slice/bestPracticesSlice';
+
 import {
   fetchAllbestPracticesMemberContents,
   resetbestPracticesMemberContent,
 } from './slice/bestPracticesMemberContentSlice';
+
+import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
 
 const BestPracticeScreen = props => {
   const dispatch = useDispatch();
@@ -18,8 +21,11 @@ const BestPracticeScreen = props => {
   const {bestPractices, bestPracticeLoading, bestPracticeError} = useSelector(
     state => state.bestPractices,
   );
-  const {pointOfEngagements, pointOfEngagementLoading, pointOfEngagementError} =
-    useSelector(state => state.pointOfEngagements);
+
+  const {pillarPOEs, pillarPOELoading, pillarPOEError} = useSelector(
+    state => state.pillarPOEs,
+  );
+
   const {
     bestPracticesMemberContents,
     bestPracticesMemberContentLoading,
@@ -42,6 +48,14 @@ const BestPracticeScreen = props => {
     dispatch(resetbestPracticesMemberContent());
   };
 
+  const fetchAllPillarPOE = pillarId => {
+    dispatch(fetchAllPillarPOEs(pillarId));
+  };
+
+  const cleanPillarPOE = () => {
+    dispatch(resetPillarPOE());
+  };
+
   return (
     <BestPractice
       {...props}
@@ -55,6 +69,11 @@ const BestPracticeScreen = props => {
       bestPracticesMemberContentError={bestPracticesMemberContentError}
       fetchAllbestPracticesMemberContent={fetchAllbestPracticesMemberContent}
       cleanbestPracticesMemberContent={cleanbestPracticesMemberContent}
+      pillarPOEs={pillarPOEs}
+      pillarPOELoading={pillarPOELoading}
+      pillarPOEError={pillarPOEError}
+      fetchAllPillarPOE={fetchAllPillarPOE}
+      cleanPillarPOE={cleanPillarPOE}
     />
   );
 };

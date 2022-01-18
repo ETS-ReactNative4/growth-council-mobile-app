@@ -3,89 +3,101 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Dashboard from './components';
 
-import {fetchAllUpcomingEvents, resetUpcomingEvent} from '../home/slice/upcomingEventSlice';
-import {fetchAllPillarSliders, resetPillarSlider} from '../home/slice/pillarSliderSlice';
-import {fetchAllPointOfEngagements, resetPointOfEngagement} from './slice/pointOfEngagementSlice';
-import {fetchAllCommunityMembers, resetCommunityMember} from './slice/communityMemberSlice';
+import {
+  fetchAllUpcomingEvents,
+  resetUpcomingEvent,
+} from '../home/slice/upcomingEventSlice';
+import {
+  fetchAllPillarSliders,
+  resetPillarSlider,
+} from '../home/slice/pillarSliderSlice';
 
-const DashboardScreen = (props) => {
+import {fetchAllPOEs, resetPOE} from './slice/pointOfEngagementSlice';
 
-    const dispatch = useDispatch();
+import {
+  fetchAllCommunityMembers,
+  resetCommunityMember,
+} from './slice/communityMemberSlice';
 
-    const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector((state) => state.pillarSliders);
+const DashboardScreen = props => {
+  const dispatch = useDispatch();
 
-    const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector((state) => state.upcomingEvents);
-    const {pointOfEngagements, pointOfEngagementLoading, pointOfEngagementError} = useSelector((state) => state.pointOfEngagements);
-    const {communityMembers, communityMemberLoading, communityMemberError} = useSelector((state) => state.communityMembers);
+  const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector(
+    state => state.pillarSliders,
+  );
 
-    /**
-     * Fetch all upcoming events data.
-     *
-     */
-    const fetchAllUpcomingEvent = () => {
-        dispatch(fetchAllUpcomingEvents());
-    };
+  const {upcomingEvents, upcomingEventLoading, upcomingEventError} =
+    useSelector(state => state.upcomingEvents);
 
-    const fetchAllPointOfEngagement = () => {
-        dispatch(fetchAllPointOfEngagements());
-    };
+  const {poes, poeLoading, poeError} = useSelector(state => state.poes);
 
-    const fetchAllCommunityMember = () => {
-        dispatch(fetchAllCommunityMembers());
-    };
+  const {communityMembers, communityMemberLoading, communityMemberError} =
+    useSelector(state => state.communityMembers);
 
-    const fetchAllPillarSlider = () => {
-        dispatch(fetchAllPillarSliders());
-    };
+  /**
+   * Fetch all upcoming events data.
+   *
+   */
+  const fetchAllUpcomingEvent = () => {
+    dispatch(fetchAllUpcomingEvents());
+  };
 
+  const fetchAllPOE = () => {
+    dispatch(fetchAllPOEs());
+  };
 
-    /**
-     * Clear upcoming event data.
-     *
-     */
-    const cleanUpcomingEvent = () => {
-        dispatch(resetUpcomingEvent());
-    };
+  const fetchAllCommunityMember = () => {
+    dispatch(fetchAllCommunityMembers());
+  };
 
-    const cleanPointOfEngagement = () => {
-        dispatch(resetPointOfEngagement());
-    };
+  const fetchAllPillarSlider = () => {
+    dispatch(fetchAllPillarSliders());
+  };
 
-    const cleanCommunityMember = () => {
-        dispatch(resetCommunityMember());
-    };
-    const cleanPillarSlider = () => {
-        dispatch(resetPillarSlider());
-    };
+  /**
+   * Clear upcoming event data.
+   *
+   */
+  const cleanUpcomingEvent = () => {
+    dispatch(resetUpcomingEvent());
+  };
 
-    return (
-        <Dashboard
-            {...props}
-            upcomingEvents={upcomingEvents}
-            upcomingEventLoading={upcomingEventLoading}
-            upcomingEventError={upcomingEventError}
-            fetchAllUpcomingEvent={fetchAllUpcomingEvent}
-            cleanUpcomingEvent={cleanUpcomingEvent}
+  const cleanPOE = () => {
+    dispatch(resetPOE());
+  };
 
-            pointOfEngagements={pointOfEngagements}
-            pointOfEngagementLoading={pointOfEngagementLoading}
-            pointOfEngagementError={pointOfEngagementError}
-            fetchAllPointOfEngagement={fetchAllPointOfEngagement}
-            cleanPointOfEngagement={cleanPointOfEngagement}
+  const cleanCommunityMember = () => {
+    dispatch(resetCommunityMember());
+  };
+  const cleanPillarSlider = () => {
+    dispatch(resetPillarSlider());
+  };
 
-            communityMembers={communityMembers}
-            communityMemberLoading={communityMemberLoading}
-            communityMemberError={communityMemberError}
-            fetchAllCommunityMember={fetchAllCommunityMember}
-            cleanCommunityMember={cleanCommunityMember}
-
-            pillarSliders={pillarSliders}
-            pillarSliderLoading={pillarSliderLoading}
-            pillarSliderError={pillarSliderError}
-            fetchAllPillarSlider={fetchAllPillarSlider}
-            cleanPillarSlider={cleanPillarSlider}
-        />
-    );
+  return (
+    <Dashboard
+      {...props}
+      upcomingEvents={upcomingEvents}
+      upcomingEventLoading={upcomingEventLoading}
+      upcomingEventError={upcomingEventError}
+      fetchAllUpcomingEvent={fetchAllUpcomingEvent}
+      cleanUpcomingEvent={cleanUpcomingEvent}
+      poes={poes}
+      poeLoading={poeLoading}
+      poeError={poeError}
+      fetchAllPOE={fetchAllPOE}
+      cleanPOE={cleanPOE}
+      communityMembers={communityMembers}
+      communityMemberLoading={communityMemberLoading}
+      communityMemberError={communityMemberError}
+      fetchAllCommunityMember={fetchAllCommunityMember}
+      cleanCommunityMember={cleanCommunityMember}
+      pillarSliders={pillarSliders}
+      pillarSliderLoading={pillarSliderLoading}
+      pillarSliderError={pillarSliderError}
+      fetchAllPillarSlider={fetchAllPillarSlider}
+      cleanPillarSlider={cleanPillarSlider}
+    />
+  );
 };
 
 export default DashboardScreen;
