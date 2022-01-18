@@ -83,8 +83,6 @@ const FrostRadar = (props) => {
                                         a proven ability to effectively address emerging challenges and opportunities.
 										{"\n"}
        									{"\n"}
-										{"\n"}
-									
                                         In that vein, the Frost Radar serves as a truly dynamic solution to continuously
                                         benchmark companies' future growth
                                         potential with clear insight into their core strengths and weaknesses.
@@ -197,13 +195,14 @@ const styles = StyleSheet.create({
     },
     detail: {
         backgroundColor: "#E4F2F8",
-        height: 400,
+        height: 405,
         margin: 15,
-        borderRadius: 20
+        borderRadius: 20,
+		flex:1
     },
     paragraph: {
         fontFamily: Typography.FONT_SF_REGULAR,
-        fontSize: 11,
+        fontSize: 12,
 		color:"#77838F"
     },
     button: {
