@@ -12,6 +12,7 @@ import {
 import {Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -95,7 +96,7 @@ const Home = props => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar hidden />
       <View style={styles.header}>
         <Text style={styles.headingText1}>Welcome</Text>
@@ -120,27 +121,38 @@ const Home = props => {
             sliderRef.current.snapToPrev();
           }}
         />
-        <Carousel
-          ref={sliderRef}
-          layout={'default'}
-          data={pillarSliders}
-          sliderWidth={sliderWidth}
-          itemWidth={viewportWidth - 150}
-          renderItem={item => _renderItem(item, navigation)}
-          firstItem={1}
-          containerCustomStyle={styles.slider}
-          contentContainerCustomStyle={styles.sliderContent}
-          loop={false}
-          loopClonesPerSide={3}
-          autoplay={true}
-          autoplayDelay={500}
-          autoplayInterval={5000}
-          hasParallaxImages={true}
-          inactiveSlideScale={0.9}
-          inactiveSlideOpacity={0.5}
-          onSnapToItem={index => setActiveSlider(index)}
-        />
 
+
+		{!pillarSliderLoading ? (
+			<Carousel
+			ref={sliderRef}
+			layout={'default'}
+			data={pillarSliders}
+			sliderWidth={sliderWidth}
+			itemWidth={viewportWidth - 150}
+			renderItem={item => _renderItem(item, navigation)}
+			firstItem={1}
+			containerCustomStyle={styles.slider}
+			contentContainerCustomStyle={styles.sliderContent}
+			loop={false}
+			loopClonesPerSide={3}
+			autoplay={true}
+			autoplayDelay={500}
+			autoplayInterval={5000}
+			hasParallaxImages={true}
+			inactiveSlideScale={0.9}
+			inactiveSlideOpacity={0.5}
+			onSnapToItem={index => setActiveSlider(index)}
+		  />
+            
+		):(
+			<View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
+        	</View>
+		)}
+                                
+      
+		
         <Pagination
           dotsLength={pillarSliders.length}
           activeDotIndex={activeSlider}
@@ -184,7 +196,7 @@ const Home = props => {
           style={styles.footerlogo}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -229,6 +241,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'space-around',
+	
     // marginBottom: 20,
   },
   signupbutton: {
@@ -297,10 +310,11 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    // position: 'absolute',
+   
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
+
   },
   footerlogo: {
     width: 120,
@@ -334,6 +348,14 @@ const styles = StyleSheet.create({
     top: '45%',
     zIndex: 99,
   },
+  loading1: {
+	marginLeft: 150,
+	marginTop:20,
+	flex: 1,
+	flexDirection: 'column',
+	position: 'absolute',
+	zIndex: 1011,
+}
 });
 
 export default Home;
