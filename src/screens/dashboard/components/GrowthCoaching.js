@@ -56,6 +56,9 @@ const GrowthCoaching = props => {
             await fetchAllPillarPOE(pillarId);
         };
         fetchAllPillarPOEAsync();
+        return () => {
+            cleanPillarPOE()
+        };
     }, []);
 
     // console.log('Growth Coaching =========', growthCoachings);
