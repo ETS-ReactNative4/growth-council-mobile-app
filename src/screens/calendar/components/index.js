@@ -6,7 +6,7 @@ import {
     FlatList,
     ScrollView
 } from 'react-native';
-import {Agenda, Calendar} from 'react-native-calendars';
+import { Calendar} from 'react-native-calendars';
 import moment from 'moment';
 
 import {CommonStyles, Colors} from '../../../theme';
@@ -83,7 +83,7 @@ const EventCalendar = (props) => {
     });
 
     console.log("markedDay:::::::::::::;", markedDay);
-	console.log('calendra:::::', calendarEvents)
+
 	
 
     const renderItem = ({item, index}) => {
