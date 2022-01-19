@@ -139,7 +139,7 @@ const GrowthCoaching = props => {
                                 height: 50,
                                 marginTop: 10,
                                 marginLeft: 200,
-                                backgroundColor: '#B0E0E6',
+                                backgroundColor: '#EBECF0',
                                 borderRadius: 14,
                                 padding: 5,
                                 alignItems: 'center',

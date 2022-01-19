@@ -85,32 +85,45 @@ const DrawerNavigation = ({navigation}) => {
             screenOptions={({navigation}) => ({
                 activeTintColor: '#e91e63',
                 itemStyle: {marginVertical: 5},
+				headerBackground: () => (
+					<View>
+						<ImageBackground
+							source={require('../../src/assets/img/appBG.png')}
+							style={{width: '100%', height: 60}}/>
+					</View>
+				),
                 headerTitle: () => <HeaderTitle/>,
                 headerLeft: () => (
-                    <View>
+					<View>
+							<View>
                         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
                             <Ionicons
                                 name="menu-outline"
-                                color={'#000'}
-                                size={24}
-                                style={{marginLeft: 15}}
+                                color={'white'}
+                                size={30}
+                                style={{marginLeft: 10, top:10 }}
                             />
                         </TouchableOpacity>
+						</View>
+						<View>
                         <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
                             <Image
                                 source={require('../assets/img/dashboard_logo.png')}
                                 style={{
-                                    top: -25,
+                                    top: -29,
                                     position: 'absolute',
-                                    height: 30,
-                                    width: 30,
+                                    height: 35,
+                                    width: 35,
                                     left: 30,
-                                    marginLeft: 20,
+                                    marginLeft: 17,
                                     borderWidth: 5,
+									
                                 }}
                             />
                         </TouchableOpacity>
                     </View>
+					</View>
+                    
                 ),
                 headerRight: () => <HeaderRight/>,
             })}
@@ -143,8 +156,9 @@ const DrawerNavigation = ({navigation}) => {
                             <Text
                                 style={{
                                     color: Colors.PRIMARY_BACKGROUND_COLOR,
-                                    fontSize: 20,
-                                    marginLeft: 15,
+                                    fontSize: 22,
+                                    marginLeft: 5,
+									marginTop:10,
                                 }}>
                                 Community
                             </Text>
@@ -169,8 +183,12 @@ const DrawerNavigation = ({navigation}) => {
                     headerTitle: () => (
                         <View style={{marginLeft: 35}}>
                             <Text
-                                style={{color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>
-                                Best Practice
+                                style={{
+                                    color: Colors.PRIMARY_BACKGROUND_COLOR,
+                                    fontSize: 22,
+									marginTop:10,
+                                }}>
+                                Best Practices
                             </Text>
                         </View>
                     ),
@@ -193,7 +211,11 @@ const DrawerNavigation = ({navigation}) => {
                     headerTitle: () => (
                         <View style={{marginLeft: 35}}>
                             <Text
-                                style={{color: Colors.PRIMARY_BACKGROUND_COLOR, fontSize: 20}}>
+                                style={{color: Colors.PRIMARY_BACKGROUND_COLOR, 
+									fontSize: 22,
+                                    
+									marginTop:10,
+								}}>
                                 Growth Coaching
                             </Text>
                         </View>
@@ -209,7 +231,10 @@ const DrawerNavigation = ({navigation}) => {
                     ),
                     headerTitle: () => (
                         <View style={{marginLeft: 40}}>
-                            <Text style={{fontWeight: '700', color: '#000', fontSize: 20}}>
+                            <Text style={{fontWeight: '400', color: 'white', 
+									fontSize: 22,
+									marginTop:10,
+								}}>
                                 Calendar
                             </Text>
                         </View>
@@ -229,7 +254,9 @@ const DrawerNavigation = ({navigation}) => {
                     ),
                     headerTitle: () => (
                         <View style={{marginLeft: 40}}>
-                            <Text style={{fontWeight: '700', color: '#000', fontSize: 20}}>
+                            <Text style={{fontWeight: '400', color: 'white', 
+									fontSize: 22,
+									marginTop:10,}}>
                                 About
                             </Text>
                         </View>
@@ -245,8 +272,10 @@ const DrawerNavigation = ({navigation}) => {
                     ),
                     headerTitle: () => (
                         <View style={{marginLeft: 40}}>
-                            <Text style={{fontWeight: '700', color: '#000', fontSize: 20}}>
-                                Setting
+                              <Text style={{fontWeight: '400', color: 'white', 
+									fontSize: 22,
+									marginTop:10,}}>
+                                Settings
                             </Text>
                         </View>
                     ),
@@ -261,7 +290,9 @@ const DrawerNavigation = ({navigation}) => {
                     ),
                     headerTitle: () => (
                         <View style={{marginLeft: 40}}>
-                            <Text style={{fontWeight: '700', color: '#000', fontSize: 20}}>
+                              <Text style={{fontWeight: '400', color: 'white', 
+									fontSize: 22,
+									marginTop:10,}}>
                                 Feedback
                             </Text>
                         </View>
@@ -277,7 +308,9 @@ const DrawerNavigation = ({navigation}) => {
                     ),
                     headerTitle: () => (
                         <View style={{marginLeft: 40}}>
-                            <Text style={{fontWeight: '700', color: '#000', fontSize: 20}}>
+                              <Text style={{fontWeight: '400', color: 'white', 
+									fontSize: 22,
+									marginTop:10,}}>
                                 Contribute Ideas
                             </Text>
                         </View>

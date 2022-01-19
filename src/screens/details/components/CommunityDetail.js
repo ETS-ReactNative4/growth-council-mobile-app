@@ -184,9 +184,9 @@ const CommunityDetail = props => {
             <Image
               source={require('../../../assets/img/icon.png')}
               style={{
-                width: 60,
-                height: 35,
-                marginLeft: 15,
+                width: 45,
+                height: 30,
+                marginLeft: 20,
               }}
             />
           </View>

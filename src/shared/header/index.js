@@ -20,16 +20,16 @@ const HeaderTitle = () => {
     <View style={{marginLeft: 40, marginTop: 10}}>
       <Text
         style={{
-          color: '#000',
+          color: 'white',
           fontSize: 10,
           fontFamily: Typography.FONT_SF_MEDIUM,
         }}>
-        Hello
+        Good Morning,
       </Text>
       <Text
         style={{
           fontFamily: Typography.FONT_SF_MEDIUM,
-          color: '#000',
+          color: 'white',
           fontSize: 18,
           fontWeight: 'medium',
         }}>
