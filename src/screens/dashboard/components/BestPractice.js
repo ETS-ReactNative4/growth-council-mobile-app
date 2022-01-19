@@ -49,6 +49,9 @@ const BestPractice = props => {
             await fetchAllPillarPOE(pillarId);
         };
         fetchAllPillarPOEAsync();
+        return () => {
+            cleanPillarPOE()
+        };
     }, []);
 
     useEffect(() => {
@@ -59,9 +62,10 @@ const BestPractice = props => {
     }, []);
 
   const _renderTopItem = ({item, index}, navigation) => {
+
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+
     return (
 		<View key={index} style={styles.topWrapper}>
 		<TouchableOpacity

@@ -38,6 +38,34 @@ const HomeCommunity = props => {
 
     const pillarId = 120;
 
+
+    useEffect(() => {
+        const fetchAllCommunityAsync = async () => {
+            await fetchAllCommunity();
+        };
+        fetchAllCommunityAsync();
+    }, []);
+
+    useEffect(() => {
+        const fetchAllCommunityMemberContentAsync = async () => {
+            await fetchAllCommunityMemberContent();
+        };
+        fetchAllCommunityMemberContentAsync();
+    }, []);
+
+    useEffect(() => {
+        const fetchAllPillarPOEAsync = async () => {
+            await fetchAllPillarPOE(pillarId);
+        };
+        fetchAllPillarPOEAsync();
+        return () => {
+            cleanPillarPOE();
+        };
+    }, []);
+
+    console.log('Community ============', pillarPOEs);
+    console.log('Params ==== ', pillarId);
+
     const _renderItem = ({item, index}) => {
         return (
             <View style={[styles.bottomWrapper, styles.shadowProp]}>
@@ -164,30 +192,6 @@ const HomeCommunity = props => {
             </View>
         );
     };
-
-    useEffect(() => {
-        const fetchAllCommunityAsync = async () => {
-            await fetchAllCommunity();
-        };
-        fetchAllCommunityAsync();
-    }, []);
-
-    useEffect(() => {
-        const fetchAllCommunityMemberContentAsync = async () => {
-            await fetchAllCommunityMemberContent();
-        };
-        fetchAllCommunityMemberContentAsync();
-    }, []);
-
-    useEffect(() => {
-        const fetchAllPillarPOEAsync = async () => {
-            await fetchAllPillarPOE(pillarId);
-        };
-        fetchAllPillarPOEAsync();
-    }, []);
-
-    console.log('Community ============', pillarPOEs);
-    console.log('Params ==== ', pillarId);
 
     return (
         <ScrollView>
