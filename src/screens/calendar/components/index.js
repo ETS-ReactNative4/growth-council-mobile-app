@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -6,7 +6,7 @@ import {
     FlatList,
     ScrollView
 } from 'react-native';
-import {Calendar} from 'react-native-calendars';
+import {Agenda, Calendar} from 'react-native-calendars';
 import moment from 'moment';
 
 import {CommonStyles, Colors} from '../../../theme';
@@ -22,6 +22,8 @@ const EventCalendar = (props) => {
         fetchAllCalendarEvent,
         cleanCalendarEvent,
     } = props;
+
+	const [items, setItems] = useState({});
 
     useEffect(() => {
         const fetchCalendarEventAsync = async () => {
@@ -55,7 +57,6 @@ const EventCalendar = (props) => {
                 textColor: 'white'
             };
         } else {
-
             const dates = getDates(new Date(moment(startDate).format('YYYY-MM-DD')), new Date(moment(endDate).format('YYYY-MM-DD')));
             dates.map((item, index) => {
                     if (index === 0) {
@@ -82,12 +83,27 @@ const EventCalendar = (props) => {
     });
 
     console.log("markedDay:::::::::::::;", markedDay);
+	console.log('calendra:::::', calendarEvents)
+	
 
     const renderItem = ({item, index}) => {
+
+		//date
+		const actualDate = moment(item.event_start).format('ll').split(',', 3);
+		const date = actualDate[0].split(' ', 3);
+		console.log("date:",date[1]);
+
+		//time
+		let dt = item.event_start;
+		dt = dt.split(' ');
+		let [date1, time] = [dt[0].split('-').map(Number), dt[1].split(':').map(Number)];
+		let d = new Date( time[0], time[1], time[2], 0);
+		console.log("time::",time[0])
+		
         return (
             <View style={styles.eventCard} key={index}>
-                <Text style={{marginTop: 30, marginLeft: 10, marginRight: 10, fontSize: 17}}>{item.eventTime}</Text>
-                <View style={styles.eventTheme}/>
+                <Text style={{marginTop: 30, marginLeft: 10, marginRight: 10, fontSize: 17}}>{time[0]}:{time[1]}{time[2]}</Text>
+               
                 <View style={styles.eventDetails}>
                     <View style={styles.eventInfo}>
                         <Text style={styles.eventTitle}>{item.title}</Text>
@@ -95,15 +111,17 @@ const EventCalendar = (props) => {
                     </View>
                     <View style={styles.eventDate}>
                         <Text style={styles.eventDateText}>
-                            {item.eventDay}
-                            {'\n'}
-                            {item.eventMonth}
+							{date[1]}
+							{'\n'}
+							{date[0]}
                         </Text>
                     </View>
                 </View>
             </View>
         );
     };
+
+
 
     return (
         <ScrollView>
@@ -115,15 +133,7 @@ const EventCalendar = (props) => {
                             console.log('month changed', month);
                         }}
                         markedDates={markedDay}
-                        //  markedDates={{
-                        //      '2022-01-10': { color: 'green',textColor: 'white'},
-                        //      '2022-01-12': { color: 'green',textColor: 'white'},
-                        //      '2022-01-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
-                        //      '2022-01-22': {color: '#70d7c7', textColor: 'white'},
-                        //      '2022-01-23': {color: '#70d7c7', textColor: 'white', marked: true, dotColor: 'white'},
-                        //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
-                        //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
-                        //  }}
+                       
                     />
                 </View>
                 <View style={styles.events}>
@@ -134,6 +144,13 @@ const EventCalendar = (props) => {
                         data={calendarEvents}
                         renderItem={renderItem}
                     />
+
+					{/* <Agenda 
+					items={items}
+					loadItemsForMonth={loadItems}
+					selected={'YYYY-MM-DD'}
+					renderItem={renderItem}
+					/> */}
                 </View>
             </View>
         </ScrollView>
@@ -181,6 +198,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     eventCard: {
+		height:82,
         marginTop: 15,
         flexDirection: 'row',
         flexWrap: 'nowrap',
@@ -195,22 +213,24 @@ const styles = StyleSheet.create({
     },
     eventDetails: {
         flex: 1,
+		height:80,
         flexDirection: 'row',
         flexWrap: 'nowrap',
-        paddingTop: 10,
-        paddingRight: 10,
-        paddingBottom: 10,
-        paddingLeft: 15,
+       padding:10,
+		borderTopLeftRadius:10,
+		borderBottomLeftRadius:10,
+		borderLeftWidth:10,
+		borderColor:'#80BA74'
     },
     eventInfo: {
         paddingRight: 5,
         flex: 5,
     },
     eventTitle: {
-        marginBottom: 5,
+		fontSize:14,
     },
     eventParagraph: {
-        fontSize: 10,
+        fontSize: 8,
     },
     eventDate: {
         flex: 1,
