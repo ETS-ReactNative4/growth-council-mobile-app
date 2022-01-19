@@ -267,6 +267,7 @@ const Dashboard = props => {
           style={{
             display: 'flex',
             flexDirection: 'row',
+			marginLeft:10,
           }}>
           <FlatList
             horizontal
@@ -301,7 +302,7 @@ const Dashboard = props => {
       <View style={styles.content}>
         <Text style={[styles.title, {marginLeft: 15}]}>
           {' '}
-          Growth Coaching Content
+         Content Library
         </Text>
         <View
           style={{
