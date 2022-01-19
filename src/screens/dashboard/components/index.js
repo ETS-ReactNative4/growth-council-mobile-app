@@ -225,15 +225,6 @@ const Dashboard = props => {
     fetchAllPOEAsync();
   }, []);
 
-  useEffect(() => {
-    const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent();
-    };
-    fetchAllPillarEventAsync();
-  }, []);
-
-  console.log('pillarEvent', pillarEventLists);
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.container}>

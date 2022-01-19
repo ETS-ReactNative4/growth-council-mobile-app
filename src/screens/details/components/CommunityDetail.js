@@ -23,21 +23,21 @@ const CommunityDetail = props => {
     sessionDetailError,
     fetchSessionDetailByIdentifier,
     cleanSessionDetail,
-    bestPractices,
-    bestPracticeLoading,
-    bestPracticeError,
-    fetchAllbestPractice,
-    cleanbestPractice,
-    bestPracticesMemberContents,
-    bestPracticesMemberContentLoading,
-    bestPracticesMemberContentError,
-    fetchAllbestPracticesMemberContent,
-    cleanbestPracticesMemberContent,
+    poeDetails,
+    poeDetailLoading,
+    poeDetailError,
+    fetchAllPOEDetail,
+    cleanPOEDetail,
     poeEvents,
     poeEventLoading,
     poeEventError,
     fetchAllPOEEvent,
     cleanPOEEvent,
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+    fetchAllPillarMemberContent,
+    cleanPillarMemberContent,
   } = props;
 
   useEffect(() => {
@@ -48,13 +48,6 @@ const CommunityDetail = props => {
   }, []);
 
   useEffect(() => {
-    const fetchAllbestPracticeAsync = async () => {
-      await fetchAllbestPractice();
-    };
-    fetchAllbestPracticeAsync();
-  }, []);
-
-  useEffect(() => {
     const fetchAllbestPracticeMemberContentAsync = async () => {
       await fetchAllbestPracticesMemberContent();
     };
@@ -62,10 +55,24 @@ const CommunityDetail = props => {
   }, []);
 
   useEffect(() => {
+    const fetchAllPOEDetailAsync = async () => {
+      await fetchAllPOEDetail(route.params.poeId);
+    };
+    fetchAllPOEDetailAsync();
+  }, []);
+
+  useEffect(() => {
     const fetchAllPOEEventAsync = async () => {
       await fetchAllPOEEvent(route.params.poeId);
     };
     fetchAllPOEEventAsync();
+  }, []);
+
+  useEffect(() => {
+    const fetchAllPillarMemberContentAsync = async () => {
+      await fetchAllPillarMemberContent(route.params.pillarId);
+    };
+    fetchAllPillarMemberContentAsync();
   }, []);
 
   // console.log('Mega Best Practices ============', bestPractices);
@@ -179,13 +186,14 @@ const CommunityDetail = props => {
 
   console.log('POE id:::::::::::::::::', route.params.poeId);
   console.log('parent id:::::::::::::::::', route.params.pillarId);
-  console.log('poe events:::::::::::::::::', pillarEventLists);
+  console.log('poe events:::::::::::::::::', poeDetails);
+  console.log('poe events:::::::::::::::::', poeEvents);
 
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView style={styles.container}>
       <View style={styles.container}>
         <ImageBackground
-          source={require('../../../assets/img/image.png')}
+          source={{uri: poeDetails.pillar_detail_image}}
           style={{height: 400}}>
           {/* <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
@@ -195,11 +203,12 @@ const CommunityDetail = props => {
 
           <View style={styles.icon}>
             <Image
-              source={require('../../../assets/img/icon.png')}
+              source={{uri: poeDetails.image}}
               style={{
-                width: 60,
-                height: 35,
-                marginLeft: 15,
+                width: 50,
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             />
           </View>
@@ -214,18 +223,9 @@ const CommunityDetail = props => {
                   textAlign: 'center',
                   marginTop: 50,
                 }}>
-                Megatrend Workshop
+                {poeDetails.name}
               </Text>
-              <Text style={styles.paragraph}>
-                Mega trends are transformative, global forces that define the
-                futre world with their far reaching impact on business,
-                societies, economics, cutures and personal lives. Global Mega
-                Trends to 2030. Futurecasting key themes that will shape our
-                futures lives, provides a comprehensive analysis of the
-                transformative, global forces that define the future world with
-                their far-reaching impact on business, societies, economics,
-                culture and personal lives.
-              </Text>
+              <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               <View style={styles.top}>
                 <Text style={styles.title}> Events</Text>
@@ -237,7 +237,7 @@ const CommunityDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={bestPractices}
+                    data={poeEvents}
                     renderItem={_renderTopItem}
                   />
                 </View>
@@ -248,7 +248,7 @@ const CommunityDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={bestPracticesMemberContents.members}
+                    data={pillarMemberContents.members}
                     renderItem={_renderItem}
                   />
                 </View>
@@ -269,22 +269,23 @@ const CommunityDetail = props => {
                   />
                 </View>
               </View>
+
+              <View
+                style={{
+                  alignItems: 'center',
+                  width: '35%',
+                  marginLeft: 140,
+                  marginBottom: 10,
+                }}>
+                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+                <Image
+                  source={require('../../../assets/img/fristDigi.png')}
+                  style={{width: '100%', height: 20}}
+                />
+              </View>
             </View>
           </View>
         </ImageBackground>
-      </View>
-      <View
-        style={{
-          alignItems: 'center',
-          width: '35%',
-          marginLeft: 140,
-          marginBottom: 10,
-        }}>
-        <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-        <Image
-          source={require('../../../assets/img/fristDigi.png')}
-          style={{width: '100%', height: 20}}
-        />
       </View>
     </ScrollView>
   );
@@ -293,8 +294,7 @@ const CommunityDetail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1230,
-    backgroundColor: 'blue',
+    height: 1530,
   },
   arrow: {
     marginTop: 30,
@@ -313,6 +313,7 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     marginLeft: 150,
     marginTop: 190,
+    alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
     zIndex: 10,

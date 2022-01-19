@@ -19,6 +19,8 @@ import {
 
 import {fetchAllPOEEvents, resetPOEEvent} from './slice/poeEventListSlice';
 
+import {fetchAllPOEDetails, resetPOEDetail} from './slice/poeDetailSlice';
+
 import {
   fetchAllPillarMemberContents,
   resetPillarMemberContent,
@@ -30,15 +32,9 @@ const CommunityDetailScreen = props => {
   const {sessionDetails, sessionDetailLoading, sessionDetailError} =
     useSelector(state => state.sessionDetails);
 
-  const {bestPractices, bestPracticeLoading, bestPracticeError} = useSelector(
-    state => state.bestPractices,
+  const {poeDetails, poeDetailLoading, poeDetailError} = useSelector(
+    state => state.poeDetails,
   );
-
-  const {
-    bestPracticesMemberContents,
-    bestPracticesMemberContentLoading,
-    bestPracticesMemberContentError,
-  } = useSelector(state => state.bestPracticesMemberContents);
 
   const {poeEvents, poeEventLoading, poeEventError} = useSelector(
     state => state.poeEvents,
@@ -60,16 +56,25 @@ const CommunityDetailScreen = props => {
    * @param {string} poeId
    *
    */
+  /**
+   * Fetch event data.
+   * @param {string} pillarId
+   *
+   */
   const fetchSessionDetailByIdentifier = identifier => {
     dispatch(fetchSessionDetailByID(identifier));
+  };
+
+  const fetchAllPOEDetail = poeId => {
+    dispatch(fetchAllPOEDetails(poeId));
   };
 
   const fetchAllPOEEvent = poeId => {
     dispatch(fetchAllPOEEvents(poeId));
   };
 
-  const fetchAllPillarMemberContent = () => {
-    dispatch(fetchAllPillarMemberContents());
+  const fetchAllPillarMemberContent = pillarId => {
+    dispatch(fetchAllPillarMemberContents(pillarId));
   };
 
   /**
@@ -80,20 +85,8 @@ const CommunityDetailScreen = props => {
     dispatch(resetSessionDetail());
   };
 
-  const fetchAllbestPractice = () => {
-    dispatch(fetchAllbestPractices());
-  };
-
-  const cleanbestPractice = () => {
-    dispatch(resetbestPractice());
-  };
-
-  const fetchAllbestPracticesMemberContent = () => {
-    dispatch(fetchAllbestPracticesMemberContents());
-  };
-
-  const cleanbestPracticesMemberContent = () => {
-    dispatch(resetbestPracticesMemberContent());
+  const cleanPOEDetail = () => {
+    dispatch(resetPOEDetail());
   };
 
   const cleanPOEEvent = () => {
@@ -112,16 +105,11 @@ const CommunityDetailScreen = props => {
       sessionDetailError={sessionDetailError}
       fetchSessionDetailByIdentifier={fetchSessionDetailByIdentifier}
       cleanSessionDetail={cleanSessionDetail}
-      bestPractices={bestPractices}
-      bestPracticeLoading={bestPracticeLoading}
-      bestPracticeError={bestPracticeError}
-      fetchAllbestPractice={fetchAllbestPractice}
-      cleanbestPractice={cleanbestPractice}
-      bestPracticesMemberContents={bestPracticesMemberContents}
-      bestPracticesMemberContentLoading={bestPracticesMemberContentLoading}
-      bestPracticesMemberContentError={bestPracticesMemberContentError}
-      fetchAllbestPracticesMemberContent={fetchAllbestPracticesMemberContent}
-      cleanbestPracticesMemberContent={cleanbestPracticesMemberContent}
+      poeDetails={poeDetails}
+      poeDetailLoading={poeDetailLoading}
+      poeDetailError={poeDetailError}
+      fetchAllPOEDetail={fetchAllPOEDetail}
+      cleanPOEDetail={cleanPOEDetail}
       poeEvents={poeEvents}
       poeEventLoading={poeEventLoading}
       poeEventError={poeEventError}
