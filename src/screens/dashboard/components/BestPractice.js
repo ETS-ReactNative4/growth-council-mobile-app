@@ -87,11 +87,12 @@ const BestPractice = props => {
 			<View style={styles.header}>
 			<Text style={styles.headingText1}>{item.title}</Text>
 			<Text style={styles.headingText2}>
-				Hosted by {item?.organizer?.term_name}{' '}
+				Hosted by {item?.organizer?.term_name}
 			</Text>
-			<Text style={styles.headingText2}>
-				{item?.organizer?.description}
+			<Text style={styles.headingText}>
+			{item?.organizer?.description}
 			</Text>
+			
 			</View>
 		</ImageBackground>
 		</TouchableOpacity>
@@ -219,7 +220,7 @@ const BestPractice = props => {
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.top}>
-                    <Text style={styles.title}> Best Practice Events</Text>
+                    <Text style={styles.title}> Best Practices Events</Text>
                     {bestPracticeLoading && (
                         <View style={styles.loading1}>
                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
@@ -272,7 +273,7 @@ const BestPractice = props => {
                 </View>
 
                 <View style={styles.content}>
-                    <Text style={styles.title}> Growth Coaching Content</Text>
+                    <Text style={styles.title}> Best Practices Content</Text>
                     <View
                         style={{
                             display: 'flex',
@@ -347,6 +348,11 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 8,
     },
+	headingText:{
+		fontSize:8,
+		color: 'white',
+	},
+
     middle: {
         width: 400,
         marginTop: 10,
@@ -355,7 +361,6 @@ const styles = StyleSheet.create({
         width: 80,
         borderRadius: 20,
         marginTop: 15,
-        marginLeft: 15,
         justifyContent: 'center',
         alignItems: 'center',
     },

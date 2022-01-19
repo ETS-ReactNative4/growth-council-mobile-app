@@ -88,10 +88,10 @@ const HomeCommunity = props => {
                     <View style={styles.middleW}>
                         <Image
                             source={{uri: item?.image}}
-                            style={{width: 30, height: 30}}
+                            style={{width: 25, height: 25}}
                         />
                     </View>
-                    <Text style={{marginTop: 10, fontSize: 10}}>{item?.name}</Text>
+                    <Text style={{marginTop: 10, fontSize: 10,  marginLeft: 5}}>{item?.name}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -224,6 +224,7 @@ const HomeCommunity = props => {
                         style={{
                             display: 'flex',
                             flexDirection: 'row',
+							marginLeft:10,
                         }}>
                         <FlatList
                             horizontal
@@ -247,7 +248,7 @@ const HomeCommunity = props => {
                 </View>
 
                 <View style={styles.content}>
-                    <Text style={styles.title}> Growth Coaching Content</Text>
+                    <Text style={styles.title}> Growth Community Content</Text>
                     <View
                         style={{
                             display: 'flex',
@@ -327,10 +328,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     middleWrapper: {
-        width: 90,
+        width: 80,
         borderRadius: 20,
         marginTop: 15,
-        marginLeft: 15,
         justifyContent: 'center',
         alignItems: 'center',
     },

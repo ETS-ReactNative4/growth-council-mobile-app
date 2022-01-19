@@ -18,10 +18,10 @@ const HeaderRight = ({navigation}) => {
   }, []);
 
   return (
-    <View style={{display: 'flex', flexDirection: 'row'}}>
+    <View style={{display: 'flex', flexDirection: 'row', marginLeft:5}}>
       <Ionicons
         name="search-outline"
-        color={'#000'}
+        color={'white'}
         size={30}
         style={{marginTop: 15, marginRight: 15}}
       />

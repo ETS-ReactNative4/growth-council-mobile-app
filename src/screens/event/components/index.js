@@ -333,6 +333,12 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
   },
+  scrollBox: {
+    height: '100%',
+    width: '100%',
+    marginBottom: 0,
+	backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+  },
   headingTitle: {
     ...CommonStyles.headingTitle,
     textAlign: 'left',
@@ -416,11 +422,7 @@ const styles = StyleSheet.create({
     padding: 20,
     position: 'relative',
   },
-  scrollBox: {
-    height: '100%',
-    width: '100%',
-    marginBottom: 0,
-  },
+
   poe: {
     height: 22,
     width: 148,

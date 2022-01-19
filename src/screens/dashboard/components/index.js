@@ -26,6 +26,7 @@ import {
   TERTIARY_TEXT_COLOR,
 } from '../../../theme/colors';
 
+
 const Dashboard = props => {
   const {
     navigation,
@@ -284,7 +285,7 @@ const Dashboard = props => {
             marginLeft: 15,
             marginRight: 15,
           }}>
-          <Text style={styles.title}> Growth Community Member</Text>
+          <Text style={styles.title}> Growth Community Members</Text>
           {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
         </View>
         <View>
