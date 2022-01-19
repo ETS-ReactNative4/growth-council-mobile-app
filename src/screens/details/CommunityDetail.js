@@ -17,6 +17,13 @@ import {
   resetbestPracticesMemberContent,
 } from '../dashboard/slice/bestPracticesMemberContentSlice';
 
+import {fetchAllPOEEvents, resetPOEEvent} from './slice/poeEventListSlice';
+
+import {
+  fetchAllPillarMemberContents,
+  resetPillarMemberContent,
+} from './slice/pillarMembersContentsSlice';
+
 const CommunityDetailScreen = props => {
   const dispatch = useDispatch();
 
@@ -33,13 +40,36 @@ const CommunityDetailScreen = props => {
     bestPracticesMemberContentError,
   } = useSelector(state => state.bestPracticesMemberContents);
 
+  const {poeEvents, poeEventLoading, poeEventError} = useSelector(
+    state => state.poeEvents,
+  );
+
+  const {
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+  } = useSelector(state => state.pillarMemberContents);
+
   /**
    * Fetch event data.
    * @param {string} identifier
    *
    */
+  /**
+   * Fetch event data.
+   * @param {string} poeId
+   *
+   */
   const fetchSessionDetailByIdentifier = identifier => {
     dispatch(fetchSessionDetailByID(identifier));
+  };
+
+  const fetchAllPOEEvent = poeId => {
+    dispatch(fetchAllPOEEvents(poeId));
+  };
+
+  const fetchAllPillarMemberContent = () => {
+    dispatch(fetchAllPillarMemberContents());
   };
 
   /**
@@ -66,6 +96,14 @@ const CommunityDetailScreen = props => {
     dispatch(resetbestPracticesMemberContent());
   };
 
+  const cleanPOEEvent = () => {
+    dispatch(resetPOEEvent());
+  };
+
+  const cleanPillarMemberContent = () => {
+    dispatch(resetPillarMemberContent());
+  };
+
   return (
     <CommunityDetail
       {...props}
@@ -84,6 +122,16 @@ const CommunityDetailScreen = props => {
       bestPracticesMemberContentError={bestPracticesMemberContentError}
       fetchAllbestPracticesMemberContent={fetchAllbestPracticesMemberContent}
       cleanbestPracticesMemberContent={cleanbestPracticesMemberContent}
+      poeEvents={poeEvents}
+      poeEventLoading={poeEventLoading}
+      poeEventError={poeEventError}
+      fetchAllPOEEvent={fetchAllPOEEvent}
+      cleanPOEEvent={cleanPOEEvent}
+      pillarMemberContents={pillarMemberContents}
+      pillarMemberContentLoading={pillarMemberContentLoading}
+      pillarMemberContentError={pillarMemberContentError}
+      fetchAllPillarMemberContent={fetchAllPillarMemberContent}
+      cleanPillarMemberContent={cleanPillarMemberContent}
     />
   );
 };

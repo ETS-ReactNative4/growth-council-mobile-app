@@ -34,6 +34,16 @@ const DashboardScreen = props => {
   const {communityMembers, communityMemberLoading, communityMemberError} =
     useSelector(state => state.communityMembers);
 
+  const {pillarEventLists, pillarEventLoading, pillarEventError} = useSelector(
+    state => state.pillarEventLists,
+  );
+
+  const {
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+  } = useSelector(state => state.pillarMemberContents);
+
   /**
    * Fetch all upcoming events data.
    *

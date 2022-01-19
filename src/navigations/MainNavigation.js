@@ -233,7 +233,7 @@ const MainNavigation = () => {
             headerTitle: 'Event Detail',
           })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="SessionDetail"
           component={SessionDetailScreen}
           options={({route}) => ({
@@ -245,7 +245,6 @@ const MainNavigation = () => {
           name="CommunityDetail"
           component={CommunityDetailScreen}
           options={({route}) => ({
-            id: route?.params?.id,
             headerTitle: 'Session Detail',
           })}
         />

@@ -45,6 +45,8 @@ import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growt
 import bestPracticesReducer from '../screens/dashboard/slice/bestPracticesSlice';
 import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPracticesMemberContentSlice';
 import growthCoachingsReducer from '../screens/dashboard/slice/growthCoachingSlice';
+import poeEventListReducer from '../screens/details/slice/poeEventListSlice';
+import pillarMembersContentsReducer from '../screens/details/slice/pillarMembersContentsSlice';
 
 import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
 
@@ -81,6 +83,8 @@ const reducers = combineReducers({
   pillars: pillarReducer,
   pillarSliders: pillarSliderReducer,
   pillarEvents: pillarEventsReducer,
+  poeEvents: poeEventListReducer,
+  pillarMemberContents: pillarMembersContentsReducer,
 
   connection: connectionReducer,
   communities: communityReducer,
