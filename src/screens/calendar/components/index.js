@@ -133,6 +133,15 @@ const EventCalendar = (props) => {
                             console.log('month changed', month);
                         }}
                         markedDates={markedDay}
+						   //  markedDates={{
+                        //      '2022-01-10': { color: 'green',textColor: 'white'},
+                        //      '2022-01-12': { color: 'green',textColor: 'white'},
+                        //      '2022-01-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
+                        //      '2022-01-22': {color: '#70d7c7', textColor: 'white'},
+                        //      '2022-01-23': {color: '#70d7c7', textColor: 'white', marked: true, dotColor: 'white'},
+                        //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
+                        //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
+                        //  }}
                        
                     />
                 </View>
