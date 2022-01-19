@@ -192,7 +192,7 @@ const ManageAccount = (props) => {
                                          touched={touched.last_name}
                                      />
 
-                                     <Text style={{ marginLeft: 10,  fontSize:10, color:'#8F9BB3'}}>Email</Text>
+                                     <Text style={{ marginLeft: 10,  fontSize:10, color:'#8F9BB3'}}>Email Address</Text>
                                      <TextInput
                                          style={styles.input}
                                          keyboardType="text"
@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
      
     },
     wrapper: {
-        marginTop: 35,
+        marginTop: 30,
 		borderBottomWidth:1 ,
 		
 		borderBottomColor:'#EDF1F7',

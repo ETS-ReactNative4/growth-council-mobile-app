@@ -75,11 +75,6 @@ const CommunityDetail = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  // console.log('Mega Best Practices ============', bestPractices);
-  // console.log('Mega BP Content ============', bestPracticesMemberContents);
-
-  //console.log('Session Detail:::::::::::::::::', sessionDetails.ID);
-
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
@@ -186,8 +181,6 @@ const CommunityDetail = props => {
 
   console.log('POE id:::::::::::::::::', route.params.poeId);
   console.log('parent id:::::::::::::::::', route.params.pillarId);
-  console.log('poe events:::::::::::::::::', poeDetails);
-  console.log('poe events:::::::::::::::::', poeEvents);
 
   return (
     <ScrollView style={styles.container}>

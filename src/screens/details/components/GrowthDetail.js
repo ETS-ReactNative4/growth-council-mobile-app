@@ -260,7 +260,7 @@ const GrowthDetail = props => {
 
           <View style={styles.icon}>
             <Image
-              source={require('../../../assets/img/Path203.png')}
+              source={require('../../../assets/img/icon1.png')}
               style={{
                 width: 35,
                 height: 35,
@@ -293,7 +293,7 @@ const GrowthDetail = props => {
               </Text>
 
               <View style={styles.top}>
-                <Text style={styles.title}> Events</Text>
+                <Text style={styles.title}> Growth Coaching Events</Text>
                 <View
                   style={{
                     display: 'flex',
