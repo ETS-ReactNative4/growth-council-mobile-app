@@ -50,6 +50,11 @@ const Dashboard = props => {
     pillarSliderError,
     fetchAllPillarSlider,
     cleanPillarSlider,
+    pillarEventLists,
+    pillarEventLoading,
+    pillarEventError,
+    fetchAllPillarEvent,
+    cleanPillarEvent,
   } = props;
 
   const _renderItem = ({item, index}) => {
@@ -96,7 +101,10 @@ const Dashboard = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('CommunityDetail', {id: item?.term_id})
+          navigation.navigate('CommunityDetail', {
+            poeId: item?.term_id,
+            pillarId: item?.parent,
+          })
         }>
         <View style={styles.middleWrapper}>
           <View style={styles.middleW}>
@@ -154,9 +162,9 @@ const Dashboard = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}{item?.organizer?.description}
+                Hosted by {item?.organizer?.term_name}
+                {item?.organizer?.description}
               </Text>
-              
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -218,8 +226,6 @@ const Dashboard = props => {
     fetchAllPOEAsync();
   }, []);
 
-  console.log('upcomingevents', upcomingEvents);
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.container}>
@@ -235,7 +241,6 @@ const Dashboard = props => {
       <View style={styles.top}>
         <View style={styles.eventWrapper}>
           <Text style={styles.title}>Upcoming Events</Text>
-          
         </View>
 
         {upcomingEventLoading && (

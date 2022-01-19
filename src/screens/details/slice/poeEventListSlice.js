@@ -4,8 +4,8 @@ import {fetch} from '../../../utils/httpUtil';
 
 export const fetchAllPOEEvents = createAsyncThunk(
   'poeEvents/fetchAll',
-  (_, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/pillars/119/events`)
+  (poeId, {rejectWithValue}) => {
+    return fetch(`jwt-auth/v1/pillars/${poeId}/events`)
       .then(response => response.data.body_response)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
