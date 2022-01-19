@@ -80,7 +80,8 @@ const Home = props => {
   return (
 	  <View style={{flex:1, backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
     <View style={styles.container}>
-      <StatusBar hidden />
+	<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.PRIMARY_BACKGROUND_COLOR} translucent = {true}/>
+
       <View style={styles.header}>
         <Text style={styles.headingText1}>Welcome</Text>
         <Text style={styles.headingText2}>To The Growth Council</Text>
@@ -169,7 +170,7 @@ const Home = props => {
           style={styles.footerlogo}
           source={require('../../../assets/img/frost-sullivan.png')}
         />
-        <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>
+        <Text style={{fontSize: 6, marginTop: 10}}>
           Powered By
         </Text>
         <Image
@@ -267,7 +268,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
+    marginTop: 40,
   },
   headingText1: {
     // ...CommonStyles.headingText1,

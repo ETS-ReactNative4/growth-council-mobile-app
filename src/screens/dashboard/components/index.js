@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
@@ -221,7 +222,10 @@ const Dashboard = props => {
   console.log('upcomingevents', upcomingEvents);
 
   return (
+	  
     <ScrollView style={styles.container}>
+	    <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/appBG.png')} translucent = {true}/>
+		
       <View style={styles.container}>
         <ImageBackground
           style={{width: '100%', height: 180}}

@@ -8,6 +8,7 @@ import {
     ScrollView,
     FlatList,
     TouchableOpacity,
+	StatusBar
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome5';
@@ -195,6 +196,8 @@ const HomeCommunity = props => {
 
     return (
         <ScrollView>
+		<StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle2.png')} translucent = {true}/>
+
             <View style={styles.container}>
                 <View style={styles.top}>
                     <Text style={styles.title}> Growth Community Events</Text>

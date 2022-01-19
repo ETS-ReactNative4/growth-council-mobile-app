@@ -30,10 +30,8 @@ const About = (props) => {
 
     return (
         <>
-            <StatusBar
-                barStyle="dark-content"
-                backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
-            />
+            <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/appBG.png')} translucent = {true}/>
+
             <ScrollView
                 style={{
                     height: Platform.OS === 'ios' ? 400 : 350,
