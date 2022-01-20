@@ -32,7 +32,7 @@ const OthersAccount = props => {
   }, []);
 
   console.log('profile id =======', route.params.id);
-  console.log('profile other ====== ', otherProfiles);
+  console.log('profile other ====== ', otherProfiles.user_meta.first_name[0]);
 
   return (
     <ScrollView
@@ -120,7 +120,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.first_name}
+                    value={otherProfiles?.user_meta?.first_name[0]}
                     editable={false}
                   />
 
@@ -136,7 +136,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.last_name}
+                    value={otherProfiles?.user_meta?.last_name[0]}
                     editable={false}
                   />
 
