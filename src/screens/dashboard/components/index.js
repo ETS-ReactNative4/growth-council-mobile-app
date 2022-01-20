@@ -8,7 +8,10 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  StatusBar,
+  SafeAreaView
 } from 'react-native';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
@@ -26,6 +29,8 @@ import {
   TERTIARY_TEXT_COLOR,
 } from '../../../theme/colors';
 
+
+console.log("Status::::", StatusBar.currentHeight);
 
 const Dashboard = props => {
   const {
@@ -227,116 +232,121 @@ const Dashboard = props => {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.container}>
-        <ImageBackground
-          style={{width: '100%', height: 180}}
-          source={require('../../../assets/img/appBG.png')}>
-          <View style={styles.pillar}>
-            <PillarList pillarSliders={pillarSliders} navigation={navigation} />
-          </View>
-        </ImageBackground>
-      </View>
+	  <SafeAreaView style={{flex:1,}}>
+		<StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/appBG.png')} translucent = {true}/>
+		<ScrollView style={styles.container}>
+			
+			<View style={styles.container}>
+				<ImageBackground
+				style={{width: '100%', height: 180}}
+				source={require('../../../assets/img/appBG.png')}>
+				<View style={styles.pillar}>
+					<PillarList pillarSliders={pillarSliders} navigation={navigation} />
+				</View>
+				</ImageBackground>
+			</View>
 
       <View style={styles.top}>
         <View style={styles.eventWrapper}>
           <Text style={styles.title}>Upcoming Events</Text>
         </View>
 
-        {upcomingEventLoading && (
-          <View style={styles.loading1}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+				{upcomingEventLoading && (
+				<View style={styles.loading1}>
+					<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+				</View>
+				)}
 
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginTop: 20,
-          }}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={upcomingEvents}
-            renderItem={item => _renderTopItem(item, navigation)}
-          />
-        </View>
-      </View>
+				<View
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					marginTop: 20,
+				}}>
+				<FlatList
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					data={upcomingEvents}
+					renderItem={item => _renderTopItem(item, navigation)}
+				/>
+				</View>
+			</View>
 
-      <View style={styles.middle}>
-        <Text style={[styles.title, {marginLeft: 15}]}>
-          Points of Engagement
-        </Text>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-			marginLeft:10,
-          }}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={poes}
-            renderItem={_renderMiddleItem}
-          />
-        </View>
-      </View>
+			<View style={styles.middle}>
+				<Text style={[styles.title, {marginLeft: 15}]}>
+				Points of Engagement
+				</Text>
+				<View
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					marginLeft:10,
+				}}>
+				<FlatList
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					data={poes}
+					renderItem={_renderMiddleItem}
+				/>
+				</View>
+			</View>
 
-      <View style={styles.bottom}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginLeft: 15,
-            marginRight: 15,
-          }}>
-          <Text style={styles.title}> Growth Community Members</Text>
-          {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
-        </View>
-        <View>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={communityMembers}
-            renderItem={_renderItem}
-          />
-        </View>
-      </View>
+			<View style={styles.bottom}>
+				<View
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					marginLeft: 15,
+					marginRight: 15,
+				}}>
+				<Text style={styles.title}> Growth Community Members</Text>
+				{/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
+				</View>
+				<View>
+				<FlatList
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					data={communityMembers}
+					renderItem={_renderItem}
+				/>
+				</View>
+			</View>
 
-      <View style={styles.content}>
-        <Text style={[styles.title, {marginLeft: 15}]}>
-          {' '}
-         Content Library
-        </Text>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={pic}
-            renderItem={_renderContentItem}
-          />
-        </View>
-      </View>
+			<View style={styles.content}>
+				<Text style={[styles.title, {marginLeft: 15}]}>
+				{' '}
+				Content Library
+				</Text>
+				<View
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+				}}>
+				<FlatList
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					data={pic}
+					renderItem={_renderContentItem}
+				/>
+				</View>
+			</View>
 
-      <View
-        style={{
-          alignItems: 'center',
-          width: '35%',
-          marginLeft: 140,
-          marginBottom: 10,
-        }}>
-        <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-        <Image
-          source={require('../../../assets/img/fristDigi.png')}
-          style={{width: '100%', height: 20}}
-        />
-      </View>
-    </ScrollView>
+			<View
+				style={{
+				alignItems: 'center',
+				width: '35%',
+				marginLeft: 140,
+				marginBottom: 10,
+				}}>
+				<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+				<Image
+				source={require('../../../assets/img/fristDigi.png')}
+				style={{width: '100%', height: 20}}
+				/>
+			</View>
+    		</ScrollView>
+	  </SafeAreaView>
+   
   );
 };
 
