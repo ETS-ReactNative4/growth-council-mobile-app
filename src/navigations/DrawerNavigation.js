@@ -6,7 +6,6 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {
-<<<<<<< HEAD
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
@@ -14,16 +13,7 @@ import {
   Image,
   Text,
   ImageBackground,
-=======
-    SafeAreaView,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    Image,
-    Text,
-    ImageBackground,
-	StatusBar,
->>>>>>> dev
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
@@ -51,7 +41,6 @@ const CustomDrawerContent = props => {
     props.navigation.toggleDrawer();
   };
 
-<<<<<<< HEAD
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flexDirection: 'row'}}>
@@ -75,31 +64,6 @@ const CustomDrawerContent = props => {
         {/*<Ionicons name="calendar-outline" color={'#000'} size={24}/>*/}
         {/*}*/}
         {/*/>*/}
-=======
-    return (
-        <SafeAreaView style={{flex: 1,}}>
-            <View style={{flexDirection: 'row',}}>
-                <TouchableOpacity onPress={toggleDrawer}>
-                    <Ionicons name="close-outline" color={'#000'} size={24}/>
-                </TouchableOpacity>
-            </View>
-            <DrawerContentScrollView {...props}>
-                <DrawerItemList {...props} />
-                {/*<DrawerItem*/}
-                {/*label="Community"*/}
-                {/*onPress={() => props.navigation.navigate('Community')}*/}
-                {/*icon={() =>*/}
-                {/*<Ionicons name="calendar-outline" color={'#000'} size={24}/>*/}
-                {/*}*/}
-                {/*/>*/}
-                {/*<DrawerItem*/}
-                {/*label="Calendar"*/}
-                {/*onPress={() => props.navigation.navigate('Calendar')}*/}
-                {/*icon={() =>*/}
-                {/*<Ionicons name="calendar-outline" color={'#000'} size={24}/>*/}
-                {/*}*/}
-                {/*/>*/}
->>>>>>> dev
 
         {/* <View style={styles.footer}>
 				<Image source={require("../../src/assets/img/footer_logo.png")}/>
@@ -116,7 +80,6 @@ const DrawerNavigation = ({navigation}) => {
     state => state.profileEvent,
   );
 
-<<<<<<< HEAD
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
@@ -128,191 +91,6 @@ const DrawerNavigation = ({navigation}) => {
             <ImageBackground
               source={require('../../src/assets/img/appBG.png')}
               style={{width: '100%', height: 60}}
-=======
-    return (
-        <Drawer.Navigator
-            initialRouteName="Dashboard"
-            screenOptions={({navigation}) => ({
-                activeTintColor: '#e91e63',
-                itemStyle: {marginVertical: 5,},
-				headerBackground: () => (
-					<View>
-						<ImageBackground
-							source={require('../../src/assets/img/appBG.png')}
-							style={{width: '100%', height: 60}}/>
-					</View>
-				),
-                headerTitle: () => <HeaderTitle/>,
-                headerLeft: () => (
-					<View>
-							<View>
-                        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-                            <Ionicons
-                                name="menu-outline"
-                                color={'white'}
-                                size={30}
-                                style={{marginLeft: 10, top:10 }}
-                            />
-                        </TouchableOpacity>
-						</View>
-						<View>
-                        <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
-                            <Image
-                                source={require('../assets/img/dashboard_logo.png')}
-                                style={{
-                                    top: -29,
-                                    position: 'absolute',
-                                    height: 35,
-                                    width: 35,
-                                    left: 30,
-                                    marginLeft: 17,
-                                    borderWidth: 5,
-									
-                                }}
-                            />
-                        </TouchableOpacity>
-                    </View>
-					</View>
-                    
-                ),
-                headerRight: () => <HeaderRight/>,
-            })}
-            drawerContent={props => <CustomDrawerContent {...props} />}>
-            <Drawer.Screen
-                name="Dashboard"
-                component={BottomTabNavigation}
-                options={() => ({
-                    drawerIcon: ({focused, size}) => (
-                        <Ionicons name="calendar-outline" color={'blue'} size={24}/>
-                    ),
-                })}
-            />
-            <Drawer.Screen
-                name="Community"
-                component={HomeCommunityScreen}
-                options={() => ({
-                    drawerIcon: ({focused, size}) => (
-                        <Ionicons name="calendar-outline" color={'blue'} size={24}/>
-                    ),
-                    headerBackground: () => (
-                        <View>
-                            <ImageBackground
-                                source={require('../../src/assets/img/Rectangle2.png')}
-                                style={{width: '100%', height: 60}}/>
-                        </View>
-                    ),
-                    headerTitle: () => (
-                        <View style={{marginLeft: 35}}>
-                            <Text
-                                style={{
-                                    color: Colors.PRIMARY_BACKGROUND_COLOR,
-                                    fontSize: 22,
-                                    marginLeft: 5,
-									marginTop:10,
-                                }}>
-                                Community
-                            </Text>
-                        </View>
-                    ),
-                })}
-            />
-            <Drawer.Screen
-                name="Best Practices"
-                component={BestPracticeScreen}
-                options={() => ({
-                    drawerIcon: ({focused, size}) => (
-                        <Ionicons name="ear-outline" color={'blue'} size={24}/>
-                    ),
-                    headerBackground: () => (
-                        <View>
-                            <ImageBackground
-                                source={require('../../src/assets/img/Rectangle1.png')}
-                                style={{width: '100%', height: 60}}/>
-                        </View>
-                    ),
-                    headerTitle: () => (
-                        <View style={{marginLeft: 35}}>
-                            <Text
-                                style={{
-                                    color: Colors.PRIMARY_BACKGROUND_COLOR,
-                                    fontSize: 22,
-									marginTop:10,
-                                }}>
-                                Best Practices
-                            </Text>
-                        </View>
-                    ),
-                })}
-            />
-            <Drawer.Screen
-                name="Growth Coaching"
-                component={GrowthCoachingScreen}
-                options={() => ({
-                    drawerIcon: ({focused, size}) => (
-                        <Ionicons name="git-compare-outline" color={'green'} size={24}/>
-                    ),
-                    headerBackground: () => (
-                        <View>
-                            <ImageBackground
-                                source={require('../../src/assets/img/Rectangle.png')}
-                                style={{width: '100%', height: 60}}/>
-                        </View>
-                    ),
-                    headerTitle: () => (
-                        <View style={{marginLeft: 35}}>
-                            <Text
-                                style={{color: Colors.PRIMARY_BACKGROUND_COLOR, 
-									fontSize: 22,
-                                    
-									marginTop:10,
-								}}>
-                                Growth Coaching
-                            </Text>
-                        </View>
-                    ),
-                })}
-            />
-            <Drawer.Screen
-                name="Calendar"
-                component={CalendarScreen}
-                options={() => ({
-                    drawerIcon: ({focused, size}) => (
-                        <Ionicons name="calendar-outline" color={'#00008B'} size={24}/>
-                    ),
-                    headerTitle: () => (
-                        <View style={{marginLeft: 40}}>
-                            <Text style={{fontWeight: '400', color: 'white', 
-									fontSize: 22,
-									marginTop:10,
-								}}>
-                                Calendar
-                            </Text>
-                        </View>
-                    ),
-                })}
-            />
-            <Drawer.Screen
-                name="About"
-                component={AboutScreen}
-                options={() => ({
-                    drawerIcon: ({focused, size}) => (
-                        <Ionicons
-                            name="information-circle-outline"
-                            color={'#00008B'}
-                            size={24}
-                        />
-                    ),
-                    headerTitle: () => (
-                        <View style={{marginLeft: 40}}>
-                            <Text style={{fontWeight: '400', color: 'white', 
-									fontSize: 22,
-									marginTop:10,}}>
-                                About
-                            </Text>
-                        </View>
-                    ),
-                })}
->>>>>>> dev
             />
           </View>
         ),
