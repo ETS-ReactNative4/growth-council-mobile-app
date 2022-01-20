@@ -29,11 +29,9 @@ const phoneRegExp =
 const signUpSchema = Yup.object().shape({
   first_name: Yup.string().required('First Name is required.'),
   last_name: Yup.string().required('Last Name is required.'),
-  // password: Yup.string()
-  //     .min(6, ({min}) => `Password must be at least ${min} characters.`)
-  //     .required('Password is required.'),
   email: Yup.string()
     .email('Please enter valid email')
+    .trim()
     .required('Email Address is Required'),
   phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
@@ -76,7 +74,7 @@ const SignUpForm = props => {
       try {
         const response = await createUserWithEmailAndPassword(
           auth,
-          values?.email,
+          values?.email?.trim(),
           values?.firebase_password,
         );
         const token = await response.user.getIdToken();
@@ -506,6 +504,8 @@ const styles = StyleSheet.create({
   scrollBox: {
     height: '65%',
     width: '100%',
+    marginLeft: 32,
+    marginRight: 32,
     marginBottom: 0,
   },
   body: {
@@ -516,7 +516,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
     borderRadius: 18,
-    padding: 30,
+    padding: 20,
   },
   message: {
     ...CommonStyles.message,
@@ -540,7 +540,7 @@ const styles = StyleSheet.create({
   },
   loginButtonWrapper: {
     ...CommonStyles.buttonWrapper,
-    width: '100%',
+    width: '90%',
   },
   loginButton: {
     width: '50%',
