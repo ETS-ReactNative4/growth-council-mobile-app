@@ -504,8 +504,6 @@ const styles = StyleSheet.create({
   scrollBox: {
     height: '65%',
     width: '100%',
-    marginLeft: 32,
-    marginRight: 32,
     marginBottom: 0,
   },
   body: {
@@ -516,7 +514,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
     borderRadius: 18,
-    padding: 20,
+    padding: 30,
   },
   message: {
     ...CommonStyles.message,
