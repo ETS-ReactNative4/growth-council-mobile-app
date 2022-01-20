@@ -43,24 +43,6 @@ const Home = props => {
   const itemHorizontalMargin = wp(2);
   const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-  // const carouselItems = [
-  //   {
-  //     uri: require('../../../assets/img/welcome_screen_learn_more_image.png'),
-  //     text: 'Growth Coaching',
-  //     id: 121,
-  //   },
-  //   {
-  //     uri: require('../../../assets/img/community_slider_image.png'),
-  //     text: 'Growth Community',
-  //     id: 120,
-  //   },
-  //   {
-  //     uri: require('../../../assets/img/massk.png'),
-  //     text: 'Best Practices',
-  //     id: 119,
-  //   },
-  // ];
-
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
       await fetchAllPillarSlider();
@@ -78,7 +60,7 @@ const Home = props => {
         <View
           style={{
             backgroundColor: 'floralwhite',
-            height: viewportWidth - 150,
+            height: viewportWidth - 100,
             marginLeft: 20,
             marginRight: 20,
             position: 'relative',
@@ -96,6 +78,7 @@ const Home = props => {
   };
 
   return (
+	  <View style={{flex:1, backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
     <View style={styles.container}>
       <StatusBar hidden />
       <View style={styles.header}>
@@ -103,27 +86,26 @@ const Home = props => {
         <Text style={styles.headingText2}>To The Growth Council</Text>
       </View>
       <View styyle={styles.sliderView}>
-        <FeatherIcon
-          name={'chevron-right'}
-          style={styles.carouselRight}
-          size={36}
-          color={'#00000099'}
-          onPress={() => {
-            sliderRef.current.snapToNext();
-          }}
-        />
-        <FeatherIcon
-          name={'chevron-left'}
-          style={styles.carouselLeft}
-          size={36}
-          color={'#00000099'}
-          onPress={() => {
-            sliderRef.current.snapToPrev();
-          }}
-        />
-
-
 		{!pillarSliderLoading ? (
+			<View>
+			<FeatherIcon
+			name={'chevron-right'}
+			style={styles.carouselRight}
+			size={36}
+			color={'#00000099'}
+			onPress={() => {
+			sliderRef.current.snapToNext();
+			}}
+			/>
+			<FeatherIcon
+			name={'chevron-left'}
+			style={styles.carouselLeft}
+			size={36}
+			color={'#00000099'}
+			onPress={() => {
+			sliderRef.current.snapToPrev();
+			}}
+			/>
 			<Carousel
 			ref={sliderRef}
 			layout={'default'}
@@ -144,16 +126,8 @@ const Home = props => {
 			inactiveSlideOpacity={0.5}
 			onSnapToItem={index => setActiveSlider(index)}
 		  />
-            
-		):(
-			<View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
-        	</View>
-		)}
-                                
-      
-		
-        <Pagination
+
+		<Pagination
           dotsLength={pillarSliders.length}
           activeDotIndex={activeSlider}
           dotStyle={{
@@ -166,12 +140,19 @@ const Home = props => {
           inactiveDotColor="#DDDCFF"
           dotColor={'#1580B7'}
         />
-      </View>
+		  </View>
 
-      <View style={styles.buttonWrapper}>
+		):(
+			<View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
+        	</View>
+		)}
+      </View>
+    </View>
+	<View style={styles.buttonWrapper}>
         <Button
           style={styles.signupbutton}
-          onPress={() => navigation.navigate('')}>
+          onPress={() => navigation.navigate('radar')}>
           <Text style={styles.signupbuttonText}>Get Started</Text>
         </Button>
         <Button
@@ -196,7 +177,7 @@ const Home = props => {
           style={styles.footerlogo}
         />
       </View>
-    </View>
+	</View>
   );
 };
 
@@ -241,12 +222,11 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'space-around',
-	
-    // marginBottom: 20,
+
+    marginBottom: 20,
   },
   signupbutton: {
     ...CommonStyles.button,
-    height: 56,
     width: 336,
     marginBottom: 20,
     borderRadius: 25,
@@ -310,7 +290,7 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-   
+   marginBottom:20,
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -324,7 +304,7 @@ const styles = StyleSheet.create({
   },
   sliderView: {
     position: 'relative',
-    marginTop: 30,
+    marginTop: 50,
   },
   sliderText: {
     position: 'absolute',
@@ -350,7 +330,7 @@ const styles = StyleSheet.create({
   },
   loading1: {
 	marginLeft: 150,
-	marginTop:20,
+	marginTop:150,
 	flex: 1,
 	flexDirection: 'column',
 	position: 'absolute',

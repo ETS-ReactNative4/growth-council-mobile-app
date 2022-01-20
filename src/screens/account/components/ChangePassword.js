@@ -17,30 +17,27 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatOutlineTextInput from '../../../shared/form/FlatOutlineTextInput';
 import ToastMessage from '../../../shared/toast';
-import {getAsyncStorage} from '../../../utils/storageUtil';
-import {decodeUserID} from '../../../utils/jwtUtil';
-import {JWT_TOKEN} from '../../../constants';
 
 const passwordSchema = Yup.object().shape({
-    current_password: Yup.string()
+    oldPassword: Yup.string()
         .min(6, 'Too Short!')
         .max(10, 'Too Long!')
-        .required('Old Password is required.'),
-    new_password: Yup.string()
+        .required('Old password is required.'),
+    newPassword: Yup.string()
         .min(6, 'Too Short!')
         .max(10, 'Too Long!')
         .required('New Password is required.'),
-    confirm_password: Yup.string()
-        .oneOf([Yup.ref('new_password'), null], 'Password and confirm password must be match.')
+    confirmPassword: Yup.string()
+        .oneOf([Yup.ref('newPassword'), null], 'Password and confirm password must be match.')
         .required('Confirm password is required.'),
 });
 
 const ChangePasswordForm = (props) => {
 
     const {navigation,
-		loading, 
-		error, 
-		updateCustomerPassword, 
+		loading,
+		error,
+		updateCustomerPassword,
 		cleanCustomerPassword,
 		profile,
         profileLoading,
@@ -63,13 +60,11 @@ const ChangePasswordForm = (props) => {
     } = useFormik({
         validationSchema: passwordSchema,
         initialValues: {
-			current_password: '', 
-			new_password: '', 
-			confirm_password: ''},
+            oldPassword: '',
+            newPassword: '',
+			confirmPassword: ''},
         onSubmit: async (values) => {
-            // let token = await getAsyncStorage(JWT_TOKEN);
-            // values.id = decodeUserID(token);
-            delete values.confirm_password;
+            delete values.confirmPassword;
             await updateCustomerPassword(values).then(response => {
                 if (response?.payload?.status === 200) {
                     navigation.navigate('SignIn');
@@ -99,9 +94,9 @@ const ChangePasswordForm = (props) => {
 
 		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
 			<View style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
-	
+
 				<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
-				
+
 						<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
 								<View style={styles.profileWrapper}>
 										<View style={styles.icon}>
@@ -143,20 +138,20 @@ const ChangePasswordForm = (props) => {
                 )}
 
                 <View style={styles.body}>
-				
+
                     <FlatOutlineTextInput
                         label='Current Password'
-                        value={values.current_password}
+                        value={values.oldPassword}
                         isPassword={true}
                         secureTextEntry={hidePass}
-                        onChangeText={handleChange('current_password')}
-                        onBlur={handleBlur('current_password')}
-                        onFocus={handleBlur('current_password')}
-                        error={errors.current_password}
-                        touched={touched.current_password}
+                        onChangeText={handleChange('oldPassword')}
+                        onBlur={handleBlur('oldPassword')}
+                        onFocus={handleBlur('oldPassword')}
+                        error={errors.oldPassword}
+                        touched={touched.oldPassword}
                     />
-					 {errors.current_password &&
-                            <Text style={{fontSize: 10, color: 'red'}}>{errors.current_password}</Text>
+					 {errors.oldPassword &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.oldPassword}</Text>
                             }
                     <Ionicons
                         name={hidePass ? 'eye-outline' : 'eye-off-outline'}
@@ -172,17 +167,17 @@ const ChangePasswordForm = (props) => {
 
                     <FlatOutlineTextInput
                         label='New Password'
-                        value={values.new_password}
+                        value={values.newPassword}
                         isPassword={true}
                         secureTextEntry={hidePass1}
-                        onChangeText={handleChange('new_password')}
-                        onBlur={handleBlur('new_password')}
-                        onFocus={handleBlur('new_password')}
-                        error={errors.new_password}
-                        touched={touched.new_password}
+                        onChangeText={handleChange('newPassword')}
+                        onBlur={handleBlur('newPassword')}
+                        onFocus={handleBlur('newPassword')}
+                        error={errors.newPassword}
+                        touched={touched.newPassword}
                     />
-					 {errors.new_password &&
-                            <Text style={{fontSize: 10, color: 'red'}}>{errors.new_password}</Text>
+					 {errors.newPassword &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.newPassword}</Text>
                             }
                     <Ionicons
                         name={hidePass1 ? 'eye-outline' : 'eye-off-outline'}
@@ -198,17 +193,17 @@ const ChangePasswordForm = (props) => {
 
                     <FlatOutlineTextInput
                         label='Re New Password'
-                        value={values.confirm_password}
+                        value={values.confirmPassword}
                         isPassword={true}
                         secureTextEntry={hidePass2}
-                        onChangeText={handleChange('confirm_password')}
-                        onBlur={handleBlur('confirm_password')}
-                        onFocus={handleBlur('confirm_password')}
-                        error={errors.confirm_password}
-                        touched={touched.confirm_password}
+                        onChangeText={handleChange('confirmPassword')}
+                        onBlur={handleBlur('confirmPassword')}
+                        onFocus={handleBlur('confirmPassword')}
+                        error={errors.confirmPassword}
+                        touched={touched.confirmPassword}
                     />
-					 {errors.confirm_password &&
-                            <Text style={{fontSize: 10, color: 'red'}}>{errors.confirm_password}</Text>
+					 {errors.confirmPassword &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.confirmPassword}</Text>
                             }
                     <Ionicons
                         name={hidePass2 ? 'eye-outline' : 'eye-off-outline'}
@@ -239,12 +234,12 @@ const ChangePasswordForm = (props) => {
         </View>
 		<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
 			<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-			<Image 
+			<Image
 				source={require('../../../assets/img/fristDigi.png')}
 				style={{width:"100%", height:20}}
 			/>
 		</View>
-	</ScrollView>   
+	</ScrollView>
     );
 };
 
@@ -254,7 +249,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
 		paddingLeft:50,
 		paddingRight:50,
-		
+
     },
 	cancelWrapper: {
         ...CommonStyles.linkWrapper,
@@ -268,11 +263,11 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_MEDIUM,
         paddingLeft: 8,
     },
-	
+
     content: {
         ...CommonStyles.content,
     },
-    
+
     message: {
         ...CommonStyles.message,
     },
@@ -305,25 +300,18 @@ const styles = StyleSheet.create({
         ...CommonStyles.errorText,
     },
 
-    errorWrapper: {
-        width: '70%',
-    },
-    errorText: {
-        ...CommonStyles.errorText,
-    },
-
 	profileWrapper:{
 		padding:20,
-		alignItems:"center", 
+		alignItems:"center",
 		width:328,
 		backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR,
-		borderRadius:12, 
+		borderRadius:12,
 		position:"relative",
-		paddingTop:100, 
-		borderWidth: 1 , 
+		paddingTop:100,
+		borderWidth: 1 ,
 		borderColor:'#707070'
 	},
-    header: {    
+    header: {
      alignItems:'center',
     },
     icon: {
@@ -343,7 +331,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
 
-	
+
 
 });
 

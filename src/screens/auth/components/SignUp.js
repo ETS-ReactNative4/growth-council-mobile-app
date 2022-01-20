@@ -333,19 +333,13 @@ const SignUpForm = props => {
                         Your Account!</Text>
                     </View>
 
-                    {loading && (
-                        <View
-                            style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                flexDirection: 'column',
-                                justifyContent: 'space-around',
-                                position: 'absolute',
-                                zIndex: 1011,
-                            }}>
-                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
-                        </View>
-                    )}
+                  
+                         {loading &&
+							<View style={styles.loading1}>
+								<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
+							</View>
+							}
+                   
                     <ScrollView style={styles.scrollBox}>
                         <View style={styles.body}>
                             <FlatTextInput
@@ -567,6 +561,14 @@ const styles = StyleSheet.create({
         ...CommonStyles.errorText,
         textAlign: 'left',
     },
+	loading1: {
+        marginLeft: 150,
+		marginTop:250,
+        flex: 1,
+        flexDirection: 'column',
+        position: 'absolute',
+        zIndex: 1011,
+    }
 });
 
 export default SignUpForm;

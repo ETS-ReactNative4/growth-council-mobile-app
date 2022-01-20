@@ -23,16 +23,21 @@ const CommunityDetail = props => {
     sessionDetailError,
     fetchSessionDetailByIdentifier,
     cleanSessionDetail,
-    bestPractices,
-    bestPracticeLoading,
-    bestPracticeError,
-    fetchAllbestPractice,
-    cleanbestPractice,
-    bestPracticesMemberContents,
-    bestPracticesMemberContentLoading,
-    bestPracticesMemberContentError,
-    fetchAllbestPracticesMemberContent,
-    cleanbestPracticesMemberContent,
+    poeDetails,
+    poeDetailLoading,
+    poeDetailError,
+    fetchAllPOEDetail,
+    cleanPOEDetail,
+    poeEvents,
+    poeEventLoading,
+    poeEventError,
+    fetchAllPOEEvent,
+    cleanPOEEvent,
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+    fetchAllPillarMemberContent,
+    cleanPillarMemberContent,
   } = props;
 
   useEffect(() => {
@@ -43,54 +48,65 @@ const CommunityDetail = props => {
   }, []);
 
   useEffect(() => {
-    const fetchAllbestPracticeAsync = async () => {
-      await fetchAllbestPractice();
-    };
-    fetchAllbestPracticeAsync();
-  }, []);
-
-  useEffect(() => {
     const fetchAllbestPracticeMemberContentAsync = async () => {
       await fetchAllbestPracticesMemberContent();
     };
     fetchAllbestPracticeMemberContentAsync();
   }, []);
 
-  console.log('Mega Best Practices ============', bestPractices);
-  console.log('Mega BP Content ============', bestPracticesMemberContents);
+  useEffect(() => {
+    const fetchAllPOEDetailAsync = async () => {
+      await fetchAllPOEDetail(route.params.poeId);
+    };
+    fetchAllPOEDetailAsync();
+  }, []);
 
-  // console.log('route.params.id:::::::::::::::::', route.params.id);
-  // console.log('Session Detail:::::::::::::::::', sessionDetails.ID);
+  useEffect(() => {
+    const fetchAllPOEEventAsync = async () => {
+      await fetchAllPOEEvent(route.params.poeId);
+    };
+    fetchAllPOEEventAsync();
+  }, []);
 
-
+  useEffect(() => {
+    const fetchAllPillarMemberContentAsync = async () => {
+      await fetchAllPillarMemberContent(route.params.pillarId);
+    };
+    fetchAllPillarMemberContentAsync();
+  }, []);
 
   const _renderItem = ({item, index}) => {
     return (
-		<View style={[styles.bottomWrapper, styles.shadowProp]}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: 83,
-				height: 83,
-				borderRadius:10,
-			}}/>
-		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10, fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
-			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-		</View>
-		
-		<View
-		  style={styles.chatIcon}>
-		  <Ionicons
-			name={'chatbox'}
-			size={10}
-			color="#B1AFAF"
-		  />
-		</View>
-	  </View>
+      <View style={[styles.bottomWrapper, styles.shadowProp]}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+          <Image
+            source={{uri: item.avatar}}
+            style={{
+              width: 83,
+              height: 83,
+              borderRadius: 10,
+            }}
+          />
+          <View style={{padding: 10, paddingBottom: 20}}>
+            <Text
+              style={{
+                fontSize: 10,
+                fontFamily: Typography.FONT_SF_SEMIBOLD,
+                color: Colors.TERTIARY_TEXT_COLOR,
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+          </View>
+
+          <View style={styles.chatIcon}>
+            <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   };
-
-
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -98,16 +114,18 @@ const CommunityDetail = props => {
     console.log(date[1]);
     return (
       <View style={styles.topWrapper}>
-        <ImageBackground
-          style={{
-			width: '100%',
-			height: "100%",
-			borderRadius: 20,
-          }}
-          source={require('../../../assets/img/blank_event_design.png')}>
-          <View
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          <ImageBackground
             style={{
-				width: 40,
+              width: '100%',
+              height: '100%',
+              borderRadius: 20,
+            }}
+            source={require('../../../assets/img/blank_event_design.png')}>
+            <View
+              style={{
+                width: 40,
                 height: 50,
                 marginTop: 10,
                 marginLeft: 200,
@@ -115,20 +133,21 @@ const CommunityDetail = props => {
                 borderRadius: 10,
                 padding: 5,
                 alignItems: 'center',
-            }}>
-            <Text>{date[1]}</Text>
-            <Text>{date[0]}</Text>
-          </View>
+              }}>
+              <Text>{date[1]}</Text>
+              <Text>{date[0]}</Text>
+            </View>
 
-          <View style={styles.header}>
-            <Text style={styles.headingText1}>{item.title}</Text>
-            <Text style={styles.headingText2}>
-              Hosted by {item?.organizer?.term_name}
-              {'  '}
-              {item?.organizer?.description}
-            </Text>
-          </View>
-        </ImageBackground>
+            <View style={styles.header}>
+              <Text style={styles.headingText1}>{item.title}</Text>
+              <Text style={styles.headingText2}>
+                Hosted by {item?.organizer?.term_name}
+                {'  '}
+                {item?.organizer?.description}
+              </Text>
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -160,11 +179,14 @@ const CommunityDetail = props => {
     );
   };
 
+  console.log('POE id:::::::::::::::::', route.params.poeId);
+  console.log('parent id:::::::::::::::::', route.params.pillarId);
+
   return (
-    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView style={styles.container}>
       <View style={styles.container}>
         <ImageBackground
-          source={require('../../../assets/img/image.png')}
+          source={{uri: poeDetails.pillar_detail_image}}
           style={{height: 400}}>
           {/* <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
@@ -174,11 +196,12 @@ const CommunityDetail = props => {
 
           <View style={styles.icon}>
             <Image
-              source={require('../../../assets/img/Path203.png')}
+              source={{uri: poeDetails.image}}
               style={{
-                width: 35,
-                height: 35,
-                marginLeft: 25,
+                width: 50,
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             />
           </View>
@@ -189,22 +212,13 @@ const CommunityDetail = props => {
                 style={{
                   fontSize: 16,
                   fontWeight: '500',
-				  color:"#1E2022",
+                  color: '#1E2022',
                   textAlign: 'center',
                   marginTop: 50,
                 }}>
-                Megatrend Workshop
+                {poeDetails.name}
               </Text>
-              <Text style={styles.paragraph}>
-                Mega trends are transformative, global forces that define the
-                futre world with their far reaching impact on business,
-                societies, economics, cutures and personal lives. Global Mega
-                Trends to 2030. Futurecasting key themes that will shape our
-                futures lives, provides a comprehensive analysis of the
-                transformative, global forces that define the future world with
-                their far-reaching impact on business, societies, economics,
-                culture and personal lives.
-              </Text>
+              <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               <View style={styles.top}>
                 <Text style={styles.title}> Events</Text>
@@ -216,7 +230,7 @@ const CommunityDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={bestPractices}
+                    data={poeEvents}
                     renderItem={_renderTopItem}
                   />
                 </View>
@@ -227,18 +241,14 @@ const CommunityDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={bestPracticesMemberContents.members}
+                    data={pillarMemberContents.members}
                     renderItem={_renderItem}
                   />
                 </View>
               </View>
 
               <View style={styles.growthContent}>
-                <Text
-                  style={styles.title}>
-                  {' '}
-                  Growth Coaching Content
-                </Text>
+                <Text style={styles.title}> Growth Coaching Content</Text>
                 <View
                   style={{
                     display: 'flex',
@@ -252,17 +262,24 @@ const CommunityDetail = props => {
                   />
                 </View>
               </View>
+
+              <View
+                style={{
+                  alignItems: 'center',
+                  width: '35%',
+                  marginLeft: 140,
+                  marginBottom: 10,
+                }}>
+                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+                <Image
+                  source={require('../../../assets/img/fristDigi.png')}
+                  style={{width: '100%', height: 20}}
+                />
+              </View>
             </View>
           </View>
         </ImageBackground>
-      	</View>
-	  	<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
-			<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-			<Image 
-				source={require('../../../assets/img/fristDigi.png')}
-				style={{width:"100%", height:20}}
-			/>
-		</View>
+      </View>
     </ScrollView>
   );
 };
@@ -270,17 +287,16 @@ const CommunityDetail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1230,
-	backgroundColor:"blue"
+    height: 1530,
   },
   arrow: {
     marginTop: 30,
   },
-  title:{
-	fontFamily:Typography.FONT_SF_SEMIBOLD,
-	fontSize: 14,
-	color:Colors.PRIMARY_TEXT_COLOR,
-	marginLeft:15, 
+  title: {
+    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontSize: 14,
+    color: Colors.PRIMARY_TEXT_COLOR,
+    marginLeft: 15,
   },
 
   icon: {
@@ -290,6 +306,7 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     marginLeft: 150,
     marginTop: 190,
+    alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
     zIndex: 10,
@@ -311,44 +328,45 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
     lineHeight: 24,
-    margin: 10,
+    padding: 15,
     textAlign: 'left',
-	color:'#77838F'
+    color: '#77838F',
   },
   top: {
-	height: 200,
+    height: 200,
     marginTop: 10,
     justifyContent: 'center',
   },
   topWrapper: {
-	height: 144,
-	width: 256,
-	marginTop: 20,
-	marginLeft: 15,
-	borderRadius:20,
+    height: 144,
+    width: 256,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
   },
   bottom: {
     height: 172,
-	marginTop:25,
+    marginTop: 15,
   },
   bottomWrapper: {
-	width:84,
-   position:'relative',
+    width: 84,
+    position: 'relative',
     borderRadius: 10,
-	marginTop:15,
-	marginLeft: 15,
+    marginTop: 15,
+    marginLeft: 15,
+    marginBottom: 10,
     backgroundColor: 'white',
-    overflow:"hidden",
-	// borderWidth:0.2,
+    overflow: 'hidden',
+    // borderWidth:0.2,
   },
-  chatIcon:{
-	borderRadius: 50,
-	backgroundColor: '#F1F1F1',
-	padding:6,
-	justifyContent: 'center',
-	position:'absolute',
-	right:4,
-	bottom:4
+  chatIcon: {
+    borderRadius: 50,
+    backgroundColor: '#F1F1F1',
+    padding: 6,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 4,
+    bottom: 4,
   },
   bottomImage: {
     width: '100%',
@@ -364,41 +382,40 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontWeight: '800',
     color: 'white',
-	fontSize:12
+    fontSize: 12,
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_SF_REGULAR,
     fontWeight: '400',
     color: 'white',
-	fontSize:8,
+    fontSize: 8,
   },
- 
-  growthContent:{
-	height: 260,
-	marginTop: 20,
-	justifyContent: 'center',
-	borderRadius: 20,
 
+  growthContent: {
+    height: 260,
+    marginTop: 20,
+    justifyContent: 'center',
+    borderRadius: 20,
   },
   contentWrapper2: {
-    	height: 206,
-	width: 364,
-	marginTop: 20,
-	marginLeft: 15,
-   borderRadius:20,
-   overflow:"hidden"
+    height: 206,
+    width: 364,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   shadowProp: {
-	shadowColor: "#000",
-	shadowOffset: {
-		width: 0,
-		height: 2,
-	},
-	shadowOpacity: 0.25,
-	shadowRadius: 3.84,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-	elevation: 5,
+    elevation: 5,
   },
 });
 

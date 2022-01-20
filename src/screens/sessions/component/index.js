@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Text,
     View,
@@ -52,6 +52,7 @@ const Session = props => {
         }
     };
 
+	const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
 	const isSessionLoaded = Object.keys(sessions).length === 0;
     const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
@@ -141,7 +142,7 @@ const Session = props => {
                                         )}
                                     
                                     </View>
-                                    {!sessions?.register_status &&
+                                    {!sessions?.register_status && (
                                     <View
                                         style={{
                                             flex: 1,
@@ -160,7 +161,21 @@ const Session = props => {
                                             />
                                         </TouchableOpacity>
                                     </View>
-                                    }
+									)}
+									{sessionStatus && (
+										<View
+										style={{
+											flex: 1,
+											justifyContent: 'center',
+											alignItems: 'center',
+										}}>
+										<Feather
+											name={'check-circle'}
+											size={35}
+											color={'rgba(54,147,172,1)'}
+										/>
+										</View>
+									)}
                               
                                 </View>
                                 <View
@@ -275,23 +290,9 @@ const Session = props => {
                                     <Text style={styles.contentHeading}>Coached By</Text>
                                 </View>
                                 <View
-                                    style={{
-                                        flex: 1,
-                                        paddingTop: 5,
-                                        paddingBottom: 5,
-                                        flexDirection: 'row',
-                                        marginTop: 10,
-                                    }}>
+                                    style={styles.hostdetail}>
                                     <View
-                                        style={{
-                                            flex: 1,
-                                            backgroundColor: '#A1BA68',
-                                            height: 60,
-                                            width: 30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
+                                        style={styles.hostimage}>
                                         <Image source={{uri:sessions?.organizer_image}} style={{width: 30, height: 60}}/>
                                     </View>
 
@@ -341,15 +342,28 @@ const Session = props => {
                                 )}
                             </View>
 
-                            <View>
-                                <Button
-                                    style={styles.acceptButton}
-                                    onPress={() => registerSessionBySessionID(route?.params?.id)}>
-                                    <Text style={styles.acceptButtonText}>
-                                        Sign Up in One Click
-                                    </Text>
-                                </Button>
-                            </View>
+							<View style={{justifyContent: 'center', alignItems: 'center'}}>
+								{!sessions?.register_status && (
+								<Button
+									style={styles.acceptButton}
+									onPress={() => registerEventByEventID(route?.params?.id)}>
+									<Text style={styles.acceptButtonText}>
+									Sign Up in One Click
+									</Text>
+								</Button>
+								)}
+								{sessions?.register_status && (
+								<TouchableOpacity style={styles.registeredButton}>
+									<View style={{paddingLeft: 10}}>
+									<Image
+										source={require('../../../assets/img/tick-icon.png')}
+										style={{width: 30, height: 30}}
+									/>
+									</View>
+									<Text style={styles.registeredButtonText}>Registered</Text>
+								</TouchableOpacity>
+								)}
+              		</View>
                         </View>
                     </View>
                 </ImageBackground>
@@ -455,5 +469,57 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     },
+	hostdetail: {
+		flex: 1,
+		paddingTop: 5,
+		paddingBottom: 5,
+		flexDirection: 'row',
+		marginTop: 10,
+
+	  },
+	  hostimage: {
+		flex: 1,
+		backgroundColor: '#A1BA68',
+		height: 64,
+		width: 62,
+		borderRadius: 14,
+		justifyContent: 'center',
+		alignItems: 'center',
+	  },
+	  acceptButton: {
+		borderRadius: 10,
+		marginLeft: 15,
+		marginRight: 15,
+		width: '100%',
+		height: 50,
+		backgroundColor: '#F26722',
+		marginTop: 25,
+		justifyContent: 'center',
+		alignItems: 'center',
+	  },
+	  registeredButton: {
+		borderRadius: 10,
+		width: '100%',
+		height: 50,
+		backgroundColor: '#ffffff',
+		marginTop: 25,
+		borderColor: '#F26722',
+		borderWidth: 2,
+		flexDirection: 'row',
+		alignItems: 'center',
+	  },
+	  acceptButtonText: {
+		width: '100%',
+		height: 20,
+		fontSize: 14,
+		color: '#ffffff',
+	  },
+	  registeredButtonText: {
+		width: '100%',
+		height: 20,
+		fontSize: 14,
+		color: '#F26722',
+		paddingLeft: 110,
+	  },
 });
 export default Session;

@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
 import YouTube, {
   YouTubeStandaloneIOS,
@@ -24,6 +25,7 @@ import {
   SECONDARY_TEXT_COLOR,
   TERTIARY_TEXT_COLOR,
 } from '../../../theme/colors';
+
 
 const Dashboard = props => {
   const {
@@ -48,6 +50,11 @@ const Dashboard = props => {
     pillarSliderError,
     fetchAllPillarSlider,
     cleanPillarSlider,
+    pillarEventLists,
+    pillarEventLoading,
+    pillarEventError,
+    fetchAllPillarEvent,
+    cleanPillarEvent,
   } = props;
 
   const _renderItem = ({item, index}) => {
@@ -63,19 +70,18 @@ const Dashboard = props => {
               borderRadius: 10,
             }}
           />
+          <View style={{padding: 10, paddingBottom: 20}}>
+            <Text
+              style={{
+                fontSize: 10,
+                fontFamily: Typography.FONT_SF_SEMIBOLD,
+                color: Colors.TERTIARY_TEXT_COLOR,
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+          </View>
         </TouchableOpacity>
-
-        <View style={{padding: 10, paddingBottom: 20}}>
-          <Text
-            style={{
-              fontSize: 10,
-              fontFamily: Typography.FONT_SF_SEMIBOLD,
-              color: TERTIARY_TEXT_COLOR,
-            }}>
-            {item?.display_name}
-          </Text>
-          <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-        </View>
 
         <View style={styles.chatIcon}>
           <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
@@ -95,7 +101,10 @@ const Dashboard = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('CommunityDetail', {id: item?.term_id})
+          navigation.navigate('CommunityDetail', {
+            poeId: item?.term_id,
+            pillarId: item?.parent,
+          })
         }>
         <View style={styles.middleWrapper}>
           <View style={styles.middleW}>
@@ -104,7 +113,9 @@ const Dashboard = props => {
               style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10}}>{item?.name}</Text>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+            {item?.name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -151,9 +162,7 @@ const Dashboard = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}{' '}
-              </Text>
-              <Text style={styles.headingText2}>
+                Hosted by {item?.organizer?.term_name}
                 {item?.organizer?.description}
               </Text>
             </View>
@@ -217,10 +226,6 @@ const Dashboard = props => {
     fetchAllPOEAsync();
   }, []);
 
-  //console.log('All POEs ======= ', poes);
-
-  console.log('upcomingevents', upcomingEvents);
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.container}>
@@ -236,10 +241,13 @@ const Dashboard = props => {
       <View style={styles.top}>
         <View style={styles.eventWrapper}>
           <Text style={styles.title}>Upcoming Events</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('UpcomingView')}>
-            <Text style={styles.viewAll}>View all</Text>
-          </TouchableOpacity>
         </View>
+
+        {upcomingEventLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
 
         <View
           style={{
@@ -257,11 +265,14 @@ const Dashboard = props => {
       </View>
 
       <View style={styles.middle}>
-        <Text style={[styles.title,{marginLeft:15}]}>Points of Engagement</Text>
+        <Text style={[styles.title, {marginLeft: 15}]}>
+          Points of Engagement
+        </Text>
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
+			marginLeft:10,
           }}>
           <FlatList
             horizontal
@@ -280,7 +291,7 @@ const Dashboard = props => {
             marginLeft: 15,
             marginRight: 15,
           }}>
-          <Text style={styles.title}> Growth Community Member</Text>
+          <Text style={styles.title}> Growth Community Members</Text>
           {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
         </View>
         <View>
@@ -296,7 +307,7 @@ const Dashboard = props => {
       <View style={styles.content}>
         <Text style={[styles.title, {marginLeft: 15}]}>
           {' '}
-          Growth Coaching Content
+         Content Library
         </Text>
         <View
           style={{
@@ -407,10 +418,10 @@ const styles = StyleSheet.create({
   middle: {
     width: 400,
     marginTop: 10,
-	marginLeft:5
+    marginLeft: 5,
   },
   middleWrapper: {
-    width: 90,
+    width: 80,
     borderRadius: 20,
     marginTop: 15,
     justifyContent: 'center',
@@ -441,6 +452,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+    marginBottom: 10,
     backgroundColor: 'white',
     overflow: 'hidden',
   },
@@ -479,6 +491,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  loading1: {
+    marginLeft: 150,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 

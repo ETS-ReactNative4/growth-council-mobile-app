@@ -137,7 +137,7 @@ const Setting = props => {
                   <View style={styles.middleImage}>
                     <Ionicons name={'notifications'} size={20} color="white" />
                   </View>
-                  <Text style={styles.menuText}>Notification</Text>
+                  <Text style={styles.menuText}>Notifications</Text>
 
                   <Switch
                     trackColor={{false: '#767577', true: '#32a32e'}}
@@ -183,7 +183,7 @@ const Setting = props => {
                     <View style={styles.middleImage1}>
                       <Material name={'logout'} size={20} color="white" />
                     </View>
-                    <Text style={styles.menuText}>Logout</Text>
+                    <Text style={styles.menuText}>Log Out</Text>
                   </View>
                 </TouchableOpacity>
               </View>

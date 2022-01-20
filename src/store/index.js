@@ -45,6 +45,9 @@ import growthCoachingMemberContentReducer from '../screens/dashboard/slice/growt
 import bestPracticesReducer from '../screens/dashboard/slice/bestPracticesSlice';
 import bestPracticesMemberContentReducer from '../screens/dashboard/slice/bestPracticesMemberContentSlice';
 import growthCoachingsReducer from '../screens/dashboard/slice/growthCoachingSlice';
+import poeDetailReducer from '../screens/details/slice/poeDetailSlice';
+import poeEventListReducer from '../screens/details/slice/poeEventListSlice';
+import pillarMembersContentsReducer from '../screens/details/slice/pillarMembersContentsSlice';
 
 import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
 
@@ -55,6 +58,8 @@ import pillarSliderReducer from '../screens/home/slice/pillarSliderSlice';
 
 import sessionReducer from '../screens/sessions/slice/sessionSlice';
 import sessionRegisterReducer from '../screens/sessions/slice/sessionRegister';
+
+import calendarEventReducer from '../screens/calendar/calendarEventSlice';
 
 const persistConfig = {
   key: 'root',
@@ -79,23 +84,28 @@ const reducers = combineReducers({
   pillars: pillarReducer,
   pillarSliders: pillarSliderReducer,
   pillarEvents: pillarEventsReducer,
+  poeDetails: poeDetailReducer,
+  poeEvents: poeEventListReducer,
+  pillarMemberContents: pillarMembersContentsReducer,
 
   connection: connectionReducer,
   communities: communityReducer,
   communityMemberContents: communityMemberContentReducer,
   sessionDetails: sessionDetailReducer,
   profile: profileReducer,
-  otherProfile: otherProfileReducer,
+  otherProfiles: otherProfileReducer,
   profileEvent: profileEventReducer,
   bestPractices: bestPracticesReducer,
   growthCoachings: growthCoachingsReducer,
   bestPracticesMemberContents: bestPracticesMemberContentReducer,
   growthCoachingMemberContents: growthCoachingMemberContentReducer,
   profileSession: profileSessionReducer,
-  memberConnection:memberConnectionReducer,
-  eventRegisters:eventRegisterReducer,
-  sessions:sessionReducer,
-  sessionRegisters:sessionRegisterReducer,
+  memberConnections: memberConnectionReducer,
+  eventRegisters: eventRegisterReducer,
+  sessions: sessionReducer,
+  sessionRegisters: sessionRegisterReducer,
+
+  calendarEvents: calendarEventReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

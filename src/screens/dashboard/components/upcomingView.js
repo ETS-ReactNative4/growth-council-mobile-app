@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
     Text,
     View,
@@ -6,12 +6,10 @@ import {
     StyleSheet,
     StatusBar,
     Dimensions,
-    Image,
-	FlatList,
+    FlatList,
 } from 'react-native';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -19,71 +17,71 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 
 const UpcomingView = props => {
 
-    const {navigation,
-		route,
-		upcomingEvents,
-		upcomingEventLoading,
-		upcomingEventError,
-		fetchAllUpcomingEvent,
-		cleanUpcomingEvent,
-	}= props;
+    const {
+        navigation,
+        route,
+        upcomingEvents,
+        upcomingEventLoading,
+        upcomingEventError,
+        fetchAllUpcomingEvent,
+        cleanUpcomingEvent,
+    } = props;
 
-		const _renderItem = ({item, index}, navigation) => {
-			const actualDate = moment(item.event_start).format('ll').split(',', 3);
-    		const date = actualDate[0].split(' ', 3);
-			return (
-				<View style={styles.eventCard}>
-					{item?.pillar_categories[0]?.slug ==="growth-community" && (
-						<View style={{
-							height: '100%',
-							width: 10,
-							borderRadius: 50,
-							backgroundColor: '#2a9df4',
-						}}/>
-					)}
-					{item?.pillar_categories[0]?.slug ==="basic-practices" && (
-						<View style={{ 
-						height: '100%',
-						width: 10,
-						borderRadius: 50,
-						backgroundColor: '#ADD8E6',
-						}}/>
-					)}
-					{item?.pillar_categories[0]?.slug ==="growth-coaching" && (
-						<View style={{
-						height: '100%',
-						width: 10,
-						borderRadius: 50,
-						backgroundColor: '#90EE90',
-						}}/>
-					)}
-					
-					<View style={styles.eventDetails}>
-						<View style={styles.eventInfo}>
-							<Text style={styles.evnetTitle}>
-								{item.title}
-							</Text>
-							<Text style={styles.eventParagraph}>
-								Hosted by {item?.organizer?.term_name} {item?.organizer?.description}
-							</Text>
-						</View>
-						<View style={styles.eventDate}>
-							<Text>{date[1]}</Text>
-							<Text>{date[0]}</Text>
-						</View>
-					</View>
-			</View>
-			);
-		  };
-		  
-		  useEffect(() => {
-			const fetchAllUpcomingEventAsync = async () => {
-			  await fetchAllUpcomingEvent();
-			};
-			fetchAllUpcomingEventAsync();
-		  }, []);
+    const _renderItem = ({item, index}, navigation) => {
+        const actualDate = moment(item.event_start).format('ll').split(',', 3);
+        const date = actualDate[0].split(' ', 3);
+        return (
+            <View style={styles.eventCard}>
+                {item?.pillar_categories[0]?.slug === "growth-community" && (
+                    <View style={{
+                        height: '100%',
+                        width: 10,
+                        borderRadius: 50,
+                        backgroundColor: '#2a9df4',
+                    }}/>
+                )}
+                {item?.pillar_categories[0]?.slug === "basic-practices" && (
+                    <View style={{
+                        height: '100%',
+                        width: 10,
+                        borderRadius: 50,
+                        backgroundColor: '#ADD8E6',
+                    }}/>
+                )}
+                {item?.pillar_categories[0]?.slug === "growth-coaching" && (
+                    <View style={{
+                        height: '100%',
+                        width: 10,
+                        borderRadius: 50,
+                        backgroundColor: '#90EE90',
+                    }}/>
+                )}
 
-	
+                <View style={styles.eventDetails}>
+                    <View style={styles.eventInfo}>
+                        <Text style={styles.evnetTitle}>
+                            {item.title}
+                        </Text>
+                        <Text style={styles.eventParagraph}>
+                            Hosted by {item?.organizer?.term_name} {item?.organizer?.description}
+                        </Text>
+                    </View>
+                    <View style={styles.eventDate}>
+                        <Text>{date[1]}</Text>
+                        <Text>{date[0]}</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    };
+
+    useEffect(() => {
+        const fetchAllUpcomingEventAsync = async () => {
+            await fetchAllUpcomingEvent();
+        };
+        fetchAllUpcomingEventAsync();
+    }, []);
+
 
     return (
         <>
@@ -92,17 +90,17 @@ const UpcomingView = props => {
                 backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
             />
             <View style={styles.container}>
-                <ScrollView > 
+                <ScrollView>
                     <View style={styles.events}>
                         <Text style={styles.eventsTitle}>UPCOMING EVENTS</Text>
                         <View styles={styles.eventList}>
 
-						<FlatList
-							vertical
-							showsHorizontalScrollIndicator={false}
-							data={upcomingEvents}
-							renderItem={_renderItem}
-						/>     
+                            <FlatList
+                                vertical
+                                showsHorizontalScrollIndicator={false}
+                                data={upcomingEvents}
+                                renderItem={_renderItem}
+                            />
                         </View>
                     </View>
                 </ScrollView>
@@ -116,8 +114,8 @@ const styles = StyleSheet.create({
         ...CommonStyles.container,
         padding: 0,
         backgroundColor: 'rgba(0,0,0,0.01)',
-		width:"100%",
-		height:"100%"
+        width: "100%",
+        height: "100%"
     },
     meta: {
         width: '100%',
@@ -156,23 +154,23 @@ const styles = StyleSheet.create({
     },
     events: {
         padding: 10,
-		width:'100%'
+        width: '100%'
     },
     eventsTitle: {
         marginBottom: 15,
-		marginLeft:10,
-		fontSize:18,
-		fontWeight:"bold"
+        marginLeft: 10,
+        fontSize: 18,
+        fontWeight: "bold"
     },
     eventList: {},
     eventCard: {
-		width:"100%",
+        width: "100%",
         marginTop: 5,
         flexDirection: 'row',
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
-		marginBottom:5
+        marginBottom: 5
     },
     eventTheme: {
         height: '100%',
@@ -200,7 +198,7 @@ const styles = StyleSheet.create({
         fontSize: 10,
     },
     eventDate: {
-		width:60,
+        width: 60,
         padding: 10,
         backgroundColor: 'rgba(245,245,245,1)',
         borderRadius: 10,

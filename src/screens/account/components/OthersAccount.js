@@ -9,25 +9,18 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {Button} from 'native-base';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useFormik} from 'formik';
-import * as Yup from 'yup';
-import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import ToastMessage from '../../../shared/toast';
-import {getAsyncStorage} from '../../../utils/storageUtil';
-import {decodeUserID} from '../../../utils/jwtUtil';
-import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 
-const ManageAccount = props => {
+const OthersAccount = props => {
   const {
     navigation,
     route,
     cleanProfile,
-    otherProfile,
+    otherProfiles,
     fetchOtherProfileByIdentifier,
   } = props;
 
@@ -39,7 +32,7 @@ const ManageAccount = props => {
   }, []);
 
   console.log('profile id =======', route.params.id);
-  console.log('profile other ====== ', otherProfile);
+  console.log('profile other ====== ', otherProfiles);
 
   return (
     <ScrollView
@@ -63,13 +56,18 @@ const ManageAccount = props => {
           }}>
           <View style={styles.profileWrapper}>
             <View style={styles.icon}>
-              {/* <Image
-                source={{uri: avatar}}
+              <Image
+                source={{uri: otherProfiles?.avatar}}
                 style={{width: '100%', height: '100%'}}
                 resizeMode="cover"
-              /> */}
+              />
             </View>
-            <View style={styles.header}></View>
+            <View style={styles.header}>
+              <Text style={styles.headingText1}>
+                {otherProfiles?.display_name}
+              </Text>
+              <Text>{otherProfiles?.user_email}</Text>
+            </View>
           </View>
         </View>
 
@@ -80,24 +78,7 @@ const ManageAccount = props => {
                 <View style={styles.message}>
                   <Text style={styles.errorText}></Text>
                 </View>
-                <>
-                  <View
-                    style={{
-                      flex: 1,
-                      alignItems: 'center',
-                      flexDirection: 'column',
-                      justifyContent: 'space-around',
-                      position: 'absolute',
-                      zIndex: 1011,
-                      top: 120,
-                      left: 100,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
+                <></>
                 <View style={styles.middleWrapper}>
                   <View style={styles.middleImage}>
                     <Ionicons name="person-outline" color="white" size={20} />
@@ -123,7 +104,7 @@ const ManageAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value="Read Only"
+                    value={otherProfiles?.display_name}
                     editable={false}
                   />
 
@@ -139,7 +120,7 @@ const ManageAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value="Read Only"
+                    value={otherProfiles?.user_meta?.first_name}
                     editable={false}
                   />
 
@@ -155,7 +136,7 @@ const ManageAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value="Read Only"
+                    value={otherProfiles?.user_meta?.last_name}
                     editable={false}
                   />
 
@@ -166,7 +147,7 @@ const ManageAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value="Read Only"
+                    value={otherProfiles?.user_email}
                     editable={false}
                   />
                 </View>
@@ -192,7 +173,7 @@ const ManageAccount = props => {
   );
 };
 
-export default ManageAccount;
+export default OthersAccount;
 
 const styles = StyleSheet.create({
   container: {
