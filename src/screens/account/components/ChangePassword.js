@@ -19,16 +19,16 @@ import FlatOutlineTextInput from '../../../shared/form/FlatOutlineTextInput';
 import ToastMessage from '../../../shared/toast';
 
 const passwordSchema = Yup.object().shape({
-    current_password: Yup.string()
+    oldPassword: Yup.string()
         .min(6, 'Too Short!')
         .max(10, 'Too Long!')
-        .required('Old Password is required.'),
-    new_password: Yup.string()
+        .required('Old password is required.'),
+    newPassword: Yup.string()
         .min(6, 'Too Short!')
         .max(10, 'Too Long!')
         .required('New Password is required.'),
-    confirm_password: Yup.string()
-        .oneOf([Yup.ref('new_password'), null], 'Password and confirm password must be match.')
+    confirmPassword: Yup.string()
+        .oneOf([Yup.ref('newPassword'), null], 'Password and confirm password must be match.')
         .required('Confirm password is required.'),
 });
 
@@ -60,11 +60,11 @@ const ChangePasswordForm = (props) => {
     } = useFormik({
         validationSchema: passwordSchema,
         initialValues: {
-			current_password: '',
-			new_password: '',
-			confirm_password: ''},
+            oldPassword: '',
+            newPassword: '',
+			confirmPassword: ''},
         onSubmit: async (values) => {
-            delete values.confirm_password;
+            delete values.confirmPassword;
             await updateCustomerPassword(values).then(response => {
                 if (response?.payload?.status === 200) {
                     navigation.navigate('SignIn');
@@ -141,17 +141,17 @@ const ChangePasswordForm = (props) => {
 
                     <FlatOutlineTextInput
                         label='Current Password'
-                        value={values.current_password}
+                        value={values.oldPassword}
                         isPassword={true}
                         secureTextEntry={hidePass}
-                        onChangeText={handleChange('current_password')}
-                        onBlur={handleBlur('current_password')}
-                        onFocus={handleBlur('current_password')}
-                        error={errors.current_password}
-                        touched={touched.current_password}
+                        onChangeText={handleChange('oldPassword')}
+                        onBlur={handleBlur('oldPassword')}
+                        onFocus={handleBlur('oldPassword')}
+                        error={errors.oldPassword}
+                        touched={touched.oldPassword}
                     />
-					 {errors.current_password &&
-                            <Text style={{fontSize: 10, color: 'red'}}>{errors.current_password}</Text>
+					 {errors.oldPassword &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.oldPassword}</Text>
                             }
                     <Ionicons
                         name={hidePass ? 'eye-outline' : 'eye-off-outline'}
@@ -167,17 +167,17 @@ const ChangePasswordForm = (props) => {
 
                     <FlatOutlineTextInput
                         label='New Password'
-                        value={values.new_password}
+                        value={values.newPassword}
                         isPassword={true}
                         secureTextEntry={hidePass1}
-                        onChangeText={handleChange('new_password')}
-                        onBlur={handleBlur('new_password')}
-                        onFocus={handleBlur('new_password')}
-                        error={errors.new_password}
-                        touched={touched.new_password}
+                        onChangeText={handleChange('newPassword')}
+                        onBlur={handleBlur('newPassword')}
+                        onFocus={handleBlur('newPassword')}
+                        error={errors.newPassword}
+                        touched={touched.newPassword}
                     />
-					 {errors.new_password &&
-                            <Text style={{fontSize: 10, color: 'red'}}>{errors.new_password}</Text>
+					 {errors.newPassword &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.newPassword}</Text>
                             }
                     <Ionicons
                         name={hidePass1 ? 'eye-outline' : 'eye-off-outline'}
@@ -193,17 +193,17 @@ const ChangePasswordForm = (props) => {
 
                     <FlatOutlineTextInput
                         label='Re New Password'
-                        value={values.confirm_password}
+                        value={values.confirmPassword}
                         isPassword={true}
                         secureTextEntry={hidePass2}
-                        onChangeText={handleChange('confirm_password')}
-                        onBlur={handleBlur('confirm_password')}
-                        onFocus={handleBlur('confirm_password')}
-                        error={errors.confirm_password}
-                        touched={touched.confirm_password}
+                        onChangeText={handleChange('confirmPassword')}
+                        onBlur={handleBlur('confirmPassword')}
+                        onFocus={handleBlur('confirmPassword')}
+                        error={errors.confirmPassword}
+                        touched={touched.confirmPassword}
                     />
-					 {errors.confirm_password &&
-                            <Text style={{fontSize: 10, color: 'red'}}>{errors.confirm_password}</Text>
+					 {errors.confirmPassword &&
+                            <Text style={{fontSize: 10, color: 'red'}}>{errors.confirmPassword}</Text>
                             }
                     <Ionicons
                         name={hidePass2 ? 'eye-outline' : 'eye-off-outline'}
