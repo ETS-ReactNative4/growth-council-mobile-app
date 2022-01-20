@@ -68,9 +68,9 @@ const People = (props) => {
                        }}
                 />
                 <View style={{margin: 10, width: '55%'}}>
-                    <Text style={{fontSize: 18, fontWeight: "bold"}}>{item.displayname}</Text>
-                    <Text style={{fontSize: 16}}>{item.user_meta.title}</Text>
-                    <Text style={{fontSize: 14}}>{item.user_meta.company}</Text>
+                    <Text style={{fontSize: 18, fontWeight: "bold"}}>{item?.display_name}</Text>
+                    <Text style={{fontSize: 16}}>{item?.title}</Text>
+                    <Text style={{fontSize: 14}}>{item?.company}</Text>
                 </View>
                 {!memberConnection &&
                 <TouchableOpacity onPress={() => connectMemberByMemberID(item.id)}>
