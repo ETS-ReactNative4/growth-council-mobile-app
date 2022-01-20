@@ -37,6 +37,7 @@ import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
+import CoachingSessionDetailScreen from '../screens/coachingSession';
 
 const Stack = createStackNavigator();
 
@@ -163,6 +164,13 @@ const MainNavigation = () => {
             headerTitle: '',
             headerTransparent: true,
             ...TransitionPresets.RevealFromBottomAndroid,
+          }}
+        />
+		<Stack.Screen
+          name="coachingSession"
+          component={CoachingSessionDetailScreen}
+          options={{
+            headerTitle: 'Session',
           }}
         />
         <Stack.Screen

@@ -323,8 +323,10 @@ const SignUpForm = props => {
         source={require('../../../assets/img/splash-screen.png')}
         resizeMode="cover">
         <StatusBar
-          barStyle="dark-content"
-          backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
+          barStyle="light-content"
+          hidden={false}
+          backgroundColor={require('../../../assets/img/appBG.png')}
+          translucent={true}
         />
 
         <View style={{height: '15%'}} />
@@ -504,6 +506,8 @@ const styles = StyleSheet.create({
   scrollBox: {
     height: '65%',
     width: '100%',
+    marginLeft: 32,
+    marginRight: 32,
     marginBottom: 0,
   },
   body: {
@@ -514,7 +518,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
     borderRadius: 18,
-    padding: 30,
+    padding: 20,
   },
   message: {
     ...CommonStyles.message,

@@ -7,7 +7,8 @@ import {
     ImageBackground,
     TextInput,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+	StatusBar
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -96,6 +97,8 @@ const ManageAccount = (props) => {
 
     return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
+	<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.PRIMARY_BACKGROUND_COLOR} translucent = {true}/>
+
 		<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 	
 		<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
@@ -168,6 +171,7 @@ const ManageAccount = (props) => {
                                          onBlur={handleBlur('display_name')}
                                          error={errors.display_name}
                                          touched={touched.display_name}
+										 editable={false}
                                      />
 
                                      <Text style={{size: 7, marginLeft: 10, fontSize:10, color:'#8F9BB3'}}>First Name</Text>

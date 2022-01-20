@@ -13,6 +13,7 @@ import {
     Image,
     Text,
     ImageBackground,
+	StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
@@ -41,8 +42,8 @@ const CustomDrawerContent = props => {
     };
 
     return (
-        <SafeAreaView style={{flex: 1}}>
-            <View style={{flexDirection: 'row'}}>
+        <SafeAreaView style={{flex: 1,}}>
+            <View style={{flexDirection: 'row',}}>
                 <TouchableOpacity onPress={toggleDrawer}>
                     <Ionicons name="close-outline" color={'#000'} size={24}/>
                 </TouchableOpacity>
@@ -84,7 +85,7 @@ const DrawerNavigation = ({navigation}) => {
             initialRouteName="Dashboard"
             screenOptions={({navigation}) => ({
                 activeTintColor: '#e91e63',
-                itemStyle: {marginVertical: 5},
+                itemStyle: {marginVertical: 5,},
 				headerBackground: () => (
 					<View>
 						<ImageBackground

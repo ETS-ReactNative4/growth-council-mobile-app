@@ -8,6 +8,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -40,6 +41,9 @@ const OthersAccount = props => {
         flexGrow: 1,
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
       }}>
+		
+		<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.PRIMARY_BACKGROUND_COLOR} translucent = {true}/>
+
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
         <Image
           source={require('../../../assets/img/appBG.png')}

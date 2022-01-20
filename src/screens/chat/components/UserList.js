@@ -76,8 +76,8 @@ const UserList = (props) => {
                                 fontSize: 14,
                                 fontFamily: Typography.FONT_SF_REGULAR,
                                 color: "black"
-                            }}>{item.displayname}</Text>
-                            <Text style={{fontSize: 12, marginTop: 10}}>{item.email}</Text>
+                            }}>{item?.display_name}</Text>
+                            <Text style={{fontSize: 12, marginTop: 10}}>{item.user_email}</Text>
                         </View>
 
                         <View style={{marginTop: 10}}>
