@@ -8,6 +8,7 @@ import {
     ScrollView,
     FlatList,
     TouchableOpacity,
+	StatusBar
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -222,6 +223,8 @@ const BestPractice = props => {
 
     return (
         <ScrollView>
+			{/* <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle1.png')} translucent = {true}/> */}
+
             <View style={styles.container}>
                 <View style={styles.top}>
                     <Text style={styles.title}> Best Practices Events</Text>
