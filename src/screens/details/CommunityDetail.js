@@ -8,15 +8,6 @@ import {
   resetSessionDetail,
 } from './slice/sesssionDetailSlice';
 
-import {
-  fetchAllbestPractices,
-  resetbestPractice,
-} from '../dashboard/slice/bestPracticesSlice';
-import {
-  fetchAllbestPracticesMemberContents,
-  resetbestPracticesMemberContent,
-} from '../dashboard/slice/bestPracticesMemberContentSlice';
-
 import {fetchAllPOEEvents, resetPOEEvent} from './slice/poeEventListSlice';
 
 import {fetchAllPOEDetails, resetPOEDetail} from './slice/poeDetailSlice';

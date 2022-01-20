@@ -245,7 +245,9 @@ const MainNavigation = () => {
           name="CommunityDetail"
           component={CommunityDetailScreen}
           options={({route}) => ({
-            headerTitle: 'POE Detail',
+            poeId: route.params.poeId,
+            pillarId: route.params.pillarId,
+            headerShown: false,
           })}
         />
         <Stack.Screen

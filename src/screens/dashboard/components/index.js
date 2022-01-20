@@ -26,7 +26,6 @@ import {
   TERTIARY_TEXT_COLOR,
 } from '../../../theme/colors';
 
-
 const Dashboard = props => {
   const {
     navigation,
@@ -98,10 +97,14 @@ const Dashboard = props => {
   //   ];
 
   const _renderMiddleItem = ({item, index}) => {
+    let poePage = 'CommunityDetail';
+    if (item?.parent == 121) {
+      poePage = 'GrowthDetail';
+    }
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('CommunityDetail', {
+          navigation.navigate(poePage, {
             poeId: item?.term_id,
             pillarId: item?.parent,
           })
@@ -272,7 +275,7 @@ const Dashboard = props => {
           style={{
             display: 'flex',
             flexDirection: 'row',
-			marginLeft:10,
+            marginLeft: 10,
           }}>
           <FlatList
             horizontal
@@ -305,10 +308,7 @@ const Dashboard = props => {
       </View>
 
       <View style={styles.content}>
-        <Text style={[styles.title, {marginLeft: 15}]}>
-          {' '}
-         Content Library
-        </Text>
+        <Text style={[styles.title, {marginLeft: 15}]}> Content Library</Text>
         <View
           style={{
             display: 'flex',
