@@ -13,6 +13,7 @@ import {
     Image,
     Text,
     ImageBackground,
+	StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
@@ -41,7 +42,7 @@ const CustomDrawerContent = props => {
     };
 
     return (
-        <SafeAreaView style={{flex: 1,top:20}}>
+        <SafeAreaView style={{flex: 1,}}>
             <View style={{flexDirection: 'row',}}>
                 <TouchableOpacity onPress={toggleDrawer}>
                     <Ionicons name="close-outline" color={'#000'} size={24}/>
