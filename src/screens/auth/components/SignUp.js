@@ -29,11 +29,9 @@ const phoneRegExp =
 const signUpSchema = Yup.object().shape({
     first_name: Yup.string().required('First Name is required.'),
     last_name: Yup.string().required('Last Name is required.'),
-    // password: Yup.string()
-    //     .min(6, ({min}) => `Password must be at least ${min} characters.`)
-    //     .required('Password is required.'),
     email: Yup.string()
         .email('Please enter valid email')
+        .trim()
         .required('Email Address is Required'),
     phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
@@ -75,7 +73,7 @@ const SignUpForm = props => {
         onSubmit: async values => {
             values.name = values.first_name + " " + values.last_name;
             try {
-                const response = await createUserWithEmailAndPassword(auth, values?.email, values?.firebase_password);
+                const response = await createUserWithEmailAndPassword(auth, values?.email?.trim(), values?.firebase_password);
                 const token = await response.user.getIdToken();
                 if (token) {
                     await registerCustomer(values).then(response => {
@@ -326,18 +324,18 @@ const SignUpForm = props => {
                 <View style={styles.content}>
                     <View style={styles.header}>
                         <Text style={styles.headingText1}>
-						Let's Create 
-						{"\n"}		
-                        Your Account!</Text>
+                            Let's Create
+                            {"\n"}
+                            Your Account!</Text>
                     </View>
 
-                  
-                         {loading &&
-							<View style={styles.loading1}>
-								<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
-							</View>
-							}
-                   
+
+                    {loading &&
+                    <View style={styles.loading1}>
+                        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
+                    </View>
+                    }
+
                     <ScrollView style={styles.scrollBox}>
                         <View style={styles.body}>
                             <FlatTextInput
@@ -440,17 +438,17 @@ const SignUpForm = props => {
                                     );
                                 })}
                             </Picker>
-							
-							<View style={{marginLeft:10, paddingRight:20}}>
-							<CheckBox
-                                label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
-                                status={checked ? 'checked' : 'unchecked'}
-                                onPress={() => {
-                                    setChecked(!checked);
-                                }}
-                            />
-							</View>
-                            
+
+                            <View style={{marginLeft: 10, paddingRight: 20}}>
+                                <CheckBox
+                                    label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
+                                    status={checked ? 'checked' : 'unchecked'}
+                                    onPress={() => {
+                                        setChecked(!checked);
+                                    }}
+                                />
+                            </View>
+
                         </View>
 
                         <View style={styles.loginButtonWrapper}>
@@ -519,7 +517,7 @@ const styles = StyleSheet.create({
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_SF_SEMIBOLD,
         color: Colors.NONARY_TEXT_COLOR,
-		fontSize:24
+        fontSize: 24
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -548,7 +546,7 @@ const styles = StyleSheet.create({
         ...CommonStyles.linkWrapper,
         marginTop: 10,
         alignItems: 'center',
-		marginBottom:30,
+        marginBottom: 30,
     },
     signUpButtonText: {
         color: Colors.SENDENARY_TEXT_COLOR,
@@ -559,9 +557,9 @@ const styles = StyleSheet.create({
         ...CommonStyles.errorText,
         textAlign: 'left',
     },
-	loading1: {
+    loading1: {
         marginLeft: 150,
-		marginTop:250,
+        marginTop: 250,
         flex: 1,
         flexDirection: 'column',
         position: 'absolute',

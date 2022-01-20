@@ -190,7 +190,7 @@ const GrowthCoaching = props => {
 
     return (
         <ScrollView>
-		<StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle.png')} translucent = {true}/>
+		{/* <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle.png')} translucent = {true}/> */}
 
             <View style={styles.container}>
                 <View style={styles.top}>

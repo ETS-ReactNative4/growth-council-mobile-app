@@ -196,7 +196,7 @@ const HomeCommunity = props => {
 
     return (
         <ScrollView>
-		<StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle2.png')} translucent = {true}/>
+		{/* <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle2.png')} translucent = {true}/> */}
 
             <View style={styles.container}>
                 <View style={styles.top}>
