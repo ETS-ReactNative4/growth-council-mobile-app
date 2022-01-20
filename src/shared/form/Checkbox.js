@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
         color: Colors.PRIMARY_INPUT_TEXT_COLOR,
         width: '100%',
         paddingHorizontal: 0,
+		
     },
 });
 

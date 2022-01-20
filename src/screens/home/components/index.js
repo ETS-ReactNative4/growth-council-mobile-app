@@ -80,8 +80,8 @@ const Home = props => {
   return (
 	  <View style={{flex:1, backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
     <View style={styles.container}>
-      <StatusBar hidden />
-      <View style={styles.header}>
+        <StatusBar barStyle="dark-content" hidden = {false} backgroundColor = "white" translucent = {true}/>
+		<View style={styles.header}>
         <Text style={styles.headingText1}>Welcome</Text>
         <Text style={styles.headingText2}>To The Growth Council</Text>
       </View>
@@ -152,7 +152,7 @@ const Home = props => {
 	<View style={styles.buttonWrapper}>
         <Button
           style={styles.signupbutton}
-          onPress={() => navigation.navigate('HomeDetail')}>
+          onPress={() => navigation.navigate('coachingSession')}>
           <Text style={styles.signupbuttonText}>Get Started</Text>
         </Button>
         <Button

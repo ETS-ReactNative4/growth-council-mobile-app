@@ -48,7 +48,7 @@ const SignInForm = props => {
     isValid,
   } = useFormik({
     validationSchema: signInSchema,
-    initialValues: {username: '', password: ''},
+    initialValues: {username: 'reshika@gmail.com', password: 'admin21'},
     onSubmit: async values => {
       await signIn(values);
     },

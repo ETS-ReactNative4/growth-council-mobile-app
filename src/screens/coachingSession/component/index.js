@@ -12,15 +12,8 @@ import {
 
 import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
-import {Button} from 'native-base';
-import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
-import HTMLView from 'react-native-htmlview';
-import moment from 'moment';
-
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 
@@ -78,13 +71,13 @@ const CoachingSession = props => {
                
 
             </View>
-            <View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
+            {/* <View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
                 <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
                 <Image
                     source={require('../../../assets/img/fristDigi.png')}
                     style={{width: "100%", height: 20}}
                 />
-            </View>
+            </View> */}
         </ScrollView>
     );
 };
