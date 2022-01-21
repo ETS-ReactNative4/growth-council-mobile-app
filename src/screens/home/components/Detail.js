@@ -44,24 +44,21 @@ const Detail = props => {
         <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/appBG.png')} translucent = {true}/>
 
 
-          <View style={{height: '15%'}} />
+          <View style={{height: 142}} />
 
           <View style={styles.content}>
             <View>
               <Text style={styles.headingText1}>{details?.heading1}</Text>
-              <View>
-                <Ionicons name={'remove-outline'} size={70} color={'#173762'} />
-              </View>
+              <View style={styles.titleBorder}></View>
               <Text style={styles.paragraph}>{details?.content1}</Text>
-            </View>
-
-            <View>
               <Button
                 style={styles.acceptButton}
                 onPress={() => navigation.navigate('SignUp')}>
                 <Text style={styles.acceptButtonText}>Create Your Account</Text>
               </Button>
             </View>
+
+            <View></View>
           </View>
         </ImageBackground>
       </ScrollView>
@@ -72,7 +69,7 @@ const Detail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: '100%',
+    flex: 1,
   },
   headingTitle: {
     ...CommonStyles.headingTitle,
@@ -81,8 +78,9 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
     borderRadius: 18,
-    height: 780,
     padding: 25,
+    flexGrow: 1,
+    height: '100%',
   },
   headingText1: {
     ...CommonStyles.headingText1,
@@ -107,9 +105,17 @@ const styles = StyleSheet.create({
     width: '45%',
     height: 50,
     backgroundColor: '#183863',
+    marginTop: 30,
   },
   acceptButtonText: {
     color: '#ffffff',
+  },
+  titleBorder: {
+    marginTop: 30,
+    marginBottom: 30,
+    height: 5,
+    width: 50,
+    backgroundColor: 'rgba(24,56,99,1)',
   },
 });
 export default Detail;

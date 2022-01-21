@@ -184,20 +184,20 @@ const CommunityDetail = props => {
   console.log('parent id:::::::::::::::::', route.params.pillarId);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <ImageBackground
-          source={{uri: poeDetails.pillar_detail_image}}
+          source={{uri: poeDetails?.pillar_detail_image}}
           style={{height: 400}}>
-          {/* <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
           <View style={styles.icon}>
             <Image
-              source={{uri: poeDetails.image}}
+              source={{uri: poeDetails?.image}}
               style={{
                 width: 50,
                 height: 50,
@@ -334,12 +334,12 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'skyblue',
     borderRadius: 18,
-    marginTop: 230,
+    marginTop: 150,
   },
   contentWrapper: {
     backgroundColor: 'white',
     borderRadius: 18,
-    height: 1000,
+    height: 1300,
     overflow: 'scroll',
     marginTop: 10,
   },
