@@ -48,7 +48,7 @@ const SignInForm = props => {
     isValid,
   } = useFormik({
     validationSchema: signInSchema,
-    initialValues: {username: 'reshika@gmail.com', password: 'admin21'},
+    initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     onSubmit: async values => {
       await signIn(values);
     },
@@ -68,8 +68,12 @@ const SignInForm = props => {
         <ImageBackground
           source={require('../../../assets/img/splash-screen.png')}
           resizeMode="cover">
-        <StatusBar barStyle="light-content" hidden = {true} backgroundColor = {require('../../../assets/img/appBG.png')} translucent = {true}/>
-
+          <StatusBar
+            barStyle="light-content"
+            hidden={true}
+            backgroundColor={require('../../../assets/img/appBG.png')}
+            translucent={true}
+          />
 
           <View style={{height: '15%'}}></View>
 

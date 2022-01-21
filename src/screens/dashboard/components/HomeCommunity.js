@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import YoutubePlayer from '../../../shared/youtube';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -63,8 +64,8 @@ const HomeCommunity = props => {
     };
   }, []);
 
-  console.log('Community ============', pillarPOEs);
-  console.log('Params ==== ', pillarId);
+  // console.log('Community ============', pillarPOEs);
+  //console.log('Params ==== ', pillarId);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -185,15 +186,13 @@ const HomeCommunity = props => {
   ];
 
   const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videolink = link[1].split('&', 2);
+    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          source={item?.uri}
-        />
+        <YoutubePlayer videoId={videolink[0]} />
       </View>
     );
   };
@@ -263,7 +262,7 @@ const HomeCommunity = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={pic}
+              data={communityMemberContents?.pillar_contents}
               renderItem={_renderContentItem}
             />
           </View>

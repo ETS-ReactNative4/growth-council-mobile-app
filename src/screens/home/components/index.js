@@ -78,78 +78,76 @@ const Home = props => {
   };
 
   return (
-	  <View style={{flex:1, backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
-    <View style={styles.container}>
-        <StatusBar barStyle="dark-content" hidden = {false} backgroundColor = "white" translucent = {true}/>
-		<View style={styles.header}>
-        <Text style={styles.headingText1}>Welcome</Text>
-        <Text style={styles.headingText2}>To The Growth Council</Text>
-      </View>
-      <View styyle={styles.sliderView}>
-		{!pillarSliderLoading ? (
-			<View>
-			<FeatherIcon
-			name={'chevron-right'}
-			style={styles.carouselRight}
-			size={36}
-			color={'#00000099'}
-			onPress={() => {
-			sliderRef.current.snapToNext();
-			}}
-			/>
-			<FeatherIcon
-			name={'chevron-left'}
-			style={styles.carouselLeft}
-			size={36}
-			color={'#00000099'}
-			onPress={() => {
-			sliderRef.current.snapToPrev();
-			}}
-			/>
-			<Carousel
-			ref={sliderRef}
-			layout={'default'}
-			data={pillarSliders}
-			sliderWidth={sliderWidth}
-			itemWidth={viewportWidth - 150}
-			renderItem={item => _renderItem(item, navigation)}
-			firstItem={1}
-			containerCustomStyle={styles.slider}
-			contentContainerCustomStyle={styles.sliderContent}
-			loop={false}
-			loopClonesPerSide={3}
-			autoplay={true}
-			autoplayDelay={500}
-			autoplayInterval={5000}
-			hasParallaxImages={true}
-			inactiveSlideScale={0.9}
-			inactiveSlideOpacity={0.5}
-			onSnapToItem={index => setActiveSlider(index)}
-		  />
+    <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headingText1}>Welcome</Text>
+          <Text style={styles.headingText2}>To The Growth Council</Text>
+        </View>
+        <View styyle={styles.sliderView}>
+          {!pillarSliderLoading ? (
+            <View>
+              <FeatherIcon
+                name={'chevron-right'}
+                style={styles.carouselRight}
+                size={36}
+                color={'#00000099'}
+                onPress={() => {
+                  sliderRef.current.snapToNext();
+                }}
+              />
+              <FeatherIcon
+                name={'chevron-left'}
+                style={styles.carouselLeft}
+                size={36}
+                color={'#00000099'}
+                onPress={() => {
+                  sliderRef.current.snapToPrev();
+                }}
+              />
+              <Carousel
+                ref={sliderRef}
+                layout={'default'}
+                data={pillarSliders}
+                sliderWidth={sliderWidth}
+                itemWidth={viewportWidth - 150}
+                renderItem={item => _renderItem(item, navigation)}
+                firstItem={1}
+                containerCustomStyle={styles.slider}
+                contentContainerCustomStyle={styles.sliderContent}
+                loop={false}
+                loopClonesPerSide={3}
+                autoplay={true}
+                autoplayDelay={500}
+                autoplayInterval={5000}
+                hasParallaxImages={true}
+                inactiveSlideScale={0.9}
+                inactiveSlideOpacity={0.5}
+                onSnapToItem={index => setActiveSlider(index)}
+              />
 
-		<Pagination
-          dotsLength={pillarSliders.length}
-          activeDotIndex={activeSlider}
-          dotStyle={{
-            width: 16,
-            height: 6,
-            borderRadius: 3,
-          }}
-          inactiveDotScale={1}
-          inactiveDotOpacity={1}
-          inactiveDotColor="#DDDCFF"
-          dotColor={'#1580B7'}
-        />
-		  </View>
-
-		):(
-			<View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
-        	</View>
-		)}
+              <Pagination
+                dotsLength={pillarSliders.length}
+                activeDotIndex={activeSlider}
+                dotStyle={{
+                  width: 16,
+                  height: 6,
+                  borderRadius: 3,
+                }}
+                inactiveDotScale={1}
+                inactiveDotOpacity={1}
+                inactiveDotColor="#DDDCFF"
+                dotColor={'#1580B7'}
+              />
+            </View>
+          ) : (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+            </View>
+          )}
+        </View>
       </View>
-    </View>
-	<View style={styles.buttonWrapper}>
+      <View style={styles.buttonWrapper}>
         <Button
           style={styles.signupbutton}
           onPress={() => navigation.navigate('HomeDetail')}>
@@ -177,7 +175,7 @@ const Home = props => {
           style={styles.footerlogo}
         />
       </View>
-	</View>
+    </View>
   );
 };
 
@@ -290,11 +288,10 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-   marginBottom:20,
+    marginBottom: 20,
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   footerlogo: {
     width: 120,
@@ -329,13 +326,13 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
   loading1: {
-	marginLeft: 150,
-	marginTop:150,
-	flex: 1,
-	flexDirection: 'column',
-	position: 'absolute',
-	zIndex: 1011,
-}
+    marginLeft: 150,
+    marginTop: 150,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
+  },
 });
 
 export default Home;
