@@ -351,7 +351,7 @@ const SignUpForm = props => {
                 touched={touched.first_name}
               />
               {errors.first_name && (
-                <Text style={{fontSize: 10, color: 'red'}}>
+                <Text style={{fontSize: 10, color: 'red',}}>
                   {errors.first_name}
                 </Text>
               )}
@@ -380,7 +380,7 @@ const SignUpForm = props => {
                 touched={touched.title}
               />
               {errors.title && (
-                <Text style={{fontSize: 10, color: 'red'}}>{errors.title}</Text>
+                <Text style={{fontSize: 10, color: 'red', }}>{errors.title}</Text>
               )}
 
               <FlatTextInput
@@ -418,16 +418,15 @@ const SignUpForm = props => {
                 touched={touched.email}
               />
               {errors.email && (
-                <Text style={{fontSize: 10, color: 'red'}}>{errors.email}</Text>
+                <Text style={{fontSize: 10, color: 'red',}}>{errors.email}</Text>
               )}
 
+			<Text style={{marginTop:20, color:'black'}}>Country</Text>
+			<View style={{ borderRadius: 5, borderWidth: 0.5, overflow: "hidden", height:50, marginTop:10, marginBottom:10 }}>
               <Picker
                 selectedValue={country}
                 mode={'dropdown'}
-                style={{
-                  height: 70,
-                  width: '100%',
-                }}
+        
                 // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
                 onValueChange={(itemValue, itemIndex) => {
                   setFieldValue('country', itemValue);
@@ -443,13 +442,14 @@ const SignUpForm = props => {
                     <Picker.Item
                       label={value}
                       value={value}
-                      style={{fontSize: 12}}
+                      style={{fontSize: 12, }}
                     />
                   );
                 })}
               </Picker>
+			  </View>
 
-              <View style={{marginLeft: 10, paddingRight: 20}}>
+              <View style={{ paddingRight: 10}}>
                 <CheckBox
                   label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
                   status={checked ? 'checked' : 'unchecked'}
@@ -506,10 +506,11 @@ const styles = StyleSheet.create({
   },
   body: {
     width: '80%',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
   content: {
+	  height:"86%",
     backgroundColor: 'white',
     borderRadius: 18,
     padding: 20,
