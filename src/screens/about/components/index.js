@@ -30,7 +30,6 @@ const About = (props) => {
 
     return (
         <>
-            <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/appBG.png')} translucent = {true}/>
 
             <ScrollView
                 style={{

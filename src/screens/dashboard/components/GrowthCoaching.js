@@ -190,9 +190,7 @@ const GrowthCoaching = props => {
 
     return (
         <ScrollView>
-		<StatusBar hidden />
-
-            <View style={styles.container}>
+	    <View style={styles.container}>
                 <View style={styles.top}>
                     <Text style={styles.title}> Growth Coaching Events</Text>
                     {growthCoachingLoading && (

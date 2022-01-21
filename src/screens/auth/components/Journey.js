@@ -22,8 +22,6 @@ const Journey = ({navigation}) => {
         <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
             <View style={styles.container}>
 
-                <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
-
                 <View style={styles.header}>
                     <Text style={styles.headingText1}>What are you interested in?</Text>
                 </View>
