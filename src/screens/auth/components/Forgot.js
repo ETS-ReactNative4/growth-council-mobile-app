@@ -47,8 +47,6 @@ const ForgotForm = (props) => {
         <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
             <View style={styles.container}>
 
-                <StatusBar barStyle="dark-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
-
                 <View style={styles.header}>
                     <Text style={styles.headingText1}>Reset Password</Text>
                     <Text style={styles.headingText2}>To reset your password, please provide your email.</Text>

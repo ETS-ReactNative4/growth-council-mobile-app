@@ -93,8 +93,6 @@ const ChangePasswordForm = (props) => {
     return (
 
 		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
-			<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.PRIMARY_BACKGROUND_COLOR} translucent = {true}/>
-
 			<View style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
 
 				<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>

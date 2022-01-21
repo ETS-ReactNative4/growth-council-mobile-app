@@ -33,8 +33,6 @@ const Ideas = (props) => {
 
     return (
         <>
-            <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/appBG.png')} translucent = {true}/>
-
             <ScrollView
                 style={{
                     height: Platform.OS === 'ios' ? 400 : 350,

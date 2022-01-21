@@ -80,10 +80,6 @@ const Event = props => {
           source={{uri: events?.image}}
           resizeMode="cover"
           style={{height: '55%'}}>
-          <StatusBar
-            barStyle="dark-content"
-            backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
-          />
           <View
             style={{
               alignItems: 'center',

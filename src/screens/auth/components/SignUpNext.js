@@ -18,8 +18,6 @@ const SignUpNext = ({navigation}) => {
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
             <View style={styles.container}>
-
-                <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
 				<View
 					style={{display:'flex',
 					flexDirection:'row'}}>

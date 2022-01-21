@@ -228,8 +228,7 @@ const Dashboard = props => {
 
     return (
         <SafeAreaView style={{flex: 1}}>
-            <StatusBar barStyle="light-content" hidden={true} backgroundColor={require('../../../assets/img/appBG.png')}
-                       translucent={true}/>
+            <StatusBar hidden={true} />
             <ScrollView style={styles.container}>
                 <View style={styles.container}>
                     <ImageBackground
