@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -183,20 +184,20 @@ const CommunityDetail = props => {
   console.log('parent id:::::::::::::::::', route.params.pillarId);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <ImageBackground
-          source={{uri: poeDetails.pillar_detail_image}}
+          source={{uri: poeDetails?.pillar_detail_image}}
           style={{height: 400}}>
-          {/* <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
           <View style={styles.icon}>
             <Image
-              source={{uri: poeDetails.image}}
+              source={{uri: poeDetails?.image}}
               style={{
                 width: 50,
                 height: 50,
@@ -218,10 +219,28 @@ const CommunityDetail = props => {
                 }}>
                 {poeDetails.name}
               </Text>
+			  {poeEventLoading && (
+                                     <>
+                                         <View style={{
+                                             flex: 1,
+                                             alignItems: 'center',
+                                             flexDirection: 'column',
+                                             justifyContent: 'space-around',
+                                             position: 'absolute',
+                                             zIndex: 1011,
+                                             top: 120,
+                                             left: 150
+                                         }}>
+                                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                                         </View>
+                                     </>
+                                )}
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               <View style={styles.top}>
                 <Text style={styles.title}> Events</Text>
+
+				
                 <View
                   style={{
                     display: 'flex',
@@ -315,12 +334,12 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'skyblue',
     borderRadius: 18,
-    marginTop: 230,
+    marginTop: 150,
   },
   contentWrapper: {
     backgroundColor: 'white',
     borderRadius: 18,
-    height: 1000,
+    height: 1300,
     overflow: 'scroll',
     marginTop: 10,
   },

@@ -37,6 +37,7 @@ import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
+import CoachingSessionDetailScreen from '../screens/coachingSession';
 
 const Stack = createStackNavigator();
 
@@ -165,6 +166,13 @@ const MainNavigation = () => {
             ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
+		<Stack.Screen
+          name="coachingSession"
+          component={CoachingSessionDetailScreen}
+          options={{
+            headerTitle: 'Session',
+          }}
+        />
         <Stack.Screen
           name="Setting"
           component={SettingScreen}
@@ -245,7 +253,9 @@ const MainNavigation = () => {
           name="CommunityDetail"
           component={CommunityDetailScreen}
           options={({route}) => ({
-            headerTitle: 'POE Detail',
+            poeId: route.params.poeId,
+            pillarId: route.params.pillarId,
+            headerShown: false,
           })}
         />
         <Stack.Screen

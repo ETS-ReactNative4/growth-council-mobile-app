@@ -19,60 +19,76 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 
 const GrowthDetail = props => {
   const {
+    route,
     navigation,
-    growthCoachings,
-    growthCoachingLoading,
-    growthCoachingError,
-    fetchAllgrowthCoaching,
-    cleangrowthCoaching,
-    growthCoachingMemberContents,
-    growthCoachingMemberContentLoading,
-    growthCoachingMemberContentError,
-    fetchAllgrowthCoachingMemberContent,
-    cleangrowthCoachingMemberContent,
+    poeDetails,
+    poeDetailLoading,
+    poeDetailError,
+    fetchAllPOEDetail,
+    cleanPOEDetail,
+    poeEvents,
+    poeEventLoading,
+    poeEventError,
+    fetchAllPOEEvent,
+    cleanPOEEvent,
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+    fetchAllPillarMemberContent,
+    cleanPillarMemberContent,
   } = props;
 
   useEffect(() => {
-    const fetchAllgrowthCoachingAsync = async () => {
-      await fetchAllgrowthCoaching();
+    const fetchAllPOEDetailAsync = async () => {
+      await fetchAllPOEDetail(route.params.poeId);
     };
-    fetchAllgrowthCoachingAsync();
+    fetchAllPOEDetailAsync();
   }, []);
 
   useEffect(() => {
-    const fetchAllgrowthCoachingMemberContentAsync = async () => {
-      await fetchAllgrowthCoachingMemberContent();
+    const fetchAllPOEEventAsync = async () => {
+      await fetchAllPOEEvent(route.params.poeId);
     };
-    fetchAllgrowthCoachingMemberContentAsync();
+    fetchAllPOEEventAsync();
   }, []);
 
-  console.log('POE Growth Coaching =========', growthCoachings);
-  console.log('POE Member================', growthCoachingMemberContents);
+  useEffect(() => {
+    const fetchAllPillarMemberContentAsync = async () => {
+      await fetchAllPillarMemberContent(route.params.pillarId);
+    };
+    fetchAllPillarMemberContentAsync();
+  }, []);
 
+  console.log('POE id:::::::::::::::::', route.params.poeId);
+  console.log('parent id:::::::::::::::::', route.params.pillarId);
 
   const _renderItem = ({item, index}) => {
     return (
-		<View style={[styles.bottomWrapper, styles.shadowProp]}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: 83,
-				height: 83,
-				borderRadius:10,
-			}}/>
-		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10, fontFamily:Typography.FONT_SF_SEMIBOLD, color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
-			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-		</View>
-		
-		<View
-		  style={styles.chatIcon}>
-		  <Ionicons
-			name={'chatbox'}
-			size={10}
-			color="#B1AFAF"
-		  />
-		</View>
-	  </View>
+      <View style={[styles.bottomWrapper, styles.shadowProp]}>
+        <Image
+          source={{uri: item?.avatar}}
+          style={{
+            width: 83,
+            height: 83,
+            borderRadius: 10,
+          }}
+        />
+        <View style={{padding: 10, paddingBottom: 20}}>
+          <Text
+            style={{
+              fontSize: 10,
+              fontFamily: Typography.FONT_SF_SEMIBOLD,
+              color: Colors.TERTIARY_TEXT_COLOR,
+            }}>
+            {item?.display_name}
+          </Text>
+          <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+        </View>
+
+        <View style={styles.chatIcon}>
+          <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+        </View>
+      </View>
     );
   };
 
@@ -91,21 +107,21 @@ const GrowthDetail = props => {
           source={require('../../../assets/img/green_blank.png')}>
           <View
             style={{
-				width: 40,
-                height: 50,
-                marginTop: 10,
-                marginLeft: 200,
-                backgroundColor: '#EBECF0',
-                borderRadius: 10,
-                padding: 5,
-                alignItems: 'center',
+              width: 40,
+              height: 50,
+              marginTop: 10,
+              marginLeft: 200,
+              backgroundColor: '#EBECF0',
+              borderRadius: 10,
+              padding: 5,
+              alignItems: 'center',
             }}>
             <Text>{date[1]}</Text>
             <Text>{date[0]}</Text>
           </View>
 
           <View style={styles.header}>
-            <Text style={styles.headingText1}>{item.title}</Text>
+            <Text style={styles.headingText1}>{item?.title}</Text>
             <Text style={styles.headingText2}>
               {' '}
               Hosted by {item?.organizer?.term_name}
@@ -134,28 +150,35 @@ const GrowthDetail = props => {
 
   const _renderMiddleItem = ({item, index}) => {
     return (
-      <View style={styles.middleWrapper}>
-        <View>
-          <Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>
-            {item.title}
-          </Text>
-          <Text style={{marginTop: 10, marginLeft: 10, fontSize:8}}>{item.text}</Text>
-        </View>
-        <View
-          style={{
-            width: 30,
-            height: 50,
-            marginTop: 10,
-            backgroundColor: '#EBECF0',
-            borderRadius: 20,
-            marginLeft: 60,
-            padding: 5,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize:12}}>{item.date}</Text>
-          <Text style={{fontSize:12}}>{item.month}</Text>
-        </View>
-      </View>
+		<View>
+			<TouchableOpacity onPress={() => navigation.navigate('coachingSession')}>
+			<View style={styles.middleWrapper}>
+				<View>
+					<Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>
+						{item.title}
+					</Text>
+					<Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
+						{item.text}
+					</Text>
+				</View>
+				<View
+				style={{
+					width: 30,
+					height: 50,
+					marginTop: 10,
+					backgroundColor: '#EBECF0',
+					borderRadius: 20,
+					marginLeft: 60,
+					padding: 5,
+					alignItems: 'center',
+				}}>
+				<Text style={{fontSize: 12}}>{item.date}</Text>
+				<Text style={{fontSize: 12}}>{item.month}</Text>
+				</View>
+			</View>
+			</TouchableOpacity>
+		</View>
+     
     );
   };
 
@@ -221,7 +244,8 @@ const GrowthDetail = props => {
               }}>
               {item.title}
             </Text>
-            <Text style={{marginLeft: 10, width: 80, marginTop: 10, fontSize:8}}>
+            <Text
+              style={{marginLeft: 10, width: 80, marginTop: 10, fontSize: 8}}>
               {item.text}
             </Text>
           </View>
@@ -231,26 +255,25 @@ const GrowthDetail = props => {
               display: 'flex',
               flexDirection: 'row',
               marginLeft: 10,
-			  fontSize:8,
+              fontSize: 8,
             }}>
-            
             <Ionicons
               name={'book-outline'}
               size={12}
               color="#cccccc"
-              style={{right:0, marginLeft:80}}
+              style={{right: 0, marginLeft: 80}}
             />
           </View>
         </View>
       </View>
     );
   };
- 
+
   return (
-    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <ImageBackground
-          source={require('../../../assets/img/image.png')}
+          source={{uri: poeDetails?.pillar_detail_image}}
           style={{height: 400}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
@@ -260,11 +283,12 @@ const GrowthDetail = props => {
 
           <View style={styles.icon}>
             <Image
-              source={require('../../../assets/img/icon1.png')}
+              source={{uri: poeDetails?.image}}
               style={{
-                width: 35,
-                height: 35,
-                marginLeft: 25,
+                width: 50,
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             />
           </View>
@@ -273,24 +297,15 @@ const GrowthDetail = props => {
             <View style={styles.contentWrapper}>
               <Text
                 style={{
-					fontSize: 16,
-					fontWeight: '500',
-					color:"#1E2022",
-					textAlign: 'center',
-					marginTop: 50,
+                  fontSize: 16,
+                  fontWeight: '500',
+                  color: '#1E2022',
+                  textAlign: 'center',
+                  marginTop: 50,
                 }}>
                 Growth Leadership Coaching
               </Text>
-              <Text style={styles.paragraph}>
-                Mega trends are transformative, global forces that define the
-                futre world with their far reaching impact on business,
-                societies, economics, cutures and personal lives. Global Mega
-                Trends to 2030. Futurecasting key themes that will shape our
-                futures lives, provides a comprehensive analysis of the
-                transformative, global forces that define the future world with
-                their far-reaching impact on business, societies, economics,
-                culture and personal lives.
-              </Text>
+              <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               <View style={styles.top}>
                 <Text style={styles.title}> Growth Coaching Events</Text>
@@ -302,15 +317,13 @@ const GrowthDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={growthCoachings}
+                    data={poeEvents}
                     renderItem={_renderTopItem}
                   />
                 </View>
               </View>
               <View style={styles.middle}>
-                <Text style={styles.title}>
-                  Sessions
-                </Text>
+                <Text style={styles.title}>Sessions</Text>
                 <View
                   style={{
                     display: 'flex',
@@ -325,9 +338,7 @@ const GrowthDetail = props => {
                 </View>
               </View>
               <View style={styles.learn}>
-                <Text style={styles.title}>
-                  Self Learn
-                </Text>
+                <Text style={styles.title}>Self Learn</Text>
                 <View
                   style={{
                     display: 'flex',
@@ -341,25 +352,21 @@ const GrowthDetail = props => {
                   />
                 </View>
               </View>
-             
+
               <View style={styles.bottom}>
                 <Text style={styles.title}> Members</Text>
                 <View>
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={growthCoachingMemberContents.members}
+                    data={pillarMemberContents.members}
                     renderItem={_renderItem}
                   />
                 </View>
               </View>
 
               <View style={styles.growthContent}>
-                <Text
-                  style={styles.title}>
-                  {' '}
-                  Growth Coaching Content
-                </Text>
+                <Text style={styles.title}> Growth Coaching Content</Text>
                 <View
                   style={{
                     display: 'flex',
@@ -376,14 +383,20 @@ const GrowthDetail = props => {
             </View>
           </View>
         </ImageBackground>
-      	</View>
-	  	<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
-			<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-			<Image 
-				source={require('../../../assets/img/fristDigi.png')}
-				style={{width:"100%", height:20}}
-			/>
-		</View>
+      </View>
+      <View
+        style={{
+          alignItems: 'center',
+          width: '35%',
+          marginLeft: 140,
+          marginBottom: 10,
+        }}>
+        <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+        <Image
+          source={require('../../../assets/img/fristDigi.png')}
+          style={{width: '100%', height: 20}}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -394,7 +407,6 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     height: 1530,
-	
   },
   arrow: {
     marginTop: 30,
@@ -406,27 +418,27 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     marginLeft: 150,
     marginTop: 190,
+    alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
     zIndex: 10,
     borderWidth: 0.3,
   },
-  title:{
-	fontFamily:Typography.FONT_SF_SEMIBOLD,
-	fontSize: 14,
-	color:Colors.PRIMARY_TEXT_COLOR,
-	marginLeft:15, 
+  title: {
+    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontSize: 14,
+    color: Colors.PRIMARY_TEXT_COLOR,
+    marginLeft: 15,
   },
 
   content: {
     backgroundColor: 'white',
     borderRadius: 18,
     marginTop: 150,
-	borderTopWidth:10,
-	borderColor:Colors.COACHING_COLOR,
+    borderTopWidth: 10,
+    borderColor: Colors.COACHING_COLOR,
   },
   contentWrapper: {
-   
     borderRadius: 18,
     height: 1300,
     overflow: 'scroll',
@@ -438,7 +450,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     margin: 10,
     textAlign: 'left',
-	color:'#77838F',
+    color: '#77838F',
   },
   top: {
     height: 200,
@@ -447,10 +459,10 @@ const styles = StyleSheet.create({
   },
   topWrapper: {
     height: 144,
-	width: 256,
-	marginTop: 20,
-	marginLeft: 15,
-	borderRadius:20,
+    width: 256,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
   },
   middle: {
     height: 130,
@@ -489,25 +501,25 @@ const styles = StyleSheet.create({
   },
   bottom: {
     height: 172,
-	marginTop:25,
+    marginTop: 25,
   },
   bottomWrapper: {
-	width:84,
-	position:'relative',
-	 borderRadius: 10,
-	 marginTop:15,
-	 marginLeft: 15,
-	 backgroundColor: 'white',
-	 overflow:"hidden",
+    width: 84,
+    position: 'relative',
+    borderRadius: 10,
+    marginTop: 15,
+    marginLeft: 15,
+    backgroundColor: 'white',
+    overflow: 'hidden',
   },
-  chatIcon:{
-	borderRadius: 50,
-	backgroundColor: '#F1F1F1',
-	padding:6,
-	justifyContent: 'center',
-	position:'absolute',
-	right:4,
-	bottom:4
+  chatIcon: {
+    borderRadius: 50,
+    backgroundColor: '#F1F1F1',
+    padding: 6,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 4,
+    bottom: 4,
   },
   bottomImage: {
     width: '100%',
@@ -523,39 +535,38 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: '800',
     color: 'white',
-	fontSize:12
+    fontSize: 12,
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_SF_REGULAR,
     fontWeight: '400',
     color: 'white',
-	fontSize:8,
+    fontSize: 8,
   },
-  growthContent:{
-	height: 260,
-	marginTop: 20,
-	justifyContent: 'center',
-	borderRadius: 20,
-
+  growthContent: {
+    height: 260,
+    marginTop: 20,
+    justifyContent: 'center',
+    borderRadius: 20,
   },
   contentWrapper2: {
-    	height: 206,
-	width: 364,
-	marginTop: 20,
-	marginLeft: 15,
-   borderRadius:20,
-   overflow:"hidden"
+    height: 206,
+    width: 364,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   shadowProp: {
-	shadowColor: "#000",
-	shadowOffset: {
-		width: 0,
-		height: 2,
-	},
-	shadowOpacity: 0.25,
-	shadowRadius: 3.84,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-	elevation: 5,
+    elevation: 5,
   },
 });

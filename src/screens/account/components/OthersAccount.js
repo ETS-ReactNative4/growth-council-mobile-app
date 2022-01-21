@@ -8,10 +8,11 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 
@@ -19,6 +20,7 @@ const OthersAccount = props => {
   const {
     navigation,
     route,
+	otherProfileLoading,
     cleanProfile,
     otherProfiles,
     fetchOtherProfileByIdentifier,
@@ -32,7 +34,7 @@ const OthersAccount = props => {
   }, []);
 
   console.log('profile id =======', route.params.id);
-  console.log('profile other ====== ', otherProfiles);
+  console.log('profile other ====== ', otherProfiles.user_meta.first_name[0]);
 
   return (
     <ScrollView
@@ -40,6 +42,9 @@ const OthersAccount = props => {
         flexGrow: 1,
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
       }}>
+		
+		<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.PRIMARY_BACKGROUND_COLOR} translucent = {true}/>
+
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
         <Image
           source={require('../../../assets/img/appBG.png')}
@@ -79,6 +84,22 @@ const OthersAccount = props => {
                   <Text style={styles.errorText}></Text>
                 </View>
                 <></>
+				{otherProfileLoading && (
+					<>
+					    <View style={{
+					        flex: 1,
+					        alignItems: 'center',
+					        flexDirection: 'column',
+					        justifyContent: 'space-around',
+					        position: 'absolute',
+					        zIndex: 1011,
+					        top: 120,
+					        left: 100
+					    }}>
+					        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+					    </View>
+					</>
+                )}
                 <View style={styles.middleWrapper}>
                   <View style={styles.middleImage}>
                     <Ionicons name="person-outline" color="white" size={20} />
@@ -120,7 +141,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.first_name}
+                    value={otherProfiles?.user_meta?.first_name[0]}
                     editable={false}
                   />
 
@@ -136,7 +157,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.last_name}
+                    value={otherProfiles?.user_meta?.last_name[0]}
                     editable={false}
                   />
 

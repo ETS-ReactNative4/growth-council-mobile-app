@@ -15,7 +15,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import FlatOutlineTextInput from '../../../shared/form/FlatOutlineTextInput';
+import FlatTextInput from '../../../shared/form/FlatOutlineTextInput';
 import ToastMessage from '../../../shared/toast';
 
 const passwordSchema = Yup.object().shape({
@@ -93,6 +93,8 @@ const ChangePasswordForm = (props) => {
     return (
 
 		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+			<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.PRIMARY_BACKGROUND_COLOR} translucent = {true}/>
+
 			<View style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
 
 				<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
@@ -139,16 +141,14 @@ const ChangePasswordForm = (props) => {
 
                 <View style={styles.body}>
 
-                    <FlatOutlineTextInput
+                    <FlatTextInput
                         label='Current Password'
-                        value={values.oldPassword}
-                        isPassword={true}
+                        value={values.current_password}
                         secureTextEntry={hidePass}
-                        onChangeText={handleChange('oldPassword')}
-                        onBlur={handleBlur('oldPassword')}
-                        onFocus={handleBlur('oldPassword')}
-                        error={errors.oldPassword}
-                        touched={touched.oldPassword}
+                        onChangeText={handleChange('current_password')}
+                        onFocus={handleBlur('current_password')}
+                        error={errors.current_password}
+                        touched={touched.current_password}
                     />
 					 {errors.oldPassword &&
                             <Text style={{fontSize: 10, color: 'red'}}>{errors.oldPassword}</Text>
@@ -160,21 +160,19 @@ const ChangePasswordForm = (props) => {
                         onPress={() => setHidePass(!hidePass)}
                         style={{
                             position: 'absolute',
-                            bottom: 160,
+                            bottom: 190,
                             right: 10,
                         }}
                     />
 
-                    <FlatOutlineTextInput
+                    <FlatTextInput
                         label='New Password'
-                        value={values.newPassword}
-                        isPassword={true}
+                        value={values.new_password}
                         secureTextEntry={hidePass1}
-                        onChangeText={handleChange('newPassword')}
-                        onBlur={handleBlur('newPassword')}
-                        onFocus={handleBlur('newPassword')}
-                        error={errors.newPassword}
-                        touched={touched.newPassword}
+                        onChangeText={handleChange('new_password')}
+                        onFocus={handleBlur('new_password')}
+                        error={errors.new_password}
+                        touched={touched.new_password}
                     />
 					 {errors.newPassword &&
                             <Text style={{fontSize: 10, color: 'red'}}>{errors.newPassword}</Text>
@@ -186,21 +184,19 @@ const ChangePasswordForm = (props) => {
                         onPress={() => setHidePass1(!hidePass1)}
                         style={{
                             position: 'absolute',
-                            bottom: 92,
+                            bottom: 100,
                             right: 10,
                         }}
                     />
 
-                    <FlatOutlineTextInput
+                    <FlatTextInput
                         label='Re New Password'
-                        value={values.confirmPassword}
-                        isPassword={true}
+                        value={values.confirm_password}
                         secureTextEntry={hidePass2}
-                        onChangeText={handleChange('confirmPassword')}
-                        onBlur={handleBlur('confirmPassword')}
-                        onFocus={handleBlur('confirmPassword')}
-                        error={errors.confirmPassword}
-                        touched={touched.confirmPassword}
+                        onChangeText={handleChange('confirm_password')}                       
+						 onFocus={handleBlur('confirm_password')}
+                        error={errors.confirm_password}
+                        touched={touched.confirm_password}
                     />
 					 {errors.confirmPassword &&
                             <Text style={{fontSize: 10, color: 'red'}}>{errors.confirmPassword}</Text>
