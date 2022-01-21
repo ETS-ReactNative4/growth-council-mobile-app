@@ -97,7 +97,6 @@ const ManageAccount = (props) => {
 
     return (
 		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
-	<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.PRIMARY_BACKGROUND_COLOR} translucent = {true}/>
 
 		<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 	
