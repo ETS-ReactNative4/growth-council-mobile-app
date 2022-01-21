@@ -324,7 +324,7 @@ const SignUpForm = props => {
         resizeMode="cover">
         <StatusBar
           barStyle="light-content"
-          hidden={false}
+          hidden={true}
           backgroundColor={require('../../../assets/img/appBG.png')}
           translucent={true}
         />

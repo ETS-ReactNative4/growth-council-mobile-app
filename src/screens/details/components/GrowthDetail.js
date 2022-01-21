@@ -150,30 +150,35 @@ const GrowthDetail = props => {
 
   const _renderMiddleItem = ({item, index}) => {
     return (
-      <View style={styles.middleWrapper}>
-        <View>
-          <Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>
-            {item.title}
-          </Text>
-          <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
-            {item.text}
-          </Text>
-        </View>
-        <View
-          style={{
-            width: 30,
-            height: 50,
-            marginTop: 10,
-            backgroundColor: '#EBECF0',
-            borderRadius: 20,
-            marginLeft: 60,
-            padding: 5,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 12}}>{item.date}</Text>
-          <Text style={{fontSize: 12}}>{item.month}</Text>
-        </View>
-      </View>
+		<View>
+			<TouchableOpacity onPress={() => navigation.navigate('coachingSession')}>
+			<View style={styles.middleWrapper}>
+				<View>
+					<Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>
+						{item.title}
+					</Text>
+					<Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
+						{item.text}
+					</Text>
+				</View>
+				<View
+				style={{
+					width: 30,
+					height: 50,
+					marginTop: 10,
+					backgroundColor: '#EBECF0',
+					borderRadius: 20,
+					marginLeft: 60,
+					padding: 5,
+					alignItems: 'center',
+				}}>
+				<Text style={{fontSize: 12}}>{item.date}</Text>
+				<Text style={{fontSize: 12}}>{item.month}</Text>
+				</View>
+			</View>
+			</TouchableOpacity>
+		</View>
+     
     );
   };
 

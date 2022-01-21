@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 
@@ -20,6 +20,7 @@ const OthersAccount = props => {
   const {
     navigation,
     route,
+	otherProfileLoading,
     cleanProfile,
     otherProfiles,
     fetchOtherProfileByIdentifier,
@@ -83,6 +84,22 @@ const OthersAccount = props => {
                   <Text style={styles.errorText}></Text>
                 </View>
                 <></>
+				{otherProfileLoading && (
+					<>
+					    <View style={{
+					        flex: 1,
+					        alignItems: 'center',
+					        flexDirection: 'column',
+					        justifyContent: 'space-around',
+					        position: 'absolute',
+					        zIndex: 1011,
+					        top: 120,
+					        left: 100
+					    }}>
+					        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+					    </View>
+					</>
+                )}
                 <View style={styles.middleWrapper}>
                   <View style={styles.middleImage}>
                     <Ionicons name="person-outline" color="white" size={20} />
