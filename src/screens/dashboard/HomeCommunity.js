@@ -9,6 +9,8 @@ import {
   resetCommunityMemberContent,
 } from './slice/communityMemberContentSlice';
 
+import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
+
 const HomeCommunityScreen = props => {
   const dispatch = useDispatch();
 

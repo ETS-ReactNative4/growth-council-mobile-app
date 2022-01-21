@@ -57,6 +57,7 @@ const SignInForm = props => {
   useFocusEffect(
     useCallback(() => {
       setMessage(null);
+      ``;
       setLoading(false);
     }, []),
   );
