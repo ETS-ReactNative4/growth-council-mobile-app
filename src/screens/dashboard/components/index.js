@@ -8,20 +8,23 @@ import {
     ScrollView,
     FlatList,
     TouchableOpacity,
+    SafeAreaView,
+    StatusBar
 } from 'react-native';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
 
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import YoutubePlayer from "../../../shared/youtube";
-
 import {
     PRIMARY_BACKGROUND_COLOR,
     PRIMARY_TEXT_COLOR,
     SECONDARY_TEXT_COLOR,
 } from '../../../theme/colors';
+import YoutubePlayer from "../../../shared/youtube";
+
 
 const Dashboard = props => {
     const {
@@ -83,7 +86,7 @@ const Dashboard = props => {
 
     const _renderItem = ({item, index}) => {
         return (
-            <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
+            <View style={[styles.bottomWrapper, styles.shadowProp]}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
                     <Image
@@ -114,11 +117,16 @@ const Dashboard = props => {
         );
     };
 
+
     const _renderMiddleItem = ({item, index}) => {
+        let poePage = 'CommunityDetail';
+        if (item?.parent === 121) {
+            poePage = 'GrowthDetail';
+        }
         return (
             <TouchableOpacity
                 onPress={() =>
-                    navigation.navigate('CommunityDetail', {
+                    navigation.navigate(poePage, {
                         poeId: item?.term_id,
                         pillarId: item?.parent,
                     })
@@ -189,9 +197,21 @@ const Dashboard = props => {
         );
     };
 
+    const pic = [
+        {
+            uri: require('../../../assets/img/welcome_screen_info_image.png'),
+        },
+        {
+            uri: require('../../../assets/img/image.png'),
+        },
+        {
+            uri: require('../../../assets/img/contactus.png'),
+        },
+    ];
+
     const _renderContentItem = ({item, index}) => {
         return (
-            <View style={styles.contentWrapper} key={index}>
+            <View style={styles.ContentWrapper}>
                 {/*<ImageBackground*/}
                 {/*style={{*/}
                 {/*width: '100%',*/}
@@ -206,130 +226,121 @@ const Dashboard = props => {
         );
     };
 
-    const pic = [
-        {
-            uri: require('../../../assets/img/welcome_screen_info_image.png'),
-        },
-        {
-            uri: require('../../../assets/img/image.png'),
-        },
-        {
-            uri: require('../../../assets/img/contactus.png'),
-        },
-    ];
-
-
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.container}>
-                <ImageBackground
-                    style={{width: '100%', height: 180}}
-                    source={require('../../../assets/img/appBG.png')}>
-                    <View style={styles.pillar}>
-                        <PillarList pillarSliders={pillarSliders} navigation={navigation}/>
+        <SafeAreaView style={{flex: 1}}>
+            <StatusBar barStyle="light-content" hidden={true} backgroundColor={require('../../../assets/img/appBG.png')}
+                       translucent={true}/>
+            <ScrollView style={styles.container}>
+                <View style={styles.container}>
+                    <ImageBackground
+                        style={{width: '100%', height: 180}}
+                        source={require('../../../assets/img/appBG.png')}>
+                        <View style={styles.pillar}>
+                            <PillarList
+                                pillarSliders={pillarSliders}
+                                navigation={navigation}
+                            />
+                        </View>
+                    </ImageBackground>
+                </View>
+
+                <View style={styles.top}>
+                    <View style={styles.eventWrapper}>
+                        <Text style={styles.title}>Upcoming Events</Text>
                     </View>
-                </ImageBackground>
-            </View>
 
-            <View style={styles.top}>
-                <View style={styles.eventWrapper}>
-                    <Text style={styles.title}>Upcoming Events</Text>
-                </View>
+                    {upcomingEventLoading && (
+                        <View style={styles.loading1}>
+                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                        </View>
+                    )}
 
-                {upcomingEventLoading && (
-                    <View style={styles.loading1}>
-                        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            marginTop: 20,
+                        }}>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={upcomingEvents}
+                            renderItem={item => _renderTopItem(item, navigation)}
+                        />
                     </View>
-                )}
+                </View>
+
+                <View style={styles.middle}>
+                    <Text style={[styles.title, {marginLeft: 15}]}>
+                        Points of Engagement
+                    </Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            marginLeft: 10,
+                        }}>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={poes}
+                            renderItem={_renderMiddleItem}
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.bottom}>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            marginLeft: 15,
+                            marginRight: 15,
+                        }}>
+                        <Text style={styles.title}> Growth Community Members</Text>
+                        {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
+                    </View>
+                    <View>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={communityMembers}
+                            renderItem={_renderItem}
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.content}>
+                    <Text style={[styles.title, {marginLeft: 15}]}> Content Library</Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={pic}
+                            renderItem={_renderContentItem}
+                        />
+                    </View>
+                </View>
 
                 <View
                     style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        marginTop: 20,
+                        alignItems: 'center',
+                        width: '35%',
+                        marginLeft: 140,
+                        marginBottom: 10,
                     }}>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={upcomingEvents}
-                        renderItem={item => _renderTopItem(item, navigation)}
+                    <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+                    <Image
+                        source={require('../../../assets/img/fristDigi.png')}
+                        style={{width: '100%', height: 20}}
                     />
                 </View>
-            </View>
-
-            <View style={styles.middle}>
-                <Text style={[styles.title, {marginLeft: 15}]}>
-                    Points of Engagement
-                </Text>
-                <View
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        marginLeft: 10,
-                    }}>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={poes}
-                        renderItem={_renderMiddleItem}
-                    />
-                </View>
-            </View>
-
-            <View style={styles.bottom}>
-                <View
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        marginLeft: 15,
-                        marginRight: 15,
-                    }}>
-                    <Text style={styles.title}> Growth Community Members</Text>
-                    {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
-                </View>
-                <View>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={communityMembers}
-                        renderItem={_renderItem}
-                    />
-                </View>
-            </View>
-
-            <View style={styles.content}>
-                <Text style={[styles.title, {marginLeft: 15}]}>
-                    {' '}
-                    Content Library
-                </Text>
-                <View
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                    }}>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={pic}
-                        renderItem={_renderContentItem}
-                    />
-                </View>
-            </View>
-
-            <View
-                style={{
-                    alignItems: 'center',
-                    width: '35%',
-                    marginLeft: 140,
-                    marginBottom: 10,
-                }}>
-                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-                <Image
-                    source={require('../../../assets/img/fristDigi.png')}
-                    style={{width: '100%', height: 20}}
-                />
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 
@@ -466,7 +477,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginBottom: 10,
     },
-    contentWrapper: {
+    ContentWrapper: {
         height: 206,
         width: 364,
         marginTop: 20,

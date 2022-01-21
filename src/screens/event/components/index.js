@@ -113,7 +113,7 @@ const Event = props => {
                       styles.infoicon,
                       {backgroundColor: backgroundColor},
                     ]}>
-                    <MaterialIcons name={'event'} size={18} color={'white'} />
+                    <MaterialIcons name={'event'} size={20} color={'white'} />
                   </View>
 
                   <View
@@ -180,7 +180,7 @@ const Event = props => {
                     ]}>
                     <Ionicons
                       name={'location-outline'}
-                      size={18}
+                      size={20}
                       color={'white'}
                     />
                   </View>

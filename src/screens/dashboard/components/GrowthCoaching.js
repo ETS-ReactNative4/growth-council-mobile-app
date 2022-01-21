@@ -8,6 +8,7 @@ import {
     ScrollView,
     FlatList,
     TouchableOpacity,
+	StatusBar
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -189,6 +190,8 @@ const GrowthCoaching = props => {
 
     return (
         <ScrollView>
+		{/* <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle.png')} translucent = {true}/> */}
+
             <View style={styles.container}>
                 <View style={styles.top}>
                     <Text style={styles.title}> Growth Coaching Events</Text>
