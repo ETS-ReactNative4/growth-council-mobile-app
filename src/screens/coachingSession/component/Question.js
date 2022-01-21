@@ -6,7 +6,8 @@ import {
 	FlatList, } 
 from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import CheckBox from '../../../shared/form/Checkbox'
+import Checkbox from '../../../shared/form/Checkbox';
+import RoundCheckbox from 'rn-round-checkbox';
 
 const Question = () => {
 	const [checked, setChecked] = useState(false);
@@ -16,13 +17,13 @@ const Question = () => {
 			text: 'You can’t connect the dots going forward?',
 		},
 		{
-			text: 'You can’t connect the dots going forward?',
+			text: 'You can connect the dots going forward?',
 		},
 		{
 			text: 'You can’t connect the dots going forward?',
 		},
 		{
-			text: 'You can’t connect the dots going forward?',
+			text: 'You can connect the dots going forward?',
 		},
 	];
 	const _renderItem = ({item, index}) => {
@@ -34,25 +35,24 @@ const Question = () => {
 			<View style={{height:1, borderWidth:0.1, backgroundColor:'#D8D8D8'}}/>
 
 			<View style={styles.wrapper}>
-				<View style={{marginLeft:10}}>
-					<CheckBox
+				<View style={{marginLeft:10, flexDirection:'row'}}>
+					
+					<RoundCheckbox
+						size={24}
 						label="Yes"
-						status={checked ? 'checked' : 'unchecked'}
-						onPress={() => {
-							setChecked(!checked);
-						}}
-						
+						backgroundColor="#EAEBED"
 					/>
+					<Text style={{fontSize:13, marginLeft:5}}>Yes</Text>
+					
+					
 				</View>
-				<View  style={{marginLeft:100}}>
-					<CheckBox
+				<View  style={{marginLeft:100, flexDirection:"row"}}>
+					<RoundCheckbox
+						size={24}
 						label="No"
-						status={checked ? 'checked' : 'unchecked'}
-						onPress={() => {
-							setChecked(!checked);
-						}}
-						
+						backgroundColor=""
 					/>
+					<Text style={{fontSize:13, marginLeft:5}}>No</Text>
 				</View>
 			
 				
@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
 	  wrapper:{
 		  display:'flex',
 		  flexDirection:'row',
-
+		  marginTop:15,
+		  marginLeft:20,
 	  }
 });
 

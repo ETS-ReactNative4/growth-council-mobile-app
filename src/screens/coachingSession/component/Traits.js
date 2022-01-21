@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import RoundCheckbox from 'rn-round-checkbox';
 
 const Traits = () => {
   return (
@@ -10,9 +11,63 @@ const Traits = () => {
 					<View style={{ alignItems:"center", height:40, justifyContent:'center'}}>
 						<Text style={styles.title}>Would you like to invest on you future?</Text>
 					</View>
+
 					<View style={{height:1, borderWidth:0.1, backgroundColor:'#D8D8D8'}}/>
 
 					<View>
+						<View style={styles.wrapper}>
+							<View style={{ flexDirection:'row'}}>
+								
+								<RoundCheckbox
+									size={20}
+									label="Yes"
+									backgroundColor="#EAEBED"
+								/>
+								<Text style={{fontSize:13, marginLeft:5}}>Strongly Agree</Text>
+								
+							
+								
+							</View>
+							<View  style={{marginLeft:32, flexDirection:"row"}}>
+								<RoundCheckbox
+									size={20}
+									label="No"
+									backgroundColor=""
+								/>
+								<Text style={{fontSize:13, marginLeft:5}}>Disagree</Text>
+							</View>
+						</View>
+						<View style={styles.wrapper}>
+							<View style={{ flexDirection:'row'}}>
+								
+							<RoundCheckbox
+									size={20}
+									label="Yes"
+									backgroundColor="#EAEBED"
+								/>
+								<Text style={{fontSize:13, marginLeft:5}}> Agree</Text>
+								
+								
+							</View>
+							<View  style={{marginLeft:80, flexDirection:"row"}}>
+								<RoundCheckbox
+									size={20}
+									label="No"
+									backgroundColor=""
+								/>
+								<Text style={{fontSize:13, marginLeft:5}}> Strongly Disagree</Text>
+							</View>
+						</View>
+						
+						<View style={{ flexDirection:'row',marginLeft:20,marginTop:15}}>
+								<RoundCheckbox
+									size={20}
+									label="Yes"
+									backgroundColor="#EAEBED"
+								/>
+								<Text style={{fontSize:13, marginLeft:5}}>Neutral</Text>
+
+						</View>
 
 					</View>
 				</View>
@@ -89,6 +144,12 @@ const styles = StyleSheet.create({
 	  scrollBox: {
         overflowY:'scroll'
     },
+	wrapper:{
+		display:'flex',
+		flexDirection:'row',
+		marginTop:15,
+		marginLeft:20,
+	}
 });
 
 export default Traits;
