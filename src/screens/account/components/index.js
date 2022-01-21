@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     ScrollView,
     FlatList,
+	Dimensions
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -19,6 +20,7 @@ import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
+const screenHeight = Math.round(Dimensions.get('window').height);
 
 const Profile = (props) => {
     const {
@@ -200,7 +202,7 @@ const Profile = (props) => {
     }, []);
 
     return (
-        <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
+        <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR,}}>
             <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
                 <Image source={require("../../../assets/img/appBG.png")} style={{height: 160}}/>
                 <View style={{
@@ -283,6 +285,7 @@ const Profile = (props) => {
                                 </>
                             )}
                             {value === 'My Events' &&
+							
                             <FlatList
                                 Vertical
                                 showsVerticalScrollIndicator={false}
@@ -304,14 +307,15 @@ const Profile = (props) => {
                     </View>
 
                 </View>
-                <View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
+                
+            </View>
+			<View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
                     <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
                     <Image
                         source={require('../../../assets/img/fristDigi.png')}
                         style={{width: "100%", height: 20}}
                     />
                 </View>
-            </View>
         </ScrollView>
     );
 
