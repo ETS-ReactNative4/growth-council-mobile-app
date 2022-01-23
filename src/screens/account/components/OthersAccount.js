@@ -34,32 +34,12 @@ const OthersAccount = props => {
   }
 
   let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
-  if (typeof favorite_quote === 'undefined') {
-    favorite_quote = ' ';
-  } else {
-    favorite_quote = otherProfiles?.user_meta?.favorite_quote[0];
-  }
 
   let professional_summary = otherProfiles?.user_meta?.professional_summary;
-  if (typeof professional_summary === 'undefined') {
-    professional_summary = ' ';
-  } else {
-    professional_summary = otherProfiles?.user_meta?.professional_summary[0];
-  }
 
   let initatives = otherProfiles?.user_meta?.initatives;
-  if (typeof initatives === 'undefined') {
-    initatives = ' ';
-  } else {
-    initatives = otherProfiles?.user_meta?.initatives[0];
-  }
 
   let insights = otherProfiles?.user_meta?.insights;
-  if (typeof insights === 'undefined') {
-    insights = ' ';
-  } else {
-    insights = otherProfiles?.user_meta?.insights[0];
-  }
 
   useEffect(() => {
     const fetchOtherProfileAsync = async () => {
@@ -227,7 +207,11 @@ const OthersAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={favorite_quote}
+                    value={
+                      typeof favorite_quote === 'undefined'
+                        ? ''
+                        : otherProfiles?.user_meta?.favorite_quote[0]
+                    }
                     editable={false}
                   />
 
@@ -240,7 +224,11 @@ const OthersAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={professional_summary}
+                    value={
+                      typeof professional_summary === 'undefined'
+                        ? ''
+                        : otherProfiles?.user_meta?.professional_summary[0]
+                    }
                     editable={false}
                   />
 
@@ -266,7 +254,11 @@ const OthersAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={initatives}
+                    value={
+                      typeof initatives === 'undefined'
+                        ? ''
+                        : otherProfiles?.user_meta?.initatives[0]
+                    }
                     editable={false}
                   />
 
@@ -279,7 +271,11 @@ const OthersAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={insights}
+                    value={
+                      typeof insights === 'undefined'
+                        ? ''
+                        : otherProfiles?.user_meta?.insights[0]
+                    }
                     editable={false}
                   />
                 </View>
