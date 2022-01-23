@@ -16,13 +16,15 @@ On the command prompt run the following commands:
 ``` 
  $ git clone https://github.com/odeumtech/growth-council-mobile-app.git
  $ cd growth-council-mobile-app
- $ npm install
+ $ npm install / npm install --legacy-peer-deps
  ```
  Finally, start and build the application:
  
  ```
  $ npx react-native start
  $ npx react-native run-android
+ 
+ $ npx react-native start --reset-cache
 ```
 
 ### 3. To generate APK
