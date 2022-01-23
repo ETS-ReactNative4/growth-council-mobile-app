@@ -8,7 +8,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,7 +20,7 @@ const OthersAccount = props => {
   const {
     navigation,
     route,
-	otherProfileLoading,
+    otherProfileLoading,
     cleanProfile,
     otherProfiles,
     fetchOtherProfileByIdentifier,
@@ -34,7 +34,11 @@ const OthersAccount = props => {
   }, []);
 
   console.log('profile id =======', route.params.id);
-  console.log('profile other ====== ', otherProfiles.user_meta.first_name[0]);
+  // console.log('profile other ====== ', otherProfiles?.user_meta);
+
+  // if(typeof otherProfiles?.user_meta?.Location === 'undefined'){
+
+  // }
 
   return (
     <ScrollView
@@ -81,21 +85,25 @@ const OthersAccount = props => {
                   <Text style={styles.errorText}></Text>
                 </View>
                 <></>
-				{otherProfileLoading && (
-					<>
-					    <View style={{
-					        flex: 1,
-					        alignItems: 'center',
-					        flexDirection: 'column',
-					        justifyContent: 'space-around',
-					        position: 'absolute',
-					        zIndex: 1011,
-					        top: 120,
-					        left: 100
-					    }}>
-					        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
-					    </View>
-					</>
+                {otherProfileLoading && (
+                  <>
+                    <View
+                      style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around',
+                        position: 'absolute',
+                        zIndex: 1011,
+                        top: 120,
+                        left: 100,
+                      }}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
                 )}
                 <View style={styles.middleWrapper}>
                   <View style={styles.middleImage}>
@@ -166,6 +174,82 @@ const OthersAccount = props => {
                     style={styles.input}
                     keyboardType="text"
                     value={otherProfiles?.user_email}
+                    editable={false}
+                  />
+
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    Location
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    keyboardType="text"
+                    value={otherProfiles?.user_meta?.first_name[0]}
+                    editable={false}
+                  />
+
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    FAVORITE QUOTE
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={styles.textarea}
+                    keyboardType="text"
+                    value={otherProfiles?.user_meta?.first_name[0]}
+                    editable={false}
+                  />
+
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    PROFESSIONAL SUMMARY
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={styles.textarea}
+                    keyboardType="text"
+                    value={otherProfiles?.user_meta?.first_name[0]}
+                    editable={false}
+                  />
+
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    EXPERTISE AREAS
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={styles.textarea}
+                    keyboardType="text"
+                    value={otherProfiles?.user_meta?.first_name[0]}
+                    editable={false}
+                  />
+
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    MOST RECENT GROWTH/INNOVATION INITIATIVE
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={styles.textarea}
+                    keyboardType="text"
+                    value={otherProfiles?.user_meta?.first_name[0]}
+                    editable={false}
+                  />
+
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    I'M SEEKING INSIGHTS ON
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={styles.textarea}
+                    keyboardType="text"
+                    value={otherProfiles?.user_meta?.first_name[0]}
                     editable={false}
                   />
                 </View>
