@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
   loginButtonWrapper: {
     ...CommonStyles.buttonWrapper,
     alignItems: 'flex-start',
+	marginTop:10,
   },
   loginButton: {
     ...CommonStyles.button,

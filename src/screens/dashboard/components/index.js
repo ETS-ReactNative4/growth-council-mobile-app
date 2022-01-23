@@ -84,6 +84,7 @@ const Dashboard = props => {
         fetchAllPOEAsync();
     }, []);
 
+	console.log("community member:::", communityMembers)
     const _renderItem = ({item, index}) => {
         return (
             <View style={[styles.bottomWrapper, styles.shadowProp]}>
@@ -123,6 +124,7 @@ const Dashboard = props => {
         if (item?.parent === 121) {
             poePage = 'GrowthDetail';
         }
+		
         return (
             <TouchableOpacity
                 onPress={() =>
@@ -132,7 +134,7 @@ const Dashboard = props => {
                     })
                 }>
                 <View style={styles.middleWrapper}>
-                    <View style={styles.middleW}>
+                    <View style={[styles.middleW,styles.shadowProp]}>
                         <Image
                             source={{uri: item?.image}}
                             style={{width: 30, height: 30}}
@@ -225,6 +227,8 @@ const Dashboard = props => {
             </View>
         );
     };
+	const listData = props.poes ?? [];
+	const numColumns = Math.ceil(listData.length / 2);
 
     return (
         <SafeAreaView style={{flex: 1}}>
@@ -268,24 +272,28 @@ const Dashboard = props => {
                         />
                     </View>
                 </View>
-
+				
                 <View style={styles.middle}>
                     <Text style={[styles.title, {marginLeft: 15}]}>
                         Points of Engagement
                     </Text>
-                    <View
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            marginLeft: 10,
-                        }}>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={poes}
-                            renderItem={_renderMiddleItem}
-                        />
-                    </View>
+                   
+							 <ScrollView
+								horizontal
+								showsVerticalScrollIndicator={false}
+								showsHorizontalScrollIndicator={false}
+								 style={{marginLeft:10}}>
+								<FlatList
+									horizontal
+									// numColumns={numColumns}
+									showsHorizontalScrollIndicator={false}
+									data={listData}
+									renderItem={_renderMiddleItem}
+									/>
+									
+		  					</ScrollView>
+                      
+                 
                 </View>
 
                 <View style={styles.bottom}>
@@ -422,6 +430,7 @@ const styles = StyleSheet.create({
         width: 400,
         marginTop: 10,
         marginLeft: 5,
+		marginRight:10
     },
     middleWrapper: {
         width: 80,
@@ -429,6 +438,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         justifyContent: 'center',
         alignItems: 'center',
+	
     },
     middleW: {
         backgroundColor: 'white',
@@ -437,7 +447,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
-        borderWidth: 0.2,
+        
     },
     headingText3: {
         ...CommonStyles.headingText3,
@@ -447,7 +457,7 @@ const styles = StyleSheet.create({
     bottom: {
         height: 172,
         margin: 5,
-        marginTop: 25,
+        marginTop: 15,
     },
     bottomWrapper: {
         width: 84,
