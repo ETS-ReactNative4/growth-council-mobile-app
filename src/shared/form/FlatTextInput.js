@@ -29,7 +29,7 @@ const FlatTextInput = forwardRef(({error, touched, ...otherProps}, ref) => {
 const styles = StyleSheet.create({
     textInput: {
         height: 56,
-        marginBottom: 15,
+        marginBottom: 5,
         backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         fontSize: Typography.FONT_SIZE_MEDIUM,
         color: Colors.PRIMARY_INPUT_TEXT_COLOR,

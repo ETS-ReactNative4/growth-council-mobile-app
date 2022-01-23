@@ -34,6 +34,8 @@ const signUpSchema = Yup.object().shape({
     .trim()
     .required('Email Address is Required'),
   phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+  title: Yup.string().required('Title is required.'),
+  company: Yup.string().required('Company is required.'),
 });
 
 const SignUpForm = props => {
@@ -351,7 +353,7 @@ const SignUpForm = props => {
                 touched={touched.first_name}
               />
               {errors.first_name && (
-                <Text style={{fontSize: 10, color: 'red',}}>
+                <Text style={styles.errorMessage}>
                   {errors.first_name}
                 </Text>
               )}
@@ -366,7 +368,7 @@ const SignUpForm = props => {
               />
 
               {errors.last_name && (
-                <Text style={{fontSize: 10, color: 'red'}}>
+                <Text style={styles.errorMessage}>
                   {errors.last_name}
                 </Text>
               )}
@@ -380,7 +382,7 @@ const SignUpForm = props => {
                 touched={touched.title}
               />
               {errors.title && (
-                <Text style={{fontSize: 10, color: 'red', }}>{errors.title}</Text>
+                <Text style={styles.errorMessage}>{errors.title}</Text>
               )}
 
               <FlatTextInput
@@ -392,7 +394,7 @@ const SignUpForm = props => {
                 touched={touched.company}
               />
               {errors.company && (
-                <Text style={{fontSize: 10, color: 'red'}}>
+                <Text style={styles.errorMessage}>
                   {errors.company}
                 </Text>
               )}
@@ -406,7 +408,7 @@ const SignUpForm = props => {
                 touched={touched.phone}
               />
               {errors.phone && (
-                <Text style={{fontSize: 10, color: 'red'}}>{errors.phone}</Text>
+                <Text style={styles.errorMessage}>{errors.phone}</Text>
               )}
 
               <FlatTextInput
@@ -418,36 +420,36 @@ const SignUpForm = props => {
                 touched={touched.email}
               />
               {errors.email && (
-                <Text style={{fontSize: 10, color: 'red',}}>{errors.email}</Text>
+                <Text style={styles.errorMessage}>{errors.email}</Text>
               )}
 
 			<Text style={{marginTop:20, color:'black'}}>Country</Text>
 			<View style={{ borderRadius: 5, borderWidth: 0.5, overflow: "hidden", height:50, marginTop:10, marginBottom:10 }}>
-              <Picker
-                selectedValue={country}
-                mode={'dropdown'}
-        
-                // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
-                onValueChange={(itemValue, itemIndex) => {
-                  setFieldValue('country', itemValue);
-                  setCountry(itemValue);
-                }}>
-                <Picker.Item
-                  label="Select Country"
-                  value="country"
-                  style={{fontSize: 12}}
-                />
-                {countries.map((value, index) => {
-                  return (
-                    <Picker.Item
-                      label={value}
-                      value={value}
-                      style={{fontSize: 12, }}
-                    />
-                  );
-                })}
-              </Picker>
-			  </View>
+				<Picker
+					selectedValue={country}
+					mode={'dropdown'}
+			
+					// onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
+					onValueChange={(itemValue, itemIndex) => {
+					setFieldValue('country', itemValue);
+					setCountry(itemValue);
+					}}>
+					<Picker.Item
+					label="Select Country"
+					value="country"
+					style={{fontSize: 12}}
+					/>
+					{countries.map((value, index) => {
+					return (
+						<Picker.Item
+						label={value}
+						value={value}
+						style={{fontSize: 12, }}
+						/>
+					);
+					})}
+				</Picker>
+			</View>
 
               <View style={{ paddingRight: 10}}>
                 <CheckBox
@@ -575,6 +577,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1011,
   },
+  errorMessage:{
+	  fontSize:10,
+	   color:"red",
+	  marginLeft:20
+  }
 });
 
 export default SignUpForm;
