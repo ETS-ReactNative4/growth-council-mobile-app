@@ -26,39 +26,39 @@ const OthersAccount = props => {
     fetchOtherProfileByIdentifier,
   } = props;
 
-  let Location = profile?.user_meta?.Location;
+  let Location = otherProfiles?.user_meta?.Location;
   if (typeof Location === 'undefined') {
     Location = ' ';
   } else {
-    Location = profile?.user_meta?.Location[0];
+    Location = otherProfiles?.user_meta?.Location[0];
   }
 
-  let favorite_quote = profile?.user_meta?.favorite_quote;
+  let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
   if (typeof favorite_quote === 'undefined') {
     favorite_quote = ' ';
   } else {
-    favorite_quote = profile?.user_meta?.favorite_quote[0];
+    favorite_quote = otherProfiles?.user_meta?.favorite_quote[0];
   }
 
-  let professional_summary = profile?.user_meta?.professional_summary;
+  let professional_summary = otherProfiles?.user_meta?.professional_summary;
   if (typeof professional_summary === 'undefined') {
     professional_summary = ' ';
   } else {
-    professional_summary = profile?.user_meta?.professional_summary[0];
+    professional_summary = otherProfiles?.user_meta?.professional_summary[0];
   }
 
-  let initatives = profile?.user_meta?.initatives;
+  let initatives = otherProfiles?.user_meta?.initatives;
   if (typeof initatives === 'undefined') {
     initatives = ' ';
   } else {
-    initatives = profile?.user_meta?.initatives[0];
+    initatives = otherProfiles?.user_meta?.initatives[0];
   }
 
-  let insights = profile?.user_meta?.insights;
+  let insights = otherProfiles?.user_meta?.insights;
   if (typeof insights === 'undefined') {
     insights = ' ';
   } else {
-    insights = profile?.user_meta?.insights[0];
+    insights = otherProfiles?.user_meta?.insights[0];
   }
 
   useEffect(() => {
