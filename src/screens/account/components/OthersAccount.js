@@ -26,6 +26,41 @@ const OthersAccount = props => {
     fetchOtherProfileByIdentifier,
   } = props;
 
+  let Location = profile?.user_meta?.Location;
+  if (typeof Location === 'undefined') {
+    Location = ' ';
+  } else {
+    Location = profile?.user_meta?.Location[0];
+  }
+
+  let favorite_quote = profile?.user_meta?.favorite_quote;
+  if (typeof favorite_quote === 'undefined') {
+    favorite_quote = ' ';
+  } else {
+    favorite_quote = profile?.user_meta?.favorite_quote[0];
+  }
+
+  let professional_summary = profile?.user_meta?.professional_summary;
+  if (typeof professional_summary === 'undefined') {
+    professional_summary = ' ';
+  } else {
+    professional_summary = profile?.user_meta?.professional_summary[0];
+  }
+
+  let initatives = profile?.user_meta?.initatives;
+  if (typeof initatives === 'undefined') {
+    initatives = ' ';
+  } else {
+    initatives = profile?.user_meta?.initatives[0];
+  }
+
+  let insights = profile?.user_meta?.insights;
+  if (typeof insights === 'undefined') {
+    insights = ' ';
+  } else {
+    insights = profile?.user_meta?.insights[0];
+  }
+
   useEffect(() => {
     const fetchOtherProfileAsync = async () => {
       await fetchOtherProfileByIdentifier(route.params.id);
@@ -34,11 +69,6 @@ const OthersAccount = props => {
   }, []);
 
   console.log('profile id =======', route.params.id);
-  // console.log('profile other ====== ', otherProfiles?.user_meta);
-
-  // if(typeof otherProfiles?.user_meta?.Location === 'undefined'){
-
-  // }
 
   return (
     <ScrollView
@@ -184,7 +214,7 @@ const OthersAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.first_name[0]}
+                    value={Location}
                     editable={false}
                   />
 
@@ -197,7 +227,7 @@ const OthersAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.first_name[0]}
+                    value={favorite_quote}
                     editable={false}
                   />
 
@@ -210,11 +240,11 @@ const OthersAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.first_name[0]}
+                    value={professional_summary}
                     editable={false}
                   />
 
-                  <Text
+                  {/* <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     EXPERTISE AREAS
                   </Text>
@@ -225,7 +255,7 @@ const OthersAccount = props => {
                     keyboardType="text"
                     value={otherProfiles?.user_meta?.first_name[0]}
                     editable={false}
-                  />
+                  /> */}
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
@@ -236,7 +266,7 @@ const OthersAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.first_name[0]}
+                    value={initatives}
                     editable={false}
                   />
 
@@ -249,7 +279,7 @@ const OthersAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={otherProfiles?.user_meta?.first_name[0]}
+                    value={insights}
                     editable={false}
                   />
                 </View>

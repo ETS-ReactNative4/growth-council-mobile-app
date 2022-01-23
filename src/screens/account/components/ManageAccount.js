@@ -48,6 +48,41 @@ const ManageAccount = props => {
     updateUser,
   } = props;
 
+  let Location = profile?.user_meta?.Location;
+  if (typeof Location === 'undefined') {
+    Location = ' ';
+  } else {
+    Location = profile?.user_meta?.Location[0];
+  }
+
+  let favorite_quote = profile?.user_meta?.favorite_quote;
+  if (typeof favorite_quote === 'undefined') {
+    favorite_quote = ' ';
+  } else {
+    favorite_quote = profile?.user_meta?.favorite_quote[0];
+  }
+
+  let professional_summary = profile?.user_meta?.professional_summary;
+  if (typeof professional_summary === 'undefined') {
+    professional_summary = ' ';
+  } else {
+    professional_summary = profile?.user_meta?.professional_summary[0];
+  }
+
+  let initatives = profile?.user_meta?.initatives;
+  if (typeof initatives === 'undefined') {
+    initatives = ' ';
+  } else {
+    initatives = profile?.user_meta?.initatives[0];
+  }
+
+  let insights = profile?.user_meta?.insights;
+  if (typeof insights === 'undefined') {
+    insights = ' ';
+  } else {
+    insights = profile?.user_meta?.insights[0];
+  }
+
   const {
     handleChange,
     handleBlur,
@@ -64,6 +99,11 @@ const ManageAccount = props => {
       first_name: profile?.user_meta?.first_name[0],
       last_name: profile?.user_meta?.last_name[0],
       email: profile?.user_email,
+      Location: Location,
+      favorite_quote: favorite_quote,
+      insights: insights,
+      initatives: initatives,
+      professional_summary: professional_summary,
     },
     onSubmit: async values => {
       await updateUser(values).then(response => {
@@ -243,11 +283,11 @@ const ManageAccount = props => {
                   <TextInput
                     style={styles.input}
                     keyboardType="text"
-                    value={values.location}
-                    onChangeText={handleChange('location')}
-                    onBlur={handleBlur('location')}
-                    error={errors.location}
-                    touched={touched.location}
+                    value={values.Location}
+                    onChangeText={handleChange('Location')}
+                    onBlur={handleBlur('Location')}
+                    error={errors.Location}
+                    touched={touched.Location}
                   />
 
                   <Text
@@ -259,11 +299,11 @@ const ManageAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={values.quote}
-                    onChangeText={handleChange('quote')}
-                    onBlur={handleBlur('quote')}
-                    error={errors.quote}
-                    touched={touched.quote}
+                    value={values.favorite_quote}
+                    onChangeText={handleChange('favorite_quote')}
+                    onBlur={handleBlur('favorite_quote')}
+                    error={errors.favorite_quote}
+                    touched={touched.favorite_quote}
                   />
 
                   <Text
@@ -272,17 +312,17 @@ const ManageAccount = props => {
                   </Text>
                   <TextInput
                     multiline={true}
-                    numberOfLines={4}
+                    numberOfLines={6}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={values.quote}
-                    onChangeText={handleChange('quote')}
-                    onBlur={handleBlur('quote')}
-                    error={errors.quote}
-                    touched={touched.quote}
+                    value={values.professional_summary}
+                    onChangeText={handleChange('professional_summary')}
+                    onBlur={handleBlur('professional_summary')}
+                    error={errors.professional_summary}
+                    touched={touched.professional_summary}
                   />
 
-                  <Text
+                  {/* <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     EXPERTISE AREAS
                   </Text>
@@ -291,12 +331,12 @@ const ManageAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={values.quote}
-                    onChangeText={handleChange('quote')}
-                    onBlur={handleBlur('quote')}
-                    error={errors.quote}
-                    touched={touched.quote}
-                  />
+                    value={values.location}
+                    onChangeText={handleChange('location')}
+                    onBlur={handleBlur('location')}
+                    error={errors.location}
+                    touched={touched.location}
+                  /> */}
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
@@ -307,11 +347,11 @@ const ManageAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={values.quote}
-                    onChangeText={handleChange('quote')}
-                    onBlur={handleBlur('quote')}
-                    error={errors.quote}
-                    touched={touched.quote}
+                    value={values.initatives}
+                    onChangeText={handleChange('initatives')}
+                    onBlur={handleBlur('initatives')}
+                    error={errors.initatives}
+                    touched={touched.initatives}
                   />
 
                   <Text
@@ -323,11 +363,11 @@ const ManageAccount = props => {
                     numberOfLines={4}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={values.quote}
-                    onChangeText={handleChange('quote')}
-                    onBlur={handleBlur('quote')}
-                    error={errors.quote}
-                    touched={touched.quote}
+                    value={values.insights}
+                    onChangeText={handleChange('insights')}
+                    onBlur={handleBlur('insights')}
+                    error={errors.insights}
+                    touched={touched.insights}
                   />
 
                   <View style={styles.loginButtonWrapper}>
@@ -375,26 +415,7 @@ const ManageAccount = props => {
 export default ManageAccount;
 
 const styles = StyleSheet.create({
-  container: {
-    ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-    width: '100%',
-    height: '100%',
-  },
-
-  middleWrapper: {
-    height: 60,
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  TextWrapper: {
-    height: 380,
-    // backgroundColor:'green'
-    marginTop: 10,
-  },
-
   input: {
-    height: 40,
     margin: 10,
     borderWidth: 0.5,
     padding: 10,
@@ -406,6 +427,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
+
   loginButtonWrapper: {
     marginLeft: 10,
     marginTop: 18,
@@ -434,8 +456,8 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     backgroundColor: PRIMARY_BACKGROUND_COLOR,
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingLeft: 40,
+    paddingRight: 40,
   },
   profileWrapper: {
     padding: 20,
@@ -471,7 +493,6 @@ const styles = StyleSheet.create({
   wrapper: {
     marginTop: 30,
     borderBottomWidth: 1,
-
     borderBottomColor: '#EDF1F7',
   },
   middleWrapper: {
@@ -485,7 +506,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   TextWrapper: {
-    height: 380,
     // backgroundColor:'green'
     marginTop: 10,
   },
@@ -499,15 +519,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginLeft: 10,
   },
-  middleImage1: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#d7d7d7',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    marginLeft: 10,
-  },
+
   menuText: {
     fontSize: 14,
     fontWeight: '500',
