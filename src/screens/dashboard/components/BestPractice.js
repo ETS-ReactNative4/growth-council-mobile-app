@@ -328,7 +328,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    
   },
   headingText3: {
     ...CommonStyles.headingText3,
