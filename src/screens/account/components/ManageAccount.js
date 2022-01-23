@@ -142,20 +142,6 @@ const ManageAccount = (props) => {
                         </View>
                     </View>
                 </View>
-
-			
-					{/* <View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
-							<View style={styles.profileWrapper}>
-									<View style={styles.icon}>
-										<Image source={{uri: profile.avatar}} style={{width:"100%", height:"100%"}} resizeMode='cover'
-										/>
-									</View>
-									<View style={styles.header}>
-										<Text style={styles.headingText1}>{profile.display_name}</Text>
-										<Text>{profile.user_email}</Text>
-									</View>
-							</View>
-					</View> */}
 					
 			<View style={styles.container}>
 				
@@ -182,24 +168,24 @@ const ManageAccount = (props) => {
                                      </>
                                 )}
 
-							<View style={styles.middleWrapper}>
+								<View style={styles.middleWrapper}>
 
-								<View style={styles.middleImage}>
-									<Ionicons
-										name="person-outline"
-										color='white'
-										size={20}/>
+									<View style={styles.middleImage}>
+										<Ionicons
+											name="person-outline"
+											color='white'
+											size={20}/>
+									</View>
+									<Text style={styles.menuText}>Account</Text>
+										<Ionicons
+											name='chevron-down-outline'
+											size={20}
+											color='#d7d7d7'
+											style={{right:0,  position:'absolute'}}
+										/>
+									
+
 								</View>
-								<Text style={styles.menuText}>Account</Text>
-									<Ionicons
-										name='chevron-down-outline'
-										size={20}
-										color='#d7d7d7'
-										style={{right:0,  position:'absolute'}}
-									/>
-								
-
-							</View>
 
 								<View style={styles.TextWrapper}>
 
@@ -271,22 +257,22 @@ const ManageAccount = (props) => {
 
                                    </View>
 
-                              </View>
+                              	</View>
 
-							<View>
-							<TouchableOpacity onPress={()=>navigation.navigate('ChangePassword')}>
-								<View style={[styles.middleWrapper,{borderBottomWidth:0, }]}>
-									<View style={styles.middleImage}>
-											<Ionicons
-												name="key"
-												color='white'
-												size={20}/>
+								<View>
+									<TouchableOpacity onPress={()=>navigation.navigate('ChangePassword')}>
+									<View style={[styles.middleWrapper,{borderBottomWidth:0, }]}>
+										<View style={styles.middleImage}>
+												<Ionicons
+													name="key"
+													color='white'
+													size={20}/>
+											</View>
+											<Text style={styles.menuText}>Change Password</Text>
+
 										</View>
-										<Text style={styles.menuText}>Change Password</Text>
-
-									</View>
-							</TouchableOpacity>
-						</View>
+								</TouchableOpacity>
+								</View>
 							
 						</View>
 						
