@@ -88,7 +88,7 @@ const OthersAccount = props => {
         </View>
 
         <View style={styles.container}>
-          <View>
+          
             <View style={styles.middle}>
               <View style={styles.wrapper}>
                 <View style={styles.message}>
@@ -280,7 +280,7 @@ const OthersAccount = props => {
                   />
                 </View>
               </View>
-            </View>
+            
           </View>
         </View>
       </View>
@@ -304,137 +304,247 @@ const OthersAccount = props => {
 export default OthersAccount;
 
 const styles = StyleSheet.create({
-  container: {
-    ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-    width: '100%',
-    height: '100%',
-  },
 
-  middleWrapper: {
-    height: 60,
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  TextWrapper: {
-    height: 380,
-    // backgroundColor:'green'
-    marginTop: 10,
-  },
+	container: {
+        ...CommonStyles.container,
+        backgroundColor: PRIMARY_BACKGROUND_COLOR,
+		paddingLeft:40,
+		paddingRight:40,
+		
+    },
+	profileWrapper:{
+		padding:20,
+		alignItems:"center", 
+		width:328,
+		backgroundColor:PRIMARY_BACKGROUND_COLOR,
+		borderRadius:12, 
+		position:"relative",
+		paddingTop:100, 
+		borderWidth: 1 , 
+		borderColor:'#707070'
+	},
+    header: {    
+     alignItems:'center',
+    },
+    icon: {
+        width: 110,
+        height: 110,
+        borderColor:PRIMARY_BACKGROUND_COLOR,
+        borderRadius: 16,
+        borderWidth: 3,
+		overflow:"hidden",
+		position:"absolute",
+		top:-35,
+    },
+    headingText1: {
+        ...CommonStyles.headingText1,
+        fontFamily: Typography.FONT_NORMAL,
+        fontSize: 22,
+        fontWeight: '600',
+    },
+    middle: {
+		
+    },
+    wrapper: {
+       
+		borderBottomWidth:1 ,
+		borderBottomColor:'#EDF1F7',
+		
+    },
+    middleWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+		paddingTop:15,
+		paddingBottom:15,
+		borderBottomWidth:1 ,
+		alignItems:'center',
+		borderBottomColor:'#EDF1F7',
+		position:'relative',
+    },
+	TextWrapper: {
+        marginTop: 10,
+		marginBottom:10,
+    },
 
-  input: {
-    height: 40,
-    margin: 10,
-    borderWidth: 0.5,
-    padding: 10,
-    borderRadius: 10,
-  },
+    middleImage: {
+        width: 40,
+        height: 40,
+        backgroundColor: '#3A9BDC',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginLeft: 10,
+       
+    },
+ 
+	menuText:{
+		fontSize: 14, fontWeight: '500', margin: 15
+	},
+	input: {
 
-  loginButtonWrapper: {
-    marginLeft: 10,
-    marginTop: 18,
-  },
-  loginButton: {
-    width: '50%',
-    borderRadius: 10,
-    height: 50,
-    backgroundColor: '#3A9BDC',
-  },
-  loginButtonText: {
-    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-    fontFamily: Typography.FONT_BOLD,
-  },
-  message: {
-    ...CommonStyles.message,
-    width: '86%',
-  },
-  errorWrapper: {
-    width: '70%',
-  },
-  errorText: {
-    ...CommonStyles.errorText,
-  },
+        margin: 10,
+        borderWidth: 0.5,
+        padding: 10,
+        borderRadius: 10,
+    },
+	textarea: {
+		margin: 10,
+		borderWidth: 0.5,
+		padding: 10,
+		borderRadius: 10,
+	  },
+   loginButtonWrapper: {
+        marginLeft: 10,
+		marginTop:18,
+      
+    }, 
+    loginButton: {
+        width: '50%',
+        borderRadius: 10,
+        height: 50,
+        backgroundColor: '#3A9BDC',
+    },
+    loginButtonText: {
+        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
+        fontFamily: Typography.FONT_BOLD,
 
-  container: {
-    ...CommonStyles.container,
-    backgroundColor: PRIMARY_BACKGROUND_COLOR,
-    paddingLeft: 50,
-    paddingRight: 50,
-  },
-  profileWrapper: {
-    padding: 20,
-    alignItems: 'center',
-    width: 328,
-    backgroundColor: PRIMARY_BACKGROUND_COLOR,
-    borderRadius: 12,
-    position: 'relative',
-    paddingTop: 100,
-    borderWidth: 1,
-    borderColor: '#707070',
-  },
-  header: {
-    alignItems: 'center',
-  },
-  icon: {
-    width: 110,
-    height: 110,
-    borderColor: PRIMARY_BACKGROUND_COLOR,
-    borderRadius: 16,
-    borderWidth: 3,
-    overflow: 'hidden',
-    position: 'absolute',
-    top: -35,
-  },
-  headingText1: {
-    ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
-    fontSize: 22,
-    fontWeight: '600',
-  },
-  middle: {},
-  wrapper: {
-    marginTop: 35,
-    borderBottomWidth: 1,
+    },
+    message: {
+        ...CommonStyles.message,
+        width: '86%',
+    },
+    errorWrapper: {
+        width: '70%',
+    },
+    errorText: {
+        ...CommonStyles.errorText,
+    },
 
-    borderBottomColor: '#EDF1F7',
-  },
-  middleWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderBottomWidth: 1,
-    alignItems: 'center',
-    borderBottomColor: '#EDF1F7',
-    position: 'relative',
-  },
-  TextWrapper: {
-    height: 380,
-    // backgroundColor:'green'
-    marginTop: 10,
-  },
 
-  middleImage: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#3A9BDC',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    marginLeft: 10,
-  },
-  middleImage1: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#d7d7d7',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    marginLeft: 10,
-  },
-  menuText: {
-    fontSize: 14,
-    fontWeight: '500',
-    margin: 15,
-  },
+//   middleWrapper: {
+//     height: 60,
+//     display: 'flex',
+//     flexDirection: 'row',
+//   },
+//   TextWrapper: {
+   
+//     // backgroundColor:'green'
+//     marginTop: 10,
+//   },
+
+//   input: {
+//     height: 40,
+//     margin: 10,
+//     borderWidth: 0.5,
+//     padding: 10,
+//     borderRadius: 10,
+//   },
+
+//   loginButtonWrapper: {
+//     marginLeft: 10,
+//     marginTop: 18,
+//   },
+//   loginButton: {
+//     width: '50%',
+//     borderRadius: 10,
+//     height: 50,
+//     backgroundColor: '#3A9BDC',
+//   },
+//   loginButtonText: {
+//     color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
+//     fontFamily: Typography.FONT_BOLD,
+//   },
+//   message: {
+//     ...CommonStyles.message,
+//     width: '86%',
+//   },
+//   errorWrapper: {
+//     width: '70%',
+//   },
+//   errorText: {
+//     ...CommonStyles.errorText,
+//   },
+
+//   container: {
+//     ...CommonStyles.container,
+//     backgroundColor: PRIMARY_BACKGROUND_COLOR,
+//     paddingLeft: 50,
+//     paddingRight: 50,
+//   },
+//   profileWrapper: {
+//     padding: 20,
+//     alignItems: 'center',
+//     width: 328,
+//     backgroundColor: PRIMARY_BACKGROUND_COLOR,
+//     borderRadius: 12,
+//     position: 'relative',
+//     paddingTop: 100,
+//     borderWidth: 1,
+//     borderColor: '#707070',
+//   },
+//   header: {
+//     alignItems: 'center',
+//   },
+//   icon: {
+//     width: 110,
+//     height: 110,
+//     borderColor: PRIMARY_BACKGROUND_COLOR,
+//     borderRadius: 16,
+//     borderWidth: 3,
+//     overflow: 'hidden',
+//     position: 'absolute',
+//     top: -35,
+//   },
+//   headingText1: {
+//     ...CommonStyles.headingText1,
+//     fontFamily: Typography.FONT_NORMAL,
+//     fontSize: 22,
+//     fontWeight: '600',
+//   },
+//   middle: {},
+//   wrapper: {
+//     marginTop: 35,
+//     borderBottomWidth: 1,
+
+//     borderBottomColor: '#EDF1F7',
+//   },
+//   middleWrapper: {
+//     display: 'flex',
+//     flexDirection: 'row',
+//     paddingTop: 15,
+//     paddingBottom: 15,
+//     borderBottomWidth: 1,
+//     alignItems: 'center',
+//     borderBottomColor: '#EDF1F7',
+//     position: 'relative',
+//   },
+//   TextWrapper: {
+//     height: 380,
+//     // backgroundColor:'green'
+//     marginTop: 10,
+//   },
+
+//   middleImage: {
+//     width: 40,
+//     height: 40,
+//     backgroundColor: '#3A9BDC',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     borderRadius: 10,
+//     marginLeft: 10,
+//   },
+//   middleImage1: {
+//     width: 40,
+//     height: 40,
+//     backgroundColor: '#d7d7d7',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     borderRadius: 10,
+//     marginLeft: 10,
+//   },
+//   menuText: {
+//     fontSize: 14,
+//     fontWeight: '500',
+//     margin: 15,
+//   },
 });
