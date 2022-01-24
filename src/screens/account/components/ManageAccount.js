@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome5';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
@@ -100,9 +101,50 @@ const ManageAccount = (props) => {
 
 		<View style={{backgroundColor:PRIMARY_BACKGROUND_COLOR}}>
 	
-		<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
+				<Image source={require("../../../assets/img/appBG.png")} style={{height:160}}/>
+
+				<View style={{
+                    display: 'flex',
+                    marginTop: -90,
+                    alignContent: 'center',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                }}>
+
+                    <View style={{
+                        zIndex: 30,
+                        position: 'absolute',
+                        right: 5,
+                        marginTop: 10,
+                        marginRight: 10
+                    }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
+                            <Font
+                                name={'edit'}
+                                size={20}
+                                color="#C4C8CC"
+                                style={{marginTop: 5, marginLeft: 5}}
+
+                            />
+                        </TouchableOpacity>
+					
+
+                    </View>
+                    <View style={styles.profileWrapper}>
+                        <View style={styles.icon}>
+                            <Image source={{uri: profile.avatar}} style={{width: "100%", height: "100%"}}
+                                   resizeMode='cover'
+                            />
+                        </View>
+                        <View style={styles.header}>
+                            <Text style={styles.headingText1}>{profile.display_name}</Text>
+                            <Text>{profile.user_email}</Text>
+                        </View>
+                    </View>
+                </View>
+
 			
-					<View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
+					{/* <View style={{display:'flex', marginTop:-90,alignContent:'center', marginLeft:'auto', marginRight:'auto'}}>
 							<View style={styles.profileWrapper}>
 									<View style={styles.icon}>
 										<Image source={{uri: profile.avatar}} style={{width:"100%", height:"100%"}} resizeMode='cover'
@@ -113,10 +155,10 @@ const ManageAccount = (props) => {
 										<Text>{profile.user_email}</Text>
 									</View>
 							</View>
-					</View>
+					</View> */}
 					
 			<View style={styles.container}>
-				<View>
+				
 					<View style={styles.middle}>
 						<View style={styles.wrapper}>
 						{profileError && <View style={styles.message}>
@@ -159,7 +201,7 @@ const ManageAccount = (props) => {
 
 							</View>
 
-							<View style={styles.TextWrapper}>
+								<View style={styles.TextWrapper}>
 
                                      <Text style={{size: 7, marginLeft: 10, fontSize:10, color:'#8F9BB3'}}>Username</Text>
                                      <TextInput
@@ -205,7 +247,21 @@ const ManageAccount = (props) => {
                                          error={errors.email}
                                          touched={touched.email}
                                      />
+									   <Text style={{ marginLeft: 10,  fontSize:10, color:'#8F9BB3'}}>Favorite Quote</Text>
+                                     <TextInput
+                                         style={styles.input}
+                                         keyboardType="text"
+                                         multiline={true}
+    									numberOfLines={3}
+                                     />
+									  <Text style={{ marginLeft: 10,  fontSize:10, color:'#8F9BB3'}}>Professional Summary</Text>
+                                     <TextInput
+                                         style={styles.input}
+                                         keyboardType="text"
+										 numberOfLines={5}
+                                     />
 
+									  
                                      <View style={styles.loginButtonWrapper}>
                                          <TouchableOpacity>
                                              <Button style={styles.loginButton} onPress={handleSubmit}>
@@ -216,12 +272,10 @@ const ManageAccount = (props) => {
                                    </View>
 
                               </View>
-							
-						</View>
-						
-						<View>
+
+							<View>
 							<TouchableOpacity onPress={()=>navigation.navigate('ChangePassword')}>
-								<View style={[styles.middleWrapper,{borderBottomWidth:0}]}>
+								<View style={[styles.middleWrapper,{borderBottomWidth:0, }]}>
 									<View style={styles.middleImage}>
 											<Ionicons
 												name="key"
@@ -234,9 +288,13 @@ const ManageAccount = (props) => {
 							</TouchableOpacity>
 						</View>
 							
+						</View>
+						
+						
+							
 					</View>
 						
-					</View>
+				
 				</View>
 			
 		</View>
@@ -258,35 +316,14 @@ const ManageAccount = (props) => {
 export default ManageAccount
 
 const styles = StyleSheet.create({
-    container: {
-        ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-        width: "100%",
-        height: '100%',
-    },
- 
- 
-    middleWrapper: {
-        height: 60,
-        display: 'flex',
-        flexDirection: 'row',
-    },
-	TextWrapper: {
-        height: 380,
-        // backgroundColor:'green'
-        marginTop: 10,
-		
-    },
-
-   
-   
     input: {
-        height: 40,
+       
         margin: 10,
         borderWidth: 0.5,
         padding: 10,
         borderRadius: 10,
     },
+
 
    loginButtonWrapper: {
         marginLeft: 10,
@@ -318,8 +355,8 @@ const styles = StyleSheet.create({
 	container: {
         ...CommonStyles.container,
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
-		paddingLeft:50,
-		paddingRight:50,
+		paddingLeft:40,
+		paddingRight:40,
 		
     },
 	profileWrapper:{
@@ -353,13 +390,13 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     middle: {
-     
+		
     },
     wrapper: {
         marginTop: 30,
 		borderBottomWidth:1 ,
-		
 		borderBottomColor:'#EDF1F7',
+		
     },
     middleWrapper: {
         display: 'flex',
@@ -372,7 +409,6 @@ const styles = StyleSheet.create({
 		position:'relative',
     },
 	TextWrapper: {
-        height: 380,
         // backgroundColor:'green'
         marginTop: 10,
     },
@@ -387,15 +423,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
        
     },
-    middleImage1: {
-        width: 40,
-        height: 40,
-        backgroundColor: '#d7d7d7',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-        marginLeft: 10,
-    },
+ 
 	menuText:{
 		fontSize: 14, fontWeight: '500', margin: 15
 	}
