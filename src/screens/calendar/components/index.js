@@ -4,9 +4,10 @@ import {
     View,
     Text,
     FlatList,
-    ScrollView, Picker
+    ScrollView, 
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
+import {Picker} from '@react-native-picker/picker';
 import moment from 'moment';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 
@@ -29,7 +30,8 @@ const EventCalendar = (props) => {
     const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
     const [currentEvents, setCurrentEvents] = useState([]);
 
-	const [selectedValue, setSelectedValue] = useState("java");
+	const [selectedValue, setSelectedValue] = useState("Region");
+	const [timeValue, setTimeValue] = useState("Time Zone");
 
     useEffect(() => {
         const fetchCalendarEventAsync = async () => {
@@ -148,16 +150,25 @@ const EventCalendar = (props) => {
 					    style={{height: 38,  width: '90%', marginLeft: 10,}}
 					/>
                 </View>
-				<View>
-							<Picker
+				{/* <View style={styles.pickerWrapper}>
+					<Picker
 					selectedValue={selectedValue}
 					style={{ height: 50, width: 150 }}
 					onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
 				>
-					<Picker.Item label="Java" value="java" />
+					<Picker.Item label="Region" value="region" />
 					<Picker.Item label="JavaScript" value="js" />
-				</Picker>
-				</View>
+					</Picker>
+
+					<Picker
+					selectedValue={timeValue}
+					style={{ height: 50, width: 150 }}
+					onValueChange={(itemValue, itemIndex) => setTimeValue(itemValue)}
+				>
+					<Picker.Item label="Time Zone" value="time" />
+					<Picker.Item label="JavaScript" value="js" />
+					</Picker>
+				</View> */}
 
                 <View style={[styles.calendar, styles.shadowProp]}>
                     <Calendar
@@ -313,6 +324,11 @@ const styles = StyleSheet.create({
 		marginLeft:20,
 
     },
+	pickerWrapper:{
+		display:'flex',
+		flexDirection:'row'
+		
+	},
 	shadowProp: {
 		shadowColor: '#000',
 		shadowOffset: {
@@ -324,6 +340,7 @@ const styles = StyleSheet.create({
 	
 		elevation: 5,
 	  },
+
 });
 
 export default EventCalendar;

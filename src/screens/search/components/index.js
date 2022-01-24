@@ -51,8 +51,8 @@ const eventItems = ({item, index}) => {
             <View style={styles.eventTheme}/>
             <View style={styles.eventDetails}>
                 <View style={styles.eventInfo}>
-                    <Text style={styles.evnetTitle}>{item[0]?.events_sessions[0]?.title}</Text>
-                    <Text style={styles.eventParagraph}>Hosted by {item?.events_sessions[0]?.organizer?.term_name}</Text>
+                    <Text style={styles.evnetTitle}>{item?.title}</Text>
+                    <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name}</Text>
                 </View>
                 <View style={styles.eventDate}>
                     <Text style={styles.eventDateText}>
@@ -161,7 +161,7 @@ const Search = (props) => {
 				<Text style={{fontWeight: 'bold', fontSize: 15}}>Events</Text>
                     <FlatList
                         showsHorizontalScrollIndicator={false}
-                        data={searches}
+                        data={searches.events_sessions}
                         renderItem={eventItems}
                     />
                 </View>
