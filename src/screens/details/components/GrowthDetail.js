@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -305,9 +306,25 @@ const GrowthDetail = props => {
                 }}>
                 Growth Leadership Coaching
               </Text>
+			  {poeEventLoading && (
+                                     <>
+                                         <View style={{
+                                             flex: 1,
+                                             alignItems: 'center',
+                                             flexDirection: 'column',
+                                             justifyContent: 'space-around',
+                                             position: 'absolute',
+                                             zIndex: 1011,
+                                             top: 120,
+                                             left: 150
+                                         }}>
+                                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                                         </View>
+                                     </>
+                                )}
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
-              <View style={styles.top}>
+              {/* <View style={styles.top}>
                 <Text style={styles.title}> Growth Coaching Events</Text>
                 <View
                   style={{
@@ -321,7 +338,7 @@ const GrowthDetail = props => {
                     renderItem={_renderTopItem}
                   />
                 </View>
-              </View>
+              </View> */}
               <View style={styles.middle}>
                 <Text style={styles.title}>Sessions</Text>
                 <View

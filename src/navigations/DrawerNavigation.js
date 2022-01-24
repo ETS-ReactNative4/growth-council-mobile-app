@@ -16,6 +16,8 @@ import {
   StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Material from 'react-native-vector-icons/MaterialIcons';
+import Feature from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
 
 import DashboardScreen from '../screens/dashboard';
@@ -65,11 +67,14 @@ const CustomDrawerContent = props => {
         {/*}*/}
         {/*/>*/}
 
-        {/* <View style={styles.footer}>
-				<Image source={require("../../src/assets/img/footer_logo.png")}/>
+        <View style={styles.footer}>
+				<Image source={require("../../src/assets/img/footer_logo.png")} style={{width:195, height:30}}/>
 				<Text style={styles.footerText}>EmpoweredBy</Text>
-				<Image source={require("../../src/assets/img/footer_company_name_image.png")} style={{width:200}}/>
-			</View> */}
+				<View style={{width:175,}}>
+					<Image source={require("../../src/assets/img/fristDigi.png")} style={{width:"100%", }} />
+				</View>
+				
+			</View>
       </DrawerContentScrollView>
     </SafeAreaView>
   );
@@ -143,7 +148,8 @@ const DrawerNavigation = ({navigation}) => {
         component={HomeCommunityScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="calendar-outline" color={'blue'} size={24} />
+            <Material name="group-work" color={'#14A2E2'} size={24} />
+			
           ),
           headerBackground: () => (
             <View>
@@ -173,7 +179,7 @@ const DrawerNavigation = ({navigation}) => {
         component={BestPracticeScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="ear-outline" color={'blue'} size={24} />
+            <Feature name="thumbs-up" color={'#3693AC'} size={24} />
           ),
           headerBackground: () => (
             <View>
@@ -202,7 +208,7 @@ const DrawerNavigation = ({navigation}) => {
         component={GrowthCoachingScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="git-compare-outline" color={'green'} size={24} />
+            <Feature name="git-pull-request" color={'#80BA74'} size={24} />
           ),
           headerBackground: () => (
             <View>
@@ -276,7 +282,7 @@ const DrawerNavigation = ({navigation}) => {
         })}
       />
       <Drawer.Screen
-        name="Setting"
+        name="Settings"
         component={SettingScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
@@ -362,7 +368,7 @@ const styles = StyleSheet.create({
     marginTop: 150,
   },
   footerText: {
-    margin: 8,
+    margin: 3,
     fontSize: 8,
   },
 });

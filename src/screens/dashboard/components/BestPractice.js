@@ -13,6 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import YoutubePlayer from '../../../shared/youtube';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -145,7 +146,7 @@ const BestPractice = props => {
           })
         }>
         <View style={styles.middleWrapper}>
-          <View style={styles.middleW}>
+		<View style={[styles.middleW,styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
@@ -160,18 +161,19 @@ const BestPractice = props => {
   };
 
   const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videolink = link[1].split('&', 2);
+    console.log('videoLink === ', videolink);
     return (
-      <View style={styles.ContentWrapper} key={index}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          source={item?.uri}
-        />
+      <View style={styles.ContentWrapper}>
+        <YoutubePlayer videoId={videolink[0]} />
       </View>
     );
   };
+  const listData = props.pillarPOEs ?? [];
+
+  console.log('File =======', bestPracticesMemberContents?.pillar_contents);
 
   return (
     <ScrollView>
@@ -200,20 +202,19 @@ const BestPractice = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 10,
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              //renderItem={_renderMiddleItem}
-              renderItem={item => _renderMiddleItem(item, navigation)}
-            />
-          </View>
+		  <ScrollView
+			horizontal
+			showsVerticalScrollIndicator={false}
+			showsHorizontalScrollIndicator={false}
+			style={{marginLeft:10}}>
+			<FlatList
+				horizontal
+				// numColumns={Math.ceil(pillarPOEs.length / 2)}
+				showsHorizontalScrollIndicator={false}
+				data={listData}
+				renderItem={_renderMiddleItem}
+				/>
+			</ScrollView>
         </View>
 
         <View style={styles.bottom}>
@@ -239,7 +240,7 @@ const BestPractice = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents.pillar_contents}
+              data={bestPracticesMemberContents?.pillar_contents}
               renderItem={_renderContentItem}
             />
           </View>
@@ -328,7 +329,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,
