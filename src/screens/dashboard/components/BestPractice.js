@@ -146,7 +146,7 @@ const BestPractice = props => {
           })
         }>
         <View style={styles.middleWrapper}>
-          <View style={styles.middleW}>
+		<View style={[styles.middleW,styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
@@ -171,6 +171,7 @@ const BestPractice = props => {
       </View>
     );
   };
+  const listData = props.pillarPOEs ?? [];
 
   console.log('File =======', bestPracticesMemberContents?.pillar_contents);
 
@@ -201,20 +202,19 @@ const BestPractice = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 10,
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              //renderItem={_renderMiddleItem}
-              renderItem={item => _renderMiddleItem(item, navigation)}
-            />
-          </View>
+		  <ScrollView
+			horizontal
+			showsVerticalScrollIndicator={false}
+			showsHorizontalScrollIndicator={false}
+			style={{marginLeft:10}}>
+			<FlatList
+				horizontal
+				// numColumns={Math.ceil(pillarPOEs.length / 2)}
+				showsHorizontalScrollIndicator={false}
+				data={listData}
+				renderItem={_renderMiddleItem}
+				/>
+			</ScrollView>
         </View>
 
         <View style={styles.bottom}>
@@ -329,7 +329,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,

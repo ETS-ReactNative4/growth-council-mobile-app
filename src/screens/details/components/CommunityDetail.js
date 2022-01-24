@@ -306,7 +306,8 @@ const CommunityDetail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1530,
+    height: 1300,
+	
   },
   arrow: {
     marginTop: 30,

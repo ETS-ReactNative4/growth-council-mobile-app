@@ -48,7 +48,7 @@ const SignInForm = props => {
     isValid,
   } = useFormik({
     validationSchema: signInSchema,
-    initialValues: {username: '', password: ''},
+    initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     onSubmit: async values => {
       await signIn(values);
     },
@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
   loginButtonWrapper: {
     ...CommonStyles.buttonWrapper,
     alignItems: 'flex-start',
+	marginTop:10,
   },
   loginButton: {
     ...CommonStyles.button,
