@@ -6,11 +6,12 @@ import {
     FlatList,
     ScrollView
 } from 'react-native';
-import { Calendar} from 'react-native-calendars';
+import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 
 import {CommonStyles, Colors} from '../../../theme';
+import {BubblesLoader} from "react-native-indicator";
 
 const EventCalendar = (props) => {
 
@@ -25,10 +26,17 @@ const EventCalendar = (props) => {
     } = props;
 
 	const [value, setValue] = useState('2021');
+    const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
+    const [currentEvents, setCurrentEvents] = useState([]);
 
     useEffect(() => {
         const fetchCalendarEventAsync = async () => {
-            await fetchAllCalendarEvent();
+            await fetchAllCalendarEvent({
+                "year": moment().format('YYYY'),
+                "month": moment().format('MM')
+            }).then(response => {
+                setCurrentEvents(response?.payload);
+            });
         };
         fetchCalendarEventAsync();
     }, []);
@@ -49,7 +57,7 @@ const EventCalendar = (props) => {
     };
 
     let markedDay = {};
-    calendarEvents.map((item) => {
+    currentEvents.map((item) => {
         const startDate = moment(item.event_start).format('YYYY-MM-DD');
         const endDate = moment(item.event_end).format('YYYY-MM-DD');
         if (moment(startDate).isSame(endDate)) {
@@ -85,26 +93,26 @@ const EventCalendar = (props) => {
 
     console.log("markedDay:::::::::::::;", markedDay);
 
-	
-
     const renderItem = ({item, index}) => {
+        //date
+        const actualDate = moment(item.event_start).format('ll').split(',', 3);
+        const date = actualDate[0].split(' ', 3);
 
-		//date
-		const actualDate = moment(item.event_start).format('ll').split(',', 3);
-		const date = actualDate[0].split(' ', 3);
-		console.log("date:",date[1]);
+        //time
+        let dt = item.event_start;
+        dt = dt.split(' ');
+        let [date1, time] = [dt[0].split('-').map(Number), dt[1].split(':').map(Number)];
+        let d = new Date(time[0], time[1], time[2], 0);
 
-		//time
-		let dt = item.event_start;
-		dt = dt.split(' ');
-		let [date1, time] = [dt[0].split('-').map(Number), dt[1].split(':').map(Number)];
-		let d = new Date( time[0], time[1], time[2], 0);
-		console.log("time::",time[0], time[1])
-		
         return (
-            <View style={styles.eventCard} key={index}>
-                <Text style={{marginTop: 30, marginLeft: 10, marginRight: 10, fontSize: 17}}>{time[0]}:{time[1]}</Text>
-               
+            <View style={[styles.eventCard,styles.shadowProp]} key={index}>
+                <Text style={{
+                    marginTop: 30,
+                    marginLeft: 10,
+                    marginRight: 10,
+                    fontSize: 17
+                }}>{time[0]}:{time[1]}</Text>
+
                 <View style={styles.eventDetails}>
                     <View style={styles.eventInfo}>
                         <Text style={styles.eventTitle}>{item?.pillar_categories[0]?.name}</Text>
@@ -112,9 +120,9 @@ const EventCalendar = (props) => {
                     </View>
                     <View style={styles.eventDate}>
                         <Text style={styles.eventDateText}>
-							{date[1]}
-							{'\n'}
-							{date[0]}
+                            {date[1]}
+                            {'\n'}
+                            {date[0]}
                         </Text>
                     </View>
                 </View>
@@ -122,10 +130,9 @@ const EventCalendar = (props) => {
         );
     };
 
-	// console.log("calendar:::", calendarEvents?.pillar_categories[0]?.name)
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             <View style={styles.container}>
 				<View style={styles.buttonWrapper}>
 					<ButtonToggleGroup
@@ -140,14 +147,21 @@ const EventCalendar = (props) => {
 					/>
                 </View>
 
-                <View style={styles.calendar}>
+                <View style={[styles.calendar, styles.shadowProp]}>
                     <Calendar
                         markingType={'period'}
-                        onMonthChange={month => {
-                            console.log('month changed', month);
+                        onMonthChange={async (month) => {
+                            cleanCalendarEvent();
+                            setCurrentMonth(moment(month?.dateString).format('MMMM'));
+                            await fetchAllCalendarEvent({
+                                "year": moment(month?.dateString).format('YYYY'),
+                                "month": moment(month?.dateString).format('MM')
+                            }).then(response => {
+                                setCurrentEvents(response?.payload);
+                            });
                         }}
                         markedDates={markedDay}
-						   //  markedDates={{
+                        //  markedDates={{
                         //      '2022-01-10': { color: 'green',textColor: 'white'},
                         //      '2022-01-12': { color: 'green',textColor: 'white'},
                         //      '2022-01-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
@@ -156,24 +170,28 @@ const EventCalendar = (props) => {
                         //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
                         //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
                         //  }}
-                       
+						
+
                     />
                 </View>
                 <View style={styles.events}>
-                    <Text style={{fontSize: 20, fontWeight: "bold"}}>August Events</Text>
-                    <FlatList
-                        Vertical
-                        showsVerticalScrollIndicator={false}
-                        data={calendarEvents}
-                        renderItem={renderItem}
-                    />
-
-					{/* <Agenda 
-					items={items}
-					loadItemsForMonth={loadItems}
-					selected={'YYYY-MM-DD'}
-					renderItem={renderItem}
-					/> */}
+                    <Text style={{fontSize: 20, fontWeight: "bold"}}>{currentMonth} Events</Text>
+                    {calendarEventLoading && (
+                        <View style={styles.loading1}>
+                            <BubblesLoader
+                                color={Colors.SECONDARY_TEXT_COLOR}
+                                size={60}
+                            />
+                        </View>
+                    )}
+                    {!calendarEventLoading && (
+                        <FlatList
+                            Vertical
+                            showsVerticalScrollIndicator={false}
+                            data={currentEvents}
+                            renderItem={renderItem}
+                        />
+                    )}
                 </View>
             </View>
         </ScrollView>
@@ -183,7 +201,7 @@ const EventCalendar = (props) => {
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
 
     },
     yearTab: {
@@ -215,18 +233,25 @@ const styles = StyleSheet.create({
         top: '20%',
     },
     calendar: {
-        marginTop: 20,
+		width:"98%",
+		padding:5,
+		marginLeft:5,
+        marginTop: 10,
+		backgroundColor: "#F5F5F5",
+		borderRadius:20,
     },
     events: {
         padding: 20,
     },
     eventCard: {
-		height:82,
+        height: 82,
         marginTop: 15,
         flexDirection: 'row',
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
+		marginBottom:10,
+		
     },
     eventTheme: {
         height: '100%',
@@ -236,21 +261,21 @@ const styles = StyleSheet.create({
     },
     eventDetails: {
         flex: 1,
-		height:80,
+        height: 80,
         flexDirection: 'row',
         flexWrap: 'nowrap',
-       padding:10,
-		borderTopLeftRadius:10,
-		borderBottomLeftRadius:10,
-		borderLeftWidth:10,
-		borderColor:'#80BA74'
+        padding: 10,
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderLeftWidth: 10,
+        borderColor: '#80BA74'
     },
     eventInfo: {
         paddingRight: 5,
         flex: 5,
     },
     eventTitle: {
-		fontSize:14,
+        fontSize: 14,
     },
     eventParagraph: {
         fontSize: 8,
@@ -275,6 +300,17 @@ const styles = StyleSheet.create({
 		marginLeft:20,
 
     },
+	shadowProp: {
+		shadowColor: '#000',
+		shadowOffset: {
+		  width: 0,
+		  height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
 });
 
 export default EventCalendar;
