@@ -4,10 +4,12 @@ import {
     View,
     Text,
     FlatList,
-    ScrollView
+    ScrollView, 
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
+import {Picker} from '@react-native-picker/picker';
 import moment from 'moment';
+import ButtonToggleGroup from 'react-native-button-toggle-group';
 
 import {CommonStyles, Colors} from '../../../theme';
 import {BubblesLoader} from "react-native-indicator";
@@ -24,8 +26,12 @@ const EventCalendar = (props) => {
         cleanCalendarEvent,
     } = props;
 
+	const [value, setValue] = useState('2021');
     const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
     const [currentEvents, setCurrentEvents] = useState([]);
+
+	const [selectedValue, setSelectedValue] = useState("Region");
+	const [timeValue, setTimeValue] = useState("Time Zone");
 
     useEffect(() => {
         const fetchCalendarEventAsync = async () => {
@@ -103,18 +109,18 @@ const EventCalendar = (props) => {
         let d = new Date(time[0], time[1], time[2], 0);
 
         return (
-            <View style={styles.eventCard} key={index}>
+            <View style={[styles.eventCard,styles.shadowProp]} key={index}>
                 <Text style={{
                     marginTop: 30,
                     marginLeft: 10,
                     marginRight: 10,
                     fontSize: 17
-                }}>{time[0]}:{time[1]}{time[2]}</Text>
+                }}>{time[0]}:{time[1]}</Text>
 
                 <View style={styles.eventDetails}>
                     <View style={styles.eventInfo}>
-                        <Text style={styles.eventTitle}>{item.title}</Text>
-                        <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name}</Text>
+                        <Text style={styles.eventTitle}>{item?.pillar_categories[0]?.name}</Text>
+                        <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
                     </View>
                     <View style={styles.eventDate}>
                         <Text style={styles.eventDateText}>
@@ -130,9 +136,41 @@ const EventCalendar = (props) => {
 
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             <View style={styles.container}>
-                <View style={styles.calendar}>
+				<View style={styles.buttonWrapper}>
+					<ButtonToggleGroup
+					    highlightBackgroundColor={'white'}
+					    highlightTextColor={'#0B0B45'}
+					    inactiveBackgroundColor={'transparent'}
+					    inactiveTextColor={'grey'}
+					    values={['2020', '2021', '2022']}
+					    value={value}
+					    onSelect={val => setValue(val)}
+					    style={{height: 38,  width: '90%', marginLeft: 10,}}
+					/>
+                </View>
+				{/* <View style={styles.pickerWrapper}>
+					<Picker
+					selectedValue={selectedValue}
+					style={{ height: 50, width: 150 }}
+					onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+				>
+					<Picker.Item label="Region" value="region" />
+					<Picker.Item label="JavaScript" value="js" />
+					</Picker>
+
+					<Picker
+					selectedValue={timeValue}
+					style={{ height: 50, width: 150 }}
+					onValueChange={(itemValue, itemIndex) => setTimeValue(itemValue)}
+				>
+					<Picker.Item label="Time Zone" value="time" />
+					<Picker.Item label="JavaScript" value="js" />
+					</Picker>
+				</View> */}
+
+                <View style={[styles.calendar, styles.shadowProp]}>
                     <Calendar
                         markingType={'period'}
                         onMonthChange={async (month) => {
@@ -155,6 +193,7 @@ const EventCalendar = (props) => {
                         //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
                         //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
                         //  }}
+						
 
                     />
                 </View>
@@ -185,7 +224,7 @@ const EventCalendar = (props) => {
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
 
     },
     yearTab: {
@@ -217,10 +256,16 @@ const styles = StyleSheet.create({
         top: '20%',
     },
     calendar: {
-        marginTop: 20,
+		width:"98%",
+		padding:5,
+		marginLeft:5,
+        marginTop: 10,
+		backgroundColor: "#F5F5F5",
+		borderRadius:20,
     },
     events: {
         padding: 20,
+		borderWidth:0.1,
     },
     eventCard: {
         height: 82,
@@ -229,6 +274,8 @@ const styles = StyleSheet.create({
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
+		marginBottom:10,
+		
     },
     eventTheme: {
         height: '100%',
@@ -267,6 +314,33 @@ const styles = StyleSheet.create({
     eventDateText: {
         textAlign: 'center',
     },
+	buttonWrapper: {
+        width: 350,
+        height: 40,
+        backgroundColor: "#F5F5F5",
+        borderRadius: 10,
+        margin: 10,
+        marginTop: 15,
+		marginLeft:20,
+
+    },
+	pickerWrapper:{
+		display:'flex',
+		flexDirection:'row'
+		
+	},
+	shadowProp: {
+		shadowColor: '#000',
+		shadowOffset: {
+		  width: 0,
+		  height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
+
 });
 
 export default EventCalendar;

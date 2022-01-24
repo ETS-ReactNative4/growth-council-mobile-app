@@ -350,7 +350,8 @@ const SignUpForm = props => {
           <ScrollView style={styles.scrollBox}>
             <View style={styles.body}>
               <FlatTextInput
-                label="First Name"
+                label="First Name *"
+				// mode='outlined'
                 value={values.first_name}
                 onChangeText={handleChange('first_name')}
                 onFocus={handleBlur('first_name')}
@@ -364,7 +365,7 @@ const SignUpForm = props => {
               )}
 
               <FlatTextInput
-                label="Last Name"
+                label="Last Name *"
                 value={values.last_name}
                 onChangeText={handleChange('last_name')}
                 onFocus={handleBlur('last_name')}
@@ -417,7 +418,7 @@ const SignUpForm = props => {
               )}
 
               <FlatTextInput
-                label="Business Email"
+                label="Business Email *"
                 value={values.email}
                 onChangeText={handleChange('email')}
                 onFocus={handleBlur('email')}
@@ -428,7 +429,7 @@ const SignUpForm = props => {
                 <Text style={styles.errorMessage}>{errors.email}</Text>
               )}
 
-			<Text style={{marginTop:20, color:'black'}}>Country</Text>
+			<Text style={{marginTop:20, color:'black'}}>Country  *</Text>
 			<View style={{ borderRadius: 5, borderWidth: 0.5, overflow: "hidden", height:50, marginTop:10, marginBottom:10 }}>
 				<Picker
 					selectedValue={country}
