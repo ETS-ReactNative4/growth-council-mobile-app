@@ -4,6 +4,7 @@ import {
     View,
     Text,
     FlatList,
+	TouchableOpacity,
     ScrollView, 
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
@@ -109,28 +110,34 @@ const EventCalendar = (props) => {
         let d = new Date(time[0], time[1], time[2], 0);
 
         return (
-            <View style={[styles.eventCard,styles.shadowProp]} key={index}>
-                <Text style={{
-                    marginTop: 30,
-                    marginLeft: 10,
-                    marginRight: 10,
-                    fontSize: 17
-                }}>{time[0]}:{time[1]}</Text>
+			<View>
+				<TouchableOpacity
+						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+					<View style={[styles.eventCard,styles.shadowProp]} key={index}>
+						<Text style={{
+							marginTop: 30,
+							marginLeft: 10,
+							marginRight: 10,
+							fontSize: 17
+						}}>{time[0]}:{time[1]}</Text>
 
-                <View style={styles.eventDetails}>
-                    <View style={styles.eventInfo}>
-                        <Text style={styles.eventTitle}>{item?.pillar_categories[0]?.name}</Text>
-                        <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
-                    </View>
-                    <View style={styles.eventDate}>
-                        <Text style={styles.eventDateText}>
-                            {date[1]}
-                            {'\n'}
-                            {date[0]}
-                        </Text>
-                    </View>
-                </View>
+						<View style={styles.eventDetails}>
+							<View style={styles.eventInfo}>
+								<Text style={styles.eventTitle}>{item?.pillar_categories[0]?.name}</Text>
+								<Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+							</View>
+							<View style={styles.eventDate}>
+								<Text style={styles.eventDateText}>
+									{date[1]}
+									{'\n'}
+									{date[0]}
+								</Text>
+							</View>
+						</View>
+					</View>
+				</TouchableOpacity>
             </View>
+
         );
     };
 
@@ -138,38 +145,6 @@ const EventCalendar = (props) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.container}>
-				<View style={styles.buttonWrapper}>
-					<ButtonToggleGroup
-					    highlightBackgroundColor={'white'}
-					    highlightTextColor={'#0B0B45'}
-					    inactiveBackgroundColor={'transparent'}
-					    inactiveTextColor={'grey'}
-					    values={['2020', '2021', '2022']}
-					    value={value}
-					    onSelect={val => setValue(val)}
-					    style={{height: 38,  width: '90%', marginLeft: 10,}}
-					/>
-                </View>
-				{/* <View style={styles.pickerWrapper}>
-					<Picker
-					selectedValue={selectedValue}
-					style={{ height: 50, width: 150 }}
-					onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-				>
-					<Picker.Item label="Region" value="region" />
-					<Picker.Item label="JavaScript" value="js" />
-					</Picker>
-
-					<Picker
-					selectedValue={timeValue}
-					style={{ height: 50, width: 150 }}
-					onValueChange={(itemValue, itemIndex) => setTimeValue(itemValue)}
-				>
-					<Picker.Item label="Time Zone" value="time" />
-					<Picker.Item label="JavaScript" value="js" />
-					</Picker>
-				</View> */}
-
                 <View style={[styles.calendar, styles.shadowProp]}>
                     <Calendar
                         markingType={'period'}
@@ -259,7 +234,7 @@ const styles = StyleSheet.create({
 		width:"98%",
 		padding:5,
 		marginLeft:5,
-        marginTop: 10,
+        marginTop: 30,
 		backgroundColor: "#F5F5F5",
 		borderRadius:20,
     },

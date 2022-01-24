@@ -6,111 +6,16 @@ import {
     ImageBackground,
     ScrollView,
     FlatList,
+	TouchableOpacity
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Font from 'react-native-vector-icons/FontAwesome5';
-
+import moment from 'moment';
 import SearchBox from '../../../shared/form/SearchBar';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const events = [
-    {
-        eventType: 'Best Practices',
-        eventTitle: 'Executive Coaching Clinic On Goal Setting',
-        eventHost: 'Michael “Coop” Cooper Founder, Innovators + Influencer',
-        eventDay: '01',
-        eventMonth: 'AUG',
-    },
-    {
-        eventType: 'Growth Coaching',
-        eventTitle: 'Executive Coaching Clinic On Goal Setting',
-        eventHost: 'Michael “Coop” Cooper Founder, Innovators + Influencer',
-        eventDay: '01',
-        eventMonth: 'AUG',
-    },
-    {
-        eventType: 'Best Practices',
-        eventTitle: 'Executive Coaching Clinic On Goal Setting',
-        eventHost: 'Michael “Coop” Cooper Founder, Innovators + Influencer',
-        eventDay: '01',
-        eventMonth: 'AUG',
-    },
-    {
-        eventType: 'Growth Community',
-        eventTitle: 'Executive Coaching Clinic On Goal Setting',
-        eventHost: 'Michael “Coop” Cooper Founder, Innovators + Influencer',
-        eventDay: '01',
-        eventMonth: 'AUG',
-    },
-];
 
-const eventItems = ({item, index}) => {
-    return (
-        <View style={styles.eventCard} key={index}>
-            <View style={styles.eventTheme}/>
-            <View style={styles.eventDetails}>
-                <View style={styles.eventInfo}>
-                    <Text style={styles.evnetTitle}>{item?.title}</Text>
-                    <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name}</Text>
-                </View>
-                <View style={styles.eventDate}>
-                    <Text style={styles.eventDateText}>
-                        {/* {item.eventDay}
-                        {'\n'}
-                        {item.eventMonth} */}
-                    </Text>
-                </View>
-            </View>
-        </View>
-    );
-};
-
-
-const searchTags = [
-    'Growth Coaching',
-    'Community',
-    'Artificial Intelligence',
-    'Best Practices',
-];
-
-const searchTag = ({item, index}) => {
-    return (
-        <Button style={styles.searchTagBtn}>
-            <Text style={styles.searchTabBtnText}>{item}</Text>
-        </Button>
-    );
-};
-
-const data1 = [
-    {
-        icon: 'brain',
-        text: 'Executive MindChange',
-    },
-    {
-        icon: 'location-arrow',
-        text: 'Megatrends Workshop',
-    },
-    {
-        icon: 'brain',
-        text: 'Executive MindChange',
-    },
-    {
-        icon: 'location-arrow',
-        text: 'Megatrends Workshop',
-    },
-];
-
-const _renderMiddleItem = ({item, index}) => {
-    return (
-        <View style={styles.middleWrapper}>
-            <View style={styles.middleW}>
-                <Font name={item.icon} size={40} color="skyblue"/>
-            </View>
-            <Text style={{marginTop: 10}}>{item.text}</Text>
-        </View>
-    );
-};
 
 const Search = (props) => {
 
@@ -124,6 +29,82 @@ const Search = (props) => {
     } = props;
 
     console.log("searches::::::::::::", searches);
+
+	
+	const eventItems = ({item, index}) => {
+	
+		const actualDate = moment(item.event_start).format('ll').split(',', 3);
+		const date = actualDate[0].split(' ', 3);
+		return (
+			<View>
+				<TouchableOpacity
+					onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+					<View style={styles.eventCard} key={index}>
+						<View style={styles.eventTheme}/>
+						<View style={styles.eventDetails}>
+							<View style={styles.eventInfo}>
+								<Text style={styles.evnetTitle}>{item?.title}</Text>
+								<Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name}  {item?.organizer?.description}</Text>
+							</View>
+							<View style={styles.eventDate}>
+								<Text style={styles.eventDateText}>
+									{date[1]}
+									{'\n'}
+									{date[0]}
+								</Text>
+							</View>
+						</View>
+					</View>
+				</TouchableOpacity>
+			</View>
+		);
+	};
+	
+	
+	const searchTags = [
+		'Growth Coaching',
+		'Community',
+		'Artificial Intelligence',
+		'Best Practices',
+	];
+	
+	const searchTag = ({item, index}) => {
+		return (
+			<Button style={styles.searchTagBtn}>
+				<Text style={styles.searchTabBtnText}>{item}</Text>
+			</Button>
+		);
+	};
+	
+	const data1 = [
+		{
+			icon: 'brain',
+			text: 'Executive MindChange',
+		},
+		{
+			icon: 'location-arrow',
+			text: 'Megatrends Workshop',
+		},
+		{
+			icon: 'brain',
+			text: 'Executive MindChange',
+		},
+		{
+			icon: 'location-arrow',
+			text: 'Megatrends Workshop',
+		},
+	];
+	
+	const _renderMiddleItem = ({item, index}) => {
+		return (
+			<View style={styles.middleWrapper}>
+				<View style={styles.middleW}>
+					<Font name={item.icon} size={40} color="skyblue"/>
+				</View>
+				<Text style={{marginTop: 10}}>{item.text}</Text>
+			</View>
+		);
+	};
 
     return (
         <ScrollView>
@@ -272,11 +253,14 @@ const styles = StyleSheet.create({
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
+		
+
     },
     eventTheme: {
-        height: '100%',
+        
         width: 10,
-        borderRadius: 50,
+        borderTopLeftRadius:10,
+		borderBottomLeftRadius:10,
         backgroundColor: 'rgba(128,186,116,1)',
     },
     eventDetails: {
@@ -294,13 +278,15 @@ const styles = StyleSheet.create({
     },
     evnetTitle: {
         marginBottom: 5,
+		fontSize:14,
+		fontFamily:Typography.FONT_SF_REGULAR
     },
     eventParagraph: {
         fontSize: 10,
     },
     eventDate: {
         flex: 1,
-        padding: 10,
+        padding:10,
         backgroundColor: 'rgba(245,245,245,1)',
         borderRadius: 10,
         fontSize: 18,

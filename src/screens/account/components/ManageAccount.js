@@ -275,6 +275,7 @@ const ManageAccount = props => {
                     onBlur={handleBlur('email')}
                     error={errors.email}
                     touched={touched.email}
+					editable={false}
                   />
 
                   <Text
