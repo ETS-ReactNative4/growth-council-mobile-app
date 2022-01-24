@@ -47,7 +47,7 @@ const events = [
 
 const eventItems = ({item, index}) => {
     return (
-        <View style={styles.eventCard}>
+        <View style={styles.eventCard} key={index}>
             <View style={styles.eventTheme}/>
             <View style={styles.eventDetails}>
                 <View style={styles.eventInfo}>
@@ -111,7 +111,19 @@ const _renderMiddleItem = ({item, index}) => {
     );
 };
 
-const Search = ({navigation}) => {
+const Search = (props) => {
+
+    const {
+        navigation,
+        searches,
+        searchLoading,
+        searchError,
+        searchEventsByIdentifier,
+        cleanSearch,
+    } = props;
+
+    console.log("searches::::::::::::", searches);
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -119,7 +131,7 @@ const Search = ({navigation}) => {
                     style={{width: '100%', height: 150}}
                     source={require('../../../assets/img/search_back_image.png')}>
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <SearchBox/>
+                        <SearchBox searchEventsByIdentifier={searchEventsByIdentifier}/>
                     </View>
                 </ImageBackground>
 

@@ -14,8 +14,8 @@ const EventCalendarScreen = (props) => {
      * Fetch all calendar events data.
      *
      */
-    const fetchAllCalendarEvent = () => {
-        dispatch(fetchAllCalendarEvents());
+    const fetchAllCalendarEvent = (formData) => {
+       return dispatch(fetchAllCalendarEvents(formData));
     };
 
     /**
