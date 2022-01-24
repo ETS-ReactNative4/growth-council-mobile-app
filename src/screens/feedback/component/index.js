@@ -31,10 +31,7 @@ const Feedback = (props) => {
     
     return (
         <>
-            <StatusBar
-                barStyle="dark-content"
-                backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
-            />
+
             <ScrollView
                 style={{
                     height: Platform.OS === 'ios' ? 400 : 350,
@@ -66,13 +63,13 @@ const Feedback = (props) => {
                             </Text>
                         </Button>
                     </View>
-                    <View style={styles.poweredBy}>
-                        <Text style={{fontSize: 7, marginTop: 2}}>Powered By</Text>
-                        <Image
-                            source={require('../../../assets/img/footer_company_name_image.png')}
-                            style={{marginTop: 2}}
-                        />
-                    </View>
+					<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
+								<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+								<Image 
+									source={require('../../../assets/img/fristDigi.png')}
+									style={{width:"100%", height:20}}
+								/>
+					</View>
                 </View>
             </ScrollView>
         </>
@@ -141,8 +138,8 @@ const styles = StyleSheet.create({
     },
     button: {
         ...CommonStyles.button,
-        height: 56,
-        width: '40%',
+        height: 60,
+        width: 380,
         backgroundColor: Colors.SECONDARY_BUTTON_COLOR,
     },
     buttonText: {
@@ -156,6 +153,9 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         overflow: 'hidden',
     },
+	paragraph:{
+		fontSize:14,
+	},
     plainButton: {
         width: '70%',
         borderRadius: 25,

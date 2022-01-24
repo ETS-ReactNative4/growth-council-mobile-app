@@ -1,6 +1,6 @@
-import {initializeApp} from 'firebase/app';
+import {initializeApp, getApps, getApp} from 'firebase/app';
 import {getAuth} from 'firebase/auth';
-import {getFirestore} from 'firebase/firestore';
+import {getFirestore, initializeFirestore} from 'firebase/firestore';
 
 import {
     FIREBASE_API_KEY,
@@ -19,8 +19,11 @@ let firebaseConfig = {
     messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
     appId: FIREBASE_APP_ID
 };
-
-const app =  initializeApp(firebaseConfig);
-
+let app = null;
+if (!getApps().length) {
+    app = initializeApp(firebaseConfig);
+} else {
+    app = getApp()
+}
 export const auth = getAuth(app);
-export const database = getFirestore(app);
+export const database = initializeFirestore(app, {experimentalForceLongPolling: true});

@@ -18,8 +18,6 @@ const SignUpNext = ({navigation}) => {
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
             <View style={styles.container}>
-
-                <StatusBar barStyle="light-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
 				<View
 					style={{display:'flex',
 					flexDirection:'row'}}>
@@ -59,7 +57,7 @@ const SignUpNext = ({navigation}) => {
 
 
                 <View style={styles.header}>
-                    <Text style={styles.headingText1}>Welcome to John!</Text>
+                    <Text style={styles.headingText1}>Welcome John!</Text>
                     <Text style={styles.headingText2}>Have you some problem today?</Text>
 					<Text style={styles.headingText2}>Don't worry, now you are a part of Growth Council. Let's us help you.</Text>
                 </View>

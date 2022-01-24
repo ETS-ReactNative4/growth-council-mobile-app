@@ -17,15 +17,17 @@ import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
 
-import ChangePasswordScreen from '../screens/setting/ChangePassword';
+import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
+import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
 import ManageAccountScreen from '../screens/account/ManageAccount';
-import PrivacyPolicyScreen from '../screens/static/PrivacyPolicy';
+import OtherAccountScreen from '../screens/account/OthersAccount';
+import PrivacyScreen from '../screens/privacy';
 import TermsConditionsScreen from '../screens/static/TermsConditions';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
@@ -35,6 +37,7 @@ import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
+import CoachingSessionDetailScreen from '../screens/coachingSession';
 
 const Stack = createStackNavigator();
 
@@ -163,6 +166,13 @@ const MainNavigation = () => {
             ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
+		<Stack.Screen
+          name="coachingSession"
+          component={CoachingSessionDetailScreen}
+          options={{
+            headerTitle: 'Session',
+          }}
+        />
         <Stack.Screen
           name="Setting"
           component={SettingScreen}
@@ -177,13 +187,20 @@ const MainNavigation = () => {
           name="ManageAccount"
           component={ManageAccountScreen}
           options={{
-            headerLeft: () => null,
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.RevealFromBottomAndroid,
+            headerTitle: 'ManageAccount',
+            // headerTransparent: true,
+            // ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
-		
+        <Stack.Screen
+          name="OthersAccount"
+          component={OtherAccountScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            headerTitle: 'Account Info',
+          })}
+        />
+
         <Stack.Screen
           name="Dashboard"
           component={DrawerNavigation}
@@ -209,7 +226,7 @@ const MainNavigation = () => {
             headerTitle: 'Contact Us',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="UpcomingView"
           component={UpcomingScreen}
           options={{
@@ -225,30 +242,48 @@ const MainNavigation = () => {
           })}
         />
         <Stack.Screen
-          name="CommunityDetail"
-          component={CommunityDetailScreen}
+          name="SessionDetail"
+          component={SessionDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
             headerTitle: 'Session Detail',
           })}
         />
-          <Stack.Screen
-              name="Chat"
-              component={ChatScreen}
-              options={({route}) => ({
-                  userID: route?.params?.userID,
-                  friendID: route?.params?.friendID,
-                  headerTitle: 'Chat',
-              })}
-          />
+        <Stack.Screen
+          name="CommunityDetail"
+          component={CommunityDetailScreen}
+          options={({route}) => ({
+            poeId: route.params.poeId,
+            pillarId: route.params.pillarId,
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
+          name="Chat"
+          component={ChatScreen}
+          options={({route}) => ({
+            userID: route?.params?.userID,
+            friendID: route?.params?.friendID,
+            friendName: route?.params?.friendName,
+            //headerTitle: route?.params?.friendName,
+            headerTitle: 'Chat',
+          })}
+        />
+        <Stack.Screen
+          name="Privacy"
+          component={PrivacyScreen}
+          options={{
+            headerTitle: 'Privacy Policy',
+          }}
+        />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'modal'}}>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="PrivacyPolicy"
           component={PrivacyPolicyScreen}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
           name="Terms"
           component={TermsConditionsScreen}

@@ -3,55 +3,85 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import GrowthDetail from './components/GrowthDetail';
 
+import {fetchAllPOEEvents, resetPOEEvent} from './slice/poeEventListSlice';
+
+import {fetchAllPOEDetails, resetPOEDetail} from './slice/poeDetailSlice';
+
 import {
-  fetchAllgrowthCoachings,
-  resetgrowthCoaching,
-} from '../dashboard/slice/growthCoachingSlice';
-import {
-  fetchAllgrowthCoachingMemberContents,
-  resetgrowthCoachingMemberContent,
-} from '../dashboard/slice/growthCoachingMemberContentSlice';
+  fetchAllPillarMemberContents,
+  resetPillarMemberContent,
+} from './slice/pillarMembersContentsSlice';
 
 const GrowthDetailScreen = props => {
   const dispatch = useDispatch();
 
-  const {growthCoachings, growthCoachingLoading, growthCoachingError} =
-    useSelector(state => state.growthCoachings);
+  const {poeDetails, poeDetailLoading, poeDetailError} = useSelector(
+    state => state.poeDetails,
+  );
+
+  const {poeEvents, poeEventLoading, poeEventError} = useSelector(
+    state => state.poeEvents,
+  );
+
   const {
-    growthCoachingMemberContents,
-    growthCoachingMemberContentLoading,
-    growthCoachingMemberContentError,
-  } = useSelector(state => state.growthCoachingMemberContents);
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+  } = useSelector(state => state.pillarMemberContents);
 
-  const fetchAllgrowthCoaching = () => {
-    dispatch(fetchAllgrowthCoachings());
+  /**
+   * Fetch event data.
+   * @param {string} poeId
+   *
+   */
+  /**
+   * Fetch event data.
+   * @param {string} pillarId
+   *
+   */
+
+  const fetchAllPOEDetail = poeId => {
+    dispatch(fetchAllPOEDetails(poeId));
   };
 
-  const fetchAllgrowthCoachingMemberContent = () => {
-    dispatch(fetchAllgrowthCoachingMemberContents());
+  const fetchAllPOEEvent = poeId => {
+    dispatch(fetchAllPOEEvents(poeId));
   };
 
-  const cleangrowthCoaching = () => {
-    dispatch(resetgrowthCoaching());
+  const fetchAllPillarMemberContent = pillarId => {
+    dispatch(fetchAllPillarMemberContents(pillarId));
   };
 
-  const cleangrowthCoachingMemberContent = () => {
-    dispatch(resetgrowthCoachingMemberContent());
+  const cleanPOEDetail = () => {
+    dispatch(resetPOEDetail());
+  };
+
+  const cleanPOEEvent = () => {
+    dispatch(resetPOEEvent());
+  };
+
+  const cleanPillarMemberContent = () => {
+    dispatch(resetPillarMemberContent());
   };
 
   return (
     <GrowthDetail
       {...props}
-      growthCoachings={growthCoachings}
-      growthCoachingLoading={growthCoachingLoading}
-      growthCoachingError={growthCoachingError}
-      fetchAllgrowthCoaching={fetchAllgrowthCoaching}
-      cleangrowthCoaching={cleangrowthCoaching}
-      growthCoachingMemberContents={growthCoachingMemberContents}
-      growthCoachingMemberContentLoading={growthCoachingMemberContentLoading}
-      growthCoachingMemberContentError={growthCoachingMemberContentError}
-      fetchAllgrowthCoachingMemberContent={fetchAllgrowthCoachingMemberContent}
-      cleangrowthCoachingMemberContent={cleangrowthCoachingMemberContent}
+      poeDetails={poeDetails}
+      poeDetailLoading={poeDetailLoading}
+      poeDetailError={poeDetailError}
+      fetchAllPOEDetail={fetchAllPOEDetail}
+      cleanPOEDetail={cleanPOEDetail}
+      poeEvents={poeEvents}
+      poeEventLoading={poeEventLoading}
+      poeEventError={poeEventError}
+      fetchAllPOEEvent={fetchAllPOEEvent}
+      cleanPOEEvent={cleanPOEEvent}
+      pillarMemberContents={pillarMemberContents}
+      pillarMemberContentLoading={pillarMemberContentLoading}
+      pillarMemberContentError={pillarMemberContentError}
+      fetchAllPillarMemberContent={fetchAllPillarMemberContent}
+      cleanPillarMemberContent={cleanPillarMemberContent}
     />
   );
 };

@@ -8,10 +8,12 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Font from 'react-native-vector-icons/FontAwesome5';
 import moment from 'moment';
+import {BubblesLoader} from 'react-native-indicator';
+import YoutubePlayer from '../../../shared/youtube';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -28,68 +30,49 @@ const BestPractice = props => {
     bestPracticesMemberContentError,
     fetchAllbestPracticesMemberContent,
     cleanBestPracticesMemberContent,
+    pillarPOEs,
+    pillarPOELoading,
+    pillarPOEError,
+    fetchAllPillarPOE,
+    cleanPillarPOE,
   } = props;
 
-  const _renderItem = ({item, index}) => {
-    return (
-		<View style={styles.bottomWrapper}>
-		<Image source={{uri:item.avatar}}
-			style={{
-				width: 83,
-				height: 83,
-				borderRadius:10,
-			}}/>
-		<View style={{padding:10, paddingBottom:20}}>
-			<Text style={{fontSize: 10, fontWeight:"semi-bold", color:Colors.TERTIARY_TEXT_COLOR}}>{item?.display_name}</Text>
-			<Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-		</View>
-		
-		<View
-		  style={styles.chatIcon}>
-		  <Ionicons
-			name={'chatbox'}
-			size={10}
-			color="#B1AFAF"
-		  />
-		</View>
-	  </View>
-    );
-  };
+  const pillarId = 119;
 
-  const data1 = [
-    {
-      icon: 'location-arrow',
-      text: 'Megatrends Workshop',
-    },
-  ];
+  useEffect(() => {
+    const fetchAllbestPracticeAsync = async () => {
+      await fetchAllbestPractice();
+    };
+    fetchAllbestPracticeAsync();
+  }, []);
 
-  const _renderMiddleItem = ({item, index}) => {
-    return (
-      <TouchableOpacity onPress={() => navigation.navigate('CommunityDetail')}>
-        <View style={styles.middleWrapper}>
-          <View style={styles.middleW}>
-            <Font name={item.icon} size={30} color="skyblue" />
-          </View>
-          <Text style={{marginTop: 10, fontSize: 10}}>{item.text}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
+  useEffect(() => {
+    const fetchAllPillarPOEAsync = async () => {
+      await fetchAllPillarPOE(pillarId);
+    };
+    fetchAllPillarPOEAsync();
+    return () => {
+      cleanPillarPOE();
+    };
+  }, []);
 
-  const _renderTopItem = ({item, index}) => {
+  useEffect(() => {
+    const fetchAllbestPracticeMemberContentAsync = async () => {
+      await fetchAllbestPracticesMemberContent();
+    };
+    fetchAllbestPracticeMemberContentAsync();
+  }, []);
+
+  const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+
     return (
-      <View style={styles.topWrapper} key={index}>
+      <View key={index} style={styles.topWrapper}>
         <TouchableOpacity
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
           <ImageBackground
-            style={{
-				width: '100%',
-				height: "100%",
-				borderRadius: 20,
-            }}
+            style={{width: '100%', height: '100%', borderRadius: 20}}
             source={require('../../../assets/img/Rectangle1.png')}>
             <View
               style={{
@@ -108,66 +91,100 @@ const BestPractice = props => {
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
-              <Text style={styles.headingText2}>Hosted by {item?.organizer?.term_name}</Text>
+              <Text style={styles.headingText2}>
+                Hosted by {item?.organizer?.term_name}
+              </Text>
+              <Text style={styles.headingText}>
+                {item?.organizer?.description}
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
       </View>
     );
   };
-
-  const pic = [
-    {
-      uri: require('../../../assets/img/welcome_screen_info_image.png'),
-    },
-    {
-      uri: require('../../../assets/img/image.png'),
-    },
-    {
-      uri: require('../../../assets/img/contactus.png'),
-    },
-  ];
-
-  const _renderContentItem = ({item, index}) => {
+  const _renderItem = ({item, index}, navigation) => {
     return (
-      <View style={styles.ContentWrapper}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height:"100%",
-          }}
-          source={item?.uri}
-        />
+      <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+          <Image
+            source={{uri: item.avatar}}
+            style={{
+              width: 83,
+              height: 83,
+              borderRadius: 10,
+            }}
+          />
+          <View style={{padding: 10, paddingBottom: 20}}>
+            <Text
+              style={{
+                fontSize: 10,
+                fontFamily: Typography.FONT_SF_SEMIBOLD,
+                color: Colors.TERTIARY_TEXT_COLOR,
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.chatIcon}>
+          <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+        </View>
       </View>
     );
   };
 
-  useEffect(() => {
-    const fetchAllbestPracticeAsync = async () => {
-      await fetchAllbestPractice();
-    };
-    fetchAllbestPracticeAsync();
-  }, []);
+  const _renderMiddleItem = ({item, index}, navigation) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('CommunityDetail', {
+            poeId: item?.term_id,
+            pillarId: item?.parent,
+          })
+        }>
+        <View style={styles.middleWrapper}>
+		<View style={[styles.middleW,styles.shadowProp]}>
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
+          </View>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+            {item?.name}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
-  useEffect(() => {
-    const fetchAllbestPracticeMemberContentAsync = async () => {
-      await fetchAllbestPracticesMemberContent();
-    };
-    fetchAllbestPracticeMemberContentAsync();
-  }, []);
+  const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videolink = link[1].split('&', 2);
+    console.log('videoLink === ', videolink);
+    return (
+      <View style={styles.ContentWrapper}>
+        <YoutubePlayer videoId={videolink[0]} />
+      </View>
+    );
+  };
+  const listData = props.pillarPOEs ?? [];
 
-  console.log('Best Practices ============', bestPractices);
-  console.log('Members============', bestPracticesMemberContents.term_id);
-  console.log('Content ============', bestPracticesMemberContents);
+  console.log('File =======', bestPracticesMemberContents?.pillar_contents);
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.top}>
-		<Text style={styles.title}>        
-		    {' '}
-            Best Practice Events
-          </Text>
+          <Text style={styles.title}> Best Practices Events</Text>
+          {bestPracticeLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+            </View>
+          )}
           <View
             style={{
               display: 'flex',
@@ -177,48 +194,44 @@ const BestPractice = props => {
               horizontal
               showsHorizontalScrollIndicator={false}
               data={bestPractices}
-              renderItem={_renderTopItem}
+              // renderItem={_renderTopItem}
+              renderItem={item => _renderTopItem(item, navigation)}
             />
           </View>
         </View>
 
         <View style={styles.middle}>
-          <Text style={styles.title}>
-            Points of Engagement
-          </Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={data1}
-              renderItem={_renderMiddleItem}
-            />
-          </View>
+          <Text style={styles.title}>Points of Engagement</Text>
+		  <ScrollView
+			horizontal
+			showsVerticalScrollIndicator={false}
+			showsHorizontalScrollIndicator={false}
+			style={{marginLeft:10}}>
+			<FlatList
+				horizontal
+				// numColumns={Math.ceil(pillarPOEs.length / 2)}
+				showsHorizontalScrollIndicator={false}
+				data={listData}
+				renderItem={_renderMiddleItem}
+				/>
+			</ScrollView>
         </View>
 
         <View style={styles.bottom}>
-			<Text style={styles.title}>
-			Growth Community Members
-          </Text>
+          <Text style={styles.title}>Growth Community Members</Text>
           <View>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
               data={bestPracticesMemberContents.members}
-              renderItem={_renderItem}
+              //renderItem={_renderItem}
+              renderItem={item => _renderItem(item, navigation)}
             />
           </View>
         </View>
 
         <View style={styles.content}>
-		<Text style={styles.title}>       
-		     {' '}
-            Growth Coaching Content
-          </Text>
+          <Text style={styles.title}> Best Practices Content</Text>
           <View
             style={{
               display: 'flex',
@@ -227,19 +240,25 @@ const BestPractice = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents.pillar_contents}
+              data={bestPracticesMemberContents?.pillar_contents}
               renderItem={_renderContentItem}
             />
           </View>
         </View>
 
-		<View style={{ alignItems:'center', width:'50%',marginLeft:100, marginBottom:10}}>
-			<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-			<Image 
-				source={require('../../../assets/img/fristDigi.png')}
-				style={{width:"100%", height:20}}
-			/>
-		</View>
+        <View
+          style={{
+            alignItems: 'center',
+            width: '35%',
+            marginLeft: 140,
+            marginBottom: 10,
+          }}>
+          <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+          <Image
+            source={require('../../../assets/img/fristDigi.png')}
+            style={{width: '100%', height: 20}}
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -252,52 +271,54 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   top: {
-	height: 200,
+    height: 200,
     marginTop: 20,
     justifyContent: 'center',
-
   },
-  title:{
-	fontWeight:'450',
-	fontSize: 14,
-	color:Colors.PRIMARY_TEXT_COLOR,
-	marginLeft:15, 
+  title: {
+    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontSize: 14,
+    color: Colors.PRIMARY_TEXT_COLOR,
+    marginLeft: 15,
   },
 
   topWrapper: {
-	height: 144,
-	width: 256,
-	marginTop: 20,
-	marginLeft: 15,
-	borderRadius:20,
+    height: 144,
+    width: 256,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
   },
   header: {
     margin: 10,
   },
   headingText1: {
-    ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     marginTop: 5,
-    fontWeight: '800',
+    fontWeight: '600',
     color: 'white',
-	fontSize:12
+    fontSize: 12,
   },
   headingText2: {
     ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     fontWeight: '400',
     color: 'white',
-	fontSize:8,
+    fontSize: 8,
   },
+  headingText: {
+    fontSize: 8,
+    color: 'white',
+  },
+
   middle: {
     width: 400,
     marginTop: 10,
   },
   middleWrapper: {
-    width: 90,
+    width: 80,
     borderRadius: 20,
     marginTop: 15,
-	marginLeft:15,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -308,7 +329,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-	borderWidth:0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,
@@ -317,26 +337,27 @@ const styles = StyleSheet.create({
   },
   bottom: {
     height: 172,
-	marginTop:25,
+    marginTop: 25,
   },
   bottomWrapper: {
-	width:84,
-   position:'relative',
+    width: 84,
+    position: 'relative',
     borderRadius: 10,
-	marginTop:15,
-	marginLeft: 15,
+    marginTop: 15,
+    marginLeft: 15,
+    marginBottom: 10,
     backgroundColor: 'white',
-    overflow:"hidden",
-	borderWidth:0.2,
+    overflow: 'hidden',
+    // borderWidth:0.2,
   },
-  chatIcon:{
-	borderRadius: 50,
-	backgroundColor: '#F1F1F1',
-	padding:6,
-	justifyContent: 'center',
-	position:'absolute',
-	right:4,
-	bottom:4
+  chatIcon: {
+    borderRadius: 50,
+    backgroundColor: '#F1F1F1',
+    padding: 6,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 4,
+    bottom: 4,
   },
   bottomImage: {
     width: '100%',
@@ -344,18 +365,36 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   content: {
-	height: 250,
-	marginTop: 20,
-	justifyContent: 'center',
-	borderRadius: 20,
+    height: 250,
+    marginTop: 20,
+    justifyContent: 'center',
+    borderRadius: 20,
   },
   ContentWrapper: {
-	height: 206,
-	width: 364,
-	marginTop: 20,
-	marginLeft: 15,
-   borderRadius:20,
-   overflow:"hidden"
+    height: 206,
+    width: 364,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
+  loading1: {
+    marginLeft: 150,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 

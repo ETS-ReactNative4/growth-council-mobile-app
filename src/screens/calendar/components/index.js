@@ -1,77 +1,132 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     StyleSheet,
     View,
-    TouchableOpacity,
     Text,
     FlatList,
-    ScrollView
+    ScrollView, 
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
 import {Calendar} from 'react-native-calendars';
+import {Picker} from '@react-native-picker/picker';
+import moment from 'moment';
+import ButtonToggleGroup from 'react-native-button-toggle-group';
 
 import {CommonStyles, Colors} from '../../../theme';
+import {BubblesLoader} from "react-native-indicator";
 
 const EventCalendar = (props) => {
 
-    const [region, setRegion] = useState("Region");
-    const [timezone, setTimezone] = useState("java");
-    const [industry, setIndustry] = useState("java");
-    const [pillar, setPillar] = useState("Growth Community");
-    const [value, setValue] = useState('2021');
+    const {
+        navigation,
+        route,
+        calendarEvents,
+        calendarEventLoading,
+        calendarEventError,
+        fetchAllCalendarEvent,
+        cleanCalendarEvent,
+    } = props;
 
-    const [activeYear, setActiveYear] = useState("2021");
+	const [value, setValue] = useState('2021');
+    const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
+    const [currentEvents, setCurrentEvents] = useState([]);
 
-    const events = [
-        {
-            eventType: 'Best Practices',
-            eventTitle: 'Executive Coaching Clinic On Goal Setting',
-            eventHost: 'Michael “Coop” Cooper Founder, Innovators + Influencer',
-            eventDay: '01',
-            eventMonth: 'AUG',
-            eventTime: "9:00"
-        },
-        {
-            eventType: 'Growth Coaching',
-            eventTitle: 'Executive Coaching Clinic On Goal Setting',
-            eventHost: 'Michael “Coop” Cooper Founder, Innovators + Influencer',
-            eventDay: '01',
-            eventMonth: 'AUG',
-            eventTime: "9:00"
-        },
-        {
-            eventType: 'Best Practices',
-            eventTitle: 'Executive Coaching Clinic On Goal Setting',
-            eventHost: 'Michael “Coop” Cooper Founder, Innovators + Influencer',
-            eventDay: '01',
-            eventMonth: 'AUG',
-            eventTime: "9:00"
-        },
-        {
-            eventType: 'Growth Community',
-            eventTitle: 'Executive Coaching Clinic On Goal Setting',
-            eventHost: 'Michael “Coop” Cooper Founder, Innovators + Influencer',
-            eventDay: '01',
-            eventMonth: 'AUG',
-            eventTime: "9:00"
-        },
-    ];
+	const [selectedValue, setSelectedValue] = useState("Region");
+	const [timeValue, setTimeValue] = useState("Time Zone");
 
-    const eventItems = ({item, index}) => {
+    useEffect(() => {
+        const fetchCalendarEventAsync = async () => {
+            await fetchAllCalendarEvent({
+                "year": moment().format('YYYY'),
+                "month": moment().format('MM')
+            }).then(response => {
+                setCurrentEvents(response?.payload);
+            });
+        };
+        fetchCalendarEventAsync();
+    }, []);
+
+    const getDates = (startDate, endDate) => {
+        const dates = [];
+        let currentDate = startDate;
+        const addDays = function (days) {
+            const date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date
+        };
+        while (currentDate <= endDate) {
+            dates.push(currentDate);
+            currentDate = addDays.call(currentDate, 1)
+        }
+        return dates
+    };
+
+    let markedDay = {};
+    currentEvents.map((item) => {
+        const startDate = moment(item.event_start).format('YYYY-MM-DD');
+        const endDate = moment(item.event_end).format('YYYY-MM-DD');
+        if (moment(startDate).isSame(endDate)) {
+            markedDay[startDate] = {
+                color: 'green',
+                textColor: 'white'
+            };
+        } else {
+            const dates = getDates(new Date(moment(startDate).format('YYYY-MM-DD')), new Date(moment(endDate).format('YYYY-MM-DD')));
+            dates.map((item, index) => {
+                    if (index === 0) {
+                        markedDay[moment(item).format('YYYY-MM-DD')] = {
+                            startingDay: true,
+                            color: 'green',
+                            textColor: 'white'
+                        };
+                    } else if ((dates?.length) - 1 === index) {
+                        markedDay[moment(item).format('YYYY-MM-DD')] = {
+                            endingDay: true,
+                            color: 'green',
+                            textColor: 'white'
+                        };
+                    } else {
+                        markedDay[moment(item).format('YYYY-MM-DD')] = {
+                            color: 'green',
+                            textColor: 'white'
+                        };
+                    }
+                }
+            )
+        }
+    });
+
+    console.log("markedDay:::::::::::::;", markedDay);
+
+    const renderItem = ({item, index}) => {
+        //date
+        const actualDate = moment(item.event_start).format('ll').split(',', 3);
+        const date = actualDate[0].split(' ', 3);
+
+        //time
+        let dt = item.event_start;
+        dt = dt.split(' ');
+        let [date1, time] = [dt[0].split('-').map(Number), dt[1].split(':').map(Number)];
+        let d = new Date(time[0], time[1], time[2], 0);
+
         return (
-            <View style={styles.eventCard}>
-                <Text style={{marginTop: 30, marginLeft: 10, marginRight: 10, fontSize: 17}}>{item.eventTime}</Text>
-                <View style={styles.eventTheme}/>
+            <View style={[styles.eventCard,styles.shadowProp]} key={index}>
+                <Text style={{
+                    marginTop: 30,
+                    marginLeft: 10,
+                    marginRight: 10,
+                    fontSize: 17
+                }}>{time[0]}:{time[1]}</Text>
+
                 <View style={styles.eventDetails}>
                     <View style={styles.eventInfo}>
-                        <Text style={styles.eventTitle}>{item.eventTitle}</Text>
-                        <Text style={styles.eventParagraph}>Hosted by {item.eventHost}</Text>
+                        <Text style={styles.eventTitle}>{item?.pillar_categories[0]?.name}</Text>
+                        <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
                     </View>
                     <View style={styles.eventDate}>
                         <Text style={styles.eventDateText}>
-                            {item.eventDay}
+                            {date[1]}
                             {'\n'}
-                            {item.eventMonth}
+                            {date[0]}
                         </Text>
                     </View>
                 </View>
@@ -80,107 +135,86 @@ const EventCalendar = (props) => {
     };
 
 
-    const years = [
-        {
-            id: 1,
-            title: '2020',
-        },
-        {
-            id: 2,
-            title: '2021',
-        },
-        {
-            id: 3,
-            title: '2022',
-        },
-    ];
-
-    const renderItem = ({item}) => (
-        <Text>{item.title}</Text>
-    );
-
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             <View style={styles.container}>
-                <View style={styles.yearTab}>
-                    {years.map((year, i) => {
-                        return (
-                            <>
-                                <TouchableOpacity key={i} style={activeYear === year.title ? styles.activeWrapper : styles.passiveWrapper} onPress={() => alert(year.title)}>
-                                    <Text style={styles.linkText}>{year.title}</Text>
-                                </TouchableOpacity>
-                            </>
-                        )
-                    })}
+				<View style={styles.buttonWrapper}>
+					<ButtonToggleGroup
+					    highlightBackgroundColor={'white'}
+					    highlightTextColor={'#0B0B45'}
+					    inactiveBackgroundColor={'transparent'}
+					    inactiveTextColor={'grey'}
+					    values={['2020', '2021', '2022']}
+					    value={value}
+					    onSelect={val => setValue(val)}
+					    style={{height: 38,  width: '90%', marginLeft: 10,}}
+					/>
                 </View>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <Picker
-                        selectedValue={region}
-                        mode={'dropdown'}
-                        style={{height: 50, width: 110,}}
-                        onValueChange={(itemValue, itemIndex) => setRegion(itemValue)}
-                    >
-                        <Picker.Item label="Region" value="region" style={{fontSize: 12}}/>
-                        <Picker.Item label="Kathmandu" value="kathmandu" style={{fontSize: 10}}/>
-                        <Picker.Item label="Bhaktapur" value="bhaktapur" style={{fontSize: 10}}/>
-                    </Picker>
+				{/* <View style={styles.pickerWrapper}>
+					<Picker
+					selectedValue={selectedValue}
+					style={{ height: 50, width: 150 }}
+					onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+				>
+					<Picker.Item label="Region" value="region" />
+					<Picker.Item label="JavaScript" value="js" />
+					</Picker>
 
-                    <Picker
-                        selectedValue={timezone}
-                        mode={'dropdown'}
-                        style={{height: 50, width: 100}}
-                        onValueChange={(itemValue, itemIndex) => setTimezone(itemValue)}
-                    >
-                        <Picker.Item label="Timezone" value="timezone" style={{fontSize: 10}}/>
-                        <Picker.Item label="Kathmandu" value="kathmandu" style={{fontSize: 10}}/>
-                        <Picker.Item label="Bhaktapur" value="bhaktapur" style={{fontSize: 10}}/>
-                    </Picker>
-                    <Picker
-                        selectedValue={industry}
-                        mode={'dropdown'}
-                        style={{height: 50, width: 110}}
-                        onValueChange={(itemValue, itemIndex) => setIndustry(itemValue)}
-                    >
-                        <Picker.Item label="Industry" value="industry" style={{fontSize: 10}}/>
-                        <Picker.Item label="Kathmandu" value="kathmandu" style={{fontSize: 10}}/>
-                        <Picker.Item label="Bhaktapur" value="bhaktapur" style={{fontSize: 10}}/>
-                    </Picker>
-                    <Picker
-                        selectedValue={pillar}
-                        mode={'dropdown'}
-                        style={{height: 50, width: 110}}
-                        onValueChange={(itemValue, itemIndex) => setPillar(itemValue)}
-                    >
-                        <Picker.Item label="Pillar" value="pillar" style={{fontSize: 10}}/>
-                        <Picker.Item label="Growth Community" value="Growth Community" style={{fontSize: 10}}/>
-                        <Picker.Item label="Best Practice" value="Best Practice" style={{fontSize: 10}}/>
-                        <Picker.Item label="Growth Coaching" value="Growth Coaching" style={{fontSize: 10}}/>
-                    </Picker>
-                </View>
+					<Picker
+					selectedValue={timeValue}
+					style={{ height: 50, width: 150 }}
+					onValueChange={(itemValue, itemIndex) => setTimeValue(itemValue)}
+				>
+					<Picker.Item label="Time Zone" value="time" />
+					<Picker.Item label="JavaScript" value="js" />
+					</Picker>
+				</View> */}
 
-
-                <View style={styles.calendar}>
+                <View style={[styles.calendar, styles.shadowProp]}>
                     <Calendar
                         markingType={'period'}
-                        markedDates={{
-                            '2021-05-15': {marked: true, dotColor: '#50cebb'},
-                            '2021-05-16': {marked: true, dotColor: '#50cebb'},
-                            '2021-05-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
-                            '2021-05-22': {color: '#70d7c7', textColor: 'white'},
-                            '2021-05-23': {color: '#70d7c7', textColor: 'white', marked: true, dotColor: 'white'},
-                            '2021-05-24': {color: '#70d7c7', textColor: 'white'},
-                            '2021-05-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
+                        onMonthChange={async (month) => {
+                            cleanCalendarEvent();
+                            setCurrentMonth(moment(month?.dateString).format('MMMM'));
+                            await fetchAllCalendarEvent({
+                                "year": moment(month?.dateString).format('YYYY'),
+                                "month": moment(month?.dateString).format('MM')
+                            }).then(response => {
+                                setCurrentEvents(response?.payload);
+                            });
                         }}
+                        markedDates={markedDay}
+                        //  markedDates={{
+                        //      '2022-01-10': { color: 'green',textColor: 'white'},
+                        //      '2022-01-12': { color: 'green',textColor: 'white'},
+                        //      '2022-01-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
+                        //      '2022-01-22': {color: '#70d7c7', textColor: 'white'},
+                        //      '2022-01-23': {color: '#70d7c7', textColor: 'white', marked: true, dotColor: 'white'},
+                        //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
+                        //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
+                        //  }}
+						
+
                     />
                 </View>
                 <View style={styles.events}>
-                    <Text style={{fontSize: 20, fontWeight: "bold"}}>August Events</Text>
-                    <FlatList
-                        Vertical
-                        showsVerticalScrollIndicator={false}
-                        data={events}
-                        renderItem={eventItems}
-                    />
+                    <Text style={{fontSize: 20, fontWeight: "bold"}}>{currentMonth} Events</Text>
+                    {calendarEventLoading && (
+                        <View style={styles.loading1}>
+                            <BubblesLoader
+                                color={Colors.SECONDARY_TEXT_COLOR}
+                                size={60}
+                            />
+                        </View>
+                    )}
+                    {!calendarEventLoading && (
+                        <FlatList
+                            Vertical
+                            showsVerticalScrollIndicator={false}
+                            data={currentEvents}
+                            renderItem={renderItem}
+                        />
+                    )}
                 </View>
             </View>
         </ScrollView>
@@ -190,7 +224,7 @@ const EventCalendar = (props) => {
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
 
     },
     yearTab: {
@@ -221,16 +255,27 @@ const styles = StyleSheet.create({
     wrapper: {
         top: '20%',
     },
-    calendar: {},
+    calendar: {
+		width:"98%",
+		padding:5,
+		marginLeft:5,
+        marginTop: 10,
+		backgroundColor: "#F5F5F5",
+		borderRadius:20,
+    },
     events: {
         padding: 20,
+		borderWidth:0.1,
     },
     eventCard: {
+        height: 82,
         marginTop: 15,
         flexDirection: 'row',
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
+		marginBottom:10,
+		
     },
     eventTheme: {
         height: '100%',
@@ -240,22 +285,24 @@ const styles = StyleSheet.create({
     },
     eventDetails: {
         flex: 1,
+        height: 80,
         flexDirection: 'row',
         flexWrap: 'nowrap',
-        paddingTop: 10,
-        paddingRight: 10,
-        paddingBottom: 10,
-        paddingLeft: 15,
+        padding: 10,
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderLeftWidth: 10,
+        borderColor: '#80BA74'
     },
     eventInfo: {
         paddingRight: 5,
         flex: 5,
     },
     eventTitle: {
-        marginBottom: 5,
+        fontSize: 14,
     },
     eventParagraph: {
-        fontSize: 10,
+        fontSize: 8,
     },
     eventDate: {
         flex: 1,
@@ -267,6 +314,33 @@ const styles = StyleSheet.create({
     eventDateText: {
         textAlign: 'center',
     },
+	buttonWrapper: {
+        width: 350,
+        height: 40,
+        backgroundColor: "#F5F5F5",
+        borderRadius: 10,
+        margin: 10,
+        marginTop: 15,
+		marginLeft:20,
+
+    },
+	pickerWrapper:{
+		display:'flex',
+		flexDirection:'row'
+		
+	},
+	shadowProp: {
+		shadowColor: '#000',
+		shadowOffset: {
+		  width: 0,
+		  height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
+
 });
 
 export default EventCalendar;

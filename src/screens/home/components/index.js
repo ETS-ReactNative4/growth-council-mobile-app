@@ -7,14 +7,16 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
+const {width: viewportWidth, height: viewportHeight} = Dimensions.get('screen');
 
 const Home = props => {
   const {
@@ -41,32 +43,12 @@ const Home = props => {
   const itemHorizontalMargin = wp(2);
   const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-  // const carouselItems = [
-  //   {
-  //     uri: require('../../../assets/img/welcome_screen_learn_more_image.png'),
-  //     text: 'Growth Coaching',
-  //     id: 121,
-  //   },
-  //   {
-  //     uri: require('../../../assets/img/community_slider_image.png'),
-  //     text: 'Growth Community',
-  //     id: 120,
-  //   },
-  //   {
-  //     uri: require('../../../assets/img/massk.png'),
-  //     text: 'Best Practices',
-  //     id: 119,
-  //   },
-  // ];
-
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
       await fetchAllPillarSlider();
     };
     fetchPillarSliderAsync();
   }, []);
-
-  console.log('Pillar Slider:::::::::::::::::', pillarSliders);
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -78,15 +60,16 @@ const Home = props => {
         <View
           style={{
             backgroundColor: 'floralwhite',
-            height: 300,
-            width: 200,
+            height: viewportWidth - 100,
             marginLeft: 20,
             marginRight: 20,
             position: 'relative',
+            borderRadius: 10,
+            overflow: 'hidden',
           }}>
           <Image
             source={{uri: item?.image}}
-            style={{width: '100%', height: '100%', borderRadius: 20}}
+            style={{width: '100%', height: '100%', resizeMode: 'cover'}}
           />
           <Text style={styles.sliderText}>{item.name}</Text>
         </View>
@@ -95,82 +78,85 @@ const Home = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar hidden />
-      <View style={styles.header}>
-        <Text style={styles.headingText1}>Welcome</Text>
-        <Text style={styles.headingText2}>To The Growth Council</Text>
-      </View>
-      <View styyle={styles.sliderView}>
-        <FeatherIcon
-          name={'chevron-right'}
-          style={styles.carouselRight}
-          size={40}
-          color={'#0aade7'}
-          onPress={() => {
-            sliderRef.current.snapToNext();
-          }}
-        />
-        <FeatherIcon
-          name={'chevron-left'}
-          style={styles.carouselLeft}
-          size={40}
-          color={'#0aade7'}
-          onPress={() => {
-            sliderRef.current.snapToPrev();
-          }}
-        />
-        <Carousel
-          ref={sliderRef}
-          layout={'default'}
-          data={pillarSliders}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
-          renderItem={item => _renderItem(item, navigation)}
-          firstItem={1}
-          containerCustomStyle={styles.slider}
-          contentContainerCustomStyle={styles.sliderContent}
-          loop={true}
-          loopClonesPerSide={2}
-          autoplay={true}
-          autoplayDelay={500}
-          autoplayInterval={5000}
-          hasParallaxImages={true}
-          inactiveSlideScale={0.7}
-          inactiveSlideOpacity={0.7}
-          onSnapToItem={index => setActiveSlider(index)}
-        />
+    <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headingText1}>Welcome</Text>
+          <Text style={styles.headingText2}>To The Growth Council</Text>
+        </View>
+        <View styyle={styles.sliderView}>
+          {!pillarSliderLoading ? (
+            <View>
+              <FeatherIcon
+                name={'chevron-right'}
+                style={styles.carouselRight}
+                size={36}
+                color={'#00000099'}
+                onPress={() => {
+                  sliderRef.current.snapToNext();
+                }}
+              />
+              <FeatherIcon
+                name={'chevron-left'}
+                style={styles.carouselLeft}
+                size={36}
+                color={'#00000099'}
+                onPress={() => {
+                  sliderRef.current.snapToPrev();
+                }}
+              />
+              <Carousel
+                ref={sliderRef}
+                layout={'default'}
+                data={pillarSliders}
+                sliderWidth={sliderWidth}
+                itemWidth={viewportWidth - 150}
+                renderItem={item => _renderItem(item, navigation)}
+                firstItem={1}
+                containerCustomStyle={styles.slider}
+                contentContainerCustomStyle={styles.sliderContent}
+                loop={false}
+                loopClonesPerSide={3}
+                autoplay={true}
+                autoplayDelay={500}
+                autoplayInterval={5000}
+                hasParallaxImages={true}
+                inactiveSlideScale={0.9}
+                inactiveSlideOpacity={0.5}
+                onSnapToItem={index => setActiveSlider(index)}
+              />
 
-        <Pagination
-          dotsLength={pillarSliders.length}
-          activeDotIndex={activeSlider}
-          dotStyle={{
-            width: 20,
-            height: 8,
-            borderRadius: 4,
-            backgroundColor: '#2189b1',
-          }}
-          dotColor={'#2189b1'}
-          inactiveDotOpacity={0.4}
-        />
+              <Pagination
+                dotsLength={pillarSliders.length}
+                activeDotIndex={activeSlider}
+                dotStyle={{
+                  width: 16,
+                  height: 6,
+                  borderRadius: 3,
+                }}
+                inactiveDotScale={1}
+                inactiveDotOpacity={1}
+                inactiveDotColor="#DDDCFF"
+                dotColor={'#1580B7'}
+              />
+            </View>
+          ) : (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+            </View>
+          )}
+        </View>
       </View>
-
       <View style={styles.buttonWrapper}>
         <Button
-          style={[
-            styles.button,
-            styles.plainButton,
-            {backgroundColor: Colors.PRIMARY_BUTTON_COLOR},
-          ]}
+          style={styles.signupbutton}
           onPress={() => navigation.navigate('HomeDetail')}>
-          <Text style={[styles.buttonText, styles.plainButtonText]}>
-            Get Started
-          </Text>
+          <Text style={styles.signupbuttonText}>Get Started</Text>
         </Button>
         <Button
-          style={[styles.button1]}
+          style={styles.signinbutton}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text style={[styles.buttonText, {color: '#709caf'}]}>
+          <Text style={[styles.signinbuttonText]}>
             I already have an account{' '}
           </Text>
         </Button>
@@ -179,12 +165,14 @@ const Home = props => {
       <View style={styles.footer}>
         <Image
           style={styles.footerlogo}
-          source={require('../../../assets/img/footer_logo.png')}
+          source={require('../../../assets/img/frost-sullivan.png')}
         />
-        <Text style={{fontSize: 7, marginTop: 4}}>Powered By</Text>
+        <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>
+          Powered By
+        </Text>
         <Image
-          source={require('../../../assets/img/footer_company_name_image.png')}
-          style={{marginTop: 4}}
+          source={require('../../../assets/img/frost_digital_logo_1.png')}
+          style={styles.footerlogo}
         />
       </View>
     </View>
@@ -194,7 +182,6 @@ const Home = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
   },
   background: {
     flex: 1,
@@ -233,36 +220,47 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'space-around',
+
     marginBottom: 20,
   },
-  button: {
+  signupbutton: {
     ...CommonStyles.button,
+    width: 336,
+    marginBottom: 20,
+    borderRadius: 25,
     height: 56,
-    width: '40%',
-    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
   },
-  buttonText: {
+  signupbuttonText: {
     ...CommonStyles.buttonText,
-    fontFamily: Typography.FONT_BOLD,
-    fontSize: 15,
+    fontSize: 16,
+    fontFamily: Typography.FONT_SF_BOLD,
+    color: '#ffffff',
+  },
+  signinbutton: {
+    width: 336,
+    borderRadius: 25,
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    borderWidth: 2,
+    borderColor: '#1580B7',
+  },
+  signinbuttonText: {
+    ...CommonStyles.buttonText,
+    fontFamily: Typography.FONT_SF_BOLD,
+    fontSize: 16,
+    color: '#1580B7',
   },
   iconImage: {
     width: 300,
     height: 350,
     borderRadius: 10,
   },
-  plainButton: {
-    width: '70%',
-    borderRadius: 25,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 5,
-  },
-  plainButtonText: {
-    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-    fontFamily: Typography.FONT_BOLD,
-  },
+
   header: {
     width: '100%',
     alignItems: 'center',
@@ -270,51 +268,50 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   headingText1: {
-    ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
-    fontSize: 35,
+    // ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_SF_BOLD,
+    fontSize: 30,
+    lineHeight: 30,
     fontWeight: 'bold',
-    color: '#1f3354',
+    color: '#183863',
     textAlign: 'center',
-    marginBottom: 10,
   },
   headingText2: {
-    ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_NORMAL,
-    fontSize: 20,
+    // ...CommonStyles.headingText2,
+    fontFamily: Typography.FONT_SEMI_BOLD,
+    fontSize: 18,
+    lineHeight: 18,
+    color: '#6F8BA4',
     textAlign: 'center',
+    fontWeight: '500',
+    marginTop: 30,
   },
-  button1: {
-    width: '70%',
-    borderRadius: 25,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 5,
-    backgroundColor: '#faf9f8',
-    borderWidth: 3,
-    borderColor: '#709caf',
-  },
+
   footer: {
+    marginBottom: 20,
+    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
   },
   footerlogo: {
-    width: '50%',
-    height: 20,
+    width: 120,
+    height: 18,
+    resizeMode: 'contain',
+    opacity: 0.75,
   },
   sliderView: {
     position: 'relative',
-    marginTop: 30,
+    marginTop: 50,
   },
   sliderText: {
     position: 'absolute',
-    top: '85%',
-    left: 10,
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
+    bottom: 15,
+    left: 15,
+    color: '#ffffff',
+    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontWeight: '700',
+    fontSize: 13,
+    lineHeight: 13,
   },
   carouselLeft: {
     position: 'absolute',
@@ -327,6 +324,14 @@ const styles = StyleSheet.create({
     right: 15,
     top: '45%',
     zIndex: 99,
+  },
+  loading1: {
+    marginLeft: 150,
+    marginTop: 150,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 

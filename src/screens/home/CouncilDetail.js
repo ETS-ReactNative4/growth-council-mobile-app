@@ -4,67 +4,69 @@ import {useDispatch, useSelector} from 'react-redux';
 import CouncilDetail from './components/CouncilDetail';
 
 import {fetchPillarByID, resetPillar} from './slice/pillarSlice';
-import {fetchUpcomingEventsByID, resetUpcomingEvent} from './slice/upcomingEventSlice';
+import {
+  fetchUpcomingEventsByID,
+  resetUpcomingEvent,
+} from './slice/upcomingEventSlice';
 
+const CouncilDetailScreen = props => {
+  const dispatch = useDispatch();
 
-const CouncilDetailScreen = (props) => {
+  const {pillars, pillarLoading, pillarError} = useSelector(
+    state => state.pillars,
+  );
+  const {upcomingEvents, upcomingEventLoading, upcomingEventError} =
+    useSelector(state => state.upcomingEvents);
 
-    const dispatch = useDispatch();
+  /**
+   * Fetch pillar data.
+   * @param {string} identifier
+   *
+   */
+  const fetchPillarByIdentifier = identifier => {
+    dispatch(fetchPillarByID(identifier));
+  };
 
-    const {pillars, pillarLoading, pillarError} = useSelector((state) => state.pillars);
-    const {upcomingEvents, upcomingEventLoading, upcomingEventError} = useSelector(state => state.upcomingEvents);
+  /**
+   * Fetch upcoming events data.
+   * @param {string} identifier
+   *
+   */
+  const fetchUpcomingEventsByIdentifier = identifier => {
+    dispatch(fetchUpcomingEventsByID(identifier));
+  };
 
-    /**
-     * Fetch pillar data.
-     * @param {string} identifier
-     *
-     */
-    const fetchPillarByIdentifier = identifier => {
-        dispatch(fetchPillarByID(identifier));
-    };
+  /**
+   * Clear pillar data.
+   *
+   */
+  const cleanPillar = () => {
+    dispatch(resetPillar());
+  };
 
-    /**
-     * Fetch upcoming events data.
-     * @param {string} identifier
-     *
-     */
-    const fetchUpcomingEventsByIdentifier = identifier => {
-        dispatch(fetchUpcomingEventsByID(identifier));
-    };
+  /**
+   * Clear upcoming event data.
+   *
+   */
+  const cleanUpcomingEvent = () => {
+    dispatch(resetUpcomingEvent());
+  };
 
-    /**
-     * Clear pillar data.
-     *
-     */
-    const cleanPillar = () => {
-        dispatch(resetPillar());
-    };
-    
-    /**
-     * Clear upcoming event data.
-     *
-     */
-    const cleanUpcomingEvent = () => {
-        dispatch(resetUpcomingEvent());
-    };
-
-    return (
-        <CouncilDetail
-            {...props}
-            pillars={pillars}
-            pillarLoading={pillarLoading}
-            pillarError={pillarError}
-            fetchPillarByIdentifier={fetchPillarByIdentifier}
-            cleanPillar={cleanPillar}
-            upcomingEvents={upcomingEvents}
-            upcomingEventLoading={upcomingEventLoading}
-            upcomingEventError={upcomingEventError}
-            fetchUpcomingEventsByIdentifier={fetchUpcomingEventsByIdentifier}
-            cleanUpcomingEvent={cleanUpcomingEvent}
-
-
-        />
-    );
+  return (
+    <CouncilDetail
+      {...props}
+      pillars={pillars}
+      pillarLoading={pillarLoading}
+      pillarError={pillarError}
+      fetchPillarByIdentifier={fetchPillarByIdentifier}
+      cleanPillar={cleanPillar}
+      upcomingEvents={upcomingEvents}
+      upcomingEventLoading={upcomingEventLoading}
+      upcomingEventError={upcomingEventError}
+      fetchUpcomingEventsByIdentifier={fetchUpcomingEventsByIdentifier}
+      cleanUpcomingEvent={cleanUpcomingEvent}
+    />
+  );
 };
 
 export default CouncilDetailScreen;

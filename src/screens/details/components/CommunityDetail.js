@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -23,16 +24,21 @@ const CommunityDetail = props => {
     sessionDetailError,
     fetchSessionDetailByIdentifier,
     cleanSessionDetail,
-    bestPractices,
-    bestPracticeLoading,
-    bestPracticeError,
-    fetchAllbestPractice,
-    cleanbestPractice,
-    bestPracticesMemberContents,
-    bestPracticesMemberContentLoading,
-    bestPracticesMemberContentError,
-    fetchAllbestPracticesMemberContent,
-    cleanbestPracticesMemberContent,
+    poeDetails,
+    poeDetailLoading,
+    poeDetailError,
+    fetchAllPOEDetail,
+    cleanPOEDetail,
+    poeEvents,
+    poeEventLoading,
+    poeEventError,
+    fetchAllPOEEvent,
+    cleanPOEEvent,
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+    fetchAllPillarMemberContent,
+    cleanPillarMemberContent,
   } = props;
 
   useEffect(() => {
@@ -43,93 +49,65 @@ const CommunityDetail = props => {
   }, []);
 
   useEffect(() => {
-    const fetchAllbestPracticeAsync = async () => {
-      await fetchAllbestPractice();
-    };
-    fetchAllbestPracticeAsync();
-  }, []);
-
-  useEffect(() => {
     const fetchAllbestPracticeMemberContentAsync = async () => {
       await fetchAllbestPracticesMemberContent();
     };
     fetchAllbestPracticeMemberContentAsync();
   }, []);
 
-  console.log('Mega Best Practices ============', bestPractices);
-  console.log('Mega BP Content ============', bestPracticesMemberContents);
+  useEffect(() => {
+    const fetchAllPOEDetailAsync = async () => {
+      await fetchAllPOEDetail(route.params.poeId);
+    };
+    fetchAllPOEDetailAsync();
+  }, []);
 
-  // console.log('route.params.id:::::::::::::::::', route.params.id);
-  // console.log('Session Detail:::::::::::::::::', sessionDetails.ID);
+  useEffect(() => {
+    const fetchAllPOEEventAsync = async () => {
+      await fetchAllPOEEvent(route.params.poeId);
+    };
+    fetchAllPOEEventAsync();
+  }, []);
 
-  const Data = [
-    {
-      uri: require('../../../assets/img/profile_image.png'),
-      text: 'Jay',
-    },
-    {
-      uri: require('../../../assets/img/welcome_profile_image.png'),
-      text: 'John',
-    },
-    {
-      uri: require('../../../assets/img/dash_member_image.png'),
-      text: 'John',
-    },
-    {
-      uri: require('../../../assets/img/profile_image.png'),
-      text: 'Jay',
-    },
-  ];
+  useEffect(() => {
+    const fetchAllPillarMemberContentAsync = async () => {
+      await fetchAllPillarMemberContent(route.params.pillarId);
+    };
+    fetchAllPillarMemberContentAsync();
+  }, []);
 
   const _renderItem = ({item, index}) => {
     return (
-      <View style={styles.bottomWrapper}>
-        <Image
-          source={{uri: item?.avatar}}
-          style={{
-            width: '90%',
-            height: 80,
-            marginTop: 6,
-            borderRadius: 20,
-          }}
-        />
-        <Text style={{fontSize: 11, marginTop: 8}}>{item?.display_name}</Text>
-        <Text style={{fontSize: 8}}>Frost and Sullivan</Text>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: '#EBECF0',
-            width: 25,
-            height: 23,
-            justifyContent: 'center',
-            marginLeft: 40,
-            marginTop: 5,
-          }}>
-          <Ionicons
-            name={'chatbox'}
-            size={17}
-            color="grey"
-            style={{marginLeft: 3}}
+      <View style={[styles.bottomWrapper, styles.shadowProp]}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+          <Image
+            source={{uri: item.avatar}}
+            style={{
+              width: 83,
+              height: 83,
+              borderRadius: 10,
+            }}
           />
-        </View>
+          <View style={{padding: 10, paddingBottom: 20}}>
+            <Text
+              style={{
+                fontSize: 10,
+                fontFamily: Typography.FONT_SF_SEMIBOLD,
+                color: Colors.TERTIARY_TEXT_COLOR,
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+          </View>
+
+          <View style={styles.chatIcon}>
+            <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
-
-  const data2 = [
-    {
-      date: '10',
-      month: 'july',
-      text: 'Executive Coaching Clinic On Goal Setting',
-      text1: 'Hosted by Michael Cooper',
-    },
-    {
-      date: '10',
-      month: 'Oct',
-      text: 'Associate Member Meeting',
-      text1: 'Hosted by Michael Cooper',
-    },
-  ];
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -137,37 +115,40 @@ const CommunityDetail = props => {
     console.log(date[1]);
     return (
       <View style={styles.topWrapper}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height: 170,
-            borderRadius: 20,
-          }}
-          source={require('../../../assets/img/blank_event_design.png')}>
-          <View
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          <ImageBackground
             style={{
-              width: '15%',
-              height: 50,
-              marginTop: 10,
-              marginLeft: 240,
-              backgroundColor: '#EBECF0',
-              borderRadius: 10,
-              padding: 5,
-              alignItems: 'center',
-            }}>
-            <Text>{date[1]}</Text>
-            <Text>{date[0]}</Text>
-          </View>
+              width: '100%',
+              height: '100%',
+              borderRadius: 20,
+            }}
+            source={require('../../../assets/img/blank_event_design.png')}>
+            <View
+              style={{
+                width: 40,
+                height: 50,
+                marginTop: 10,
+                marginLeft: 200,
+                backgroundColor: '#EBECF0',
+                borderRadius: 10,
+                padding: 5,
+                alignItems: 'center',
+              }}>
+              <Text>{date[1]}</Text>
+              <Text>{date[0]}</Text>
+            </View>
 
-          <View style={styles.header}>
-            <Text style={styles.headingText1}>{item.title}</Text>
-            <Text style={styles.headingText2}>
-              Hosted by {item?.organizer?.term_name}
-              {'  '}
-              {item?.organizer?.description}
-            </Text>
-          </View>
-        </ImageBackground>
+            <View style={styles.header}>
+              <Text style={styles.headingText1}>{item.title}</Text>
+              <Text style={styles.headingText2}>
+                Hosted by {item?.organizer?.term_name}
+                {'  '}
+                {item?.organizer?.description}
+              </Text>
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -190,7 +171,7 @@ const CommunityDetail = props => {
         <ImageBackground
           style={{
             width: '100%',
-            height: 190,
+            height: '100%',
             borderRadius: 20,
           }}
           source={item?.uri}
@@ -199,11 +180,14 @@ const CommunityDetail = props => {
     );
   };
 
+  console.log('POE id:::::::::::::::::', route.params.poeId);
+  console.log('parent id:::::::::::::::::', route.params.pillarId);
+
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <ImageBackground
-          source={require('../../../assets/img/image.png')}
+          source={{uri: poeDetails?.pillar_detail_image}}
           style={{height: 400}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
@@ -213,11 +197,12 @@ const CommunityDetail = props => {
 
           <View style={styles.icon}>
             <Image
-              source={require('../../../assets/img/Path203.png')}
+              source={{uri: poeDetails?.image}}
               style={{
-                width: 35,
-                height: 35,
-                marginLeft: 25,
+                width: 50,
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             />
           </View>
@@ -226,26 +211,36 @@ const CommunityDetail = props => {
             <View style={styles.contentWrapper}>
               <Text
                 style={{
-                  fontSize: 20,
-                  fontWeight: '700',
+                  fontSize: 16,
+                  fontWeight: '500',
+                  color: '#1E2022',
                   textAlign: 'center',
                   marginTop: 50,
                 }}>
-                Megatrend Workshop
+                {poeDetails.name}
               </Text>
-              <Text style={styles.paragraph}>
-                Mega trends are transformative, global forces that define the
-                futre world with their far reaching impact on business,
-                societies, economics, cutures and personal lives. Global Mega
-                Trends to 2030. Futurecasting key themes that will shape our
-                futures lives, provides a comprehensive analysis of the
-                transformative, global forces that define the future world with
-                their far-reaching impact on business, societies, economics,
-                culture and personal lives.
-              </Text>
+			  {poeEventLoading && (
+                                     <>
+                                         <View style={{
+                                             flex: 1,
+                                             alignItems: 'center',
+                                             flexDirection: 'column',
+                                             justifyContent: 'space-around',
+                                             position: 'absolute',
+                                             zIndex: 1011,
+                                             top: 120,
+                                             left: 150
+                                         }}>
+                                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                                         </View>
+                                     </>
+                                )}
+              <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               <View style={styles.top}>
-                <Text style={{fontWeight: 'bold', fontSize: 20}}> Events</Text>
+                <Text style={styles.title}> Events</Text>
+
+				
                 <View
                   style={{
                     display: 'flex',
@@ -254,34 +249,25 @@ const CommunityDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={bestPractices}
+                    data={poeEvents}
                     renderItem={_renderTopItem}
                   />
                 </View>
               </View>
               <View style={styles.bottom}>
-                <Text style={{fontWeight: 'bold', fontSize: 20}}> Members</Text>
+                <Text style={styles.title}> Members</Text>
                 <View>
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={bestPracticesMemberContents.members}
+                    data={pillarMemberContents.members}
                     renderItem={_renderItem}
                   />
                 </View>
               </View>
 
-              <View>
-                <Text
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: 20,
-                    marginTop: 30,
-                    marginLeft: 10,
-                  }}>
-                  {' '}
-                  Growth Coaching Content
-                </Text>
+              <View style={styles.growthContent}>
+                <Text style={styles.title}> Growth Coaching Content</Text>
                 <View
                   style={{
                     display: 'flex',
@@ -295,6 +281,20 @@ const CommunityDetail = props => {
                   />
                 </View>
               </View>
+
+              <View
+                style={{
+                  alignItems: 'center',
+                  width: '35%',
+                  marginLeft: 140,
+                  marginBottom: 10,
+                }}>
+                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+                <Image
+                  source={require('../../../assets/img/fristDigi.png')}
+                  style={{width: '100%', height: 20}}
+                />
+              </View>
             </View>
           </View>
         </ImageBackground>
@@ -306,11 +306,19 @@ const CommunityDetail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1310,
+    height: 1300,
+	
   },
   arrow: {
     marginTop: 30,
   },
+  title: {
+    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontSize: 14,
+    color: Colors.PRIMARY_TEXT_COLOR,
+    marginLeft: 15,
+  },
+
   icon: {
     width: 90,
     height: 90,
@@ -318,6 +326,7 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     marginLeft: 150,
     marginTop: 190,
+    alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
     zIndex: 10,
@@ -331,52 +340,53 @@ const styles = StyleSheet.create({
   contentWrapper: {
     backgroundColor: 'white',
     borderRadius: 18,
-    height: 1000,
+    height: 1300,
     overflow: 'scroll',
     marginTop: 10,
   },
   paragraph: {
-    fontFamily: Typography.FONT_NORMAL,
-    fontSize: 15,
+    fontFamily: Typography.FONT_SF_REGULAR,
+    fontSize: 14,
     lineHeight: 24,
-    margin: 20,
-    color: Colors.TERTIARY_TEXT_COLOR,
+    padding: 15,
     textAlign: 'left',
+    color: '#77838F',
   },
   top: {
     height: 200,
     marginTop: 10,
-    margin: 10,
     justifyContent: 'center',
   },
   topWrapper: {
-    height: 170,
-    width: 300,
+    height: 144,
+    width: 256,
     marginTop: 20,
-    marginLeft: 10,
-    borderRadius: 50,
+    marginLeft: 15,
+    borderRadius: 20,
   },
   bottom: {
-    height: 180,
-    margin: 10,
-    width: 400,
+    height: 172,
+    marginTop: 15,
   },
   bottomWrapper: {
-    width: 120,
-    height: 160,
-    borderRadius: 20,
-    marginRight: 10,
-    marginTop: 10,
+    width: 84,
+    position: 'relative',
+    borderRadius: 10,
+    marginTop: 15,
+    marginLeft: 15,
+    marginBottom: 10,
     backgroundColor: 'white',
-    alignItems: 'center',
-    borderWidth: 0.3,
-    shadowColor: '#000000',
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 1,
-    },
+    overflow: 'hidden',
+    // borderWidth:0.2,
+  },
+  chatIcon: {
+    borderRadius: 50,
+    backgroundColor: '#F1F1F1',
+    padding: 6,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 4,
+    bottom: 4,
   },
   bottomImage: {
     width: '100%',
@@ -388,23 +398,44 @@ const styles = StyleSheet.create({
   },
   headingText1: {
     ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
-    marginTop: 10,
+    fontFamily: Typography.FONT_SF_REGULAR,
+    marginTop: 5,
     fontWeight: '800',
     color: 'white',
+    fontSize: 12,
   },
   headingText2: {
     ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_NORMAL,
-    fontWeight: '700',
+    fontFamily: Typography.FONT_SF_REGULAR,
+    fontWeight: '400',
     color: 'white',
+    fontSize: 8,
+  },
+
+  growthContent: {
+    height: 260,
+    marginTop: 20,
+    justifyContent: 'center',
+    borderRadius: 20,
   },
   contentWrapper2: {
-    height: 200,
-    width: 310,
+    height: 206,
+    width: 364,
     marginTop: 20,
-    marginLeft: 10,
-    borderRadius: 50,
+    marginLeft: 15,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
 });
 
