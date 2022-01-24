@@ -3,13 +3,12 @@ import {
     Text,
     View,
     StyleSheet,
-    StatusBar,
     ScrollView,
     ImageBackground,
     Image,
     TouchableOpacity
 } from 'react-native';
-import {Button} from 'native-base';
+import {Button, useToast} from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -24,60 +23,63 @@ const Session = props => {
     const {
         navigation,
         route,
-		sessions,
-		sessionLoading,
-		sessionError,
-		fetchSessionByIdentifier,
-		cleanSession,
-		sessionRegisters,
-		sessionRegisterLoading,
-		sessionRegisterError,
-		registerSessionByIdentifier,
+        sessions,
+        sessionLoading,
+        sessionError,
+        fetchSessionByIdentifier,
+        cleanSession,
+        sessionRegisters,
+        sessionRegisterLoading,
+        sessionRegisterError,
+        registerSessionByIdentifier,
         cleanSessionRegister
-       
-    } = props;
 
-	useEffect(() => {
+    } = props;
+    const toast = useToast();
+    const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
+
+    useEffect(() => {
         const fetchSessionDetailAsync = async () => {
             await fetchSessionByIdentifier(route.params.id);
         };
         fetchSessionDetailAsync();
     }, []);
 
-	const registerSessionBySessionID = async (sessionID) => {
+    const registerSessionBySessionID = async (sessionID) => {
         const response = await registerSessionByIdentifier({session_id: sessionID});
         if (response?.payload?.status === 200) {
+            setSessionStatus(true);
             ToastMessage.show('You have successfully registered this event.');
         } else {
+            toast.closeAll();
             ToastMessage.show(response?.payload?.response);
         }
     };
 
-	const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
-	const isSessionLoaded = Object.keys(sessions).length === 0;
+    const isSessionLoaded = Object.keys(sessions).length === 0;
     const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
 
-	let backgroundColor = Colors.COMMUNITY_COLOR;
-  const pillarCategory = sessions?.pillar_categories
-    ? sessions?.pillar_categories[0]?.slug
-    : '';
-  switch (pillarCategory) {
-    case 'growth-coaching':
-      backgroundColor = Colors.COACHING_COLOR;
-      break;
-    case 'basic-practices':
-      backgroundColor = Colors.PRACTICE_COLOR;
-      break;
-    case 'growth-community':
-      backgroundColor = Colors.COMMUNITY_COLOR;
-  }
+    let backgroundColor = Colors.COMMUNITY_COLOR;
+    const pillarCategory = sessions?.pillar_categories
+        ? sessions?.pillar_categories[0]?.slug
+        : '';
+    switch (pillarCategory) {
+        case 'growth-coaching':
+            backgroundColor = Colors.COACHING_COLOR;
+            break;
+        case 'basic-practices':
+            backgroundColor = Colors.PRACTICE_COLOR;
+            break;
+        case 'growth-community':
+            backgroundColor = Colors.COMMUNITY_COLOR;
+    }
 
     return (
         <ScrollView style={styles.scrollBox}>
             <View style={styles.container}>
                 <ImageBackground
-                    source={{uri:sessions?.image}}
+                    source={{uri: sessions?.image}}
                     resizeMode="cover"
                     style={{height: '55%'}}>
                     <View
@@ -87,9 +89,9 @@ const Session = props => {
 
                         <View style={[styles.topbanner, {backgroundColor: backgroundColor}]}>
 
-							{!isSessionLoaded && (
+                            {!isSessionLoaded && (
                                 <Text style={styles.headingText1}>{sessions?.title}</Text>
-							)}
+                            )}
                         </View>
                     </View>
                     {/* <View
@@ -108,7 +110,7 @@ const Session = props => {
                     </View> */}
                     <View>
                         <View style={[styles.content, {height: 'auto'}]}>
-                            <View style={{height: 150, flexDirection: 'column', marginTop:20}}>
+                            <View style={{height: 150, flexDirection: 'column', marginTop: 20}}>
                                 <View
                                     style={{
                                         flex: 1,
@@ -118,7 +120,7 @@ const Session = props => {
                                     }}>
 
                                     <View
-                                        style={[styles.infoicon,{backgroundColor:backgroundColor}]}>
+                                        style={[styles.infoicon, {backgroundColor: backgroundColor}]}>
                                         <MaterialIcons name={'event'} size={35} color={'white'}/>
                                     </View>
 
@@ -128,7 +130,7 @@ const Session = props => {
                                             flex: 4,
                                             paddingLeft: 10,
                                         }}>
-                                          {!isSessionLoaded && (
+                                        {!isSessionLoaded && (
                                             <Text style={styles.contentHeading}>
                                                 {date[2]} {date[1]}, {actualDate[0]}
                                             </Text>
@@ -144,41 +146,42 @@ const Session = props => {
                                                 {sessions?.event_meta?._end_ampm} (PDT)
                                             </Text>
                                         )}
-                                    
-                                    </View>
-                                    {!sessions?.register_status && (
-                                    <View
-                                        style={{
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
 
-                                        <TouchableOpacity onPress={() => registerSessionBySessionID(route?.params?.id)}>
+                                    </View>
+                                    {!sessionStatus && (
+                                        <View
+                                            style={{
+                                                flex: 1,
+                                                borderRadius: 15,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                            }}>
+
+                                            <TouchableOpacity
+                                                onPress={() => registerSessionBySessionID(route?.params?.id)}>
+                                                <Feather
+                                                    name={'plus-circle'}
+                                                    size={35}
+                                                    color={'rgba(54,147,172,1)'}
+                                                />
+                                            </TouchableOpacity>
+                                        </View>
+                                    )}
+                                    {sessionStatus && (
+                                        <View
+                                            style={{
+                                                flex: 1,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                            }}>
                                             <Feather
-                                                name={'plus-circle'}
+                                                name={'check-circle'}
                                                 size={35}
                                                 color={'rgba(54,147,172,1)'}
                                             />
-                                        </TouchableOpacity>
-                                    </View>
-									)}
-									{sessionStatus && (
-										<View
-										style={{
-											flex: 1,
-											justifyContent: 'center',
-											alignItems: 'center',
-										}}>
-										<Feather
-											name={'check-circle'}
-											size={35}
-											color={'rgba(54,147,172,1)'}
-										/>
-										</View>
-									)}
-                              
+                                        </View>
+                                    )}
+
                                 </View>
                                 <View
                                     style={{
@@ -190,9 +193,9 @@ const Session = props => {
 
                                     <View
                                         style={[
-											styles.infoicon,
-											{backgroundColor: backgroundColor},
-										]}>
+                                            styles.infoicon,
+                                            {backgroundColor: backgroundColor},
+                                        ]}>
                                         <Ionicons
                                             name={'location-outline'}
                                             size={35}
@@ -214,78 +217,80 @@ const Session = props => {
                                             <Text>{sessions?.location?.location_address}</Text>
                                         </View>
                                     )}
-									{sessionLoading && (
-										<View style={styles.loading1}>
-											<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-										</View>
-									)}
-                                   
+                                    {sessionLoading && (
+                                        <View style={styles.loading1}>
+                                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                                        </View>
+                                    )}
+
                                 </View>
                             </View>
 
-							<View >
-								<View style={{marginTop:10}}>
-									<Text style={styles.contentHeading}>Traits</Text>
-								</View>
-								
-								<View style={{display:'flex', flexDirection:'row',marginTop:10}}>
-									<View 
-									style={{
-										paddingTop: 5,
-										paddingBottom: 5,
-										flexDirection: 'row',}}>
-												
-											<View
-											style={{
-											
-												height: 60,
-												width: 60,
-												borderRadius: 15,
-												justifyContent: 'center',
-												alignItems: 'center',
-												backgroundColor:'white',
-												borderWidth:0.3
-											}}>
-											<Ionicons
-												name={'medkit'}
-												size={30}
-												color={'#A1BA68'}
-											/>
-										</View>
+                            <View>
+                                <View style={{marginTop: 10}}>
+                                    <Text style={styles.contentHeading}>Traits</Text>
+                                </View>
 
-										<Text style={{ padding:20}}>Trait 1</Text>
-									</View>
+                                <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
+                                    <View
+                                        style={{
+                                            paddingTop: 5,
+                                            paddingBottom: 5,
+                                            flexDirection: 'row',
+                                        }}>
 
-									<View 
-									style={{
-										paddingTop: 5,
-										paddingBottom: 5,
-										flexDirection: 'row',}}>
-												
-											<View
-											style={{
-											
-												height: 60,
-												width: 60,
-												borderRadius: 15,
-												justifyContent: 'center',
-												alignItems: 'center',
-												backgroundColor:'white',
-												borderWidth:0.3
-											}}>
-											<Ionicons
-												name={'medkit'}
-												size={30}
-												color={'#A1BA68'}
-											/>
-										</View>
+                                        <View
+                                            style={{
 
-										<Text style={{padding:20}}>Trait 2</Text>
-									</View>
-								</View>
-								
-							</View>
-							
+                                                height: 60,
+                                                width: 60,
+                                                borderRadius: 15,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                backgroundColor: 'white',
+                                                borderWidth: 0.3
+                                            }}>
+                                            <Ionicons
+                                                name={'medkit'}
+                                                size={30}
+                                                color={'#A1BA68'}
+                                            />
+                                        </View>
+
+                                        <Text style={{padding: 20}}>Trait 1</Text>
+                                    </View>
+
+                                    <View
+                                        style={{
+                                            paddingTop: 5,
+                                            paddingBottom: 5,
+                                            flexDirection: 'row',
+                                        }}>
+
+                                        <View
+                                            style={{
+
+                                                height: 60,
+                                                width: 60,
+                                                borderRadius: 15,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                backgroundColor: 'white',
+                                                borderWidth: 0.3
+                                            }}>
+                                            <Ionicons
+                                                name={'medkit'}
+                                                size={30}
+                                                color={'#A1BA68'}
+                                            />
+                                        </View>
+
+                                        <Text style={{padding: 20}}>Trait 2</Text>
+                                    </View>
+                                </View>
+
+                            </View>
+
 
                             <View style={{height: 150}}>
                                 <View style={{marginTop: 25}}>
@@ -294,8 +299,9 @@ const Session = props => {
                                 <View
                                     style={styles.hostdetail}>
                                     <View
-                                        style={[styles.hostimage,{backgroundColor:backgroundColor}]}>
-                                        <Image source={{uri:sessions?.organizer_image}} style={{width: 30, height: 60}}/>
+                                        style={[styles.hostimage, {backgroundColor: backgroundColor}]}>
+                                        <Image source={{uri: sessions?.organizer_image}}
+                                               style={{width: 30, height: 60}}/>
                                     </View>
 
                                     <View
@@ -344,28 +350,28 @@ const Session = props => {
                                 )}
                             </View>
 
-							<View style={{justifyContent: 'center', alignItems: 'center'}}>
-								{!sessions?.register_status && (
-								<Button
-									style={styles.acceptButton}
-									onPress={() => registerEventByEventID(route?.params?.id)}>
-									<Text style={styles.acceptButtonText}>
-									Sign Up in One Click
-									</Text>
-								</Button>
-								)}
-								{sessions?.register_status && (
-								<TouchableOpacity style={styles.registeredButton}>
-									<View style={{paddingLeft: 10}}>
-									<Image
-										source={require('../../../assets/img/tick-icon.png')}
-										style={{width: 30, height: 30}}
-									/>
-									</View>
-									<Text style={styles.registeredButtonText}>Registered</Text>
-								</TouchableOpacity>
-								)}
-              		</View>
+                            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                                {!sessionStatus && (
+                                    <Button
+                                        style={styles.acceptButton}
+                                        onPress={() => registerSessionBySessionID(route?.params?.id)}>
+                                        <Text style={styles.acceptButtonText}>
+                                            Sign Up in One Click
+                                        </Text>
+                                    </Button>
+                                )}
+                                {sessionStatus && (
+                                    <TouchableOpacity style={styles.registeredButton}>
+                                        <View style={{paddingLeft: 10}}>
+                                            <Image
+                                                source={require('../../../assets/img/tick-icon.png')}
+                                                style={{width: 30, height: 30}}
+                                            />
+                                        </View>
+                                        <Text style={styles.registeredButtonText}>Registered</Text>
+                                    </TouchableOpacity>
+                                )}
+                            </View>
                         </View>
                     </View>
                 </ImageBackground>
@@ -396,8 +402,8 @@ const styles = StyleSheet.create({
         width: '100%',
         borderRadius: 20,
         padding: 20,
-		marginTop:170,
-		borderTopStartRadius:20,
+        marginTop: 170,
+        borderTopStartRadius: 20,
     },
     headingText1: {
         ...CommonStyles.headingText1,
@@ -428,96 +434,80 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: 'rgba(242,103,34,1)',
     },
-    acceptButtonText: {
-        color: '#ffffff',
-    },
     topbanner: {
         backgroundColor: 'rgba(54,147,172,1)',
         height: 90,
-    	width: 318,
+        width: 318,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 100,
         borderRadius: 12,
         padding: 20,
-		zIndex:10,
-		position:'absolute'
+        zIndex: 10,
+        position: 'absolute'
     },
-    
-    
     scrollBox: {
         height: '100%',
         width: '100%',
         marginBottom: 0,
         backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     },
-	hostdetail: {
-		flex: 1,
-		paddingTop: 5,
-		paddingBottom: 5,
-		flexDirection: 'row',
-		marginTop: 10,
+    hostdetail: {
+        flex: 1,
+        paddingTop: 5,
+        paddingBottom: 5,
+        flexDirection: 'row',
+        marginTop: 10,
 
-	  },
-	  hostimage: {
-		flex: 1,
-		backgroundColor: '#A1BA68',
-		height: 64,
-		width: 62,
-		borderRadius: 14,
-		justifyContent: 'center',
-		alignItems: 'center',
-	  },
-	  acceptButton: {
-		borderRadius: 10,
-		marginLeft: 15,
-		marginRight: 15,
-		width: '100%',
-		height: 50,
-		backgroundColor: '#F26722',
-		marginTop: 25,
-		justifyContent: 'center',
-		alignItems: 'center',
-	  },
-	  registeredButton: {
-		borderRadius: 10,
-		width: '100%',
-		height: 50,
-		backgroundColor: '#ffffff',
-		marginTop: 25,
-		borderColor: '#F26722',
-		borderWidth: 2,
-		flexDirection: 'row',
-		alignItems: 'center',
-	  },
-	  acceptButtonText: {
-		width: '100%',
-		height: 20,
-		fontSize: 14,
-		color: '#ffffff',
-	  },
-	  registeredButtonText: {
-		width: '100%',
-		height: 20,
-		fontSize: 14,
-		color: '#F26722',
-		paddingLeft: 110,
-	  },
-	  infoicon: {
-		flex: 1,
-		backgroundColor: 'rgba(54,147,172,1)',
-		height: 48,
-		width: 48,
-		borderRadius: 14,
-		justifyContent: 'center',
-		alignItems: 'center',
-	  },
-	  loading1: {
-		marginLeft: 150,
-		flex: 1,
-		flexDirection: 'column',
-		position: 'absolute',
-		zIndex: 1011,
-	  },
+    },
+    hostimage: {
+        flex: 1,
+        backgroundColor: '#A1BA68',
+        height: 64,
+        width: 62,
+        borderRadius: 14,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    registeredButton: {
+        borderRadius: 10,
+        width: '100%',
+        height: 50,
+        backgroundColor: '#ffffff',
+        marginTop: 25,
+        borderColor: '#F26722',
+        borderWidth: 2,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    acceptButtonText: {
+        width: '100%',
+        height: 20,
+        fontSize: 14,
+        color: '#ffffff',
+    },
+    registeredButtonText: {
+        width: '100%',
+        height: 20,
+        fontSize: 14,
+        color: '#F26722',
+        paddingLeft: 110,
+    },
+    infoicon: {
+        flex: 1,
+        backgroundColor: 'rgba(54,147,172,1)',
+        height: 48,
+        width: 48,
+        borderRadius: 14,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loading1: {
+        marginLeft: 150,
+        flex: 1,
+        flexDirection: 'column',
+        position: 'absolute',
+        zIndex: 1011,
+    },
 });
 export default Session;
