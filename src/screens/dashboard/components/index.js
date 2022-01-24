@@ -210,23 +210,19 @@ const Dashboard = props => {
   const _renderContentItem = ({item, index}) => {
     return (
       <View style={styles.ContentWrapper}>
-        {/*<ImageBackground*/}
-        {/*style={{*/}
-        {/*width: '100%',*/}
-        {/*height: '100%',*/}
-        {/*}}*/}
-        {/*source={item?.uri}*/}
-        {/*/>*/}
-        <YoutubePlayer videoId="Qzp_gSDCuuU" />
+        <YoutubePlayer videoId="9dEo9FTYDeM" />
       </View>
     );
   };
 
-  const listData = props.poes ?? [];
-	const numColumns = Math.ceil(listData.length / 2);
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar hidden={true} />
+      <StatusBar
+        barStyle="light-content"
+        hidden={true}
+        backgroundColor={require('../../../assets/img/appBG.png')}
+        translucent={true}
+      />
       <ScrollView style={styles.container}>
         <View style={styles.container}>
           <ImageBackground
@@ -252,43 +248,39 @@ const Dashboard = props => {
             </View>
           )}
 
-                    <View
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            marginTop: 20,
-                        }}>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={upcomingEvents}
-                            renderItem={item => _renderTopItem(item, navigation)}
-                        />
-                    </View>
-                </View>
-				
-                <View style={styles.middle}>
-                    <Text style={[styles.title, {marginLeft: 15}]}>
-                        Points of Engagement
-                    </Text>
-                   
-							 <ScrollView
-								horizontal
-								showsVerticalScrollIndicator={false}
-								showsHorizontalScrollIndicator={false}
-								 style={{marginLeft:10}}>
-								<FlatList
-									horizontal
-									// numColumns={numColumns}
-									showsHorizontalScrollIndicator={false}
-									data={listData}
-									renderItem={_renderMiddleItem}
-									/>
-									
-		  					</ScrollView>
-                      
-                 
-                </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginTop: 20,
+            }}>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={upcomingEvents}
+              renderItem={item => _renderTopItem(item, navigation)}
+            />
+          </View>
+        </View>
+
+        <View style={styles.middle}>
+          <Text style={[styles.title, {marginLeft: 15}]}>
+            Points of Engagement
+          </Text>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginLeft: 10,
+            }}>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={poes}
+              renderItem={_renderMiddleItem}
+            />
+          </View>
+        </View>
 
         <View style={styles.bottom}>
           <View

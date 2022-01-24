@@ -48,7 +48,8 @@ const OthersAccount = props => {
     fetchOtherProfileAsync();
   }, []);
 
-  console.log('profile id =======', route.params.id);
+//   console.log('profile id =======', route.params.id);
+//   console.log('profile other ====== ', otherProfiles?.user_meta?.first_name[0]);
 
   return (
     <ScrollView
@@ -304,7 +305,6 @@ const OthersAccount = props => {
 export default OthersAccount;
 
 const styles = StyleSheet.create({
-
 	container: {
         ...CommonStyles.container,
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
@@ -548,3 +548,4 @@ const styles = StyleSheet.create({
 //     margin: 15,
 //   },
 });
+

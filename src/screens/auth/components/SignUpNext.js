@@ -57,7 +57,7 @@ const SignUpNext = ({navigation}) => {
 
 
                 <View style={styles.header}>
-                    <Text style={styles.headingText1}>Welcome to John!</Text>
+                    <Text style={styles.headingText1}>Welcome John!</Text>
                     <Text style={styles.headingText2}>Have you some problem today?</Text>
 					<Text style={styles.headingText2}>Don't worry, now you are a part of Growth Council. Let's us help you.</Text>
                 </View>

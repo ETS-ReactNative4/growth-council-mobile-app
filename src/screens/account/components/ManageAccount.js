@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome5';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
@@ -431,6 +432,7 @@ const styles = StyleSheet.create({
   loginButtonWrapper: {
     marginLeft: 10,
     marginTop: 18,
+	marginBottom:10,
   },
   loginButton: {
     width: '50%',
