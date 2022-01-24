@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from "../../../shared/toast";
@@ -57,6 +58,21 @@ const Session = props => {
     const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
 
+	let backgroundColor = Colors.COMMUNITY_COLOR;
+  const pillarCategory = sessions?.pillar_categories
+    ? sessions?.pillar_categories[0]?.slug
+    : '';
+  switch (pillarCategory) {
+    case 'growth-coaching':
+      backgroundColor = Colors.COACHING_COLOR;
+      break;
+    case 'basic-practices':
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+    case 'growth-community':
+      backgroundColor = Colors.COMMUNITY_COLOR;
+  }
+
     return (
         <ScrollView style={styles.scrollBox}>
             <View style={styles.container}>
@@ -69,7 +85,8 @@ const Session = props => {
                             alignItems: 'center',
                         }}>
 
-                        <View style={styles.topbanner}>
+                        <View style={[styles.topbanner, {backgroundColor: backgroundColor}]}>
+
 							{!isSessionLoaded && (
                                 <Text style={styles.headingText1}>{sessions?.title}</Text>
 							)}
@@ -97,20 +114,11 @@ const Session = props => {
                                         flex: 1,
                                         paddingTop: 5,
                                         paddingBottom: 5,
-							
                                         flexDirection: 'row',
                                     }}>
 
                                     <View
-                                        style={{
-                                            flex: 1,
-                                            backgroundColor: '#A1BA68',
-                                            height: 60,
-                                            width: 30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
+                                        style={[styles.infoicon,{backgroundColor:backgroundColor}]}>
                                         <MaterialIcons name={'event'} size={35} color={'white'}/>
                                     </View>
 
@@ -142,8 +150,6 @@ const Session = props => {
                                     <View
                                         style={{
                                             flex: 1,
-                                            height: 60,
-                                            width: 30,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             alignItems: 'center',
@@ -183,15 +189,10 @@ const Session = props => {
                                     }}>
 
                                     <View
-                                        style={{
-                                            flex: 1,
-                                            backgroundColor: '#A1BA68',
-                                            height: 60,
-                                            width:30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
+                                        style={[
+											styles.infoicon,
+											{backgroundColor: backgroundColor},
+										]}>
                                         <Ionicons
                                             name={'location-outline'}
                                             size={35}
@@ -213,6 +214,11 @@ const Session = props => {
                                             <Text>{sessions?.location?.location_address}</Text>
                                         </View>
                                     )}
+									{sessionLoading && (
+										<View style={styles.loading1}>
+											<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+										</View>
+									)}
                                    
                                 </View>
                             </View>
@@ -332,7 +338,7 @@ const Session = props => {
                             </View>
 
                             <View>
-                                <Text style={styles.contentHeading}>Event Info</Text>
+                                <Text style={styles.contentHeading}>Session Brief</Text>
                                 {!isSessionLoaded && (
                                     <HTMLView value={sessions?.description} stylesheet={styles}/>
                                 )}
@@ -426,39 +432,19 @@ const styles = StyleSheet.create({
         color: '#ffffff',
     },
     topbanner: {
-        backgroundColor: '#A1BA68',
-        height: 60,
-        width: '60%',
+        backgroundColor: 'rgba(54,147,172,1)',
+        height: 90,
+    	width: 318,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 140,
+        marginTop: 100,
         borderRadius: 12,
         padding: 20,
 		zIndex:10,
 		position:'absolute'
     },
-    topbanner1: {
-        backgroundColor: 'rgba(54,147,172,1)',
-        height: 100,
-        width: '80%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 100,
-        marginBottom: 20,
-        borderRadius: 12,
-        padding: 20,
-    },
-    topbanner2: {
-        backgroundColor: 'rgba(128,186,116,1)',
-        height: 100,
-        width: '80%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 100,
-        marginBottom: 20,
-        borderRadius: 12,
-        padding: 20,
-    },
+    
+    
     scrollBox: {
         height: '100%',
         width: '100%',
@@ -516,6 +502,22 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: '#F26722',
 		paddingLeft: 110,
+	  },
+	  infoicon: {
+		flex: 1,
+		backgroundColor: 'rgba(54,147,172,1)',
+		height: 48,
+		width: 48,
+		borderRadius: 14,
+		justifyContent: 'center',
+		alignItems: 'center',
+	  },
+	  loading1: {
+		marginLeft: 150,
+		flex: 1,
+		flexDirection: 'column',
+		position: 'absolute',
+		zIndex: 1011,
 	  },
 });
 export default Session;
