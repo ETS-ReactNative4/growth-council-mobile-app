@@ -51,20 +51,21 @@ const eventItems = ({item, index}) => {
             <View style={styles.eventTheme}/>
             <View style={styles.eventDetails}>
                 <View style={styles.eventInfo}>
-                    <Text style={styles.evnetTitle}>{item.eventTitle}</Text>
-                    <Text style={styles.eventParagraph}>Hosted by {item.eventHost}</Text>
+                    <Text style={styles.evnetTitle}>{item?.title}</Text>
+                    <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name}</Text>
                 </View>
                 <View style={styles.eventDate}>
                     <Text style={styles.eventDateText}>
-                        {item.eventDay}
+                        {/* {item.eventDay}
                         {'\n'}
-                        {item.eventMonth}
+                        {item.eventMonth} */}
                     </Text>
                 </View>
             </View>
         </View>
     );
 };
+
 
 const searchTags = [
     'Growth Coaching',
@@ -157,9 +158,10 @@ const Search = (props) => {
                     </View>
                 </View>
                 <View style={styles.events}>
+				<Text style={{fontWeight: 'bold', fontSize: 15}}>Events</Text>
                     <FlatList
                         showsHorizontalScrollIndicator={false}
-                        data={events}
+                        data={searches.events_sessions}
                         renderItem={eventItems}
                     />
                 </View>

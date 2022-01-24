@@ -324,7 +324,7 @@ const GrowthDetail = props => {
                                 )}
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
-              <View style={styles.top}>
+              {/* <View style={styles.top}>
                 <Text style={styles.title}> Growth Coaching Events</Text>
                 <View
                   style={{
@@ -338,7 +338,7 @@ const GrowthDetail = props => {
                     renderItem={_renderTopItem}
                   />
                 </View>
-              </View>
+              </View> */}
               <View style={styles.middle}>
                 <Text style={styles.title}>Sessions</Text>
                 <View
@@ -423,7 +423,8 @@ export default GrowthDetail;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1530,
+    height: 1400,
+
   },
   arrow: {
     marginTop: 30,
@@ -455,12 +456,12 @@ const styles = StyleSheet.create({
     borderTopWidth: 10,
     borderColor: Colors.COACHING_COLOR,
   },
-  contentWrapper: {
-    borderRadius: 18,
-    height: 1300,
-    overflow: 'scroll',
-    marginTop: 10,
-  },
+//   contentWrapper: {
+//     borderRadius: 18,
+//  backgroundColor:"red",
+//     overflow: 'scroll',
+//     marginTop: 10,
+//   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
