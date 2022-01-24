@@ -99,8 +99,7 @@ const SignInForm = props => {
                   </View>
                 )}
                 <FlatTextInput
-                  label="Email"
-				//   mode='outlined'
+                  label="Email *"
                   value={values.username}
                   onChangeText={handleChange('username')}
                   onFocus={handleBlur('username')}
@@ -116,7 +115,7 @@ const SignInForm = props => {
                 )}
 
                 <FlatTextInput
-                  label="Password"
+                  label="Password *"
                   value={values.password}
                   secureTextEntry={hidePass}
                   onChangeText={handleChange('password')}

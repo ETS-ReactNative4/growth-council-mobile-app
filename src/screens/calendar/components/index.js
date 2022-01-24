@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Calendar} from 'react-native-calendars';
 import moment from 'moment';
+import ButtonToggleGroup from 'react-native-button-toggle-group';
 
 import {CommonStyles, Colors} from '../../../theme';
 
@@ -23,7 +24,7 @@ const EventCalendar = (props) => {
         cleanCalendarEvent,
     } = props;
 
-	const [items, setItems] = useState({});
+	const [value, setValue] = useState('2021');
 
     useEffect(() => {
         const fetchCalendarEventAsync = async () => {
@@ -98,16 +99,16 @@ const EventCalendar = (props) => {
 		dt = dt.split(' ');
 		let [date1, time] = [dt[0].split('-').map(Number), dt[1].split(':').map(Number)];
 		let d = new Date( time[0], time[1], time[2], 0);
-		console.log("time::",time[0])
+		console.log("time::",time[0], time[1])
 		
         return (
             <View style={styles.eventCard} key={index}>
-                <Text style={{marginTop: 30, marginLeft: 10, marginRight: 10, fontSize: 17}}>{time[0]}:{time[1]}{time[2]}</Text>
+                <Text style={{marginTop: 30, marginLeft: 10, marginRight: 10, fontSize: 17}}>{time[0]}:{time[1]}</Text>
                
                 <View style={styles.eventDetails}>
                     <View style={styles.eventInfo}>
-                        <Text style={styles.eventTitle}>{item.title}</Text>
-                        <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name}</Text>
+                        <Text style={styles.eventTitle}>{item?.pillar_categories[0]?.name}</Text>
+                        <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
                     </View>
                     <View style={styles.eventDate}>
                         <Text style={styles.eventDateText}>
@@ -121,11 +122,24 @@ const EventCalendar = (props) => {
         );
     };
 
-
+	// console.log("calendar:::", calendarEvents?.pillar_categories[0]?.name)
 
     return (
         <ScrollView>
             <View style={styles.container}>
+				<View style={styles.buttonWrapper}>
+					<ButtonToggleGroup
+					    highlightBackgroundColor={'white'}
+					    highlightTextColor={'#0B0B45'}
+					    inactiveBackgroundColor={'transparent'}
+					    inactiveTextColor={'grey'}
+					    values={['2020', '2021', '2022']}
+					    value={value}
+					    onSelect={val => setValue(val)}
+					    style={{height: 38,  width: '90%', marginLeft: 10,}}
+					/>
+                </View>
+
                 <View style={styles.calendar}>
                     <Calendar
                         markingType={'period'}
@@ -250,6 +264,16 @@ const styles = StyleSheet.create({
     },
     eventDateText: {
         textAlign: 'center',
+    },
+	buttonWrapper: {
+        width: 350,
+        height: 40,
+        backgroundColor: "#F5F5F5",
+        borderRadius: 10,
+        margin: 10,
+        marginTop: 15,
+		marginLeft:20,
+
     },
 });
 
