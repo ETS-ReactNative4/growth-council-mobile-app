@@ -224,11 +224,11 @@ const Session = props => {
                             </View>
 
 							<View >
-								<View style={{marginTop:20}}>
+								<View style={{marginTop:10}}>
 									<Text style={styles.contentHeading}>Traits</Text>
 								</View>
 								
-								<View style={{display:'flex', flexDirection:'row'}}>
+								<View style={{display:'flex', flexDirection:'row',marginTop:10}}>
 									<View 
 									style={{
 										paddingTop: 5,
@@ -294,7 +294,7 @@ const Session = props => {
                                 <View
                                     style={styles.hostdetail}>
                                     <View
-                                        style={styles.hostimage}>
+                                        style={[styles.hostimage,{backgroundColor:backgroundColor}]}>
                                         <Image source={{uri:sessions?.organizer_image}} style={{width: 30, height: 60}}/>
                                     </View>
 
