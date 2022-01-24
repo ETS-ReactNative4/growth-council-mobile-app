@@ -4,7 +4,7 @@ import {
     View,
     Text,
     FlatList,
-    ScrollView
+    ScrollView, Picker
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
@@ -28,6 +28,8 @@ const EventCalendar = (props) => {
 	const [value, setValue] = useState('2021');
     const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
     const [currentEvents, setCurrentEvents] = useState([]);
+
+	const [selectedValue, setSelectedValue] = useState("java");
 
     useEffect(() => {
         const fetchCalendarEventAsync = async () => {
@@ -146,6 +148,16 @@ const EventCalendar = (props) => {
 					    style={{height: 38,  width: '90%', marginLeft: 10,}}
 					/>
                 </View>
+				<View>
+							<Picker
+					selectedValue={selectedValue}
+					style={{ height: 50, width: 150 }}
+					onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+				>
+					<Picker.Item label="Java" value="java" />
+					<Picker.Item label="JavaScript" value="js" />
+				</Picker>
+				</View>
 
                 <View style={[styles.calendar, styles.shadowProp]}>
                     <Calendar
@@ -242,6 +254,7 @@ const styles = StyleSheet.create({
     },
     events: {
         padding: 20,
+		borderWidth:0.1,
     },
     eventCard: {
         height: 82,
