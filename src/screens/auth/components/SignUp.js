@@ -33,7 +33,13 @@ const signUpSchema = Yup.object().shape({
     .email('Please enter valid email')
     .trim()
     .required('Email Address is Required'),
-  phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+  phone: Yup.string()
+    .matches(phoneRegExp, 'Phone number is not valid')
+    .required('Phone Number is required.'),
+  title: Yup.string().required('Title is required.'),
+  company: Yup.string().required('Company is required.'),
+  country: Yup.string().required('Country is required.'),
+  checked: Yup.boolean().required('The terms and conditions'),
 });
 
 const SignUpForm = props => {
@@ -67,6 +73,7 @@ const SignUpForm = props => {
       phone: '',
       email: '',
       country: '',
+      checked: false,
       firebase_password: uuid.v4(),
     },
     onSubmit: async values => {
@@ -448,8 +455,13 @@ const SignUpForm = props => {
                   );
                 })}
               </Picker>
+              {errors.country && (
+                <Text style={{fontSize: 10, color: 'red'}}>
+                  {errors.country}
+                </Text>
+              )}
 
-              <View style={{marginLeft: 10, paddingRight: 20}}>
+              <View>
                 <CheckBox
                   label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
                   status={checked ? 'checked' : 'unchecked'}
@@ -457,6 +469,11 @@ const SignUpForm = props => {
                     setChecked(!checked);
                   }}
                 />
+                {errors.checked && (
+                  <Text style={{fontSize: 10, color: 'red'}}>
+                    {errors.checked}
+                  </Text>
+                )}
               </View>
             </View>
 

@@ -13,6 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import YoutubePlayer from '../../../shared/youtube';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -160,18 +161,18 @@ const BestPractice = props => {
   };
 
   const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videolink = link[1].split('&', 2);
+    console.log('videoLink === ', videolink);
     return (
-      <View style={styles.ContentWrapper} key={index}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          source={item?.uri}
-        />
+      <View style={styles.ContentWrapper}>
+        <YoutubePlayer videoId={videolink[0]} />
       </View>
     );
   };
+
+  console.log('File =======', bestPracticesMemberContents?.pillar_contents);
 
   return (
     <ScrollView>
@@ -239,7 +240,7 @@ const BestPractice = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents.pillar_contents}
+              data={bestPracticesMemberContents?.pillar_contents}
               renderItem={_renderContentItem}
             />
           </View>
