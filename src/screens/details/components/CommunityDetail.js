@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     height: 1300,
-	backgroundColor:"red"
+	
   },
   arrow: {
     marginTop: 30,
