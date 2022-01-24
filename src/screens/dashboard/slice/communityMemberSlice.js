@@ -1,16 +1,14 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {fetch} from '../../../utils/httpUtil';
+import {store} from '../../../utils/httpUtil';
 
 export const fetchAllCommunityMembers = createAsyncThunk(
-
   'communityMember/fetchAll',
   (_, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/users`)
+    return store(`jwt-auth/v1/users`)
       .then(response => response.data.body_response)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
-
 );
 
 const communityMemberSlice = createSlice({

@@ -117,7 +117,7 @@ const HomeCommunity = props => {
           })
         }>
         <View style={styles.middleWrapper}>
-          <View style={styles.middleW}>
+		<View style={[styles.middleW,styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
               style={{width: 25, height: 25}}
@@ -345,8 +345,7 @@ const styles = StyleSheet.create({
     height: 64,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 0.2,
+    borderRadius: 10,  
   },
   headingText3: {
     ...CommonStyles.headingText3,
