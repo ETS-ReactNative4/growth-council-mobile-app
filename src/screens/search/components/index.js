@@ -6,7 +6,8 @@ import {
     ImageBackground,
     ScrollView,
     FlatList,
-	TouchableOpacity
+	TouchableOpacity,
+	Image
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Font from 'react-native-vector-icons/FontAwesome5';
@@ -77,19 +78,19 @@ const Search = (props) => {
 	const data1 = [
 		{
 			icon: 'brain',
-			text: 'Executive MindChange',
+			name: 'Executive MindChange',
 		},
 		{
 			icon: 'location-arrow',
-			text: 'Megatrends Workshop',
+			name: 'Megatrends Workshop',
 		},
 		{
 			icon: 'brain',
-			text: 'Executive MindChange',
+			name: 'Executive MindChange',
 		},
 		{
 			icon: 'location-arrow',
-			text: 'Megatrends Workshop',
+			name: 'Megatrends Workshop',
 		},
 	];
 	
@@ -97,9 +98,12 @@ const Search = (props) => {
 		return (
 			<View style={styles.middleWrapper}>
 				<View style={[styles.middleW, styles.shadowProp]}>
-					<Font name={item.icon} size={30} color="skyblue"/>
+				<Image
+					source={{uri: item?.image}}
+					style={{width: 30, height: 30}}
+            	/>
 				</View>
-				<Text style={{marginTop: 8,fontSize:12 }}>{item.text}</Text>
+				<Text style={{marginTop: 8,fontSize:12 }}>{item?.name}</Text>
 			</View>
 		);
 	};
@@ -119,7 +123,7 @@ const Search = (props) => {
                     <FlatList
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        data={searchTags}
+                        data={searches.pillars}
                         renderItem={searchTag}
                     />
                 </View>
@@ -131,7 +135,7 @@ const Search = (props) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={data1}
+                            data={searches.poes}
                             renderItem={_renderMiddleItem}
                         />
                     </View>
@@ -190,7 +194,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     middle: {
-		height: 140,
+	
         marginLeft: 10,
         marginTop: 15,
 	
