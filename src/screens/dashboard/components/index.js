@@ -130,7 +130,7 @@ const Dashboard = props => {
           })
         }>
         <View style={styles.middleWrapper}>
-          <View style={styles.middleW}>
+          <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 0.2,
+    // borderWidth: 0.2,
   },
   headingText3: {
     ...CommonStyles.headingText3,

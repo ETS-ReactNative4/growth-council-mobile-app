@@ -380,7 +380,7 @@ const SignUpForm = props => {
               )}
 
               <FlatTextInput
-                label="Title"
+                label="Title *"
                 value={values.title}
                 onChangeText={handleChange('title')}
                 onFocus={handleBlur('title')}
@@ -392,7 +392,7 @@ const SignUpForm = props => {
               )}
 
               <FlatTextInput
-                label="Company"
+                label="Company *"
                 value={values.company}
                 onChangeText={handleChange('company')}
                 onFocus={handleBlur('company')}
@@ -406,7 +406,7 @@ const SignUpForm = props => {
               )}
 
               <FlatTextInput
-                label="Business Phone"
+                label="Business Phone *"
                 value={values.phone}
                 onChangeText={handleChange('phone')}
                 onFocus={handleBlur('phone')}

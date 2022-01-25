@@ -16,7 +16,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 
-import {Colors} from '../../../theme';
+import {Colors, Typography} from '../../../theme';
 import ToastMessage from "../../../shared/toast";
 
 const People = (props) => {
@@ -74,22 +74,22 @@ const People = (props) => {
             <View style={[styles.wrapper, styles.shadowProp]} key={index}>
                 <Image source={{uri: item.avatar}}
                        style={{
-                           width: 68,
-                           height: 68,
+                           width: 66,
+                           height: 66,
                            margin: 8,
                            borderRadius: 8,
                        }}
                 />
                 <View style={{margin: 10, width: '55%'}}>
-                    <Text style={{fontSize: 18, fontWeight: "bold"}}>{item?.display_name}</Text>
-                    <Text style={{fontSize: 16}}>{item?.title}</Text>
-                    <Text style={{fontSize: 14}}>{item?.company}</Text>
+                    <Text style={{fontSize: 14, fontFamily:Typography.FONT_SF_REGULAR, color:'black'}}>{item?.display_name}</Text>
+                    <Text style={{fontSize: 12, color:'#77838F'}}>{item?.user_email}</Text>
+                    <Text style={{fontSize: 12,color:'#77838F'}}>{item?.company}</Text>
                 </View>
                 {!memberConnection[index]?.connection &&
                 <TouchableOpacity onPress={() => connectMemberByMemberID(item.ID, index)}>
                     <Feather
                         name='plus-circle'
-                        size={30}
+                        size={25}
                         color='skyblue'
                         style={{marginTop: 25}}
                     />
@@ -98,7 +98,7 @@ const People = (props) => {
                 {memberConnection[index]?.connection &&
                 <Feather
                     name='check-circle'
-                    size={30}
+                    size={25}
                     color='skyblue'
                     style={{marginTop: 25}}
                 />
@@ -124,10 +124,10 @@ const People = (props) => {
                         }}
                     />
                     <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 10}}/>
+                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/>
 
                 </View>
-                <View style={{display: 'flex', flexDirection: 'row', height: 48, marginTop: 16}}>
+                <View style={styles.iconWrapper}>
                     {/*<View style={{borderRightWidth: 0.2, borderColor: '#707070'}}>*/}
                     {/*<Picker*/}
                     {/*selectedValue={category}*/}
@@ -142,12 +142,12 @@ const People = (props) => {
                     {/*</View>*/}
 
                     <View
-                        style={{borderRightWidth: 0.2, borderColor: '#707070', display: 'flex', flexDirection: 'row'}}>
+                        style={[styles.icon,{borderRightWidth: 0.2}]}>
                         <Ionicons
                             name='arrow-up'
                             size={20}
                             color='#d7d7d7'
-                            style={{marginTop: 20}}
+                            style={{marginTop: 15, }}
                             onPress={async () => {
                                 setSorting('DESC');
                                 await fetchAllUsers({s: searchKey, sort: 'DESC'});
@@ -157,23 +157,25 @@ const People = (props) => {
                             name='arrow-down'
                             size={20}
                             color='#d7d7d7'
-                            style={{marginTop: 20}}
+                            style={{marginTop: 15}}
                             onPress={async () => {
                                 setSorting('ASC');
                                 await fetchAllUsers({s: searchKey, sort: 'ASC'});
                             }}
                         />
-                        <Text style={{marginTop: 20, marginRight: 40}}>Sort</Text>
+                        <Text style={styles.textWrapper}>Sort</Text>
                     </View>
 
-
-                    <Font
-                        name='filter'
-                        size={20}
-                        color='#d7d7d7'
-                        style={{marginTop: 20, marginLeft: 20}}
-                    />
-                    <Text style={{marginTop: 20, marginLeft: 10}}>Filter</Text>
+					<View style={styles.icon}>
+						<Font
+							name='filter'
+							size={20}
+							color='#7E7F84'
+							style={{marginTop: 15, marginRight:10}}
+						/>
+						<Text style={styles.textWrapper}>Filter</Text>
+					</View>
+                  
                 </View>
                 <View style={{marginTop: 30}}>
                     <FlatList
@@ -221,6 +223,26 @@ const styles = StyleSheet.create({
         margin: 10,
         borderRadius: 10,
     },
+	iconWrapper:{
+		display: 'flex',
+		flexDirection: 'row',
+		height: 48,
+		justifyContent:'center',
+		alignContent:'center',
+		
+	},
+	icon:{
+		width:"50%",
+		borderColor: '#707070',
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent:'center',
+		 alignContent:'center'
+	},
+	textWrapper:{
+		marginTop: 15, 
+		fontSize:14
+	},
     shadowProp: {
         shadowColor: "#000",
         shadowOffset: {
