@@ -1,6 +1,15 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {update} from '../../../utils/httpUtil';
+import {store, update} from '../../../utils/httpUtil';
+
+export const fetchUsersByKey = createAsyncThunk(
+    'user/fetchByKey',
+    (formData, {rejectWithValue}) => {
+        return store(`jwt-auth/v1/users`, formData)
+            .then(response => response.data.body_response)
+            .catch(error => rejectWithValue(error?.response?.data || error));
+    },
+);
 
 export const updateUserByID = createAsyncThunk(
     'user/updateByID',
@@ -36,6 +45,22 @@ const userSlice = createSlice({
             state.users = action.payload;
         },
         [updateUserByID.rejected]: (state, action) => {
+            state.userLoading = false;
+            if (action.payload) {
+                state.userError = action.payload;
+            } else {
+                state.userError = action.error;
+            }
+        },
+        [fetchUsersByKey.pending]: (state, action) => {
+            state.userLoading = true;
+            state.userError = {};
+        },
+        [fetchUsersByKey.fulfilled]: (state, action) => {
+            state.userLoading = false;
+            state.users = action.payload;
+        },
+        [fetchUsersByKey.rejected]: (state, action) => {
             state.userLoading = false;
             if (action.payload) {
                 state.userError = action.payload;

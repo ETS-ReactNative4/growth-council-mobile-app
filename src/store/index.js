@@ -30,7 +30,8 @@ import privacyReducer from '../screens/privacy/slice/privacySlice';
 import eventReducer from '../screens/event/slice/eventSlice';
 import eventRegisterReducer from '../screens/event/slice/eventRegisterSlice';
 
-import connectionReducer from '../screens/people/slice/connetionSlice';
+import connectionReducer from '../screens/chat/slice/connetionSlice';
+
 import memberConnectionReducer from '../screens/people/slice/memberConnectionSlice';
 
 import profileReducer from '../screens/account/slice/profileSlice';

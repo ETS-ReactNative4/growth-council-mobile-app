@@ -2,18 +2,18 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import People from './components';
-import {fetchAllConnections, resetConnection} from './slice/connetionSlice';
+import {fetchUsersByKey, resetUser} from '../account/slice/userSlice';
 import {connectMemberByID, resetConnectMember} from './slice/memberConnectionSlice';
 
 const PeopleScreen = (props) => {
 
     const dispatch = useDispatch();
 
-    const {connection, connectionLoading, connectionError} = useSelector((state) => state.connection);
+    const {users, userLoading, userError} = useSelector((state) => state.users);
     const {memberConnections, memberConnectionLoading, memberConnectionError} = useSelector((state) => state.memberConnections);
 
-    const fetchAllConnection = () => {
-        dispatch(fetchAllConnections());
+    const fetchAllUsers = (formData) => {
+        dispatch(fetchUsersByKey(formData));
     };
 
     /**
@@ -25,8 +25,8 @@ const PeopleScreen = (props) => {
         return dispatch(connectMemberByID(formData));
     };
 
-    const cleanConnection = () => {
-        dispatch(resetConnection());
+    const cleanUser = () => {
+        dispatch(resetUser());
     };
 
     /**
@@ -40,11 +40,11 @@ const PeopleScreen = (props) => {
     return (
         <People
             {...props}
-            connection={connection}
-            connectionLoading={connectionLoading}
-            connectionError={connectionError}
-            fetchAllConnection={fetchAllConnection}
-            cleanConnection={cleanConnection}
+            users={users}
+            userLoading={userLoading}
+            userError={userError}
+            fetchAllUsers={fetchAllUsers}
+            cleanUser={cleanUser}
 
             memberConnections={memberConnections}
             memberConnectionLoading={memberConnectionLoading}

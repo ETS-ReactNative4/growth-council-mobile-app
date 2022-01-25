@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import UserList from './components/UserList';
 
-import {fetchAllConnections, resetConnection} from '../people/slice/connetionSlice';
+import {fetchAllConnections, resetConnection} from './slice/connetionSlice';
 
 const UserListScreen = (props) => {
 
