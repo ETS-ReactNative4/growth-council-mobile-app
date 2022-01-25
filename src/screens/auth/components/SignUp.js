@@ -39,15 +39,13 @@ const signUpSchema = Yup.object().shape({
   title: Yup.string().required('Title is required.'),
   company: Yup.string().required('Company is required.'),
   country: Yup.string().required('Country is required.'),
-  checked: Yup.boolean().required(
-    'Please agree to terms and conditon for signup.',
-  ),
+  checked: Yup.boolean()
+    .required('Please agree to terms and conditon for signup.')
+    .oneOf([true], 'Please agree to terms and conditon for signup.'),
 });
 
 const SignUpForm = props => {
   const {navigation, loading, error, registerCustomer, cleanCustomer} = props;
-
-  const [checked, setChecked] = React.useState(false);
 
   const min = 1;
   const max = 100;
@@ -59,6 +57,7 @@ const SignUpForm = props => {
     handleSubmit,
     values,
     errors,
+    setErrors,
     touched,
     isValid,
     setFieldValue,
@@ -75,7 +74,7 @@ const SignUpForm = props => {
       phone: '',
       email: '',
       country: '',
-      checked: false,
+      checked: '',
       firebase_password: uuid.v4(),
     },
     onSubmit: async values => {
@@ -124,6 +123,8 @@ const SignUpForm = props => {
       }
     },
   });
+
+  const [checked, setChecked] = React.useState('false');
 
   const [country, setCountry] = useState('Country');
 
@@ -326,6 +327,10 @@ const SignUpForm = props => {
     'Zimbabwe',
   ];
 
+  console.log('Values ==== ', values);
+  console.log('Errors======', errors);
+  console.log('Checked====', checked);
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -441,7 +446,7 @@ const SignUpForm = props => {
                   onValueChange={(itemValue, itemIndex) => {
                     setFieldValue('country', itemValue);
                     setCountry(itemValue);
-                    handleChange('country');
+                    setErrors({});
                   }}>
                   <Picker.Item label="Select Country" style={{fontSize: 12}} />
                   {countries.map((value, index) => {
@@ -461,21 +466,21 @@ const SignUpForm = props => {
                 </Text>
               )}
 
-              <View style={{paddingRight: 10}}>
+              <View>
                 <CheckBox
                   label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
                   status={checked ? 'checked' : 'unchecked'}
-                  onChange={handleChange('checked')}
                   onPress={() => {
+                    setFieldValue('checked', !checked);
                     setChecked(!checked);
                   }}
                 />
+                {errors.checked && (
+                  <Text style={{fontSize: 10, color: 'red'}}>
+                    {errors.checked}
+                  </Text>
+                )}
               </View>
-              {errors.checked && (
-                <Text style={{fontSize: 10, color: 'red'}}>
-                  {errors.checked}
-                </Text>
-              )}
             </View>
 
             <View style={styles.loginButtonWrapper}>
@@ -512,14 +517,12 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 70,
-    marginTop: Platform.OS === 'ios' ? 60 : 50,
+    marginTop: Platform.OS === 'ios' ? 30 : 20,
     marginBottom: 30,
   },
   scrollBox: {
     height: '65%',
     width: '100%',
-    marginLeft: 32,
-    marginRight: 32,
     marginBottom: 0,
   },
   body: {
@@ -531,7 +534,7 @@ const styles = StyleSheet.create({
     height: '86%',
     backgroundColor: 'white',
     borderRadius: 18,
-    padding: 20,
+    padding: 30,
   },
   message: {
     ...CommonStyles.message,
@@ -555,7 +558,8 @@ const styles = StyleSheet.create({
   },
   loginButtonWrapper: {
     ...CommonStyles.buttonWrapper,
-    width: '90%',
+    width: '100%',
+    marginTop: 10,
   },
   loginButton: {
     width: '50%',
