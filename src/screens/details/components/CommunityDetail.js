@@ -12,6 +12,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import YoutubePlayer from '../../../shared/youtube';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -166,16 +167,13 @@ const CommunityDetail = props => {
   ];
 
   const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videolink = link[1].split('&', 2);
+    console.log('videoLink === ', videolink);
     return (
-      <View style={styles.contentWrapper2}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: 20,
-          }}
-          source={item?.uri}
-        />
+      <View style={styles.ContentWrapper}>
+        <YoutubePlayer videoId={videolink[0]} />
       </View>
     );
   };
@@ -219,28 +217,31 @@ const CommunityDetail = props => {
                 }}>
                 {poeDetails.name}
               </Text>
-			  {poeEventLoading && (
-                                     <>
-                                         <View style={{
-                                             flex: 1,
-                                             alignItems: 'center',
-                                             flexDirection: 'column',
-                                             justifyContent: 'space-around',
-                                             position: 'absolute',
-                                             zIndex: 1011,
-                                             top: 120,
-                                             left: 150
-                                         }}>
-                                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
-                                         </View>
-                                     </>
-                                )}
+              {poeEventLoading && (
+                <>
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      justifyContent: 'space-around',
+                      position: 'absolute',
+                      zIndex: 1011,
+                      top: 120,
+                      left: 150,
+                    }}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               <View style={styles.top}>
                 <Text style={styles.title}> Events</Text>
 
-				
                 <View
                   style={{
                     display: 'flex',
@@ -276,7 +277,7 @@ const CommunityDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={pic}
+                    data={pillarMemberContents?.pillar_contents}
                     renderItem={_renderContentItem}
                   />
                 </View>
@@ -307,7 +308,6 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     height: 1300,
-	
   },
   arrow: {
     marginTop: 30,

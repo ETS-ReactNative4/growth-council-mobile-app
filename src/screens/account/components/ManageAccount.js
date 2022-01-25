@@ -84,6 +84,13 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
+  let expertise_areas1 = profile?.user_meta?.expertise_areas1;
+  if (typeof expertise_areas1 === 'undefined') {
+    expertise_areas1 = ' ';
+  } else {
+    expertise_areas1 = profile?.user_meta?.expertise_areas1[0];
+  }
+
   const {
     handleChange,
     handleBlur,
@@ -103,6 +110,7 @@ const ManageAccount = props => {
       Location: Location,
       favorite_quote: favorite_quote,
       insights: insights,
+      expertise_areas1: expertise_areas1,
       initatives: initatives,
       professional_summary: professional_summary,
     },
@@ -275,7 +283,7 @@ const ManageAccount = props => {
                     onBlur={handleBlur('email')}
                     error={errors.email}
                     touched={touched.email}
-					editable={false}
+                    editable={false}
                   />
 
                   <Text
@@ -324,21 +332,21 @@ const ManageAccount = props => {
                     touched={touched.professional_summary}
                   />
 
-                  {/* <Text
+                  <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     EXPERTISE AREAS
                   </Text>
                   <TextInput
                     multiline={true}
-                    numberOfLines={4}
+                    numberOfLines={3}
                     style={styles.textarea}
                     keyboardType="text"
-                    value={values.location}
-                    onChangeText={handleChange('location')}
-                    onBlur={handleBlur('location')}
-                    error={errors.location}
-                    touched={touched.location}
-                  /> */}
+                    value={values.expertise_areas1}
+                    onChangeText={handleChange('expertise_areas1')}
+                    onBlur={handleBlur('expertise_areas1')}
+                    error={errors.expertise_areas1}
+                    touched={touched.expertise_areas1}
+                  />
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
@@ -433,7 +441,7 @@ const styles = StyleSheet.create({
   loginButtonWrapper: {
     marginLeft: 10,
     marginTop: 18,
-	marginBottom:10,
+    marginBottom: 10,
   },
   loginButton: {
     width: '50%',
