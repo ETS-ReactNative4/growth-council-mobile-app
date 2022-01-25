@@ -13,6 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import YoutubePlayer from '../../../shared/youtube';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -151,35 +152,35 @@ const GrowthDetail = props => {
 
   const _renderMiddleItem = ({item, index}) => {
     return (
-		<View>
-			<TouchableOpacity onPress={() => navigation.navigate('coachingSession')}>
-			<View style={styles.middleWrapper}>
-				<View>
-					<Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>
-						{item.title}
-					</Text>
-					<Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
-						{item.text}
-					</Text>
-				</View>
-				<View
-				style={{
-					width: 30,
-					height: 50,
-					marginTop: 10,
-					backgroundColor: '#EBECF0',
-					borderRadius: 20,
-					marginLeft: 60,
-					padding: 5,
-					alignItems: 'center',
-				}}>
-				<Text style={{fontSize: 12}}>{item.date}</Text>
-				<Text style={{fontSize: 12}}>{item.month}</Text>
-				</View>
-			</View>
-			</TouchableOpacity>
-		</View>
-     
+      <View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('coachingSession')}>
+          <View style={styles.middleWrapper}>
+            <View>
+              <Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>
+                {item.title}
+              </Text>
+              <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
+                {item.text}
+              </Text>
+            </View>
+            <View
+              style={{
+                width: 30,
+                height: 50,
+                marginTop: 10,
+                backgroundColor: '#EBECF0',
+                borderRadius: 20,
+                marginLeft: 60,
+                padding: 5,
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 12}}>{item.date}</Text>
+              <Text style={{fontSize: 12}}>{item.month}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -196,15 +197,13 @@ const GrowthDetail = props => {
   ];
 
   const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videolink = link[1].split('&', 2);
+    console.log('videoLink === ', videolink);
     return (
-      <View style={styles.contentWrapper2}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: 20,
-          }}
-          source={item?.uri}></ImageBackground>
+      <View style={styles.ContentWrapper}>
+        <YoutubePlayer videoId={videolink[0]} />
       </View>
     );
   };
@@ -306,22 +305,26 @@ const GrowthDetail = props => {
                 }}>
                 Growth Leadership Coaching
               </Text>
-			  {poeEventLoading && (
-                                     <>
-                                         <View style={{
-                                             flex: 1,
-                                             alignItems: 'center',
-                                             flexDirection: 'column',
-                                             justifyContent: 'space-around',
-                                             position: 'absolute',
-                                             zIndex: 1011,
-                                             top: 120,
-                                             left: 150
-                                         }}>
-                                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
-                                         </View>
-                                     </>
-                                )}
+              {poeEventLoading && (
+                <>
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      justifyContent: 'space-around',
+                      position: 'absolute',
+                      zIndex: 1011,
+                      top: 120,
+                      left: 150,
+                    }}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               {/* <View style={styles.top}>
@@ -354,7 +357,7 @@ const GrowthDetail = props => {
                   />
                 </View>
               </View>
-              <View style={styles.learn}>
+              {/* <View style={styles.learn}>
                 <Text style={styles.title}>Self Learn</Text>
                 <View
                   style={{
@@ -368,7 +371,7 @@ const GrowthDetail = props => {
                     renderItem={_renderLearnItem}
                   />
                 </View>
-              </View>
+              </View> */}
 
               <View style={styles.bottom}>
                 <Text style={styles.title}> Members</Text>
@@ -392,7 +395,7 @@ const GrowthDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={pic}
+                    data={pillarMemberContents?.pillar_contents}
                     renderItem={_renderContentItem}
                   />
                 </View>
@@ -424,7 +427,6 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     height: 1400,
-
   },
   arrow: {
     marginTop: 30,
@@ -456,12 +458,12 @@ const styles = StyleSheet.create({
     borderTopWidth: 10,
     borderColor: Colors.COACHING_COLOR,
   },
-//   contentWrapper: {
-//     borderRadius: 18,
-//  backgroundColor:"red",
-//     overflow: 'scroll',
-//     marginTop: 10,
-//   },
+  //   contentWrapper: {
+  //     borderRadius: 18,
+  //  backgroundColor:"red",
+  //     overflow: 'scroll',
+  //     marginTop: 10,
+  //   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
