@@ -12,6 +12,7 @@ import {Button} from 'react-native-paper';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import moment from 'moment';
 import SearchBox from '../../../shared/form/SearchBar';
+import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -136,7 +137,11 @@ const Search = (props) => {
                     </View>
                 </View>
                 <View style={styles.events}>
-				
+				{searchLoading && (
+					<View style={styles.loading1}>
+					<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+					</View>
+				)}
                     <FlatList
                         showsHorizontalScrollIndicator={false}
                         data={searches.events_sessions}
@@ -300,6 +305,13 @@ const styles = StyleSheet.create({
 		shadowRadius: 3.84,
 	
 		elevation: 5,
+	  },
+	  loading1: {
+		marginLeft: 150,
+		flex: 1,
+		flexDirection: 'column',
+		position: 'absolute',
+		zIndex: 1011,
 	  },
 });
 
