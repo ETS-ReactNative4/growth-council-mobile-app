@@ -39,7 +39,9 @@ const signUpSchema = Yup.object().shape({
   title: Yup.string().required('Title is required.'),
   company: Yup.string().required('Company is required.'),
   country: Yup.string().required('Country is required.'),
-  checked: Yup.boolean().required('The terms and conditions'),
+  checked: Yup.boolean().required(
+    'Please agree to terms and conditon for signup.',
+  ),
 });
 
 const SignUpForm = props => {
@@ -329,7 +331,6 @@ const SignUpForm = props => {
       <ImageBackground
         source={require('../../../assets/img/splash-screen.png')}
         resizeMode="cover">
-
         <View style={{height: '15%'}} />
 
         <View style={styles.content}>
@@ -351,7 +352,7 @@ const SignUpForm = props => {
             <View style={styles.body}>
               <FlatTextInput
                 label="First Name *"
-				// mode='outlined'
+                // mode='outlined'
                 value={values.first_name}
                 onChangeText={handleChange('first_name')}
                 onFocus={handleBlur('first_name')}
@@ -359,9 +360,7 @@ const SignUpForm = props => {
                 touched={touched.first_name}
               />
               {errors.first_name && (
-                <Text style={styles.errorMessage}>
-                  {errors.first_name}
-                </Text>
+                <Text style={styles.errorMessage}>{errors.first_name}</Text>
               )}
 
               <FlatTextInput
@@ -374,9 +373,7 @@ const SignUpForm = props => {
               />
 
               {errors.last_name && (
-                <Text style={styles.errorMessage}>
-                  {errors.last_name}
-                </Text>
+                <Text style={styles.errorMessage}>{errors.last_name}</Text>
               )}
 
               <FlatTextInput
@@ -400,9 +397,7 @@ const SignUpForm = props => {
                 touched={touched.company}
               />
               {errors.company && (
-                <Text style={styles.errorMessage}>
-                  {errors.company}
-                </Text>
+                <Text style={styles.errorMessage}>{errors.company}</Text>
               )}
 
               <FlatTextInput
@@ -429,48 +424,58 @@ const SignUpForm = props => {
                 <Text style={styles.errorMessage}>{errors.email}</Text>
               )}
 
-			<Text style={{marginTop:20, color:'black'}}>Country  *</Text>
-			<View style={{ borderRadius: 5, borderWidth: 0.5, overflow: "hidden", height:50, marginTop:10, marginBottom:10 }}>
-				<Picker
-					selectedValue={country}
-					mode={'dropdown'}
-			
-					// onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
-					onValueChange={(itemValue, itemIndex) => {
-					setFieldValue('country', itemValue);
-					setCountry(itemValue);
-					}}>
-					<Picker.Item
-					label="Select Country"
-					value="country"
-					style={{fontSize: 12}}
-					/>
-					{countries.map((value, index) => {
-					return (
-						<Picker.Item
-						label={value}
-						value={value}
-						style={{fontSize: 12, }}
-						/>
-					);
-					})}
-				</Picker>
-			</View>
+              <Text style={{marginTop: 20, color: 'black'}}>Country *</Text>
+              <View
+                style={{
+                  borderRadius: 5,
+                  borderWidth: 0.5,
+                  overflow: 'hidden',
+                  height: 50,
+                  marginTop: 10,
+                  marginBottom: 10,
+                }}>
+                <Picker
+                  selectedValue={country}
+                  mode={'dropdown'}
+                  // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
+                  onValueChange={(itemValue, itemIndex) => {
+                    setFieldValue('country', itemValue);
+                    setCountry(itemValue);
+                    handleChange('country');
+                  }}>
+                  <Picker.Item label="Select Country" style={{fontSize: 12}} />
+                  {countries.map((value, index) => {
+                    return (
+                      <Picker.Item
+                        label={value}
+                        value={value}
+                        style={{fontSize: 12}}
+                      />
+                    );
+                  })}
+                </Picker>
+              </View>
+              {errors.country && (
+                <Text style={{fontSize: 10, color: 'red'}}>
+                  {errors.country}
+                </Text>
+              )}
 
-              <View style={{ paddingRight: 10}}>
+              <View style={{paddingRight: 10}}>
                 <CheckBox
                   label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
                   status={checked ? 'checked' : 'unchecked'}
+                  onChange={handleChange('checked')}
                   onPress={() => {
                     setChecked(!checked);
                   }}
                 />
-                {errors.checked && (
-                  <Text style={{fontSize: 10, color: 'red'}}>
-                    {errors.checked}
-                  </Text>
-                )}
               </View>
+              {errors.checked && (
+                <Text style={{fontSize: 10, color: 'red'}}>
+                  {errors.checked}
+                </Text>
+              )}
             </View>
 
             <View style={styles.loginButtonWrapper}>
@@ -523,7 +528,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   content: {
-	  height:"86%",
+    height: '86%',
     backgroundColor: 'white',
     borderRadius: 18,
     padding: 20,
@@ -588,11 +593,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1011,
   },
-  errorMessage:{
-	  fontSize:10,
-	   color:"red",
-	  marginLeft:20
-  }
+  errorMessage: {
+    fontSize: 10,
+    color: 'red',
+    marginLeft: 20,
+  },
 });
 
 export default SignUpForm;
