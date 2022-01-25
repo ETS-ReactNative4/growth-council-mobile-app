@@ -119,7 +119,7 @@ const EventCalendar = (props) => {
 							marginLeft: 10,
 							marginRight: 10,
 							fontSize: 17
-						}}>{time[0]}:{time[1]}</Text>
+						}}>{time[0]}:{time[1]}{time[2]}</Text>
 
 						<View style={styles.eventDetails}>
 							<View style={styles.eventInfo}>
