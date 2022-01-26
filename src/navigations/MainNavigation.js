@@ -38,6 +38,8 @@ import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
 import CoachingSessionDetailScreen from '../screens/coachingSession';
+import SelfLearnDetailScreen from '../screens/selfLearn';
+import PDFDetailScreen from '../screens/selfLearn/pdf';
 
 const Stack = createStackNavigator();
 
@@ -117,17 +119,6 @@ const MainNavigation = () => {
           })}
         />
         <Stack.Screen
-          name="Search"
-          component={SearchScreen}
-          options={({route, navigation}) => ({
-            headerTitle: '',
-            headerStyle: {height: 80},
-            headerTransparent: true,
-            ...TransitionPresets.RevealFromBottomAndroid,
-            gestureDirection: 'horizontal-inverted',
-          })}
-        />
-        <Stack.Screen
           name="Forgot"
           component={ForgotScreen}
           options={{
@@ -171,6 +162,20 @@ const MainNavigation = () => {
           component={CoachingSessionDetailScreen}
           options={{
             headerTitle: 'Session',
+          }}
+        />
+		<Stack.Screen
+          name="selflearn"
+          component={SelfLearnDetailScreen}
+          options={{
+            headerTitle: 'Self Learn',
+          }}
+        />
+		<Stack.Screen
+          name="pdf"
+          component={PDFDetailScreen}
+          options={{
+            headerTitle: 'Self Learn',
           }}
         />
         <Stack.Screen

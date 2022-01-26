@@ -14,19 +14,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
+import {useToast} from 'native-base';
 
-import {CommonStyles, Colors, Typography} from '../../../theme';
+import {Colors, Typography} from '../../../theme';
 import ToastMessage from "../../../shared/toast";
 
 const People = (props) => {
 
     const {
         navigation,
-        connection,
-        connectionLoading,
-        connectionError,
-        fetchAllConnection,
-        cleanConnection,
+        users,
+        userLoading,
+        userError,
+        fetchAllUsers,
+        cleanUser,
 
         memberConnections,
         memberConnectionLoading,
@@ -35,22 +36,34 @@ const People = (props) => {
         cleanConnectMember
     } = props;
 
+    const toast = useToast();
+
     const [category, setCategory] = useState("Category");
-    const [memberConnection, setMemberConnection] = useState(connection?.connection);
+    const [searchKey, setSearchKey] = useState('');
+    const [sorting, setSorting] = useState('ASC');
+    const [memberConnection, setMemberConnection] = useState([]);
 
     useEffect(() => {
-        const fetchAllConnectionAsync = async () => {
-            await fetchAllConnection();
+        const fetchAllUsersAsync = async () => {
+            await fetchAllUsers({s: searchKey, sort: sorting});
         };
-        fetchAllConnectionAsync();
+        fetchAllUsersAsync();
+        setMemberConnection(users);
     }, []);
 
-    const connectMemberByMemberID = async (memberID) => {
+    const connectMemberByMemberID = async (memberID, index) => {
         const response = await connectMemberByIdentifier({member_id: memberID});
         if (response?.payload?.status === 200) {
-            setMemberConnection(true);
+
+            let items = [...memberConnection];
+            let item = {...items[index]};
+            item.connection = true;
+            items[index] = item;
+            setMemberConnection(items);
+
             ToastMessage.show('You have successfully connected.');
         } else {
+            toast.closeAll();
             ToastMessage.show(response?.payload?.response);
         }
     };
@@ -58,34 +71,34 @@ const People = (props) => {
     const _renderItem = ({item, index}) => {
 
         return (
-            <View style={[styles.wrapper, styles.shadowProp]}>
+            <View style={[styles.wrapper, styles.shadowProp]} key={index}>
                 <Image source={{uri: item.avatar}}
                        style={{
-                           width: 68,
-                           height: 68,
+                           width: 66,
+                           height: 66,
                            margin: 8,
                            borderRadius: 8,
                        }}
                 />
                 <View style={{margin: 10, width: '55%'}}>
-                    <Text style={{fontSize: 18, fontWeight: "bold"}}>{item?.display_name}</Text>
-                    <Text style={{fontSize: 16}}>{item?.title}</Text>
-                    <Text style={{fontSize: 14}}>{item?.company}</Text>
+                    <Text style={{fontSize: 14, fontFamily:Typography.FONT_SF_REGULAR, color:'black'}}>{item?.display_name}</Text>
+                    <Text style={{fontSize: 12, color:'#77838F'}}>{item?.user_email}</Text>
+                    <Text style={{fontSize: 12,color:'#77838F'}}>{item?.company}</Text>
                 </View>
-                {!memberConnection &&
-                <TouchableOpacity onPress={() => connectMemberByMemberID(item.id)}>
+                {!memberConnection[index]?.connection &&
+                <TouchableOpacity onPress={() => connectMemberByMemberID(item.ID, index)}>
                     <Feather
                         name='plus-circle'
-                        size={30}
+                        size={25}
                         color='skyblue'
                         style={{marginTop: 25}}
                     />
                 </TouchableOpacity>
                 }
-                {memberConnection &&
+                {memberConnection[index]?.connection &&
                 <Feather
                     name='check-circle'
-                    size={30}
+                    size={25}
                     color='skyblue'
                     style={{marginTop: 25}}
                 />
@@ -104,58 +117,71 @@ const People = (props) => {
                         style={styles.input}
                         placeholder="Search"
                         keyboardType="text"
+                        value={searchKey}
+                        onChangeText={async (text) => {
+                            setSearchKey(text);
+                            await fetchAllUsers({s: text, sort: sorting});
+                        }}
                     />
                     <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#000'} size={30} style={{marginLeft: 10, marginTop: 10}}/>
+                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/>
 
                 </View>
-                <View style={{display: 'flex', flexDirection: 'row', height: 48, marginTop: 16}}>
-
-
-                    <View style={{borderRightWidth: 0.2, borderColor: '#707070'}}>
-                        <Picker
-                            selectedValue={category}
-                            mode={'dropdown'}
-                            style={{height: 30, width: 170,}}
-                            onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-                        >
-                            <Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>
-                            <Picker.Item label="Kathmandu" value="kathmandu"/>
-                            <Picker.Item label="Bhaktapur" value="bhaktapur"/>
-                        </Picker>
-                    </View>
+                <View style={styles.iconWrapper}>
+                    {/*<View style={{borderRightWidth: 0.2, borderColor: '#707070'}}>*/}
+                    {/*<Picker*/}
+                    {/*selectedValue={category}*/}
+                    {/*mode={'dropdown'}*/}
+                    {/*style={{height: 30, width: 170,}}*/}
+                    {/*onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}*/}
+                    {/*>*/}
+                    {/*<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>*/}
+                    {/*<Picker.Item label="Kathmandu" value="kathmandu"/>*/}
+                    {/*<Picker.Item label="Bhaktapur" value="bhaktapur"/>*/}
+                    {/*</Picker>*/}
+                    {/*</View>*/}
 
                     <View
-                        style={{borderRightWidth: 0.2, borderColor: '#707070', display: 'flex', flexDirection: 'row'}}>
+                        style={[styles.icon,{borderRightWidth: 0.2}]}>
                         <Ionicons
                             name='arrow-up'
                             size={20}
                             color='#d7d7d7'
-                            style={{marginTop: 20}}
+                            style={{marginTop: 15, }}
+                            onPress={async () => {
+                                setSorting('DESC');
+                                await fetchAllUsers({s: searchKey, sort: 'DESC'});
+                            }}
                         />
                         <Ionicons
                             name='arrow-down'
                             size={20}
                             color='#d7d7d7'
-                            style={{marginTop: 20}}
+                            style={{marginTop: 15}}
+                            onPress={async () => {
+                                setSorting('ASC');
+                                await fetchAllUsers({s: searchKey, sort: 'ASC'});
+                            }}
                         />
-                        <Text style={{marginTop: 20, marginRight: 40}}>Sort</Text>
+                        <Text style={styles.textWrapper}>Sort</Text>
                     </View>
 
-
-                    <Font
-                        name='filter'
-                        size={20}
-                        color='#d7d7d7'
-                        style={{marginTop: 20, marginLeft: 20}}
-                    />
-                    <Text style={{marginTop: 20, marginLeft: 10}}>Filter</Text>
+					<View style={styles.icon}>
+						<Font
+							name='filter'
+							size={20}
+							color='#7E7F84'
+							style={{marginTop: 15, marginRight:10}}
+						/>
+						<Text style={styles.textWrapper}>Filter</Text>
+					</View>
+                  
                 </View>
                 <View style={{marginTop: 30}}>
                     <FlatList
                         vertical
                         showsVerticalScrollIndicator={false}
-                        data={connection}
+                        data={users}
                         renderItem={_renderItem}/>
                 </View>
 
@@ -197,6 +223,26 @@ const styles = StyleSheet.create({
         margin: 10,
         borderRadius: 10,
     },
+	iconWrapper:{
+		display: 'flex',
+		flexDirection: 'row',
+		height: 48,
+		justifyContent:'center',
+		alignContent:'center',
+		
+	},
+	icon:{
+		width:"50%",
+		borderColor: '#707070',
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent:'center',
+		 alignContent:'center'
+	},
+	textWrapper:{
+		marginTop: 15, 
+		fontSize:14
+	},
     shadowProp: {
         shadowColor: "#000",
         shadowOffset: {

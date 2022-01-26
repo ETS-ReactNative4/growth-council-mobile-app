@@ -42,7 +42,7 @@ const BottomTabNavigation = ({navigation}) => {
             />
 
             <Tab.Screen
-                name="Option"
+                name="Search"
                 component={SearchScreen}
                 options={{
                     tabBarLabel: 'Search',
@@ -54,6 +54,7 @@ const BottomTabNavigation = ({navigation}) => {
                         </View>
                     ),
                     tabBarVisible: true,
+				
                 }}
             />
             <Tab.Screen

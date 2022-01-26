@@ -19,12 +19,15 @@ const HeaderRight = ({navigation}) => {
 
   return (
     <View style={{display: 'flex', flexDirection: 'row', marginLeft:5}}>
-      <Ionicons
-        name="search-outline"
-        color={'white'}
-        size={30}
-        style={{marginTop: 15, marginRight: 15}}
-      />
+		<TouchableOpacity onPress={() => navigation.navigate('Search')}>
+			<Ionicons
+				name="search-outline"
+				color={'white'}
+				size={30}
+				style={{marginTop: 15, marginRight: 15}}
+			/>
+		</TouchableOpacity>
+     
       <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
         <Image
           //source={require('../assets/img/small_profile_image.png')}
