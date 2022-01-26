@@ -38,13 +38,14 @@ const DashboardScreen = props => {
     let content = pillarSliders.flatMap((value, key) => {
       return value?.pillar_contents;
     });
-    console.log({content});
+    setContentSlider(content);
   }, [pillarSliders]);
 
   /**
    * Fetch all upcoming events data.
    *
    */
+
   const fetchAllUpcomingEvent = () => {
     dispatch(fetchAllUpcomingEvents());
   };
@@ -103,6 +104,7 @@ const DashboardScreen = props => {
       pillarSliderError={pillarSliderError}
       fetchAllPillarSlider={fetchAllPillarSlider}
       cleanPillarSlider={cleanPillarSlider}
+      contentSlider={contentSlider}
     />
   );
 };

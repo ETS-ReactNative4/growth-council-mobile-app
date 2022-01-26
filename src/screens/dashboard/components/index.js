@@ -53,6 +53,7 @@ const Dashboard = props => {
     pillarEventError,
     fetchAllPillarEvent,
     cleanPillarEvent,
+    contentSlider,
   } = props;
 
   useEffect(() => {
@@ -208,12 +209,18 @@ const Dashboard = props => {
   ];
 
   const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videolink = link[1].split('&', 2);
+    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId="9dEo9FTYDeM" />
+        <YoutubePlayer videoId={videolink[0]} />
       </View>
     );
   };
+
+  console.log({contentSlider});
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -313,7 +320,7 @@ const Dashboard = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={pic}
+              data={contentSlider}
               renderItem={_renderContentItem}
             />
           </View>
