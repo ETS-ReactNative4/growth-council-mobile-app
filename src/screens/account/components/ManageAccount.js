@@ -16,6 +16,7 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
@@ -168,6 +169,7 @@ const ManageAccount = props => {
               <Text>{profile.user_email}</Text>
             </View>
           </View>
+          npm
         </View>
 
         <View style={styles.container}>
