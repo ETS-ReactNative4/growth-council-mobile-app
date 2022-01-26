@@ -73,16 +73,10 @@ const Search = (props) => {
 	};
 	
 	
-	const searchTags = [
-		'Growth Coaching',
-		'Best Practices',
-		'Artifical Intelligence'
-	];
-	
 	const searchTag = ({item, index}) => {
 		return (
 			<Button style={[styles.searchTagBtn, styles.shadowProp]}>
-				<Text style={styles.searchTabBtnText}>{item}</Text>
+				<Text style={styles.searchTabBtnText}>{item.name}</Text>
 			</Button>
 		);
 	};
@@ -107,9 +101,9 @@ const Search = (props) => {
         <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
             <View style={styles.container}>
                 <ImageBackground
-                    style={{width: '100%', height: 130}}
+                    style={{width: '100%', height: 100}}
                     source={require('../../../assets/img/search_back_image.png')}>
-                    <View style={{alignItems: 'center', justifyContent: 'center', marginTop:30}}>
+                    <View style={{alignItems: 'center', justifyContent: 'center',}}>
                         <SearchBox searchEventsByIdentifier={searchEventsByIdentifier}/>
                     </View>
                 </ImageBackground>
