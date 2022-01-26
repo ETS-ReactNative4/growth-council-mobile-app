@@ -9,15 +9,14 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-
-import SelfAssessment from './selfAssessment';
-import SessionAbout from './sessionAbout';
+import SelfAbout from './selfAbout';
+import SelfAssessment from '../../coachingSession/component/selfAssessment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 
-const CoachingSession = props => {
+const SelfLearn = props => {
     const {
         navigation,
         route,
@@ -39,7 +38,7 @@ const CoachingSession = props => {
                     
                     <View>
                         <View style={[styles.content, {height: 'auto'}]}>
-							<View style={{display:'flex', flexDirection:'row'}}>
+							<View style={{display:'flex', flexDirection:'row', padding:15}}>
 								<View style={styles.buttonWrapper}>
 									<ButtonToggleGroup
 										highlightBackgroundColor={'white'}
@@ -56,14 +55,14 @@ const CoachingSession = props => {
 								<Ionicons name={'menu'} size={35} color={'black'} style={{marginLeft:15}}/>
 							</View>
 
-							<View style={{marginTop:32}}>
+							<View style={{marginTop:15}}>
 							{value === 'About' &&
-								<SessionAbout  
-								{...props}/>
+								<SelfAbout/>
                             }
                             {value === 'Self Assessment' &&
-								<SelfAssessment
-								{...props}/>
+								<View>
+									<SelfAssessment/>
+								</View>
                             }
 							</View>
 							
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         borderRadius: 20,
-        padding: 20,
 		borderTopStartRadius:20,
     },
     headingText1: {
@@ -229,6 +227,7 @@ const styles = StyleSheet.create({
         height: 40,
         backgroundColor: "#ECECEC",
         borderRadius: 15,
+		
     },
 });
-export default CoachingSession;
+export default SelfLearn;
