@@ -6,7 +6,8 @@ import {
     ImageBackground,
     ScrollView,
     FlatList,
-	TouchableOpacity
+	TouchableOpacity,
+	Image
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Font from 'react-native-vector-icons/FontAwesome5';
@@ -34,12 +35,24 @@ const Search = (props) => {
 	
 		const actualDate = moment(item.event_start).format('ll').split(',', 3);
 		const date = actualDate[0].split(' ', 3);
+
+		let backgroundColor = Colors.COMMUNITY_COLOR;
+		switch (item?.pillar_categories[0]?.slug) {
+		case 'growth-community':
+			backgroundColor = Colors.COMMUNITY_COLOR;
+			break;
+		case 'basic-practices':
+			backgroundColor = Colors.PRACTICE_COLOR;
+			break;
+		case 'growth-coaching':
+			backgroundColor =Colors.COACHING_COLOR ;
+		}
 		return (
 			<View>
 				<TouchableOpacity
 					onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
 					<View style={[styles.eventCard, styles.shadowProp]} key={index}>
-						<View style={styles.eventTheme}/>
+						<View style={[styles.eventTheme,{backgroundColor:backgroundColor}]}/>
 						<View style={styles.eventDetails}>
 							<View style={styles.eventInfo}>
 								<Text style={styles.evnetTitle}>{item?.title}</Text>
@@ -60,46 +73,26 @@ const Search = (props) => {
 	};
 	
 	
-	const searchTags = [
-		'Growth Coaching',
-		'Best Practices',
-		'Artifical Intelligence'
-	];
-	
 	const searchTag = ({item, index}) => {
 		return (
 			<Button style={[styles.searchTagBtn, styles.shadowProp]}>
-				<Text style={styles.searchTabBtnText}>{item}</Text>
+				<Text style={styles.searchTabBtnText}>{item.name}</Text>
 			</Button>
 		);
 	};
 	
-	const data1 = [
-		{
-			icon: 'brain',
-			text: 'Executive MindChange',
-		},
-		{
-			icon: 'location-arrow',
-			text: 'Megatrends Workshop',
-		},
-		{
-			icon: 'brain',
-			text: 'Executive MindChange',
-		},
-		{
-			icon: 'location-arrow',
-			text: 'Megatrends Workshop',
-		},
-	];
+
 	
 	const _renderMiddleItem = ({item, index}) => {
 		return (
 			<View style={styles.middleWrapper}>
 				<View style={[styles.middleW, styles.shadowProp]}>
-					<Font name={item.icon} size={30} color="skyblue"/>
+				<Image
+					source={{uri: item?.image}}
+					style={{width: 30, height: 30}}
+            	/>
 				</View>
-				<Text style={{marginTop: 8,fontSize:12 }}>{item.text}</Text>
+				<Text style={{marginTop: 8,fontSize:10 }}>{item?.name}</Text>
 			</View>
 		);
 	};
@@ -110,7 +103,7 @@ const Search = (props) => {
                 <ImageBackground
                     style={{width: '100%', height: 100}}
                     source={require('../../../assets/img/search_back_image.png')}>
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <View style={{alignItems: 'center', justifyContent: 'center',}}>
                         <SearchBox searchEventsByIdentifier={searchEventsByIdentifier}/>
                     </View>
                 </ImageBackground>
@@ -119,7 +112,7 @@ const Search = (props) => {
                     <FlatList
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        data={searchTags}
+                        data={searches.pillars}
                         renderItem={searchTag}
                     />
                 </View>
@@ -131,7 +124,7 @@ const Search = (props) => {
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={data1}
+                            data={searches.poes}
                             renderItem={_renderMiddleItem}
                         />
                     </View>
@@ -190,9 +183,9 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     middle: {
-		height: 140,
+
         marginLeft: 10,
-        marginTop: 15,
+        marginTop: 5,
 	
     },
     middleWrapper: {
