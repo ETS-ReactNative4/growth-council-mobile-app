@@ -20,8 +20,12 @@ import PDF from './pdf';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+
 const selfAbout = props => {
-	const [pdf, setpdf] = useState(false);
+	const{
+		navigation,
+	}=props
+	
   return (
 	  <ScrollView>
 		<View style={styles.container}>
@@ -45,14 +49,15 @@ const selfAbout = props => {
 						<Text style={{fontSize:10, marginTop:15, color:"#77838F"}}>Prime yourself to become an insanely great leader</Text>
 					</View>
 
-					{!pdf && (
+						<TouchableOpacity onPress={() => navigation.navigate('pdf')}>
 						<Button 
-						style={styles.buttonWrapper}
-						onPress={() => setpdf(!pdf)}>
+						style={styles.buttonWrapper}>
 						<Text style={{color:"white", fontSize:11}} >Read E-Book</Text>
 						</Button>
-					)}
-					{pdf && <PDF {...props}/>}
+						</TouchableOpacity>
+						
+					
+					
 					
 				</View>
 			</View>
