@@ -75,9 +75,9 @@ const Search = (props) => {
 	
 	const searchTag = ({item, index}) => {
 		return (
-			<Button style={[styles.searchTagBtn, styles.shadowProp]}>
+			<View style={[styles.searchTagBtn, styles.shadowProp]}>
 				<Text style={styles.searchTabBtnText}>{item.name}</Text>
-			</Button>
+			</View>
 		);
 	};
 	
@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
 		marginTop:5,
 		marginBottom:5,
 		marginRight:10,
+		padding:15,
     },
     searchTabBtnText: {
         color: '#060606',

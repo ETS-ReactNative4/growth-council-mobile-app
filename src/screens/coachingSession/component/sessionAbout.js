@@ -28,11 +28,11 @@ const sessionAbout = props => {
 
 	const data= [
 		{
-		  icon:'medikit',
+		  icon:'medkit-sharp',
 		  name:'Trait 1'
 		},
 		{
-		  icon:'medikit',
+		  icon:'medkit-sharp',
 		  name:'Trait 2'
 		},
 	  ];
@@ -44,7 +44,7 @@ const sessionAbout = props => {
 						<View style={styles.traitWrapper}>							
 							<View style={styles.traitW}>
 								<Ionicons
-									name={{uri:item.icon}}
+									name={"medkit-sharp"}
 									size={30}
 									color={'#A1BA68'}
 								/>
