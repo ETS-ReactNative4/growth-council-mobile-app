@@ -7,7 +7,8 @@ import {
     ScrollView,
     ImageBackground,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+	FlatList,
 } from 'react-native';
 import {Button} from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
@@ -19,7 +20,42 @@ import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const sessionAbout = () => {
+
+const sessionAbout = props => {
+	const{
+		navigation,
+	 }= props;
+
+	const data= [
+		{
+		  icon:'medikit',
+		  name:'Trait 1'
+		},
+		{
+		  icon:'medikit',
+		  name:'Trait 2'
+		},
+	  ];
+
+	const _renderItem = ({item, index}, navigation) => {
+		return (
+			<View>
+				<TouchableOpacity onPress={() => navigation.navigate('selflearn')}>
+						<View style={styles.traitWrapper}>							
+							<View style={styles.traitW}>
+								<Ionicons
+									name={{uri:item.icon}}
+									size={30}
+									color={'#A1BA68'}
+								/>
+							</View>
+
+							<Text style={{ padding:20}}>{item.name}</Text>
+						</View>
+				</TouchableOpacity>
+			</View>
+		);
+	};
   return (
 	<View>
 		<View style={{height: 150, flexDirection: 'column'}}>
@@ -127,58 +163,13 @@ const sessionAbout = () => {
 				<Text style={styles.contentHeading}>Traits</Text>
 			</View>
 									
-			<View style={{display:'flex', flexDirection:'row'}}>
-				<View style={{
-						paddingTop: 5,
-						paddingBottom: 5,
-						flexDirection: 'row',}}>
-													
-					<View style={{
-						height: 60,
-						width: 60,
-						borderRadius: 15,
-						justifyContent: 'center',
-						alignItems: 'center',
-						backgroundColor:'white',
-						borderWidth:0.3
-					}}>
-						<Ionicons
-							name={'medkit'}
-							size={30}
-							color={'#A1BA68'}
-						/>
-					</View>
-
-					<Text style={{ padding:20}}>Trait 1</Text>
-				</View>
-
-				<View 
-					style={{
-						paddingTop: 5,
-						paddingBottom: 5,
-						flexDirection: 'row',}}>
-
-							<View
-							style={{
-							
-								height: 60,
-								width: 60,
-								borderRadius: 15,
-								justifyContent: 'center',
-								alignItems: 'center',
-								backgroundColor:'white',
-								borderWidth:0.3
-							}}>
-							<Ionicons
-								name={'medkit'}
-								size={30}
-								color={'#A1BA68'}
-							/>
-						</View>
-
-						<Text style={{padding:20}}>Trait 2</Text>
-						</View>
-					</View>
+			<FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={data}
+					renderItem={item => _renderItem(item, navigation)}
+                  />
+				
 									
 		</View>
 								
@@ -398,6 +389,20 @@ const styles = StyleSheet.create({
         backgroundColor: "#ECECEC",
         borderRadius: 15,
     },
+	traitWrapper:{
+		paddingTop: 5,
+		paddingBottom: 5,
+		flexDirection: 'row',
+	},
+	traitW:{
+		height: 60,
+		width: 60,
+		borderRadius: 15,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor:'white',
+		borderWidth:0.3
+	}
 });
 
 export default sessionAbout;
