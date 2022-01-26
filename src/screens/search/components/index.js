@@ -35,12 +35,24 @@ const Search = (props) => {
 	
 		const actualDate = moment(item.event_start).format('ll').split(',', 3);
 		const date = actualDate[0].split(' ', 3);
+
+		let backgroundColor = Colors.COMMUNITY_COLOR;
+		switch (item?.pillar_categories[0]?.slug) {
+		case 'growth-community':
+			backgroundColor = Colors.COMMUNITY_COLOR;
+			break;
+		case 'basic-practices':
+			backgroundColor = Colors.PRACTICE_COLOR;
+			break;
+		case 'growth-coaching':
+			backgroundColor =Colors.COACHING_COLOR ;
+		}
 		return (
 			<View>
 				<TouchableOpacity
 					onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
 					<View style={[styles.eventCard, styles.shadowProp]} key={index}>
-						<View style={styles.eventTheme}/>
+						<View style={[styles.eventTheme,{backgroundColor:backgroundColor}]}/>
 						<View style={styles.eventDetails}>
 							<View style={styles.eventInfo}>
 								<Text style={styles.evnetTitle}>{item?.title}</Text>
@@ -75,24 +87,7 @@ const Search = (props) => {
 		);
 	};
 	
-	const data1 = [
-		{
-			icon: 'brain',
-			name: 'Executive MindChange',
-		},
-		{
-			icon: 'location-arrow',
-			name: 'Megatrends Workshop',
-		},
-		{
-			icon: 'brain',
-			name: 'Executive MindChange',
-		},
-		{
-			icon: 'location-arrow',
-			name: 'Megatrends Workshop',
-		},
-	];
+
 	
 	const _renderMiddleItem = ({item, index}) => {
 		return (
@@ -103,7 +98,7 @@ const Search = (props) => {
 					style={{width: 30, height: 30}}
             	/>
 				</View>
-				<Text style={{marginTop: 8,fontSize:12 }}>{item?.name}</Text>
+				<Text style={{marginTop: 8,fontSize:10 }}>{item?.name}</Text>
 			</View>
 		);
 	};
@@ -112,9 +107,9 @@ const Search = (props) => {
         <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
             <View style={styles.container}>
                 <ImageBackground
-                    style={{width: '100%', height: 100}}
+                    style={{width: '100%', height: 130}}
                     source={require('../../../assets/img/search_back_image.png')}>
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <View style={{alignItems: 'center', justifyContent: 'center', marginTop:30}}>
                         <SearchBox searchEventsByIdentifier={searchEventsByIdentifier}/>
                     </View>
                 </ImageBackground>
@@ -194,9 +189,9 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     middle: {
-	
+
         marginLeft: 10,
-        marginTop: 15,
+        marginTop: 5,
 	
     },
     middleWrapper: {
