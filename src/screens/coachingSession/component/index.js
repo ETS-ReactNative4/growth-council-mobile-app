@@ -89,38 +89,38 @@ const CoachingSession = props => {
 												<View style={[styles.traitW, styles.shadowProp]}>
 													<Ionicons
 														name={'medkit-sharp'}
-														size={30}
+														size={20}
 														color={'#A1BA68'}
 													/>
 												</View>
 
-												<Text style={{ padding:20}}>Traits 1</Text>
+												<Text style={{ padding:10, fontSize:12}}>Traits 1</Text>
 											</View>
 											<View 
 											style={{flexDirection: 'row',}}>
-												<Text style={{marginTop:20}}>Score</Text>
-												<View style={{width:60, height:30, marginLeft:5,backgroundColor:"orange", borderRadius:50,padding:5, marginTop:15, alignItems:"center"}}>
-													<Text >2.0</Text>
+												<Text style={{marginTop:15,fontSize:12}}>Score</Text>
+												<View style={{width:40, height:30, marginLeft:5,backgroundColor:"orange", borderRadius:50,padding:5, marginTop:10, alignItems:"center"}}>
+													<Text style={{fontSize:12}}>2.0</Text>
 												</View>
 											</View>
 											
 										</View>
 
-										<View style={{marginTop:10, }}>
+										<View style={{marginTop:10,marginLeft:50}}>
 											<View style={[styles.textStyle, styles.shadowProp]}>
-												<Text>Sub Traits 1</Text>
+												<Text style={{fontSize:12}}>Sub Traits 1</Text>
 												<Ionicons
 														name={'checkmark-outline'}
-														size={25}
+														size={20}
 														color={'#A1BA68'}
 													/>
 												
 											</View>
 											<View style={[styles.textStyle, styles.shadowProp]}>
-												<Text>Sub Traits 2</Text>
+												<Text style={{fontSize:12}}>Sub Traits 2</Text>
 											</View>
 											<View style={[styles.textStyle, styles.shadowProp]}>
-												<Text>Sub Traits 3</Text>
+												<Text style={{fontSize:12}}>Sub Traits 3</Text>
 											</View>
 										</View>
 
@@ -130,27 +130,25 @@ const CoachingSession = props => {
 												<View style={[styles.traitW, styles.shadowProp]}>
 													<Ionicons
 														name={'medkit-sharp'}
-														size={30}
+														size={20}
 														color={'#A1BA68'}
 													/>
 												</View>
 
-												<Text style={{ padding:20}}>Traits 2</Text>
+												<Text style={{ padding:10, fontSize:12}}>Traits 2</Text>
 											</View>
-											
-											
 										</View>
 									
 
-										<View style={{marginTop:10, marginBottom:20}}>
+										<View style={{marginTop:10, marginBottom:20,marginLeft:50}}>
 												<View style={[styles.textStyle, styles.shadowProp]}>
-													<Text>Sub Traits 4</Text>
+													<Text style={{fontSize:12}}>Sub Traits 4</Text>
 												</View>
 												<View style={[styles.textStyle, styles.shadowProp]}>
-													<Text>Sub Traits 5</Text>
+													<Text style={{fontSize:12}}>Sub Traits 5</Text>
 												</View>
 												<View style={[styles.textStyle, styles.shadowProp]}>
-													<Text>Sub Traits 6</Text>
+													<Text style={{fontSize:12}}>Sub Traits 6</Text>
 												</View>
 										</View>
 										
@@ -366,8 +364,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	traitW:{
-		height: 60,
-		width: 60,
+		height: 50,
+		width: 50,
 		borderRadius: 15,
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -382,6 +380,7 @@ const styles = StyleSheet.create({
 		padding:10,
 		shadowColor: "#000",
 		marginTop:110,
+		marginLeft:80,
 		shadowOffset: {
 		  width: 0,
 		  height: 2
@@ -407,7 +406,7 @@ const styles = StyleSheet.create({
 		textAlign: "center"
 	  },
 	  textStyle:{
-		width:220, 
+		width:178, 
 		backgroundColor: '#ffff',
         height: 40,
         borderRadius: 10,
