@@ -1,20 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     StyleSheet,
     View,
     Text,
-<<<<<<< HEAD
-} from 'react-native';
-
-import {CommonStyles, Colors} from '../../../theme';
-
-const People = ({navigation}) => {
-
-    return (
-        <View style={styles.container}>
-            <View>
-                <Text>People</Text>
-=======
     ScrollView,
     TextInput,
     Image,
@@ -205,19 +193,14 @@ const People = (props) => {
                     source={require('../../../assets/img/fristDigi.png')}
                     style={{width: "100%", height: 20}}
                 />
->>>>>>> qa
             </View>
-        </View>
+        </ScrollView>
+
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-<<<<<<< HEAD
-        ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-    },
-=======
         // ...CommonStyles.container,
         backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         flex: 1,
@@ -271,7 +254,6 @@ const styles = StyleSheet.create({
 
         elevation: 5,
     },
->>>>>>> qa
 });
 
 export default People;

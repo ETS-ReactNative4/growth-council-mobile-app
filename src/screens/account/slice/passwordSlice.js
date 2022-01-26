@@ -7,18 +7,18 @@ export const updateCustomerByID = createAsyncThunk(
     (formData, {rejectWithValue}) => {
         const {...fields} = formData;
         return update(`jwt-auth/v1/change-password`, fields)
-            .then(response => response.data)
-            .catch(error => rejectWithValue(error?.response?.data || error));
+		.then(response => response.data)
+		.catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 
 const passwordSlice = createSlice({
     name: 'password',
     initialState: {
-        entities:[],
-        loading: false,
-        error: null,
-    },
+		entities:[], 
+		loading: false, 
+		error: null,
+	},
     reducers: {
         resetCustomerPassword: (state) => {
             state.entities = [];

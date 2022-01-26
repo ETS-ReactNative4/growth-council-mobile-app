@@ -3,9 +3,6 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import CouncilDetail from './components/CouncilDetail';
 
-<<<<<<< HEAD
-import {fetchPillarByID, resetPillar} from './pillarSlice';
-=======
 import {fetchPillarByID, resetPillar} from './slice/pillarSlice';
 import {
   fetchUpcomingEventsByID,
@@ -14,7 +11,6 @@ import {
 
 const CouncilDetailScreen = props => {
   const dispatch = useDispatch();
->>>>>>> qa
 
   const {pillars, pillarLoading, pillarError} = useSelector(
     state => state.pillars,
@@ -31,9 +27,6 @@ const CouncilDetailScreen = props => {
     dispatch(fetchPillarByID(identifier));
   };
 
-<<<<<<< HEAD
-    const {pillars, pillarLoading, pillarError} = useSelector((state) => state.pillars);
-=======
   /**
    * Fetch upcoming events data.
    * @param {string} identifier
@@ -42,7 +35,6 @@ const CouncilDetailScreen = props => {
   const fetchUpcomingEventsByIdentifier = identifier => {
     dispatch(fetchUpcomingEventsByID(identifier));
   };
->>>>>>> qa
 
   /**
    * Clear pillar data.
@@ -52,26 +44,6 @@ const CouncilDetailScreen = props => {
     dispatch(resetPillar());
   };
 
-<<<<<<< HEAD
-    /**
-     * Clear pillar data.
-     *
-     */
-    const cleanPillar = () => {
-        dispatch(resetPillar());
-    };
-
-    return (
-        <CouncilDetail
-            {...props}
-            pillars={pillars}
-            pillarLoading={pillarLoading}
-            pillarError={pillarError}
-            fetchPillarByIdentifier={fetchPillarByIdentifier}
-            cleanPillar={cleanPillar}
-        />
-    );
-=======
   /**
    * Clear upcoming event data.
    *
@@ -95,7 +67,6 @@ const CouncilDetailScreen = props => {
       cleanUpcomingEvent={cleanUpcomingEvent}
     />
   );
->>>>>>> qa
 };
 
 export default CouncilDetailScreen;

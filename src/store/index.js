@@ -13,24 +13,15 @@ import {
 import {configureStore} from '@reduxjs/toolkit';
 
 import authReducer from '../screens/auth/authSlice';
-<<<<<<< HEAD
-import profileReducer from '../screens/account/profileSlice';
-import passwordReducer from '../screens/setting/passwordSlice';
-import upcomingEventReducer from '../screens/dashboard/slice/upcomingEventSlice';
-=======
 
 import userReducer from '../screens/account/slice/userSlice';
 import passwordReducer from '../screens/account/slice/passwordSlice';
 
->>>>>>> qa
 import pointOfEngagementReducer from '../screens/dashboard/slice/pointOfEngagementSlice';
 import pillarPOEReducer from '../screens/dashboard/slice/pillarPOESlice';
 
 import communityMemberReducer from '../screens/dashboard/slice/communityMemberSlice';
 
-<<<<<<< HEAD
-import eventReducer from '../screens/event/eventSlice';
-=======
 import aboutReducer from '../screens/about/slice/aboutSlice';
 import feedbackReducer from '../screens/feedback/slice/feedbackSlice';
 import ideaReducer from '../screens/ideas/slice/ideaSlice';
@@ -60,10 +51,11 @@ import poeEventListReducer from '../screens/details/slice/poeEventListSlice';
 import pillarMembersContentsReducer from '../screens/details/slice/pillarMembersContentsSlice';
 
 import sessionDetailReducer from '../screens/details/slice/sesssionDetailSlice';
->>>>>>> qa
 
-import pillarReducer from '../screens/home/pillarSlice';
-import pillarSliderReducer from '../screens/home/pillarSliderSlice';
+import upcomingEventReducer from '../screens/home/slice/upcomingEventSlice';
+import detailReducer from '../screens/home/slice/detailSlice';
+import pillarReducer from '../screens/home/slice/pillarSlice';
+import pillarSliderReducer from '../screens/home/slice/pillarSliderSlice';
 
 import sessionReducer from '../screens/sessions/slice/sessionSlice';
 import sessionRegisterReducer from '../screens/sessions/slice/sessionRegister';
@@ -80,16 +72,6 @@ const persistConfig = {
 
 const reducers = combineReducers({
     auth: authReducer,
-<<<<<<< HEAD
-    profile: profileReducer,
-    password: passwordReducer,
-    upcomingEvents: upcomingEventReducer,
-    pointOfEngagements: pointOfEngagementReducer,
-    communityMembers: communityMemberReducer,
-    events: eventReducer,
-    pillars: pillarReducer,
-    pillarSliders: pillarSliderReducer,
-=======
     users: userReducer,
     password: passwordReducer,
     upcomingEvents: upcomingEventReducer,
@@ -128,18 +110,13 @@ const reducers = combineReducers({
 
     calendarEvents: calendarEventReducer,
     searches: searchReducer,
->>>>>>> qa
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
     reducer: persistedReducer,
-<<<<<<< HEAD
-    middleware: (getDefaultMiddleware) => {
-=======
     middleware: getDefaultMiddleware => {
->>>>>>> qa
         let middlewares = getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

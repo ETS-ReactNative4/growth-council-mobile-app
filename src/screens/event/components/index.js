@@ -13,21 +13,14 @@ import {Button, useToast} from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-<<<<<<< HEAD:src/screens/event/component/index.js
-=======
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
->>>>>>> qa:src/screens/event/components/index.js
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 
 const Event = props => {
-<<<<<<< HEAD:src/screens/event/component/index.js
-
-    const {navigation, route, events, eventLoading, eventError, fetchEventByIdentifier, cleanEvent} = props;
-=======
     const {
         navigation,
         route,
@@ -42,7 +35,6 @@ const Event = props => {
         registerEventByIdentifier,
         cleanEventRegister,
     } = props;
->>>>>>> qa:src/screens/event/components/index.js
 
     const toast = useToast();
     const [eventStatus, setEventStatus] = useState(events?.register_status);
@@ -52,13 +44,8 @@ const Event = props => {
             await fetchEventByIdentifier(route.params.id);
         };
         fetchEventDetailAsync();
-
-<<<<<<< HEAD:src/screens/event/component/index.js
     }, []);
 
-    console.log("route.params.id:::::::::::::::::", route.params.id);
-    console.log("Event Detail:::::::::::::::::", events);
-=======
     const registerEventByEventID = async eventID => {
         const response = await registerEventByIdentifier({event_id: eventID});
         if (response?.payload?.status === 200) {
@@ -88,33 +75,18 @@ const Event = props => {
         case 'growth-community':
             backgroundColor = Colors.COMMUNITY_COLOR;
     }
->>>>>>> qa:src/screens/event/components/index.js
 
     return (
         <ScrollView style={styles.scrollBox}>
             <View style={styles.container}>
                 <ImageBackground
-<<<<<<< HEAD:src/screens/event/component/index.js
-                    source={require('../../../assets/img/event_main_image.png')}
-                    resizeMode="cover">
-                    <StatusBar
-                        barStyle="dark-content"
-                        backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
-                    />
-=======
                     source={{uri: events?.image}}
                     resizeMode="cover"
                     style={{height: '55%'}}>
->>>>>>> qa:src/screens/event/components/index.js
                     <View
                         style={{
                             alignItems: 'center',
                         }}>
-<<<<<<< HEAD:src/screens/event/component/index.js
-                        <View style={styles.topbanner}>
-                            <Text style={styles.headingText1}>Executive Coaching</Text>
-                            <Text style={styles.headingText1}>Clinic On Goal Setting</Text>
-=======
                         <View
                             style={[styles.topbanner, {backgroundColor: backgroundColor}]}>
                             {!isEventLoaded && (
@@ -123,7 +95,6 @@ const Event = props => {
                             <View style={styles.poe}>
                                 <Text style={{fontSize: 12}}>Megatrend Workshop</Text>
                             </View>
->>>>>>> qa:src/screens/event/components/index.js
                         </View>
                     </View>
 
@@ -137,19 +108,6 @@ const Event = props => {
                                         flexDirection: 'row',
                                     }}>
                                     <View
-<<<<<<< HEAD:src/screens/event/component/index.js
-                                        style={{
-                                            flex: 1,
-                                            backgroundColor: 'rgba(54,147,172,1)',
-                                            height: 60,
-                                            width: 30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-                                        <MaterialIcons name={'event'} size={35} color={'white'}/>
-                                    </View>
-=======
                                         style={[
                                             styles.infoicon,
                                             {backgroundColor: backgroundColor},
@@ -157,52 +115,28 @@ const Event = props => {
                                         <MaterialIcons name={'event'} size={20} color={'white'}/>
                                     </View>
 
->>>>>>> qa:src/screens/event/components/index.js
                                     <View
                                         style={{
                                             flex: 4,
                                             paddingLeft: 10,
                                         }}>
-                                        <Text style={styles.contentHeading}>
-                                            11 August, Wednesday
-                                        </Text>
-                                        <Text> 09:00 pm / 11:30 pm (PDT)</Text>
+                                        {!isEventLoaded && (
+                                            <Text style={styles.contentHeading}>
+                                                {date[2]} {date[1]}, {actualDate[0]}
+                                            </Text>
+                                        )}
+
+                                        {!isEventLoaded && (
+                                            <Text>
+                                                {events?.event_meta?._start_hour}:
+                                                {events?.event_meta?._start_minute}
+                                                {events?.event_meta?._start_ampm} /
+                                                {events?.event_meta?._end_hour}:
+                                                {events?.event_meta?._end_minute}
+                                                {events?.event_meta?._end_ampm} (PDT)
+                                            </Text>
+                                        )}
                                     </View>
-<<<<<<< HEAD:src/screens/event/component/index.js
-                                    <View
-                                        style={{
-                                            flex: 1,
-                                            height: 60,
-                                            width: 30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-                                        <Feather
-                                            name={'plus-circle'}
-                                            size={35}
-                                            color={'rgba(54,147,172,1)'}
-                                        />
-                                    </View>
-                                </View>
-                                <View
-                                    style={{
-                                        flex: 1,
-                                        paddingTop: 5,
-                                        paddingBottom: 5,
-                                        flexDirection: 'row',
-                                    }}>
-                                    <View
-                                        style={{
-                                            flex: 1,
-                                            backgroundColor: 'rgba(54,147,172,1)',
-                                            height: 60,
-                                            width: 30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-=======
                                     {!eventStatus && (
                                         <View
                                             style={{
@@ -243,24 +177,12 @@ const Event = props => {
                                             styles.infoicon,
                                             {backgroundColor: backgroundColor},
                                         ]}>
->>>>>>> qa:src/screens/event/components/index.js
                                         <Ionicons
                                             name={'location-outline'}
                                             size={20}
                                             color={'white'}
                                         />
                                     </View>
-<<<<<<< HEAD:src/screens/event/component/index.js
-                                    <View
-                                        style={{
-                                            flex: 4,
-                                            paddingLeft: 10,
-                                        }}>
-                                        <Text style={styles.contentHeading}>Albany , USA</Text>
-                                        <Text> Long Street, Ullam Corporis</Text>
-                                    </View>
-                                    <View
-=======
 
                                     {!isEventLoaded && (
                                         <View
@@ -285,7 +207,6 @@ const Event = props => {
                                         </View>
                                     )}
                                     {/* <View
->>>>>>> qa:src/screens/event/components/index.js
                                         style={{
                                             flex: 1,
                                             height: 60,
@@ -297,7 +218,7 @@ const Event = props => {
                                         <Image
                                             source={require('../../../assets/img/live_image.png')}
                                         />
-                                    </View>
+                                    </View> */}
                                 </View>
                             </View>
                             <View style={styles.seperationline}/>
@@ -307,19 +228,6 @@ const Event = props => {
                                 </View>
                                 <View style={styles.hostdetail}>
                                     <View
-<<<<<<< HEAD:src/screens/event/component/index.js
-                                        style={{
-                                            flex: 1,
-                                            backgroundColor: 'rgba(54,147,172,1)',
-                                            height: 60,
-                                            width: 30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-                                        <Image
-                                            source={require('../../../assets/img/host_image.png')}
-=======
                                         style={[
                                             styles.hostimage,
                                             {backgroundColor: backgroundColor},
@@ -330,39 +238,22 @@ const Event = props => {
                                                 width: '100%',
                                                 height: '100%',
                                             }}
->>>>>>> qa:src/screens/event/components/index.js
                                         />
                                     </View>
+
                                     <View
                                         style={{
                                             flex: 3,
                                             paddingLeft: 20,
                                         }}>
-                                        <Text style={styles.contentHeading}>Andrew Deutscher</Text>
-                                        <Text>Founder, Regenerate</Text>
+                                        <Text style={styles.contentHeading}>
+                                            {events?.organizer?.term_name}
+                                        </Text>
+                                        <Text>{events?.organizer?.description}</Text>
                                     </View>
-<<<<<<< HEAD:src/screens/event/component/index.js
-                                    <View
-                                        style={{
-                                            flex: 2,
-                                            height: 60,
-                                            width: 30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'flex-end',
-                                        }}>
-                                        <Button
-                                            style={{
-                                                width: '85%',
-                                                height: 40,
-                                                backgroundColor: '#183863',
-                                                borderRadius: 15,
-                                            }}
-=======
                                     <View style={styles.eventaddress}>
                                         {/* <Button
                                             style={styles.followbtn}
->>>>>>> qa:src/screens/event/components/index.js
                                             onPress={() => navigation.navigate('SignUp')}>
                                             <Text
                                                 style={[
@@ -371,31 +262,19 @@ const Event = props => {
                                                 ]}>
                                                 Follow
                                             </Text>
-                                        </Button>
+                                        </Button> */}
                                     </View>
                                 </View>
                             </View>
                             <View style={styles.seperationline}/>
                             <View>
                                 <Text style={styles.contentHeading}>Event Info</Text>
-<<<<<<< HEAD:src/screens/event/component/index.js
-                                <Text style={styles.contentText}>
-                                    It’s time to account for the full toll that modern work is
-                                    exacting on our ability to keep up with and stay ahead of the
-                                    pace of change. With our boundaries broken down by a more
-                                    interconnected world, time has proven to be an insufficient
-                                    resource in this era. It is energy, not time, that is our most
-                                    precious and undervalued resource to solve this extraordinary
-                                    challenge.
-                                </Text>
-=======
                                 {!isEventLoaded && (
                                     <HTMLView
                                         value={events?.description}
                                         style={{fontSize: 14}}
                                     />
                                 )}
->>>>>>> qa:src/screens/event/components/index.js
                             </View>
 
                             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -424,8 +303,6 @@ const Event = props => {
                     </View>
                 </ImageBackground>
             </View>
-<<<<<<< HEAD:src/screens/event/component/index.js
-=======
             <View
                 style={{
                     alignItems: 'center',
@@ -439,7 +316,6 @@ const Event = props => {
                     style={{width: '100%', height: 20}}
                 />
             </View>
->>>>>>> qa:src/screens/event/components/index.js
         </ScrollView>
     );
 };
@@ -469,11 +345,7 @@ const styles = StyleSheet.create({
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
         fontWeight: 'bold',
-<<<<<<< HEAD:src/screens/event/component/index.js
-        fontSize: 22,
-=======
         fontSize: 20,
->>>>>>> qa:src/screens/event/components/index.js
         color: '#ffff',
     },
     contentHeading: {
@@ -537,15 +409,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 100,
         marginBottom: 20,
-<<<<<<< HEAD:src/screens/event/component/index.js
-        borderRadius: 12,
-        padding: 10,
-    },
-    scrollBox: {
-        height: '100%',
-        width: '100%',
-        marginBottom: 0,
-=======
         borderRadius: 14,
         padding: 20,
         position: 'relative',
@@ -620,7 +483,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         position: 'absolute',
         zIndex: 1011,
->>>>>>> qa:src/screens/event/components/index.js
     },
 });
 export default Event;

@@ -4,8 +4,8 @@ import {
     View,
     Text,
     FlatList,
-    TouchableOpacity,
-    ScrollView,
+	TouchableOpacity,
+    ScrollView, 
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {Picker} from '@react-native-picker/picker';
@@ -27,12 +27,12 @@ const EventCalendar = (props) => {
         cleanCalendarEvent,
     } = props;
 
-    const [value, setValue] = useState('2021');
+	const [value, setValue] = useState('2021');
     const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
     const [currentEvents, setCurrentEvents] = useState([]);
 
-    const [selectedValue, setSelectedValue] = useState("Region");
-    const [timeValue, setTimeValue] = useState("Time Zone");
+	const [selectedValue, setSelectedValue] = useState("Region");
+	const [timeValue, setTimeValue] = useState("Time Zone");
 
     useEffect(() => {
         const fetchCalendarEventAsync = async () => {
@@ -110,32 +110,32 @@ const EventCalendar = (props) => {
         let d = new Date(time[0], time[1], time[2], 0);
 
         return (
-            <View>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                    <View style={[styles.eventCard,styles.shadowProp]} key={index}>
-                        <Text style={{
-                            marginTop: 30,
-                            marginLeft: 10,
-                            marginRight: 10,
-                            fontSize: 17
-                        }}>{time[0]}:{time[1]}{time[2]}</Text>
+			<View>
+				<TouchableOpacity
+						onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+					<View style={[styles.eventCard,styles.shadowProp]} key={index}>
+						<Text style={{
+							marginTop: 30,
+							marginLeft: 10,
+							marginRight: 10,
+							fontSize: 17
+						}}>{time[0]}:{time[1]}{time[2]}</Text>
 
-                        <View style={styles.eventDetails}>
-                            <View style={styles.eventInfo}>
-                                <Text style={styles.eventTitle}>{item?.pillar_categories[0]?.name}</Text>
-                                <Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
-                            </View>
-                            <View style={styles.eventDate}>
-                                <Text style={styles.eventDateText}>
-                                    {date[1]}
-                                    {'\n'}
-                                    {date[0]}
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+						<View style={styles.eventDetails}>
+							<View style={styles.eventInfo}>
+								<Text style={styles.eventTitle}>{item?.pillar_categories[0]?.name}</Text>
+								<Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+							</View>
+							<View style={styles.eventDate}>
+								<Text style={styles.eventDateText}>
+									{date[1]}
+									{'\n'}
+									{date[0]}
+								</Text>
+							</View>
+						</View>
+					</View>
+				</TouchableOpacity>
             </View>
 
         );
@@ -168,7 +168,7 @@ const EventCalendar = (props) => {
                         //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
                         //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
                         //  }}
-
+						
 
                     />
                 </View>
@@ -231,16 +231,16 @@ const styles = StyleSheet.create({
         top: '20%',
     },
     calendar: {
-        width:"98%",
-        padding:5,
-        marginLeft:5,
+		width:"98%",
+		padding:5,
+		marginLeft:5,
         marginTop: 30,
-        backgroundColor: "#F5F5F5",
-        borderRadius:20,
+		backgroundColor: "#F5F5F5",
+		borderRadius:20,
     },
     events: {
         padding: 20,
-        borderWidth:0.1,
+		borderWidth:0.1,
     },
     eventCard: {
         height: 82,
@@ -249,8 +249,8 @@ const styles = StyleSheet.create({
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
-        marginBottom:10,
-
+		marginBottom:10,
+		
     },
     eventTheme: {
         height: '100%',
@@ -289,32 +289,32 @@ const styles = StyleSheet.create({
     eventDateText: {
         textAlign: 'center',
     },
-    buttonWrapper: {
+	buttonWrapper: {
         width: 350,
         height: 40,
         backgroundColor: "#F5F5F5",
         borderRadius: 10,
         margin: 10,
         marginTop: 15,
-        marginLeft:20,
+		marginLeft:20,
 
     },
-    pickerWrapper:{
-        display:'flex',
-        flexDirection:'row'
-
-    },
-    shadowProp: {
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 5,
-    },
+	pickerWrapper:{
+		display:'flex',
+		flexDirection:'row'
+		
+	},
+	shadowProp: {
+		shadowColor: '#000',
+		shadowOffset: {
+		  width: 0,
+		  height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
 
 });
 

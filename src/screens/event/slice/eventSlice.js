@@ -5,13 +5,9 @@ import {fetch} from '../../../utils/httpUtil';
 export const fetchEventByID = createAsyncThunk(
     'event/fetchByID',
     (identifier, {rejectWithValue}) => {
-<<<<<<< HEAD:src/screens/event/eventSlice.js
-        return fetch(`jwt-auth/v1/events/${identifier}`).then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
-=======
         return fetch(`jwt-auth/v1/events/${identifier}`)
             .then(response => response.data.body_response)
             .catch(error => rejectWithValue(error?.response?.data || error));
->>>>>>> qa:src/screens/event/slice/eventSlice.js
     },
 );
 
