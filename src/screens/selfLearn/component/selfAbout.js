@@ -16,8 +16,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
 import PDF from './pdf';
-
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 
@@ -65,7 +63,8 @@ const selfAbout = props => {
 			<View style={{marginTop:10}}>
 				<Text style={{fontSize:14, fontFamily:Typography.FONT_SF_SEMIBOLD, color:"black"}}>Book Summary</Text>
 
-				<Text style={{marginTop:10, fontSize:14, fontFamily:Typography.FONT_SF_REGULAR}}>It’s time to account for the full toll that modern work is exacting on our ability to keep up with and stay ahead of the pace of change.
+				<Text style={{marginTop:10, fontSize:14, fontFamily:Typography.FONT_SF_REGULAR}}>
+				It’s time to account for the full toll that modern work is exacting on our ability to keep up with and stay ahead of the pace of change.
 				With our boundaries broken down by a more interconnected world, time has proven to be an insufficient resource in this era.
 				It is energy, not time, that is our most precious and undervalued resource to solve this extraordinary challenge</Text>
 			</View>
@@ -83,8 +82,6 @@ const selfAbout = props => {
 					A proven technique to improve your day to day energy
 				</Text>
 			</View>
-
-
 		</View>
 	  </ScrollView>
 	
