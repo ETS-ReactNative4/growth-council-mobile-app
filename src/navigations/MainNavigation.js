@@ -1,13 +1,11 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
-import {HeaderBackButton} from '@react-navigation/elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 
-import LogoTitle from '../shared/logo';
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
 
@@ -19,61 +17,33 @@ import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
 
-import EditProfileScreen from '../screens/account/EditProfile';
-import ChangePasswordScreen from '../screens/setting/ChangePassword';
+import ChangePasswordScreen from '../screens/account/ChangePassword';
 
-// import AboutScreen from '../screens/about';
-
-// import AboutScreen from '../screens/about/index';
-
-// import FeedbackScreen from '../screens/feedback';
-// import IdeasScreen from '../screens/ideas';
 import EventDetailScreen from '../screens/event';
+import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
 import SettingScreen from '../screens/setting/index';
-import ManageAccountScreen from '../screens/setting/ManageAccount'
-import PrivacyPolicyScreen from "../screens/static/PrivacyPolicy";
-import TermsConditionsScreen from "../screens/static/TermsConditions";
-import CouncilDetailScreen from "../screens/home/CouncilDetail";
-import HomeCommunityScreen from "../screens/dashboard/HomeCommunity";
-import BestPracticeScreen from "../screens/dashboard/BestPractice";
-import GrowthCoachingScreen from "../screens/dashboard/GrowthCoaching";
-import CommunityDetailScreen from "../screens/details/CommunityDetail";
-import GrowthDetailScreen from "../screens/details/GrowthDetail";
+import ManageAccountScreen from '../screens/account/ManageAccount';
+import OtherAccountScreen from '../screens/account/OthersAccount';
+import PrivacyScreen from '../screens/privacy';
+import TermsConditionsScreen from '../screens/static/TermsConditions';
+import CouncilDetailScreen from '../screens/home/CouncilDetail';
+import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
+import BestPracticeScreen from '../screens/dashboard/BestPractice';
+import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
+import CommunityDetailScreen from '../screens/details/CommunityDetail';
+import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import UpcomingScreen from '../screens/dashboard/UpcomingView';
+import ChatScreen from '../screens/chat';
+import CoachingSessionDetailScreen from '../screens/coachingSession';
+import SelfLearnDetailScreen from '../screens/selfLearn';
+import PDFDetailScreen from '../screens/selfLearn/pdf';
 
 const Stack = createStackNavigator();
 
 const MainNavigation = () => {
-    const isHeaderShown = route => {
-        // If the focused route is not found, we need to assume it's the initial screen
-        // This can happen during if there hasn't been any navigation inside the screen
-        // In our case, it's "Home" as that's the first screen inside the navigator
-        const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
-        switch (routeName) {
-            case 'Home':
-                return false;
-            default:
-                return true;
-        }
-    };
-
-    const headerTitle = route => {
-        // If the focused route is not found, we need to assume it's the initial screen
-        // This can happen during if there hasn't been any navigation inside the screen
-        // In our case, it's "Home" as that's the first screen inside the navigator
-        const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
-        switch (routeName) {
-            case 'Home':
-                return '';
-            case 'Account':
-                return 'Account';
-            default:
-                return '';
-        }
-    };
-
     return (
         <Stack.Navigator
             detachInactiveScreens={false}
@@ -110,7 +80,6 @@ const MainNavigation = () => {
                         gestureDirection: 'horizontal-inverted',
                     })}
                 />
-
                 <Stack.Screen
                     name="SignIn"
                     component={SignInScreen}
@@ -150,17 +119,6 @@ const MainNavigation = () => {
                     })}
                 />
                 <Stack.Screen
-                    name="Search"
-                    component={SearchScreen}
-                    options={({route, navigation}) => ({
-                        headerTitle: '',
-                        headerStyle: {height: 80},
-                        headerTransparent: true,
-                        ...TransitionPresets.RevealFromBottomAndroid,
-                        gestureDirection: 'horizontal-inverted',
-                    })}
-                />
-                <Stack.Screen
                     name="Forgot"
                     component={ForgotScreen}
                     options={{
@@ -189,26 +147,65 @@ const MainNavigation = () => {
                         ...TransitionPresets.RevealFromBottomAndroid,
                     }}
                 />
-                <Stack.Screen name="radar" component={FrostRadarScreen} options={{
-                    headerLeft: () => null,
-                    headerTitle: '',
-                    headerTransparent: true,
-                    ...TransitionPresets.RevealFromBottomAndroid,
-                }}/>
+                <Stack.Screen
+                    name="radar"
+                    component={FrostRadarScreen}
+                    options={{
+                        headerLeft: () => null,
+                        headerTitle: '',
+                        headerTransparent: true,
+                        ...TransitionPresets.RevealFromBottomAndroid,
+                    }}
+                />
+                <Stack.Screen
+                    name="coachingSession"
+                    component={CoachingSessionDetailScreen}
+                    options={{
+                        headerTitle: 'Session',
+                    }}
+                />
+                <Stack.Screen
+                    name="selflearn"
+                    component={SelfLearnDetailScreen}
+                    options={{
+                        headerTitle: 'Self Learn',
+                    }}
+                />
+                <Stack.Screen
+                    name="pdf"
+                    component={PDFDetailScreen}
+                    options={{
+                        headerTitle: 'Self Learn',
+                    }}
+                />
+                <Stack.Screen
+                    name="Setting"
+                    component={SettingScreen}
+                    options={{
+                        headerLeft: () => null,
+                        headerTitle: '',
+                        headerTransparent: true,
+                        ...TransitionPresets.RevealFromBottomAndroid,
+                    }}
+                />
+                <Stack.Screen
+                    name="ManageAccount"
+                    component={ManageAccountScreen}
+                    options={{
+                        headerTitle: 'ManageAccount',
+                        // headerTransparent: true,
+                        // ...TransitionPresets.RevealFromBottomAndroid,
+                    }}
+                />
+                <Stack.Screen
+                    name="OthersAccount"
+                    component={OtherAccountScreen}
+                    options={({route}) => ({
+                        id: route?.params?.id,
+                        headerTitle: 'Account Info',
+                    })}
+                />
 
-                <Stack.Screen name="Setting" component={SettingScreen} options={{
-                    headerLeft: () => null,
-                    headerTitle: '',
-                    headerTransparent: true,
-                    ...TransitionPresets.RevealFromBottomAndroid,
-                }}/>
-
-                <Stack.Screen name="Account" component={ManageAccountScreen} options={{
-                    headerLeft: () => null,
-                    headerTitle: '',
-                    headerTransparent: true,
-                    ...TransitionPresets.RevealFromBottomAndroid,
-                }}/>
                 <Stack.Screen
                     name="Dashboard"
                     component={DrawerNavigation}
@@ -219,13 +216,6 @@ const MainNavigation = () => {
                         gestureDirection: 'horizontal-inverted',
                         headerLeft: () => null,
                     })}
-                />
-                <Stack.Screen
-                    name="EditProfile"
-                    component={EditProfileScreen}
-                    options={{
-                        headerTitle: 'Edit Profile',
-                    }}
                 />
                 <Stack.Screen
                     name="ChangePassword"
@@ -241,7 +231,13 @@ const MainNavigation = () => {
                         headerTitle: 'Contact Us',
                     }}
                 />
-
+                <Stack.Screen
+                    name="UpcomingView"
+                    component={UpcomingScreen}
+                    options={{
+                        headerTitle: '',
+                    }}
+                />
                 <Stack.Screen
                     name="EventDetail"
                     component={EventDetailScreen}
@@ -250,47 +246,76 @@ const MainNavigation = () => {
                         headerTitle: 'Event Detail',
                     })}
                 />
-            </Stack.Group>
-            <Stack.Group screenOptions={{presentation: 'modal'}}>
-                <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Terms" component={TermsConditionsScreen} options={{headerShown: false}}/>
                 <Stack.Screen
-                    name="CouncilDetail"
-                    component={CouncilDetailScreen}
+                    name="SessionDetail"
+                    component={SessionDetailScreen}
                     options={({route}) => ({
                         id: route?.params?.id,
+                        headerTitle: 'Session Detail',
+                    })}
+                />
+                <Stack.Screen
+                    name="CommunityDetail"
+                    component={CommunityDetailScreen}
+                    options={({route}) => ({
+                        poeId: route.params.poeId,
+                        pillarId: route.params.pillarId,
                         headerShown: false,
                     })}
                 />
-                <Stack.Screen name="HomeCommunity" component={HomeCommunityScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="BestPractice" component={BestPracticeScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="GrowthCoaching" component={GrowthCoachingScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="CommunityDetail" component={CommunityDetailScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="GrowthDetail" component={GrowthDetailScreen} options={{headerShown: false}}/>
-
+                <Stack.Screen
+                    name="Chat"
+                    component={ChatScreen}
+                    options={({route}) => ({
+                        userID: route?.params?.userID,
+                        friendID: route?.params?.friendID,
+                        friendName: route?.params?.friendName,
+                        //headerTitle: route?.params?.friendName,
+                        headerTitle: 'Chat',
+                    })}
+                />
+                <Stack.Screen
+                    name="Privacy"
+                    component={PrivacyScreen}
+                    options={{
+                        headerTitle: 'Privacy Policy',
+                    }}
+                />
             </Stack.Group>
 
-            {/* <Stack.Screen
-                name="About"
-                component={AboutScreen}
-                options={{
-                    headerTitle: 'About',
-                }}
-            /> */}
-            {/* <Stack.Screen
-                name="Feedback"
-                component={FeedbackScreen}
-                options={{
-                    headerTitle: 'Feedback',
-                }}
-            />
-            <Stack.Screen
-                name="Ideas"
-                component={IdeasScreen}
-                options={{
-                    headerTitle: 'Contribute Ideas',
-                }}
-            /> */}
+            <Stack.Group screenOptions={{presentation: 'modal'}}>
+                {/* <Stack.Screen
+          name="PrivacyPolicy"
+          component={PrivacyPolicyScreen}
+          options={{headerShown: false}}
+        /> */}
+                <Stack.Screen
+                    name="Terms"
+                    component={TermsConditionsScreen}
+                    options={{headerShown: false}}
+                />
+                <Stack.Screen
+                    name="CouncilDetail"
+                    component={CouncilDetailScreen}
+                    options={{headerShown: false}}
+                />
+
+                <Stack.Screen
+                    name="BestPractice"
+                    component={BestPracticeScreen}
+                    options={{headerShown: false}}
+                />
+                <Stack.Screen
+                    name="GrowthCoaching"
+                    component={GrowthCoachingScreen}
+                    options={{headerShown: false}}
+                />
+                <Stack.Screen
+                    name="GrowthDetail"
+                    component={GrowthDetailScreen}
+                    options={{headerShown: false}}
+                />
+            </Stack.Group>
         </Stack.Navigator>
     );
 };

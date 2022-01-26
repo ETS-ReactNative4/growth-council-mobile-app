@@ -7,123 +7,25 @@ import {
     ImageBackground,
     ScrollView,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    SafeAreaView,
+    StatusBar,
 } from 'react-native';
-import {CommonStyles, Colors, Typography} from '../../../theme';
-import Font from 'react-native-vector-icons/FontAwesome5';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {BubblesLoader} from 'react-native-indicator';
+import moment from 'moment';
 
-const _renderItem = ({item, index}) => {
+import PillarList from './PillarList';
+import {CommonStyles, Colors, Typography} from '../../../theme';
+import {
+    PRIMARY_BACKGROUND_COLOR,
+    PRIMARY_TEXT_COLOR,
+    SECONDARY_TEXT_COLOR,
+} from '../../../theme/colors';
+import YoutubePlayer from '../../../shared/youtube';
 
-    return (
-        <View style={styles.bottomWrapper}>
-            <Image style={styles.bottomImage} source={require('../../../assets/img/profile_image.png')}/>
-
-            <Text style={{fontSize: 16, marginTop: 8}}>{item.data.display_name}</Text>
-
-            <Text style={{fontSize: 13, marginTop: 8}}>{item.data.display_name}</Text>
-
-            <Text style={{fontSize: 10}}>Frost and Sullivan</Text>
-            <View style={{
-                borderRadius: 50,
-                backgroundColor: "#EBECF0",
-                width: 30,
-                height: 30,
-                justifyContent: "center",
-                marginLeft: 60,
-                marginTop: 10
-            }}>
-                <Ionicons
-                    name={'chatbox'}
-                    size={20}
-                    color="grey"
-                    style={{marginLeft: 5,}}
-                />
-            </View>
-        </View>
-    );
-};
-
-const data1 = [
-    {
-        icon: 'brain',
-        text: 'Executive MindChange',
-    },
-    {
-        icon: 'location-arrow',
-        text: 'Megatrends Workshop',
-    },
-    {
-        icon: 'brain',
-        text: 'Executive MindChange',
-    },
-    {
-        icon: 'location-arrow',
-        text: 'Megatrends Workshop',
-    },
-];
-
-const _renderMiddleItem = ({item, index}) => {
-    return (
-        <View style={styles.middleWrapper}>
-            <View style={styles.middleW}>
-                <Font name={item.icon} size={40} color="skyblue"/>
-            </View>
-            <Text style={{marginTop: 10}}>{item.text}</Text>
-        </View>
-    );
-};
-
-const data2 = [
-    {
-        date: '10',
-        month: 'july',
-        text: 'Executive Coaching Clinic On Goal Setting',
-        text1: 'Hosted by Michael Cooper',
-    },
-    {
-        date: '10',
-        month: 'Oct',
-        text: 'Associate Member Meeting',
-        text1: 'Hosted by Michael Cooper',
-    },
-];
-
-const _renderTopItem = ({item, index}, navigation) => {
-
-    return (
-        <View key={index} style={styles.topWrapper}>
-            <TouchableOpacity onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                <ImageBackground
-                    style={{width: '100%', height: 170, borderRadius: 20}}
-                    source={require('../../../assets/img/blank_event_design.png')}>
-                    <View
-                        style={{
-                            width: '30%',
-                            height: 50,
-                            marginTop: 10,
-                            marginLeft: 180,
-                            backgroundColor: '#EBECF0',
-                            borderRadius: 10,
-                            padding: 5,
-                            alignItems: 'center',
-                        }}>
-                        <Text>{item.post_date}</Text>
-                        <Text>{item.month}</Text>
-                    </View>
-
-                    <View style={styles.header}>
-                        <Text style={styles.headingText1}>{item.post_title}</Text>
-                        <Text style={styles.headingText2}>{item.evcal_subtitle}</Text>
-                    </View>
-                </ImageBackground>
-            </TouchableOpacity>
-        </View>
-    );
-};
-
-const Dashboard = (props) => {
-
+const Dashboard = props => {
     const {
         navigation,
         upcomingEvents,
@@ -131,16 +33,26 @@ const Dashboard = (props) => {
         upcomingEventError,
         fetchAllUpcomingEvent,
         cleanUpcomingEvent,
-        pointOfEngagements,
-        pointOfEngagementLoading,
-        pointOfEngagementError,
-        fetchAllPointOfEngagement,
-        cleanPointOfEngagement,
+        poes,
+        poeLoading,
+        poeError,
+        fetchAllPOE,
+        cleanPOE,
         communityMembers,
         communityMemberLoading,
         communityMemberError,
         fetchAllCommunityMember,
-        cleanCommunityMember
+        cleanCommunityMember,
+        pillarSliders,
+        pillarSliderLoading,
+        pillarSliderError,
+        fetchAllPillarSlider,
+        cleanPillarSlider,
+        pillarEventLists,
+        pillarEventLoading,
+        pillarEventError,
+        fetchAllPillarEvent,
+        cleanPillarEvent,
     } = props;
 
     useEffect(() => {
@@ -148,15 +60,7 @@ const Dashboard = (props) => {
             await fetchAllUpcomingEvent();
         };
         fetchAllUpcomingEventAsync();
-
     }, []);
-
-    // useEffect(() => {
-    //     const fetchAllPointOfEngagementAsync = async () => {
-    //        await fetchAllPointOfEngagement();
-    //     };
-    //     fetchAllPointOfEngagementAsync();
-    // }, []);
 
     useEffect(() => {
         const fetchAllCommunityMemberAsync = async () => {
@@ -165,174 +69,369 @@ const Dashboard = (props) => {
         fetchAllCommunityMemberAsync();
     }, []);
 
-    console.log("upcomingEvents:::::::::::::::::", upcomingEvents);
-    // console.log("pointOfEngagements:::::::::::::::::", pointOfEngagements);
-    console.log("communityMembers:::::::::::::::::", communityMembers);
+    useEffect(() => {
+        const fetchPillarSliderAsync = async () => {
+            await fetchAllPillarSlider();
+        };
+        fetchPillarSliderAsync();
+    }, []);
+
+    useEffect(() => {
+        const fetchAllPOEAsync = async () => {
+            await fetchAllPOE();
+        };
+        fetchAllPOEAsync();
+    }, []);
+
+    const _renderItem = ({item, index}) => {
+        return (
+            <View style={[styles.bottomWrapper, styles.shadowProp]}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+                    <Image
+                        source={{uri: item.avatar}}
+                        style={{
+                            width: 83,
+                            height: 83,
+                            borderRadius: 10,
+                        }}
+                    />
+                    <View style={{padding: 10, paddingBottom: 20}}>
+                        <Text
+                            style={{
+                                fontSize: 10,
+                                fontFamily: Typography.FONT_SF_SEMIBOLD,
+                                color: Colors.TERTIARY_TEXT_COLOR,
+                            }}>
+                            {item?.display_name}
+                        </Text>
+                        <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <View style={styles.chatIcon}>
+                    <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+                </View>
+            </View>
+        );
+    };
+
+    const _renderMiddleItem = ({item, index}) => {
+        let poePage = 'CommunityDetail';
+        if (item?.parent === 121) {
+            poePage = 'GrowthDetail';
+        }
+        return (
+            <TouchableOpacity
+                onPress={() =>
+                    navigation.navigate(poePage, {
+                        poeId: item?.term_id,
+                        pillarId: item?.parent,
+                    })
+                }>
+                <View style={styles.middleWrapper}>
+                    <View style={[styles.middleW, styles.shadowProp]}>
+                        <Image
+                            source={{uri: item?.image}}
+                            style={{width: 30, height: 30}}
+                        />
+                    </View>
+                    <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+                        {item?.name}
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        );
+    };
+
+    const _renderTopItem = ({item, index}, navigation) => {
+        const actualDate = moment(item.event_start).format('ll').split(',', 3);
+        const date = actualDate[0].split(' ', 3);
+
+        let backgroundImage = '';
+        switch (item?.pillar_categories[0]?.slug) {
+            case 'growth-community':
+                backgroundImage = require('../../../assets/img/Rectangle2.png');
+                break;
+            case 'basic-practices':
+                backgroundImage = require('../../../assets/img/Rectangle1.png');
+                break;
+            default:
+                backgroundImage = require('../../../assets/img/Rectangle.png');
+        }
+
+        return (
+            <View key={index} style={styles.topWrapper}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+                    <ImageBackground
+                        style={{width: '100%', height: 150, borderRadius: 20}}
+                        source={backgroundImage}>
+                        <View
+                            style={{
+                                width: 40,
+                                height: 50,
+                                marginTop: 10,
+                                marginLeft: 200,
+                                backgroundColor: '#EBECF0',
+                                borderRadius: 10,
+                                padding: 5,
+                                alignItems: 'center',
+                            }}>
+                            <Text>{date[1]}</Text>
+                            <Text>{date[0]}</Text>
+                        </View>
+
+                        <View style={styles.header}>
+                            <Text style={styles.headingText1}>{item.title}</Text>
+                            <Text style={styles.headingText2}>
+                                Hosted by {item?.organizer?.term_name}
+                                {item?.organizer?.description}
+                            </Text>
+                        </View>
+                    </ImageBackground>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
+    const pic = [
+        {
+            uri: require('../../../assets/img/welcome_screen_info_image.png'),
+        },
+        {
+            uri: require('../../../assets/img/image.png'),
+        },
+        {
+            uri: require('../../../assets/img/contactus.png'),
+        },
+    ];
+
+    const _renderContentItem = ({item, index}) => {
+        return (
+            <View style={styles.ContentWrapper}>
+                <YoutubePlayer videoId="9dEo9FTYDeM" />
+            </View>
+        );
+    };
 
     return (
-        <ScrollView>
-            <View style={styles.container}>
-                <ImageBackground
-                    style={{width: '100%', height: 180}}
-                    source={require('../../../assets/img/blank_event_design.png')}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Model', {screen: 'HomeCommunity'})}>
-                        <Image
-                            source={require('../../../assets/img/massk.png')}
-                            style={{
-                                position: 'absolute',
-                                top: 80,
-                                height: 150,
-                                width: '30%',
-                                left: 10,
-                                borderRadius: 10,
-                                borderWidth: 5,
-                            }}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'BestPractice'})}>
-                        <Image
-                            source={require('../../../assets/img/community_slider_image.png')}
-                            style={{
-                                position: 'absolute',
-                                top: 80,
-                                height: 150,
-                                width: '30%',
-                                left: 138,
-                                borderRadius: 10,
-                            }}
-                        />
-                    </TouchableOpacity>
+        <SafeAreaView style={{flex: 1}}>
+            <StatusBar
+                barStyle="light-content"
+                hidden={true}
+                backgroundColor={require('../../../assets/img/appBG.png')}
+                translucent={true}
+            />
+            <ScrollView style={styles.container}>
+                <View style={styles.container}>
+                    <ImageBackground
+                        style={{width: '100%', height: 180}}
+                        source={require('../../../assets/img/appBG.png')}>
+                        <View style={styles.pillar}>
+                            <PillarList
+                                pillarSliders={pillarSliders}
+                                navigation={navigation}
+                            />
+                        </View>
+                    </ImageBackground>
+                </View>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Model', {screen: 'GrowthCoaching'})}>
-                        <Image
-                            source={require('../../../assets/img/massk.png')}
-                            style={{
-                                position: 'absolute',
-                                top: 80,
-                                height: 150,
-                                width: '30%',
-                                right: 10,
-                                borderRadius: 10,
-                            }}
-                        />
-                    </TouchableOpacity>
-                </ImageBackground>
-            </View>
+                <View style={styles.top}>
+                    <View style={styles.eventWrapper}>
+                        <Text style={styles.title}>Upcoming Events</Text>
+                    </View>
 
-            <View style={styles.top}>
-                <Text style={{fontWeight: 'bold', fontSize: 18}}>
-                    Upcoming Events
-                </Text>
+                    {upcomingEventLoading && (
+                        <View style={styles.loading1}>
+                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+                        </View>
+                    )}
+
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            marginTop: 20,
+                        }}>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={upcomingEvents}
+                            renderItem={item => _renderTopItem(item, navigation)}
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.middle}>
+                    <Text style={[styles.title, {marginLeft: 15}]}>
+                        Points of Engagement
+                    </Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            marginLeft: 10,
+                        }}>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={poes}
+                            renderItem={_renderMiddleItem}
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.bottom}>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            marginLeft: 15,
+                            marginRight: 15,
+                        }}>
+                        <Text style={styles.title}> Growth Community Members</Text>
+                        {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
+                    </View>
+                    <View>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={communityMembers}
+                            renderItem={_renderItem}
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.content}>
+                    <Text style={[styles.title, {marginLeft: 15}]}> Content Library</Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}>
+                        <FlatList
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={pic}
+                            renderItem={_renderContentItem}
+                        />
+                    </View>
+                </View>
+
                 <View
                     style={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        alignItems: 'center',
+                        width: '35%',
+                        marginLeft: 140,
+                        marginBottom: 10,
                     }}>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={upcomingEvents}
-                        renderItem={(item) => _renderTopItem(item, navigation)}
-                        //renderItem={_renderTopItem}
-                    />
-
-
-                </View>
-            </View>
-
-            <View style={styles.middle}>
-                <Text style={{fontWeight: 'bold', fontSize: 18}}>
-                    Points of Engagement
-                </Text>
-
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={data1}
-                        renderItem={_renderMiddleItem}
+                    <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+                    <Image
+                        source={require('../../../assets/img/fristDigi.png')}
+                        style={{width: '100%', height: 20}}
                     />
                 </View>
-            </View>
-
-            <View style={styles.bottom}>
-                <Text style={{fontWeight: 'bold', fontSize: 18}}>
-                    Growth Community Member
-                </Text>
-                <View>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={communityMembers}
-                        renderItem={_renderItem}
-                    />
-                </View>
-            </View>
-
-
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
-        backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
         width: '100%',
+    },
+    pillar: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 50,
+        justifyContent: 'space-between',
+    },
+    ImageWrapper: {
+        width: 120,
+        height: 172,
+        borderRadius: 10,
+        borderWidth: 4,
+        borderColor: PRIMARY_BACKGROUND_COLOR,
+        overflow: 'hidden',
+    },
+    ImageStyle: {
+        width: '100%',
+        height: '100%',
+    },
+    viewAll: {
+        fontSize: 10,
+        color: SECONDARY_TEXT_COLOR,
+    },
+    eventWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginLeft: 15,
+        marginRight: 15,
     },
     top: {
         height: 200,
-        marginTop: 80,
-        margin: 10,
+        marginTop: 60,
         justifyContent: 'center',
+        marginLeft: 5,
     },
 
     topWrapper: {
-        height: 170,
-        width: 320,
-        marginTop: 20,
-        marginLeft: 10,
-        borderRadius: 50,
+        height: 144,
+        width: 256,
+        marginLeft: 15,
+        borderRadius: 16,
+        overflow: 'hidden',
     },
     header: {
         marginLeft: 10,
     },
+    title: {
+        fontSize: 14,
+        fontFamily: Typography.FONT_SF_SEMIBOLD,
+        color: PRIMARY_TEXT_COLOR,
+    },
     headingText1: {
-
-        fontFamily: Typography.FONT_NORMAL,
-        marginTop: 10,
-        fontWeight: '800',
+        fontFamily: Typography.FONT_SF_MEDIUM,
+        marginTop: 20,
+        fontWeight: '600',
+        width: '98%',
         color: 'white',
-        fontSize: 18
+        fontSize: 12,
     },
     headingText2: {
-        ...CommonStyles.headingText2,
-        fontFamily: Typography.FONT_NORMAL,
+        fontFamily: Typography.FONT_SF_MEDIUM,
         fontWeight: '700',
         color: 'white',
+        fontSize: 8,
+        lineHeight: 12,
     },
     middle: {
         width: 400,
-        height: 200,
-        marginLeft: 10,
-        marginTop: 15,
+        marginTop: 10,
+        marginLeft: 5,
     },
     middleWrapper: {
-        height: 150,
-        width: 100,
+        width: 80,
         borderRadius: 20,
-        marginTop: 10,
+        marginTop: 15,
         justifyContent: 'center',
         alignItems: 'center',
     },
     middleW: {
         backgroundColor: 'white',
-        width: 80,
-        height: 80,
+        width: 64,
+        height: 64,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
+        // borderWidth: 0.2,
     },
     headingText3: {
         ...CommonStyles.headingText3,
@@ -340,22 +439,62 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     bottom: {
-        height: 240,
-        margin: 10,
-        width: 400,
+        height: 172,
+        margin: 5,
+        marginTop: 25,
     },
     bottomWrapper: {
-        width: 120,
-        height: 190,
+        width: 84,
+        position: 'relative',
         borderRadius: 10,
-        margin: 10,
+        marginTop: 15,
+        marginLeft: 15,
+        marginBottom: 10,
         backgroundColor: 'white',
-        alignItems: 'center',
+        overflow: 'hidden',
     },
-    bottomImage: {
-        width: '100%',
-        height: 100,
+    chatIcon: {
+        borderRadius: 50,
+        backgroundColor: '#F1F1F1',
+        padding: 6,
+        justifyContent: 'center',
+        position: 'absolute',
+        right: 4,
+        bottom: 4,
+    },
+    content: {
+        height: 250,
+        marginLeft: 5,
+        marginTop: 25,
+        justifyContent: 'center',
         borderRadius: 20,
+        marginBottom: 10,
+    },
+    ContentWrapper: {
+        height: 206,
+        width: 364,
+        marginTop: 20,
+        marginLeft: 15,
+        borderRadius: 20,
+        overflow: 'hidden',
+    },
+    shadowProp: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+    },
+    loading1: {
+        marginLeft: 150,
+        flex: 1,
+        flexDirection: 'column',
+        position: 'absolute',
+        zIndex: 1011,
     },
 });
 

@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
+import {Linking} from 'react-native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
@@ -24,19 +25,18 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 
 const signInSchema = Yup.object().shape({
     username: Yup.string().required('Username is required.'),
-    password: Yup
-        .string()
+    password: Yup.string()
         .min(6, ({min}) => `Password must be at least ${min} characters.`)
         .required('Password is required.'),
 });
 
-const SignInForm = (props) => {
-
+const SignInForm = props => {
     const {navigation} = props;
 
     const [hidePass, setHidePass] = useState(true);
 
-    const {loading, setLoading, message, setMessage, signIn} = useAuthentication();
+    const {loading, setLoading, message, setMessage, signIn} =
+        useAuthentication();
 
     const {
         handleChange,
@@ -48,15 +48,16 @@ const SignInForm = (props) => {
         isValid,
     } = useFormik({
         validationSchema: signInSchema,
-        initialValues: {username: 'admin', password: 'password'},
-        onSubmit: values => {
-            signIn(values);
+        initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
+        onSubmit: async values => {
+            await signIn(values);
         },
     });
 
     useFocusEffect(
         useCallback(() => {
             setMessage(null);
+            ``;
             setLoading(false);
         }, []),
     );
@@ -64,54 +65,57 @@ const SignInForm = (props) => {
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
             <View style={styles.container}>
-
-                <ImageBackground source={require("../../../assets/img/splash-screen.png")} resizeMode="cover">
-
-                    <StatusBar barStyle="dark-content" backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}/>
-
-                    <View style={{height: '15%'}}>
-                    </View>
+                <ImageBackground
+                    source={require('../../../assets/img/splash-screen.png')}
+                    resizeMode="cover">
+                    <View style={{height: '15%'}}></View>
 
                     <View>
                         <View style={styles.content}>
                             <View style={styles.header}>
                                 <Text style={styles.headingText1}>Growth Innovation </Text>
-                                <Text style={[styles.headingText1, {marginBottom: 10}]}>Leadership Portal</Text>
-                                <Text>Login to your account below. If you are having trouble logging
-                                    into your account contact us.</Text>
+                                <Text style={[styles.headingText1, {marginBottom: 10}]}>
+                                    Leadership Portal
+                                </Text>
+                                <Text>
+                                    Login to your account below. If you are having trouble logging
+                                    into your account contact us.
+                                </Text>
                             </View>
 
-                            {!message?.success && <View style={styles.message}>
-                                <Text style={styles.errorText}>{message?.message}</Text>
-                            </View>
-                            }
-
-                            {loading &&
-                            <View style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                flexDirection: 'column',
-                                justifyContent: 'space-around',
-                                position: 'absolute',
-                                zIndex: 1011,
-                            }}>
-                                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR}/>
-                            </View>
-                            }
+                            {!message?.success && (
+                                <View style={styles.message}>
+                                    <Text style={styles.errorText}>{message?.message}</Text>
+                                </View>
+                            )}
 
                             <View style={styles.body}>
+                                {loading && (
+                                    <View style={styles.loading1}>
+                                        <BubblesLoader
+                                            color={Colors.SECONDARY_TEXT_COLOR}
+                                            size={60}
+                                        />
+                                    </View>
+                                )}
                                 <FlatTextInput
-                                    label='Email'
+                                    label="Email *"
                                     value={values.username}
                                     onChangeText={handleChange('username')}
                                     onFocus={handleBlur('username')}
                                     error={errors.username}
                                     touched={touched.username}
+
                                     //keyboardType={'email-address'}
                                 />
+                                {errors.username && (
+                                    <Text style={{fontSize: 10, color: 'red'}}>
+                                        {errors.username}
+                                    </Text>
+                                )}
 
                                 <FlatTextInput
-                                    label='Password'
+                                    label="Password *"
                                     value={values.password}
                                     secureTextEntry={hidePass}
                                     onChangeText={handleChange('password')}
@@ -119,6 +123,12 @@ const SignInForm = (props) => {
                                     error={errors.password}
                                     touched={touched.password}
                                 />
+                                {errors.password && (
+                                    <Text style={{fontSize: 10, color: 'red'}}>
+                                        {errors.password}
+                                    </Text>
+                                )}
+
                                 <Ionicons
                                     name={hidePass ? 'eye-outline' : 'eye-off-outline'}
                                     size={25}
@@ -130,7 +140,6 @@ const SignInForm = (props) => {
                                         right: 15,
                                     }}
                                 />
-
                             </View>
 
                             <View style={styles.loginButtonWrapper}>
@@ -140,19 +149,32 @@ const SignInForm = (props) => {
                             </View>
                             <View style={styles.forgotButtonWrapper}>
                                 <TouchableOpacity>
-                                    <Text style={styles.forgotButtonText} onPress={() => navigation.navigate('Forgot')}>Forgot Password?</Text>
+                                    <Text
+                                        style={styles.forgotButtonText}
+                                        onPress={() => navigation.navigate('Forgot')}>
+                                        Forgot Password?
+                                    </Text>
                                 </TouchableOpacity>
-                             </View>
+                            </View>
                             <View style={styles.signuptext}>
                                 <Text>Not a member ?</Text>
-                                <Text style={{color: '#31ade5'}} onPress={() => navigation.navigate('SignUp')}> Sign Up </Text>
+                                <Text
+                                    style={{color: '#31ade5'}}
+                                    onPress={() => navigation.navigate('SignUp')}>
+                                    {' '}
+                                    Sign Up{' '}
+                                </Text>
                             </View>
                             <View style={[styles.signuptext, {marginTop: 40}]}>
-                                <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/>
+                                {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                                 <Text>Need Help? </Text>
-                                <Text style={{color: '#31ade5'}}> Contact Us </Text>
+                                <Text
+                                    style={{color: '#31ade5'}}
+                                    onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+                                    {' '}
+                                    Contact Us{' '}
+                                </Text>
                             </View>
-
                         </View>
                     </View>
                 </ImageBackground>
@@ -180,16 +202,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 18,
         padding: 25,
-        height: '100%'
+        height: '100%',
     },
     message: {
         ...CommonStyles.message,
         width: '86%',
-        paddingTop: 29
+        paddingTop: 29,
     },
     headingText1: {
         ...CommonStyles.headingText1,
         fontFamily: Typography.FONT_NORMAL,
+        fontWeight: 'bold',
+        fontSize: 20,
     },
     headingText2: {
         ...CommonStyles.headingText2,
@@ -200,13 +224,14 @@ const styles = StyleSheet.create({
     loginButtonWrapper: {
         ...CommonStyles.buttonWrapper,
         alignItems: 'flex-start',
+        marginTop:10,
     },
     loginButton: {
         ...CommonStyles.button,
         height: 40,
         marginBottom: 15,
         borderRadius: 10,
-        width: '50%'
+        width: '50%',
     },
     loginButtonText: {
         ...CommonStyles.buttonText,
@@ -232,8 +257,14 @@ const styles = StyleSheet.create({
     },
     signuptext: {
         flexDirection: 'row',
-    }
+    },
+    loading1: {
+        marginLeft: 50,
+        flex: 1,
+        flexDirection: 'column',
+        position: 'absolute',
+        zIndex: 1011,
+    },
 });
-
 
 export default SignInForm;
