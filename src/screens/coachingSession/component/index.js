@@ -15,6 +15,7 @@ import SessionAbout from './sessionAbout';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import MenuModal from './menuModal';
 
 
 const CoachingSession = props => {
@@ -27,6 +28,11 @@ const CoachingSession = props => {
     // const date = actualDate[1].split(' ', 3);
 
 	const [value, setValue] = useState('About');
+	const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
     return (
         <ScrollView style={styles.scrollBox}>
@@ -52,8 +58,11 @@ const CoachingSession = props => {
 										style={{height: 30, marginTop: 5, width: '90%', marginLeft: 10, fontSize:12, borderRadius:15}}
 									/>
 								</View>
-
-								<Ionicons name={'menu'} size={35} color={'black'} style={{marginLeft:15}}/>
+								<TouchableOpacity>
+									<Ionicons name={'menu'} size={35} color={'black'} style={{marginLeft:15}}/>
+								</TouchableOpacity>
+								<MenuModal isVisible={isModalVisible}/>
+								
 							</View>
 
 							<View style={{marginTop:32}}>
