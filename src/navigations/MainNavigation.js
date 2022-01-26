@@ -118,17 +118,6 @@ const MainNavigation = () => {
           })}
         />
         <Stack.Screen
-          name="Search"
-          component={SearchScreen}
-          options={({route, navigation}) => ({
-            headerTitle: '',
-            headerStyle: {height: 80},
-            headerTransparent: true,
-            ...TransitionPresets.RevealFromBottomAndroid,
-            gestureDirection: 'horizontal-inverted',
-          })}
-        />
-        <Stack.Screen
           name="Forgot"
           component={ForgotScreen}
           options={{
