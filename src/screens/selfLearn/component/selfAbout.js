@@ -22,7 +22,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 const selfAbout = props => {
 	const{
 		navigation,
-	}=props
+	} = props
 	
   return (
 	  <ScrollView>
@@ -47,12 +47,12 @@ const selfAbout = props => {
 						<Text style={{fontSize:10, marginTop:15, color:"#77838F"}}>Prime yourself to become an insanely great leader</Text>
 					</View>
 
-						<TouchableOpacity onPress={() => navigation.navigate('pdf')}>
 						<Button 
-						style={styles.buttonWrapper}>
+						style={styles.buttonWrapper}
+						onPress={() => navigation.navigate('pdf')}>
 						<Text style={{color:"white", fontSize:11}} >Read E-Book</Text>
 						</Button>
-						</TouchableOpacity>
+						
 						
 					
 					
@@ -101,6 +101,12 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		
+	  },
+	  buttonWrapper:{
+		  width:165,
+		  height:34,
+		  borderRadius:20,
+		  backgroundColor:"#F26722"
 	  },
     
 });

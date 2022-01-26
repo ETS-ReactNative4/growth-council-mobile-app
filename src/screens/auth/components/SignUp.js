@@ -600,7 +600,7 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontSize: 10,
     color: 'red',
-    marginLeft: 20,
+ 
   },
 });
 

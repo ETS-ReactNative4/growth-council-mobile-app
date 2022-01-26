@@ -10,10 +10,10 @@ const pdf = props => {
 					<Pdf
 						source={source}
 						onLoadComplete={(numberOfPages,filePath) => {
-							console.log(`Number of pages: ${numberOfPages}`);
+							console.log(`Number of pages: ${5}`);
 						}}
 						onPageChanged={(page,numberOfPages) => {
-							console.log(`Current page: ${page}`);
+							console.log(`Current page: ${1}`);
 						}}
 						onError={(error) => {
 							console.log(error);

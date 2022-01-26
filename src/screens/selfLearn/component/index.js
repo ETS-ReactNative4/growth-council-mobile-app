@@ -57,7 +57,7 @@ const SelfLearn = props => {
 
 							<View style={{marginTop:15}}>
 							{value === 'About' &&
-								<SelfAbout/>
+								<SelfAbout {...props}/>
                             }
                             {value === 'Self Assessment' &&
 								<View>
