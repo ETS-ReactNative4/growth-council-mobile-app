@@ -7,7 +7,7 @@ import {
     ScrollView,
     ImageBackground,
     Image,
-    TouchableOpacity
+    TouchableOpacity, Modal,Pressable
 } from 'react-native';
 
 import SelfAssessment from './selfAssessment';
@@ -16,18 +16,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-
 const CoachingSession = props => {
     const {
         navigation,
         route,
     } = props;
 
-    // const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
-    // const date = actualDate[1].split(' ', 3);
-
 	const [value, setValue] = useState('About');
+   
+	const [modalVisible, setModalVisible] = useState(false);
 
+	const [display, setDisplay] = useState(true);
+	
     return (
         <ScrollView style={styles.scrollBox}>
             <View style={styles.container}>
@@ -52,8 +52,122 @@ const CoachingSession = props => {
 										style={{height: 30, marginTop: 5, width: '90%', marginLeft: 10, fontSize:12, borderRadius:15}}
 									/>
 								</View>
+								{ display?
+								<TouchableOpacity
+										onPress={() => setModalVisible(true)}
+										onPressIn={() => {
+											setDisplay(!display)
+										  }}
+								>
+									<Ionicons name={'menu'} size={35} color={'black'} style={{marginLeft:15}}/>
+								</TouchableOpacity>
+								:
+								<TouchableOpacity
+									onPress={() => setModalVisible(!modalVisible)}
+									onPressIn={() => {
+										setDisplay(!display)
+									  }}
+								>
+									<Ionicons name={'close'} size={35} color={'black'} style={{marginLeft:15}}/>
+								</TouchableOpacity>
+								}
+								<View style={styles.centeredView}>
+									<Modal
+										animationType="slide"
+										transparent={true}
+										visible={modalVisible}
+										onRequestClose={() => {
+										Alert.alert("Modal has been closed.");
+										setModalVisible(!modalVisible);
+										}}
+									>
+										<View>
+										
+										<View style={styles.modalView}>
+										<View style={styles.wrapper}>
+											<View style={styles.traitWrapper}>							
+												<View style={[styles.traitW, styles.shadowProp]}>
+													<Ionicons
+														name={'medkit-sharp'}
+														size={30}
+														color={'#A1BA68'}
+													/>
+												</View>
 
-								<Ionicons name={'menu'} size={35} color={'black'} style={{marginLeft:15}}/>
+												<Text style={{ padding:20}}>Traits 1</Text>
+											</View>
+											<View 
+											style={{flexDirection: 'row',}}>
+												<Text style={{marginTop:20}}>Score</Text>
+												<View style={{width:60, height:30, marginLeft:5,backgroundColor:"orange", borderRadius:50,padding:5, marginTop:15, alignItems:"center"}}>
+													<Text>2.0</Text>
+												</View>
+											</View>
+											
+										</View>
+
+										<View style={{marginTop:10, marginLeft:80}}>
+											<View style={[styles.textStyle, styles.shadowProp]}>
+												<Text>Sub Traits 1</Text>
+												<Ionicons
+														name={'checkmark-outline'}
+														size={25}
+														color={'#A1BA68'}
+													/>
+												
+											</View>
+											<View style={[styles.textStyle, styles.shadowProp]}>
+												<Text>Sub Traits 2</Text>
+											</View>
+											<View style={[styles.textStyle, styles.shadowProp]}>
+												<Text>Sub Traits 3</Text>
+											</View>
+										</View>
+
+
+										<View style={styles.wrapper}>
+											<View style={styles.traitWrapper}>							
+												<View style={[styles.traitW, styles.shadowProp]}>
+													<Ionicons
+														name={'medkit-sharp'}
+														size={30}
+														color={'#A1BA68'}
+													/>
+												</View>
+
+												<Text style={{ padding:20}}>Traits 2</Text>
+											</View>
+											
+											
+										</View>
+									
+
+										<View style={{marginTop:10, marginLeft:80, marginBottom:20}}>
+												<View style={[styles.textStyle, styles.shadowProp]}>
+													<Text>Sub Traits 4</Text>
+												</View>
+												<View style={[styles.textStyle, styles.shadowProp]}>
+													<Text>Sub Traits 5</Text>
+												</View>
+												<View style={[styles.textStyle, styles.shadowProp]}>
+													<Text>Sub Traits 6</Text>
+												</View>
+										</View>
+										
+											<Pressable
+											style={[styles.button, styles.buttonClose]}
+											onPress={() => setModalVisible(!modalVisible)}
+											>
+											<Text style={styles.textS}>Hide Modal</Text>
+											</Pressable>
+										</View>
+										</View>
+									</Modal>
+									
+								</View>
+								
+								
+								
 							</View>
 
 							<View style={{marginTop:32}}>
@@ -230,5 +344,93 @@ const styles = StyleSheet.create({
         backgroundColor: "#ECECEC",
         borderRadius: 15,
     },
+	centeredView: {
+		flex: 1,
+		marginTop: 22,
+	
+
+	  },
+	wrapper:{
+		display:'flex',
+		flexDirection:'row',
+		justifyContent:"space-between",
+		borderBottomWidth:0.2,
+		paddingBottom:5,
+		 paddingLeft:10,
+		  borderBottomColor:"#EBECFO",
+		  marginTop:10,
+	  },
+	traitWrapper:{
+		paddingTop: 5,
+		paddingBottom: 5,
+		flexDirection: 'row',
+	},
+	traitW:{
+		height: 60,
+		width: 60,
+		borderRadius: 15,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor:'white',
+		
+	},
+	  modalView: {
+		margin: 20,
+		backgroundColor: "white",
+		borderRadius: 20,
+		padding:10,
+		shadowColor: "#000",
+		marginTop:110,
+		shadowOffset: {
+		  width: 0,
+		  height: 2
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5
+	  },
+	  button: {
+		borderRadius: 20,
+		padding: 10,
+		elevation: 2
+	  },
+	  buttonOpen: {
+		backgroundColor: "#F194FF",
+	  },
+	  buttonClose: {
+		backgroundColor: "#2196F3",
+	  },
+	  textS: {
+		color: "white",
+		fontWeight: "bold",
+		textAlign: "center"
+	  },
+	  textStyle:{
+		width:220, 
+		backgroundColor: '#ffff',
+        height: 40,
+        borderRadius: 10,
+        justifyContent: 'space-between',
+        marginLeft: 10,
+		marginTop:5,
+		marginBottom:5,
+		marginRight:10,
+		padding:10,
+		paddingLeft:20, 
+		flexDirection:'row'
+		
+	  },
+	  shadowProp: {
+		shadowColor: '#000',
+		shadowOffset: {
+		  width: 0,
+		  height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
+	
 });
 export default CoachingSession;
