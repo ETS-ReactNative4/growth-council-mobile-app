@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Dashboard from './components';
@@ -21,7 +21,7 @@ import {
 
 const DashboardScreen = props => {
   const dispatch = useDispatch();
-
+  const [contentSlider, setContentSlider] = useState([]);
   const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector(
     state => state.pillarSliders,
   );
@@ -33,6 +33,13 @@ const DashboardScreen = props => {
 
   const {communityMembers, communityMemberLoading, communityMemberError} =
     useSelector(state => state.communityMembers);
+
+  useEffect(() => {
+    let content = pillarSliders.flatMap((value, key) => {
+      return value?.pillar_contents;
+    });
+    console.log({content});
+  }, [pillarSliders]);
 
   /**
    * Fetch all upcoming events data.
