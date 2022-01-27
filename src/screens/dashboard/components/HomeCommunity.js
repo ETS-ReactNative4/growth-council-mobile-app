@@ -117,7 +117,7 @@ const HomeCommunity = props => {
           })
         }>
         <View style={styles.middleWrapper}>
-		<View style={[styles.middleW,styles.shadowProp]}>
+          <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
               style={{width: 25, height: 25}}
@@ -189,7 +189,6 @@ const HomeCommunity = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videolink = link[1].split('&', 2);
-    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videolink[0]} />
@@ -345,7 +344,7 @@ const styles = StyleSheet.create({
     height: 64,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,  
+    borderRadius: 10,
   },
   headingText3: {
     ...CommonStyles.headingText3,

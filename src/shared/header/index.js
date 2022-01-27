@@ -24,7 +24,7 @@ const HeaderTitle = () => {
           fontSize: 10,
           fontFamily: Typography.FONT_SF_MEDIUM,
         }}>
-        Good Morning,
+        Hello,
       </Text>
       <Text
         style={{
