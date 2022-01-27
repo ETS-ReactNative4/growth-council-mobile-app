@@ -146,7 +146,7 @@ const BestPractice = props => {
           })
         }>
         <View style={styles.middleWrapper}>
-		<View style={[styles.middleW,styles.shadowProp]}>
+          <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
@@ -164,7 +164,6 @@ const BestPractice = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videolink = link[1].split('&', 2);
-    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videolink[0]} />
@@ -202,19 +201,19 @@ const BestPractice = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-		  <ScrollView
-			horizontal
-			showsVerticalScrollIndicator={false}
-			showsHorizontalScrollIndicator={false}
-			style={{marginLeft:10}}>
-			<FlatList
-				horizontal
-				// numColumns={Math.ceil(pillarPOEs.length / 2)}
-				showsHorizontalScrollIndicator={false}
-				data={listData}
-				renderItem={_renderMiddleItem}
-				/>
-			</ScrollView>
+          <ScrollView
+            horizontal
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            style={{marginLeft: 10}}>
+            <FlatList
+              horizontal
+              // numColumns={Math.ceil(pillarPOEs.length / 2)}
+              showsHorizontalScrollIndicator={false}
+              data={listData}
+              renderItem={_renderMiddleItem}
+            />
+          </ScrollView>
         </View>
 
         <View style={styles.bottom}>
