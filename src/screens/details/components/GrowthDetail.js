@@ -426,7 +426,7 @@ export default GrowthDetail;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1400,
+    height: 1200,
   },
   arrow: {
     marginTop: 30,
@@ -458,12 +458,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 10,
     borderColor: Colors.COACHING_COLOR,
   },
-  //   contentWrapper: {
-  //     borderRadius: 18,
-  //  backgroundColor:"red",
-  //     overflow: 'scroll',
-  //     marginTop: 10,
-  //   },
+    contentWrapper: {
+      borderRadius: 18,
+   backgroundColor:"white",
+      overflow: 'scroll',
+      marginTop: 10,
+	  height: 1400,
+    },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
