@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,useRef} from 'react';
 import {
     Text,
     View,
@@ -27,6 +27,19 @@ const CoachingSession = props => {
 	const [modalVisible, setModalVisible] = useState(false);
 
 	const [display, setDisplay] = useState(true);
+	const ref = useRef();
+
+	// useEffect(()=>{
+	// 		const checkIfClickedOutside =(e) =>{
+	// 			if(ref.current && !ref.current.contains(e.target)){
+	// 				onclose()
+	// 			}
+	// 		}
+	// 		document.addEventListener("click", checkIfClickedOutside)
+	// 		return()=>{
+	// 			document.removeEventListener("click", checkIfClickedOutside)
+	// 		}
+	// },[onclose]);
 	
     return (
         <ScrollView style={styles.scrollBox}>
@@ -72,7 +85,7 @@ const CoachingSession = props => {
 								</TouchableOpacity>
 								}
 								
-								<View style={styles.centeredView}>
+								<View style={styles.centeredView} >
 									<Modal
 										animationType="slide"
 										transparent={true}
