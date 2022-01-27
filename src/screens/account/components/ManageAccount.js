@@ -16,8 +16,9 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
+
+import {Profile} from './Profile';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
@@ -99,18 +100,18 @@ const ManageAccount = props => {
 
   const [items, setItems] = useState([
     {label: 'Select Model', value: ''},
-    {label: 'Corporate Strategy', value: 'corporate_strategy'},
+    {label: 'Corporate Strategy', value: 'Corporate Strategy'},
     {
       label: 'Research & Development/Innovation',
-      value: 'research_development_innovation',
+      value: 'Research & Development/Innovation',
     },
-    {label: 'Business Development', value: 'business_development'},
+    {label: 'Business Development', value: 'Business Development'},
     {
       label: 'Product Strategy/Development',
-      value: 'product_strategy_development',
+      value: 'Product Strategy/Development',
     },
-    {label: 'Marketing', value: 'marketing'},
-    {label: 'Other', value: 'other'},
+    {label: 'Marketing', value: 'Marketing'},
+    {label: 'Other', value: 'Other'},
   ]);
 
   const {
@@ -234,6 +235,8 @@ const ManageAccount = props => {
                   />
                 </View>
 
+                <ImageUpload />
+
                 <View style={styles.TextWrapper}>
                   <Text
                     style={{
@@ -354,10 +357,10 @@ const ManageAccount = props => {
                     touched={touched.professional_summary}
                   />
 
-                  {/* <Text
+                  <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     EXPERTISE AREAS
-                  </Text> */}
+                  </Text>
                   {/* <TextInput
                     multiline={true}
                     numberOfLines={3}
@@ -369,17 +372,17 @@ const ManageAccount = props => {
                     error={errors.expertise_areas1}
                     touched={touched.expertise_areas1}
                   /> */}
-                  {/* <DropDownPicker
+                  <DropDownPicker
                     multiple={true}
                     min={0}
-                    max={6}
+                    max={10}
                     open={open}
                     value={value}
                     items={items}
                     setOpen={setOpen}
                     setValue={setValue}
                     setItems={setItems}
-                  /> */}
+                  />
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
