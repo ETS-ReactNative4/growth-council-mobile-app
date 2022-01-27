@@ -103,16 +103,19 @@ const GrowthCoaching = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('GrowthDetail', {id: item?.term_id})
+          navigation.navigate('GrowthDetail', {
+            poeId: item?.term_id,
+            pillarId: item?.parent,
+          })
         }>
         <View style={styles.middleWrapper}>
-		<View style={[styles.middleW,styles.shadowProp]}>
+          <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 30, height: 30}}
+              style={{width: 25, height: 25}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 7}}>
+          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
             {item?.name}
           </Text>
         </View>
@@ -178,7 +181,6 @@ const GrowthCoaching = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videolink = link[1].split('&', 2);
-    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videolink[0]} />

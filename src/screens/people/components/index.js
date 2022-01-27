@@ -111,8 +111,8 @@ const People = (props) => {
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
             <View style={styles.container}>
                 <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
-                    <Ionicons name="search-outline" color={'#000'} size={24}
-                              style={{marginLeft: 20, marginTop: 20, zIndex: 20, position: 'absolute'}}/>
+                    <Ionicons name="search-outline" color={'#B2B3B9'} size={24}
+                              style={{marginLeft: 30, marginTop: 30, zIndex: 10, position: 'absolute'}}/>
                     <TextInput
                         style={styles.input}
                         placeholder="Search"
@@ -123,8 +123,8 @@ const People = (props) => {
                             await fetchAllUsers({s: text, sort: sorting});
                         }}
                     />
-                    <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/>
+                    {/* <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
+                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/> */}
 
                 </View>
                 <View style={styles.iconWrapper}>
@@ -206,13 +206,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     input: {
-        height: 40,
-        width: '70%',
-        margin: 12,
-        borderWidth: 0.5,
-        paddingLeft: 40,
-        borderRadius: 8,
-        backgroundColor: 'white',
+        height: 45,
+        width: '90%',
+        margin: 20,
+        borderWidth: 0.2,
+        paddingLeft: 50,
+        borderRadius: 20,
+        backgroundColor: '#F5F5F5',
     },
     wrapper: {
 
