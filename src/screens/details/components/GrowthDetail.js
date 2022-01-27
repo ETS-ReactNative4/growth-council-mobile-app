@@ -458,12 +458,12 @@ const styles = StyleSheet.create({
     borderTopWidth: 10,
     borderColor: Colors.COACHING_COLOR,
   },
-  //   contentWrapper: {
-  //     borderRadius: 18,
-  //  backgroundColor:"red",
-  //     overflow: 'scroll',
-  //     marginTop: 10,
-  //   },
+    contentWrapper: {
+      borderRadius: 18,
+   backgroundColor:"white",
+      overflow: 'scroll',
+      marginTop: 10,
+    },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
