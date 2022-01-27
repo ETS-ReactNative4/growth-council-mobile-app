@@ -26,7 +26,7 @@ const CoachingSession = props => {
    
 	const [modalVisible, setModalVisible] = useState(false);
 
-	const [display, setDisplay] = useState(false);
+	const [display, setDisplay] = useState(true);
 	
     return (
         <ScrollView style={styles.scrollBox}>
@@ -71,14 +71,15 @@ const CoachingSession = props => {
 									<Ionicons name={'close'} size={35} color={'black'} style={{marginLeft:15}}/>
 								</TouchableOpacity>
 								}
+								
 								<View style={styles.centeredView}>
 									<Modal
 										animationType="slide"
 										transparent={true}
 										visible={modalVisible}
 										onRequestClose={() => {
-										Alert.alert("Modal has been closed.");
-										setModalVisible(!modalVisible);
+											Alert.alert("Modal has been closed.");
+											setModalVisible(!modalVisible);
 										}}
 									>
 										<View>
