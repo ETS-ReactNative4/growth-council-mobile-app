@@ -157,7 +157,7 @@ const CoachingSession = props => {
 											style={[styles.button, styles.buttonClose]}
 											onPress={() => setModalVisible(!modalVisible)}
 											>
-											<Text style={styles.textS}>Hide Modal</Text>
+											<Text style={styles.textS}>Close</Text>
 											</Pressable>
 										</View>
 										</View>
