@@ -132,14 +132,14 @@ const People = (props) => {
 						<Picker
 						selectedValue={category}
 						mode={'dropdown'}
-						style={{height: 30, width: 280,}}
+						style={{height: 30, width: 250,}}
 						onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
 						>
 						<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>
 						<Picker.Item label="Corporate Strategy" value="Corporate Strategy"/>
 						<Picker.Item label="Research & Developement/Innovation" value="Research"/>
 						<Picker.Item label="Business Developement" value="Business"/>
-						<Picker.Item label="Product Strategy/Developement/Innovation" value="Product"/>
+						<Picker.Item label="Product Strategy/Developement" value="Product"/>
 						<Picker.Item label="Marketing" value="Marketing"/>
 
 						</Picker>
