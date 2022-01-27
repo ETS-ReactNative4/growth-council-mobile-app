@@ -212,7 +212,6 @@ const Dashboard = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videolink = link[1].split('&', 2);
-    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videolink[0]} />
@@ -220,7 +219,7 @@ const Dashboard = props => {
     );
   };
 
-  console.log({contentSlider});
+  // console.log({contentSlider});
 
   return (
     <SafeAreaView style={{flex: 1}}>

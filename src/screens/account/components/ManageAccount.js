@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,6 +17,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
@@ -24,6 +25,7 @@ import {getAsyncStorage} from '../../../utils/storageUtil';
 import {decodeUserID} from '../../../utils/jwtUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
+import ImageUpload from './ImageUpload';
 
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
@@ -49,6 +51,9 @@ const ManageAccount = props => {
     userLoading,
     updateUser,
   } = props;
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([]);
 
   let Location = profile?.user_meta?.Location;
   if (typeof Location === 'undefined') {
@@ -87,10 +92,26 @@ const ManageAccount = props => {
 
   let expertise_areas1 = profile?.user_meta?.expertise_areas1;
   if (typeof expertise_areas1 === 'undefined') {
-    expertise_areas1 = ' ';
+    expertise_areas1 = [];
   } else {
     expertise_areas1 = profile?.user_meta?.expertise_areas1[0];
   }
+
+  const [items, setItems] = useState([
+    {label: 'Select Model', value: ''},
+    {label: 'Corporate Strategy', value: 'corporate_strategy'},
+    {
+      label: 'Research & Development/Innovation',
+      value: 'research_development_innovation',
+    },
+    {label: 'Business Development', value: 'business_development'},
+    {
+      label: 'Product Strategy/Development',
+      value: 'product_strategy_development',
+    },
+    {label: 'Marketing', value: 'marketing'},
+    {label: 'Other', value: 'other'},
+  ]);
 
   const {
     handleChange,
@@ -116,14 +137,13 @@ const ManageAccount = props => {
       professional_summary: professional_summary,
     },
     onSubmit: async values => {
-      console.log(values);
-      // await updateUser(values).then(response => {
-      //   if (response?.payload?.status === 200) {
-      //     navigation.navigate('Person');
-      //     ToastMessage.show('Your information has been successfully updated.');
-      //     ToastMessage.show(values.email);
-      //   }
-      //});
+      await updateUser(values).then(response => {
+        if (response?.payload?.status === 200) {
+          navigation.navigate('Person');
+          ToastMessage.show('Your information has been successfully updated.');
+          ToastMessage.show(values.email);
+        }
+      });
     },
   });
 
@@ -134,7 +154,7 @@ const ManageAccount = props => {
     fetchProfileAsync();
   }, []);
 
-  console.log(values);
+  //console.log(values);
 
   return (
     <ScrollView
@@ -169,7 +189,6 @@ const ManageAccount = props => {
               <Text>{profile.user_email}</Text>
             </View>
           </View>
-          npm
         </View>
 
         <View style={styles.container}>
@@ -335,11 +354,11 @@ const ManageAccount = props => {
                     touched={touched.professional_summary}
                   />
 
-                  <Text
+                  {/* <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     EXPERTISE AREAS
-                  </Text>
-                  <TextInput
+                  </Text> */}
+                  {/* <TextInput
                     multiline={true}
                     numberOfLines={3}
                     style={styles.textarea}
@@ -349,7 +368,18 @@ const ManageAccount = props => {
                     onBlur={handleBlur('expertise_areas1')}
                     error={errors.expertise_areas1}
                     touched={touched.expertise_areas1}
-                  />
+                  /> */}
+                  {/* <DropDownPicker
+                    multiple={true}
+                    min={0}
+                    max={6}
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                  /> */}
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
