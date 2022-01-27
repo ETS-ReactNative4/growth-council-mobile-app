@@ -128,21 +128,24 @@ const People = (props) => {
 
                 </View>
                 <View style={styles.iconWrapper}>
-                    {/*<View style={{borderRightWidth: 0.2, borderColor: '#707070'}}>*/}
-                    {/*<Picker*/}
-                    {/*selectedValue={category}*/}
-                    {/*mode={'dropdown'}*/}
-                    {/*style={{height: 30, width: 170,}}*/}
-                    {/*onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}*/}
-                    {/*>*/}
-                    {/*<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>*/}
-                    {/*<Picker.Item label="Kathmandu" value="kathmandu"/>*/}
-                    {/*<Picker.Item label="Bhaktapur" value="bhaktapur"/>*/}
-                    {/*</Picker>*/}
-                    {/*</View>*/}
+                    <View style={{borderRightWidth: 0.2, borderColor: '#707070',}}>
+						<Picker
+						selectedValue={category}
+						mode={'dropdown'}
+						style={{height: 30, width: 250,}}
+						onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+						>
+						<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>
+						<Picker.Item label="Corporate Strategy" value="Corporate Strategy"/>
+						<Picker.Item label="Research & Developement/Innovation" value="Research"/>
+						<Picker.Item label="Business Developement" value="Business"/>
+						<Picker.Item label="Product Strategy/Developement" value="Product"/>
+						<Picker.Item label="Marketing" value="Marketing"/>
 
-                    <View
-                        style={[styles.icon,{borderRightWidth: 0.2}]}>
+						</Picker>
+                  </View>
+
+                    <View style={styles.icon}>
                         <Ionicons
                             name='arrow-up'
                             size={20}
@@ -166,7 +169,7 @@ const People = (props) => {
                         <Text style={styles.textWrapper}>Sort</Text>
                     </View>
 
-					<View style={styles.icon}>
+					{/* <View style={styles.icon}>
 						<Font
 							name='filter'
 							size={20}
@@ -174,7 +177,7 @@ const People = (props) => {
 							style={{marginTop: 15, marginRight:10}}
 						/>
 						<Text style={styles.textWrapper}>Filter</Text>
-					</View>
+					</View> */}
                   
                 </View>
                 <View style={{marginTop: 30}}>
@@ -232,12 +235,14 @@ const styles = StyleSheet.create({
 		
 	},
 	icon:{
-		width:"50%",
+		width:"20%",
 		borderColor: '#707070',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent:'center',
-		 alignContent:'center'
+		 alignContent:'center',
+		
+		 
 	},
 	textWrapper:{
 		marginTop: 15, 
