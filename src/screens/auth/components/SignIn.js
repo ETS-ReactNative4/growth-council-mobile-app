@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   loading1: {
-    marginLeft: 50,
+    marginLeft: 130,
     flex: 1,
     flexDirection: 'column',
     position: 'absolute',
