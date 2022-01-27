@@ -26,7 +26,7 @@ const CoachingSession = props => {
    
 	const [modalVisible, setModalVisible] = useState(false);
 
-	const [display, setDisplay] = useState(true);
+	const [display, setDisplay] = useState(false);
 	
     return (
         <ScrollView style={styles.scrollBox}>
@@ -100,13 +100,13 @@ const CoachingSession = props => {
 											style={{flexDirection: 'row',}}>
 												<Text style={{marginTop:20}}>Score</Text>
 												<View style={{width:60, height:30, marginLeft:5,backgroundColor:"orange", borderRadius:50,padding:5, marginTop:15, alignItems:"center"}}>
-													<Text>2.0</Text>
+													<Text >2.0</Text>
 												</View>
 											</View>
 											
 										</View>
 
-										<View style={{marginTop:10, marginLeft:80}}>
+										<View style={{marginTop:10, }}>
 											<View style={[styles.textStyle, styles.shadowProp]}>
 												<Text>Sub Traits 1</Text>
 												<Ionicons
@@ -142,7 +142,7 @@ const CoachingSession = props => {
 										</View>
 									
 
-										<View style={{marginTop:10, marginLeft:80, marginBottom:20}}>
+										<View style={{marginTop:10, marginBottom:20}}>
 												<View style={[styles.textStyle, styles.shadowProp]}>
 													<Text>Sub Traits 4</Text>
 												</View>
@@ -375,6 +375,7 @@ const styles = StyleSheet.create({
 		
 	},
 	  modalView: {
+		  width:295,
 		margin: 20,
 		backgroundColor: "white",
 		borderRadius: 20,

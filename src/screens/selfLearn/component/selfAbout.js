@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
     Text,
     View,
@@ -15,9 +15,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
+import PDF from './pdf';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+
 const selfAbout = props => {
+	const{
+		navigation,
+	} = props
+	
   return (
 	  <ScrollView>
 		<View style={styles.container}>
@@ -41,9 +47,15 @@ const selfAbout = props => {
 						<Text style={{fontSize:10, marginTop:15, color:"#77838F"}}>Prime yourself to become an insanely great leader</Text>
 					</View>
 
-					<Button style={{height:33, backgroundColor:"#F26722", borderRadius:50}}>
-					<Text style={{color:"white", fontSize:11}} >Read E-Book</Text>
-					</Button>
+						<Button 
+						style={styles.buttonWrapper}
+						onPress={() => navigation.navigate('pdf')}>
+						<Text style={{color:"white", fontSize:11}} >Read E-Book</Text>
+						</Button>
+						
+						
+					
+					
 					
 				</View>
 			</View>
@@ -80,6 +92,7 @@ const styles = StyleSheet.create({
     container: {
         ...CommonStyles.container,
 		margin:15,
+
     },
 	  learnWrapper: {
 		height: 252,
@@ -88,6 +101,12 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		
+	  },
+	  buttonWrapper:{
+		  width:165,
+		  height:34,
+		  borderRadius:20,
+		  backgroundColor:"#F26722"
 	  },
     
 });

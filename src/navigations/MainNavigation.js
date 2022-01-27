@@ -39,6 +39,7 @@ import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
 import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
+import PDFDetailScreen from '../screens/selfLearn/pdf';
 
 const Stack = createStackNavigator();
 
@@ -166,6 +167,13 @@ const MainNavigation = () => {
 		<Stack.Screen
           name="selflearn"
           component={SelfLearnDetailScreen}
+          options={{
+            headerTitle: 'Self Learn',
+          }}
+        />
+		<Stack.Screen
+          name="pdf"
+          component={PDFDetailScreen}
           options={{
             headerTitle: 'Self Learn',
           }}
