@@ -28,9 +28,6 @@ const Search = (props) => {
         cleanSearch,
     } = props;
 
-    console.log("searches::::::::::::", searches);
-
-	
 	const eventItems = ({item, index}) => {
 	
 		const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -183,7 +180,6 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     middle: {
-
         marginLeft: 10,
         marginTop: 5,
 	

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,17 +12,20 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Font from 'react-native-vector-icons/FontAwesome5';
+
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
-
+import DropDownPicker from 'react-native-dropdown-picker';
+import MultiSelect from "react-multi-select-component";
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {decodeUserID} from '../../../utils/jwtUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
+import ImageUpload from './ImageUpload';
+
 
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
@@ -47,7 +50,26 @@ const ManageAccount = props => {
     cleanProfile,
     userLoading,
     updateUser,
+	
+	uploadEntities,
+	uploadLoading,
+	uploadError,
+	uploadImage,
+
+	updateEntities,
+	updateLoading,
+	updateError,
+	updateImage,
+
+	expertise,
+	expertiseLoading,
+	expertiseError,
+	fetchAllExpertises,
+	cleanExperties,
   } = props;
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([]);
 
   let Location = profile?.user_meta?.Location;
   if (typeof Location === 'undefined') {
@@ -84,12 +106,45 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
-  let expertise_areas1 = profile?.user_meta?.expertise_areas1;
+  let expertise_areas1 = profile?.expertise_areas1;
   if (typeof expertise_areas1 === 'undefined') {
-    expertise_areas1 = ' ';
+    expertise_areas1 = [];
   } else {
-    expertise_areas1 = profile?.user_meta?.expertise_areas1[0];
+    expertise_areas1 = profile?.expertise_areas1;
   }
+
+  
+//   console.log({expertise_areas1});
+	const [selected, setSelected] = useState([]);
+
+  	const [items, setItems] = useState([]);
+
+  //profile-image
+  const [image, setImage]= useState(profile.avatar);
+
+	const takePhotoFromCamera=()=>{
+		ImagePicker.openCamera({
+			cropping: true
+		  }).then(image => {
+			// console.log(image);
+			// console.log(image.path);
+			setImage(image.path);
+		  });
+		console.log("Take Photo")
+	}
+	const choosePhotoFromLibrary=()=>{
+		ImagePicker.openPicker({
+		
+			cropping: true
+		  }).then(image => {
+			// console.log(image);
+			console.log("hello",image.path);
+			setImage(image.path);
+			
+		  });
+		console.log("choose photo")
+	}
+	
 
   const {
     handleChange,
@@ -99,6 +154,7 @@ const ManageAccount = props => {
     errors,
     touched,
     isValid,
+    setFieldValue,
   } = useFormik({
     enableReinitialize: true,
     validationSchema: profileUpdateSchema,
@@ -115,14 +171,13 @@ const ManageAccount = props => {
       professional_summary: professional_summary,
     },
     onSubmit: async values => {
-      console.log(values);
-      // await updateUser(values).then(response => {
-      //   if (response?.payload?.status === 200) {
-      //     navigation.navigate('Person');
-      //     ToastMessage.show('Your information has been successfully updated.');
-      //     ToastMessage.show(values.email);
-      //   }
-      //});
+      await updateUser(values).then(response => {
+        if (response?.payload?.status === 200) {
+          navigation.navigate('Person');
+          ToastMessage.show('Your information has been successfully updated.');
+          ToastMessage.show(values.email);
+        }
+      });
     },
   });
 
@@ -133,7 +188,30 @@ const ManageAccount = props => {
     fetchProfileAsync();
   }, []);
 
-  console.log(values);
+  useEffect(() => {
+	const fetchAllExpertisesAsync = async () => {
+	  await fetchAllExpertises();
+	};
+	fetchAllExpertisesAsync();
+  }, []);
+
+  
+  useEffect(()=>{
+	const result = Object.entries(expertise).map(([key, value]) => ({label:key, value}));
+	  setItems(result);
+  },[expertise]);
+
+  
+//   useEffect(() => {
+// 	  const uploadEntitiesAsync = async () =>{
+// 		  await uploadImage();
+// 		  console.log("image",image.path);
+// 	  };
+// 	  uploadEntitiesAsync();
+//   },[image]);
+
+
+console.log(items);
 
   return (
     <ScrollView
@@ -146,7 +224,6 @@ const ManageAccount = props => {
           source={require('../../../assets/img/appBG.png')}
           style={{height: 160}}
         />
-
         <View
           style={{
             display: 'flex',
@@ -155,15 +232,46 @@ const ManageAccount = props => {
             marginLeft: 'auto',
             marginRight: 'auto',
           }}>
+			  
+			  <View style={{
+                        zIndex: 30,
+                        position: 'absolute',
+                        right: 5,
+                        marginTop: 10,
+                        marginRight: 10
+                    }}>
+                        <TouchableOpacity onPress={takePhotoFromCamera}>
+                            <Ionicons
+                                name={'camera'}
+                                size={20}
+                                color="#C4C8CC"
+                                style={{marginTop: 5, marginLeft: 30}}
+
+                            />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={choosePhotoFromLibrary}>
+                            <Ionicons
+                                name={'folder'}
+                                size={20}
+                                color="#C4C8CC"
+                                style={{marginTop: 10, marginLeft: 30}}
+
+                            />
+                        </TouchableOpacity>
+						
+                    </View>
           <View style={styles.profileWrapper}>
             <View style={styles.icon}>
               <Image
-                source={{uri: profile.avatar}}
+                source={{uri: image}}
                 style={{width: '100%', height: '100%'}}
                 resizeMode="cover"
               />
+			  
             </View>
             <View style={styles.header}>
+			<Button style={{ marginBottom:10}}>Update</Button>
               <Text style={styles.headingText1}>{profile.display_name}</Text>
               <Text>{profile.user_email}</Text>
             </View>
@@ -212,6 +320,8 @@ const ManageAccount = props => {
                     style={{right: 0, position: 'absolute'}}
                   />
                 </View>
+{/* 
+                <UploadImage /> */}
 
                 <View style={styles.TextWrapper}>
                   <Text
@@ -337,17 +447,30 @@ const ManageAccount = props => {
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     EXPERTISE AREAS
                   </Text>
-                  <TextInput
-                    multiline={true}
-                    numberOfLines={3}
-                    style={styles.textarea}
-                    keyboardType="text"
-                    value={values.expertise_areas1}
-                    onChangeText={handleChange('expertise_areas1')}
-                    onBlur={handleBlur('expertise_areas1')}
-                    error={errors.expertise_areas1}
-                    touched={touched.expertise_areas1}
-                  />
+				 
+                  <DropDownPicker
+                    multiple={true}
+					min={0}
+					max={5}
+					
+					open={open}
+					value={value}
+					items={items}
+					setOpen={setOpen}
+					setValue={setValue}
+					setItems={setItems}
+					onChangeValue={value =>{
+						setFieldValue("expertise_areas1", value);
+					}}
+				  />
+                    {/* maxHeight={200}
+                    disableBorderRadius={true}
+                    stickyHeader={true}
+                    autoScroll={true}
+                    onChangeValue={value => {
+                      setFieldValue('expertise_areas1', value);
+                    }}
+                  /> */}
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>

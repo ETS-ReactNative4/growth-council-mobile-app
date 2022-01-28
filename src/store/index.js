@@ -64,6 +64,8 @@ import calendarEventReducer from '../screens/calendar/calendarEventSlice';
 
 import searchReducer from '../screens/search/searchSlice';
 import expertiseReducer from '../screens/people/slice/expertiseSlice';
+import uploadReducer from '../screens/account/slice/uploadProfileImageSlice';
+import updateReducer from '../screens/account/slice/updateProfileImageSlice';
 
 const persistConfig = {
     key: 'root',
@@ -112,6 +114,8 @@ const reducers = combineReducers({
     calendarEvents: calendarEventReducer,
     searches: searchReducer,
 	expertise:expertiseReducer,
+	uploadEntities:uploadReducer,
+	updateEntities:updateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
