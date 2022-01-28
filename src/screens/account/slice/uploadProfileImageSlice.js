@@ -6,7 +6,7 @@ export const uploadProfileImage = createAsyncThunk(
   'profile_image/upload',
   (formData, {rejectWithValue}) => {
     const {...fields} = formData;
-    return store(`jwt-auth/v1/change-password`, fields)
+    return store(`/wp/v2/media`, fields)
       .then(response => response.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },

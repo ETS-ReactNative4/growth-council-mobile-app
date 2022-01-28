@@ -93,13 +93,14 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
-  let expertise_areas1 = profile?.user_meta?.expertise_areas1;
+  let expertise_areas1 = profile?.expertise_areas1;
   if (typeof expertise_areas1 === 'undefined') {
     expertise_areas1 = [];
   } else {
-    expertise_areas1 = profile?.user_meta?.expertise_areas1[0];
+    expertise_areas1 = profile?.expertise_areas1;
   }
 
+  console.log({expertise_areas1});
   const [items, setItems] = useState([
     {label: 'Select Model', value: ''},
     {label: 'Corporate Strategy', value: 'Corporate Strategy'},
@@ -149,6 +150,7 @@ const ManageAccount = props => {
     errors,
     touched,
     isValid,
+    setFieldValue,
   } = useFormik({
     enableReinitialize: true,
     validationSchema: profileUpdateSchema,
@@ -182,7 +184,7 @@ const ManageAccount = props => {
     fetchProfileAsync();
   }, []);
 
-  //console.log(values);
+  console.log(values);
 
   return (
     <ScrollView
@@ -416,17 +418,6 @@ const ManageAccount = props => {
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     EXPERTISE AREAS
                   </Text>
-                  {/* <TextInput
-                    multiline={true}
-                    numberOfLines={3}
-                    style={styles.textarea}
-                    keyboardType="text"
-                    value={values.expertise_areas1}
-                    onChangeText={handleChange('expertise_areas1')}
-                    onBlur={handleBlur('expertise_areas1')}
-                    error={errors.expertise_areas1}
-                    touched={touched.expertise_areas1}
-                  /> */}
                   <DropDownPicker
                     multiple={true}
                     min={0}
@@ -435,8 +426,15 @@ const ManageAccount = props => {
                     value={value}
                     items={items}
                     setOpen={setOpen}
-                    setValue={setValue}
                     setItems={setItems}
+                    setValue={setValue}
+                    maxHeight={200}
+                    disableBorderRadius={true}
+                    stickyHeader={true}
+                    autoScroll={true}
+                    onChangeValue={value => {
+                      setFieldValue('expertise_areas1', value);
+                    }}
                   />
 
                   <Text

@@ -418,7 +418,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
   },
-  contentWrapper2: {
+  ContentWrapper: {
     height: 206,
     width: 364,
     marginTop: 20,
