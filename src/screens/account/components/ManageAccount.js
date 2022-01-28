@@ -17,7 +17,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import ImagePicker from 'react-native-image-crop-picker';
 import {Profile} from './Profile';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -26,7 +26,9 @@ import {getAsyncStorage} from '../../../utils/storageUtil';
 import {decodeUserID} from '../../../utils/jwtUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
+
 import ImageUpload from './ImageUpload';
+import UploadImage from './UploadImage';
 
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
@@ -114,6 +116,31 @@ const ManageAccount = props => {
     {label: 'Other', value: 'Other'},
   ]);
 
+  //profile-image
+  const [image, setImage]= useState(profile.avatar)
+	const takePhotoFromCamera=()=>{
+		ImagePicker.openCamera({
+			cropping: true
+		  }).then(image => {
+			console.log(image);
+			
+			setImage(image.path);
+		  });
+		console.log("Take Photo")
+	}
+	const choosePhotoFromLibrary=()=>{
+		ImagePicker.openPicker({
+		
+			cropping: true
+		  }).then(image => {
+			console.log(image);
+			console.log(image.path)
+			setImage(image.path);
+			
+		  });
+		console.log("choose photo")
+	}
+
   const {
     handleChange,
     handleBlur,
@@ -177,10 +204,38 @@ const ManageAccount = props => {
             marginLeft: 'auto',
             marginRight: 'auto',
           }}>
+			  
+			  <View style={{
+                        zIndex: 30,
+                        position: 'absolute',
+                        right: 5,
+                        marginTop: 10,
+                        marginRight: 10
+                    }}>
+                        <TouchableOpacity onPress={takePhotoFromCamera}>
+                            <Ionicons
+                                name={'camera'}
+                                size={20}
+                                color="#C4C8CC"
+                                style={{marginTop: 5, marginLeft: 5}}
+
+                            />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={choosePhotoFromLibrary}>
+                            <Ionicons
+                                name={'folder'}
+                                size={20}
+                                color="#C4C8CC"
+                                style={{marginTop: 10, marginLeft: 5}}
+
+                            />
+                        </TouchableOpacity>
+                    </View>
           <View style={styles.profileWrapper}>
             <View style={styles.icon}>
               <Image
-                source={{uri: profile.avatar}}
+                source={{uri: image}}
                 style={{width: '100%', height: '100%'}}
                 resizeMode="cover"
               />
@@ -234,8 +289,8 @@ const ManageAccount = props => {
                     style={{right: 0, position: 'absolute'}}
                   />
                 </View>
-
-                <ImageUpload />
+{/* 
+                <UploadImage /> */}
 
                 <View style={styles.TextWrapper}>
                   <Text

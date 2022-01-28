@@ -195,6 +195,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
   },
+// container:{
+// 	elevation:2,
+// 	height:350,
+// 	width:350, 
+// 	backgroundColor:'#efefef',
+// 	position:'relative',
+// 	borderRadius:999,
+// 	overflow:'hidden',
+// },
   titleText: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -214,8 +223,8 @@ const styles = StyleSheet.create({
     width: 250,
   },
   imageStyle: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
     margin: 5,
   },
 });
