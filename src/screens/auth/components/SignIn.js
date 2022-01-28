@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   },
   body: {
     width: '80%',
-    alignItems: 'center',
+    
     justifyContent: 'center',
   },
   content: {
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   loading1: {
-    marginLeft: 50,
+    marginLeft: 100,
     flex: 1,
     flexDirection: 'column',
     position: 'absolute',

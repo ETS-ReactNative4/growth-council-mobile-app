@@ -111,8 +111,8 @@ const People = (props) => {
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
             <View style={styles.container}>
                 <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
-                    <Ionicons name="search-outline" color={'#000'} size={24}
-                              style={{marginLeft: 20, marginTop: 20, zIndex: 20, position: 'absolute'}}/>
+                    <Ionicons name="search-outline" color={'#B2B3B9'} size={24}
+                              style={{marginLeft: 30, marginTop: 30, zIndex: 10, position: 'absolute'}}/>
                     <TextInput
                         style={styles.input}
                         placeholder="Search"
@@ -123,26 +123,29 @@ const People = (props) => {
                             await fetchAllUsers({s: text, sort: sorting});
                         }}
                     />
-                    <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/>
+                    {/* <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
+                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/> */}
 
                 </View>
                 <View style={styles.iconWrapper}>
-                    {/*<View style={{borderRightWidth: 0.2, borderColor: '#707070'}}>*/}
-                    {/*<Picker*/}
-                    {/*selectedValue={category}*/}
-                    {/*mode={'dropdown'}*/}
-                    {/*style={{height: 30, width: 170,}}*/}
-                    {/*onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}*/}
-                    {/*>*/}
-                    {/*<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>*/}
-                    {/*<Picker.Item label="Kathmandu" value="kathmandu"/>*/}
-                    {/*<Picker.Item label="Bhaktapur" value="bhaktapur"/>*/}
-                    {/*</Picker>*/}
-                    {/*</View>*/}
+                    <View style={{borderRightWidth: 0.2, borderColor: '#707070',}}>
+						<Picker
+						selectedValue={category}
+						mode={'dropdown'}
+						style={{height: 30, width: 250,}}
+						onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+						>
+						<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>
+						<Picker.Item label="Corporate Strategy" value="Corporate Strategy"/>
+						<Picker.Item label="Research & Developement/Innovation" value="Research"/>
+						<Picker.Item label="Business Developement" value="Business"/>
+						<Picker.Item label="Product Strategy/Developement" value="Product"/>
+						<Picker.Item label="Marketing" value="Marketing"/>
 
-                    <View
-                        style={[styles.icon,{borderRightWidth: 0.2}]}>
+						</Picker>
+                  </View>
+
+                    <View style={styles.icon}>
                         <Ionicons
                             name='arrow-up'
                             size={20}
@@ -166,7 +169,7 @@ const People = (props) => {
                         <Text style={styles.textWrapper}>Sort</Text>
                     </View>
 
-					<View style={styles.icon}>
+					{/* <View style={styles.icon}>
 						<Font
 							name='filter'
 							size={20}
@@ -174,7 +177,7 @@ const People = (props) => {
 							style={{marginTop: 15, marginRight:10}}
 						/>
 						<Text style={styles.textWrapper}>Filter</Text>
-					</View>
+					</View> */}
                   
                 </View>
                 <View style={{marginTop: 30}}>
@@ -206,13 +209,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     input: {
-        height: 40,
-        width: '70%',
-        margin: 12,
-        borderWidth: 0.5,
-        paddingLeft: 40,
-        borderRadius: 8,
-        backgroundColor: 'white',
+        height: 45,
+        width: '90%',
+        margin: 20,
+        borderWidth: 0.2,
+        paddingLeft: 50,
+        borderRadius: 20,
+        backgroundColor: '#F5F5F5',
     },
     wrapper: {
 
@@ -232,12 +235,14 @@ const styles = StyleSheet.create({
 		
 	},
 	icon:{
-		width:"50%",
+		width:"20%",
 		borderColor: '#707070',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent:'center',
-		 alignContent:'center'
+		 alignContent:'center',
+		
+		 
 	},
 	textWrapper:{
 		marginTop: 15, 
