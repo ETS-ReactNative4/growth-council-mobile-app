@@ -5,7 +5,7 @@ import {store} from '../../../utils/httpUtil';
 export const updateProfileImage = createAsyncThunk(
   'profile_image/update',
   (formData, {rejectWithValue}) => {
-    return store(`jwt-auth/v1/users/profile/image`)
+    return store(`jwt-auth/v1/users/profile/image`, formData)
       .then(response => response.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
@@ -14,32 +14,33 @@ export const updateProfileImage = createAsyncThunk(
 const updateProfileImageSlice = createSlice({
   name: 'updateProfileImage',
   initialState: {
-    entities: [],
-    loading: false,
-    error: null,
+    updateEntities: [],
+    updateLoading: false,
+    updateError: null,
   },
   reducers: {
     resetUpdateProfileImage: state => {
-      state.entities = [];
-      state.loading = false;
-      state.error = null;
+      state.updateEntities = [];
+      state.updateLoading = false;
+      state.updateError = null;
     },
   },
   extraReducers: {
     [updateProfileImage.pending]: (state, action) => {
-      state.loading = true;
-      state.error = {};
+      state.updateLoading = true;
+      state.updateError = null;
     },
     [updateProfileImage.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.entities = action.payload;
+		state.updateEntities = action.payload;
+		state.updateLoading = false;
+		state.updateError = null;
     },
     [updateProfileImage.rejected]: (state, action) => {
-      state.loading = false;
+      state.updateLoading = false;
       if (action.payload) {
-        state.error = action.payload;
+        state.updateError = action.payload;
       } else {
-        state.error = action.error;
+        state.updateError = action.error;
       }
     },
   },

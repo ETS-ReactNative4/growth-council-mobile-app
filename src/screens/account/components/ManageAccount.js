@@ -26,9 +26,8 @@ import {getAsyncStorage} from '../../../utils/storageUtil';
 import {decodeUserID} from '../../../utils/jwtUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
-
 import ImageUpload from './ImageUpload';
-import UploadImage from './UploadImage';
+
 
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
@@ -102,7 +101,7 @@ const ManageAccount = props => {
 
   console.log({expertise_areas1});
   const [items, setItems] = useState([
-    {label: 'Select Model', value: ''},
+    // {label: 'Select Model', value: ''},
     {label: 'Corporate Strategy', value: 'Corporate Strategy'},
     {
       label: 'Research & Development/Innovation',
@@ -118,7 +117,8 @@ const ManageAccount = props => {
   ]);
 
   //profile-image
-  const [image, setImage]= useState(profile.avatar)
+  const [image, setImage]= useState(profile.avatar);
+
 	const takePhotoFromCamera=()=>{
 		ImagePicker.openCamera({
 			cropping: true
@@ -197,7 +197,6 @@ const ManageAccount = props => {
           source={require('../../../assets/img/appBG.png')}
           style={{height: 160}}
         />
-
         <View
           style={{
             display: 'flex',
@@ -219,7 +218,7 @@ const ManageAccount = props => {
                                 name={'camera'}
                                 size={20}
                                 color="#C4C8CC"
-                                style={{marginTop: 5, marginLeft: 5}}
+                                style={{marginTop: 5, marginLeft: 30}}
 
                             />
                         </TouchableOpacity>
@@ -229,10 +228,11 @@ const ManageAccount = props => {
                                 name={'folder'}
                                 size={20}
                                 color="#C4C8CC"
-                                style={{marginTop: 10, marginLeft: 5}}
+                                style={{marginTop: 10, marginLeft: 30}}
 
                             />
                         </TouchableOpacity>
+						
                     </View>
           <View style={styles.profileWrapper}>
             <View style={styles.icon}>
@@ -241,8 +241,10 @@ const ManageAccount = props => {
                 style={{width: '100%', height: '100%'}}
                 resizeMode="cover"
               />
+			  
             </View>
             <View style={styles.header}>
+			<Button style={{ marginBottom:10}}>Update</Button>
               <Text style={styles.headingText1}>{profile.display_name}</Text>
               <Text>{profile.user_email}</Text>
             </View>

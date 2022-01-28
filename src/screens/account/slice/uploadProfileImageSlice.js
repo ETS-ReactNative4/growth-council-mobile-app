@@ -15,32 +15,32 @@ export const uploadProfileImage = createAsyncThunk(
 const uploadProfileImageSlice = createSlice({
   name: 'uploadProfileImage',
   initialState: {
-    entities: [],
-    loading: false,
-    error: null,
+    uploadEntities: [],
+    uploadLoading: false,
+    uploadError: null,
   },
   reducers: {
     resetUploadProfileImage: state => {
-      state.entities = [];
-      state.loading = false;
-      state.error = null;
+      state.uploadEntities = [];
+      state.uploadLoading = false;
+      state.uploadError = null;
     },
   },
   extraReducers: {
     [uploadProfileImage.pending]: (state, action) => {
-      state.loading = true;
-      state.error = {};
+      state.uploadLoading = true;
+      state.uploadError = {};
     },
     [uploadProfileImage.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.entities = action.payload;
+      state.uploadLoading = false;
+      state.uploadEntities = action.payload;
     },
     [uploadProfileImage.rejected]: (state, action) => {
-      state.loading = false;
+      state.uploadLoading = false;
       if (action.payload) {
-        state.error = action.payload;
+        state.uploadError = action.payload;
       } else {
-        state.error = action.error;
+        state.uploadError = action.error;
       }
     },
   },
