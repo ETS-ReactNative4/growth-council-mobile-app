@@ -156,9 +156,10 @@ const People = (props) => {
 						style={{height: 30, width: 250,}}
 						onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
 						>
-						
+						<Picker.Item label="Category" value="Category" />
 						{Object.keys(expertise).map((key) => {
 							return (
+						
 							<Picker.Item label={expertise[key]} value={key} key={key}/>
 							)
 						})}	
