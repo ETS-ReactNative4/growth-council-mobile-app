@@ -38,7 +38,9 @@ const People = (props) => {
 
     const toast = useToast();
 
-    const [category, setCategory] = useState("Category");
+    const [category, setCategory] = useState('Category' );
+	const [listofExpertise, setlistofExpertise] = useState([]);
+
     const [searchKey, setSearchKey] = useState('');
     const [sorting, setSorting] = useState('ASC');
     const [memberConnection, setMemberConnection] = useState([]);
@@ -106,6 +108,12 @@ const People = (props) => {
             </View>
         )
     };
+	const renderExpertise = () => {
+		return listofExpertise.map((expertise) => {
+		  return <Picker.item label="Corporate Strategy"
+		  value="Corporate Strategy" />;
+		});
+	  };
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -135,13 +143,14 @@ const People = (props) => {
 						style={{height: 30, width: 250,}}
 						onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
 						>
-						<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>
+						{/* <Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>
 						<Picker.Item label="Corporate Strategy" value="Corporate Strategy" style={{fontSize: 14,}}/>
 						<Picker.Item label="Research & Developement/Innovation" value="Research" style={{fontSize: 14,}}/>
 						<Picker.Item label="Business Developement" value="Business" style={{fontSize: 14,}}/>
 						<Picker.Item label="Product Strategy/Developement" value="Product" style={{fontSize: 14,}}/>
-						<Picker.Item label="Marketing" value="Marketing" style={{fontSize: 14,}}/>
+						<Picker.Item label="Marketing" value="Marketing" style={{fontSize: 14,}}/> */}
 
+						{renderExpertise()}
 						</Picker>
                   </View>
 
