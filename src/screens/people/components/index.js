@@ -33,7 +33,13 @@ const People = (props) => {
         memberConnectionLoading,
         memberConnectionError,
         connectMemberByIdentifier,
-        cleanConnectMember
+        cleanConnectMember,
+
+		expertise,
+		expertiseLoading,
+		expertiseError,
+		fetchAllExpertises,
+		cleanExperties,
     } = props;
 
     const toast = useToast();
@@ -53,6 +59,14 @@ const People = (props) => {
         setMemberConnection(users);
     }, []);
 
+	useEffect(() => {
+		const fetchAllExpertisesAsync = async () => {
+		  await fetchAllExpertises();
+		};
+		fetchAllExpertisesAsync();
+	  }, []);
+
+	console.log(expertise)
     const connectMemberByMemberID = async (memberID, index) => {
         const response = await connectMemberByIdentifier({member_id: memberID});
         if (response?.payload?.status === 200) {
@@ -108,12 +122,11 @@ const People = (props) => {
             </View>
         )
     };
-	const renderExpertise = () => {
-		return listofExpertise.map((expertise) => {
-		  return <Picker.item label="Corporate Strategy"
-		  value="Corporate Strategy" />;
-		});
-	  };
+	// const renderExpertise = expertise.map((item, index) =>
+	// 	<Picker.item key={index} label={item}
+	// 	  value={item} />
+	// )
+	// console.log("abc", renderExpertise)
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -143,14 +156,13 @@ const People = (props) => {
 						style={{height: 30, width: 250,}}
 						onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
 						>
-						{/* <Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>
-						<Picker.Item label="Corporate Strategy" value="Corporate Strategy" style={{fontSize: 14,}}/>
-						<Picker.Item label="Research & Developement/Innovation" value="Research" style={{fontSize: 14,}}/>
-						<Picker.Item label="Business Developement" value="Business" style={{fontSize: 14,}}/>
-						<Picker.Item label="Product Strategy/Developement" value="Product" style={{fontSize: 14,}}/>
-						<Picker.Item label="Marketing" value="Marketing" style={{fontSize: 14,}}/> */}
-
-						{renderExpertise()}
+						
+						{Object.keys(expertise).map((key) => {
+							return (
+							<Picker.Item label={expertise[key]} value={key} key={key}/>
+							)
+						})}	
+						
 						</Picker>
                   </View>
 

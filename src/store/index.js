@@ -63,6 +63,7 @@ import sessionRegisterReducer from '../screens/sessions/slice/sessionRegister';
 import calendarEventReducer from '../screens/calendar/calendarEventSlice';
 
 import searchReducer from '../screens/search/searchSlice';
+import expertiseReducer from '../screens/people/slice/expertiseSlice';
 
 const persistConfig = {
     key: 'root',
@@ -110,6 +111,7 @@ const reducers = combineReducers({
 
     calendarEvents: calendarEventReducer,
     searches: searchReducer,
+	expertise:expertiseReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
