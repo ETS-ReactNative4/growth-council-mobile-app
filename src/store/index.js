@@ -63,6 +63,8 @@ import sessionRegisterReducer from '../screens/sessions/slice/sessionRegister';
 import calendarEventReducer from '../screens/calendar/calendarEventSlice';
 
 import searchReducer from '../screens/search/searchSlice';
+import uploadReducer from '../screens/account/slice/uploadProfileImageSlice';
+import updateReducer from '../screens/account/slice/updateProfileImageSlice';
 
 const persistConfig = {
     key: 'root',
@@ -110,6 +112,8 @@ const reducers = combineReducers({
 
     calendarEvents: calendarEventReducer,
     searches: searchReducer,
+	uploadEntities:uploadReducer,
+	updateEntities:updateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

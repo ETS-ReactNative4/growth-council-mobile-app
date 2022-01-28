@@ -52,6 +52,16 @@ const ManageAccount = props => {
     cleanProfile,
     userLoading,
     updateUser,
+	
+	uploadEntities,
+	uploadLoading,
+	uploadError,
+	uploadImage,
+
+	updateEntities,
+	updateLoading,
+	updateError,
+	updateImage,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -99,7 +109,7 @@ const ManageAccount = props => {
     expertise_areas1 = profile?.expertise_areas1;
   }
 
-  console.log({expertise_areas1});
+//   console.log({expertise_areas1});
   const [items, setItems] = useState([
     // {label: 'Select Model', value: ''},
     {label: 'Corporate Strategy', value: 'Corporate Strategy'},
@@ -123,8 +133,8 @@ const ManageAccount = props => {
 		ImagePicker.openCamera({
 			cropping: true
 		  }).then(image => {
-			console.log(image);
-			
+			// console.log(image);
+			// console.log(image.path);
 			setImage(image.path);
 		  });
 		console.log("Take Photo")
@@ -134,13 +144,14 @@ const ManageAccount = props => {
 		
 			cropping: true
 		  }).then(image => {
-			console.log(image);
-			console.log(image.path)
+			// console.log(image);
+			console.log("hello",image.path);
 			setImage(image.path);
 			
 		  });
 		console.log("choose photo")
 	}
+	
 
   const {
     handleChange,
@@ -184,7 +195,14 @@ const ManageAccount = props => {
     fetchProfileAsync();
   }, []);
 
-  console.log(values);
+//   useEffect(() => {
+// 	  const uploadEntitiesAsync = async () =>{
+// 		  await uploadImage();
+// 		  console.log("image",image.path);
+// 	  };
+// 	  uploadEntitiesAsync();
+//   },[image]);
+
 
   return (
     <ScrollView
@@ -430,10 +448,10 @@ const ManageAccount = props => {
                     setOpen={setOpen}
                     setItems={setItems}
                     setValue={setValue}
-                    maxHeight={200}
-                    disableBorderRadius={true}
-                    stickyHeader={true}
-                    autoScroll={true}
+                    // maxHeight={200}
+                    // disableBorderRadius={true}
+                    // stickyHeader={true}
+                    // autoScroll={true}
                     onChangeValue={value => {
                       setFieldValue('expertise_areas1', value);
                     }}
