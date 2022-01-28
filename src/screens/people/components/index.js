@@ -45,8 +45,6 @@ const People = (props) => {
     const toast = useToast();
 
     const [category, setCategory] = useState('Category' );
-	const [listofExpertise, setlistofExpertise] = useState([]);
-
     const [searchKey, setSearchKey] = useState('');
     const [sorting, setSorting] = useState('ASC');
     const [memberConnection, setMemberConnection] = useState([]);
@@ -66,7 +64,6 @@ const People = (props) => {
 		fetchAllExpertisesAsync();
 	  }, []);
 
-	console.log(expertise)
     const connectMemberByMemberID = async (memberID, index) => {
         const response = await connectMemberByIdentifier({member_id: memberID});
         if (response?.payload?.status === 200) {
@@ -122,11 +119,6 @@ const People = (props) => {
             </View>
         )
     };
-	// const renderExpertise = expertise.map((item, index) =>
-	// 	<Picker.item key={index} label={item}
-	// 	  value={item} />
-	// )
-	// console.log("abc", renderExpertise)
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -144,8 +136,6 @@ const People = (props) => {
                             await fetchAllUsers({s: text, sort: sorting});
                         }}
                     />
-                    {/* <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/> */}
 
                 </View>
                 <View style={styles.iconWrapper}>
