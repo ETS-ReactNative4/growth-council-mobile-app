@@ -33,12 +33,18 @@ const People = (props) => {
         memberConnectionLoading,
         memberConnectionError,
         connectMemberByIdentifier,
-        cleanConnectMember
+        cleanConnectMember,
+
+		expertise,
+		expertiseLoading,
+		expertiseError,
+		fetchAllExpertises,
+		cleanExperties,
     } = props;
 
     const toast = useToast();
 
-    const [category, setCategory] = useState("Category");
+    const [category, setCategory] = useState('Category' );
     const [searchKey, setSearchKey] = useState('');
     const [sorting, setSorting] = useState('ASC');
     const [memberConnection, setMemberConnection] = useState([]);
@@ -50,6 +56,13 @@ const People = (props) => {
         fetchAllUsersAsync();
         setMemberConnection(users);
     }, []);
+
+	useEffect(() => {
+		const fetchAllExpertisesAsync = async () => {
+		  await fetchAllExpertises();
+		};
+		fetchAllExpertisesAsync();
+	  }, []);
 
     const connectMemberByMemberID = async (memberID, index) => {
         const response = await connectMemberByIdentifier({member_id: memberID});
@@ -123,8 +136,6 @@ const People = (props) => {
                             await fetchAllUsers({s: text, sort: sorting});
                         }}
                     />
-                    {/* <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/> */}
 
                 </View>
                 <View style={styles.iconWrapper}>
@@ -135,13 +146,14 @@ const People = (props) => {
 						style={{height: 30, width: 250,}}
 						onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
 						>
-						<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>
-						<Picker.Item label="Corporate Strategy" value="Corporate Strategy"/>
-						<Picker.Item label="Research & Developement/Innovation" value="Research"/>
-						<Picker.Item label="Business Developement" value="Business"/>
-						<Picker.Item label="Product Strategy/Developement" value="Product"/>
-						<Picker.Item label="Marketing" value="Marketing"/>
-
+						<Picker.Item label="Category" value="Category" />
+						{Object.keys(expertise).map((key) => {
+							return (
+						
+							<Picker.Item label={expertise[key]} value={key} key={key}/>
+							)
+						})}	
+						
 						</Picker>
                   </View>
 
