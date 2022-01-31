@@ -23,6 +23,8 @@ const PillarList = (props) => {
         pillarSliders,
     } = props;
 
+	console.log("pillar", pillarSliders)
+
     return (
 
         pillarSliders.map((item, index) => {
@@ -33,7 +35,7 @@ const PillarList = (props) => {
                     navigationPath = 'Community';
                     borderColor = COMMUNITY_COLOR;
                     break;
-                case "basic-practices":
+                case "best-practices":
                     navigationPath = 'Best Practices';
                     borderColor = PRACTICE_COLOR;
                     break;

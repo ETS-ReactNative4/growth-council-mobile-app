@@ -7,6 +7,8 @@ import {fetchAllPOEEvents, resetPOEEvent} from './slice/poeEventListSlice';
 
 import {fetchAllPOEDetails, resetPOEDetail} from './slice/poeDetailSlice';
 
+import { fetchcoachingSession ,resetcoachingSession } from './slice/sessionlistSlice';
+
 import {
   fetchPoeSelfLearns,
   resetPoeSelfLearn,
@@ -34,6 +36,7 @@ const GrowthDetailScreen = props => {
     pillarMemberContentError,
   } = useSelector(state => state.pillarMemberContents);
 
+  const {coachingSession, coachingSessionLoading ,coachingSessionError} = useSelector(state=>state.coachingSession)
   const {poeSelfLearns, poeSelfLearnLoading, poeSelfLearnError} = useSelector(
     state => state.poeSelfLearns,
   );
@@ -65,6 +68,10 @@ const GrowthDetailScreen = props => {
     dispatch(fetchAllPillarMemberContents(pillarId));
   };
 
+  const fetchCoachingSessions =() =>{
+	  dispatch(fetchcoachingSession());
+  }
+
   const cleanPOEDetail = () => {
     dispatch(resetPOEDetail());
   };
@@ -77,6 +84,9 @@ const GrowthDetailScreen = props => {
     dispatch(resetPillarMemberContent());
   };
 
+  const cleanCoachingSession =() =>{
+	  dispatch(resetcoachingSession());
+  }
   const cleanPoeSelfLearn = () => {
     dispatch(resetPoeSelfLearn());
   };
@@ -99,6 +109,13 @@ const GrowthDetailScreen = props => {
       pillarMemberContentError={pillarMemberContentError}
       fetchAllPillarMemberContent={fetchAllPillarMemberContent}
       cleanPillarMemberContent={cleanPillarMemberContent}
+
+	  coachingSession={coachingSession}
+	  coachingSessionLoading={coachingSessionLoading}
+	  coachingSessionError={coachingSessionError}
+	  fetchCoachingSessions={fetchCoachingSessions}
+	  cleanCoachingSession={cleanCoachingSession}
+	  
       poeSelfLearns={poeSelfLearns}
       poeSelfLearnLoading={poeSelfLearnLoading}
       poeSelfLearnError={poeSelfLearnError}

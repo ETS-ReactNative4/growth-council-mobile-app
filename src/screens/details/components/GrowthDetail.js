@@ -38,6 +38,11 @@ const GrowthDetail = props => {
     pillarMemberContentError,
     fetchAllPillarMemberContent,
     cleanPillarMemberContent,
+	coachingSession,
+	coachingSessionLoading,
+	coachingSessionError,
+	fetchCoachingSessions,
+	cleanCoachingSession,
     poeSelfLearns,
     poeSelfLearnLoading,
     poeSelfLearnError,
@@ -66,6 +71,12 @@ const GrowthDetail = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
+  useEffect(()=>{
+	  const fetchCoachingSessionAsync = async () =>{
+		  await fetchCoachingSessions();
+	  };
+	  fetchCoachingSessionAsync();
+  },[]);
   useEffect(() => {
     const fetchPoeSelfLearnAsync = async () => {
       await fetchPoeSelfLearn(route.params.poeId);
@@ -76,6 +87,8 @@ const GrowthDetail = props => {
   console.log('POE id:::::::::::::::::', route.params.poeId);
   console.log('parent id:::::::::::::::::', route.params.pillarId);
   console.log('Self Learn ====', poeSelfLearns);
+
+console.log("session", coachingSession)
 
   const _renderItem = ({item, index}) => {
     return (
@@ -164,32 +177,36 @@ const GrowthDetail = props => {
   ];
 
   const _renderMiddleItem = ({item, index}) => {
+	const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const date = actualDate[0].split(' ', 3);
+    console.log(date[1]);
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('coachingSession')}>
+          onPress={() => navigation.navigate('coachingSession',{id: item.ID,
+			sessionId:item?.ID})}>
           <View style={styles.middleWrapper}>
             <View>
               <Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>
-                {item.title}
+                {item?.title}
               </Text>
               <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
-                {item.text}
+			  {item?.organizer?.term_name} {item?.organizer?.description}
               </Text>
             </View>
             <View
               style={{
-                width: 30,
+                width: 40,
                 height: 50,
                 marginTop: 10,
                 backgroundColor: '#EBECF0',
-                borderRadius: 20,
+                borderRadius: 15,
                 marginLeft: 60,
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text style={{fontSize: 12}}>{item.date}</Text>
-              <Text style={{fontSize: 12}}>{item.month}</Text>
+              <Text>{date[1]}</Text>
+            <Text>{date[0]}</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -365,12 +382,12 @@ const GrowthDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={middle}
+                    data={coachingSession}
                     renderItem={_renderMiddleItem}
                   />
                 </View>
               </View>
-              {/* <View style={styles.learn}>
+              <View style={styles.learn}>
                 <Text style={styles.title}>Self Learn</Text>
                 <View
                   style={{
@@ -384,7 +401,7 @@ const GrowthDetail = props => {
                     renderItem={_renderLearnItem}
                   />
                 </View>
-              </View> */}
+              </View>
 
               <View style={styles.bottom}>
                 <Text style={styles.title}> Members</Text>
@@ -439,7 +456,7 @@ export default GrowthDetail;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1200,
+    height: 1350,
   },
   arrow: {
     marginTop: 30,

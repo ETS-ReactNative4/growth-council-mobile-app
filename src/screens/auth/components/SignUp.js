@@ -327,10 +327,6 @@ const SignUpForm = props => {
     'Zimbabwe',
   ];
 
-  console.log('Values ==== ', values);
-  console.log('Errors======', errors);
-  console.log('Checked====', checked);
-
   return (
     <View style={styles.container}>
       <ImageBackground
