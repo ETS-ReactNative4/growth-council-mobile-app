@@ -51,7 +51,7 @@ const People = (props) => {
 
     useEffect(() => {
         const fetchAllUsersAsync = async () => {
-            await fetchAllUsers({s: searchKey, sort: sorting});
+            await fetchAllUsers({s: searchKey, sort: sorting, expertise_area:category});
         };
         fetchAllUsersAsync();
         setMemberConnection(users);
@@ -133,7 +133,7 @@ const People = (props) => {
                         value={searchKey}
                         onChangeText={async (text) => {
                             setSearchKey(text);
-                            await fetchAllUsers({s: text, sort: sorting});
+                            await fetchAllUsers({s: text, sort: sorting, expertise_area:category});
                         }}
                     />
 
@@ -149,11 +149,11 @@ const People = (props) => {
 						<Picker.Item label="Category" value="Category" />
 						{Object.keys(expertise).map((key) => {
 							return (
-						
+
 							<Picker.Item label={expertise[key]} value={key} key={key}/>
 							)
-						})}	
-						
+						})}
+
 						</Picker>
                   </View>
 
@@ -165,7 +165,7 @@ const People = (props) => {
                             style={{marginTop: 15, }}
                             onPress={async () => {
                                 setSorting('DESC');
-                                await fetchAllUsers({s: searchKey, sort: 'DESC'});
+                                await fetchAllUsers({s: searchKey, sort: 'DESC', expertise_area:category});
                             }}
                         />
                         <Ionicons
@@ -175,7 +175,7 @@ const People = (props) => {
                             style={{marginTop: 15}}
                             onPress={async () => {
                                 setSorting('ASC');
-                                await fetchAllUsers({s: searchKey, sort: 'ASC'});
+                                await fetchAllUsers({s: searchKey, sort: 'ASC', expertise_area:category});
                             }}
                         />
                         <Text style={styles.textWrapper}>Sort</Text>
@@ -190,7 +190,7 @@ const People = (props) => {
 						/>
 						<Text style={styles.textWrapper}>Filter</Text>
 					</View> */}
-                  
+
                 </View>
                 <View style={{marginTop: 30}}>
                     <FlatList
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
 		height: 48,
 		justifyContent:'center',
 		alignContent:'center',
-		
+
 	},
 	icon:{
 		width:"20%",
@@ -253,11 +253,11 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent:'center',
 		 alignContent:'center',
-		
-		 
+
+
 	},
 	textWrapper:{
-		marginTop: 15, 
+		marginTop: 15,
 		fontSize:14
 	},
     shadowProp: {
