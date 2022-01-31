@@ -50,6 +50,8 @@ const Home = props => {
     fetchPillarSliderAsync();
   }, []);
 
+  console.log({pillarSliders});
+
   const _renderItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
