@@ -68,6 +68,7 @@ import updateReducer from '../screens/account/slice/updateProfileImageSlice';
 import expertiseReducer from '../screens/people/slice/expertiseSlice';
 import coachingSessionReducer from '../screens/details/slice/sessionlistSlice';
 import traitsReducer from '../screens/coachingSession/slice/sessionTraitsSlice';
+import subTraitReducer from '../screens/coachingSession/slice/subTraitsSlice';
 
 const persistConfig = {
   key: 'root',
@@ -120,6 +121,7 @@ const reducers = combineReducers({
   updateEntities: updateReducer,
   coachingSession:coachingSessionReducer,
   traits:traitsReducer,
+  subTraits:subTraitReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

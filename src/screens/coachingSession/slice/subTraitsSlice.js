@@ -3,7 +3,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {fetch} from '../../../utils/httpUtil';
 
 export const fetchAllSubTraits= createAsyncThunk(
-  'traits/fetchAll',
+  'subtraits/fetchAll',
   (identifier, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/traits/${identifier}`)
       .then(response => response.data.body_response)
@@ -12,7 +12,7 @@ export const fetchAllSubTraits= createAsyncThunk(
 );
 
 const SubTraitSlice = createSlice({
-  name: 'traits',
+  name: 'subtraits',
   initialState: {
     subTraits: [],
     subTraitsLoading: false,

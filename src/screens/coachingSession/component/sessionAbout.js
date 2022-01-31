@@ -94,7 +94,7 @@ const sessionAbout = props => {
 	const _renderItem = ({item, index}, navigation) => {
 		return (
 			<View>
-				<TouchableOpacity onPress={() => navigation.navigate('selfAssessment')}>
+				<TouchableOpacity onPress={() => navigation.navigate('selfAssessment',{id:item.ID})}>
 						<View style={styles.traitWrapper}>							
 							<View style={[styles.traitW, styles.shadowProp]}>
 							<Image

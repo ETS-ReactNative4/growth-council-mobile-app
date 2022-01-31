@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -16,12 +16,13 @@ const Traits = (props) => {
 	}=props;
 
 	useEffect(()=>{
-		const fetchAllSubTraitsAsync = async (identifier) =>{
-			await fetchAllSubTrait(identifier);
+		const fetchAllSubTraitsAsync = async () =>{
+			await fetchAllSubTrait(route.params.id);
 		};
 		fetchAllSubTraitsAsync();
 	},[]);
 
+	console.log("subTraits", route.params.id);
 	console.log(subTraits);
   	return (
 		<View>
