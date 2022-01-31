@@ -25,8 +25,6 @@ const CoachingSession = props => {
     const {
         navigation,
         route,
-		
-		
     } = props;
 
 
@@ -36,11 +34,11 @@ const CoachingSession = props => {
 	const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} = useSelector((state) => state.sessionRegisters);
 
 
-	const fetchAllTrait = sessionId =>{
+	const fetchAllTraitBySession = sessionId =>{
 		dispatch(fetchAllTraits(sessionId));
 	}
 
-	const cleanTraits =()=>{
+	const cleanTraits = () =>{
 		dispatch(resetTraits());
 	};
 
@@ -215,7 +213,7 @@ const CoachingSession = props => {
 								traits={traits}
 								traitsLoading={traitsLoading}
 								traitsError={traitsError}
-								fetchAllTrait={fetchAllTrait}
+								fetchAllTraitBySession={fetchAllTraitBySession}
 								cleanTraits={cleanTraits}
 
 								{...props}

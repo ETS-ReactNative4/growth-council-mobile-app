@@ -172,7 +172,8 @@ console.log("session", coachingSession)
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('coachingSession',{id: item.ID})}>
+          onPress={() => navigation.navigate('coachingSession',{id: item.ID,
+			sessionId:item?.ID})}>
           <View style={styles.middleWrapper}>
             <View>
               <Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>

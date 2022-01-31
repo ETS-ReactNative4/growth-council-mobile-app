@@ -28,7 +28,7 @@ const sessionAbout = props => {
 		traits,
 		traitsLoading,
 		traitsError,
-		fetchAllTrait,
+		fetchAllTraitBySession,
 		cleanTraits,
 
 		sessions,
@@ -62,13 +62,10 @@ const sessionAbout = props => {
 
 	  useEffect(()=>{
 		const fetchAllTraitsAsync = async () =>{
-			await fetchAllTrait(route.params.sessionId);
+			await fetchAllTraitBySession(route.params.sessionId);
 		};
 		fetchAllTraitsAsync();
 	},[])
-
-	
-  
 	  useEffect(() => {
 		  const fetchSessionDetailAsync = async () => {
 			  await fetchSessionByIdentifier(route.params.id);
@@ -99,14 +96,13 @@ const sessionAbout = props => {
 				<TouchableOpacity onPress={() => navigation.navigate('selflearn')}>
 						<View style={styles.traitWrapper}>							
 							<View style={styles.traitW}>
-								<Ionicons
-									name={"medkit-sharp"}
-									size={30}
-									color={'#A1BA68'}
+							<Image
+								source={{uri: item?.image}}
+								style={{width: 25, height: 25}}
 								/>
 							</View>
 
-							<Text style={{ padding:20}}>{item.name}</Text>
+							<Text style={{padding:10, width:100}}>{item?.title}</Text>
 						</View>
 				</TouchableOpacity>
 			</View>
@@ -248,7 +244,7 @@ const sessionAbout = props => {
 			<FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={data}
+                    data={traits}
 					renderItem={item => _renderItem(item, navigation)}
                   />
 				
@@ -476,7 +472,7 @@ const styles = StyleSheet.create({
 	traitWrapper:{
 		paddingTop: 5,
 		paddingBottom: 5,
-		flexDirection: 'row',
+		flexDirection:"row"
 	},
 	traitW:{
 		height: 60,
