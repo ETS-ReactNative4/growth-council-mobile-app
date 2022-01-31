@@ -9,7 +9,26 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Checkbox from '../../../shared/form/Checkbox';
 import RoundCheckbox from 'rn-round-checkbox';
 
-const Question = () => {
+const Question = (props) => {
+	const{
+		navigation,
+		route,
+		subTraits,
+		subTraitsLoading,
+		subTraitsError,
+		fetchAllSubTrait,
+		cleanSubTrait
+	}=props;
+
+	useEffect(()=>{
+		const fetchAllSubTraitsAsync = async (identifier) =>{
+			await fetchAllSubTrait(identifier);
+		};
+		fetchAllSubTraitsAsync();
+	},[]);
+
+	console.log(subTraits);
+
 	const [checked, setChecked] = useState(false);
 
 	const data = [

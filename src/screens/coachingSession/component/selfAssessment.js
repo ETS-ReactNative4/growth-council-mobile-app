@@ -1,5 +1,6 @@
 
 import React,{useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import { 
 	StyleSheet, 
 	Text,
@@ -11,9 +12,26 @@ import ButtonToggleGroup from 'react-native-button-toggle-group';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Trait from './Traits';
-import Question from './Question'
+import Question from './Question';
+import { fetchAllSubTraits, resetSubTraits } from '../slice/subTraitsSlice';
 
-const selfAssessment = () => {
+const selfAssessment = (props) => {
+
+	const {
+        navigation,
+        route,
+    } = props;
+
+	const dispatch = useDispatch();
+	const {subTraits,subTraitsLoading,subTraitsError}= useSelector(state => state.subTraits);
+
+	const fetchAllSubTrait = identifier =>{
+		dispatch(fetchAllSubTraits(identifier));
+	}
+
+	const cleanSubTrait = () =>{
+		dispatch(resetSubTraits());
+	};
 
 	const [value, setValue] = useState('Sub Trait 1');
 	return (
@@ -34,10 +52,22 @@ const selfAssessment = () => {
 			
 				<View >
 					{value === 'Sub Trait 1' &&
-						<Trait/>
+						<Trait
+						{...props}
+						subTraits={subTraits}
+						subTraitsLoading={subTraitsLoading}
+						subTraitsError={subTraitsError}
+						fetchAllSubTrait={fetchAllSubTrait}
+						cleanSubTrait={cleanSubTrait}/>
 					}
 					{value === 'Yellow Questions' &&
-						<Question/>
+						<Question
+						{...props}
+						subTraits={subTraits}
+						subTraitsLoading={subTraitsLoading}
+						subTraitsError={subTraitsError}
+						fetchAllSubTrait={fetchAllSubTrait}
+						cleanSubTrait={cleanSubTrait}/>
 					}
 					
 				</View>
