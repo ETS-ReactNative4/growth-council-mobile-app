@@ -15,7 +15,6 @@ import Font from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
-
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 
@@ -42,7 +41,6 @@ const People = props => {
   } = props;
 
   const toast = useToast();
-
   const [category, setCategory] = useState('Category');
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
