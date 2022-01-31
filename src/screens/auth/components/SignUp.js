@@ -74,7 +74,7 @@ const SignUpForm = props => {
       phone: '',
       email: '',
       country: '',
-      checked: '',
+      checked: false,
       firebase_password: uuid.v4(),
     },
     onSubmit: async values => {
@@ -600,7 +600,6 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontSize: 10,
     color: 'red',
- 
   },
 });
 
