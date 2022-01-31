@@ -67,6 +67,10 @@ import uploadReducer from '../screens/account/slice/uploadProfileImageSlice';
 import updateReducer from '../screens/account/slice/updateProfileImageSlice';
 import expertiseReducer from '../screens/people/slice/expertiseSlice';
 
+import poeSelfLearnReducer from '../screens/selfLearn/slice/poeSelfLearnSlice';
+import selfLearnTraitReducer from '../screens/selfLearn/slice/selfLearnTraitsSlice';
+import selfLearnReducer from '../screens/selfLearn/slice/selfLearnByIdSlice';
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -116,6 +120,9 @@ const reducers = combineReducers({
   expertise: expertiseReducer,
   uploadEntities: uploadReducer,
   updateEntities: updateReducer,
+  poeSelfLearns: poeSelfLearnReducer,
+  selfLearnTraits: selfLearnTraitReducer,
+  selfLearns: selfLearnReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
