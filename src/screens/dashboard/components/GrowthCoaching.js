@@ -106,6 +106,7 @@ const GrowthCoaching = props => {
           navigation.navigate('GrowthDetail', {
             poeId: item?.term_id,
             pillarId: item?.parent,
+			
           })
         }>
         <View style={styles.middleWrapper}>

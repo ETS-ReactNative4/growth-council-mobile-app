@@ -23,12 +23,12 @@ const Traits = (props) => {
 	},[]);
 
 	console.log("subTraits", route.params.id);
-	console.log(subTraits);
+	// const item= subTraits.sub_traits
   	return (
 		<View>
 			<View style={[styles.questionWrapper,styles.shadowProp]}>
 				<View style={{ alignItems:"center", height:40, justifyContent:'center'}}>
-					<Text style={styles.title}>Would you like to invest on you future?</Text>
+					<Text style={styles.title}>s</Text>
 				</View>
 
 				<View style={{height:1, borderWidth:0.1, backgroundColor:'#D8D8D8'}}/>
@@ -87,14 +87,12 @@ const Traits = (props) => {
 			</View>
 			<ScrollView style={styles.scrollBox}>
 			<View style={{marginTop:25}}>
-				<Text style={styles.title}>
+				{/* <Text style={styles.title}>
 					Best Practices
-				</Text>
+				</Text> */}
 
 				<Text style={styles.paragraph}>
-				It’s time to account for the full toll that modern work is exacting on our ability to keep up with and stay ahead of the pace of change.
-				With our boundaries broken down by a more interconnected world, time has proven to be an insufficient resource in this era.
-				It is energy, not time, that is our most precious and undervalued resource to solve this extraordinary challenge.
+					{subTraits?.sub_traits?.content}
 				</Text>
 			</View>
 

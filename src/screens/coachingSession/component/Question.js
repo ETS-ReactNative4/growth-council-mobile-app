@@ -45,31 +45,16 @@ const Question = (props) => {
 			text: 'You can connect the dots going forward?',
 		},
 	];
-	// const _renderItem = ({item, index}) => {
-	// 	return (
-	
-	// 	);
-	//   };
-
-			
-		 
-  return (
-	<View>
-	 	{/* <FlatList
-			vertical
-			showsVerticalScrollIndicator={false}
-			data={subTraits.sub_traits}
-			renderItem={_renderItem}
-		/> */}
-		{subTraits.map((item) => (
+	const _renderItem = ({item, index}) => {
+		return (
 			<View style={[styles.questionWrapper,styles.shadowProp]}>
 			
 			<View style={{ alignItems:"center", height:60, justifyContent:'center', borderBottomWidth:0.1}}>
-					<Text style={styles.title}>{item?.sub_traits.yellow_benchmark_questions.post_title}</Text>
-
+			{item.yellow_benchmark_questions.map((items,key) =>{
+					<Text style={styles.title} key={key}>{items?.post_title}</Text>
+				})}
 			</View>
 			
-
 			<View style={styles.wrapper}>
 				<View style={{marginLeft:10, flexDirection:'row'}}>
 					
@@ -79,8 +64,6 @@ const Question = (props) => {
 						backgroundColor="#EAEBED"
 					/>
 					<Text style={{fontSize:13, marginLeft:5}}>Yes</Text>
-					
-					
 				</View>
 				<View  style={{marginLeft:100, flexDirection:"row"}}>
 					<RoundCheckbox
@@ -90,15 +73,27 @@ const Question = (props) => {
 					/>
 					<Text style={{fontSize:13, marginLeft:5}}>No</Text>
 				</View>
-			
-				
 			</View>
 				
 			<View>
 
 			</View>
 		</View>
-		))}
+		);
+	  };
+
+		 
+  return (
+	<View>
+	 	<FlatList
+			vertical
+			showsVerticalScrollIndicator={false}
+			data={subTraits.sub_traits}
+			renderItem={_renderItem}
+		/>
+		
+			
+		
 	</View>
   );
 };
