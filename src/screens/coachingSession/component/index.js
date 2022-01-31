@@ -1,4 +1,5 @@
 import React, {useEffect, useState,useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {
     Text,
     View,
@@ -16,11 +17,48 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+import { fetchAllTraits, resetTraits } from '../slice/sessionTraitsSlice';
+import {fetchSessionByID, resetSession} from '../../sessions/slice/sessionSlice';
+import {registerSessionByID, resetSessionRegister} from '../../sessions/slice/sessionRegister';
+
 const CoachingSession = props => {
     const {
         navigation,
         route,
+		
+		
     } = props;
+
+
+	const dispatch = useDispatch();
+	const {traits,traitsLoading,traitsError}= useSelector(state => state.traits);
+	const {sessions, sessionLoading, sessionError} = useSelector((state) => state.sessions);
+	const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} = useSelector((state) => state.sessionRegisters);
+
+
+	const fetchAllTrait = sessionId =>{
+		dispatch(fetchAllTraits(sessionId));
+	}
+
+	const cleanTraits =()=>{
+		dispatch(resetTraits());
+	};
+
+	const fetchSessionByIdentifier = identifier => {
+        dispatch(fetchSessionByID(identifier));
+    };
+
+	const registerSessionByIdentifier = formData => {
+        return dispatch(registerSessionByID(formData));
+    };
+
+	const cleanSession = () => {
+        dispatch(resetSession());
+    };
+
+	const cleanSessionRegister = () => {
+        dispatch(resetSessionRegister());
+    };
 
 	const [value, setValue] = useState('About');
    
@@ -28,18 +66,6 @@ const CoachingSession = props => {
 
 	const [display, setDisplay] = useState(true);
 	const ref = useRef();
-
-	// useEffect(()=>{
-	// 		const checkIfClickedOutside =(e) =>{
-	// 			if(ref.current && !ref.current.contains(e.target)){
-	// 				onclose()
-	// 			}
-	// 		}
-	// 		document.addEventListener("click", checkIfClickedOutside)
-	// 		return()=>{
-	// 			document.removeEventListener("click", checkIfClickedOutside)
-	// 		}
-	// },[onclose]);
 	
     return (
         <ScrollView style={styles.scrollBox}>
@@ -185,7 +211,27 @@ const CoachingSession = props => {
 							<View style={{marginTop:32}}>
 							{value === 'About' &&
 								<SessionAbout  
-								{...props}/>
+								{...props}
+								traits={traits}
+								traitsLoading={traitsLoading}
+								traitsError={traitsError}
+								fetchAllTrait={fetchAllTrait}
+								cleanTraits={cleanTraits}
+
+								{...props}
+								sessions={sessions}
+								sessionLoading={sessionLoading}
+								sessionError={sessionError}
+								fetchSessionByIdentifier={fetchSessionByIdentifier}
+								cleanSession={cleanSession}
+
+								sessionRegisters={sessionRegisters}
+								sessionRegisterLoading={sessionRegisterLoading}
+								sessionRegisterError={sessionRegisterError}
+								registerSessionByIdentifier={registerSessionByIdentifier}
+								cleanSessionRegister={cleanSessionRegister}
+								
+								/>
                             }
                             {value === 'Self Assessment' &&
 								<SelfAssessment

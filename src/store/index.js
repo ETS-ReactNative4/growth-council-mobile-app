@@ -66,6 +66,8 @@ import searchReducer from '../screens/search/searchSlice';
 import uploadReducer from '../screens/account/slice/uploadProfileImageSlice';
 import updateReducer from '../screens/account/slice/updateProfileImageSlice';
 import expertiseReducer from '../screens/people/slice/expertiseSlice';
+import coachingSessionReducer from '../screens/details/slice/sessionlistSlice';
+import traitsReducer from '../screens/coachingSession/slice/sessionTraitsSlice';
 
 const persistConfig = {
   key: 'root',
@@ -116,6 +118,8 @@ const reducers = combineReducers({
   expertise: expertiseReducer,
   uploadEntities: uploadReducer,
   updateEntities: updateReducer,
+  coachingSession:coachingSessionReducer,
+  traits:traitsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
