@@ -33,23 +33,36 @@ const People = (props) => {
         memberConnectionLoading,
         memberConnectionError,
         connectMemberByIdentifier,
-        cleanConnectMember
+        cleanConnectMember,
+
+		expertise,
+		expertiseLoading,
+		expertiseError,
+		fetchAllExpertises,
+		cleanExperties,
     } = props;
 
     const toast = useToast();
 
-    const [category, setCategory] = useState("Category");
+    const [category, setCategory] = useState('Category' );
     const [searchKey, setSearchKey] = useState('');
     const [sorting, setSorting] = useState('ASC');
     const [memberConnection, setMemberConnection] = useState([]);
 
     useEffect(() => {
         const fetchAllUsersAsync = async () => {
-            await fetchAllUsers({s: searchKey, sort: sorting});
+            await fetchAllUsers({s: searchKey, sort: sorting, expertise_area:category});
         };
         fetchAllUsersAsync();
         setMemberConnection(users);
     }, []);
+
+	useEffect(() => {
+		const fetchAllExpertisesAsync = async () => {
+		  await fetchAllExpertises();
+		};
+		fetchAllExpertisesAsync();
+	  }, []);
 
     const connectMemberByMemberID = async (memberID, index) => {
         const response = await connectMemberByIdentifier({member_id: memberID});
@@ -120,29 +133,31 @@ const People = (props) => {
                         value={searchKey}
                         onChangeText={async (text) => {
                             setSearchKey(text);
-                            await fetchAllUsers({s: text, sort: sorting});
+                            await fetchAllUsers({s: text, sort: sorting, expertise_area:category});
                         }}
                     />
-                    {/* <Ionicons name='list-outline' color="#14A2E2" size={30} style={{marginTop: 10}}/>
-                    <Ionicons name='apps' color={'#B2B3B9'} size={25} style={{marginLeft: 10, marginTop: 14}}/> */}
 
                 </View>
                 <View style={styles.iconWrapper}>
-                    {/*<View style={{borderRightWidth: 0.2, borderColor: '#707070'}}>*/}
-                    {/*<Picker*/}
-                    {/*selectedValue={category}*/}
-                    {/*mode={'dropdown'}*/}
-                    {/*style={{height: 30, width: 170,}}*/}
-                    {/*onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}*/}
-                    {/*>*/}
-                    {/*<Picker.Item label="Category" value="Category" style={{fontSize: 14,}}/>*/}
-                    {/*<Picker.Item label="Kathmandu" value="kathmandu"/>*/}
-                    {/*<Picker.Item label="Bhaktapur" value="bhaktapur"/>*/}
-                    {/*</Picker>*/}
-                    {/*</View>*/}
+                    <View style={{borderRightWidth: 0.2, borderColor: '#707070',}}>
+						<Picker
+						selectedValue={category}
+						mode={'dropdown'}
+						style={{height: 30, width: 250,}}
+						onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+						>
+						<Picker.Item label="Category" value="Category" />
+						{Object.keys(expertise).map((key) => {
+							return (
 
-                    <View
-                        style={[styles.icon,{borderRightWidth: 0.2}]}>
+							<Picker.Item label={expertise[key]} value={key} key={key}/>
+							)
+						})}
+
+						</Picker>
+                  </View>
+
+                    <View style={styles.icon}>
                         <Ionicons
                             name='arrow-up'
                             size={20}
@@ -150,7 +165,7 @@ const People = (props) => {
                             style={{marginTop: 15, }}
                             onPress={async () => {
                                 setSorting('DESC');
-                                await fetchAllUsers({s: searchKey, sort: 'DESC'});
+                                await fetchAllUsers({s: searchKey, sort: 'DESC', expertise_area:category});
                             }}
                         />
                         <Ionicons
@@ -160,13 +175,13 @@ const People = (props) => {
                             style={{marginTop: 15}}
                             onPress={async () => {
                                 setSorting('ASC');
-                                await fetchAllUsers({s: searchKey, sort: 'ASC'});
+                                await fetchAllUsers({s: searchKey, sort: 'ASC', expertise_area:category});
                             }}
                         />
                         <Text style={styles.textWrapper}>Sort</Text>
                     </View>
 
-					<View style={styles.icon}>
+					{/* <View style={styles.icon}>
 						<Font
 							name='filter'
 							size={20}
@@ -174,8 +189,8 @@ const People = (props) => {
 							style={{marginTop: 15, marginRight:10}}
 						/>
 						<Text style={styles.textWrapper}>Filter</Text>
-					</View>
-                  
+					</View> */}
+
                 </View>
                 <View style={{marginTop: 30}}>
                     <FlatList
@@ -229,18 +244,20 @@ const styles = StyleSheet.create({
 		height: 48,
 		justifyContent:'center',
 		alignContent:'center',
-		
+
 	},
 	icon:{
-		width:"50%",
+		width:"20%",
 		borderColor: '#707070',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent:'center',
-		 alignContent:'center'
+		 alignContent:'center',
+
+
 	},
 	textWrapper:{
-		marginTop: 15, 
+		marginTop: 15,
 		fontSize:14
 	},
     shadowProp: {

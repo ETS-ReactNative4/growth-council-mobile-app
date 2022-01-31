@@ -38,6 +38,11 @@ const GrowthDetail = props => {
     pillarMemberContentError,
     fetchAllPillarMemberContent,
     cleanPillarMemberContent,
+    poeSelfLearns,
+    poeSelfLearnLoading,
+    poeSelfLearnError,
+    fetchPoeSelfLearn,
+    cleanPoeSelfLearn,
   } = props;
 
   useEffect(() => {
@@ -61,8 +66,16 @@ const GrowthDetail = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
+  useEffect(() => {
+    const fetchPoeSelfLearnAsync = async () => {
+      await fetchPoeSelfLearn(route.params.poeId);
+    };
+    fetchPoeSelfLearnAsync();
+  }, []);
+
   console.log('POE id:::::::::::::::::', route.params.poeId);
   console.log('parent id:::::::::::::::::', route.params.pillarId);
+  console.log('Self Learn ====', poeSelfLearns);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -426,7 +439,7 @@ export default GrowthDetail;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1400,
+    height: 1200,
   },
   arrow: {
     marginTop: 30,
@@ -458,12 +471,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 10,
     borderColor: Colors.COACHING_COLOR,
   },
-  //   contentWrapper: {
-  //     borderRadius: 18,
-  //  backgroundColor:"red",
-  //     overflow: 'scroll',
-  //     marginTop: 10,
-  //   },
+  contentWrapper: {
+    borderRadius: 18,
+    backgroundColor: 'white',
+    overflow: 'scroll',
+    marginTop: 10,
+    height: 1400,
+  },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
