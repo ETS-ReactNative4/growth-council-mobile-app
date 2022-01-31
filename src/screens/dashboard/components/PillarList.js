@@ -35,7 +35,7 @@ const PillarList = (props) => {
                     navigationPath = 'Community';
                     borderColor = COMMUNITY_COLOR;
                     break;
-                case "best-practices":
+                case "basic-practices":
                     navigationPath = 'Best Practices';
                     borderColor = PRACTICE_COLOR;
                     break;
