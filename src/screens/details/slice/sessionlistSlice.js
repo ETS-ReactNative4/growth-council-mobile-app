@@ -5,7 +5,7 @@ import {fetch} from '../../../utils/httpUtil';
 export const fetchcoachingSessionByUserID = createAsyncThunk(
   'coachingSession/fetchAllByID',
   (identifier, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/users/${identifier}/sessions`)
+    return fetch(`/jwt-auth/v1/pillars/120/sessions`)
       	.then(response => response.data.body_response)
       	.catch(error => rejectWithValue(error?.response?.data || error));
   },

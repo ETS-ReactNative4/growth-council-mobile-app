@@ -18,6 +18,7 @@ import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MultiSelect from "react-multi-select-component";
+import ImagePicker from 'react-native-image-crop-picker';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {getAsyncStorage} from '../../../utils/storageUtil';
@@ -211,7 +212,6 @@ const ManageAccount = props => {
 //   },[image]);
 
 
-console.log(items);
 
   return (
     <ScrollView
