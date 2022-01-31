@@ -206,7 +206,7 @@ const CoachingSession = props => {
 								
 							</View>
 
-							<View style={{marginTop:32}}>
+							<View style={{marginTop:32, }}>
 							{value === 'About' &&
 								<SessionAbout  
 								{...props}

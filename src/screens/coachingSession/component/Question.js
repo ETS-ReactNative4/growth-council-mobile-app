@@ -48,10 +48,10 @@ const Question = (props) => {
 	const _renderItem = ({item, index}) => {
 		return (
 		<View style={[styles.questionWrapper,styles.shadowProp]}>
-			<View style={{ alignItems:"center", height:40, justifyContent:'center'}}>
-				<Text style={styles.title}>{item.text}</Text>
+			<View style={{ alignItems:"center", height:60, justifyContent:'center', borderBottomWidth:0.1}}>
+				<Text style={styles.title}>{item?.yellow_benchmark_questions[0]?.post_title}</Text>
 			</View>
-			<View style={{height:1, borderWidth:0.1, backgroundColor:'#D8D8D8'}}/>
+			
 
 			<View style={styles.wrapper}>
 				<View style={{marginLeft:10, flexDirection:'row'}}>
@@ -88,7 +88,7 @@ const Question = (props) => {
 	 	<FlatList
 			vertical
 			showsVerticalScrollIndicator={false}
-			data={data}
+			data={subTraits.sub_traits}
 			renderItem={_renderItem}
 		/>
 	</View>
@@ -97,7 +97,7 @@ const Question = (props) => {
 
 const styles = StyleSheet.create({
 	questionWrapper:{
-		height:124,
+		height:154,
 		borderRadius:22,
 		 margin:5,
 		 marginTop:25,
