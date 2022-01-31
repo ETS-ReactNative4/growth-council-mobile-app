@@ -40,6 +40,7 @@ const People = props => {
     cleanExperties,
   } = props;
 
+
   const toast = useToast();
   const [category, setCategory] = useState('Category');
   const [searchKey, setSearchKey] = useState('');
@@ -79,6 +80,7 @@ const People = props => {
 
   const _renderItem = ({item, index}) => {
     return (
+
       <View style={[styles.wrapper, styles.shadowProp]} key={index}>
         <Image
           source={{uri: item.avatar}}
@@ -205,6 +207,7 @@ const People = props => {
 						/>
 						<Text style={styles.textWrapper}>Filter</Text>
 					</View> */}
+
         </View>
         <View style={{marginTop: 30}}>
           <FlatList
@@ -230,6 +233,8 @@ const People = props => {
       </View>
     </ScrollView>
   );
+
+             
 };
 
 const styles = StyleSheet.create({
@@ -280,9 +285,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
   },
 });
