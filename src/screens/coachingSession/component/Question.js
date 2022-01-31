@@ -45,11 +45,28 @@ const Question = (props) => {
 			text: 'You can connect the dots going forward?',
 		},
 	];
-	const _renderItem = ({item, index}) => {
-		return (
-		<View style={[styles.questionWrapper,styles.shadowProp]}>
+	// const _renderItem = ({item, index}) => {
+	// 	return (
+	
+	// 	);
+	//   };
+
+			
+		 
+  return (
+	<View>
+	 	{/* <FlatList
+			vertical
+			showsVerticalScrollIndicator={false}
+			data={subTraits.sub_traits}
+			renderItem={_renderItem}
+		/> */}
+		{subTraits.map((item) => (
+			<View style={[styles.questionWrapper,styles.shadowProp]}>
+			
 			<View style={{ alignItems:"center", height:60, justifyContent:'center', borderBottomWidth:0.1}}>
-				<Text style={styles.title}>{item?.yellow_benchmark_questions[0]?.post_title}</Text>
+					<Text style={styles.title}>{item?.sub_traits.yellow_benchmark_questions.post_title}</Text>
+
 			</View>
 			
 
@@ -81,16 +98,7 @@ const Question = (props) => {
 
 			</View>
 		</View>
-		);
-	  };
-  return (
-	<View>
-	 	<FlatList
-			vertical
-			showsVerticalScrollIndicator={false}
-			data={subTraits.sub_traits}
-			renderItem={_renderItem}
-		/>
+		))}
 	</View>
   );
 };
