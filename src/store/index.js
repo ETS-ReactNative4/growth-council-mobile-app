@@ -69,6 +69,10 @@ import expertiseReducer from '../screens/people/slice/expertiseSlice';
 import coachingSessionReducer from '../screens/details/slice/sessionlistSlice';
 import traitsReducer from '../screens/coachingSession/slice/sessionTraitsSlice';
 
+import poeSelfLearnReducer from '../screens/selfLearn/slice/poeSelfLearnSlice';
+import selfLearnTraitReducer from '../screens/selfLearn/slice/selfLearnTraitsSlice';
+import selfLearnReducer from '../screens/selfLearn/slice/selfLearnByIdSlice';
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -120,6 +124,9 @@ const reducers = combineReducers({
   updateEntities: updateReducer,
   coachingSession:coachingSessionReducer,
   traits:traitsReducer,
+  poeSelfLearns: poeSelfLearnReducer,
+  selfLearnTraits: selfLearnTraitReducer,
+  selfLearns: selfLearnReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
