@@ -26,16 +26,16 @@ const poeSelfLearnSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchPoeSelfLearn.pending]: (state, action) => {
+    [fetchPoeSelfLearns.pending]: (state, action) => {
       state.poeSelfLearnLoading = true;
       state.poeSelfLearnError = null;
     },
-    [fetchPoeSelfLearn.fulfilled]: (state, action) => {
+    [fetchPoeSelfLearns.fulfilled]: (state, action) => {
       state.poeSelfLearns = action.payload;
       state.poeSelfLearnLoading = false;
       state.poeSelfLearnError = null;
     },
-    [fetchPoeSelfLearn.rejected]: (state, action) => {
+    [fetchPoeSelfLearns.rejected]: (state, action) => {
       state.poeSelfLearnLoading = false;
       if (action.payload) {
         state.poeSelfLearnError = action.payload.error.message;
