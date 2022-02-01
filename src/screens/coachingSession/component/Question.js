@@ -31,20 +31,6 @@ const Question = (props) => {
 
 	const [checked, setChecked] = useState('Yes');
 
-	const data = [
-		{
-			text: 'You can’t connect the dots going forward?',
-		},
-		{
-			text: 'You can connect the dots going forward?',
-		},
-		{
-			text: 'You can’t connect the dots going forward?',
-		},
-		{
-			text: 'You can connect the dots going forward?',
-		},
-	];
 	const _renderItem = ({item, index}) => {
 		return (
 			<View style={[styles.questionWrapper,styles.shadowProp]}>
@@ -80,6 +66,9 @@ const Question = (props) => {
 		);
 	  };
 
+	if(subTraits?.length === 0 || subTraits === undefined){
+		return <></>
+	}
   return (
 	<View>
 	 	<FlatList

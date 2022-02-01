@@ -36,6 +36,9 @@ const Traits = (props) => {
 				</View>
 			</View>
 		)}
+		if(subTraits?.length === 0 || subTraits === undefined){
+			return <></>
+		}
   	return (
 		<View>
 			<View style={[styles.questionWrapper,styles.shadowProp]}>
@@ -46,60 +49,10 @@ const Traits = (props) => {
 				<FlatList
 					vertical
 					showsVerticalScrollIndicator={false}
-					data={subTraits?.sub_traits?.questions}
+					data={subTraits?.sub_traits[0]?.questions}
 					renderItem={_renderItem}
 				/>
-				{/* <View>
-					<View style={styles.wrapper}>
-						<View style={{ flexDirection:'row'}}>
-
-						<RoundCheckbox
-							size={20}
-							label="Yes"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}>Strongly DisAgree</Text>
-						</View>
-
-						<View  style={{marginLeft:32, flexDirection:"row"}}>
-						<RoundCheckbox
-							size={20}
-							label="No"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}>Disagree</Text>
-						</View>
-					</View>
-					<View style={styles.wrapper}>
-						<View style={{ flexDirection:'row'}}>		
-						<RoundCheckbox
-							size={20}
-							label="Yes"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}>Strongly Agree</Text>
-						</View>
-						<View  style={{marginLeft:50, flexDirection:"row"}}>
-						<RoundCheckbox
-							size={20}
-							label="No"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}> Agree</Text>
-						</View>
-					</View>
-
-					<View style={{ flexDirection:'row',marginLeft:20,marginTop:15}}>
-						<RoundCheckbox
-							size={20}
-							label="Yes"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}>SomeWhat Agree</Text>
-
-					</View>
-
-				</View> */}
+			
 			</View>
 			<ScrollView style={styles.scrollBox}>
 			<View style={{marginTop:25}}>
