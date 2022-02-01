@@ -74,7 +74,7 @@ const SignUpForm = props => {
       phone: '',
       email: '',
       country: '',
-      checked: '',
+      checked: false,
       firebase_password: uuid.v4(),
     },
     onSubmit: async values => {
@@ -326,10 +326,6 @@ const SignUpForm = props => {
     'Zambia',
     'Zimbabwe',
   ];
-
-  console.log('Values ==== ', values);
-  console.log('Errors======', errors);
-  console.log('Checked====', checked);
 
   return (
     <View style={styles.container}>
@@ -600,7 +596,6 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontSize: 10,
     color: 'red',
- 
   },
 });
 

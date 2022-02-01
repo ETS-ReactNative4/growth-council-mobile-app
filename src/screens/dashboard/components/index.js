@@ -24,6 +24,7 @@ import {
   SECONDARY_TEXT_COLOR,
 } from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
+import Footer from '../../../shared/footer';
 
 const Dashboard = props => {
   const {
@@ -53,6 +54,7 @@ const Dashboard = props => {
     pillarEventError,
     fetchAllPillarEvent,
     cleanPillarEvent,
+    contentSlider,
   } = props;
 
   useEffect(() => {
@@ -208,12 +210,17 @@ const Dashboard = props => {
   ];
 
   const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videolink = link[1].split('&', 2);
     return (
       <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId="9dEo9FTYDeM" />
+        <YoutubePlayer videoId={videolink[0]} />
       </View>
     );
   };
+
+  // console.log({contentSlider});
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -313,25 +320,13 @@ const Dashboard = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={pic}
+              data={contentSlider}
               renderItem={_renderContentItem}
             />
           </View>
         </View>
 
-        <View
-          style={{
-            alignItems: 'center',
-            width: '35%',
-            marginLeft: 140,
-            marginBottom: 10,
-          }}>
-          <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-          <Image
-            source={require('../../../assets/img/fristDigi.png')}
-            style={{width: '100%', height: 20}}
-          />
-        </View>
+        <Footer />
       </ScrollView>
     </SafeAreaView>
   );
@@ -413,7 +408,6 @@ const styles = StyleSheet.create({
     lineHeight: 12,
   },
   middle: {
-    width: 400,
     marginTop: 10,
     marginLeft: 5,
   },

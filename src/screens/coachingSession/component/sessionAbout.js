@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Text,
     View,
@@ -10,20 +10,38 @@ import {
     TouchableOpacity,
 	FlatList,
 } from 'react-native';
-import {Button} from 'native-base';
+import {Button, useToast} from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
-
-
+import ToastMessage from '../../../shared/toast';
+import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 
 const sessionAbout = props => {
 	const{
 		navigation,
+		route,
+		traits,
+		traitsLoading,
+		traitsError,
+		fetchAllTraitBySession,
+		cleanTraits,
+
+		sessions,
+        sessionLoading,
+        sessionError,
+        fetchSessionByIdentifier,
+        cleanSession,
+
+        sessionRegisters,
+        sessionRegisterLoading,
+        sessionRegisterError,
+        registerSessionByIdentifier,
+        cleanSessionRegister
 	 }= props;
 
 	const data= [
@@ -36,6 +54,41 @@ const sessionAbout = props => {
 		  name:'Trait 2'
 		},
 	  ];
+	 
+	 
+
+	  const toast = useToast();
+	  const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
+
+	  useEffect(()=>{
+		const fetchAllTraitsAsync = async () =>{
+			await fetchAllTraitBySession(route.params.sessionId);
+		};
+		fetchAllTraitsAsync();
+	},[])
+	  useEffect(() => {
+		  const fetchSessionDetailAsync = async () => {
+			  await fetchSessionByIdentifier(route.params.id);
+		  };
+		  fetchSessionDetailAsync();
+	  }, []);
+  
+	  const registerSessionBySessionID = async (sessionID) => {
+		  const response = await registerSessionByIdentifier({session_id: sessionID});
+		  if (response?.payload?.status === 200) {
+			  setSessionStatus(true);
+			  ToastMessage.show('You have successfully registered this event.');
+		  } else {
+			  toast.closeAll();
+			  ToastMessage.show(response?.payload?.response);
+		  }
+	  };
+	
+	  console.log("traits", route.params.sessionId);
+
+	const isSessionLoaded = Object.keys(sessions).length === 0;
+    const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
+    const date = actualDate[1].split(' ', 3);
 
 	const _renderItem = ({item, index}, navigation) => {
 		return (
@@ -43,14 +96,13 @@ const sessionAbout = props => {
 				<TouchableOpacity onPress={() => navigation.navigate('selflearn')}>
 						<View style={styles.traitWrapper}>							
 							<View style={styles.traitW}>
-								<Ionicons
-									name={"medkit-sharp"}
-									size={30}
-									color={'#A1BA68'}
+							<Image
+								source={{uri: item?.image}}
+								style={{width: 25, height: 25}}
 								/>
 							</View>
 
-							<Text style={{ padding:20}}>{item.name}</Text>
+							<Text style={{padding:10, width:100}}>{item?.title}</Text>
 						</View>
 				</TouchableOpacity>
 			</View>
@@ -86,40 +138,60 @@ const sessionAbout = props => {
 					flex: 4,
 					paddingLeft: 10,
 					}}>
-											
-					<Text style={styles.contentHeading}> 11 Augest, Wednesday </Text>
-					<Text>09:00 pm / 11:30 pm (PDT) </Text>
-			</View>
-			<View
-				style={{
-					flex: 1,
-					height: 60,
-					width: 30,
-					borderRadius: 15,
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}>
-				<Feather
-					name={'plus-circle'}
-					size={35}
-					color={'rgba(54,147,172,1)'}
-				/>
-											
-			</View>
-									
-			{/* <View
-					style={{
-					flex: 1,
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}>
-				<Feather
-					name={'check-circle'}
-					size={35}
-					color={'rgba(54,147,172,1)'}
-				/>
-				</View> */}
 
+					{!isSessionLoaded && (
+						<Text style={styles.contentHeading}>
+						    {date[2]} {date[1]}, {actualDate[0]}
+						</Text>
+					)}
+
+					{!isSessionLoaded && (
+					    <Text>
+					        {sessions?.event_meta?._start_hour}:
+					        {sessions?.event_meta?._start_minute}
+					        {sessions?.event_meta?._start_ampm} /
+					        {sessions?.event_meta?._end_hour}:
+					        {sessions?.event_meta?._end_minute}
+					        {sessions?.event_meta?._end_ampm} (PDT)
+					    </Text>
+					)}						
+					
+			</View>
+			{!sessionStatus && (
+			<View
+			    style={{
+			        flex: 1,
+			        borderRadius: 15,
+			        justifyContent: 'center',
+			        alignItems: 'center',
+			    }}>
+
+			    <TouchableOpacity
+			        onPress={() => registerSessionBySessionID(route?.params?.id)}>
+			        <Feather
+			            name={'plus-circle'}
+			            size={35}
+			            color={'rgba(54,147,172,1)'}
+			        />
+			    </TouchableOpacity>
+			</View>
+			)}
+			{sessionStatus && (
+			    <View
+			        style={{
+			            flex: 1,
+			            justifyContent: 'center',
+			            alignItems: 'center',
+			        }}>
+			        <Feather
+			            name={'check-circle'}
+			            size={35}
+			            color={'rgba(54,147,172,1)'}
+			        />
+			    </View>
+			)}
+									
+		
 		</View>
 		<View
 			style={{
@@ -147,14 +219,20 @@ const sessionAbout = props => {
 			</View>
 
 										
+			{!isSessionLoaded && (
 			<View
-				style={{
-					flex: 4,
-					paddingLeft: 10,
-					}}>
-					<Text style={styles.contentHeading}>Albany USA</Text>
-					<Text>Long Street, Ullam Corporis</Text>
+			    style={{
+			        flex: 4,
+			        paddingLeft: 10,
+			    }}>
+			    <Text style={styles.contentHeading}>
+			        {sessions?.location?.location_city} ,
+			        {sessions?.location?.location_state} ,
+			        {sessions?.location?.location_country}
+			    </Text>
+			    <Text>{sessions?.location?.location_address}</Text>
 			</View>
+            )}
 			</View>
 		</View>
 
@@ -166,7 +244,7 @@ const sessionAbout = props => {
 			<FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={data}
+                    data={traits}
 					renderItem={item => _renderItem(item, navigation)}
                   />
 				
@@ -182,7 +260,8 @@ const sessionAbout = props => {
 				style={styles.hostdetail}>
 				<View
 					style={styles.hostimage}>
-					<Image source={require('../../../assets/img/welcome_profile_image.png')} style={{width: 30, height: 60}}/>
+					<Image source={{uri: sessions?.organizer_image}}
+                    style={{width: 30, height: 60}}/>
 				</View>
 
 				<View
@@ -191,10 +270,10 @@ const sessionAbout = props => {
 						paddingLeft: 20,
 					}}>
 					<Text style={styles.contentHeading}>
-						Andrew Deutscher
+					{sessions?.organizer?.term_name}
 					</Text>
 					<Text>
-						Founder, Regenerate
+					{sessions?.organizer?.description}
 					</Text>
 				</View>
 				<View
@@ -213,32 +292,33 @@ const sessionAbout = props => {
 
 		<View>
 			<Text style={styles.contentHeading}>Session Brief</Text>
-				
+			{!isSessionLoaded && (
+                <HTMLView value={sessions?.description} stylesheet={styles}/>
+            )}
 		</View>
 
 		<View style={{justifyContent: 'center', alignItems: 'center'}}>
-		{/* {!sessions?.register_status && ( */}
-		<Button
-			style={styles.acceptButton}
-			// onPress={() => registerEventByEventID(route?.params?.id)}
-			>
-			<Text style={styles.acceptButtonText}>
-			Sign Up in One Click
-			</Text>
-		</Button>
-		{/* )}
-		{sessions?.register_status && (
-		<TouchableOpacity style={styles.registeredButton}>
-			<View style={{paddingLeft: 10}}>
-			<Image
-				source={require('../../../assets/img/tick-icon.png')}
-				style={{width: 30, height: 30}}
-			/>
-			</View>
-			<Text style={styles.registeredButtonText}>Registered</Text>
-		</TouchableOpacity>
-		)} */}
-		</View>
+			{!sessionStatus && (
+			    <Button
+			        style={styles.acceptButton}
+			        onPress={() => registerSessionBySessionID(route?.params?.id)}>
+			        <Text style={styles.acceptButtonText}>
+			            Sign Up in One Click
+			        </Text>
+			    </Button>
+			)}
+			{sessionStatus && (
+			    <TouchableOpacity style={styles.registeredButton}>
+			        <View style={{paddingLeft: 10}}>
+			            <Image
+			                source={require('../../../assets/img/tick-icon.png')}
+			                style={{width: 30, height: 30}}
+			            />
+			        </View>
+			        <Text style={styles.registeredButtonText}>Registered</Text>
+			    </TouchableOpacity>
+			)}
+        </View>
 	</View>
   );
 };
@@ -392,7 +472,7 @@ const styles = StyleSheet.create({
 	traitWrapper:{
 		paddingTop: 5,
 		paddingBottom: 5,
-		flexDirection: 'row',
+		flexDirection:"row"
 	},
 	traitW:{
 		height: 60,

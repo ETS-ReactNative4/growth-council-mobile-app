@@ -50,6 +50,8 @@ const Home = props => {
     fetchPillarSliderAsync();
   }, []);
 
+  //console.log({pillarSliders});
+
   const _renderItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
@@ -150,7 +152,7 @@ const Home = props => {
       <View style={styles.buttonWrapper}>
         <Button
           style={styles.signupbutton}
-          onPress={() => navigation.navigate('HomeDetail')}>
+          onPress={() => navigation.navigate('coachingSession')}>
           <Text style={styles.signupbuttonText}>Get Started</Text>
         </Button>
         <Button
