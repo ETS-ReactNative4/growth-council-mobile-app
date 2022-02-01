@@ -62,6 +62,11 @@ const CoachingSession = props => {
    
 	const [modalVisible, setModalVisible] = useState(false);
 	const [totalScore,setTotalScore]= useState(0);
+	const [answers, setAnswers] = useState({
+		totalScore:0, 
+		questions:[5,2,3],
+		yellowBenchmarkQuestions:[],
+	})
 
 	const [display, setDisplay] = useState(true);
 	const ref = useRef();
@@ -235,8 +240,8 @@ const CoachingSession = props => {
                             {value === 'Self Assessment' &&
 								<SelfAssessment
 								{...props}
-								totalScore={totalScore}
-								setTotalScore={setTotalScore}/>
+								answers={answers}
+								setAnswers={setAnswers}/>
                             }
 							</View>
 							

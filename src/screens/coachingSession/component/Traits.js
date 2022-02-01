@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View , FlatList, Pressable} from 'react-n
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import { RadioButton } from 'react-native-paper';
-import RadioGroup from 'react-native-radio-buttons-group';
+import HTMLView from 'react-native-htmlview';
 
 const Traits = (props) => {
 	const{
@@ -15,8 +15,8 @@ const Traits = (props) => {
 		fetchAllSubTrait,
 		cleanSubTrait, 
 		count,
-		totalScore,
-		setTotalScore,
+		answers,
+		setAnswers,
 	}=props;
 
 	useEffect(()=>{
@@ -27,45 +27,48 @@ const Traits = (props) => {
 	},[]);
 
 	const [checked, setChecked] = useState(0);
-	
 
-	const _renderItem = ({item, index}) => {
-		// console.log(item)
-		// return  <Text>1</Text>
+	// const _renderItem = ({item},) => {
 		
-		return (
-
-			<View style={styles.wrapper}>
-				<View style={{flexDirection:'row'}}>
+	// 	// console.log(item)
+	// 	// return  <Text>1</Text>
+	// 	console.log("abcd",index1)
+	// 	const onPress = () =>{ 
+	// 		setChecked(item?.score)
+	// 		// setAnswers(answers.questions[key]= checked)
+	// 	}
+	// 	return (
+	// 		<View style={styles.wrapper}>
+	// 			<View style={{flexDirection:'row'}}>
 			
-					<RadioButton
-						value="Yes"
-						status={ item.score === checked ? 'checked' : 'unchecked'}
-						onPress={() => setChecked(item?.score)}
-					/>
-					{/* <RadioGroup
-						radioButtons={radioButtons}
-						onPress={onPressRadioButton}
-						layout="row"
-					/> */}
-					
-					<Text style={{fontSize:11, marginTop:10}}> {item.option}</Text>
-				</View>
+	// 				<RadioButton
+	// 					value="Yes"
+	// 					status={ item.score === checked ? 'checked' : 'unchecked'}
+	// 					onPress={onPress}
+	// 				/>
+	// 				<Text style={{fontSize:11, marginTop:10}}> {item.option}</Text>
+	// 			</View>
 				
-			</View>
-		)}
-	useEffect (()=>{
-		console.log(checked);
-		let newScore = totalScore;
-		newScore += checked;
-		setTotalScore(newScore);
-		console.log(totalScore); 
-	},[count]);
+	// 		</View>
+	// 	)}
+
+	// useEffect (()=>{
+	// 	console.log(checked);
+	// 	let newScore = totalScore;
+	// 	newScore += checked;
+	// 	setTotalScore(newScore);
+	// 	console.log(totalScore); 
+	// },[count]);
+
+
 	
 	if(subTraits?.length === 0 || subTraits === undefined){
 		return <></>
 	}
-
+	const onPressButton = () =>{ 
+		setChecked(subTraits?.sub_traits[count]?.questions?.options?.score)
+		setAnswers(answers.questions[key]= checked)
+	}
   	return (
 		<View>
 			{
@@ -76,15 +79,33 @@ const Traits = (props) => {
 						<View style={{ alignItems:"center"}}>
 							<Text style={styles.title}>{question?.question}</Text>
 						</View>
+
+						{
+							question?.options?.map((option1, keys)=>(
+								<View style={styles.wrapper}>
+									<View style={{flexDirection:'row'}}>
+										<RadioButton
+											value="Yes"
+											status={ option1?.score === checked ? 'checked' : 'unchecked'}
+											onPress={onPressButton}
+										/>
+										<Text style={{fontSize:11, marginTop:10}}> {option1?.option}</Text>
+									</View>
+									
+								</View>
+							))
+						}
 						
-						<FlatList
+						{/* <FlatList
 							horizontal
 							showsVerticalScrollIndicator={false}
 							data={question?.options}
+							extraData={{index1:key}}
 							// numColumns={Math.ceil(subTraits?.sub_traits[count]?.questions[0].options.length / 2)}
 							renderItem={_renderItem}
+							// keyExtractor={item => item.this.props}
 						/>
-						
+						 */}
 						
 					</View>
 				))
@@ -93,7 +114,8 @@ const Traits = (props) => {
 			<ScrollView style={styles.scrollBox}>
 			<View style={{marginTop:25}}>
 				<Text style={styles.paragraph}>
-					{subTraits?.sub_traits[count]?.content}
+				<HTMLView value={subTraits?.sub_traits[count]?.content} stylesheet={styles}/>
+					{/* {subTraits?.sub_traits[count]?.content} */}
 				</Text>
 			</View>
 
@@ -159,9 +181,7 @@ const styles = StyleSheet.create({
     },
 	wrapper:{
 		display:'flex',
-		flexDirection:'row',
-		marginTop:10,
-		
+		flexDirection:'row',	
 	}
 });
 

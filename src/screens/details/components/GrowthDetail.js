@@ -84,11 +84,11 @@ const GrowthDetail = props => {
     fetchPoeSelfLearnAsync();
   }, []);
 
-  console.log('POE id:::::::::::::::::', route.params.poeId);
-  console.log('parent id:::::::::::::::::', route.params.pillarId);
-  console.log('Self Learn ====', poeSelfLearns);
+//   console.log('POE id:::::::::::::::::', route.params.poeId);
+//   console.log('parent id:::::::::::::::::', route.params.pillarId);
+//   console.log('Self Learn ====', poeSelfLearns);
 
-console.log("session", coachingSession)
+// console.log("session", coachingSession)
 
   const _renderItem = ({item, index}) => {
     return (

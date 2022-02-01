@@ -20,8 +20,8 @@ const selfAssessment = (props) => {
 	const {
         navigation,
         route,
-		totalScore,
-		setTotalScore,
+		answers,
+		setAnswers
     } = props;
 
 	const dispatch = useDispatch();
@@ -64,8 +64,8 @@ const selfAssessment = (props) => {
 						fetchAllSubTrait={fetchAllSubTrait}
 						cleanSubTrait={cleanSubTrait}
 						count={count}
-						totalScore={totalScore}
-						setTotalScore={setTotalScore}/>
+						answers={answers}
+						setAnswers={setAnswers}/>
 					}
 					{value === 'Yellow Questions' &&
 						<Question

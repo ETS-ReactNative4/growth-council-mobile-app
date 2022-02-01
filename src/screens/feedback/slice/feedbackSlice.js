@@ -6,7 +6,7 @@ export const fetchFeedbacks = createAsyncThunk(
   'feedback/fetchAll',
   (_, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/page/feedback`)
-      .then(response => response.data.body_response)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );

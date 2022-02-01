@@ -6,7 +6,7 @@ export const fetchSessionsByUserID = createAsyncThunk(
   'profileSession/fetchAllByID',
   (identifier, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/users/${identifier}/sessions`)
-      	.then(response => response.data.body_response)
+      	.then(response => response.data.data)
       	.catch(error => rejectWithValue(error?.response?.data || error));
   },
 );
