@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import BestPractice from './components/BestPractice';
@@ -7,7 +7,10 @@ import {
   fetchAllbestPractices,
   resetbestPractice,
 } from './slice/bestPracticesSlice';
-
+import {
+  fetchAllPillarSliders,
+  resetPillarSlider,
+} from '../home/slice/pillarSliderSlice';
 import {
   fetchAllbestPracticesMemberContents,
   resetbestPracticesMemberContent,
@@ -17,6 +20,12 @@ import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
 
 const BestPracticeScreen = props => {
   const dispatch = useDispatch();
+  // const {pillarId} = props;
+  const [pillarId, setPillarId] = useState();
+
+  const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector(
+    state => state.pillarSliders,
+  );
 
   const {bestPractices, bestPracticeLoading, bestPracticeError} = useSelector(
     state => state.bestPractices,
@@ -44,6 +53,10 @@ const BestPracticeScreen = props => {
     dispatch(fetchAllbestPracticesMemberContents());
   };
 
+  const fetchAllPillarSlider = () => {
+    dispatch(fetchAllPillarSliders());
+  };
+
   const cleanbestPracticesMemberContent = () => {
     dispatch(resetbestPracticesMemberContent());
   };
@@ -55,6 +68,18 @@ const BestPracticeScreen = props => {
   const cleanPillarPOE = () => {
     dispatch(resetPillarPOE());
   };
+  const cleanPillarSlider = () => {
+    dispatch(resetPillarSlider());
+  };
+
+  useEffect(() => {
+    let content = pillarSliders.flatMap((value, key) => {
+      const slug = value?.slug;
+      if (slug == 'best-practices') {
+        setPillarId(value?.term_id);
+      }
+    });
+  }, []);
 
   return (
     <BestPractice
@@ -74,6 +99,7 @@ const BestPracticeScreen = props => {
       pillarPOEError={pillarPOEError}
       fetchAllPillarPOE={fetchAllPillarPOE}
       cleanPillarPOE={cleanPillarPOE}
+      pillarId={pillarId}
     />
   );
 };

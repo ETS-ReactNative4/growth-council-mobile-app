@@ -157,21 +157,21 @@ const MainNavigation = () => {
             ...TransitionPresets.RevealFromBottomAndroid,
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="coachingSession"
           component={CoachingSessionDetailScreen}
           options={{
             headerTitle: 'Session',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="selflearn"
           component={SelfLearnDetailScreen}
           options={{
             headerTitle: 'Self Learn',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="pdf"
           component={PDFDetailScreen}
           options={{
@@ -303,7 +303,10 @@ const MainNavigation = () => {
         <Stack.Screen
           name="BestPractice"
           component={BestPracticeScreen}
-          options={{headerShown: false}}
+          options={({route}) => ({
+            pillarID: route?.params?.pillarID,
+            headerShown: false,
+          })}
         />
         <Stack.Screen
           name="GrowthCoaching"

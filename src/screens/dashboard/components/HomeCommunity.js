@@ -37,9 +37,8 @@ const HomeCommunity = props => {
     pillarPOEError,
     fetchAllPillarPOE,
     cleanPillarPOE,
+    pillarId,
   } = props;
-
-  const pillarId = 120;
 
   useEffect(() => {
     const fetchAllCommunityAsync = async () => {
@@ -63,7 +62,9 @@ const HomeCommunity = props => {
     return () => {
       cleanPillarPOE();
     };
-  }, []);
+  }, [pillarId]);
+
+  console.log({pillarId});
 
   // console.log('Community ============', pillarPOEs);
   //console.log('Params ==== ', pillarId);

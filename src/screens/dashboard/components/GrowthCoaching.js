@@ -36,9 +36,8 @@ const GrowthCoaching = props => {
     pillarPOEError,
     fetchAllPillarPOE,
     cleanPillarPOE,
+    pillarId,
   } = props;
-
-  const pillarId = 119;
 
   useEffect(() => {
     const fetchAllgrowthCoachingAsync = async () => {
@@ -62,7 +61,9 @@ const GrowthCoaching = props => {
     return () => {
       cleanPillarPOE();
     };
-  }, []);
+  }, [pillarId]);
+
+  console.log({pillarId});
 
   // console.log('Growth Coaching =========', growthCoachings);
   // console.log('Member================', growthCoachingMemberContents);

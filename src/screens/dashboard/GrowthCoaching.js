@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import GrowthCoaching from './components/GrowthCoaching';
@@ -12,10 +12,20 @@ import {
   resetgrowthCoachingMemberContent,
 } from './slice/growthCoachingMemberContentSlice';
 
+import {
+  fetchAllPillarSliders,
+  resetPillarSlider,
+} from '../home/slice/pillarSliderSlice';
+
 import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
 
 const GrowthCoachingScreen = props => {
   const dispatch = useDispatch();
+  const [pillarId, setPillarId] = useState();
+
+  const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector(
+    state => state.pillarSliders,
+  );
 
   const {growthCoachings, growthCoachingLoading, growthCoachingError} =
     useSelector(state => state.growthCoachings);
@@ -38,6 +48,10 @@ const GrowthCoachingScreen = props => {
     dispatch(fetchAllgrowthCoachingMemberContents());
   };
 
+  const fetchAllPillarSlider = () => {
+    dispatch(fetchAllPillarSliders());
+  };
+
   const cleanGrowthCoaching = () => {
     dispatch(resetgrowthCoaching());
   };
@@ -53,6 +67,19 @@ const GrowthCoachingScreen = props => {
   const cleanPillarPOE = () => {
     dispatch(resetPillarPOE());
   };
+
+  const cleanPillarSlider = () => {
+    dispatch(resetPillarSlider());
+  };
+
+  useEffect(() => {
+    let content = pillarSliders.flatMap((value, key) => {
+      const slug = value?.slug;
+      if (slug == 'growth-coaching') {
+        setPillarId(value?.term_id);
+      }
+    });
+  }, []);
 
   return (
     <GrowthCoaching
@@ -72,6 +99,7 @@ const GrowthCoachingScreen = props => {
       pillarPOEError={pillarPOEError}
       fetchAllPillarPOE={fetchAllPillarPOE}
       cleanPillarPOE={cleanPillarPOE}
+      pillarId={pillarId}
     />
   );
 };

@@ -15,7 +15,6 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const BestPractice = props => {
@@ -36,9 +35,8 @@ const BestPractice = props => {
     pillarPOEError,
     fetchAllPillarPOE,
     cleanPillarPOE,
+    pillarId,
   } = props;
-
-  const pillarId = 118;
 
   useEffect(() => {
     const fetchAllbestPracticeAsync = async () => {
@@ -55,7 +53,7 @@ const BestPractice = props => {
     return () => {
       cleanPillarPOE();
     };
-  }, []);
+  }, [pillarId]);
 
   useEffect(() => {
     const fetchAllbestPracticeMemberContentAsync = async () => {
@@ -172,9 +170,10 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
+  console.log({pillarId});
 
   // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
-  console.log({bestPractices});
+  //console.log({bestPractices});
 
   return (
     <ScrollView>
