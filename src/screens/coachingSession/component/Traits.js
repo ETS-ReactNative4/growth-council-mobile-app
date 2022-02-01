@@ -1,9 +1,9 @@
 import React,{useEffect, useState} from 'react';
-import { ScrollView, StyleSheet, Text, View , FlatList} from 'react-native';
+import { ScrollView, StyleSheet, Text, View , FlatList, Pressable} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import RoundCheckbox from 'rn-round-checkbox';
 import { RadioButton } from 'react-native-paper';
+import RadioGroup from 'react-native-radio-buttons-group';
 
 const Traits = (props) => {
 	const{
@@ -14,7 +14,9 @@ const Traits = (props) => {
 		subTraitsError,
 		fetchAllSubTrait,
 		cleanSubTrait, 
-		count
+		count,
+		totalScore,
+		setTotalScore,
 	}=props;
 
 	useEffect(()=>{
@@ -24,91 +26,74 @@ const Traits = (props) => {
 		fetchAllSubTraitsAsync();
 	},[]);
 
-	// console.log("subTraits", subTraits.sub_traits[0].questions[0].question);
+	const [checked, setChecked] = useState(0);
+	
+
 	const _renderItem = ({item, index}) => {
+		// console.log(item)
+		// return  <Text>1</Text>
+		
 		return (
+
 			<View style={styles.wrapper}>
 				<View style={{flexDirection:'row'}}>
+			
 					<RadioButton
-						value="Yes"	
+						value="Yes"
+						status={ item.score === checked ? 'checked' : 'unchecked'}
+						onPress={() => setChecked(item?.score)}
 					/>
-					<Text>Yes</Text>
+					{/* <RadioGroup
+						radioButtons={radioButtons}
+						onPress={onPressRadioButton}
+						layout="row"
+					/> */}
+					
+					<Text style={{fontSize:11, marginTop:10}}> {item.option}</Text>
 				</View>
+				
 			</View>
 		)}
+	useEffect (()=>{
+		console.log(checked);
+		let newScore = totalScore;
+		newScore += checked;
+		setTotalScore(newScore);
+		console.log(totalScore); 
+	},[count]);
+	
+	if(subTraits?.length === 0 || subTraits === undefined){
+		return <></>
+	}
+
   	return (
 		<View>
-			<View style={[styles.questionWrapper,styles.shadowProp]}>
-				<View style={{ alignItems:"center"}}>
-					<Text style={styles.title}>question</Text>
-				</View>
+			{
+				subTraits?.sub_traits[count]?.questions?.map((question, key)=>(
+						
+						<View style={[styles.questionWrapper,styles.shadowProp]}>
 
-				<FlatList
-					vertical
-					showsVerticalScrollIndicator={false}
-					data={subTraits?.sub_traits?.questions}
-					renderItem={_renderItem}
-				/>
-				{/* <View>
-					<View style={styles.wrapper}>
-						<View style={{ flexDirection:'row'}}>
-
-						<RoundCheckbox
-							size={20}
-							label="Yes"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}>Strongly DisAgree</Text>
+						<View style={{ alignItems:"center"}}>
+							<Text style={styles.title}>{question?.question}</Text>
 						</View>
-
-						<View  style={{marginLeft:32, flexDirection:"row"}}>
-						<RoundCheckbox
-							size={20}
-							label="No"
-							backgroundColor="#EAEBED"
+						
+						<FlatList
+							horizontal
+							showsVerticalScrollIndicator={false}
+							data={question?.options}
+							// numColumns={Math.ceil(subTraits?.sub_traits[count]?.questions[0].options.length / 2)}
+							renderItem={_renderItem}
 						/>
-						<Text style={{fontSize:13, marginLeft:5}}>Disagree</Text>
-						</View>
+						
+						
 					</View>
-					<View style={styles.wrapper}>
-						<View style={{ flexDirection:'row'}}>		
-						<RoundCheckbox
-							size={20}
-							label="Yes"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}>Strongly Agree</Text>
-						</View>
-						<View  style={{marginLeft:50, flexDirection:"row"}}>
-						<RoundCheckbox
-							size={20}
-							label="No"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}> Agree</Text>
-						</View>
-					</View>
-
-					<View style={{ flexDirection:'row',marginLeft:20,marginTop:15}}>
-						<RoundCheckbox
-							size={20}
-							label="Yes"
-							backgroundColor="#EAEBED"
-						/>
-						<Text style={{fontSize:13, marginLeft:5}}>SomeWhat Agree</Text>
-
-					</View>
-
-				</View> */}
-			</View>
+				))
+			}
+		
 			<ScrollView style={styles.scrollBox}>
 			<View style={{marginTop:25}}>
-				{/* <Text style={styles.title}>
-					Best Practices
-				</Text> */}
-
 				<Text style={styles.paragraph}>
-					{subTraits?.sub_traits?.content}
+					{subTraits?.sub_traits[count]?.content}
 				</Text>
 			</View>
 
@@ -154,7 +139,7 @@ const styles = StyleSheet.create({
 		marginTop:10
 	},
 	title:{
-		fontSize:14,
+		fontSize:13,
 		fontFamily:Typography.FONT_SF_SEMIBOLD, 
 		color:"#1E2022"
 	},
@@ -175,8 +160,8 @@ const styles = StyleSheet.create({
 	wrapper:{
 		display:'flex',
 		flexDirection:'row',
-		marginTop:15,
-		marginLeft:20,
+		marginTop:10,
+		
 	}
 });
 

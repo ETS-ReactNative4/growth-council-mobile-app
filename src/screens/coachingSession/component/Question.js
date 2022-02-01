@@ -18,7 +18,8 @@ const Question = (props) => {
 		subTraitsLoading,
 		subTraitsError,
 		fetchAllSubTrait,
-		cleanSubTrait
+		cleanSubTrait,
+		count
 	}=props;
 
 	useEffect(()=>{
@@ -30,27 +31,11 @@ const Question = (props) => {
 
 
 	const [checked, setChecked] = useState('Yes');
-
-	const data = [
-		{
-			text: 'You can’t connect the dots going forward?',
-		},
-		{
-			text: 'You can connect the dots going forward?',
-		},
-		{
-			text: 'You can’t connect the dots going forward?',
-		},
-		{
-			text: 'You can connect the dots going forward?',
-		},
-	];
-	const _renderItem = ({item, index}) => {
+	const _renderItem = ({item, index}) => {	
 		return (
 			<View style={[styles.questionWrapper,styles.shadowProp]}>
-			
+
 			<View style={{ alignItems:"center",  justifyContent:'center', borderBottomWidth:0.1}}>
-		
 				<Text style={styles.title}>{item?.post_title}</Text>
 			</View>
 			
@@ -59,15 +44,22 @@ const Question = (props) => {
 					<RadioButton
 						value="Yes"
 						status={ checked === 'Yes' ? 'checked' : 'unchecked' }
-						onPress={() => setChecked('Yes')}
-					/>
+						onPress={() => setChecked((checked)=>({
+								...checked
+								[item?.ID]
+						}))
+					}/>
 					<Text>Yes</Text>
 				</View>
 				<View style={{flexDirection:'row'}}>
 					<RadioButton
 						value="No"
 						status={ checked === 'No' ? 'checked' : 'unchecked' }
-						onPress={() => setChecked('No')}
+						onPress={() => setChecked((checked)=>({
+							...checked
+							[item?.ID]
+					}))
+				}
 					/>
 					<Text>No</Text>
 				</View>
@@ -80,12 +72,16 @@ const Question = (props) => {
 		);
 	  };
 
+	if(subTraits?.length === 0 || subTraits === undefined){
+		return <></>
+	}
+
   return (
 	<View>
 	 	<FlatList
 			vertical
 			showsVerticalScrollIndicator={false}
-			data={subTraits?.sub_traits[0]?.yellow_benchmark_questions}
+			data={subTraits?.sub_traits[count]?.yellow_benchmark_questions}
 			renderItem={_renderItem}
 		/>
 		

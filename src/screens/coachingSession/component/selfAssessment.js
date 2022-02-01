@@ -20,9 +20,12 @@ const selfAssessment = (props) => {
 	const {
         navigation,
         route,
+		totalScore,
+		setTotalScore,
     } = props;
 
 	const dispatch = useDispatch();
+
 	const {subTraits,subTraitsLoading,subTraitsError}= useSelector(state => state.subTraits);
 
 	const fetchAllSubTrait = identifier =>{
@@ -33,7 +36,7 @@ const selfAssessment = (props) => {
 		dispatch(resetSubTraits());
 	};
 
-	const [value, setValue] = useState('Sub Trait 1');
+	const [value, setValue] = useState('Sub Trait');
 	const [count, setCount] = useState(0);	
 	return (
 		<View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -44,7 +47,7 @@ const selfAssessment = (props) => {
 						highlightTextColor={'#0B0B45'}
 						inactiveBackgroundColor={'transparent'}
 						inactiveTextColor={'grey'}
-						values={['Sub Trait 1', 'Yellow Questions']}
+						values={['Sub Trait', 'Yellow Questions']}
 						value={value}
 						onSelect={val => setValue(val)}
 						style={{height: 30, marginTop: 5, width: '95%', marginLeft: 10, fontSize:12, borderRadius:15}}
@@ -52,7 +55,7 @@ const selfAssessment = (props) => {
 				</View>
 			
 				<View >
-					{value === 'Sub Trait 1' &&
+					{value === 'Sub Trait' &&
 						<Trait
 						{...props}
 						subTraits={subTraits}
@@ -60,7 +63,9 @@ const selfAssessment = (props) => {
 						subTraitsError={subTraitsError}
 						fetchAllSubTrait={fetchAllSubTrait}
 						cleanSubTrait={cleanSubTrait}
-						count={count}/>
+						count={count}
+						totalScore={totalScore}
+						setTotalScore={setTotalScore}/>
 					}
 					{value === 'Yellow Questions' &&
 						<Question
@@ -69,7 +74,9 @@ const selfAssessment = (props) => {
 						subTraitsLoading={subTraitsLoading}
 						subTraitsError={subTraitsError}
 						fetchAllSubTrait={fetchAllSubTrait}
-						cleanSubTrait={cleanSubTrait}/>
+						cleanSubTrait={cleanSubTrait}
+						count={count}
+						/>
 					}
 					
 				</View>
@@ -77,7 +84,7 @@ const selfAssessment = (props) => {
 			</View>
 
 			<View style={{height:90, display:'flex', flexDirection:'row', paddingTop:15,  borderTopWidth:0.4, marginTop:20}}>
-				<Button style={styles.buttonWrapper} onPress={()=>setCount(count + 1)} disabled={count === 0 ? true:false }>
+				<Button style={styles.buttonWrapper} onPress={()=>setCount(count - 1)} disabled={count === 0 ? true:false }>
 					{/* <Ionicons name={'chevron-back-outline'} size={25} color={'#FFFFFF'} /> */}
 					<Text style={{ color:"#FFFFFF",marginTop:2, fontSize:14,marginLeft:20}}>Previous</Text>
 				</Button>
