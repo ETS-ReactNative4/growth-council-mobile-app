@@ -8,6 +8,7 @@ export const fetchAllSubTraits= createAsyncThunk(
     return fetch(`jwt-auth/v1/traits/${identifier}`)
       .then(response => response.data.body_response)
       .catch(error => rejectWithValue(error?.response?.data || error));
+
   },
 );
 

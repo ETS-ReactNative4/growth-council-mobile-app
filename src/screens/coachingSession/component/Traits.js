@@ -1,8 +1,9 @@
 import React,{useEffect, useState} from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View , FlatList} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import RoundCheckbox from 'rn-round-checkbox';
+import { RadioButton } from 'react-native-paper';
 
 const Traits = (props) => {
 	const{
@@ -12,7 +13,8 @@ const Traits = (props) => {
 		subTraitsLoading,
 		subTraitsError,
 		fetchAllSubTrait,
-		cleanSubTrait
+		cleanSubTrait, 
+		count
 	}=props;
 
 	useEffect(()=>{
@@ -22,18 +24,32 @@ const Traits = (props) => {
 		fetchAllSubTraitsAsync();
 	},[]);
 
-	console.log("subTraits", route.params.id);
-	// const item= subTraits.sub_traits
+	// console.log("subTraits", subTraits.sub_traits[0].questions[0].question);
+	const _renderItem = ({item, index}) => {
+		return (
+			<View style={styles.wrapper}>
+				<View style={{flexDirection:'row'}}>
+					<RadioButton
+						value="Yes"	
+					/>
+					<Text>Yes</Text>
+				</View>
+			</View>
+		)}
   	return (
 		<View>
 			<View style={[styles.questionWrapper,styles.shadowProp]}>
-				<View style={{ alignItems:"center", height:40, justifyContent:'center'}}>
-					<Text style={styles.title}>s</Text>
+				<View style={{ alignItems:"center"}}>
+					<Text style={styles.title}>question</Text>
 				</View>
 
-				<View style={{height:1, borderWidth:0.1, backgroundColor:'#D8D8D8'}}/>
-
-				<View>
+				<FlatList
+					vertical
+					showsVerticalScrollIndicator={false}
+					data={subTraits?.sub_traits?.questions}
+					renderItem={_renderItem}
+				/>
+				{/* <View>
 					<View style={styles.wrapper}>
 						<View style={{ flexDirection:'row'}}>
 
@@ -42,7 +58,7 @@ const Traits = (props) => {
 							label="Yes"
 							backgroundColor="#EAEBED"
 						/>
-						<Text style={{fontSize:13, marginLeft:5}}>Strongly Agree</Text>
+						<Text style={{fontSize:13, marginLeft:5}}>Strongly DisAgree</Text>
 						</View>
 
 						<View  style={{marginLeft:32, flexDirection:"row"}}>
@@ -61,15 +77,15 @@ const Traits = (props) => {
 							label="Yes"
 							backgroundColor="#EAEBED"
 						/>
-						<Text style={{fontSize:13, marginLeft:5}}> Agree</Text>
+						<Text style={{fontSize:13, marginLeft:5}}>Strongly Agree</Text>
 						</View>
-						<View  style={{marginLeft:80, flexDirection:"row"}}>
+						<View  style={{marginLeft:50, flexDirection:"row"}}>
 						<RoundCheckbox
 							size={20}
 							label="No"
 							backgroundColor="#EAEBED"
 						/>
-						<Text style={{fontSize:13, marginLeft:5}}> Strongly Disagree</Text>
+						<Text style={{fontSize:13, marginLeft:5}}> Agree</Text>
 						</View>
 					</View>
 
@@ -79,11 +95,11 @@ const Traits = (props) => {
 							label="Yes"
 							backgroundColor="#EAEBED"
 						/>
-						<Text style={{fontSize:13, marginLeft:5}}>Neutral</Text>
+						<Text style={{fontSize:13, marginLeft:5}}>SomeWhat Agree</Text>
 
 					</View>
 
-				</View>
+				</View> */}
 			</View>
 			<ScrollView style={styles.scrollBox}>
 			<View style={{marginTop:25}}>

@@ -34,6 +34,7 @@ const selfAssessment = (props) => {
 	};
 
 	const [value, setValue] = useState('Sub Trait 1');
+	const [count, setCount] = useState(0);	
 	return (
 		<View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
 			<View style={{flex:1}}>  
@@ -58,7 +59,8 @@ const selfAssessment = (props) => {
 						subTraitsLoading={subTraitsLoading}
 						subTraitsError={subTraitsError}
 						fetchAllSubTrait={fetchAllSubTrait}
-						cleanSubTrait={cleanSubTrait}/>
+						cleanSubTrait={cleanSubTrait}
+						count={count}/>
 					}
 					{value === 'Yellow Questions' &&
 						<Question
@@ -75,15 +77,14 @@ const selfAssessment = (props) => {
 			</View>
 
 			<View style={{height:90, display:'flex', flexDirection:'row', paddingTop:15,  borderTopWidth:0.4, marginTop:20}}>
-				<View style={styles.buttonWrapper}>
-					<Ionicons name={'chevron-back-outline'} size={25} color={'#FFFFFF'} />
+				<Button style={styles.buttonWrapper} onPress={()=>setCount(count + 1)} disabled={count === 0 ? true:false }>
+					{/* <Ionicons name={'chevron-back-outline'} size={25} color={'#FFFFFF'} /> */}
 					<Text style={{ color:"#FFFFFF",marginTop:2, fontSize:14,marginLeft:20}}>Previous</Text>
-				</View>
-				<View style={styles.buttonWrapper}>
-				
-					<Text style={{ color:"#FFFFFF",marginTop:2, marginLeft:40, fontSize:14}}>Next</Text>
-					<Ionicons name={'chevron-forward-outline'} size={25} color={'#FFFFFF'} style={{marginLeft:30}}/>
-				</View>
+				</Button>
+				<Button style={styles.buttonWrapper} onPress={()=>setCount(count + 1)}>
+					<Text style={{ color:"#FFFFFF",marginTop:2, fontSize:14}}>Next</Text>
+					{/* <Ionicons name={'chevron-forward-outline'} size={25} color={'#FFFFFF'} style={{marginLeft:30}}/> */}
+				</Button>
 			</View>
 
 		</View>

@@ -7,7 +7,8 @@ import {
 from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Checkbox from '../../../shared/form/Checkbox';
-import RoundCheckbox from 'rn-round-checkbox';
+
+import { RadioButton } from 'react-native-paper';
 
 const Question = (props) => {
 	const{
@@ -27,9 +28,8 @@ const Question = (props) => {
 		fetchAllSubTraitsAsync();
 	},[]);
 
-	console.log(subTraits);
 
-	const [checked, setChecked] = useState(false);
+	const [checked, setChecked] = useState('Yes');
 
 	const data = [
 		{
@@ -49,29 +49,27 @@ const Question = (props) => {
 		return (
 			<View style={[styles.questionWrapper,styles.shadowProp]}>
 			
-			<View style={{ alignItems:"center", height:60, justifyContent:'center', borderBottomWidth:0.1}}>
-			{item.yellow_benchmark_questions.map((items,key) =>{
-					<Text style={styles.title} key={key}>{items?.post_title}</Text>
-				})}
+			<View style={{ alignItems:"center",  justifyContent:'center', borderBottomWidth:0.1}}>
+		
+				<Text style={styles.title}>{item?.post_title}</Text>
 			</View>
 			
-			<View style={styles.wrapper}>
-				<View style={{marginLeft:10, flexDirection:'row'}}>
-					
-					<RoundCheckbox
-						size={24}
-						label="Yes"
-						backgroundColor="#EAEBED"
+			<View style={styles.wrapper}>	
+				<View style={{flexDirection:'row'}}>
+					<RadioButton
+						value="Yes"
+						status={ checked === 'Yes' ? 'checked' : 'unchecked' }
+						onPress={() => setChecked('Yes')}
 					/>
-					<Text style={{fontSize:13, marginLeft:5}}>Yes</Text>
+					<Text>Yes</Text>
 				</View>
-				<View  style={{marginLeft:100, flexDirection:"row"}}>
-					<RoundCheckbox
-						size={24}
-						label="No"
-						backgroundColor=""
+				<View style={{flexDirection:'row'}}>
+					<RadioButton
+						value="No"
+						status={ checked === 'No' ? 'checked' : 'unchecked' }
+						onPress={() => setChecked('No')}
 					/>
-					<Text style={{fontSize:13, marginLeft:5}}>No</Text>
+					<Text>No</Text>
 				</View>
 			</View>
 				
@@ -82,17 +80,14 @@ const Question = (props) => {
 		);
 	  };
 
-		 
   return (
 	<View>
 	 	<FlatList
 			vertical
 			showsVerticalScrollIndicator={false}
-			data={subTraits.sub_traits}
+			data={subTraits?.sub_traits[0]?.yellow_benchmark_questions}
 			renderItem={_renderItem}
 		/>
-		
-			
 		
 	</View>
   );
@@ -129,6 +124,7 @@ const styles = StyleSheet.create({
 		  flexDirection:'row',
 		  marginTop:15,
 		  marginLeft:20,
+		  justifyContent:'space-evenly'
 	  }
 });
 
