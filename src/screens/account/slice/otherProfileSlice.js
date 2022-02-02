@@ -6,7 +6,7 @@ export const fetchOtherProfileByID = createAsyncThunk(
   'profile/fetchProfileByID',
   (identifier, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/users/${identifier}`)
-      .then(response => response.data.body_response)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );
