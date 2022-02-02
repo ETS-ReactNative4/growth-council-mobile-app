@@ -124,7 +124,7 @@ const SignUpForm = props => {
     },
   });
 
-  const [checked, setChecked] = React.useState('false');
+  const [checked, setChecked] = React.useState(false);
 
   const [country, setCountry] = useState('Country');
 

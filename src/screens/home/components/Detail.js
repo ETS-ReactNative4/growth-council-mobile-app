@@ -33,7 +33,7 @@ const Detail = props => {
     fetchDetailAsync();
   }, []);
 
-  console.log('Details ====== ', details);
+  console.log('Details ====== ', details?.heading1);
 
   return (
     <View style={styles.container}>
@@ -41,7 +41,6 @@ const Detail = props => {
         <ImageBackground
           source={require('../../../assets/img/splash-screen.png')}
           resizeMode="cover">
-			  
           <View style={{height: 142}} />
 
           <View style={styles.content}>
