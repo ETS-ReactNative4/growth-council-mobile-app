@@ -303,7 +303,10 @@ const MainNavigation = () => {
         <Stack.Screen
           name="BestPractice"
           component={BestPracticeScreen}
-          options={{headerShown: false}}
+          options={({route}) =>({ 
+            pillarId : route?.params?.pillarId, 
+            headerShown: false 
+          })}
         />
         <Stack.Screen
           name="GrowthCoaching"

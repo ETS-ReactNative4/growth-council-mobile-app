@@ -16,6 +16,7 @@ import {
 import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
 
 const BestPracticeScreen = props => {
+  const {pillarId} = props;
   const dispatch = useDispatch();
 
   const {bestPractices, bestPracticeLoading, bestPracticeError} = useSelector(
@@ -74,6 +75,7 @@ const BestPracticeScreen = props => {
       pillarPOEError={pillarPOEError}
       fetchAllPillarPOE={fetchAllPillarPOE}
       cleanPillarPOE={cleanPillarPOE}
+      pillarId={pillarId}
     />
   );
 };

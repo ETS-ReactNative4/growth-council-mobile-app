@@ -36,9 +36,9 @@ const BestPractice = props => {
     pillarPOEError,
     fetchAllPillarPOE,
     cleanPillarPOE,
+    pillarId
   } = props;
 
-  const pillarId = 118;
 
   useEffect(() => {
     const fetchAllbestPracticeAsync = async () => {
@@ -174,7 +174,7 @@ const BestPractice = props => {
   const listData = props.pillarPOEs ?? [];
 
   // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
-  console.log({bestPractices});
+  console.log({pillarId});
 
   return (
     <ScrollView>
