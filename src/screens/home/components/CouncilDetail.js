@@ -37,8 +37,14 @@ const CouncilDetail = props => {
     fetchPillarDetailAsync();
   }, []);
 
-  console.log('route.params.id:::::::::::::::::', route.params.id);
-  console.log('Pillar Detail:::::::::::::::::', pillars);
+  // console.log('route.params.id:::::::::::::::::', route.params.id);
+  // console.log('Pillar Detail:::::::::::::::::', pillars);
+  let description = pillars?.description;
+  if (description !== undefined) {
+    description = pillars?.description;
+  } else {
+    description = '';
+  }
 
   return (
     <ScrollView>
@@ -115,7 +121,7 @@ const CouncilDetail = props => {
             </View>
           )}
           <Text style={styles.headingTitle}>{pillars?.name}</Text>
-          <HTMLView value={pillars?.description} style={styles.paragraph} />
+          <HTMLView value={description} style={styles.paragraph} />
         </View>
         {!loadMore && (
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
