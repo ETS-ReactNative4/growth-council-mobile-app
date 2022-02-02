@@ -14,22 +14,24 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
+import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const GrowthCoaching = props => {
   const {
+    route,
     navigation,
-    growthCoachings,
-    growthCoachingLoading,
-    growthCoachingError,
-    fetchAllgrowthCoaching,
-    cleanGrowthCoaching,
-    growthCoachingMemberContents,
-    growthCoachingMemberContentLoading,
-    growthCoachingMemberContentError,
-    fetchAllgrowthCoachingMemberContent,
-    cleanGrowthCoachingMemberContent,
+    pillarEvents,
+    pillarEventLoading,
+    pillarEventError,
+    fetchAllPillarEvent,
+    cleanPillarEvent,
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+    fetchAllPillarMemberContent,
+    cleanPillarMemberContent,
     pillarPOEs,
     pillarPOELoading,
     pillarPOEError,
@@ -37,31 +39,35 @@ const GrowthCoaching = props => {
     cleanPillarPOE,
   } = props;
 
-  const pillarId = 121;
-
-  useEffect(() => {
-    const fetchAllgrowthCoachingAsync = async () => {
-      await fetchAllgrowthCoaching();
-    };
-    fetchAllgrowthCoachingAsync();
-  }, []);
-
-  useEffect(() => {
-    const fetchAllgrowthCoachingMemberContentAsync = async () => {
-      await fetchAllgrowthCoachingMemberContent();
-    };
-    fetchAllgrowthCoachingMemberContentAsync();
-  }, []);
-
   useEffect(() => {
     const fetchAllPillarPOEAsync = async () => {
-      await fetchAllPillarPOE(pillarId);
+      await fetchAllPillarPOE(route.params.pillarId);
     };
     fetchAllPillarPOEAsync();
     return () => {
       cleanPillarPOE();
     };
   }, []);
+
+  useEffect(() => {
+    const fetchAllPillarEventAsync = async () => {
+      await fetchAllPillarEvent(route.params.pillarId);
+    };
+    fetchAllPillarEventAsync();
+    return () => {
+      cleanPillarEvent();
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchAllPillarMemberContentAsync = async () => {
+      await fetchAllPillarMemberContent(route.params.pillarId);
+    };
+    fetchAllPillarMemberContentAsync();
+  }, []);
+
+  console.log('pillar_id', route.params.pillarId);
+  console.log({pillarMemberContents});
 
   // console.log('Growth Coaching =========', growthCoachings);
   // console.log('Member================', growthCoachingMemberContents);
@@ -195,7 +201,7 @@ const GrowthCoaching = props => {
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Growth Coaching Events</Text>
-          {growthCoachingLoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
             </View>
@@ -208,7 +214,7 @@ const GrowthCoaching = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={growthCoachings}
+              data={pillarEvents}
               //renderItem={_renderTopItem}
               renderItem={item => _renderTopItem(item, navigation)}
             />
@@ -235,12 +241,12 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.bottom}>
-          <Text style={styles.title}>Growth Community Members</Text>
+          <Text style={styles.title}>Growth Coaching Members</Text>
           <View>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={growthCoachingMemberContents.members}
+              data={pillarMemberContents.members}
               // renderItem={_renderItem}
               renderItem={item => _renderItem(item, navigation)}
             />
@@ -257,24 +263,12 @@ const GrowthCoaching = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={growthCoachingMemberContents?.pillar_contents}
+              data={pillarMemberContents?.pillar_contents}
               renderItem={_renderContentItem}
             />
           </View>
         </View>
-        <View
-          style={{
-            alignItems: 'center',
-            width: '35%',
-            marginLeft: 140,
-            marginBottom: 10,
-          }}>
-          <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-          <Image
-            source={require('../../../assets/img/fristDigi.png')}
-            style={{width: '100%', height: 20}}
-          />
-        </View>
+        <Footer />
       </View>
     </ScrollView>
   );
@@ -385,7 +379,7 @@ const styles = StyleSheet.create({
   },
   ContentWrapper: {
     height: 206,
-    width: 364,
+    width: Platform.OS === 'ios' ? 330 : 364,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,

@@ -1,52 +1,47 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import BestPractice from './components/BestPractice';
-
 import {
-  fetchAllbestPractices,
-  resetbestPractice,
-} from './slice/bestPracticesSlice';
-
+  fetchAllPillarEvents,
+  resetPillarEvent,
+} from './slice/pillarEventsSlice';
 import {
-  fetchAllbestPracticesMemberContents,
-  resetbestPracticesMemberContent,
-} from './slice/bestPracticesMemberContentSlice';
+  fetchAllPillarMemberContents,
+  resetPillarMemberContent,
+} from '../details/slice/pillarMembersContentsSlice';
+
+// import {
+//   fetchAllPillarSliders,
+//   resetPillarSlider,
+// } from '../home/slice/pillarSliderSlice';
 
 import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
 
 const BestPracticeScreen = props => {
   const dispatch = useDispatch();
-
-  const {bestPractices, bestPracticeLoading, bestPracticeError} = useSelector(
-    state => state.bestPractices,
+  const {pillarEvents, pillarEventLoading, pillarEventError} = useSelector(
+    state => state.pillarEvents,
   );
+  const {
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+  } = useSelector(state => state.pillarMemberContents);
+  //const {pillarId} = props;
+  //const [pillarId, setPillarId] = useState();
+
+  // const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector(
+  //   state => state.pillarSliders,
+  // );
 
   const {pillarPOEs, pillarPOELoading, pillarPOEError} = useSelector(
     state => state.pillarPOEs,
   );
 
-  const {
-    bestPracticesMemberContents,
-    bestPracticesMemberContentLoading,
-    bestPracticesMemberContentError,
-  } = useSelector(state => state.bestPracticesMemberContents);
-
-  const fetchAllbestPractice = () => {
-    dispatch(fetchAllbestPractices());
-  };
-
-  const cleanbestPractice = () => {
-    dispatch(resetbestPractice());
-  };
-
-  const fetchAllbestPracticesMemberContent = () => {
-    dispatch(fetchAllbestPracticesMemberContents());
-  };
-
-  const cleanbestPracticesMemberContent = () => {
-    dispatch(resetbestPracticesMemberContent());
-  };
+  // const fetchAllPillarSlider = () => {
+  //   dispatch(fetchAllPillarSliders());
+  // };
 
   const fetchAllPillarPOE = pillarId => {
     dispatch(fetchAllPillarPOEs(pillarId));
@@ -55,25 +50,54 @@ const BestPracticeScreen = props => {
   const cleanPillarPOE = () => {
     dispatch(resetPillarPOE());
   };
+  // const cleanPillarSlider = () => {
+  //   dispatch(resetPillarSlider());
+  // };
+
+  const fetchAllPillarEvent = pillarId => {
+    dispatch(fetchAllPillarEvents(pillarId));
+  };
+
+  const cleanPillarEvent = () => {
+    dispatch(resetPillarEvent());
+  };
+
+  const fetchAllPillarMemberContent = pillarId => {
+    dispatch(fetchAllPillarMemberContents(pillarId));
+  };
+
+  const cleanPillarMemberContent = () => {
+    dispatch(resetPillarMemberContent());
+  };
+
+  // useEffect(() => {
+  //   let content = pillarSliders.flatMap((value, key) => {
+  //     const slug = value?.slug;
+  //     if (slug == 'best-practices') {
+  //       setPillarId(value?.term_id);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <BestPractice
       {...props}
-      bestPractices={bestPractices}
-      bestPracticeLoading={bestPracticeLoading}
-      bestPracticeError={bestPracticeError}
-      fetchAllbestPractice={fetchAllbestPractice}
-      cleanbestPractice={cleanbestPractice}
-      bestPracticesMemberContents={bestPracticesMemberContents}
-      bestPracticesMemberContentLoading={bestPracticesMemberContentLoading}
-      bestPracticesMemberContentError={bestPracticesMemberContentError}
-      fetchAllbestPracticesMemberContent={fetchAllbestPracticesMemberContent}
-      cleanbestPracticesMemberContent={cleanbestPracticesMemberContent}
+      pillarEvents={pillarEvents}
+      pillarEventLoading={pillarEventLoading}
+      pillarEventError={pillarEventError}
+      fetchAllPillarEvent={fetchAllPillarEvent}
+      cleanPillarEvent={cleanPillarEvent}
+      pillarMemberContents={pillarMemberContents}
+      pillarMemberContentLoading={pillarMemberContentLoading}
+      pillarMemberContentError={pillarMemberContentError}
+      fetchAllPillarMemberContent={fetchAllPillarMemberContent}
+      cleanPillarMemberContent={cleanPillarMemberContent}
       pillarPOEs={pillarPOEs}
       pillarPOELoading={pillarPOELoading}
       pillarPOEError={pillarPOEError}
       fetchAllPillarPOE={fetchAllPillarPOE}
       cleanPillarPOE={cleanPillarPOE}
+      // pillarId={pillarId}
     />
   );
 };

@@ -25,9 +25,7 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().required('Username is required.'),
-  password: Yup.string()
-    .min(6, ({min}) => `Password must be at least ${min} characters.`)
-    .required('Password is required.'),
+  password: Yup.string().required('Password is required.'),
 });
 
 const SignInForm = props => {
@@ -195,7 +193,7 @@ const styles = StyleSheet.create({
   },
   body: {
     width: '80%',
-    alignItems: 'center',
+
     justifyContent: 'center',
   },
   content: {
@@ -224,7 +222,7 @@ const styles = StyleSheet.create({
   loginButtonWrapper: {
     ...CommonStyles.buttonWrapper,
     alignItems: 'flex-start',
-	marginTop:10,
+    marginTop: 10,
   },
   loginButton: {
     ...CommonStyles.button,
@@ -259,7 +257,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   loading1: {
-    marginLeft: 50,
+    marginLeft: 100,
     flex: 1,
     flexDirection: 'column',
     position: 'absolute',

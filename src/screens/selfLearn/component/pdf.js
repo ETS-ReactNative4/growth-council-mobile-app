@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View } from 'react-native';
-// import Pdf from 'react-native-pdf';
+import Pdf from 'react-native-pdf';
 
 const pdf = props => {
 
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        marginTop: 25,
+		marginTop:5,
     },
     pdf: {
         flex:1,

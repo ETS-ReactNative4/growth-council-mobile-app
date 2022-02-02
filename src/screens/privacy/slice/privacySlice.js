@@ -5,8 +5,8 @@ import {fetch} from '../../../utils/httpUtil';
 export const fetchPrivacy = createAsyncThunk(
   'privacy/fetchAll',
   (_, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/page/4944`)
-      .then(response => response.data.body_response)
+    return fetch(`jwt-auth/v1/page/privacy_policy`)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );

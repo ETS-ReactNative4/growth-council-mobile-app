@@ -1,8 +1,5 @@
 import React, {useState} from 'react'
 import {StyleSheet, Text, View, ScrollView, ImageBackground, TextInput} from 'react-native';
-// import { RadarData, RadarOptions } from "./RadarChart";
-// import { Radar } from 'react-native-pathjs-charts'
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Button} from 'native-base';
 
@@ -31,7 +28,7 @@ const FrostRadar = (props) => {
                             <Text style={{fontWeight: "bold", fontSize: 20, color:"white"}}>Frost Radar</Text>
                         </View>
                         <View style={styles.radar}>
-							{/* <Radar data={RadarData} options={RadarOptions} /> */}
+					
                         </View>
                         <View style={styles.detail}>
                             {show ?
