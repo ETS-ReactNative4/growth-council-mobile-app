@@ -12,38 +12,38 @@ export const fetchSessionByID = createAsyncThunk(
 );
 
 const sessionSlice = createSlice({
-    name: 'session',
-    initialState: {
-        sessions: [],
-        sessionLoading: false,
-        sessionError: null,
+  name: 'session',
+  initialState: {
+    sessions: [],
+    sessionLoading: false,
+    sessionError: null,
+  },
+  reducers: {
+    resetSession: state => {
+      state.sessions = [];
+      state.sessionLoading = false;
+      state.sessionError = null;
     },
-    reducers: {
-        resetSession: state => {
-            state.sessions = [];
-            state.sessionLoading = false;
-            state.sessionError = null;
-        },
+  },
+  extraReducers: {
+    [fetchSessionByID.pending]: (state, action) => {
+      state.sessionLoading = true;
+      state.sessionError = null;
     },
-    extraReducers: {
-        [fetchSessionByID.pending]: (state, action) => {
-            state.sessionLoading = true;
-            state.sessionError = null;
-        },
-        [fetchSessionByID.fulfilled]: (state, action) => {
-            state.sessions = action.payload;
-            state.sessionLoading = false;
-            state.sessionError = null;
-        },
-        [fetchSessionByID.rejected]: (state, action) => {
-            state.sessionLoading = false;
-            if (action.payload) {
-                state.sessionError = action.payload.error.message;
-            } else {
-                state.sessionError = action.error;
-            }
-        },
+    [fetchSessionByID.fulfilled]: (state, action) => {
+      state.sessions = action.payload;
+      state.sessionLoading = false;
+      state.sessionError = null;
     },
+    [fetchSessionByID.rejected]: (state, action) => {
+      state.sessionLoading = false;
+      if (action.payload) {
+        state.sessionError = action.payload.error.message;
+      } else {
+        state.sessionError = action.error;
+      }
+    },
+  },
 });
 
 export const {resetSession} = sessionSlice.actions;

@@ -24,7 +24,8 @@ const HeaderRight = ({navigation}) => {
 				name="search-outline"
 				color={'white'}
 				size={30}
-				style={{marginTop: 15, marginRight: 15}}
+				style={{marginTop: 15, 
+					marginRight: Platform.OS === 'ios' ? 10 : 10,}}
 			/>
 		</TouchableOpacity>
      
@@ -38,7 +39,7 @@ const HeaderRight = ({navigation}) => {
             height: 40,
             width: 40,
             borderRadius: 50,
-            marginRight: 20,
+            marginRight: Platform.OS === 'ios' ? 10 : 15,
 			marginTop:10
           }}
         />

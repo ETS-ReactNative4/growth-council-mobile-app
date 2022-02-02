@@ -24,6 +24,7 @@ import {
   SECONDARY_TEXT_COLOR,
 } from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
+import Footer from '../../../shared/footer';
 
 const Dashboard = props => {
   const {
@@ -151,10 +152,10 @@ const Dashboard = props => {
 
     let backgroundImage = '';
     switch (item?.pillar_categories[0]?.slug) {
-      case 'growth-community':
+      case 'community':
         backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
-      case 'basic-practices':
+      case 'best-practices':
         backgroundImage = require('../../../assets/img/Rectangle1.png');
         break;
       default:
@@ -325,19 +326,7 @@ const Dashboard = props => {
           </View>
         </View>
 
-        <View
-          style={{
-            alignItems: 'center',
-            width: '35%',
-            marginLeft: 140,
-            marginBottom: 10,
-          }}>
-          <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-          <Image
-            source={require('../../../assets/img/fristDigi.png')}
-            style={{width: '100%', height: 20}}
-          />
-        </View>
+        <Footer />
       </ScrollView>
     </SafeAreaView>
   );
@@ -354,21 +343,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 50,
+    marginTop: Platform.OS === 'ios' ? 65 : 50,
     justifyContent: 'space-between',
   },
-  ImageWrapper: {
-    width: 120,
-    height: 172,
-    borderRadius: 10,
-    borderWidth: 4,
-    borderColor: PRIMARY_BACKGROUND_COLOR,
-    overflow: 'hidden',
-  },
-  ImageStyle: {
-    width: '100%',
-    height: '100%',
-  },
+  
   viewAll: {
     fontSize: 10,
     color: SECONDARY_TEXT_COLOR,
@@ -449,7 +427,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   bottomWrapper: {
-    width: 84,
+    width: Platform.OS === 'ios' ? 70 : 84,
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
@@ -477,7 +455,7 @@ const styles = StyleSheet.create({
   },
   ContentWrapper: {
     height: 206,
-    width: 364,
+    width: Platform.OS === 'ios' ? 330 : 364,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
