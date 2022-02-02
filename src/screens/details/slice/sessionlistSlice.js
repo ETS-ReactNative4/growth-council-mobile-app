@@ -2,12 +2,12 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {fetch} from '../../../utils/httpUtil';
 
-export const fetchcoachingSessionByUserID = createAsyncThunk(
-  'coachingSession/fetchAllByID',
-  (identifier, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/users/${identifier}/sessions`)
-      	.then(response => response.data.body_response)
-      	.catch(error => rejectWithValue(error?.response?.data || error));
+export const fetchcoachingSession = createAsyncThunk(
+  'coachingSession/fetchAll',
+  (_, {rejectWithValue}) => {
+    return fetch(`jwt-auth/v1/pillars/147/sessions`)
+      .then(response => response.data.data)
+      .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );
 
@@ -16,7 +16,7 @@ const coachingSessionSlice = createSlice({
   initialState: {
     coachingSession: [],
     coachingSessionLoading: false,
-	coachingSessionError: null,
+    coachingSessionError: null,
   },
   reducers: {
     resetcoachingSession: state => {
@@ -26,16 +26,16 @@ const coachingSessionSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchcoachingSessionByUserID.pending]: (state, action) => {
+    [fetchcoachingSession.pending]: (state, action) => {
       state.coachingSessionLoading = true;
       state.coachingSessionError = null;
     },
-    [fetchcoachingSessionByUserID.fulfilled]: (state, action) => {
+    [fetchcoachingSession.fulfilled]: (state, action) => {
       state.coachingSession = action.payload;
       state.coachingSessionLoading = false;
       state.coachingSessionError = null;
     },
-    [fetchcoachingSessionByUserID.rejected]: (state, action) => {
+    [fetchcoachingSession.rejected]: (state, action) => {
       state.coachingSessionLoading = false;
       if (action.payload) {
         state.coachingSessionError = action.payload.error.message;

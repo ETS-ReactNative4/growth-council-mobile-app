@@ -37,8 +37,14 @@ const CouncilDetail = props => {
     fetchPillarDetailAsync();
   }, []);
 
-  console.log('route.params.id:::::::::::::::::', route.params.id);
-  console.log('Pillar Detail:::::::::::::::::', pillars);
+  // console.log('route.params.id:::::::::::::::::', route.params.id);
+  // console.log('Pillar Detail:::::::::::::::::', pillars);
+  let description = pillars?.description;
+  if (description !== undefined) {
+    description = pillars?.description;
+  } else {
+    description = '';
+  }
 
   return (
     <ScrollView>
@@ -109,13 +115,13 @@ const CouncilDetail = props => {
         />
 
         <View style={{marginLeft: 20, marginRight: 20}}>
-		{pillarLoading &&
-                                <View style={styles.loading1}>
-                                    <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
-                                </View>
-                                }
+          {pillarLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+            </View>
+          )}
           <Text style={styles.headingTitle}>{pillars?.name}</Text>
-          <HTMLView value={pillars?.description} style={styles.paragraph} />
+          <HTMLView value={description} style={styles.paragraph} />
         </View>
         {!loadMore && (
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
@@ -174,11 +180,11 @@ const styles = StyleSheet.create({
     fontWeight: 'medium',
   },
   loading1: {
-	marginLeft: 100,
-	flex: 1,
-	flexDirection: 'column',
-	position: 'absolute',
-	zIndex: 1011,
-}
+    marginLeft: 100,
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute',
+    zIndex: 1011,
+  },
 });
 export default CouncilDetail;

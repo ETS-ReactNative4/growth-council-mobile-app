@@ -63,7 +63,11 @@ import sessionRegisterReducer from '../screens/sessions/slice/sessionRegister';
 import calendarEventReducer from '../screens/calendar/calendarEventSlice';
 
 import searchReducer from '../screens/search/searchSlice';
+import uploadReducer from '../screens/account/slice/uploadProfileImageSlice';
+import updateReducer from '../screens/account/slice/updateProfileImageSlice';
 import expertiseReducer from '../screens/people/slice/expertiseSlice';
+import coachingSessionReducer from '../screens/details/slice/sessionlistSlice';
+import traitsReducer from '../screens/coachingSession/slice/sessionTraitsSlice';
 
 import poeSelfLearnReducer from '../screens/selfLearn/slice/poeSelfLearnSlice';
 import selfLearnTraitReducer from '../screens/selfLearn/slice/selfLearnTraitsSlice';
@@ -116,6 +120,10 @@ const reducers = combineReducers({
   calendarEvents: calendarEventReducer,
   searches: searchReducer,
   expertise: expertiseReducer,
+  uploadEntities: uploadReducer,
+  updateEntities: updateReducer,
+  coachingSession:coachingSessionReducer,
+  traits:traitsReducer,
   poeSelfLearns: poeSelfLearnReducer,
   selfLearnTraits: selfLearnTraitReducer,
   selfLearns: selfLearnReducer,
