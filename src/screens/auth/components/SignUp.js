@@ -85,6 +85,7 @@ const SignUpForm = props => {
           values?.email?.trim(),
           values?.firebase_password,
         );
+        console.log({response});
         const token = await response.user.getIdToken();
         if (token) {
           await registerCustomer(values).then(response => {
@@ -101,6 +102,7 @@ const SignUpForm = props => {
           });
         }
       } catch (error) {
+        console.log({error});
         switch (error.code) {
           case 'auth/email-already-in-use':
             ToastMessage.show(
