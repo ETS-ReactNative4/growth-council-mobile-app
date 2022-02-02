@@ -2,49 +2,49 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {fetch} from '../../../utils/httpUtil';
 
-export const fetchAllPOEEvents = createAsyncThunk(
-  'poeEvents/fetchAll',
-  (_, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/pillars/119/events`)
+export const fetchAllPillarEvents = createAsyncThunk(
+  'pillarEvents/fetchAll',
+  (pillarId, {rejectWithValue}) => {
+    return fetch(`jwt-auth/v1/pillars/${pillarId}/events`)
       .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );
 
-const poeEventSlice = createSlice({
-  name: 'poeEvent',
+const pillarEventSlice = createSlice({
+  name: 'pillarEvent',
   initialState: {
-    poeEvents: [],
-    poeEventLoading: false,
-    poeEventError: null,
+    pillarEvents: [],
+    pillarEventLoading: false,
+    pillarEventError: null,
   },
   reducers: {
-    resetPOEEvent: state => {
-      state.poeEvents = [];
-      state.poeEventLoading = false;
-      state.poeEventError = null;
+    resetPillarEvent: state => {
+      state.pillarEvents = [];
+      state.pillarEventLoading = false;
+      state.pillarEventError = null;
     },
   },
   extraReducers: {
-    [fetchAllPOEEvents.pending]: (state, action) => {
-      state.poeEventLoading = true;
-      state.poeEventError = null;
+    [fetchAllPillarEvents.pending]: (state, action) => {
+      state.pillarEventLoading = true;
+      state.pillarEventError = null;
     },
-    [fetchAllPOEEvents.fulfilled]: (state, action) => {
-      state.poeEvents = action.payload;
-      state.poeEventLoading = false;
-      state.poeEventError = null;
+    [fetchAllPillarEvents.fulfilled]: (state, action) => {
+      state.pillarEvents = action.payload;
+      state.pillarEventLoading = false;
+      state.pillarEventError = null;
     },
-    [fetchAllPOEEvents.rejected]: (state, action) => {
-      state.poeEventLoading = false;
+    [fetchAllPillarEvents.rejected]: (state, action) => {
+      state.pillarEventLoading = false;
       if (action.payload) {
-        state.poeEventError = action.payload.error.message;
+        state.pillarEventError = action.payload.error.message;
       } else {
-        state.poeEventError = action.error;
+        state.pillarEventError = action.error;
       }
     },
   },
 });
 
-export const {resetPOEEvent} = poeEventSlice.actions;
-export default poeEventSlice.reducer;
+export const {resetPillarEvent} = pillarEventSlice.actions;
+export default pillarEventSlice.reducer;

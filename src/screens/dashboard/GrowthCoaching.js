@@ -1,50 +1,49 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import GrowthCoaching from './components/GrowthCoaching';
 import {
-  fetchAllgrowthCoachings,
-  resetgrowthCoaching,
-} from './slice/growthCoachingSlice';
-
+  fetchAllPillarEvents,
+  resetPillarEvent,
+} from './slice/pillarEventsSlice';
 import {
-  fetchAllgrowthCoachingMemberContents,
-  resetgrowthCoachingMemberContent,
-} from './slice/growthCoachingMemberContentSlice';
+  fetchAllPillarMemberContents,
+  resetPillarMemberContent,
+} from '../details/slice/pillarMembersContentsSlice';
+
+// import {
+//   fetchAllPillarSliders,
+//   resetPillarSlider,
+// } from '../home/slice/pillarSliderSlice';
 
 import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
 
 const GrowthCoachingScreen = props => {
   const dispatch = useDispatch();
+  //const [pillarId, setPillarId] = useState();
+  const {pillarEvents, pillarEventLoading, pillarEventError} = useSelector(
+    state => state.pillarEvents,
+  );
+
+  const {
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+  } = useSelector(state => state.pillarMemberContents);
+  // const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector(
+  //   state => state.pillarSliders,
+  // );
 
   const {growthCoachings, growthCoachingLoading, growthCoachingError} =
     useSelector(state => state.growthCoachings);
-
-  const {
-    growthCoachingMemberContents,
-    growthCoachingMemberContentLoading,
-    growthCoachingMemberContentError,
-  } = useSelector(state => state.growthCoachingMemberContents);
 
   const {pillarPOEs, pillarPOELoading, pillarPOEError} = useSelector(
     state => state.pillarPOEs,
   );
 
-  const fetchAllgrowthCoaching = () => {
-    dispatch(fetchAllgrowthCoachings());
-  };
-
-  const fetchAllgrowthCoachingMemberContent = () => {
-    dispatch(fetchAllgrowthCoachingMemberContents());
-  };
-
-  const cleanGrowthCoaching = () => {
-    dispatch(resetgrowthCoaching());
-  };
-
-  const cleanGrowthCoachingMemberContent = () => {
-    dispatch(resetgrowthCoachingMemberContent());
-  };
+  // const fetchAllPillarSlider = () => {
+  //   dispatch(fetchAllPillarSliders());
+  // };
 
   const fetchAllPillarPOE = pillarId => {
     dispatch(fetchAllPillarPOEs(pillarId));
@@ -54,24 +53,53 @@ const GrowthCoachingScreen = props => {
     dispatch(resetPillarPOE());
   };
 
+  // const cleanPillarSlider = () => {
+  //   dispatch(resetPillarSlider());
+  // };
+
+  const fetchAllPillarEvent = pillarId => {
+    dispatch(fetchAllPillarEvents(pillarId));
+  };
+
+  const cleanPillarEvent = () => {
+    dispatch(resetPillarEvent());
+  };
+
+  const fetchAllPillarMemberContent = pillarId => {
+    dispatch(fetchAllPillarMemberContents(pillarId));
+  };
+
+  const cleanPillarMemberContent = () => {
+    dispatch(resetPillarMemberContent());
+  };
+  // useEffect(() => {
+  //   let content = pillarSliders.flatMap((value, key) => {
+  //     const slug = value?.slug;
+  //     if (slug == 'growth-coaching') {
+  //       setPillarId(value?.term_id);
+  //     }
+  //   });
+  // }, []);
+
   return (
     <GrowthCoaching
       {...props}
-      growthCoachings={growthCoachings}
-      growthCoachingLoading={growthCoachingLoading}
-      growthCoachingError={growthCoachingError}
-      fetchAllgrowthCoaching={fetchAllgrowthCoaching}
-      cleanGrowthCoaching={cleanGrowthCoaching}
-      growthCoachingMemberContents={growthCoachingMemberContents}
-      growthCoachingMemberContentLoading={growthCoachingMemberContentLoading}
-      growthCoachingMemberContentError={growthCoachingMemberContentError}
-      fetchAllgrowthCoachingMemberContent={fetchAllgrowthCoachingMemberContent}
-      cleanGrowthCoachingMemberContent={cleanGrowthCoachingMemberContent}
+      pillarEvents={pillarEvents}
+      pillarEventLoading={pillarEventLoading}
+      pillarEventError={pillarEventError}
+      fetchAllPillarEvent={fetchAllPillarEvent}
+      cleanPillarEvent={cleanPillarEvent}
+      pillarMemberContents={pillarMemberContents}
+      pillarMemberContentLoading={pillarMemberContentLoading}
+      pillarMemberContentError={pillarMemberContentError}
+      fetchAllPillarMemberContent={fetchAllPillarMemberContent}
+      cleanPillarMemberContent={cleanPillarMemberContent}
       pillarPOEs={pillarPOEs}
       pillarPOELoading={pillarPOELoading}
       pillarPOEError={pillarPOEError}
       fetchAllPillarPOE={fetchAllPillarPOE}
       cleanPillarPOE={cleanPillarPOE}
+      // pillarId={pillarId}
     />
   );
 };
