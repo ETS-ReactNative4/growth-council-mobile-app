@@ -7,6 +7,7 @@ import {
   StatusBar,
   Dimensions,
   FlatList,
+  Image,
 } from 'react-native';
 import moment from 'moment';
 
@@ -21,6 +22,11 @@ const CouncilAllDetail = props => {
     upcomingEventError,
     fetchUpcomingEventsByIdentifier,
     cleanUpcomingEvent,
+    pillarPOEs,
+    pillarPOELoading,
+    pillarPOEError,
+    fetchAllPillarPOE,
+    cleanPillarPOE,
     pillar_id,
   } = props;
 
@@ -32,11 +38,18 @@ const CouncilAllDetail = props => {
     fetchUpcomingEventAsync();
   }, []);
 
-  console.log(
-    'Pillar Upcoming Events:::::::::::::::::',
-    upcomingEvents,
-    pillar_id,
-  );
+  useEffect(() => {
+    const fetchAllPillarPOEAsync = async () => {
+      await fetchAllPillarPOE(pillar_id);
+    };
+    fetchAllPillarPOEAsync();
+    return () => {
+      cleanPillarPOE();
+    };
+  }, []);
+
+  // console.log('Pillar Upcoming Events:::::::::::::::::', pillarPOEs, pillar_id);
+  // console.log({pillarPOEs});
 
   const _renderItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -65,6 +78,27 @@ const CouncilAllDetail = props => {
     );
   };
 
+  const _renderPOE = ({item, index}) => {
+    return (
+      <View style={styles.poeCard} key={index}>
+        <View style={styles.poeTheme}>
+          <Image
+            source={{uri: item.image}}
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
+        </View>
+        <View style={styles.eventDetails}>
+          <View style={styles.eventInfo}>
+            <Text style={styles.eventTitle}>{item.name}</Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <>
       <StatusBar
@@ -73,6 +107,18 @@ const CouncilAllDetail = props => {
       />
       <View style={styles.container}>
         <ScrollView>
+          <View style={styles.events}>
+            <Text style={styles.poeTitle}>POINTS OF ENGAGEMENT</Text>
+            <View styles={styles.eventList}>
+              <FlatList
+                vertical
+                showsHorizontalScrollIndicator={false}
+                data={pillarPOEs}
+                renderItem={_renderPOE}
+              />
+            </View>
+          </View>
+
           <View style={styles.events}>
             <Text style={styles.eventsTitle}>UPCOMING EVENTS</Text>
             <View styles={styles.eventList}>
@@ -140,6 +186,11 @@ const styles = StyleSheet.create({
     marginBottom: 34,
     fontWeight: 'semi-bold',
   },
+  poeTitle: {
+    marginTop: 10,
+    marginBottom: 34,
+    fontWeight: 'semi-bold',
+  },
   eventList: {},
   eventCard: {
     width: '100%',
@@ -149,6 +200,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 14,
+  },
+  poeCard: {
+    width: '100%',
+    marginTop: 5,
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginBottom: 5,
+  },
+  poeTheme: {
+    height: 50,
+    width: 50,
   },
   eventTheme: {
     height: 84,

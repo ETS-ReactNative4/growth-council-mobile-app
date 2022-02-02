@@ -6,7 +6,7 @@ export const fetchPillarByID = createAsyncThunk(
   'pillar/fetchByID',
   (identifier, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/pillars/${identifier}`)
-      .then(response => response.data.body_response)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );
