@@ -19,47 +19,50 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const BestPractice = props => {
   const {
+    route,
     navigation,
-    bestPractices,
-    bestPracticeLoading,
-    bestPracticeError,
-    fetchAllbestPractice,
-    cleanBestPractice,
-    bestPracticesMemberContents,
-    bestPracticesMemberContentLoading,
-    bestPracticesMemberContentError,
-    fetchAllbestPracticesMemberContent,
-    cleanBestPracticesMemberContent,
+    pillarEvents,
+    pillarEventLoading,
+    pillarEventError,
+    fetchAllPillarEvent,
+    cleanPillarEvent,
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+    fetchAllPillarMemberContent,
+    cleanPillarMemberContent,
     pillarPOEs,
     pillarPOELoading,
     pillarPOEError,
     fetchAllPillarPOE,
     cleanPillarPOE,
-    pillarId,
   } = props;
 
   useEffect(() => {
-    const fetchAllbestPracticeAsync = async () => {
-      await fetchAllbestPractice();
-    };
-    fetchAllbestPracticeAsync();
-  }, []);
-
-  useEffect(() => {
     const fetchAllPillarPOEAsync = async () => {
-      await fetchAllPillarPOE(pillarId);
+      await fetchAllPillarPOE(route.params.pillarId);
     };
     fetchAllPillarPOEAsync();
     return () => {
       cleanPillarPOE();
     };
-  }, [pillarId]);
+  }, []);
 
   useEffect(() => {
-    const fetchAllbestPracticeMemberContentAsync = async () => {
-      await fetchAllbestPracticesMemberContent();
+    const fetchAllPillarEventAsync = async () => {
+      await fetchAllPillarEvent(route.params.pillarId);
     };
-    fetchAllbestPracticeMemberContentAsync();
+    fetchAllPillarEventAsync();
+    return () => {
+      cleanPillarEvent();
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchAllPillarMemberContentAsync = async () => {
+      await fetchAllPillarMemberContent(route.params.pillarId);
+    };
+    fetchAllPillarMemberContentAsync();
   }, []);
 
   const _renderTopItem = ({item, index}, navigation) => {
@@ -170,7 +173,8 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
-  console.log({pillarId});
+  console.log('pillar_id', route.params.pillarId);
+  console.log({pillarMemberContents});
 
   // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
   //console.log({bestPractices});
@@ -180,7 +184,7 @@ const BestPractice = props => {
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Best Practices Events</Text>
-          {bestPracticeLoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
             </View>
@@ -193,7 +197,7 @@ const BestPractice = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPractices}
+              data={pillarEvents}
               // renderItem={_renderTopItem}
               renderItem={item => _renderTopItem(item, navigation)}
             />
@@ -218,12 +222,12 @@ const BestPractice = props => {
         </View>
 
         <View style={styles.bottom}>
-          <Text style={styles.title}>Growth Community Members</Text>
+          <Text style={styles.title}>Best Practices Members</Text>
           <View>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents.members}
+              data={pillarMemberContents?.members}
               //renderItem={_renderItem}
               renderItem={item => _renderItem(item, navigation)}
             />
@@ -240,7 +244,7 @@ const BestPractice = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents?.pillar_contents}
+              data={pillarMemberContents?.pillar_contents}
               renderItem={_renderContentItem}
             />
           </View>

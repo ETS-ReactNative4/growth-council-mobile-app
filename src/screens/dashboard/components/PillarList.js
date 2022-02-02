@@ -13,7 +13,7 @@ import {
 const PillarList = props => {
   const {navigation, pillarSliders} = props;
 
-  console.log('pillar', pillarSliders);
+  //console.log('pillar_ID', pillarSliders?.term_id);
 
   return pillarSliders.map((item, index) => {
     let navigationPath = '';
@@ -36,7 +36,7 @@ const PillarList = props => {
       <View style={[styles.ImageWrapper, {borderColor: borderColor}]}>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate(navigationPath, {pillarId: item?.ID})
+            navigation.navigate(navigationPath, {pillarId: item.term_id})
           }>
           <Image source={{uri: item?.image}} style={styles.ImageStyle} />
           <Text style={styles.sliderText}>{item?.name}</Text>

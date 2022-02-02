@@ -21,50 +21,54 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const HomeCommunity = props => {
   const {
+    route,
     navigation,
-    communities,
-    communityLoading,
-    communityError,
-    fetchAllCommunity,
-    cleanCommunity,
-    communityMemberContents,
-    communityMemberContentLoading,
-    communityMemberContentError,
-    fetchAllCommunityMemberContent,
-    cleanCommunityMemberContent,
+    pillarEvents,
+    pillarEventLoading,
+    pillarEventError,
+    fetchAllPillarEvent,
+    cleanPillarEvent,
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+    fetchAllPillarMemberContent,
+    cleanPillarMemberContent,
     pillarPOEs,
     pillarPOELoading,
     pillarPOEError,
     fetchAllPillarPOE,
     cleanPillarPOE,
-    pillarId,
   } = props;
 
   useEffect(() => {
-    const fetchAllCommunityAsync = async () => {
-      await fetchAllCommunity();
-    };
-    fetchAllCommunityAsync();
-  }, []);
-
-  useEffect(() => {
-    const fetchAllCommunityMemberContentAsync = async () => {
-      await fetchAllCommunityMemberContent();
-    };
-    fetchAllCommunityMemberContentAsync();
-  }, []);
-
-  useEffect(() => {
     const fetchAllPillarPOEAsync = async () => {
-      await fetchAllPillarPOE(pillarId);
+      await fetchAllPillarPOE(route.params.pillarId);
     };
     fetchAllPillarPOEAsync();
     return () => {
       cleanPillarPOE();
     };
-  }, [pillarId]);
+  }, []);
 
-  console.log({pillarId});
+  useEffect(() => {
+    const fetchAllPillarEventAsync = async () => {
+      await fetchAllPillarEvent(route.params.pillarId);
+    };
+    fetchAllPillarEventAsync();
+    return () => {
+      cleanPillarEvent();
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchAllPillarMemberContentAsync = async () => {
+      await fetchAllPillarMemberContent(route.params.pillarId);
+    };
+    fetchAllPillarMemberContentAsync();
+  }, []);
+
+  console.log('pillar_id', route.params.pillarId);
+  console.log({pillarMemberContents});
 
   // console.log('Community ============', pillarPOEs);
   //console.log('Params ==== ', pillarId);
@@ -204,7 +208,7 @@ const HomeCommunity = props => {
         <View style={styles.top}>
           <Text style={styles.title}> Growth Community Events</Text>
 
-          {communityLoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
             </View>
@@ -217,7 +221,7 @@ const HomeCommunity = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={communities}
+              data={pillarEvents}
               renderItem={item => _renderTopItem(item, navigation)}
             />
           </View>
@@ -247,7 +251,7 @@ const HomeCommunity = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={communityMemberContents.members}
+              data={pillarMemberContents?.members}
               renderItem={_renderItem}
             />
           </View>
@@ -263,7 +267,7 @@ const HomeCommunity = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={communityMemberContents?.pillar_contents}
+              data={pillarMemberContents?.pillar_contents}
               renderItem={_renderContentItem}
             />
           </View>

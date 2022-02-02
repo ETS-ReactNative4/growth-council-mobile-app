@@ -3,58 +3,45 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import HomeCommunity from './components/HomeCommunity';
 
-import {fetchAllCommunities, resetCommunity} from './slice/communitySlice';
 import {
-  fetchAllCommunityMemberContents,
-  resetCommunityMemberContent,
-} from './slice/communityMemberContentSlice';
+  fetchAllPillarEvents,
+  resetPillarEvent,
+} from './slice/pillarEventsSlice';
 
 import {
-  fetchAllPillarSliders,
-  resetPillarSlider,
-} from '../home/slice/pillarSliderSlice';
+  fetchAllPillarMemberContents,
+  resetPillarMemberContent,
+} from '../details/slice/pillarMembersContentsSlice';
+
+// import {
+//   fetchAllPillarSliders,
+//   resetPillarSlider,
+// } from '../home/slice/pillarSliderSlice';
 
 import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
 
 const HomeCommunityScreen = props => {
   const dispatch = useDispatch();
-  const [pillarId, setPillarId] = useState();
-  const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector(
-    state => state.pillarSliders,
-  );
-
-  const {communities, communityLoading, communityError} = useSelector(
-    state => state.communities,
+  //const [pillarId, setPillarId] = useState();
+  const {pillarEvents, pillarEventLoading, pillarEventError} = useSelector(
+    state => state.pillarEvents,
   );
 
   const {
-    communityMemberContents,
-    communityMemberContentLoading,
-    communityMemberContentError,
-  } = useSelector(state => state.communityMemberContents);
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+  } = useSelector(state => state.pillarMemberContents);
+  // const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector(
+  //   state => state.pillarSliders,
+  // );
 
   const {pillarPOEs, pillarPOELoading, pillarPOEError} = useSelector(
     state => state.pillarPOEs,
   );
 
-  const fetchAllCommunity = () => {
-    dispatch(fetchAllCommunities());
-  };
-
-  const fetchAllCommunityMemberContent = () => {
-    dispatch(fetchAllCommunityMemberContents());
-  };
-
-  const fetchAllPillarSlider = () => {
-    dispatch(fetchAllPillarSliders());
-  };
-
-  const cleanCommunity = () => {
-    dispatch(resetCommunity());
-  };
-
-  const cleanCommunityMemberContent = () => {
-    dispatch(resetCommunityMemberContent());
+  const fetchAllPillarEvent = pillarId => {
+    dispatch(fetchAllPillarEvents(pillarId));
   };
 
   const fetchAllPillarPOE = pillarId => {
@@ -65,38 +52,45 @@ const HomeCommunityScreen = props => {
     dispatch(resetPillarPOE());
   };
 
-  const cleanPillarSlider = () => {
-    dispatch(resetPillarSlider());
+  const cleanPillarEvent = () => {
+    dispatch(resetPillarEvent());
   };
 
-  useEffect(() => {
-    let content = pillarSliders.flatMap((value, key) => {
-      const slug = value?.slug;
-      if (slug == 'community') {
-        setPillarId(value?.term_id);
-      }
-    });
-  }, []);
+  const fetchAllPillarMemberContent = pillarId => {
+    dispatch(fetchAllPillarMemberContents(pillarId));
+  };
+
+  const cleanPillarMemberContent = () => {
+    dispatch(resetPillarMemberContent());
+  };
+
+  // useEffect(() => {
+  //   let content = pillarSliders.flatMap((value, key) => {
+  //     const slug = value?.slug;
+  //     if (slug == 'community') {
+  //       setPillarId(value?.term_id);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <HomeCommunity
       {...props}
-      communities={communities}
-      communityLoading={communityLoading}
-      communityError={communityError}
-      fetchAllCommunity={fetchAllCommunity}
-      cleanCommunity={cleanCommunity}
-      communityMemberContents={communityMemberContents}
-      communityMemberContentLoading={communityMemberContentLoading}
-      communityMemberContentError={communityMemberContentError}
-      fetchAllCommunityMemberContent={fetchAllCommunityMemberContent}
-      cleanCommunityMemberContent={cleanCommunityMemberContent}
+      pillarEvents={pillarEvents}
+      pillarEventLoading={pillarEventLoading}
+      pillarEventError={pillarEventError}
+      fetchAllPillarEvent={fetchAllPillarEvent}
+      cleanPillarEvent={cleanPillarEvent}
+      pillarMemberContents={pillarMemberContents}
+      pillarMemberContentLoading={pillarMemberContentLoading}
+      pillarMemberContentError={pillarMemberContentError}
+      fetchAllPillarMemberContent={fetchAllPillarMemberContent}
+      cleanPillarMemberContent={cleanPillarMemberContent}
       pillarPOEs={pillarPOEs}
       pillarPOELoading={pillarPOELoading}
       pillarPOEError={pillarPOEError}
       fetchAllPillarPOE={fetchAllPillarPOE}
       cleanPillarPOE={cleanPillarPOE}
-      pillarId={pillarId}
     />
   );
 };

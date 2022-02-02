@@ -301,17 +301,29 @@ const MainNavigation = () => {
         />
 
         <Stack.Screen
+          name="Community"
+          component={HomeCommunityScreen}
+          options={({route}) => ({
+            pillarId: route?.params?.pillarId,
+            headerShown: false,
+          })}
+        />
+
+        <Stack.Screen
           name="BestPractice"
           component={BestPracticeScreen}
           options={({route}) => ({
-            pillarID: route?.params?.pillarID,
+            pillarId: route?.params?.pillarId,
             headerShown: false,
           })}
         />
         <Stack.Screen
           name="GrowthCoaching"
           component={GrowthCoachingScreen}
-          options={{headerShown: false}}
+          options={({route}) => ({
+            pillarId: route?.params?.pillarId,
+            headerShown: false,
+          })}
         />
         <Stack.Screen
           name="GrowthDetail"

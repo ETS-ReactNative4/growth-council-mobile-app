@@ -2,11 +2,11 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {fetch} from '../../../utils/httpUtil';
 
-export const fetchAllTraits= createAsyncThunk(
+export const fetchAllTraits = createAsyncThunk(
   'traits/fetchAll',
   (sessionId, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/sessions/${sessionId}/traits`)
-      .then(response => response.data.body_response)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );

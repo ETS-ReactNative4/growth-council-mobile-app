@@ -262,7 +262,7 @@ const CommunityDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents.members}
+                    data={pillarMemberContents?.members}
                     renderItem={_renderItem}
                   />
                 </View>
