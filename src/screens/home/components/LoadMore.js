@@ -54,7 +54,7 @@ const CouncilAllDetail = props => {
   const _renderItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+    // console.log(date[1]);
     return (
       <View style={styles.eventCard} key={index}>
         <View style={styles.eventTheme} />
