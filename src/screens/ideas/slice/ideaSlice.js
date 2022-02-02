@@ -6,7 +6,7 @@ export const fetchIdeas = createAsyncThunk(
   'idea/fetchAll',
   (_, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/page/contribute_idea`)
-      .then(response => response.data.body_response)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );

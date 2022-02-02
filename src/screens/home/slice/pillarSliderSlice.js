@@ -5,7 +5,7 @@ import {fetch} from '../../../utils/httpUtil';
 export const fetchAllPillarSliders = createAsyncThunk(
     'pillarSlider/fetchAll',
     (_, {rejectWithValue}) => {
-        return fetch(`jwt-auth/v1/pillars`).then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
+        return fetch(`jwt-auth/v1/pillars`).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 

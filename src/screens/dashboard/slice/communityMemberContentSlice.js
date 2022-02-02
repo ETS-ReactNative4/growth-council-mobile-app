@@ -6,7 +6,7 @@ export const fetchAllCommunityMemberContents = createAsyncThunk(
   'communityMemberContent/fetchAll',
   (_, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/pillars/121`)
-      .then(response => response.data.body_response)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );

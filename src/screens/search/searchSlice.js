@@ -6,7 +6,7 @@ export const searchEventsByKey = createAsyncThunk(
     'search/fetchByKey',
     (formData, {rejectWithValue}) => {
         return store(`jwt-auth/v1/search`, formData)
-            .then(response => response.data.body_response)
+            .then(response => response.data.data)
             .catch(error => rejectWithValue(error?.response?.data || error));
     },
 );

@@ -6,7 +6,7 @@ export const fetchSelfLearnById = createAsyncThunk(
   'selfLearn/fetchAll',
   (selfLearnId, {rejectWithValue}) => {
     return fetch(`/jwt-auth/v1/self-learns/${selfLearnId}`)
-      .then(response => response.data.body_response)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );
