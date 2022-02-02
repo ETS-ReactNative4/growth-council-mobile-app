@@ -67,7 +67,7 @@ const Traits = (props) => {
 	}
 	const onPressButton = () =>{ 
 		setChecked(subTraits?.sub_traits[count]?.questions?.options?.score)
-		setAnswers(answers.questions[key]= checked)
+		setAnswers(answers.questions[key] = checked)
 	}
   	return (
 		<View>
@@ -115,7 +115,6 @@ const Traits = (props) => {
 			<View style={{marginTop:25}}>
 				<Text style={styles.paragraph}>
 				<HTMLView value={subTraits?.sub_traits[count]?.content} stylesheet={styles}/>
-					{/* {subTraits?.sub_traits[count]?.content} */}
 				</Text>
 			</View>
 
