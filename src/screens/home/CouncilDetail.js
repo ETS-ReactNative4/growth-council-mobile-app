@@ -9,6 +9,11 @@ import {
   resetUpcomingEvent,
 } from './slice/upcomingEventSlice';
 
+import {
+  fetchAllPillarPOEs,
+  resetPillarPOE,
+} from '../dashboard/slice/pillarPOESlice';
+
 const CouncilDetailScreen = props => {
   const dispatch = useDispatch();
 
@@ -17,7 +22,9 @@ const CouncilDetailScreen = props => {
   );
   const {upcomingEvents, upcomingEventLoading, upcomingEventError} =
     useSelector(state => state.upcomingEvents);
-
+  const {pillarPOEs, pillarPOELoading, pillarPOEError} = useSelector(
+    state => state.pillarPOEs,
+  );
   /**
    * Fetch pillar data.
    * @param {string} identifier
@@ -52,6 +59,14 @@ const CouncilDetailScreen = props => {
     dispatch(resetUpcomingEvent());
   };
 
+  const fetchAllPillarPOE = pillarId => {
+    dispatch(fetchAllPillarPOEs(pillarId));
+  };
+
+  const cleanPillarPOE = () => {
+    dispatch(resetPillarPOE());
+  };
+
   return (
     <CouncilDetail
       {...props}
@@ -65,6 +80,11 @@ const CouncilDetailScreen = props => {
       upcomingEventError={upcomingEventError}
       fetchUpcomingEventsByIdentifier={fetchUpcomingEventsByIdentifier}
       cleanUpcomingEvent={cleanUpcomingEvent}
+      pillarPOEs={pillarPOEs}
+      pillarPOELoading={pillarPOELoading}
+      pillarPOEError={pillarPOEError}
+      fetchAllPillarPOE={fetchAllPillarPOE}
+      cleanPillarPOE={cleanPillarPOE}
     />
   );
 };
