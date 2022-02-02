@@ -69,6 +69,7 @@ import expertiseReducer from '../screens/people/slice/expertiseSlice';
 import coachingSessionReducer from '../screens/details/slice/sessionlistSlice';
 import traitsReducer from '../screens/coachingSession/slice/sessionTraitsSlice';
 import subTraitReducer from '../screens/coachingSession/slice/subTraitsSlice';
+import traitAnswerReducer from '../screens/coachingSession/slice/traitAnswerbyUserId';
 
 import poeSelfLearnReducer from '../screens/selfLearn/slice/poeSelfLearnSlice';
 import selfLearnTraitReducer from '../screens/selfLearn/slice/selfLearnTraitsSlice';
@@ -126,9 +127,13 @@ const reducers = combineReducers({
   coachingSession:coachingSessionReducer,
   traits:traitsReducer,
   subTraits:subTraitReducer,
+  traitsAnswer:traitAnswerReducer,
+  
   poeSelfLearns: poeSelfLearnReducer,
   selfLearnTraits: selfLearnTraitReducer,
   selfLearns: selfLearnReducer,
+
+
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

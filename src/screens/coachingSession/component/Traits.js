@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import { RadioButton } from 'react-native-paper';
 import HTMLView from 'react-native-htmlview';
+import { options } from 'joi';
 
 const Traits = (props) => {
 	const{
@@ -17,6 +18,12 @@ const Traits = (props) => {
 		count,
 		answers,
 		setAnswers,
+
+		traitsAnswer,
+		traitsAnswerLoading,
+		traitsAnswerError,
+		fetchTraitsAnswer,
+		UpdateTraitsAnswer,
 	}=props;
 
 	useEffect(()=>{
@@ -65,35 +72,33 @@ const Traits = (props) => {
 	if(subTraits?.length === 0 || subTraits === undefined){
 		return <></>
 	}
-	const onPressButton = () =>{ 
+	const onPressButton = (event) =>{ 
 		setChecked(subTraits?.sub_traits[count]?.questions?.options?.score)
-		setAnswers(answers.questions[key] = checked)
+		setAnswers(answers.questions[answers, score] = checked)
 	}
+	// const secondColumnStart = question?.options.length / 2;
   	return (
 		<View>
 			{
-				subTraits?.sub_traits[count]?.questions?.map((question, key)=>(
-						
+				subTraits?.sub_traits[count]?.questions?.map((question, key)=>(	
 						<View style={[styles.questionWrapper,styles.shadowProp]}>
-
 						<View style={{ alignItems:"center"}}>
 							<Text style={styles.title}>{question?.question}</Text>
 						</View>
-
 						{
-							question?.options?.map((option1, keys)=>(
+							question?.options?.slice(0,5).map((option1, keys)=>{
+							
 								<View style={styles.wrapper}>
-									<View style={{flexDirection:'row'}}>
+									<View style={{display:"flex",flexDirection:'row'}}>
 										<RadioButton
 											value="Yes"
 											status={ option1?.score === checked ? 'checked' : 'unchecked'}
-											onPress={onPressButton}
+											onPress={()=>onPressButton()}
 										/>
 										<Text style={{fontSize:11, marginTop:10}}> {option1?.option}</Text>
 									</View>
-									
 								</View>
-							))
+							})
 						}
 						
 						{/* <FlatList

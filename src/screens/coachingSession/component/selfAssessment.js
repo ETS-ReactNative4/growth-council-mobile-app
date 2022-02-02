@@ -14,8 +14,9 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Trait from './Traits';
 import Question from './Question';
 import { fetchAllSubTraits, resetSubTraits } from '../slice/subTraitsSlice';
+import {fetchTraitsAnswerByUserId,updateTraitsAnswerByUserId,resetTraitsAnswer} from '../slice/traitAnswerbyUserId';
 
-const selfAssessment = (props) => {
+const selfAssessment = props => {
 
 	const {
         navigation,
@@ -27,17 +28,41 @@ const selfAssessment = (props) => {
 	const dispatch = useDispatch();
 
 	const {subTraits,subTraitsLoading,subTraitsError}= useSelector(state => state.subTraits);
+	const {traitsAnswer,traitsAnswerLoading,traitsAnswerError} = useSelector(state =>state.traitsAnswer);
 
 	const fetchAllSubTrait = identifier =>{
 		dispatch(fetchAllSubTraits(identifier));
+	}
+
+	const fetchTraitsAnswer = identifier =>{
+		dispatch(fetchTraitsAnswerByUserId(identifier));
+	}
+
+	const updateTraitsAnswer = identifier =>{
+		dispatch(updateTraitsAnswerByUserId(identifier));
 	}
 
 	const cleanSubTrait = () =>{
 		dispatch(resetSubTraits());
 	};
 
+	const cleanTraitsAnswer =() =>{
+		dispatch(resetTraitsAnswer());
+	}
+
 	const [value, setValue] = useState('Sub Trait');
 	const [count, setCount] = useState(0);	
+
+	const handleAnswerButtonClick = ()=>{
+		const nextTraits = count+1;
+		if(nextTraits < subTraits.sub_traits.length){
+			setCount(nextTraits);
+		}else{
+			alert("subtraits data end")
+			
+		}
+		
+	}
 	return (
 		<View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
 			<View style={{flex:1}}>  
@@ -63,19 +88,33 @@ const selfAssessment = (props) => {
 						subTraitsError={subTraitsError}
 						fetchAllSubTrait={fetchAllSubTrait}
 						cleanSubTrait={cleanSubTrait}
+
 						count={count}
 						answers={answers}
-						setAnswers={setAnswers}/>
+						setAnswers={setAnswers}
+
+						traitsAnswer={traitsAnswer}
+						traitsAnswerLoading={traitsAnswerLoading}
+						traitsAnswerError={traitsAnswerError}
+						fetchTraitsAnswer={fetchTraitsAnswer}
+						updateTraitsAnswer={updateTraitsAnswer}
+						cleanTraitsAnswer={cleanTraitsAnswer}
+						/>
 					}
 					{value === 'Yellow Questions' &&
 						<Question
 						{...props}
 						subTraits={subTraits}
 						subTraitsLoading={subTraitsLoading}
-						subTraitsError={subTraitsError}
 						fetchAllSubTrait={fetchAllSubTrait}
-						cleanSubTrait={cleanSubTrait}
 						count={count}
+
+						traitsAnswer={traitsAnswer}
+						traitsAnswerLoading={traitsAnswerLoading}
+						traitsAnswerError={traitsAnswerError}
+						fetchTraitsAnswer={fetchTraitsAnswer}
+						updateTraitsAnswer={updateTraitsAnswer}
+						cleanTraitsAnswer={cleanTraitsAnswer}
 						/>
 					}
 					
@@ -84,11 +123,12 @@ const selfAssessment = (props) => {
 			</View>
 
 			<View style={{height:90, display:'flex', flexDirection:'row', paddingTop:15,  borderTopWidth:0.4, marginTop:20}}>
-				<Button style={styles.buttonWrapper} onPress={()=>setCount(count - 1)} disabled={count === 0 ? true:false }>
+				
+				<Button style={styles.buttonWrapper} onPress={()=>setCount(count - 1)}  disabled={count === 0 ? true : false }>
 					{/* <Ionicons name={'chevron-back-outline'} size={25} color={'#FFFFFF'} /> */}
-					<Text style={{ color:"#FFFFFF",marginTop:2, fontSize:14,marginLeft:20}}>Previous</Text>
+					<Text style={{ color:"#FFFFFF",marginTop:2, fontSize:14}}>Previous</Text>
 				</Button>
-				<Button style={styles.buttonWrapper} onPress={()=>setCount(count + 1)}>
+				<Button style={styles.buttonWrapper} onPress={handleAnswerButtonClick}>
 					<Text style={{ color:"#FFFFFF",marginTop:2, fontSize:14}}>Next</Text>
 					{/* <Ionicons name={'chevron-forward-outline'} size={25} color={'#FFFFFF'} style={{marginLeft:30}}/> */}
 				</Button>

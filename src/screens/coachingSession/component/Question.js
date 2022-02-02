@@ -3,24 +3,45 @@ import {
 	StyleSheet, 
 	Text, 
 	View,
-	FlatList, } 
+	FlatList, TextInput} 
 from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Checkbox from '../../../shared/form/Checkbox';
 
 import { RadioButton } from 'react-native-paper';
+import { useFormik } from 'formik';
 
-const Question = (props) => {
+const Question = props => {
 	const{
 		navigation,
 		route,
+		value,
+		onChange,
+
 		subTraits,
 		subTraitsLoading,
 		subTraitsError,
 		fetchAllSubTrait,
 		cleanSubTrait,
-		count
+		count,
+
+		traitsAnswer,
+		traitsAnswerLoading,
+		traitsAnswerError,
+		fetchTraitsAnswer,
+		updateTraitsAnswer,
+		cleanTraitsAnswer
 	}=props;
+
+
+	// const{
+	// 	setFieldValue,
+
+	// }=useFormik({
+	// 	initialValues:{
+	// 		checked:false,
+	// 	}
+	// })
 
 	useEffect(()=>{
 		const fetchAllSubTraitsAsync = async (identifier) =>{
@@ -30,47 +51,10 @@ const Question = (props) => {
 	},[]);
 
 
-	const [checked, setChecked] = useState('Yes');
-	const _renderItem = ({item, index}) => {	
-		return (
-			<View style={[styles.questionWrapper,styles.shadowProp]}>
+	// const [checked, setChecked] = useState(false);
+	const [radioState, setRadioState] = useState(value);
 
-			<View style={{ alignItems:"center",  justifyContent:'center', borderBottomWidth:0.1}}>
-				<Text style={styles.title}>{item?.post_title}</Text>
-			</View>
-			
-			<View style={styles.wrapper}>	
-				<View style={{flexDirection:'row'}}>
-					<RadioButton
-						value="Yes"
-						status={ checked === 'Yes' ? 'checked' : 'unchecked' }
-						onPress={() => setChecked((checked)=>({
-								...checked
-								[item?.ID]
-						}))
-					}/>
-					<Text>Yes</Text>
-				</View>
-				<View style={{flexDirection:'row'}}>
-					<RadioButton
-						value="No"
-						status={ checked === 'No' ? 'checked' : 'unchecked' }
-						onPress={() => setChecked((checked)=>({
-							...checked
-							[item?.ID]
-					}))
-				}
-					/>
-					<Text>No</Text>
-				</View>
-			</View>
-				
-			<View>
 
-			</View>
-		</View>
-		);
-	  };
 
 	if(subTraits?.length === 0 || subTraits === undefined){
 		return <></>
@@ -78,13 +62,59 @@ const Question = (props) => {
 
   return (
 	<View>
-	 	<FlatList
+	 	{/* <FlatList
 			vertical
 			showsVerticalScrollIndicator={false}
 			data={subTraits?.sub_traits[count]?.yellow_benchmark_questions}
 			renderItem={_renderItem}
-		/>
-		
+		/> */}
+		{
+			subTraits?.sub_traits[count]?.yellow_benchmark_questions?.map((question, key)=>(	
+			<View style={[styles.questionWrapper,styles.shadowProp]}>
+
+				<View style={{ alignItems:"center",  justifyContent:'center', borderBottomWidth:0.1}}>
+					<Text style={styles.title}>{question?.post_title}</Text>
+				</View>
+			{[
+			{ name: "Yes", value: true },
+			{ name: "No", value: false }
+			].map((option) => (
+					<View style={styles.wrapper}>	
+						<View style={{flexDirection:'row'}}>
+							<RadioButton
+								value={option.name}
+								status={option.name === radioState}
+								onPress={(e) =>
+									setRadioState(option.value)
+									// onPress(e.option.value === "yes")
+              						// [question.ID]=option
+
+								}
+
+							/>
+							<Text key={option.name}>{option.name}</Text>
+						</View>
+						{/* <View style={{flexDirection:'row'}}>
+							<RadioButton
+								status={ checked === 'Yes' ? 'checked' : 'unchecked' }
+								onPress={() => 
+									setChecked((checked) =>({
+										...checked,
+										[item.ID]: item
+									}))
+								}
+							/>
+							<Text>No</Text>
+						</View> */}
+					</View>
+				 ))}
+					
+				<View>
+
+				</View>
+				</View>
+				))
+			}
 	</View>
   );
 };
@@ -120,7 +150,7 @@ const styles = StyleSheet.create({
 		  flexDirection:'row',
 		  marginTop:15,
 		  marginLeft:20,
-		  justifyContent:'space-evenly'
+		
 	  }
 });
 
