@@ -6,7 +6,7 @@ export const fetchAllUpcomingEvents = createAsyncThunk(
     'upcomingEvent/fetchAll',
     (_, {rejectWithValue}) => {
         return fetch(`jwt-auth/v1/events`)
-            .then(response => response.data.body_response)
+            .then(response => response.data.data)
             .catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
@@ -14,7 +14,7 @@ export const fetchAllUpcomingEvents = createAsyncThunk(
 export const fetchUpcomingEventsByID = createAsyncThunk(
     'upcomingEvent/fetchByID',
     (identifier, {rejectWithValue}) => {
-        return fetch(`jwt-auth/v1/pillars/${identifier}/events`).then(response => response.data.body_response).catch(error => rejectWithValue(error?.response?.data || error));
+        return fetch(`jwt-auth/v1/pillars/${identifier}/events`).then(response => response.data.data).catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
 

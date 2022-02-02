@@ -6,7 +6,7 @@ export const fetchAllgrowthCoachings = createAsyncThunk(
   'growthCoachings/fetchAll',
   (_, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/pillars/119/events`)
-      .then(response => response.data.body_response)
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );

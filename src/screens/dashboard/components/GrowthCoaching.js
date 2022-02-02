@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
   },
   ContentWrapper: {
     height: 206,
-    width: 364,
+    width: Platform.OS === 'ios' ? 330 : 364,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
