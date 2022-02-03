@@ -17,7 +17,7 @@ const HeaderTitle = () => {
   }, []);
 
   return (
-    <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40, marginTop: Platform.OS === 'ios' ? 10 : 10}}>
+    <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 40, marginTop: Platform.OS === 'ios' ? 10 : 10}}>
       <Text
         style={{
           color: 'white',
