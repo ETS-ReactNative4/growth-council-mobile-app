@@ -6,7 +6,7 @@ import {
     ScrollView,
     TextInput,
     Image,
-    TouchableOpacity,
+    TouchableOpacity, Platform,
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -32,7 +32,6 @@ const profileUpdateSchema = Yup.object().shape({
 const ManageAccount = props => {
     const {
         navigation,
-        route,
         profile,
         profileLoading,
         profileError,
@@ -41,10 +40,11 @@ const ManageAccount = props => {
         userLoading,
         updateUser,
 
-        uploadEntities,
-        uploadLoading,
-        uploadError,
+        uploadProfileImages,
+        uploadProfileImageLoading,
+        uploadProfileImageError,
         uploadImage,
+        cleanUploadImage,
 
         updateEntities,
         updateLoading,
@@ -55,7 +55,7 @@ const ManageAccount = props => {
         expertiseLoading,
         expertiseError,
         fetchAllExpertises,
-        cleanExperties,
+        cleanExpertise,
     } = props;
 
     const [open, setOpen] = useState(false);
@@ -118,11 +118,24 @@ const ManageAccount = props => {
     const choosePhotoFromLibrary = () => {
         ImagePicker.openPicker({
             cropping: true
-        }).then(image => {
-            console.log("choosePhotoFromLibrary", image.path);
+        }).then(async image => {
             setImage(image.path);
+            let fd = new FormData();
+            const file = {
+                type: image.mime,
+                uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
+                //name: image.filename || image.path.split('/').pop(),
+                name: 'profile_photo.jpg',
+            };
+            fd.append("file", file);
+            console.log("choosePhotoFromLibrary", fd);
+            await uploadImage(fd).then(async response => {
+                console.log("Upload response", response?.payload?.id);
+                await updateImage({attachment_id: response?.payload?.id}).then(async response => {
+                    console.log("Update response", response);
+                });
+            });
         });
-        console.log("choose photo")
     };
 
     const {

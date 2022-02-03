@@ -4,7 +4,7 @@ import {API_URL, JWT_TOKEN} from '../constants';
 import {getAsyncStorage, setAsyncStorage, clearAsyncStorage} from './storageUtil';
 import {navigate} from './navigationUtil';
 
-export const httpBase = () => {
+export const httpBase = (isDownloadable = false) => {
 
     const api = axios.create({
         baseURL: `${API_URL}`,
@@ -16,7 +16,12 @@ export const httpBase = () => {
             let token = await getAsyncStorage(JWT_TOKEN);
             config.headers.authorization = `Bearer ${token}`;
             config.headers['Accept'] = 'application/json';
-            config.headers['Content-Type'] = 'application/json';
+            if(isDownloadable){
+                config.headers['Content-Type'] = 'multipart/form-data';
+            }else{
+                config.headers['Content-Type'] = 'application/json';
+            }
+
             return config;
         },
         error => Promise.reject(error),
