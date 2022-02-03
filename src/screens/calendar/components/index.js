@@ -96,7 +96,7 @@ const EventCalendar = (props) => {
         }
     });
 
-    console.log("markedDay:::::::::::::;", markedDay);
+    console.log("markedDay:::::::::::::;", calendarEvents);
 
     const renderItem = ({item, index}) => {
         //date

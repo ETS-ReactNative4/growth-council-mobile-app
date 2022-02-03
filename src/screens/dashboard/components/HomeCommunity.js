@@ -40,9 +40,11 @@ const HomeCommunity = props => {
     cleanPillarPOE,
   } = props;
 
+  const pillarId = 117;
+
   useEffect(() => {
     const fetchAllPillarPOEAsync = async () => {
-      await fetchAllPillarPOE(route.params.pillarId);
+      await fetchAllPillarPOE(pillarId);
     };
     fetchAllPillarPOEAsync();
     return () => {
@@ -52,7 +54,7 @@ const HomeCommunity = props => {
 
   useEffect(() => {
     const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(route.params.pillarId);
+      await fetchAllPillarEvent(pillarId);
     };
     fetchAllPillarEventAsync();
     return () => {
@@ -62,12 +64,12 @@ const HomeCommunity = props => {
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(route.params.pillarId);
+      await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  console.log('pillar_id', route.params.pillarId);
+  console.log('Commiunity pillar_id', pillarId);
   console.log({pillarMemberContents});
 
   // console.log('Community ============', pillarPOEs);
@@ -350,7 +352,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   bottomWrapper: {
-	width: Platform.OS === 'ios' ? 70 : 84,
+    width: Platform.OS === 'ios' ? 70 : 84,
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,

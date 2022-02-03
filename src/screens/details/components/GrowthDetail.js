@@ -74,7 +74,7 @@ const GrowthDetail = props => {
 
   useEffect(() => {
     const fetchCoachingSessionAsync = async () => {
-      await fetchCoachingSessions();
+      await fetchCoachingSessions(route.params.poeId);
     };
     fetchCoachingSessionAsync();
   }, []);
@@ -86,9 +86,10 @@ const GrowthDetail = props => {
   }, []);
 
   console.log('POE id:::::::::::::::::', route.params.poeId);
-  console.log('parent id:::::::::::::::::', route.params.pillarId);
-  console.log('Self Learn ====', poeSelfLearns);
+//   console.log('parent id:::::::::::::::::', route.params.pillarId);
+//   console.log('Self Learn ====', poeSelfLearns);
 
+  console.log('session', route.params.poeId);
   console.log('session', coachingSession);
 
   const _renderItem = ({item, index}) => {
@@ -178,7 +179,7 @@ const GrowthDetail = props => {
   ];
 
   const _renderMiddleItem = ({item, index}) => {
-    const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
     console.log(date[1]);
     return (

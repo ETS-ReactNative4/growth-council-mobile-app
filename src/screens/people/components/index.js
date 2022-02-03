@@ -61,6 +61,8 @@ const People = props => {
     fetchAllExpertisesAsync();
   }, []);
 
+  console.log(memberConnections);
+  
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
