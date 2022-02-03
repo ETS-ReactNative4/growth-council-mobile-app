@@ -17,7 +17,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
 import DropDownPicker from 'react-native-dropdown-picker';
-import MultiSelect from "react-multi-select-component";
+import MultiSelect from 'react-multi-select-component';
 import ImagePicker from 'react-native-image-crop-picker';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
@@ -27,7 +27,6 @@ import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import ImageUpload from './ImageUpload';
 import Footer from '../../../shared/footer';
-
 
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
@@ -52,22 +51,22 @@ const ManageAccount = props => {
     cleanProfile,
     userLoading,
     updateUser,
-	
-	uploadEntities,
-	uploadLoading,
-	uploadError,
-	uploadImage,
 
-	updateEntities,
-	updateLoading,
-	updateError,
-	updateImage,
+    uploadEntities,
+    uploadLoading,
+    uploadError,
+    uploadImage,
 
-	expertise,
-	expertiseLoading,
-	expertiseError,
-	fetchAllExpertises,
-	cleanExperties,
+    updateEntities,
+    updateLoading,
+    updateError,
+    updateImage,
+
+    expertise,
+    expertiseLoading,
+    expertiseError,
+    fetchAllExpertises,
+    cleanExperties,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -115,38 +114,34 @@ const ManageAccount = props => {
     expertise_areas1 = profile?.expertise_areas1;
   }
 
-  
-//   console.log({expertise_areas1});
-	const [selected, setSelected] = useState([]);
+  //   console.log({expertise_areas1});
+  const [selected, setSelected] = useState([]);
 
-  	const [items, setItems] = useState([]);
+  const [items, setItems] = useState([]);
 
   //profile-image
-  const [image, setImage]= useState(profile.avatar);
+  const [image, setImage] = useState(profile.avatar);
 
-	const takePhotoFromCamera=()=>{
-		ImagePicker.openCamera({
-			cropping: true
-		  }).then(image => {
-			// console.log(image);
-			// console.log(image.path);
-			setImage(image.path);
-		  });
-		console.log("Take Photo")
-	}
-	const choosePhotoFromLibrary=()=>{
-		ImagePicker.openPicker({
-		
-			cropping: true
-		  }).then(image => {
-			// console.log(image);
-			console.log("hello",image.path);
-			setImage(image.path);
-			
-		  });
-		console.log("choose photo")
-	}
-	
+  const takePhotoFromCamera = () => {
+    ImagePicker.openCamera({
+      cropping: true,
+    }).then(image => {
+      // console.log(image);
+      // console.log(image.path);
+      setImage(image.path);
+    });
+    console.log('Take Photo');
+  };
+  const choosePhotoFromLibrary = () => {
+    ImagePicker.openPicker({
+      cropping: true,
+    }).then(image => {
+      // console.log(image);
+      console.log('hello', image.path);
+      setImage(image.path);
+    });
+    console.log('choose photo');
+  };
 
   const {
     handleChange,
@@ -178,7 +173,7 @@ const ManageAccount = props => {
           navigation.navigate('Person');
           ToastMessage.show('Your information has been successfully updated.');
           ToastMessage.show(values.email);
-		  console.log(values)
+          console.log(values);
         }
       });
     },
@@ -192,28 +187,27 @@ const ManageAccount = props => {
   }, []);
 
   useEffect(() => {
-	const fetchAllExpertisesAsync = async () => {
-	  await fetchAllExpertises();
-	};
-	fetchAllExpertisesAsync();
+    const fetchAllExpertisesAsync = async () => {
+      await fetchAllExpertises();
+    };
+    fetchAllExpertisesAsync();
   }, []);
 
-  
-  useEffect(()=>{
-	const result = Object.entries(expertise).map(([key, value]) => ({label:key, value}));
-	  setItems(result);
-  },[expertise]);
+  useEffect(() => {
+    const result = Object.entries(expertise).map(([key, value]) => ({
+      label: key,
+      value,
+    }));
+    setItems(result);
+  }, [expertise]);
 
-  
-//   useEffect(() => {
-// 	  const uploadEntitiesAsync = async () =>{
-// 		  await uploadImage();
-// 		  console.log("image",image.path);
-// 	  };
-// 	  uploadEntitiesAsync();
-//   },[image]);
-
-
+  //   useEffect(() => {
+  // 	  const uploadEntitiesAsync = async () =>{
+  // 		  await uploadImage();
+  // 		  console.log("image",image.path);
+  // 	  };
+  // 	  uploadEntitiesAsync();
+  //   },[image]);
 
   return (
     <ScrollView
@@ -234,35 +228,32 @@ const ManageAccount = props => {
             marginLeft: 'auto',
             marginRight: 'auto',
           }}>
-			  
-			  <View style={{
-                        zIndex: 30,
-                        position: 'absolute',
-                        right: 5,
-                        marginTop: 10,
-                        marginRight: 10
-                    }}>
-                        <TouchableOpacity onPress={takePhotoFromCamera}>
-                            <Ionicons
-                                name={'camera'}
-                                size={20}
-                                color="#C4C8CC"
-                                style={{marginTop: 5, marginLeft: 30}}
+          <View
+            style={{
+              zIndex: 30,
+              position: 'absolute',
+              right: 5,
+              marginTop: 10,
+              marginRight: 10,
+            }}>
+            <TouchableOpacity onPress={takePhotoFromCamera}>
+              <Ionicons
+                name={'camera'}
+                size={20}
+                color="#C4C8CC"
+                style={{marginTop: 5, marginLeft: 30}}
+              />
+            </TouchableOpacity>
 
-                            />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={choosePhotoFromLibrary}>
-                            <Ionicons
-                                name={'folder'}
-                                size={20}
-                                color="#C4C8CC"
-                                style={{marginTop: 10, marginLeft: 30}}
-
-                            />
-                        </TouchableOpacity>
-						
-                    </View>
+            <TouchableOpacity onPress={choosePhotoFromLibrary}>
+              <Ionicons
+                name={'folder'}
+                size={20}
+                color="#C4C8CC"
+                style={{marginTop: 10, marginLeft: 30}}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={styles.profileWrapper}>
             <View style={styles.icon}>
               <Image
@@ -270,10 +261,9 @@ const ManageAccount = props => {
                 style={{width: '100%', height: '100%'}}
                 resizeMode="cover"
               />
-			  
             </View>
             <View style={styles.header}>
-			<Button style={{ marginBottom:10}}>Update</Button>
+              <Button style={{marginBottom: 10}}>Update</Button>
               <Text style={styles.headingText1}>{profile.display_name}</Text>
               <Text>{profile.user_email}</Text>
             </View>
@@ -322,7 +312,7 @@ const ManageAccount = props => {
                     style={{right: 0, position: 'absolute'}}
                   />
                 </View>
-{/* 
+                {/* 
                 <UploadImage /> */}
 
                 <View style={styles.TextWrapper}>
@@ -449,23 +439,22 @@ const ManageAccount = props => {
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     EXPERTISE AREAS
                   </Text>
-				 
+
                   <DropDownPicker
                     multiple={true}
-					min={0}
-					max={5}
-					
-					open={open}
-					value={value}
-					items={items}
-					setOpen={setOpen}
-					setValue={setValue}
-					setItems={setItems}
-					onChangeValue={value =>{
-						setFieldValue("expertise_areas1", value);
-					}}
-				  />
-                    {/* maxHeight={200}
+                    min={0}
+                    max={5}
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                    onChangeValue={value => {
+                      setFieldValue('expertise_areas1', value);
+                    }}
+                  />
+                  {/* maxHeight={200}
                     disableBorderRadius={true}
                     stickyHeader={true}
                     autoScroll={true}
@@ -531,7 +520,7 @@ const ManageAccount = props => {
           </View>
         </View>
       </View>
-      <Footer/>
+      <Footer />
     </ScrollView>
   );
 };

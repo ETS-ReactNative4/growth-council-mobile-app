@@ -48,16 +48,16 @@ const Event = props => {
   }, []);
 
   const registerEventByEventID = async eventID => {
+    console.log('event_id ===', eventID);
     const response = await registerEventByIdentifier({event_id: eventID});
     if (response?.payload?.code === 200) {
       setEventStatus(true);
       ToastMessage.show('You have successfully registered this event.');
     } else {
+      console.log('Error Toast');
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
-	
     }
-
   };
 
   const isEventLoaded = Object.keys(events).length === 0;
@@ -85,6 +85,8 @@ const Event = props => {
   } else {
     description = '';
   }
+
+  console.log('event Id ==', route?.params?.id);
 
   return (
     <ScrollView style={styles.scrollBox}>
