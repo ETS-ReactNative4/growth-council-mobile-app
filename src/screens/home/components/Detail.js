@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     width: '45%',
     height: 50,
     backgroundColor: '#183863',
-    marginTop: 30,
+    marginTop: 10,
   },
   acceptButtonText: {
     color: '#ffffff',

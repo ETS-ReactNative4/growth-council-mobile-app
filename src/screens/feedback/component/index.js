@@ -16,6 +16,8 @@ import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+const screenHeight = Math.round(Dimensions.get('window').height);
+
 const Feedback = props => {
   const {navigation, feedback, feedbackLoading, feedbackError, fetchFeedback} =
     props;
@@ -55,7 +57,7 @@ const Feedback = props => {
               <Text style={styles.titleText}>{heading}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-            <HTMLView value={description} style={styles.paragraph} />
+            <HTMLView value={description} textComponentProps={{ style: {fontSize:14} }}  />
           </View>
           <View style={styles.cta}>
             <Button
@@ -70,8 +72,9 @@ const Feedback = props => {
               </Text>
             </Button>
           </View>
-          <Footer />
+		  <Footer />
         </View>
+	
       </ScrollView>
     </>
   );
@@ -89,10 +92,12 @@ const styles = StyleSheet.create({
     marginRight: 32,
   },
   feedback: {
-    padding: 30,
+    paddingLeft: 30,
+	paddingRight: 30,
   },
   title: {
-    marginBottom: 30,
+	marginTop:30,
+	marginBottom: 30,
   },
   titleText: {
     color: '#000',

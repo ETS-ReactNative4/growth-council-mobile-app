@@ -31,7 +31,7 @@ const HeaderTitle = () => {
           fontFamily: Typography.FONT_SF_MEDIUM,
           color: 'white',
           fontSize: 18,
-          fontWeight: 'medium',
+          fontWeight: 'normal',
         }}>
         {username}
       </Text>
