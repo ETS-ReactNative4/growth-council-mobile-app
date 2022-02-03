@@ -165,14 +165,14 @@ const MainNavigation = () => {
             headerTitle: 'Session',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="selfAssessment"
           component={selfAssessment}
           options={{
             headerTitle: 'Session',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="selflearn"
           component={SelfLearnDetailScreen}
           options={{
@@ -200,7 +200,7 @@ const MainNavigation = () => {
           name="ManageAccount"
           component={ManageAccountScreen}
           options={{
-            headerTitle: 'ManageAccount',
+            headerTitle: 'Manage Account',
             // headerTransparent: true,
             // ...TransitionPresets.RevealFromBottomAndroid,
           }}

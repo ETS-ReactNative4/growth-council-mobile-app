@@ -15,3 +15,7 @@ export function update(endpoint, data) {
 export function destroy(endpoint, id) {
     return httpBase().delete(`/${endpoint}/${id}`);
 }
+
+export function uploadImage(endpoint, data) {
+    return httpBase(true).post(`/${endpoint}`, data);
+}
