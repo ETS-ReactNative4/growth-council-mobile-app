@@ -80,8 +80,11 @@ const People = props => {
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
+	  
     }
+	console.log(response)
   };
+ 
 
   const _renderItem = ({item, index}) => {
     return (
@@ -263,7 +266,6 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     display: 'flex',
-	padding:20,
     flexDirection: 'row',
     height: 48,
     justifyContent: 'center',
