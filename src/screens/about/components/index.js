@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
+import HTMLView from 'react-native-htmlview';
+import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -27,6 +29,34 @@ const About = props => {
     fetchAboutAsync();
   }, []);
 
+  let heading1 = about?.heading1;
+  if (heading1 !== undefined) {
+    heading1 = about?.heading1;
+  } else {
+    heading1 = '';
+  }
+
+  let content1 = about?.content1;
+  if (content1 !== undefined) {
+    content1 = about?.content1;
+  } else {
+    content1 = '';
+  }
+
+  let heading2 = about?.heading2;
+  if (heading2 !== undefined) {
+    heading2 = about?.heading2;
+  } else {
+    heading2 = '';
+  }
+
+  let content2 = about?.content2;
+  if (content2 !== undefined) {
+    content2 = about?.content2;
+  } else {
+    content2 = '';
+  }
+
   return (
     <>
       <ScrollView
@@ -36,27 +66,26 @@ const About = props => {
         <View style={styles.container}>
           <View style={styles.about}>
             <View style={styles.title}>
-              <Text style={styles.titleText}>{about.heading1}</Text>
+              <HTMLView value={heading1} style={styles.titleText} />
               <View style={styles.titleBorder}></View>
             </View>
 
-            <Text style={styles.paragraph}>{about.content1}</Text>
+            <HTMLView value={content1} style={styles.paragraph} />
           </View>
           <View style={styles.aboutImage}>
             <Image
-              source={{uri: about?.image}}
+              source={about?.image}
               style={{width: imageContainerWidth}}
               resizeMode={'contain'}
             />
           </View>
           <View style={styles.backgroundText}>
             <View style={styles.backgroundTitle}>
-              <Text style={styles.backgroundTitleText}>{about.heading2}</Text>
+              <HTMLView value={heading2} style={styles.backgroundTitleText} />
 
               <View style={styles.backgroundTitleBorder}></View>
             </View>
-
-            <Text style={styles.backgroundParagraph}>{about.content2}</Text>
+            <HTMLView value={content2} style={styles.backgroundParagraph} />
           </View>
           <View style={styles.cta}>
             <Button
@@ -71,19 +100,7 @@ const About = props => {
               </Text>
             </Button>
           </View>
-          <View
-            style={{
-              alignItems: 'center',
-              width: '35%',
-              marginLeft: 140,
-              marginBottom: 10,
-            }}>
-            <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-            <Image
-              source={require('../../../assets/img/fristDigi.png')}
-              style={{width: '100%', height: 20}}
-            />
-          </View>
+          <Footer />
         </View>
       </ScrollView>
     </>
@@ -97,7 +114,6 @@ const styles = StyleSheet.create({
   header: {
     ...CommonStyles.header,
     marginTop: Platform.OS === 'ios' ? 120 : 62,
-    width: '100%',
     marginLeft: 32,
     marginRight: 32,
   },
@@ -110,8 +126,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: '#000',
-    fontSize: 24,
-    paddingBottom: 30,
+    fontSize:24,
+    paddingBottom: 20,
     fontWeight: '600',
   },
   titleBorder: {
@@ -133,7 +149,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   backgroundTitleText: {
-    color: '#fff',
+    color: 'white',
     fontSize: 24,
     fontWeight: '600',
     paddingBottom: 30,

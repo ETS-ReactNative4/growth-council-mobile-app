@@ -41,7 +41,10 @@ const sessionAbout = props => {
         sessionRegisterLoading,
         sessionRegisterError,
         registerSessionByIdentifier,
-        cleanSessionRegister
+        cleanSessionRegister,
+
+		selectedId,
+		setSelectedId,
 	 }= props;
 
 	const data= [
@@ -65,7 +68,8 @@ const sessionAbout = props => {
 			await fetchAllTraitBySession(route.params.sessionId);
 		};
 		fetchAllTraitsAsync();
-	},[])
+	},[]);
+	
 	  useEffect(() => {
 		  const fetchSessionDetailAsync = async () => {
 			  await fetchSessionByIdentifier(route.params.id);
@@ -84,18 +88,23 @@ const sessionAbout = props => {
 		  }
 	  };
 	
-	  console.log("traits", route.params.sessionId);
+	//   console.log("traits", route.params.sessionId);
 
 	const isSessionLoaded = Object.keys(sessions).length === 0;
     const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
 
+	// setSelectedId()
+	console.log("id",traits.ID)
+
+	
+
 	const _renderItem = ({item, index}, navigation) => {
 		return (
 			<View>
-				<TouchableOpacity onPress={() => navigation.navigate('selflearn')}>
+				<TouchableOpacity onPress={() => navigation.navigate('selfAssessment',{id:item.ID})}>
 						<View style={styles.traitWrapper}>							
-							<View style={styles.traitW}>
+							<View style={[styles.traitW, styles.shadowProp]}>
 							<Image
 								source={{uri: item?.image}}
 								style={{width: 25, height: 25}}
@@ -481,8 +490,19 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor:'white',
-		borderWidth:0.3
-	}
+		marginLeft:5,
+	},
+	shadowProp: {
+		shadowColor: '#000',
+		shadowOffset: {
+		  width: 0,
+		  height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	
+		elevation: 5,
+	  },
 });
 
 export default sessionAbout;

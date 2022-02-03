@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
+import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -32,7 +33,14 @@ const privacy = props => {
     fetchPolicyAsync();
   }, []);
 
-  console.log('privacy policy::::::', privacy);
+  let description = privacy.content1;
+  if (description !== undefined) {
+    description = privacy.content1;
+  } else {
+    description = '';
+  }
+
+  // console.log('privacy policy::::::', privacy);
 
   return (
     <>
@@ -50,13 +58,7 @@ const privacy = props => {
               <Text style={styles.titleText}>{privacy.heading1}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-            <Text style={styles.paragraph}>
-              {/* As a member-driven organization, we thrive on maintaining an open
-              and continuous dialog with our members. If you have privacy or an
-              idea for making your membership experience most impactful, we
-              welcome your input! */}
-              {privacy.content1}
-            </Text>
+            <HTMLView value={description} style={styles.paragraph} />
           </View>
           <View style={styles.cta}>
             <Button
@@ -71,19 +73,7 @@ const privacy = props => {
               </Text>
             </Button>
           </View>
-          <View
-            style={{
-              alignItems: 'center',
-              width: '35%',
-              marginLeft: 140,
-              marginBottom: 10,
-            }}>
-            <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-            <Image
-              source={require('../../../assets/img/fristDigi.png')}
-              style={{width: '100%', height: 20}}
-            />
-          </View>
+          <Footer />
         </View>
       </ScrollView>
     </>

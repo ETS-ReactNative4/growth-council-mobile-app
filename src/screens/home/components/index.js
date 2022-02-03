@@ -50,7 +50,7 @@ const Home = props => {
     fetchPillarSliderAsync();
   }, []);
 
-  // console.log({pillarSliders});
+  console.log(pillarSliders);
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -152,7 +152,7 @@ const Home = props => {
       <View style={styles.buttonWrapper}>
         <Button
           style={styles.signupbutton}
-          onPress={() => navigation.navigate('coachingSession')}>
+          onPress={() => navigation.navigate('HomeDetail')}>
           <Text style={styles.signupbuttonText}>Get Started</Text>
         </Button>
         <Button

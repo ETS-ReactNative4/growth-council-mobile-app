@@ -1,4 +1,5 @@
-export const API_URL = 'https://gc.yakamoztech.com/wp-json';
+export const API_URL = 'https://beta.gilcouncil.com/wp-json';
+// export const API_URL = 'https://gc.yakamoztech.com/wp-json';
 export const JWT_TOKEN = 'growth-council-token';
 export const USER_NAME = 'user-name';
 export const USER_AVATAR = 'user-avatar';

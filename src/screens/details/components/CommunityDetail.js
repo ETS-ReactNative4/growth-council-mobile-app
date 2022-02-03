@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
+import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -261,7 +262,7 @@ const CommunityDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents.members}
+                    data={pillarMemberContents?.members}
                     renderItem={_renderItem}
                   />
                 </View>
@@ -283,19 +284,7 @@ const CommunityDetail = props => {
                 </View>
               </View>
 
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '35%',
-                  marginLeft: 140,
-                  marginBottom: 10,
-                }}>
-                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-                <Image
-                  source={require('../../../assets/img/fristDigi.png')}
-                  style={{width: '100%', height: 20}}
-                />
-              </View>
+              <Footer />
             </View>
           </View>
         </ImageBackground>
