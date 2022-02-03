@@ -85,11 +85,12 @@ const SignUpForm = props => {
           values?.email?.trim(),
           values?.firebase_password,
         );
+        console.log({response});
         const token = await response.user.getIdToken();
         if (token) {
           await registerCustomer(values).then(response => {
             console.log('response:::::::::::::::', response);
-            if (response?.payload?.status === 200) {
+            if (response?.payload?.code === 200) {
               // navigation.navigate('SignUpNext');
               navigation.navigate('SignIn');
               ToastMessage.show(
@@ -101,6 +102,7 @@ const SignUpForm = props => {
           });
         }
       } catch (error) {
+        console.log({error});
         switch (error.code) {
           case 'auth/email-already-in-use':
             ToastMessage.show(
@@ -124,7 +126,7 @@ const SignUpForm = props => {
     },
   });
 
-  const [checked, setChecked] = React.useState('false');
+  const [checked, setChecked] = React.useState(false);
 
   const [country, setCountry] = useState('Country');
 
