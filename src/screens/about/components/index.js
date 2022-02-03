@@ -25,6 +25,11 @@ const About = props => {
   const win = Dimensions.get('window');
   const imageContainerWidth = win.width - 40;
 
+  const tagsStyles = {
+    whiteSpace: 'normal',
+    color: 'white',
+  };
+
   useEffect(() => {
     const fetchAboutAsync = async () => {
       await fetchAbout();
@@ -120,7 +125,11 @@ const About = props => {
 
               <View style={styles.backgroundTitleBorder}></View>
             </View>
-            <RenderHtml contentWidth={width} source={{html: content2}} />
+            <RenderHtml
+              contentWidth={width}
+              source={{html: content2}}
+              tagsStyles={tagsStyles}
+            />
             {/* <HTMLView
               value={content2}
               textComponentProps={{style: {color: 'white', fontSize: 14}}}
