@@ -170,7 +170,7 @@ const People = props => {
             <Picker
               selectedValue={category}
               mode={'dropdown'}
-              style={{height: 30, width: 230}}
+              style={{ width: 230}}
               onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
               <Picker.Item label="Category" value="Category" />
               {Object.keys(expertise).map(key => {

@@ -81,9 +81,7 @@ const UserList = (props) => {
                             <Text style={{fontSize: 12, marginTop: 10}}>{item.user_email}</Text>
                         </View>
 
-                        <View style={{marginTop: 10}}>
-                            <Text style={{fontSize: 12, fontFamily: Typography.FONT_SF_REGULAR}}>15 min</Text>
-                        </View>
+                        
 
                     </View>
                 </TouchableOpacity>
