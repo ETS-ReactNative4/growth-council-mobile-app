@@ -85,13 +85,6 @@ const GrowthDetail = props => {
     fetchPoeSelfLearnAsync();
   }, []);
 
-  console.log('POE id:::::::::::::::::', route.params.poeId);
-//   console.log('parent id:::::::::::::::::', route.params.pillarId);
-//   console.log('Self Learn ====', poeSelfLearns);
-
-  console.log('session', route.params.poeId);
-  console.log('session', coachingSession);
-
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
@@ -125,7 +118,6 @@ const GrowthDetail = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
     return (
       <View style={styles.topWrapper}>
         <ImageBackground
@@ -181,7 +173,6 @@ const GrowthDetail = props => {
   const _renderMiddleItem = ({item, index}) => {
     const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
     return (
       <View>
         <TouchableOpacity
@@ -236,7 +227,6 @@ const GrowthDetail = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videolink = link[1].split('&', 2);
-    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videolink[0]} />

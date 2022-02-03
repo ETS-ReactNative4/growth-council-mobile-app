@@ -114,7 +114,6 @@ const CommunityDetail = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -171,16 +170,12 @@ const CommunityDetail = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videolink = link[1].split('&', 2);
-    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videolink[0]} />
       </View>
     );
   };
-
-  console.log('POE id:::::::::::::::::', route.params.poeId);
-  console.log('parent id:::::::::::::::::', route.params.pillarId);
 
   return (
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>

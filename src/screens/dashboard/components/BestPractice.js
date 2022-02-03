@@ -174,8 +174,6 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
-  console.log('Best Praacticee pillar_id', pillarId);
-  console.log({pillarMemberContents});
 
   // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
   //console.log({bestPractices});

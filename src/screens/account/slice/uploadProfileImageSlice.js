@@ -6,11 +6,9 @@ export const uploadProfileImage = createAsyncThunk(
   'profile_image/upload',
   (formData, {rejectWithValue}) => {
     const {...fields} = formData;
-	console.log(formData);
     return store(`/wp/v2/media`, fields)
       .then(response => response.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
-
   },
 );
 

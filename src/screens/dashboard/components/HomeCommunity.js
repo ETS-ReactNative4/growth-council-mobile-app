@@ -69,9 +69,6 @@ const HomeCommunity = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  console.log('Commiunity pillar_id', pillarId);
-  console.log({pillarMemberContents});
-
   // console.log('Community ============', pillarPOEs);
   //console.log('Params ==== ', pillarId);
 

@@ -45,7 +45,6 @@ export const AuthProvider = ({children}) => {
               );
               //const firebaseResponse = await signInWithEmailAndPassword(auth, response?.data?.user_email, '55c20a44-6136-4c16-aa48-f5638d031a03');
               const token = await firebaseResponse.user;
-              console.log('RESPONSE::::::::', firebaseResponse);
               if (token) navigate('Dashboard');
             } else {
               setLoading(false);

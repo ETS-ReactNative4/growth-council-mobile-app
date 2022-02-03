@@ -67,9 +67,6 @@ const GrowthCoaching = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  console.log('Coaching pillar_id', pillarId);
-  console.log({pillarMemberContents});
-
   // console.log('Growth Coaching =========', growthCoachings);
   // console.log('Member================', growthCoachingMemberContents);
 
@@ -113,7 +110,6 @@ const GrowthCoaching = props => {
           navigation.navigate('GrowthDetail', {
             poeId: item?.term_id,
             pillarId: item?.parent,
-			
           })
         }>
         <View style={styles.middleWrapper}>
