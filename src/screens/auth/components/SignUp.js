@@ -89,7 +89,7 @@ const SignUpForm = props => {
         if (token) {
           await registerCustomer(values).then(response => {
             console.log('response:::::::::::::::', response);
-            if (response?.payload?.status === 200) {
+            if (response?.payload?.code === 200) {
               // navigation.navigate('SignUpNext');
               navigation.navigate('SignIn');
               ToastMessage.show(
