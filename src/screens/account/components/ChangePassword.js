@@ -71,7 +71,7 @@ const ChangePasswordForm = props => {
     onSubmit: async values => {
       delete values.confirmPassword;
       await updateCustomerPassword(values).then(response => {
-        if (response?.payload?.status === 200) {
+        if (response?.payload?.code === 200) {
           navigation.navigate('SignIn');
           ToastMessage.show('Your password has been successfully changed.');
         }
