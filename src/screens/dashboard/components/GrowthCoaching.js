@@ -39,9 +39,10 @@ const GrowthCoaching = props => {
     cleanPillarPOE,
   } = props;
 
+  const pillarId = 119;
   useEffect(() => {
     const fetchAllPillarPOEAsync = async () => {
-      await fetchAllPillarPOE(route.params.pillarId);
+      await fetchAllPillarPOE(pillarId);
     };
     fetchAllPillarPOEAsync();
     return () => {
@@ -51,7 +52,7 @@ const GrowthCoaching = props => {
 
   useEffect(() => {
     const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(route.params.pillarId);
+      await fetchAllPillarEvent(pillarId);
     };
     fetchAllPillarEventAsync();
     return () => {
@@ -61,12 +62,12 @@ const GrowthCoaching = props => {
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(route.params.pillarId);
+      await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  console.log('pillar_id', route.params.pillarId);
+  console.log('Coaching pillar_id', pillarId);
   console.log({pillarMemberContents});
 
   // console.log('Growth Coaching =========', growthCoachings);
