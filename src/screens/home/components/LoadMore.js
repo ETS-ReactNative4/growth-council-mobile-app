@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   eventTitle: {
     marginBottom: 8,
     fontSize: 14,
-    fontWeight: 'medium',
+    fontWeight: 'normal',
   },
   eventParagraph: {
     fontSize: 8,
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
   eventDateText: {
     textAlign: 'center',
     fontSize: 14,
-    fontWeight: 'medium',
+    fontWeight: 'normal',
   },
 });
 export default CouncilAllDetail;

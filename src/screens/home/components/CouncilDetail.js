@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   moreButtonText: {
     color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
     fontSize: 12,
-    fontWeight: 'medium',
+    fontWeight: 'normal',
   },
   loading1: {
     marginLeft: 100,
