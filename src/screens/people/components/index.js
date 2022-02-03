@@ -8,6 +8,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,6 +18,9 @@ import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
+
+const win = Dimensions.get('window');
+  const contentContainerWidth = win.width - 30;
 
 const People = props => {
   const {
@@ -259,6 +263,7 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     display: 'flex',
+	padding:20,
     flexDirection: 'row',
     height: 48,
     justifyContent: 'center',

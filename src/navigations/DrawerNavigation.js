@@ -35,7 +35,6 @@ import BottomTabNavigation from './BottomTabNavigation';
 import {Colors} from '../theme';
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
-import Footer from '../shared/footer';
 
 const Drawer = createDrawerNavigator();
 
@@ -68,7 +67,14 @@ const CustomDrawerContent = props => {
         {/*}*/}
         {/*/>*/}
 
-       <Footer/>
+        <View style={styles.footer}>
+				<Image source={require("../../src/assets/img/footer_logo.png")} style={{width:195, height:30}}/>
+				<Text style={styles.footerText}>EmpoweredBy</Text>
+				<View style={{width:175,}}>
+					<Image source={require("../../src/assets/img/fristDigi.png")} style={{width:"100%", }} />
+				</View>
+				
+			</View>
       </DrawerContentScrollView>
     </SafeAreaView>
   );
@@ -154,7 +160,7 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40}}>
+            <View style={{marginLeft: 35}}>
               <Text
                 style={{
                   color: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -184,7 +190,7 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40}}>
+            <View style={{marginLeft: 35}}>
               <Text
                 style={{
                   color: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -213,7 +219,7 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40}}>
+            <View style={{marginLeft: 35}}>
               <Text
                 style={{
                   color: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -235,7 +241,7 @@ const DrawerNavigation = ({navigation}) => {
             <Ionicons name="calendar-outline" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40}}>
+            <View style={{marginLeft: 40}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -261,7 +267,7 @@ const DrawerNavigation = ({navigation}) => {
             />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40}}>
+            <View style={{marginLeft: 40}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -283,7 +289,7 @@ const DrawerNavigation = ({navigation}) => {
             <Ionicons name="settings-outline" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40}}>
+            <View style={{marginLeft: 40}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -305,7 +311,7 @@ const DrawerNavigation = ({navigation}) => {
             <Ionicons name="thumbs-up-outline" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40}}>
+            <View style={{marginLeft: 40}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -327,7 +333,7 @@ const DrawerNavigation = ({navigation}) => {
             <Ionicons name="bulb-outline" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 15 : 40}}>
+            <View style={{marginLeft: 40}}>
               <Text
                 style={{
                   fontWeight: '400',

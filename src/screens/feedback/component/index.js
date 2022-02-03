@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   feedback: {
     paddingLeft: 30,
-		paddingRight: 30,
+	paddingRight: 30,
   },
   title: {
 	marginTop:30,
