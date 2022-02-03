@@ -14,9 +14,12 @@ const Traits = (props) => {
 		subTraitsError,
 		fetchAllSubTrait,
 		cleanSubTrait, 
+
 		count,
 		answers,
 		setAnswers,
+		selectedId,
+		setSelectedId,
 
 		traitsAnswer,
 		traitsAnswerLoading,
@@ -32,6 +35,22 @@ const Traits = (props) => {
 		};
 		fetchAllSubTraitsAsync();
 	},[]);
+
+	// const SelfAssessmentByTraitsID = async (traitsID, index) => {
+	// 	const response = await fetchAllSubTrait({subTraits.ID: traitsID});
+	// 	if (response?.payload?.status === 200) {
+	// 	  let items = [...memberConnection];
+	// 	  let item = {...items[index]};
+	// 	  item.connection = true;
+	// 	  items[index] = item;
+	// 	  setMemberConnection(items);
+	
+	// 	  ToastMessage.show('You have successfully connected.');
+	// 	} else {
+	// 	  toast.closeAll();
+	// 	  ToastMessage.show(response?.payload?.response);
+	// 	}
+	//   };
 	
 	if(subTraits?.length === 0 || subTraits === undefined){
 		return <></>

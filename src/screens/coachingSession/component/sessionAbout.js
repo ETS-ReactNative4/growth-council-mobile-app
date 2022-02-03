@@ -97,6 +97,8 @@ const sessionAbout = props => {
 	// setSelectedId()
 	console.log("id",traits.ID)
 
+	
+
 	const _renderItem = ({item, index}, navigation) => {
 		return (
 			<View>

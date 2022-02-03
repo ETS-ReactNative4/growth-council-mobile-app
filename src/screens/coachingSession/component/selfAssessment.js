@@ -29,6 +29,8 @@ const selfAssessment = props => {
 
 		answers,
 		setAnswers,
+		selectedId,
+		setSelectedId,
     } = props;
 
 	const dispatch = useDispatch();
@@ -106,6 +108,8 @@ const selfAssessment = props => {
 						count={count}
 						answers={answers}
 						setAnswers={setAnswers}
+						selectedId={selectedId}
+						setSelectedId={setSelectedId}
 
 						traitsAnswer={traitsAnswer}
 						traitsAnswerLoading={traitsAnswerLoading}
