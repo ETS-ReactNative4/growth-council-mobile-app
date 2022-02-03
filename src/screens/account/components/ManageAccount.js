@@ -112,8 +112,23 @@ const ManageAccount = props => {
     const takePhotoFromCamera = () => {
         ImagePicker.openCamera({
             cropping: true,
-        }).then(image => {
+        }).then(async image => {
             setImage(image.path);
+            let fd = new FormData();
+            const file = {
+                type: image.mime,
+                uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
+                //name: image.filename || image.path.split('/').pop(),
+                name: 'profile_photo.jpg',
+            };
+            fd.append("file", file);
+            console.log("choosePhotoFromLibrary", fd);
+            await uploadImage(fd).then(async response => {
+                console.log("Upload response:::::::::::", response?.payload?.id);
+                await updateImage({attachment_id: response?.payload?.id}).then(async response => {
+                    console.log("Update response::::::::::", response);
+                });
+            });
         });
     };
     const choosePhotoFromLibrary = () => {
