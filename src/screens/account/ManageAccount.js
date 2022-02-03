@@ -15,9 +15,9 @@ const ManageAccountScreen = (props) => {
 
     const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
     const {users, userLoading, userError} = useSelector((state) => state.users);
-    const {expertise, expertiseLoading, expertiseError} = useSelector((state) => state.expertise)
+    const {expertise, expertiseLoading, expertiseError} = useSelector((state) => state.expertise);
 
-    const {uploadEntities, uploadLoading, uploadError} = useSelector((state) => state.uploadEntities);
+    const {uploadProfileImages, uploadProfileImageLoading, uploadProfileImageError} = useSelector((state) => state.uploadProfileImages);
     const {updateEntities, updateLoading, updateError} = useSelector((state) => state.updateEntities);
 
 
@@ -53,7 +53,7 @@ const ManageAccountScreen = (props) => {
         dispatch(resetUpdateProfileImage());
     };
 
-    const cleanExperties = () => {
+    const cleanExpertise = () => {
         dispatch(resetExpertise());
     };
 
@@ -67,9 +67,9 @@ const ManageAccountScreen = (props) => {
             updateUser={updateUser}
             cleanProfile={cleanProfile}
 
-            uploadEntities={uploadEntities}
-            uploadLoading={uploadLoading}
-            uploadError={uploadError}
+            uploadProfileImages={uploadProfileImages}
+            uploadProfileImageLoading={uploadProfileImageLoading}
+            uploadProfileImageError={uploadProfileImageError}
             uploadImage={uploadImage}
             cleanUploadImage={cleanUploadImage}
 
@@ -83,7 +83,7 @@ const ManageAccountScreen = (props) => {
             expertiseLoading={expertiseLoading}
             expertiseError={expertiseError}
             fetchAllExpertises={fetchAllExpertises}
-            cleanExperties={cleanExperties}
+            cleanExpertise={cleanExpertise}
         />
     )
 };

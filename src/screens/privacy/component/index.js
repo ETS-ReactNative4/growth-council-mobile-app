@@ -12,6 +12,7 @@ import {
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
 import Footer from '../../../shared/footer';
+import HTMLView from 'react-native-htmlview';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -49,10 +50,8 @@ const privacy = props => {
         backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
       />
       <ScrollView
-        style={{
-          height: Platform.OS === 'ios' ? 400 : 350,
-        }}>
-        <View style={[styles.container, {height: win.height}]}>
+       >
+        <View style={styles.container}>
           <View style={styles.privacy}>
             <View style={styles.title}>
               <Text style={styles.titleText}>{privacy.heading1}</Text>

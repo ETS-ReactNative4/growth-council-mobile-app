@@ -18,6 +18,7 @@ import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
+import Footer from '../../../shared/footer';
 
 const Session = props => {
   const {
@@ -373,19 +374,7 @@ const Session = props => {
           </View>
         </ImageBackground>
       </View>
-      <View
-        style={{
-          alignItems: 'center',
-          width: '35%',
-          marginLeft: 140,
-          marginBottom: 10,
-        }}>
-        <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-        <Image
-          source={require('../../../assets/img/fristDigi.png')}
-          style={{width: '100%', height: 20}}
-        />
-      </View>
+      <Footer/>
     </ScrollView>
   );
 };
@@ -504,9 +493,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loading1: {
-    marginLeft: 150,
-    flex: 1,
-    flexDirection: 'column',
+	top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     zIndex: 1011,
   },

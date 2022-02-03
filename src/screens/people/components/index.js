@@ -8,6 +8,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,6 +18,9 @@ import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
+
+const win = Dimensions.get('window');
+  const contentContainerWidth = win.width - 30;
 
 const People = props => {
   const {
@@ -76,8 +80,11 @@ const People = props => {
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
+	  
     }
+	console.log(response)
   };
+ 
 
   const _renderItem = ({item, index}) => {
     return (
@@ -159,13 +166,13 @@ const People = props => {
           />
         </View>
         <View style={styles.iconWrapper}>
-          <View style={{borderRightWidth: 0.2, borderColor: '#707070'}}>
+          <View style={{borderRightWidth: 0.2, borderColor: '#707070', width:"65%"}}>
             <Picker
               selectedValue={category}
               mode={'dropdown'}
-              style={{height: 30, width: 250}}
+             
               onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
-              <Picker.Item label="Category" value="Category" />
+              
               {Object.keys(expertise).map(key => {
                 return (
                   <Picker.Item label={expertise[key]} value={key} key={key} />
@@ -197,16 +204,6 @@ const People = props => {
             />
             <Text style={styles.textWrapper}>Sort</Text>
           </View>
-
-          {/* <View style={styles.icon}>
-						<Font
-							name='filter'
-							size={20}
-							color='#7E7F84'
-							style={{marginTop: 15, marginRight:10}}
-						/>
-						<Text style={styles.textWrapper}>Filter</Text>
-					</View> */}
         </View>
         <View style={{marginTop: 30}}>
           <FlatList
@@ -260,7 +257,6 @@ const styles = StyleSheet.create({
   iconWrapper: {
     display: 'flex',
     flexDirection: 'row',
-    height: 48,
     justifyContent: 'center',
     alignContent: 'center',
   },
