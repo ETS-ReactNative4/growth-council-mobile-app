@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
+import HTMLView from 'react-native-htmlview';
 import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -28,7 +29,19 @@ const Feedback = props => {
     fetchFeedbackAsync();
   }, []);
 
-  console.log('feedback::::::', feedback);
+  let heading = feedback?.heading1;
+  if (heading !== undefined) {
+    heading = feedback?.heading1;
+  } else {
+    heading = '';
+  }
+
+  let description = feedback?.content1;
+  if (description !== undefined) {
+    description = feedback?.content1;
+  } else {
+    description = '';
+  }
 
   return (
     <>
@@ -39,16 +52,10 @@ const Feedback = props => {
         <View style={[styles.container, {height: win.height}]}>
           <View style={styles.feedback}>
             <View style={styles.title}>
-              <Text style={styles.titleText}>{feedback.heading1}</Text>
+              <Text style={styles.titleText}>{heading}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-            <Text style={styles.paragraph}>
-              {/* As a member-driven organization, we thrive on maintaining an open
-              and continuous dialog with our members. If you have feedback or an
-              idea for making your membership experience most impactful, we
-              welcome your input! */}
-              {feedback.content1}
-            </Text>
+            <HTMLView value={description} style={styles.paragraph} />
           </View>
           <View style={styles.cta}>
             <Button

@@ -38,9 +38,10 @@ const BestPractice = props => {
     cleanPillarPOE,
   } = props;
 
+  const pillarId = 118;
   useEffect(() => {
     const fetchAllPillarPOEAsync = async () => {
-      await fetchAllPillarPOE(route.params.pillarId);
+      await fetchAllPillarPOE(pillarId);
     };
     fetchAllPillarPOEAsync();
     return () => {
@@ -50,7 +51,7 @@ const BestPractice = props => {
 
   useEffect(() => {
     const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(route.params.pillarId);
+      await fetchAllPillarEvent(pillarId);
     };
     fetchAllPillarEventAsync();
     return () => {
@@ -60,7 +61,7 @@ const BestPractice = props => {
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(route.params.pillarId);
+      await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
   }, []);
@@ -173,7 +174,7 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
-  console.log('pillar_id', route.params.pillarId);
+  console.log('Best Praacticee pillar_id', pillarId);
   console.log({pillarMemberContents});
 
   // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
