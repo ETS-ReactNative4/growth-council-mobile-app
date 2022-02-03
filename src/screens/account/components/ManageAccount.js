@@ -173,10 +173,11 @@ const ManageAccount = props => {
     },
     onSubmit: async values => {
       await updateUser(values).then(response => {
-        if (response?.payload?.status === 200) {
+        if (response?.payload?.code === 200) {
           navigation.navigate('Person');
           ToastMessage.show('Your information has been successfully updated.');
           ToastMessage.show(values.email);
+		  console.log(values)
         }
       });
     },
