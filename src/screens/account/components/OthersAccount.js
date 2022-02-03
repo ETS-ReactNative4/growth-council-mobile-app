@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
+import Footer from '../../../shared/footer';
 
 const OthersAccount = props => {
     const {
@@ -278,19 +279,7 @@ const OthersAccount = props => {
                     </View>
                 </View>
             </View>
-            <View
-                style={{
-                    alignItems: 'center',
-                    width: '35%',
-                    marginLeft: 140,
-                    marginBottom: 10,
-                }}>
-                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-                <Image
-                    source={require('../../../assets/img/fristDigi.png')}
-                    style={{width: '100%', height: 20}}
-                />
-            </View>
+            <Footer/>
         </ScrollView>
     );
 };
