@@ -9,8 +9,8 @@ import {
   ImageBackground,
 } from 'react-native';
 import {Button} from 'native-base';
+import HTMLView from 'react-native-htmlview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -33,7 +33,14 @@ const Detail = props => {
     fetchDetailAsync();
   }, []);
 
-  console.log('Details ====== ', details);
+  let description = details?.content1;
+  if (description !== undefined) {
+    description = details?.content1;
+  } else {
+    description = '';
+  }
+
+  // console.log('Details ====== ', details?.heading1);
 
   return (
     <View style={styles.container}>
@@ -41,14 +48,13 @@ const Detail = props => {
         <ImageBackground
           source={require('../../../assets/img/splash-screen.png')}
           resizeMode="cover">
-			  
           <View style={{height: 142}} />
 
           <View style={styles.content}>
             <View>
               <Text style={styles.headingText1}>{details?.heading1}</Text>
               <View style={styles.titleBorder}></View>
-              <Text style={styles.paragraph}>{details?.content1}</Text>
+              <HTMLView value={description} style={styles.paragraph} />
               <Button
                 style={styles.acceptButton}
                 onPress={() => navigation.navigate('SignUp')}>
