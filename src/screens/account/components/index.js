@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     ScrollView,
     FlatList,
+	Dimensions
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -19,7 +20,11 @@ import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
+import Footer from '../../../shared/footer';
 
+
+const win = Dimensions.get('window');
+  const buttonContainerWidth = win.width - 120;
 const Profile = (props) => {
     const {
         navigation,
@@ -90,7 +95,7 @@ const Profile = (props) => {
 
                         </View>
                         <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15,}}>
-                            <Text style={{fontSize: 12, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
+                            <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -144,8 +149,8 @@ const Profile = (props) => {
                             </View>
 
                         </View>
-                        <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15,}}>
-                            <Text style={{fontSize: 12, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
+                        <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15, }}>
+                            <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
 
                     </View>
                 </TouchableOpacity>
@@ -191,7 +196,7 @@ const Profile = (props) => {
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR,}}>
-            <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
+            <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, justifyContent:"center", alignContent:"center"}}>
                 <Image source={require("../../../assets/img/appBG.png")} style={{height: 160}}/>
                 <View style={{
                     display: 'flex',
@@ -291,14 +296,7 @@ const Profile = (props) => {
                     </View>
                 </View>
             </View>
-
-            <View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
-                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-                <Image
-                    source={require('../../../assets/img/fristDigi.png')}
-                    style={{width: "100%", height: 20}}
-                />
-            </View>
+			<Footer />
         </ScrollView>
     );
 
@@ -310,6 +308,8 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
         paddingLeft: 20,
         paddingRight: 20,
+		justifyContent:'center',
+		alignContent:'center'
     },
     header: {
         alignItems: 'center',
@@ -346,14 +346,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#707070'
     },
-    middle: {},
+    middle: {
+		justifyContent:'center',
+		alignContent:'center',
+	},
     wrapper: {
-        width: '70%',
+        width:Platform.OS === 'ios' ? "65%" : "70%",
         marginLeft: 10,
         marginTop: 10,
     },
     middleWrapper: {
-        height: 142,
+		paddingBottom:20,
         width: "100%",
         borderRadius: 15,
         display: 'flex',
@@ -383,13 +386,13 @@ const styles = StyleSheet.create({
         fontSize: 14, fontWeight: '500', margin: 15
     },
     buttonWrapper: {
-        width: 268,
+        width: buttonContainerWidth,
         height: 50,
         backgroundColor: "#ECECEC",
         borderRadius: 10,
         margin: 10,
         marginTop: 15,
-        marginLeft: 40,
+		marginLeft:Platform.OS === 'ios' ? 10 : 40,
     },
 
     iconWrapper: {

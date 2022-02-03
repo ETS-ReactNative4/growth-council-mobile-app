@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome5';
@@ -18,6 +19,9 @@ import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+
+const win = Dimensions.get('window');
+  const contentContainerWidth = win.width - 30;
 
 const HomeCommunity = props => {
   const {
