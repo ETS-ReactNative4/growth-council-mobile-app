@@ -67,7 +67,7 @@ const SignUpForm = props => {
       name: '',
       first_name: '',
       last_name: '',
-      username: `user_${uuid.v4()}`,
+      username: ``,
       password: 'admin21',
       title: '',
       company: '',
@@ -79,6 +79,8 @@ const SignUpForm = props => {
     },
     onSubmit: async values => {
       values.name = values.first_name + ' ' + values.last_name;
+      values.username = value.email.substring(0, value.email.lastIndexOf('@'));
+      console.log(values);
       try {
         const response = await createUserWithEmailAndPassword(
           auth,
@@ -89,7 +91,7 @@ const SignUpForm = props => {
         const token = await response.user.getIdToken();
         if (token) {
           await registerCustomer(values).then(response => {
-            console.log('response:::::::::::::::', response);
+            //console.log('response:::::::::::::::', response);
             if (response?.payload?.code === 200) {
               // navigation.navigate('SignUpNext');
               navigation.navigate('SignIn');
@@ -102,7 +104,7 @@ const SignUpForm = props => {
           });
         }
       } catch (error) {
-        console.log({error});
+        //console.log({error});
         switch (error.code) {
           case 'auth/email-already-in-use':
             ToastMessage.show(
