@@ -32,7 +32,7 @@ const BottomTabNavigation = ({navigation}) => {
                     tabBarLabel: 'Home',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
-                            top: Platform.OS === 'ios' ? 12 : 0,
+                            top: Platform.OS === 'ios' ? 8 : 0,
                         }}>
                             <Ionicons name="home-outline" color={'#000'} size={size}/>
                         </View>
@@ -48,7 +48,7 @@ const BottomTabNavigation = ({navigation}) => {
                     tabBarLabel: 'Search',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
-                            top: Platform.OS === 'ios' ? 12 : 0,
+                            top: Platform.OS === 'ios' ? 8 : 0,
                         }}>
                             <Ionicons name="options-outline" color={'#000'} size={size}/>
                         </View>
@@ -64,7 +64,7 @@ const BottomTabNavigation = ({navigation}) => {
                     tabBarLabel: 'UserList',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
-                            top: Platform.OS === 'ios' ? 12 : 0,
+                            top: Platform.OS === 'ios' ? 8 : 0,
                         }}>
                             <Ionicons name="chatbox-outline" color={'#000'} size={size}/>
                         </View>
@@ -81,7 +81,7 @@ const BottomTabNavigation = ({navigation}) => {
                     tabBarLabel: 'People',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
-                            top: Platform.OS === 'ios' ? 12 : 0,
+                            top: Platform.OS === 'ios' ? 8 : 0,
                         }}>
                             <Ionicons name="people-outline" color={'#000'} size={size}/>
                         </View>
@@ -96,7 +96,7 @@ const BottomTabNavigation = ({navigation}) => {
                     tabBarLabel: 'Account',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
-                            top: Platform.OS === 'ios' ? 12 : 0,
+                            top: Platform.OS === 'ios' ? 8 : 0,
                         }}>
                             <Ionicons name="person-outline" color={'#000'} size={size}/>
                         </View>
