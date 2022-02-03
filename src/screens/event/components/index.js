@@ -225,19 +225,7 @@ const Event = props => {
                       />
                     </View>
                   )}
-                  {/* <View
-                                        style={{
-                                            flex: 1,
-                                            height: 60,
-                                            width: 30,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-                                        <Image
-                                            source={require('../../../assets/img/live_image.png')}
-                                        />
-                                    </View> */}
+                  
                 </View>
               </View>
               <View style={styles.seperationline} />
@@ -480,9 +468,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   loading1: {
-    marginLeft: 150,
-    flex: 1,
-    flexDirection: 'column',
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     zIndex: 1011,
   },
