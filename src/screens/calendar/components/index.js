@@ -130,9 +130,7 @@ const EventCalendar = props => {
 
             <View style={styles.eventDetails}>
               <View style={styles.eventInfo}>
-                <Text style={styles.eventTitle}>
-                  {item?.pillar_categories[0]?.name}
-                </Text>
+                <Text style={styles.eventTitle}>{item?.title}</Text>
                 <Text style={styles.eventParagraph}>
                   Hosted by {item?.organizer?.term_name}{' '}
                   {item?.organizer?.description}
