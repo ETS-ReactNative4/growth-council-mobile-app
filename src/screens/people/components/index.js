@@ -8,6 +8,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,6 +18,9 @@ import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
+
+const win = Dimensions.get('window');
+  const contentContainerWidth = win.width - 30;
 
 const People = props => {
   const {
@@ -61,9 +65,11 @@ const People = props => {
     fetchAllExpertisesAsync();
   }, []);
 
+  console.log(memberConnections);
+  
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
-    if (response?.payload?.status === 200) {
+    if (response?.payload?.code === 200) {
       let items = [...memberConnection];
       let item = {...items[index]};
       item.connection = true;
@@ -74,8 +80,11 @@ const People = props => {
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
+	  
     }
+	console.log(response)
   };
+ 
 
   const _renderItem = ({item, index}) => {
     return (
@@ -161,7 +170,7 @@ const People = props => {
             <Picker
               selectedValue={category}
               mode={'dropdown'}
-              style={{height: 30, width: 250}}
+              style={{ width: 230}}
               onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
               <Picker.Item label="Category" value="Category" />
               {Object.keys(expertise).map(key => {

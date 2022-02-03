@@ -124,7 +124,7 @@ const DrawerNavigation = ({navigation}) => {
                     width: Platform.OS === 'ios' ? 40 : 35,
                     left: 30,
                     marginLeft: 17,
-                    borderWidth: 5,
+                    // borderWidth: 5,
                   }}
                 />
               </TouchableOpacity>

@@ -20,8 +20,11 @@ import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
-const screenHeight = Math.round(Dimensions.get('window').height);
+import Footer from '../../../shared/footer';
 
+
+const win = Dimensions.get('window');
+  const buttonContainerWidth = win.width - 120;
 const Profile = (props) => {
     const {
         navigation,
@@ -45,66 +48,63 @@ const Profile = (props) => {
 
     const [value, setValue] = useState('My Events');
 
-
     const _renderItems = ({item, index}) => {
         return (
-			<View>
-				<TouchableOpacity
-							onPress={() => navigation.navigate('SessionDetail', {id: item.ID})}>
-				<View style={styles.middleWrapper} key={index}>
-					<View style={styles.wrapper}>
-						
-							<Text style={styles.text}>{item.title}</Text>
-						
-						<Text style={{fontSize: 6, fontFamily:Typography.FONT_SF_REGULAR,}}>Hosted by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
-						<View style={styles.iconWrapper}>
-							<Ionicon
-								name={'person'}
-								size={15}
-								color="#0B0B45"
+            <View>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SessionDetail', {id: item.ID})}>
+                    <View style={styles.middleWrapper} key={index}>
+                        <View style={styles.wrapper}>
 
-							/>
-							<Text style={styles.text}></Text>
-							<Ionicon
-								name={'calendar'}
-								size={15}
-								color="#0B0B45"
-								style={{marginLeft: 20}}
+                            <Text style={styles.text}>{item.title}</Text>
 
-							/><Text style={styles.text}>{item.text3}</Text>
-						</View>
-						<View style={styles.iconWrapper}>
-							<Ionicon
-								name={'time'}
-								size={15}
-								color="#0B0B45"
+                            <Text style={{fontSize: 6, fontFamily: Typography.FONT_SF_REGULAR,}}>Hosted
+                                by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
+                            <View style={styles.iconWrapper}>
+                                <Ionicon
+                                    name={'person'}
+                                    size={15}
+                                    color="#0B0B45"
+                                />
+                                <Text style={styles.text}/>
+                                <Ionicon
+                                    name={'calendar'}
+                                    size={15}
+                                    color="#0B0B45"
+                                    style={{marginLeft: 20}}
+
+                                /><Text style={styles.text}>{item.text3}</Text>
+                            </View>
+                            <View style={styles.iconWrapper}>
+                                <Ionicon
+                                    name={'time'}
+                                    size={15}
+                                    color="#0B0B45"
+                                />
+                                <Text
+                                    style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
+                                <Ionicon
+                                    name={'location'}
+                                    size={15}
+                                    color="#0B0B45"
+                                    style={{marginLeft: 20}}
+                                />
+                                <Text style={styles.text}>{item.location?.location_address}</Text>
+                            </View>
 
 
-							/><Text style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
-							<Ionicon
-								name={'location'}
-								size={15}
-								color="#0B0B45"
-								style={{marginLeft: 20}}
-
-							/>
-							<Text style={styles.text}>{item.location?.location_address}</Text>
-						</View>
-
-
-					</View>
-					<Button style={{height: 30, top: 40, backgroundColor:'#183863', borderRadius: 15, }}>
-						<Text style={{fontSize:12, color:PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
-				</View>
-				</TouchableOpacity>
-			</View>
-
+                        </View>
+                        <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15,}}>
+                            <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
+                    </View>
+                </TouchableOpacity>
+            </View>
         );
     };
 
     const _renderItem = ({item, index}) => {
         return (
-            <View>
+            <View key={index}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
                     <View style={styles.middleWrapper}>
@@ -136,8 +136,6 @@ const Profile = (props) => {
                                     name={'time'}
                                     size={15}
                                     color="#0B0B45"
-
-
                                 /><Text
                                 style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
                                 <Ionicon
@@ -150,16 +148,13 @@ const Profile = (props) => {
                                 <Text style={styles.text}>{item.location?.location_address}</Text>
                             </View>
 
-
                         </View>
-                        <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15,}}>
-                            <Text style={{fontSize: 12, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
+                        <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15, }}>
+                            <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
 
                     </View>
                 </TouchableOpacity>
             </View>
-
-
         );
     };
 
@@ -191,8 +186,6 @@ const Profile = (props) => {
 
     }, []);
 
-    console.log('profile sessions', profileSession)
-
     useEffect(() => {
         const fetchProfileAsync = async () => {
             await fetchProfileByIdentifier();
@@ -203,7 +196,7 @@ const Profile = (props) => {
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR,}}>
-            <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
+            <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, justifyContent:"center", alignContent:"center"}}>
                 <Image source={require("../../../assets/img/appBG.png")} style={{height: 160}}/>
                 <View style={{
                     display: 'flex',
@@ -226,7 +219,6 @@ const Profile = (props) => {
                                 size={20}
                                 color="#C4C8CC"
                                 style={{marginTop: 5, marginLeft: 5}}
-
                             />
                         </TouchableOpacity>
 
@@ -236,15 +228,13 @@ const Profile = (props) => {
                                 size={20}
                                 color="#C4C8CC"
                                 style={{marginTop: 10, marginLeft: 5}}
-
                             />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.profileWrapper}>
                         <View style={styles.icon}>
                             <Image source={{uri: profile.avatar}} style={{width: "100%", height: "100%"}}
-                                   resizeMode='cover'
-                            />
+                                   resizeMode='cover'/>
                         </View>
                         <View style={styles.header}>
                             <Text style={styles.headingText1}>{profile.display_name}</Text>
@@ -285,7 +275,6 @@ const Profile = (props) => {
                                 </>
                             )}
                             {value === 'My Events' &&
-							
                             <FlatList
                                 Vertical
                                 showsVerticalScrollIndicator={false}
@@ -293,6 +282,7 @@ const Profile = (props) => {
                                 renderItem={_renderItem}
                             />
                             }
+
                             {value === 'My Sessions' &&
                             <FlatList
                                 Vertical
@@ -302,20 +292,11 @@ const Profile = (props) => {
                             />
                             }
 
-
                         </View>
                     </View>
-
                 </View>
-                
             </View>
-			<View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
-                    <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-                    <Image
-                        source={require('../../../assets/img/fristDigi.png')}
-                        style={{width: "100%", height: 20}}
-                    />
-                </View>
+			<Footer />
         </ScrollView>
     );
 
@@ -327,8 +308,8 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
         paddingLeft: 20,
         paddingRight: 20,
-
-
+		justifyContent:'center',
+		alignContent:'center'
     },
     header: {
         alignItems: 'center',
@@ -353,8 +334,6 @@ const styles = StyleSheet.create({
         fontFamily: Typography.FONT_NORMAL,
         fontSize: 22,
         fontWeight: '600',
-
-
     },
     profileWrapper: {
         padding: 20,
@@ -367,24 +346,24 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#707070'
     },
-    middle: {},
+    middle: {
+		justifyContent:'center',
+		alignContent:'center',
+	},
     wrapper: {
-        width: '70%',
+        width:Platform.OS === 'ios' ? "65%" : "70%",
         marginLeft: 10,
         marginTop: 10,
-
     },
     middleWrapper: {
-        height: 142,
+		paddingBottom:20,
         width: "100%",
         borderRadius: 15,
         display: 'flex',
         flexDirection: 'row',
         borderWidth: 0.5,
         marginTop: 20,
-
     },
-
     middleImage: {
         width: 40,
         height: 40,
@@ -393,7 +372,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         marginLeft: 10,
-
     },
     middleImage1: {
         width: 40,
@@ -408,14 +386,13 @@ const styles = StyleSheet.create({
         fontSize: 14, fontWeight: '500', margin: 15
     },
     buttonWrapper: {
-        width: 268,
+        width: buttonContainerWidth,
         height: 50,
         backgroundColor: "#ECECEC",
         borderRadius: 10,
         margin: 10,
         marginTop: 15,
-        marginLeft: 40,
-
+		marginLeft:Platform.OS === 'ios' ? 10 : 40,
     },
 
     iconWrapper: {
@@ -425,8 +402,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     shadowProp: {
-
-
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -437,146 +412,6 @@ const styles = StyleSheet.create({
 
         elevation: 5,
     },
-
-
-    // container: {
-    //     ...CommonStyles.container,
-    //     backgroundColor: Colors.SECONDARY_BACKGROUND_COLOR,
-    //     width: "100%",
-    //     height: '100%',
-    // },
-    // header: {
-    //     width: '80%',
-    //     height: 180,
-    //     backgroundColor: "white",
-    //     margin: 40,
-    //     marginTop: 50,
-    //     borderRadius: 10,
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     position: 'absolute',
-    //     zIndex: 10,
-    //     borderWidth: 0.5,
-
-    // },
-    // headerWrapper: {
-    //     display: 'flex',
-    //     flexDirection: 'row',
-    //     marginTop: 20,
-    // },
-    // button: {
-    //     marginLeft: 30,
-    //     backgroundColor: '#0B0B45',
-    //     borderRadius: 15,
-    //     width: "47%"
-    // },
-    // icon: {
-    //     width: 90,
-    //     height: 90,
-    //     backgroundColor: "white",
-    //     borderRadius: 19,
-    //     marginLeft: 150,
-    //     marginTop: 30,
-    //     justifyContent: 'center',
-    //     position: 'absolute',
-    //     zIndex: 20,
-    //     borderWidth: 0.3,
-
-    // },
-    // textWrapper: {
-    //     width: '20%',
-    //     height: 30,
-    //     backgroundColor: 'white',
-    //     display: 'flex',
-    //     flexDirection: 'row',
-    //     borderRadius: 20,
-    //     position: 'absolute',
-    //     zIndex: 30,
-    //     marginLeft: 160, marginTop: 110, borderWidth: 0.5
-    // },
-    // headingText1: {
-    //     ...CommonStyles.headingText1,
-    //     fontFamily: Typography.FONT_NORMAL,
-    //     fontSize: Typography.FONT_SIZE_DOUBLE_EXTRA_LARGE_MINUS,
-    //     fontWeight: 'bold',
-    //     color: 'black',
-    //     marginTop: 60,
-
-    // },
-    // middle: {
-    //     height: "100%",
-    //     width: "100%",
-    //     backgroundColor: 'white',
-    //     marginTop: 150,
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    // },
-    // shadowProp: {
-    //     shadowColor: '#171717',
-    //     shadowOffset: {width: 2, height: 2},
-    //     shadowOpacity: 0.2,
-    //     shadowRadius: 3,
-    // },
-    // buttonWrapper: {
-    //     width: '65%',
-    //     height: 50,
-    //     backgroundColor: "#ECECEC",
-    //     borderRadius: 10,
-
-    //     margin: 10,
-    //     marginTop: 110,
-
-    // },
-    // btn: {
-    //     width: '40%',
-    //     height: 50
-    // },
-    // middleWrapper: {
-    //     height: 150,
-    //     width: "100%",
-    //     borderRadius: 15,
-    //     display: 'flex',
-    //     flexDirection: 'row',
-    //     borderWidth: 0.5,
-    //     marginTop: 10,
-    //     marginBottom: 10,
-    //     // backgroundColor:"red"
-    // },
-
-    // wrapper: {
-    //     width: '70%',
-    //     marginLeft: 10,
-    //     marginTop: 10,
-    //     // backgroundColor:"green",
-
-    // },
-    // iconWrapper: {
-    //     display: 'flex',
-    //     flexDirection: 'row',
-    //     marginLeft: 10,
-    //     marginTop: 10,
-    // },
-
-    // middleImage: {
-    //     width: 40,
-    //     height: 40,
-    //     backgroundColor: '#3A9BDC',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     borderRadius: 10,
-    //     marginLeft: 10,
-    //     marginTop: 10,
-    // },
-    // middleImage1: {
-    //     width: 40,
-    //     height: 40,
-    //     backgroundColor: '#d7d7d7',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     borderRadius: 10,
-    //     marginLeft: 10,
-    //     marginTop: 10,
-    // },
 });
 
 export default Profile;

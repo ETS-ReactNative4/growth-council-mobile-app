@@ -4,8 +4,8 @@ import {fetch} from '../../../utils/httpUtil';
 
 export const fetchcoachingSession = createAsyncThunk(
   'coachingSession/fetchAll',
-  (_, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/pillars/147/sessions`)
+  (poeId, {rejectWithValue}) => {
+    return fetch(`jwt-auth/v1/pillars/${poeId}/sessions`)
       .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },

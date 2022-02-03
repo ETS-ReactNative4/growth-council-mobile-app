@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
+import HTMLView from 'react-native-htmlview';
 import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -29,6 +30,13 @@ const Ideas = props => {
     fetchAllIdeaAsync();
   }, []);
 
+  let description = idea?.content1;
+  if (description !== undefined) {
+    description = idea?.content1;
+  } else {
+    description = '';
+  }
+
   return (
     <>
       <ScrollView
@@ -36,13 +44,12 @@ const Ideas = props => {
           height: Platform.OS === 'ios' ? 400 : 350,
         }}>
         <View style={[styles.container, {height: win.height}]}>
-          <View style={styles.feedback}>
+          <View style={styles.ideas}>
             <View style={styles.title}>
               <Text style={styles.titleText}>{idea.heading1}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-
-            <Text style={styles.paragraph}>{idea.content1}</Text>
+            <HTMLView value={description} textComponentProps={{ style: {fontSize:14} }}/>
           </View>
 
           <View style={styles.cta}>
@@ -76,11 +83,13 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     marginRight: 32,
   },
-  feedback: {
-    padding: 30,
+  ideas: {
+    paddingLeft: 30,
+	paddingRight: 30,
   },
   title: {
-    marginBottom: 30,
+	marginTop:30,
+	marginBottom: 30,
   },
   titleText: {
     color: '#000',

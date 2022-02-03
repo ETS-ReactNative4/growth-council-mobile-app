@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -17,6 +18,9 @@ import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+
+const win = Dimensions.get('window');
+  const contentContainerWidth = win.width - 30;
 
 const GrowthCoaching = props => {
   const {
@@ -39,9 +43,10 @@ const GrowthCoaching = props => {
     cleanPillarPOE,
   } = props;
 
+  const pillarId = 119;
   useEffect(() => {
     const fetchAllPillarPOEAsync = async () => {
-      await fetchAllPillarPOE(route.params.pillarId);
+      await fetchAllPillarPOE(pillarId);
     };
     fetchAllPillarPOEAsync();
     return () => {
@@ -51,7 +56,7 @@ const GrowthCoaching = props => {
 
   useEffect(() => {
     const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(route.params.pillarId);
+      await fetchAllPillarEvent(pillarId);
     };
     fetchAllPillarEventAsync();
     return () => {
@@ -61,12 +66,12 @@ const GrowthCoaching = props => {
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(route.params.pillarId);
+      await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  console.log('pillar_id', route.params.pillarId);
+  console.log('Coaching pillar_id', pillarId);
   console.log({pillarMemberContents});
 
   // console.log('Growth Coaching =========', growthCoachings);
@@ -112,6 +117,7 @@ const GrowthCoaching = props => {
           navigation.navigate('GrowthDetail', {
             poeId: item?.term_id,
             pillarId: item?.parent,
+			
           })
         }>
         <View style={styles.middleWrapper}>
@@ -371,15 +377,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   content: {
-    height: 250,
+    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
-    marginBottom: 20,
+	marginRight:10,
   },
   ContentWrapper: {
-    height: 206,
-    width: Platform.OS === 'ios' ? 330 : 364,
+    height: 210,
+    width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
