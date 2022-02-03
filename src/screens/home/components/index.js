@@ -18,6 +18,10 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('screen');
 
+const win = Dimensions.get('window');
+  const buttonContainerWidth = win.width - 80;
+
+
 const Home = props => {
   const {
     navigation,
@@ -62,7 +66,7 @@ const Home = props => {
         <View
           style={{
             backgroundColor: 'floralwhite',
-            height: viewportWidth - 100,
+            height: viewportWidth - 120,
             marginLeft: 20,
             marginRight: 20,
             position: 'relative',
@@ -223,11 +227,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
 
-    marginBottom: 20,
+    marginTop: 20,
   },
   signupbutton: {
     ...CommonStyles.button,
-    width: 336,
+    width: buttonContainerWidth,
     marginBottom: 20,
     borderRadius: 25,
     height: 56,
@@ -242,7 +246,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   signinbutton: {
-    width: 336,
+    width: buttonContainerWidth,
     borderRadius: 25,
     height: 52,
     alignItems: 'center',

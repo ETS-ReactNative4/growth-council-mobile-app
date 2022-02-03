@@ -1,51 +1,49 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {store} from '../../../utils/httpUtil';
+import {uploadImage} from '../../../utils/httpUtil';
 
 export const uploadProfileImage = createAsyncThunk(
-  'profile_image/upload',
-  (formData, {rejectWithValue}) => {
-    const {...fields} = formData;
-	console.log(formData);
-    return store(`/wp/v2/media`, fields)
-      .then(response => response.data)
-      .catch(error => rejectWithValue(error?.response?.data || error));
+    'profile_image/upload',
+    (formData, {rejectWithValue}) => {
+        return uploadImage(`wp/v2/media`, formData)
+            .then(response => response.data)
+            .catch(error => rejectWithValue(error?.response?.data || error));
 
-  },
+    },
 );
 
 const uploadProfileImageSlice = createSlice({
-  name: 'uploadProfileImage',
-  initialState: {
-    uploadEntities: [],
-    uploadLoading: false,
-    uploadError: null,
-  },
-  reducers: {
-    resetUploadProfileImage: state => {
-      state.uploadEntities = [];
-      state.uploadLoading = false;
-      state.uploadError = null;
+    name: 'uploadProfileImage',
+    initialState: {
+        uploadProfileImages: [],
+        uploadProfileImageLoading: false,
+        uploadProfileImageError: null,
     },
-  },
-  extraReducers: {
-    [uploadProfileImage.pending]: (state, action) => {
-      state.uploadLoading = true;
-      state.uploadError = {};
+    reducers: {
+        resetUploadProfileImage: state => {
+            state.uploadProfileImages = [];
+            state.uploadProfileImageLoading = false;
+            state.uploadProfileImageError = null;
+        },
     },
-    [uploadProfileImage.fulfilled]: (state, action) => {
-      state.uploadLoading = false;
-      state.uploadEntities = action.payload;
+    extraReducers: {
+        [uploadProfileImage.pending]: (state, action) => {
+            state.uploadProfileImageLoading = true;
+            state.uploadProfileImageError = {};
+        },
+        [uploadProfileImage.fulfilled]: (state, action) => {
+            state.uploadProfileImages = action.payload;
+            state.uploadProfileImageLoading = false;
+        },
+        [uploadProfileImage.rejected]: (state, action) => {
+            state.uploadProfileImageLoading = false;
+            if (action.payload) {
+                state.uploadProfileImageError = action.payload;
+            } else {
+                state.uploadProfileImageError = action.error;
+            }
+        },
     },
-    [uploadProfileImage.rejected]: (state, action) => {
-      state.uploadLoading = false;
-      if (action.payload) {
-        state.uploadError = action.payload;
-      } else {
-        state.uploadError = action.error;
-      }
-    },
-  },
 });
 
 export const {resetUploadProfileImage} = uploadProfileImageSlice.actions;

@@ -48,7 +48,7 @@ const PillarList = props => {
 
 const styles = StyleSheet.create({
   ImageWrapper: {
-    width: Platform.OS === 'ios' ? 90 : 120,
+    width: Platform.OS === 'ios' ? 100 : 120,
     height: Platform.OS === 'ios' ? 150 : 172,
     borderRadius: 10,
     borderWidth: 4,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
     fontWeight: '500',
-    fontSize: 12,
+    fontSize: Platform.OS === 'ios' ? 10 : 12,
   },
 });
 export default PillarList;

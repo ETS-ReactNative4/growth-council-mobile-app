@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -16,6 +17,9 @@ import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+
+const win = Dimensions.get('window');
+  const contentContainerWidth = win.width - 30;
 
 const BestPractice = props => {
   const {
@@ -250,7 +254,6 @@ const BestPractice = props => {
             />
           </View>
         </View>
-
         <Footer />
       </View>
     </ScrollView>
@@ -358,14 +361,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   content: {
-    height: 250,
+    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
+	marginRight:10,
   },
   ContentWrapper: {
-    height: 206,
-    width: Platform.OS === 'ios' ? 330 : 364,
+    height: 210,
+    width:contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,

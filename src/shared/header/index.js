@@ -17,7 +17,7 @@ const HeaderTitle = () => {
   }, []);
 
   return (
-    <View style={{marginLeft: Platform.OS === 'ios' ? 25 : 40, marginTop: 10}}>
+    <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 40, marginTop: Platform.OS === 'ios' ? 10 : 10}}>
       <Text
         style={{
           color: 'white',
@@ -31,7 +31,7 @@ const HeaderTitle = () => {
           fontFamily: Typography.FONT_SF_MEDIUM,
           color: 'white',
           fontSize: 18,
-          fontWeight: 'medium',
+          fontWeight: 'normal',
         }}>
         {username}
       </Text>

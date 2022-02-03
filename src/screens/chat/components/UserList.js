@@ -14,6 +14,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from "../../../utils/storageUtil";
 import {JWT_TOKEN, USER_NAME, USER_AVATAR} from "../../../constants";
 import {decodeUserID} from "../../../utils/jwtUtil";
+import Footer from '../../../shared/footer';
 
 const UserList = (props) => {
 
@@ -80,9 +81,7 @@ const UserList = (props) => {
                             <Text style={{fontSize: 12, marginTop: 10}}>{item.user_email}</Text>
                         </View>
 
-                        <View style={{marginTop: 10}}>
-                            <Text style={{fontSize: 12, fontFamily: Typography.FONT_SF_REGULAR}}>15 min</Text>
-                        </View>
+                        
 
                     </View>
                 </TouchableOpacity>
@@ -116,13 +115,7 @@ const UserList = (props) => {
             />
         </View>
 
-		<View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
-					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-					<Image
-						source={require('../../../assets/img/fristDigi.png')}
-						style={{width:"100%", height:20}}
-					/>
-				</View>
+		<Footer/>
 		</ScrollView>
 
     );
@@ -145,11 +138,12 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         display: 'flex',
         flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10,
+        padding:10,
+		paddingRight:10,
+		justifyContent:'space-between'
     },
     button: {
-        width: 180,
+        width: 160,
         borderRadius: 10,
         height: 38,
         margin: 8,

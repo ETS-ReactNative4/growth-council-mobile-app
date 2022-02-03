@@ -328,7 +328,6 @@ const styles = StyleSheet.create({
   errorText: {
     ...CommonStyles.errorText,
   },
-
   profileWrapper: {
     padding: 20,
     alignItems: 'center',
