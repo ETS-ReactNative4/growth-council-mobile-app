@@ -6,7 +6,8 @@ import {
     ScrollView,
     TextInput,
     Image,
-    TouchableOpacity, Platform,
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -19,6 +20,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
+import Footer from '../../../shared/footer';
 
 const profileUpdateSchema = Yup.object().shape({
     display_name: Yup.string().required('Name is required.'),
@@ -32,6 +34,7 @@ const profileUpdateSchema = Yup.object().shape({
 const ManageAccount = props => {
     const {
         navigation,
+        route,
         profile,
         profileLoading,
         profileError,
@@ -44,7 +47,6 @@ const ManageAccount = props => {
         uploadProfileImageLoading,
         uploadProfileImageError,
         uploadImage,
-        cleanUploadImage,
 
         updateEntities,
         updateLoading,
@@ -55,7 +57,7 @@ const ManageAccount = props => {
         expertiseLoading,
         expertiseError,
         fetchAllExpertises,
-        cleanExpertise,
+        cleanExperties,
     } = props;
 
     const [open, setOpen] = useState(false);
@@ -109,15 +111,14 @@ const ManageAccount = props => {
 
     const takePhotoFromCamera = () => {
         ImagePicker.openCamera({
-            cropping: true
+            cropping: true,
         }).then(image => {
-            console.log("takePhotoFromCamera", image.path);
             setImage(image.path);
         });
     };
     const choosePhotoFromLibrary = () => {
         ImagePicker.openPicker({
-            cropping: true
+            cropping: true,
         }).then(async image => {
             setImage(image.path);
             let fd = new FormData();
@@ -130,9 +131,9 @@ const ManageAccount = props => {
             fd.append("file", file);
             console.log("choosePhotoFromLibrary", fd);
             await uploadImage(fd).then(async response => {
-                console.log("Upload response", response?.payload?.id);
+                console.log("Upload response:::::::::::", response?.payload?.id);
                 await updateImage({attachment_id: response?.payload?.id}).then(async response => {
-                    console.log("Update response", response);
+                    console.log("Update response::::::::::", response);
                 });
             });
         });
@@ -164,10 +165,11 @@ const ManageAccount = props => {
         },
         onSubmit: async values => {
             await updateUser(values).then(response => {
-                if (response?.payload?.status === 200) {
+                if (response?.payload?.code === 200) {
                     navigation.navigate('Person');
                     ToastMessage.show('Your information has been successfully updated.');
                     ToastMessage.show(values.email);
+                    console.log(values);
                 }
             });
         },
@@ -187,21 +189,13 @@ const ManageAccount = props => {
         fetchAllExpertisesAsync();
     }, []);
 
-
     useEffect(() => {
-        const result = Object.entries(expertise).map(([key, value]) => ({label: key, value}));
+        const result = Object.entries(expertise).map(([key, value]) => ({
+            label: key,
+            value,
+        }));
         setItems(result);
     }, [expertise]);
-
-
-//   useEffect(() => {
-// 	  const uploadEntitiesAsync = async () =>{
-// 		  await uploadImage();
-// 		  console.log("image",image.path);
-// 	  };
-// 	  uploadEntitiesAsync();
-//   },[image]);
-
 
     return (
         <ScrollView
@@ -222,21 +216,20 @@ const ManageAccount = props => {
                         marginLeft: 'auto',
                         marginRight: 'auto',
                     }}>
-
-                    <View style={{
-                        zIndex: 30,
-                        position: 'absolute',
-                        right: 5,
-                        marginTop: 10,
-                        marginRight: 10
-                    }}>
+                    <View
+                        style={{
+                            zIndex: 30,
+                            position: 'absolute',
+                            right: 5,
+                            marginTop: 10,
+                            marginRight: 10,
+                        }}>
                         <TouchableOpacity onPress={takePhotoFromCamera}>
                             <Ionicons
                                 name={'camera'}
                                 size={20}
                                 color="#C4C8CC"
                                 style={{marginTop: 5, marginLeft: 30}}
-
                             />
                         </TouchableOpacity>
 
@@ -246,10 +239,8 @@ const ManageAccount = props => {
                                 size={20}
                                 color="#C4C8CC"
                                 style={{marginTop: 10, marginLeft: 30}}
-
                             />
                         </TouchableOpacity>
-
                     </View>
                     <View style={styles.profileWrapper}>
                         <View style={styles.icon}>
@@ -258,7 +249,6 @@ const ManageAccount = props => {
                                 style={{width: '100%', height: '100%'}}
                                 resizeMode="cover"
                             />
-
                         </View>
                         <View style={styles.header}>
                             <Button style={{marginBottom: 10}}>Update</Button>
@@ -310,8 +300,6 @@ const ManageAccount = props => {
                                         style={{right: 0, position: 'absolute'}}
                                     />
                                 </View>
-                                {/*
-                <UploadImage /> */}
 
                                 <View style={styles.TextWrapper}>
                                     <Text
@@ -442,7 +430,6 @@ const ManageAccount = props => {
                                         multiple={true}
                                         min={0}
                                         max={5}
-
                                         open={open}
                                         value={value}
                                         items={items}
@@ -450,17 +437,9 @@ const ManageAccount = props => {
                                         setValue={setValue}
                                         setItems={setItems}
                                         onChangeValue={value => {
-                                            setFieldValue("expertise_areas1", value);
+                                            setFieldValue('expertise_areas1', value);
                                         }}
                                     />
-                                    {/* maxHeight={200}
-                    disableBorderRadius={true}
-                    stickyHeader={true}
-                    autoScroll={true}
-                    onChangeValue={value => {
-                      setFieldValue('expertise_areas1', value);
-                    }}
-                  /> */}
 
                                     <Text
                                         style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
@@ -519,19 +498,7 @@ const ManageAccount = props => {
                     </View>
                 </View>
             </View>
-            <View
-                style={{
-                    alignItems: 'center',
-                    width: '35%',
-                    marginLeft: 140,
-                    marginBottom: 10,
-                }}>
-                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-                <Image
-                    source={require('../../../assets/img/fristDigi.png')}
-                    style={{width: '100%', height: 20}}
-                />
-            </View>
+            <Footer/>
         </ScrollView>
     );
 };

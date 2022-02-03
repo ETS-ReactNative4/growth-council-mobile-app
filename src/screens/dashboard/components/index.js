@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -25,6 +26,9 @@ import {
 } from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+
+const win = Dimensions.get('window');
+  const contentContainerWidth = win.width - 30;
 
 const Dashboard = props => {
   const {
@@ -446,7 +450,7 @@ const styles = StyleSheet.create({
     bottom: 4,
   },
   content: {
-    height: 250,
+    height: 260,
     marginLeft: 5,
     marginTop: 25,
     justifyContent: 'center',
@@ -454,8 +458,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   ContentWrapper: {
-    height: 206,
-    width: Platform.OS === 'ios' ? 330 : 364,
+    height: 210,
+    width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
