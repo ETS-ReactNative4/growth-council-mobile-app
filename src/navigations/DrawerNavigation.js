@@ -120,8 +120,8 @@ const DrawerNavigation = ({navigation}) => {
                   style={{
                     top: -29,
                     position: 'absolute',
-                    height: 35,
-                    width: 35,
+                    height:Platform.OS === 'ios' ? 40 : 35,
+                    width: Platform.OS === 'ios' ? 40 : 35,
                     left: 30,
                     marginLeft: 17,
                     borderWidth: 5,

@@ -1,10 +1,9 @@
 import React,{useEffect, useState} from 'react';
 import { ScrollView, StyleSheet, Text, View , FlatList, Pressable} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import { RadioButton } from 'react-native-paper';
 import HTMLView from 'react-native-htmlview';
-import { options } from 'joi';
+
+import TraitsQuestion from './traitsQuestion';
 
 const Traits = (props) => {
 	const{
@@ -26,93 +25,32 @@ const Traits = (props) => {
 		UpdateTraitsAnswer,
 	}=props;
 
+
 	useEffect(()=>{
 		const fetchAllSubTraitsAsync = async () =>{
 			await fetchAllSubTrait(route.params.id);
 		};
 		fetchAllSubTraitsAsync();
 	},[]);
-
-	const [checked, setChecked] = useState(0);
-
-	// const _renderItem = ({item},) => {
-		
-	// 	// console.log(item)
-	// 	// return  <Text>1</Text>
-	// 	console.log("abcd",index1)
-	// 	const onPress = () =>{ 
-	// 		setChecked(item?.score)
-	// 		// setAnswers(answers.questions[key]= checked)
-	// 	}
-	// 	return (
-	// 		<View style={styles.wrapper}>
-	// 			<View style={{flexDirection:'row'}}>
-			
-	// 				<RadioButton
-	// 					value="Yes"
-	// 					status={ item.score === checked ? 'checked' : 'unchecked'}
-	// 					onPress={onPress}
-	// 				/>
-	// 				<Text style={{fontSize:11, marginTop:10}}> {item.option}</Text>
-	// 			</View>
-				
-	// 		</View>
-	// 	)}
-
-	// useEffect (()=>{
-	// 	console.log(checked);
-	// 	let newScore = totalScore;
-	// 	newScore += checked;
-	// 	setTotalScore(newScore);
-	// 	console.log(totalScore); 
-	// },[count]);
-
-
 	
 	if(subTraits?.length === 0 || subTraits === undefined){
 		return <></>
 	}
-	const onPressButton = (event) =>{ 
-		setChecked(subTraits?.sub_traits[count]?.questions?.options?.score)
-		setAnswers(answers.questions[answers, score] = checked)
-	}
-	// const secondColumnStart = question?.options.length / 2;
+	
+	
   	return (
 		<View>
 			{
-				subTraits?.sub_traits[count]?.questions?.map((question, key)=>(	
-						<View style={[styles.questionWrapper,styles.shadowProp]}>
-						<View style={{ alignItems:"center"}}>
-							<Text style={styles.title}>{question?.question}</Text>
-						</View>
-						{
-							question?.options?.slice(0,5).map((option1, keys)=>{
-							
-								<View style={styles.wrapper}>
-									<View style={{display:"flex",flexDirection:'row'}}>
-										<RadioButton
-											value="Yes"
-											status={ option1?.score === checked ? 'checked' : 'unchecked'}
-											onPress={()=>onPressButton()}
-										/>
-										<Text style={{fontSize:11, marginTop:10}}> {option1?.option}</Text>
-									</View>
-								</View>
-							})
-						}
-						
-						{/* <FlatList
-							horizontal
-							showsVerticalScrollIndicator={false}
-							data={question?.options}
-							extraData={{index1:key}}
-							// numColumns={Math.ceil(subTraits?.sub_traits[count]?.questions[0].options.length / 2)}
-							renderItem={_renderItem}
-							// keyExtractor={item => item.this.props}
-						/>
-						 */}
-						
-					</View>
+				subTraits?.sub_traits[count]?.questions?.map((question, index)=>(	
+					<TraitsQuestion 
+					{...props}
+					answers={answers}
+					setAnswers={setAnswers}
+					question={question}
+					questionIndex={index}
+					key={index}
+					/>
+
 				))
 			}
 		

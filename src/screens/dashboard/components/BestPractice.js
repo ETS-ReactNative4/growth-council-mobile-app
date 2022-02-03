@@ -14,22 +14,23 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
-
+import Footer from '../../../shared/footer';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const BestPractice = props => {
   const {
+    route,
     navigation,
-    bestPractices,
-    bestPracticeLoading,
-    bestPracticeError,
-    fetchAllbestPractice,
-    cleanBestPractice,
-    bestPracticesMemberContents,
-    bestPracticesMemberContentLoading,
-    bestPracticesMemberContentError,
-    fetchAllbestPracticesMemberContent,
-    cleanBestPracticesMemberContent,
+    pillarEvents,
+    pillarEventLoading,
+    pillarEventError,
+    fetchAllPillarEvent,
+    cleanPillarEvent,
+    pillarMemberContents,
+    pillarMemberContentLoading,
+    pillarMemberContentError,
+    fetchAllPillarMemberContent,
+    cleanPillarMemberContent,
     pillarPOEs,
     pillarPOELoading,
     pillarPOEError,
@@ -37,18 +38,9 @@ const BestPractice = props => {
     cleanPillarPOE,
   } = props;
 
-  const pillarId = 119;
-
-  useEffect(() => {
-    const fetchAllbestPracticeAsync = async () => {
-      await fetchAllbestPractice();
-    };
-    fetchAllbestPracticeAsync();
-  }, []);
-
   useEffect(() => {
     const fetchAllPillarPOEAsync = async () => {
-      await fetchAllPillarPOE(pillarId);
+      await fetchAllPillarPOE(route.params.pillarId);
     };
     fetchAllPillarPOEAsync();
     return () => {
@@ -57,10 +49,20 @@ const BestPractice = props => {
   }, []);
 
   useEffect(() => {
-    const fetchAllbestPracticeMemberContentAsync = async () => {
-      await fetchAllbestPracticesMemberContent();
+    const fetchAllPillarEventAsync = async () => {
+      await fetchAllPillarEvent(route.params.pillarId);
     };
-    fetchAllbestPracticeMemberContentAsync();
+    fetchAllPillarEventAsync();
+    return () => {
+      cleanPillarEvent();
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchAllPillarMemberContentAsync = async () => {
+      await fetchAllPillarMemberContent(route.params.pillarId);
+    };
+    fetchAllPillarMemberContentAsync();
   }, []);
 
   const _renderTopItem = ({item, index}, navigation) => {
@@ -171,15 +173,18 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
+  console.log('pillar_id', route.params.pillarId);
+  console.log({pillarMemberContents});
 
-  console.log('File =======', bestPracticesMemberContents?.pillar_contents);
+  // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
+  //console.log({bestPractices});
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Best Practices Events</Text>
-          {bestPracticeLoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
             </View>
@@ -192,7 +197,7 @@ const BestPractice = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPractices}
+              data={pillarEvents}
               // renderItem={_renderTopItem}
               renderItem={item => _renderTopItem(item, navigation)}
             />
@@ -210,19 +215,19 @@ const BestPractice = props => {
               horizontal
               // numColumns={Math.ceil(pillarPOEs.length / 2)}
               showsHorizontalScrollIndicator={false}
-              data={listData}
+              data={pillarPOEs}
               renderItem={_renderMiddleItem}
             />
           </ScrollView>
         </View>
 
         <View style={styles.bottom}>
-          <Text style={styles.title}>Growth Community Members</Text>
+          <Text style={styles.title}>Best Practices Members</Text>
           <View>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents.members}
+              data={pillarMemberContents?.members}
               //renderItem={_renderItem}
               renderItem={item => _renderItem(item, navigation)}
             />
@@ -239,25 +244,13 @@ const BestPractice = props => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={bestPracticesMemberContents?.pillar_contents}
+              data={pillarMemberContents?.pillar_contents}
               renderItem={_renderContentItem}
             />
           </View>
         </View>
 
-        <View
-          style={{
-            alignItems: 'center',
-            width: '35%',
-            marginLeft: 140,
-            marginBottom: 10,
-          }}>
-          <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-          <Image
-            source={require('../../../assets/img/fristDigi.png')}
-            style={{width: '100%', height: 20}}
-          />
-        </View>
+        <Footer />
       </View>
     </ScrollView>
   );
@@ -339,7 +332,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   bottomWrapper: {
-    width: 84,
+    width: Platform.OS === 'ios' ? 70 : 84,
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
@@ -371,7 +364,7 @@ const styles = StyleSheet.create({
   },
   ContentWrapper: {
     height: 206,
-    width: 364,
+    width: Platform.OS === 'ios' ? 330 : 364,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,

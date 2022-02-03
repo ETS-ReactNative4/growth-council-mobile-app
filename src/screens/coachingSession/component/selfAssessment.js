@@ -1,5 +1,5 @@
 
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { 
 	StyleSheet, 
@@ -21,8 +21,14 @@ const selfAssessment = props => {
 	const {
         navigation,
         route,
+		traits,
+		traitsLoading,
+		traitsError,
+		fetchAllTraitBySession,
+		cleanTraits,
+
 		answers,
-		setAnswers
+		setAnswers,
     } = props;
 
 	const dispatch = useDispatch();
@@ -54,15 +60,23 @@ const selfAssessment = props => {
 	const [count, setCount] = useState(0);	
 
 	const handleAnswerButtonClick = ()=>{
-		const nextTraits = count+1;
+		const nextTraits = count + 1;
 		if(nextTraits < subTraits.sub_traits.length){
 			setCount(nextTraits);
 		}else{
-			alert("subtraits data end")
+			navigation.navigate('radar');
 			
-		}
-		
+		}	
 	}
+	console.log("abcd",traits);
+
+	useEffect(()=>{
+		const fetchAllSubTraitsAsync = async () =>{
+			await fetchAllSubTrait(route.params.id);
+		};
+		fetchAllSubTraitsAsync();
+	},[]);
+
 	return (
 		<View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
 			<View style={{flex:1}}>  
@@ -106,8 +120,11 @@ const selfAssessment = props => {
 						{...props}
 						subTraits={subTraits}
 						subTraitsLoading={subTraitsLoading}
-						fetchAllSubTrait={fetchAllSubTrait}
+						// fetchAllSubTrait={fetchAllSubTrait}
+
 						count={count}
+						answers={answers}
+						setAnswers={setAnswers}
 
 						traitsAnswer={traitsAnswer}
 						traitsAnswerLoading={traitsAnswerLoading}

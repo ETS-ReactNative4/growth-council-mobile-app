@@ -20,6 +20,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import { fetchAllTraits, resetTraits } from '../slice/sessionTraitsSlice';
 import {fetchSessionByID, resetSession} from '../../sessions/slice/sessionSlice';
 import {registerSessionByID, resetSessionRegister} from '../../sessions/slice/sessionRegister';
+import Traits from './Traits';
 
 const CoachingSession = props => {
     const {
@@ -64,12 +65,14 @@ const CoachingSession = props => {
 	const [totalScore,setTotalScore]= useState(0);
 	const [answers, setAnswers] = useState({
 		totalScore:0, 
-		questions:[5,2,3],
+		questions:[],
 		yellowBenchmarkQuestions:[],
 	})
 
 	const [display, setDisplay] = useState(true);
 	const ref = useRef();
+	const [selectedId, setSelectedId] = useState(null)
+	
 	
     return (
         <ScrollView style={styles.scrollBox}>
@@ -78,8 +81,7 @@ const CoachingSession = props => {
                         barStyle="dark-content"
                         backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
                     />
-              
-                    
+
                     <View>
                         <View style={[styles.content, {height: 'auto'}]}>
 							<View style={{display:'flex', flexDirection:'row'}}>
@@ -207,9 +209,6 @@ const CoachingSession = props => {
 									</Modal>
 									
 								</View>
-								
-								
-								
 							</View>
 
 							<View style={{marginTop:32, }}>
@@ -234,16 +233,29 @@ const CoachingSession = props => {
 								sessionRegisterError={sessionRegisterError}
 								registerSessionByIdentifier={registerSessionByIdentifier}
 								cleanSessionRegister={cleanSessionRegister}
+
+								selectedId={selectedId}
+								setSelectedId={setSelectedId}
 								
 								/>
                             }
-                            {value === 'Self Assessment' &&
+                            {value === 'Self Assessment' && 
+							
 								<SelfAssessment
 								{...props}
+								traits={traits}
+								traitsLoading={traitsLoading}
+								traitsError={traitsError}
+								fetchAllTraitBySession={fetchAllTraitBySession}
+								cleanTraits={cleanTraits}
 								answers={answers}
-								setAnswers={setAnswers}/>
+								setAnswers={setAnswers}
+								selectedId={selectedId}
+								setSelectedId={setSelectedId}/>
+							
                             }
 							</View>
+							
 							
 							
                         </View>
