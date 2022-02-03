@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -36,7 +36,13 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Growth Coucil would like to use your location</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Growth Coucil would like to use your camera</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Growth Coucil would like to use your bluetooth</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Growth Coucil would like to use your photo gallery</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
