@@ -49,13 +49,15 @@ const Event = props => {
 
   const registerEventByEventID = async eventID => {
     const response = await registerEventByIdentifier({event_id: eventID});
-    if (response?.payload?.status === 200) {
+    if (response?.payload?.code === 200) {
       setEventStatus(true);
       ToastMessage.show('You have successfully registered this event.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
+	
     }
+
   };
 
   const isEventLoaded = Object.keys(events).length === 0;
