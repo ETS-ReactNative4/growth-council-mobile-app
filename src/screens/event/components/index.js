@@ -50,9 +50,7 @@ const Event = props => {
   const registerEventByEventID = async eventID => {
     console.log('event_id ===', eventID);
     const response = await registerEventByIdentifier({event_id: eventID});
-    console.log('payload===', response?.payload?.code);
     if (response?.payload?.code === 200) {
-      console.log('Inside Registered !! ========');
       setEventStatus(true);
       ToastMessage.show('You have successfully registered this event.');
     } else {

@@ -4,28 +4,37 @@ import {
   Text,
   View,
   ScrollView,
+  ImageBackground,
   TextInput,
   Image,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MultiSelect from 'react-multi-select-component';
 import ImagePicker from 'react-native-image-crop-picker';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
+import {getAsyncStorage} from '../../../utils/storageUtil';
+import {decodeUserID} from '../../../utils/jwtUtil';
+import {JWT_TOKEN} from '../../../constants';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import ImageUpload from './ImageUpload';
+import Footer from '../../../shared/footer';
 
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
+
   first_name: Yup.string().required('First name is required.'),
-  last_name: Yup.string().required('Last Name is required.'),
+
+  last_name: Yup.string().required('last Name is required.'),
+
   email: Yup.string()
     .email('Please enter a valid email.')
     .required('Email is required.'),
@@ -105,23 +114,30 @@ const ManageAccount = props => {
     expertise_areas1 = profile?.expertise_areas1;
   }
 
+  //   console.log({expertise_areas1});
+  const [selected, setSelected] = useState([]);
+
   const [items, setItems] = useState([]);
 
+  //profile-image
   const [image, setImage] = useState(profile.avatar);
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
     }).then(image => {
-      console.log('takePhotoFromCamera', image.path);
+      // console.log(image);
+      // console.log(image.path);
       setImage(image.path);
     });
+    console.log('Take Photo');
   };
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
       cropping: true,
     }).then(image => {
-      console.log('choosePhotoFromLibrary', image.path);
+      // console.log(image);
+      console.log('hello', image.path);
       setImage(image.path);
     });
     console.log('choose photo');
@@ -153,10 +169,11 @@ const ManageAccount = props => {
     },
     onSubmit: async values => {
       await updateUser(values).then(response => {
-        if (response?.payload?.status === 200) {
+        if (response?.payload?.code === 200) {
           navigation.navigate('Person');
           ToastMessage.show('Your information has been successfully updated.');
           ToastMessage.show(values.email);
+          console.log(values);
         }
       });
     },
@@ -295,7 +312,7 @@ const ManageAccount = props => {
                     style={{right: 0, position: 'absolute'}}
                   />
                 </View>
-                {/*
+                {/* 
                 <UploadImage /> */}
 
                 <View style={styles.TextWrapper}>
@@ -503,19 +520,7 @@ const ManageAccount = props => {
           </View>
         </View>
       </View>
-      <View
-        style={{
-          alignItems: 'center',
-          width: '35%',
-          marginLeft: 140,
-          marginBottom: 10,
-        }}>
-        <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-        <Image
-          source={require('../../../assets/img/fristDigi.png')}
-          style={{width: '100%', height: 20}}
-        />
-      </View>
+      <Footer />
     </ScrollView>
   );
 };
@@ -615,6 +620,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   TextWrapper: {
+    // backgroundColor:'green'
     marginTop: 10,
   },
 
