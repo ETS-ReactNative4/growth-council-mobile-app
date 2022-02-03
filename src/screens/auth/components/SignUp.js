@@ -67,7 +67,7 @@ const SignUpForm = props => {
       name: '',
       first_name: '',
       last_name: '',
-      username: `admin${rand}`,
+      username: ``,
       password: 'admin21',
       title: '',
       company: '',
@@ -79,6 +79,11 @@ const SignUpForm = props => {
     },
     onSubmit: async values => {
       values.name = values.first_name + ' ' + values.last_name;
+      values.username = values.email.substring(
+        0,
+        values.email.lastIndexOf('@'),
+      );
+      console.log(values);
       try {
         const response = await createUserWithEmailAndPassword(
           auth,
@@ -102,7 +107,7 @@ const SignUpForm = props => {
           });
         }
       } catch (error) {
-        console.log({error});
+        //console.log({error});
         switch (error.code) {
           case 'auth/email-already-in-use':
             ToastMessage.show(

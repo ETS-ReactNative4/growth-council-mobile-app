@@ -52,6 +52,7 @@ export const AuthProvider = ({children}) => {
               setMessage(response?.data?.message);
             }
           } catch (error) {
+            console.log({error});
             setLoading(false);
             setMessage(error.response.data);
           }
