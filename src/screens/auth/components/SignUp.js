@@ -79,7 +79,10 @@ const SignUpForm = props => {
     },
     onSubmit: async values => {
       values.name = values.first_name + ' ' + values.last_name;
-      values.username = value.email.substring(0, value.email.lastIndexOf('@'));
+      values.username = values.email.substring(
+        0,
+        values.email.lastIndexOf('@'),
+      );
       console.log(values);
       try {
         const response = await createUserWithEmailAndPassword(
