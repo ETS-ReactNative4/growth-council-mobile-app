@@ -93,10 +93,6 @@ const sessionAbout = props => {
 	const isSessionLoaded = Object.keys(sessions).length === 0;
     const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
-
-	// setSelectedId()
-	console.log("id",traits.ID)
-
 	
 
 	const _renderItem = ({item, index}, navigation) => {

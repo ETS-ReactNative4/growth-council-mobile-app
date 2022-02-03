@@ -60,11 +60,15 @@ const selfAssessment = props => {
 
 	const [value, setValue] = useState('Sub Trait');
 	const [count, setCount] = useState(0);	
+	const [questionChecked, setQuestionChecked] = useState(null)
+
 
 	const handleAnswerButtonClick = ()=>{
 		const nextTraits = count + 1;
 		if(nextTraits < subTraits.sub_traits.length){
 			setCount(nextTraits);
+			// setQuestionChecked(null);
+			
 		}else{
 			navigation.navigate('radar');
 			
@@ -72,12 +76,25 @@ const selfAssessment = props => {
 	}
 	console.log("abcd",traits);
 
-	useEffect(()=>{
-		const fetchAllSubTraitsAsync = async () =>{
-			await fetchAllSubTrait(route.params.id);
-		};
-		fetchAllSubTraitsAsync();
-	},[]);
+	// useEffect(()=>{
+	// 	const fetchAllSubTraitsAsync = async () =>{
+	// 		await fetchAllSubTrait(route.params.id);
+	// 	};
+	// 	fetchAllSubTraitsAsync();
+	// },[]);
+
+	const SelfAssessmentByTraitsID = async (traitsID, index) => {
+		const response = await fetchAllSubTrait({subTraits_id: traitsID});
+		if (response?.payload?.status === 200) {
+		  let items = [...subTraits];
+		  let item = {...items[index]};
+		  item.sub_traits = true;
+		  items[index] = item;
+		  setSelectedId(items);
+	
+		}
+	  };
+	  console.log(SelfAssessmentByTraitsID)
 
 	return (
 		<View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -110,6 +127,8 @@ const selfAssessment = props => {
 						setAnswers={setAnswers}
 						selectedId={selectedId}
 						setSelectedId={setSelectedId}
+						questionChecked={questionChecked}
+						setQuestionChecked={setQuestionChecked}
 
 						traitsAnswer={traitsAnswer}
 						traitsAnswerLoading={traitsAnswerLoading}

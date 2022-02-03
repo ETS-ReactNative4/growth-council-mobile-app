@@ -20,6 +20,9 @@ const Traits = (props) => {
 		setAnswers,
 		selectedId,
 		setSelectedId,
+		questionChecked,
+		setQuestionChecked,
+
 
 		traitsAnswer,
 		traitsAnswerLoading,
@@ -36,22 +39,7 @@ const Traits = (props) => {
 		fetchAllSubTraitsAsync();
 	},[]);
 
-	// const SelfAssessmentByTraitsID = async (traitsID, index) => {
-	// 	const response = await fetchAllSubTrait({subTraits.ID: traitsID});
-	// 	if (response?.payload?.status === 200) {
-	// 	  let items = [...memberConnection];
-	// 	  let item = {...items[index]};
-	// 	  item.connection = true;
-	// 	  items[index] = item;
-	// 	  setMemberConnection(items);
-	
-	// 	  ToastMessage.show('You have successfully connected.');
-	// 	} else {
-	// 	  toast.closeAll();
-	// 	  ToastMessage.show(response?.payload?.response);
-	// 	}
-	//   };
-	
+	//   console.log(SelfAssessmentByTraitsID)
 	if(subTraits?.length === 0 || subTraits === undefined){
 		return <></>
 	}
@@ -65,6 +53,8 @@ const Traits = (props) => {
 					{...props}
 					answers={answers}
 					setAnswers={setAnswers}
+					questionChecked={questionChecked}
+					setQuestionChecked={setQuestionChecked}
 					question={question}
 					questionIndex={index}
 					key={index}

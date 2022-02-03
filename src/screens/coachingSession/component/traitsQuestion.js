@@ -15,6 +15,8 @@ const TraitsQuestion = (props) =>{
 		answers,
 		setAnswers,
 		questionIndex,
+		questionChecked,
+		setQuestionChecked,
 		
 	}=props
 

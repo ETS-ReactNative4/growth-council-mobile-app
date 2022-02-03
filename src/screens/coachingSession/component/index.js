@@ -71,7 +71,7 @@ const CoachingSession = props => {
 
 	const [display, setDisplay] = useState(true);
 	const ref = useRef();
-	const [selectedId, setSelectedId] = useState(null)
+	const [selectedId, setSelectedId] = useState([])
 	
 	
     return (
