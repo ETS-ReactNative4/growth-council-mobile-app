@@ -5,36 +5,34 @@ import OthersAccount from './components/OthersAccount';
 import {fetchOtherProfileByID, resetProfile} from './slice/otherProfileSlice';
 
 const OtherAccountScreen = props => {
-  const dispatch = useDispatch();
 
-  const {otherProfiles, otherProfileLoading, otherProfileError} = useSelector(
-    state => state.otherProfiles,
-  );
+    const dispatch = useDispatch();
 
-  /**
-   * Fetch other memnber profile data.
-   * @param {string} identifier
-   *
-   */
+    const {otherProfiles, otherProfileLoading, otherProfileError} = useSelector(state => state.otherProfiles);
 
-  const fetchOtherProfileByIdentifier = identifier => {
-    dispatch(fetchOtherProfileByID(identifier));
-  };
+    /**
+     * Fetch other member profile data.
+     * @param {string} identifier
+     *
+     */
+    const fetchOtherProfileByIdentifier = identifier => {
+        dispatch(fetchOtherProfileByID(identifier));
+    };
 
-  const cleanProfile = () => {
-    dispatch(resetProfile());
-  };
+    const cleanProfile = () => {
+        dispatch(resetProfile());
+    };
 
-  return (
-    <OthersAccount
-      {...props}
-      otherProfiles={otherProfiles}
-      otherProfileLoading={otherProfileLoading}
-      otherProfileError={otherProfileError}
-      fetchOtherProfileByIdentifier={fetchOtherProfileByIdentifier}
-      cleanProfile={cleanProfile}
-    />
-  );
+    return (
+        <OthersAccount
+            {...props}
+            otherProfiles={otherProfiles}
+            otherProfileLoading={otherProfileLoading}
+            otherProfileError={otherProfileError}
+            fetchOtherProfileByIdentifier={fetchOtherProfileByIdentifier}
+            cleanProfile={cleanProfile}
+        />
+    );
 };
 
 export default OtherAccountScreen;

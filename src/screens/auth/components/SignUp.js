@@ -91,7 +91,7 @@ const SignUpForm = props => {
         const token = await response.user.getIdToken();
         if (token) {
           await registerCustomer(values).then(response => {
-            //console.log('response:::::::::::::::', response);
+            console.log('response:::::::::::::::', response);
             if (response?.payload?.code === 200) {
               // navigation.navigate('SignUpNext');
               navigation.navigate('SignIn');
