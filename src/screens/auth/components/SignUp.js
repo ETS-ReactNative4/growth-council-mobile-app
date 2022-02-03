@@ -67,7 +67,7 @@ const SignUpForm = props => {
       name: '',
       first_name: '',
       last_name: '',
-      username: `admin${rand}`,
+      username: `user_${uuid.v4()}`,
       password: 'admin21',
       title: '',
       company: '',
