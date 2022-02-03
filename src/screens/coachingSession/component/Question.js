@@ -1,84 +1,75 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { 
 	StyleSheet, 
 	Text, 
 	View,
-	FlatList, } 
+	FlatList, TextInput} 
 from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import Checkbox from '../../../shared/form/Checkbox';
-import RoundCheckbox from 'rn-round-checkbox';
+import YellowQuestion from './YellowQuestion';
 
-const Question = () => {
-	const [checked, setChecked] = useState(false);
+const Question = props => {
+	const{
+		navigation,
+		route,
+		value,
+		onChange,
 
-	const data = [
-		{
-			text: 'You can’t connect the dots going forward?',
-		},
-		{
-			text: 'You can connect the dots going forward?',
-		},
-		{
-			text: 'You can’t connect the dots going forward?',
-		},
-		{
-			text: 'You can connect the dots going forward?',
-		},
-	];
-	const _renderItem = ({item, index}) => {
-		return (
-		<View style={[styles.questionWrapper,styles.shadowProp]}>
-			<View style={{ alignItems:"center", height:40, justifyContent:'center'}}>
-				<Text style={styles.title}>{item.text}</Text>
-			</View>
-			<View style={{height:1, borderWidth:0.1, backgroundColor:'#D8D8D8'}}/>
+		subTraits,
+		subTraitsLoading,
+		subTraitsError,
+		fetchAllSubTrait,
+		cleanSubTrait,
+		count,
 
-			<View style={styles.wrapper}>
-				<View style={{marginLeft:10, flexDirection:'row'}}>
-					
-					<RoundCheckbox
-						size={24}
-						label="Yes"
-						backgroundColor="#EAEBED"
-					/>
-					<Text style={{fontSize:13, marginLeft:5}}>Yes</Text>
-					
-					
-				</View>
-				<View  style={{marginLeft:100, flexDirection:"row"}}>
-					<RoundCheckbox
-						size={24}
-						label="No"
-						backgroundColor=""
-					/>
-					<Text style={{fontSize:13, marginLeft:5}}>No</Text>
-				</View>
-			
-				
-			</View>
-				
-			<View>
+		traitsAnswer,
+		traitsAnswerLoading,
+		traitsAnswerError,
+		fetchTraitsAnswer,
+		updateTraitsAnswer,
+		cleanTraitsAnswer
+	}=props;
 
-			</View>
-		</View>
-		);
-	  };
+
+	// const{
+	// 	setFieldValue,
+
+	// }=useFormik({
+	// 	initialValues:{
+	// 		checked:false,
+	// 	}
+	// })
+
+	useEffect(()=>{
+		const fetchAllSubTraitsAsync = async (identifier) =>{
+			await fetchAllSubTrait(identifier);
+		};
+		fetchAllSubTraitsAsync();
+	},[]);
+
+	const [radioState, setRadioState] = useState(value);
+	if(subTraits?.length === 0 || subTraits === undefined){
+		return <></>
+	}
+
   return (
 	<View>
-	 	<FlatList
-			vertical
-			showsVerticalScrollIndicator={false}
-			data={data}
-			renderItem={_renderItem}
-		/>
+	
+		{
+			subTraits?.sub_traits[count]?.yellow_benchmark_questions?.map((question, key)=>(	
+				<YellowQuestion
+				{...props}
+				question={question}
+				/>
+				))
+			}
 	</View>
   );
 };
 
 const styles = StyleSheet.create({
 	questionWrapper:{
-		height:124,
+		height:154,
 		borderRadius:22,
 		 margin:5,
 		 marginTop:25,
@@ -107,6 +98,7 @@ const styles = StyleSheet.create({
 		  flexDirection:'row',
 		  marginTop:15,
 		  marginLeft:20,
+		
 	  }
 });
 
