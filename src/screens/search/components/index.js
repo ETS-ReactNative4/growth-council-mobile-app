@@ -118,6 +118,7 @@ const Search = (props) => {
                     <Text style={{fontFamily:Typography.FONT_SF_SEMIBOLD, fontSize: 11}}>Suggestions</Text>
 
                     <View style={{display: 'flex', flexDirection: 'row'}}>
+					
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
@@ -126,12 +127,13 @@ const Search = (props) => {
                         />
                     </View>
                 </View>
-                <View style={styles.events}>
 				{searchLoading && (
 					<View style={styles.loading1}>
-					<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+					<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
 					</View>
 				)}
+                <View style={styles.events}>
+				
                     <FlatList
                         showsHorizontalScrollIndicator={false}
                         data={searches.events_sessions}
@@ -297,11 +299,14 @@ const styles = StyleSheet.create({
 		elevation: 5,
 	  },
 	  loading1: {
-		marginLeft: 150,
-		flex: 1,
-		flexDirection: 'column',
-		position: 'absolute',
-		zIndex: 1011,
+		top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
 	  },
 });
 
