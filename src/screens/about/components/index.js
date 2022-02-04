@@ -14,7 +14,6 @@ import {Button} from 'native-base';
 import {Linking} from 'react-native';
 import HTMLView from 'react-native-htmlview';
 import Footer from '../../../shared/footer';
-import RenderHtml from 'react-native-render-html';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -88,12 +87,12 @@ const About = props => {
 
               <View style={styles.titleBorder}></View>
             </View>
-            <RenderHtml contentWidth={width} source={{html: content1}} />
+            {/* <RenderHtml contentWidth={width} source={{html: content1}} /> */}
 
-            {/* <HTMLView
+            <HTMLView
               value={content1}
               textComponentProps={{style: {fontSize: 14}}}
-            /> */}
+            />
           </View>
           <View style={styles.aboutImage}>
             <Image
@@ -125,15 +124,15 @@ const About = props => {
 
               <View style={styles.backgroundTitleBorder}></View>
             </View>
-            <RenderHtml
+            {/* <RenderHtml
               contentWidth={width}
               source={{html: content2}}
               tagsStyles={tagsStyles}
-            />
-            {/* <HTMLView
+            /> */}
+            <HTMLView
               value={content2}
               textComponentProps={{style: {color: 'white', fontSize: 14}}}
-            /> */}
+            />
             {/* <Text style={styles.backgroundParagraph}>
                             
                         </Text> */}
