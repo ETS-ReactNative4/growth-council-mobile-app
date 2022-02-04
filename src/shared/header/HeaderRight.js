@@ -23,9 +23,9 @@ const HeaderRight = ({navigation}) => {
 			<Ionicons
 				name="search-outline"
 				color={'white'}
-				size={30}
+				size={Platform.OS === 'ios' ? 20 : 30}
 				style={{marginTop: 15, 
-					marginRight: Platform.OS === 'ios' ? 10 : 10,}}
+					marginRight: Platform.OS === 'ios' ? 5 : 5,}}
 			/>
 		</TouchableOpacity>
      

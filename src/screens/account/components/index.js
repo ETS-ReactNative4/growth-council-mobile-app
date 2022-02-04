@@ -23,8 +23,6 @@ import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
 
 
-const win = Dimensions.get('window');
-  const buttonContainerWidth = win.width - 120;
 const Profile = (props) => {
     const {
         navigation,
@@ -386,7 +384,7 @@ const styles = StyleSheet.create({
         fontSize: 14, fontWeight: '500', margin: 15
     },
     buttonWrapper: {
-        width: buttonContainerWidth,
+        width: 267,
         height: 50,
         backgroundColor: "#ECECEC",
         borderRadius: 10,
