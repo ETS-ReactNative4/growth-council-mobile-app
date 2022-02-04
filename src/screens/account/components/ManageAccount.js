@@ -61,7 +61,6 @@ const ManageAccount = props => {
     } = props;
 
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState([]);
 
     let Location = profile?.user_meta?.Location;
     if (typeof Location === 'undefined') {
@@ -105,6 +104,7 @@ const ManageAccount = props => {
         expertise_areas1 = profile?.expertise_areas1;
     }
 
+    const [value, setValue] = useState([]);
     const [items, setItems] = useState([]);
 
     const [image, setImage] = useState(profile.avatar);
@@ -179,12 +179,12 @@ const ManageAccount = props => {
             professional_summary: professional_summary,
         },
         onSubmit: async values => {
+            console.log("values::::::::::", values);
             await updateUser(values).then(response => {
                 if (response?.payload?.code === 200) {
                     navigation.navigate('Person');
                     ToastMessage.show('Your information has been successfully updated.');
                     ToastMessage.show(values.email);
-                    console.log(values);
                 }
             });
         },
@@ -205,12 +205,15 @@ const ManageAccount = props => {
     }, []);
 
     useEffect(() => {
+        console.log("expertise_areas1::::::::::", expertise_areas1);
+        setValue(expertise_areas1);
         const result = Object.entries(expertise).map(([key, value]) => ({
             label: key,
             value,
         }));
         setItems(result);
-    }, [expertise]);
+        return () => {setValue([])};
+    }, []);
 
     return (
         <ScrollView
