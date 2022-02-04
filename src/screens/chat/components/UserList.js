@@ -15,6 +15,7 @@ import {getAsyncStorage} from "../../../utils/storageUtil";
 import {JWT_TOKEN, USER_NAME, USER_AVATAR} from "../../../constants";
 import {decodeUserID} from "../../../utils/jwtUtil";
 import Footer from '../../../shared/footer';
+import {BubblesLoader} from 'react-native-indicator';
 
 const UserList = (props) => {
 
@@ -107,6 +108,14 @@ const UserList = (props) => {
                 </TouchableOpacity>
 
             </View>
+			{connectionLoading && (
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={60}
+                    />
+                  </View>
+                )}
             <FlatList
                 Vertical
                 showsVerticalScrollIndicator={false}
@@ -164,6 +173,16 @@ const styles = StyleSheet.create({
         shadowRadius: 1.84,
         elevation: 5,
     },
+	loading1: {
+		top: 10,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		justifyContent: 'center',
+		alignItems: 'center',
+		position: 'absolute',
+		zIndex: 1011,
+	  },
 });
 
 export default UserList;
