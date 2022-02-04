@@ -71,10 +71,6 @@ const selfAbout = props => {
 						)}>
 						<Text style={{color:"white", fontSize:11}} >Read E-Book</Text>
 						</Button>
-						
-						
-					
-					
 					
 				</View>
 			</View>
@@ -82,7 +78,7 @@ const selfAbout = props => {
 				{selfLearnLoading && (
 					 <View
 					 style={{
-						 top: 10,
+						 top: 0,
 						 left: 0,
 						 right: 0,
 						 bottom: 0,

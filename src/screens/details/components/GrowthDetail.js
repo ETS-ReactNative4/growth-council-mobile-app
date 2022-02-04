@@ -184,7 +184,9 @@ const GrowthDetail = props => {
     const date = actualDate[0].split(' ', 3);
     console.log(date[1]);
     return (
+		
       <View>
+		 
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('coachingSession', {
@@ -341,7 +343,7 @@ const GrowthDetail = props => {
               }}
             />
           </View>
-
+		 
           <View style={styles.content}>
             <View style={styles.contentWrapper}>
               <Text
@@ -353,28 +355,7 @@ const GrowthDetail = props => {
                   marginTop: 50,
                 }}>
                 {poeDetails.name}
-              </Text>
-              {/* {poeEventLoading && (
-                <>
-                  <View
-                    style={{
-						top: 10,
-						left: 0,
-						right: 0,
-						bottom: 0,
-						justifyContent: 'center',
-						alignItems: 'center',
-						position: 'absolute',
-						zIndex: 1011,
-					  
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )} */}
+              </Text>     
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               {/* <View style={styles.top}>
@@ -392,6 +373,7 @@ const GrowthDetail = props => {
                   />
                 </View>
               </View> */}
+			   
               <View style={styles.middle}>
                 <Text style={styles.title}>Sessions</Text>
                 <View
@@ -399,6 +381,27 @@ const GrowthDetail = props => {
                     display: 'flex',
                     flexDirection: 'row',
                   }}>
+				{coachingSessionLoading && (
+					<>
+					<View
+						style={{
+							top: 0,
+							left: 0,
+							right: 0,
+							bottom: 0,
+							justifyContent: 'center',
+							alignItems: 'center',
+							position: 'absolute',
+							zIndex: 1011,
+						
+						}}>
+						<BubblesLoader
+						color={Colors.SECONDARY_TEXT_COLOR}
+						size={80}
+						/>
+					</View>
+					</>
+				)}
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
