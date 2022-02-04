@@ -79,9 +79,9 @@ const Event = props => {
       backgroundColor = Colors.COMMUNITY_COLOR;
   }
 
-  let description = events?.description;
+  let description = events?.descirption;
   if (description !== undefined) {
-    description = events?.description;
+    description = events?.descirption;
   } else {
     description = '';
   }
@@ -225,7 +225,6 @@ const Event = props => {
                       />
                     </View>
                   )}
-                  
                 </View>
               </View>
               <View style={styles.seperationline} />
