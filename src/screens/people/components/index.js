@@ -8,11 +8,10 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Font from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
@@ -65,8 +64,8 @@ const People = props => {
     fetchAllExpertisesAsync();
   }, []);
 
-  console.log(memberConnections);
-  
+  console.log(expertise);
+  const countries = ["Egypt", "Canada", "Australia", "Ireland"]
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
@@ -166,11 +165,11 @@ const People = props => {
           />
         </View>
         <View style={styles.iconWrapper}>
-          <View style={{borderRightWidth: 0.2, borderColor: '#707070', width:"65%"}}>
             <Picker
               selectedValue={category}
               mode={'dropdown'}
-             
+			  style={{ height: 50, width: '65%'}}
+			  itemStyle={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }]}}
               onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
               
               {Object.keys(expertise).map(key => {
@@ -179,7 +178,6 @@ const People = props => {
                 );
               })}
             </Picker>
-          </View>
 
           <View style={styles.icon}>
             <Ionicons
@@ -205,7 +203,7 @@ const People = props => {
             <Text style={styles.textWrapper}>Sort</Text>
           </View>
         </View>
-        <View style={{marginTop: 30}}>
+        <View style={{marginTop: 40}}>
           <FlatList
             vertical
             showsVerticalScrollIndicator={false}
