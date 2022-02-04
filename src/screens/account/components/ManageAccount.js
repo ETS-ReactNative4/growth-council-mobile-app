@@ -184,7 +184,7 @@ const ManageAccount = props => {
                 if (response?.payload?.code === 200) {
                     navigation.navigate('Person');
                     ToastMessage.show('Your information has been successfully updated.');
-                    ToastMessage.show(values.email);
+                    ToastMessage.show(values);
                 }
             });
         },
@@ -212,8 +212,8 @@ const ManageAccount = props => {
             value,
         }));
         setItems(result);
-        return () => {setValue([])};
-    }, []);
+        // return () => {setValue([])};
+    }, [expertise]);
 
     return (
         <ScrollView
