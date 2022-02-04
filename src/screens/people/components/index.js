@@ -166,13 +166,13 @@ const People = props => {
           />
         </View>
         <View style={styles.iconWrapper}>
-          <View style={{borderRightWidth: 0.2, borderColor: '#707070'}}>
+          <View style={{borderRightWidth: 0.2, borderColor: '#707070', width:"65%"}}>
             <Picker
               selectedValue={category}
               mode={'dropdown'}
-              style={{ width: 230}}
+             
               onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
-              <Picker.Item label="Category" value="Category" />
+              
               {Object.keys(expertise).map(key => {
                 return (
                   <Picker.Item label={expertise[key]} value={key} key={key} />
@@ -204,16 +204,6 @@ const People = props => {
             />
             <Text style={styles.textWrapper}>Sort</Text>
           </View>
-
-          {/* <View style={styles.icon}>
-						<Font
-							name='filter'
-							size={20}
-							color='#7E7F84'
-							style={{marginTop: 15, marginRight:10}}
-						/>
-						<Text style={styles.textWrapper}>Filter</Text>
-					</View> */}
         </View>
         <View style={{marginTop: 30}}>
           <FlatList
@@ -267,7 +257,6 @@ const styles = StyleSheet.create({
   iconWrapper: {
     display: 'flex',
     flexDirection: 'row',
-    height: 48,
     justifyContent: 'center',
     alignContent: 'center',
   },

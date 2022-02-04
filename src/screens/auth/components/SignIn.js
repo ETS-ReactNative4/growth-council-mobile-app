@@ -257,13 +257,18 @@ const styles = StyleSheet.create({
   signuptext: {
     flexDirection: 'row',
   },
+ 
   loading1: {
-    marginLeft: 100,
-    flex: 1,
-    flexDirection: 'column',
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     zIndex: 1011,
   },
+ 
 });
 
 export default SignInForm;
