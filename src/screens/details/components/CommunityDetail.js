@@ -222,14 +222,15 @@ const CommunityDetail = props => {
                 <>
                   <View
                     style={{
-                      flex: 1,
-                      alignItems: 'center',
-                      flexDirection: 'column',
-                      justifyContent: 'space-around',
-                      position: 'absolute',
-                      zIndex: 1011,
-                      top: 120,
-                      left: 150,
+						top: 10,
+						left: 0,
+						right: 0,
+						bottom: 0,
+						justifyContent: 'center',
+						alignItems: 'center',
+						position: 'absolute',
+						zIndex: 1011,
+					  
                     }}>
                     <BubblesLoader
                       color={Colors.SECONDARY_TEXT_COLOR}

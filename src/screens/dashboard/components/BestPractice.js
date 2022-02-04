@@ -189,11 +189,7 @@ const BestPractice = props => {
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Best Practices Events</Text>
-          {pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-            </View>
-          )}
+          
           <View
             style={{
               display: 'flex',
@@ -209,6 +205,7 @@ const BestPractice = props => {
           </View>
         </View>
 
+		
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
           <ScrollView
@@ -216,6 +213,12 @@ const BestPractice = props => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             style={{marginLeft: 10}}>
+
+			{pillarEventLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
             <FlatList
               horizontal
               // numColumns={Math.ceil(pillarPOEs.length / 2)}
@@ -387,9 +390,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loading1: {
-    marginLeft: 150,
-    flex: 1,
-    flexDirection: 'column',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     zIndex: 1011,
   },
