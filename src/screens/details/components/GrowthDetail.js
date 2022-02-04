@@ -78,19 +78,20 @@ const GrowthDetail = props => {
     };
     fetchCoachingSessionAsync();
   }, []);
+
   useEffect(() => {
     const fetchPoeSelfLearnAsync = async () => {
-      await fetchPoeSelfLearn(route.params.poeId);
+      await fetchPoeSelfLearn();
     };
     fetchPoeSelfLearnAsync();
   }, []);
 
-  console.log('POE id:::::::::::::::::', route.params.poeId);
+//   console.log('POE id:::::::::::::::::', route.params.poeId);
 //   console.log('parent id:::::::::::::::::', route.params.pillarId);
-//   console.log('Self Learn ====', poeSelfLearns);
+  console.log('Self Learn ====', poeSelfLearns);
 
-  console.log('session', route.params.poeId);
-  console.log('session', coachingSession);
+//   console.log('session', route.params.poeId);
+  
 
   const _renderItem = ({item, index}) => {
     return (
@@ -259,48 +260,60 @@ const GrowthDetail = props => {
 
   const _renderLearnItem = ({item, index}) => {
     return (
-      <View style={styles.learnWrapper}>
-        <Image
-          style={{
-            width: 72,
-            height: 102,
-            margin: 10,
-            borderRadius: 10,
-          }}
-          source={require('../../../assets/img/best_practices_slider_image.png')}
-        />
-        <View>
-          <View>
-            <Text
-              style={{
-                fontWeight: '500',
-                fontSize: 10,
-                marginLeft: 10,
-                marginTop: 10,
-              }}>
-              {item.title}
-            </Text>
-            <Text
-              style={{marginLeft: 10, width: 80, marginTop: 10, fontSize: 8}}>
-              {item.text}
-            </Text>
-          </View>
-          <View
-            style={{
-              marginTop: 30,
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 10,
-              fontSize: 8,
-            }}>
-            <Ionicons
-              name={'book-outline'}
-              size={12}
-              color="#cccccc"
-              style={{right: 0, marginLeft: 80}}
-            />
-          </View>
-        </View>
+		<View>
+			<TouchableOpacity
+				onPress={() =>
+					navigation.navigate('selflearn', {
+					id: item.ID,
+					selfLearnId: item?.ID,
+					})
+				}>
+				<View style={styles.learnWrapper}>
+					<Image
+					style={{
+						width: 72,
+						height: 102,
+						margin: 10,
+						borderRadius: 10,
+					}}
+					source={require('../../../assets/img/best_practices_slider_image.png')}
+					/>
+					<View>
+					<View>
+						<Text
+						style={{
+							fontWeight: '500',
+							fontSize: 10,
+							marginLeft: 10,
+							marginTop: 10,
+							width:100,
+							
+						}}>
+						{item?.title}
+						</Text>
+						<Text
+						style={{marginLeft: 10, width: 100, marginTop: 10, fontSize: 8}}>
+							Prime Yourself to become Insenely Great Leader
+						</Text>
+					</View>
+					{/* <View
+						style={{
+						marginTop: 30,
+						display: 'flex',
+						flexDirection: 'row',
+						marginLeft: 10,
+						fontSize: 8,
+						}}>
+						<Ionicons
+						name={'book-outline'}
+						size={12}
+						color="#cccccc"
+						style={{right: 0, marginLeft: 80}}
+						/>
+					</View> */}
+					</View>
+				</View>
+			</TouchableOpacity>
       </View>
     );
   };
@@ -404,7 +417,7 @@ const GrowthDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={learn}
+                    data={poeSelfLearns}
                     renderItem={_renderLearnItem}
                   />
                 </View>

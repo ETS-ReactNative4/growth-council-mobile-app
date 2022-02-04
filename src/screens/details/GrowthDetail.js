@@ -60,8 +60,8 @@ const GrowthDetailScreen = props => {
     dispatch(fetchAllPOEEvents(poeId));
   };
 
-  const fetchPoeSelfLearn = poeId => {
-    dispatch(fetchPoeSelfLearns(poeId));
+  const fetchPoeSelfLearn = () => {
+    dispatch(fetchPoeSelfLearns());
   };
 
   const fetchAllPillarMemberContent = pillarId => {
