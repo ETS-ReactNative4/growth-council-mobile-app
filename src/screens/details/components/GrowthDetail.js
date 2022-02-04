@@ -81,7 +81,7 @@ const GrowthDetail = props => {
 
   useEffect(() => {
     const fetchPoeSelfLearnAsync = async () => {
-      await fetchPoeSelfLearn();
+      await fetchPoeSelfLearn(route.params.poeId);
     };
     fetchPoeSelfLearnAsync();
   }, []);
@@ -354,7 +354,7 @@ const GrowthDetail = props => {
                 }}>
                 {poeDetails.name}
               </Text>
-              {poeEventLoading && (
+              {/* {poeEventLoading && (
                 <>
                   <View
                     style={{
@@ -374,7 +374,7 @@ const GrowthDetail = props => {
                     />
                   </View>
                 </>
-              )}
+              )} */}
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               {/* <View style={styles.top}>

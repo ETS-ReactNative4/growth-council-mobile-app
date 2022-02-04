@@ -30,7 +30,7 @@ const CoachingSession = props => {
 
 
 	const dispatch = useDispatch();
-	const {traits,traitsLoading,traitsError}= useSelector(state => state.traits);
+	const {traits,traitsLoading,traitsError}= useSelector((state )=> state.traits);
 	const {sessions, sessionLoading, sessionError} = useSelector((state) => state.sessions);
 	const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} = useSelector((state) => state.sessionRegisters);
 

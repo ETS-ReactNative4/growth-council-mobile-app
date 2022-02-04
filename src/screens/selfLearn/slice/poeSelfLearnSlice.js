@@ -4,8 +4,8 @@ import {fetch} from '../../../utils/httpUtil';
 
 export const fetchPoeSelfLearns = createAsyncThunk(
   'poeSelfLearn/fetchAll',
-  (_, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/poes/147/self-learns`)
+  (poeId, {rejectWithValue}) => {
+    return fetch(`jwt-auth/v1/poes/${poeId}/self-learns`)
       .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
