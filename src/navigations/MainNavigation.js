@@ -217,7 +217,7 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Dashboard"
           component={DrawerNavigation}
-          options={() => ({
+          options={({navigation}) => ({
             headerTitle: '',
             headerTransparent: true,
             ...TransitionPresets.SlideFromRightIOS,
