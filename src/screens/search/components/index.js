@@ -71,10 +71,30 @@ const Search = (props) => {
 	
 	
 	const searchTag = ({item, index}) => {
+		let navigationPath = '';
+    
+    switch (item?.slug) {
+      case 'community':
+        navigationPath = 'Community';
+        break;
+      case 'best-practices':
+        navigationPath = 'Best Practices';     
+        break;
+      case 'growth-coaching':
+        navigationPath = 'Growth Coaching';
+    }
 		return (
-			<View style={[styles.searchTagBtn, styles.shadowProp]}>
-				<Text style={styles.searchTabBtnText}>{item.name}</Text>
+			<View>
+				<TouchableOpacity
+				onPress={() =>
+				navigation.navigate(navigationPath, {pillarId: item.term_id})
+				}>
+					<View style={[styles.searchTagBtn, styles.shadowProp]}>
+						<Text style={styles.searchTabBtnText}>{item.name}</Text>
+					</View>
+				</TouchableOpacity>
 			</View>
+			
 		);
 	};
 	
