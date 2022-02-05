@@ -20,7 +20,7 @@ import Footer from '../../../shared/footer';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const win = Dimensions.get('window');
-  const contentContainerWidth = win.width - 30;
+const contentContainerWidth = win.width - 30;
 
 const GrowthCoaching = props => {
   const {
@@ -71,8 +71,8 @@ const GrowthCoaching = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  console.log('Coaching pillar_id', pillarId);
-  console.log({pillarMemberContents});
+  // console.log('Coaching pillar_id', pillarId);
+  // console.log({pillarMemberContents});
 
   // console.log('Growth Coaching =========', growthCoachings);
   // console.log('Member================', growthCoachingMemberContents);
@@ -111,13 +111,16 @@ const GrowthCoaching = props => {
   };
 
   const _renderMiddleItem = ({item, index}, navigation) => {
+    let nav = 'CommunityDetail';
+    if (item?.slug === 'growth-leadership-coaching') {
+      nav = 'GrowthDetail';
+    }
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('GrowthDetail', {
+          navigation.navigate(nav, {
             poeId: item?.term_id,
             pillarId: item?.parent,
-			
           })
         }>
         <View style={styles.middleWrapper}>
@@ -207,7 +210,7 @@ const GrowthCoaching = props => {
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Growth Coaching Events</Text>
-         
+
           <View
             style={{
               display: 'flex',
@@ -222,7 +225,7 @@ const GrowthCoaching = props => {
             />
           </View>
         </View>
-		
+
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
 
@@ -232,12 +235,11 @@ const GrowthCoaching = props => {
               flexDirection: 'row',
               marginLeft: 10,
             }}>
-				
-			{pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+            {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -383,7 +385,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
-	marginRight:10,
+    marginRight: 10,
   },
   ContentWrapper: {
     height: 210,

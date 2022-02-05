@@ -262,15 +262,7 @@ const MainNavigation = () => {
             headerTitle: 'Session Detail',
           })}
         />
-        <Stack.Screen
-          name="CommunityDetail"
-          component={CommunityDetailScreen}
-          options={({route}) => ({
-            poeId: route.params.poeId,
-            pillarId: route.params.pillarId,
-            headerShown: false,
-          })}
-        />
+
         <Stack.Screen
           name="Chat"
           component={ChatScreen}
@@ -297,6 +289,15 @@ const MainNavigation = () => {
           component={PrivacyPolicyScreen}
           options={{headerShown: false}}
         /> */}
+        <Stack.Screen
+          name="CommunityDetail"
+          component={CommunityDetailScreen}
+          options={({route}) => ({
+            poeId: route.params.poeId,
+            pillarId: route.params.pillarId,
+            headerShown: false,
+          })}
+        />
         <Stack.Screen
           name="Terms"
           component={TermsConditionsScreen}

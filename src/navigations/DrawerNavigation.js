@@ -35,6 +35,7 @@ import BottomTabNavigation from './BottomTabNavigation';
 import {Colors} from '../theme';
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
+import {clearAsyncStorage} from '../utils/storageUtil';
 
 const Drawer = createDrawerNavigator();
 
@@ -42,6 +43,12 @@ const CustomDrawerContent = props => {
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
+
+  // const logout = () => {
+  //   clearAsyncStorage();
+  //   navigation.navigate('Home');
+  //   ToastMessage.show('Your have successfully logout');
+  // };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -67,14 +74,21 @@ const CustomDrawerContent = props => {
         {/*}*/}
         {/*/>*/}
 
+        {/* <DrawerItem style={{marginLeft: 68}} label="Logout" onPress={logout} /> */}
+
         <View style={styles.footer}>
-				<Image source={require("../../src/assets/img/footer_logo.png")} style={{width:195, height:30}}/>
-				<Text style={styles.footerText}>EmpoweredBy</Text>
-				<View style={{width:175,}}>
-					<Image source={require("../../src/assets/img/fristDigi.png")} style={{width:"100%", }} />
-				</View>
-				
-			</View>
+          <Image
+            source={require('../../src/assets/img/footer_logo.png')}
+            style={{width: 195, height: 30}}
+          />
+          <Text style={styles.footerText}>Powered By</Text>
+          <View style={{width: 175}}>
+            <Image
+              source={require('../../src/assets/img/fristDigi.png')}
+              style={{width: '100%'}}
+            />
+          </View>
+        </View>
       </DrawerContentScrollView>
     </SafeAreaView>
   );
@@ -108,7 +122,7 @@ const DrawerNavigation = ({navigation}) => {
                   name="menu-outline"
                   color={'white'}
                   size={30}
-                  style={{marginLeft: 10, top: 10}}
+                  style={{marginLeft: 10, top: 5}}
                 />
               </TouchableOpacity>
             </View>
@@ -120,7 +134,7 @@ const DrawerNavigation = ({navigation}) => {
                   style={{
                     top: -29,
                     position: 'absolute',
-                    height:Platform.OS === 'ios' ? 40 : 35,
+                    height: Platform.OS === 'ios' ? 40 : 35,
                     width: Platform.OS === 'ios' ? 40 : 35,
                     left: 30,
                     marginLeft: 17,
@@ -149,7 +163,6 @@ const DrawerNavigation = ({navigation}) => {
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Material name="group-work" color={'#14A2E2'} size={24} />
-			
           ),
           headerBackground: () => (
             <View>
@@ -365,7 +378,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 150,
+    marginTop: 75,
   },
   footerText: {
     margin: 3,
