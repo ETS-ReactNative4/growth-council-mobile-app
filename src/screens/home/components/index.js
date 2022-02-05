@@ -178,7 +178,7 @@ const Home = props => {
         </Text>
         <Image
           source={require('../../../assets/img/frost_digital_logo_1.png')}
-          style={styles.footerlogo}
+          style={styles.footerlogo1}
         />
       </View>
     </View>
@@ -299,6 +299,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footerlogo: {
+	width:150,
+	height: 25,
+	resizeMode: 'contain',
+	opacity: 2,
+  },
+  footerlogo1: {
     width: 120,
     height: 15,
     resizeMode: 'contain',
