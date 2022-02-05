@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Font from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
+import { Dialog } from 'react-native-paper';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -45,7 +45,7 @@ const People = props => {
   } = props;
 
   const toast = useToast();
-  const [category, setCategory] = useState('Category');
+  const [category, setCategory] = useState( );
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
@@ -88,6 +88,17 @@ const People = props => {
     }
     console.log(response);
   };
+
+  const pickerRef = useRef();
+
+	function open() {
+	pickerRef.current.focus();
+	}
+
+	function close() {
+	pickerRef.current.blur();
+	}
+ 
 
   const _renderItem = ({item, index}) => {
     return (
@@ -173,15 +184,13 @@ const People = props => {
           />
         </View>
         <View style={styles.iconWrapper}>
-          <View
-            style={{
-              borderRightWidth: 0.2,
-              borderColor: '#707070',
-              width: '65%',
-            }}>
+          
             <Picker
               selectedValue={category}
-              mode={'dropdown'}
+			  ref={pickerRef}
+              mode={Dialog}
+			  style={{ height: 50, width: '65%'}}
+			  itemTextStyle={{fontSize:12}}
               onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
               onPress={async () => {
                 setSorting('DESC');
@@ -193,11 +202,10 @@ const People = props => {
               }}>
               {Object.keys(expertise).map(key => {
                 return (
-                  <Picker.Item label={expertise[key]} value={key} key={key} />
+                  <Picker.Item label={expertise[key]} value={key} key={key} style={{fontSize:12}}  />
                 );
               })}
             </Picker>
-          </View>
 
           <View style={styles.icon}>
             <Ionicons
@@ -231,7 +239,7 @@ const People = props => {
             <Text style={styles.textWrapper}>Sort</Text>
           </View>
         </View>
-        <View style={{marginTop: 30}}>
+        <View style={{marginTop: 40}}>
           <FlatList
             vertical
             showsVerticalScrollIndicator={false}

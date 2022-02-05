@@ -35,14 +35,14 @@ export const httpBase = (isDownloadable = false) => {
             return response;
         },
         async (error) => {
-            if (401 === error.response.status) {
+            if (401 === error.response.code) {
                 await clearAsyncStorage(JWT_TOKEN);
                 navigate('SignIn')
             }
-            if (404 === error.response.status) {
+            if (404 === error.response.code) {
                 // TODO
             }
-            if (500 === error.response.status) {
+            if (500 === error.response.code) {
                 // TODO
             }
             return Promise.reject(error);

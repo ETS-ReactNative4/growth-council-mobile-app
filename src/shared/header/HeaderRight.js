@@ -18,17 +18,18 @@ const HeaderRight = ({navigation}) => {
   }, []);
 
   return (
-    <View style={{display: 'flex', flexDirection: 'row', marginLeft: 5}}>
-      <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-        <Ionicons
-          name="search-outline"
-          color={'white'}
-          size={30}
-          style={{marginTop: 15, marginRight: Platform.OS === 'ios' ? 10 : 10}}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate('Person')}>
+    <View style={{display: 'flex', flexDirection: 'row', marginLeft:5}}>
+		<TouchableOpacity onPress={() => navigation.navigate('Search')}>
+			<Ionicons
+				name="search-outline"
+				color={'white'}
+				size={Platform.OS === 'ios' ? 20 : 30}
+				style={{marginTop: 15, 
+					marginRight: Platform.OS === 'ios' ? 5 : 5,}}
+			/>
+		</TouchableOpacity>
+     
+      <TouchableOpacity onPress={() => navigation.navigate('ManageAccount')}>
         <Image
           //source={require('../assets/img/small_profile_image.png')}
           source={{

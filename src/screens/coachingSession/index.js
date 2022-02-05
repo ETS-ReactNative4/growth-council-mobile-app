@@ -14,7 +14,7 @@ const CoachingSessionDetailScreen = props => {
 	const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} = useSelector((state) => state.sessionRegisters);
 
 
-	const fetchAllTraits = sessionId =>{
+	const fetchAllTrait = sessionId =>{
 		dispatch(fetchAllTraits(sessionId));
 	}
 
@@ -46,7 +46,7 @@ const CoachingSessionDetailScreen = props => {
 			traits={traits}
 			traitsLoading={traitsLoading}
 			traitsError={traitsError}
-			fetchAllTraits={fetchAllTraits}
+			fetchAllTrait={fetchAllTrait}
 			cleanTraits={cleanTraits}
 
 			{...props}
