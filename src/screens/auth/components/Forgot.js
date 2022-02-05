@@ -43,7 +43,7 @@ const ForgotForm = props => {
         console.log('response?.payload', response);
         if (response?.payload?.code === 200) {
           navigation.navigate('SignIn');
-          ToastMessage.show('Email sent successfully to rest password.');
+          ToastMessage.show('Email sent successfully to reset password.');
         } else {
           ToastMessage.show(response?.payload?.response);
         }

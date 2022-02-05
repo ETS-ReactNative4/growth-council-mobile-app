@@ -92,7 +92,7 @@ const Profile = (props) => {
 
 
                         </View>
-                        <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15,}}>
+                        <Button style={{height: 35, top: 40, backgroundColor: '#183863', borderRadius: 15,}}>
                             <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
                     </View>
                 </TouchableOpacity>
@@ -147,7 +147,7 @@ const Profile = (props) => {
                             </View>
 
                         </View>
-                        <Button style={{height: 30, top: 40, backgroundColor: '#183863', borderRadius: 15, }}>
+                        <Button style={{height: 35, top: 40, backgroundColor: '#183863', borderRadius: 15, }}>
                             <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
 
                     </View>

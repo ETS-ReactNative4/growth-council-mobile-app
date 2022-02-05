@@ -128,7 +128,7 @@ const DrawerNavigation = ({navigation}) => {
             </View>
             <View>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Dashboard')}>
+                onPress={() => navigation.navigate('About')}>
                 <Image
                   source={require('../assets/img/dashboard_logo.png')}
                   style={{
