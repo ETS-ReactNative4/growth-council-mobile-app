@@ -64,7 +64,7 @@ const CouncilDetail = props => {
             <View
               style={{
                 position: 'absolute',
-                left: 30,
+                right: 30,
                 top: 30,
               }}>
               <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -92,8 +92,8 @@ const CouncilDetail = props => {
             <View
               style={{
                 position: 'absolute',
-                left: 20,
-                top: 30,
+                right: 20,
+                top: 20,
               }}>
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Image

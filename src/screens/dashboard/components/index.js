@@ -114,9 +114,11 @@ const Dashboard = props => {
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
-
+		
         <View style={styles.chatIcon}>
-          <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+		<TouchableOpacity onPress={() => navigation.navigate('People')}>
+          <Ionicons name={'add'} size={15} color="#B1AFAF" />
+		  </TouchableOpacity>
         </View>
       </View>
     );
@@ -124,7 +126,7 @@ const Dashboard = props => {
 
   const _renderMiddleItem = ({item, index}) => {
     let poePage = 'CommunityDetail';
-    if (item?.parent === 121) {
+    if (item?.parent === 119) {
       poePage = 'GrowthDetail';
     }
     return (
@@ -376,6 +378,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     borderRadius: 16,
     overflow: 'hidden',
+	marginRight:5,
   },
   header: {
     marginLeft: 10,
@@ -443,24 +446,25 @@ const styles = StyleSheet.create({
   chatIcon: {
     borderRadius: 50,
     backgroundColor: '#F1F1F1',
-    padding: 6,
+    padding: 2,
     justifyContent: 'center',
     position: 'absolute',
     right: 4,
     bottom: 4,
   },
   content: {
-    height: 260,
+    height: 250,
     marginLeft: 5,
     marginTop: 25,
     justifyContent: 'center',
     borderRadius: 20,
-    marginBottom: 10,
+    // marginBottom: Platform.OS === 'ios' ? 0 : 10,
   },
   ContentWrapper: {
-    height: 210,
+    height: 204,
     width: contentContainerWidth,
     marginTop: 20,
+	marginBottom:10,
     marginLeft: 15,
     borderRadius: 20,
     overflow: 'hidden',

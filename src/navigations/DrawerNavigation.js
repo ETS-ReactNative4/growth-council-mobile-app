@@ -35,12 +35,20 @@ import BottomTabNavigation from './BottomTabNavigation';
 import {Colors} from '../theme';
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
+import {clearAsyncStorage} from '../utils/storageUtil';
+import ToastMessage from '../shared/toast';
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = props => {
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
+  };
+
+  const logout = () => {
+    clearAsyncStorage();
+    props.navigation.navigate('Home');
+    ToastMessage.show('Your have successfully logout');
   };
 
   return (
@@ -67,14 +75,21 @@ const CustomDrawerContent = props => {
         {/*}*/}
         {/*/>*/}
 
+        <DrawerItem style={{marginLeft: 68}} label="Logout" onPress={logout} />
+
         <View style={styles.footer}>
-				<Image source={require("../../src/assets/img/footer_logo.png")} style={{width:195, height:30}}/>
-				<Text style={styles.footerText}>EmpoweredBy</Text>
-				<View style={{width:175,}}>
-					<Image source={require("../../src/assets/img/fristDigi.png")} style={{width:"100%", }} />
-				</View>
-				
-			</View>
+          <Image
+            source={require('../../src/assets/img/footer_logo.png')}
+            style={{width: 195, height: 30}}
+          />
+          <Text style={styles.footerText}>Powered By</Text>
+          <View style={{width: 175}}>
+            <Image
+              source={require('../../src/assets/img/fristDigi.png')}
+              style={{width: '100%'}}
+            />
+          </View>
+        </View>
       </DrawerContentScrollView>
     </SafeAreaView>
   );
@@ -108,20 +123,20 @@ const DrawerNavigation = ({navigation}) => {
                   name="menu-outline"
                   color={'white'}
                   size={30}
-                  style={{marginLeft: 10, top: 10}}
+                  style={{marginLeft: 10, top: 5}}
                 />
               </TouchableOpacity>
             </View>
             <View>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Dashboard')}>
+                onPress={() => navigation.navigate('About')}>
                 <Image
                   source={require('../assets/img/dashboard_logo.png')}
                   style={{
                     top: -29,
                     position: 'absolute',
-                    height:Platform.OS === 'ios' ? 40 : 35,
-                    width: Platform.OS === 'ios' ? 40 : 35,
+                    height:Platform.OS === 'ios' ? 35 : 35,
+                    width: Platform.OS === 'ios' ? 35 : 35,
                     left: 30,
                     marginLeft: 17,
                     // borderWidth: 5,
@@ -149,7 +164,6 @@ const DrawerNavigation = ({navigation}) => {
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Material name="group-work" color={'#14A2E2'} size={24} />
-			
           ),
           headerBackground: () => (
             <View>
@@ -160,7 +174,7 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 35}}>
+            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
               <Text
                 style={{
                   color: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -190,7 +204,7 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 35}}>
+            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
               <Text
                 style={{
                   color: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -219,7 +233,7 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 35}}>
+            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
               <Text
                 style={{
                   color: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -241,7 +255,7 @@ const DrawerNavigation = ({navigation}) => {
             <Ionicons name="calendar-outline" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 40}}>
+            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -267,7 +281,7 @@ const DrawerNavigation = ({navigation}) => {
             />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 40}}>
+            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -289,7 +303,7 @@ const DrawerNavigation = ({navigation}) => {
             <Ionicons name="settings-outline" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 40}}>
+            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -311,7 +325,7 @@ const DrawerNavigation = ({navigation}) => {
             <Ionicons name="thumbs-up-outline" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 40}}>
+            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -333,7 +347,7 @@ const DrawerNavigation = ({navigation}) => {
             <Ionicons name="bulb-outline" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
-            <View style={{marginLeft: 40}}>
+            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
               <Text
                 style={{
                   fontWeight: '400',
@@ -365,7 +379,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 150,
+    marginTop: 75,
   },
   footerText: {
     margin: 3,
