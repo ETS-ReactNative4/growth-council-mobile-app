@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
     borderRadius: 18,
-    padding: 25,
+    paddingLeft: 25,
     height: '100%',
   },
   message: {
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   signuptext: {
     flexDirection: 'row',
   },
- 
+
   loading1: {
     top: 10,
     left: 0,
@@ -268,7 +268,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1011,
   },
- 
 });
 
 export default SignInForm;
