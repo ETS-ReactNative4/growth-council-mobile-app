@@ -79,9 +79,9 @@ const Event = props => {
       backgroundColor = Colors.COMMUNITY_COLOR;
   }
 
-  let description = events?.description;
+  let description = events?.descirption;
   if (description !== undefined) {
-    description = events?.description;
+    description = events?.descirption;
   } else {
     description = '';
   }
@@ -133,7 +133,7 @@ const Event = props => {
                       paddingLeft: 10,
                     }}>
                     {!isEventLoaded && (
-                      <Text style={styles.contentHeading}>
+                      <Text style={styles.eventDetails}>
                         {date[2]} {date[1]}, {actualDate[0]}
                       </Text>
                     )}
@@ -208,7 +208,7 @@ const Event = props => {
                         flex: 5,
                         paddingLeft: 10,
                       }}>
-                      <Text style={styles.contentHeading}>
+                      <Text style={styles.eventDetails}>
                         {events?.location?.location_city}{' '}
                         {events?.location?.location_state}{' '}
                         {events?.location?.location_country}
@@ -225,7 +225,8 @@ const Event = props => {
                       />
                     </View>
                   )}
-                  
+				   
+				  
                 </View>
               </View>
               <View style={styles.seperationline} />
@@ -233,6 +234,7 @@ const Event = props => {
                 <View>
                   <Text style={styles.contentHeading}>Hosted By</Text>
                 </View>
+				
                 <View style={styles.hostdetail}>
                   <View
                     style={[
@@ -253,6 +255,14 @@ const Event = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
+						{eventRegisterLoading && (
+                    <View style={styles.loading1}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  )}
                     <Text style={styles.contentHeading}>
                       {events?.organizer?.term_name}
                     </Text>
@@ -275,6 +285,7 @@ const Event = props => {
               </View>
               <View style={styles.seperationline} />
               <View>
+			 
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
                   <HTMLView value={description} style={{fontSize: 14}} />
@@ -339,6 +350,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     color: '#ffff',
+  },
+  eventDetails: {
+    ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_NORMAL,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginBottom: 8,
   },
   contentHeading: {
     ...CommonStyles.headingText1,
