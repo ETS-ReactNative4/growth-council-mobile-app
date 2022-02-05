@@ -35,6 +35,7 @@ export const httpBase = (isDownloadable = false) => {
             return response;
         },
         async (error) => {
+            console.log("error::::::", error);
             if (401 === error.response.status) {
                 await clearAsyncStorage(JWT_TOKEN);
                 navigate('SignIn')

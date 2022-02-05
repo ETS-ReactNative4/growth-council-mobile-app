@@ -5,7 +5,7 @@ import {
     FlatList,
     Text,
     TouchableOpacity, Image,
-	ScrollView
+    ScrollView
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
@@ -32,13 +32,17 @@ const UserList = (props) => {
     const [avatarImg, setAvatarImg] = useState(null);
     const [userName, setUserName] = useState(null);
 
-    useEffect(async () => {
-        let token = await getAsyncStorage(JWT_TOKEN);
-        setUserID(decodeUserID(token));
-        let avatar = await getAsyncStorage(USER_AVATAR);
-        setAvatarImg(avatar);
-        let username = await getAsyncStorage(USER_NAME);
-        setUserName(username);
+    useEffect(() => {
+        const setMyNameAsync = async () => {
+            let token = await getAsyncStorage(JWT_TOKEN);
+            setUserID(decodeUserID(token));
+            let avatar = await getAsyncStorage(USER_AVATAR);
+            setAvatarImg(avatar);
+            let username = await getAsyncStorage(USER_NAME);
+            setUserName(username);
+        };
+        setMyNameAsync();
+        return () => {setUserName(null)};
     }, []);
 
     useEffect(() => {
@@ -81,7 +85,6 @@ const UserList = (props) => {
                             <Text style={{fontSize: 12, marginTop: 10}}>{item.user_email}</Text>
                         </View>
 
-                        
 
                     </View>
                 </TouchableOpacity>
@@ -91,32 +94,32 @@ const UserList = (props) => {
     };
 
     return (
-		<ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
-			  <View style={styles.container}>
-            <View style={styles.buttonWrapper}>
-                <TouchableOpacity>
-                    <Button style={[styles.button, styles.shadowProp]}>
-                        <Text style={[styles.buttonText, {color: "#4835BE"}]}>Message</Text>
-                    </Button>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Button style={[styles.button, {backgroundColor: "#F26722"}]}
-                            onPress={() => Linking.openURL('mailto:contact@frost.com')}>
-                        <Text style={styles.buttonText}>Contact US</Text>
-                    </Button>
-                </TouchableOpacity>
+        <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+            <View style={styles.container}>
+                <View style={styles.buttonWrapper}>
+                    <TouchableOpacity>
+                        <Button style={[styles.button, styles.shadowProp]}>
+                            <Text style={[styles.buttonText, {color: "#4835BE"}]}>Message</Text>
+                        </Button>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Button style={[styles.button, {backgroundColor: "#F26722"}]}
+                                onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+                            <Text style={styles.buttonText}>Contact US</Text>
+                        </Button>
+                    </TouchableOpacity>
 
+                </View>
+                <FlatList
+                    Vertical
+                    showsVerticalScrollIndicator={false}
+                    data={connection}
+                    renderItem={_renderItems}
+                />
             </View>
-            <FlatList
-                Vertical
-                showsVerticalScrollIndicator={false}
-                data={connection}
-                renderItem={_renderItems}
-            />
-        </View>
 
-		<Footer/>
-		</ScrollView>
+            <Footer/>
+        </ScrollView>
 
     );
 };
@@ -138,9 +141,9 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         display: 'flex',
         flexDirection: 'row',
-        padding:10,
-		paddingRight:10,
-		justifyContent:'space-between'
+        padding: 10,
+        paddingRight: 10,
+        justifyContent: 'space-between'
     },
     button: {
         width: 160,

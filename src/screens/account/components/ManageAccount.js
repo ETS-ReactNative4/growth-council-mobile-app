@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
     StyleSheet,
     Text,
@@ -97,15 +97,18 @@ const ManageAccount = props => {
         insights = profile?.user_meta?.insights[0];
     }
 
-    let expertise_areas1 = profile?.expertise_areas1;
-    if (typeof expertise_areas1 === 'undefined') {
-        expertise_areas1 = [];
-    } else {
-        expertise_areas1 = profile?.expertise_areas1;
-    }
+    // let expertise_areas1 = profile?.expertise_areas1;
+    // if (typeof expertise_areas1 === 'undefined') {
+    //     expertise_areas1 = [];
+    // } else {
+    //     expertise_areas1 = profile?.expertise_areas1;
+    // }
 
     const [value, setValue] = useState([]);
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(Object.entries(expertise).map(([key, value]) => ({
+        label: key,
+        value,
+    })));
 
     const [image, setImage] = useState(profile.avatar);
 
@@ -174,7 +177,7 @@ const ManageAccount = props => {
             Location: Location,
             favorite_quote: favorite_quote,
             insights: insights,
-            expertise_areas1: expertise_areas1,
+            expertise_areas1: profile?.expertise_areas1,
             initatives: initatives,
             professional_summary: professional_summary,
         },
@@ -191,13 +194,6 @@ const ManageAccount = props => {
     });
 
     useEffect(() => {
-        const fetchProfileAsync = async () => {
-            await fetchProfileByIdentifier();
-        };
-        fetchProfileAsync();
-    }, []);
-
-    useEffect(() => {
         const fetchAllExpertisesAsync = async () => {
             await fetchAllExpertises();
         };
@@ -205,16 +201,40 @@ const ManageAccount = props => {
     }, []);
 
     useEffect(() => {
-        console.log("expertise_areas1::::::::::", expertise_areas1);
-        setValue(expertise_areas1);
-        const result = Object.entries(expertise).map(([key, value]) => ({
-            label: key,
-            value,
-        }));
-        setItems(result);
-        return () => {setValue([])};
+        const fetchProfileAsync = async () => {
+            await fetchProfileByIdentifier().then(response => {
+                if (response?.payload?.code === 200) {
+                    console.log("expertise_areas1::::::::::", response?.payload.expertise_areas1);
+                    setValue(response?.payload.expertise_areas1);
+                }
+            });
+        };
+        fetchProfileAsync();
+        return () => cleanProfile();
     }, []);
 
+
+    useEffect(() => {
+        setItems(Object.entries(expertise).map(([key, value]) => ({
+            label: key,
+            value,
+        })));
+        return () => {setItems([])};
+    }, [expertise]);
+
+     let expertise_areas1 = profile?.expertise_areas1;
+    // const get = useCallback( () => {
+    //     if (typeof expertise_areas1 === 'undefined') {
+    //         expertise_areas1 = [];
+    //     } else {
+    //         expertise_areas1 = profile?.expertise_areas1;
+    //     }
+    //
+    //     setValue(expertise_areas1);
+    // }, []);
+    //
+    // useEffect(() => get(), []);
+    console.log("value::::::::::", value);
     return (
         <ScrollView
             contentContainerStyle={{
@@ -452,7 +472,7 @@ const ManageAccount = props => {
                                         value={value}
                                         items={items}
                                         setOpen={setOpen}
-                                        setValue={setValue}
+                                        //setValue={setValue}
                                         setItems={setItems}
                                         onChangeValue={value => {
                                             setFieldValue('expertise_areas1', value);
