@@ -114,9 +114,11 @@ const Dashboard = props => {
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
-
+		
         <View style={styles.chatIcon}>
-          <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+		<TouchableOpacity onPress={() => navigation.navigate('People')}>
+          <Ionicons name={'add'} size={15} color="#B1AFAF" />
+		  </TouchableOpacity>
         </View>
       </View>
     );
@@ -443,7 +445,7 @@ const styles = StyleSheet.create({
   chatIcon: {
     borderRadius: 50,
     backgroundColor: '#F1F1F1',
-    padding: 6,
+    padding: 2,
     justifyContent: 'center',
     position: 'absolute',
     right: 4,

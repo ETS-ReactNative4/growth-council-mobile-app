@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
 		justifyContent:'space-between'
     },
     button: {
-        width:Platform.OS === 'ios' ? 140 : 180,
+        width:Platform.OS === 'ios' ? 140 : 160,
         borderRadius: 10,
         height: 38,
         marginTop: 8,
