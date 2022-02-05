@@ -529,7 +529,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   body: {
-    width: '80%',
+    width: '90%',
     // alignItems: 'center',
     justifyContent: 'center',
   },
