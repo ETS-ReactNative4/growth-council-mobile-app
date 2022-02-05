@@ -40,7 +40,7 @@ const HeaderRight = ({navigation}) => {
             width: 40,
             borderRadius: 50,
             marginRight: Platform.OS === 'ios' ? 10 : 15,
-			marginTop:10
+            marginTop: 10,
           }}
         />
       </TouchableOpacity>

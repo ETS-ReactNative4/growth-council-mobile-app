@@ -20,7 +20,7 @@ import ToastMessage from '../../../shared/toast';
 import { Dialog } from 'react-native-paper';
 
 const win = Dimensions.get('window');
-  const contentContainerWidth = win.width - 30;
+const contentContainerWidth = win.width - 30;
 
 const People = props => {
   const {
@@ -52,7 +52,11 @@ const People = props => {
 
   useEffect(() => {
     const fetchAllUsersAsync = async () => {
-      await fetchAllUsers({s: searchKey, sort: sorting});
+      await fetchAllUsers({
+        s: searchKey,
+        sort: sorting,
+        expertise_areas: category,
+      });
     };
     fetchAllUsersAsync();
     setMemberConnection(users);
@@ -65,8 +69,9 @@ const People = props => {
     fetchAllExpertisesAsync();
   }, []);
 
-  console.log(expertise);
-  const countries = ["Egypt", "Canada", "Australia", "Ireland"]
+  console.log({searchKey}, {sorting}, {category});
+  console.log({memberConnections});
+
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
@@ -80,9 +85,8 @@ const People = props => {
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
-	  
     }
-	console.log(response)
+    console.log(response);
   };
 
   const pickerRef = useRef();
@@ -171,20 +175,31 @@ const People = props => {
             value={searchKey}
             onChangeText={async text => {
               setSearchKey(text);
-              await fetchAllUsers({s: text, sort: sorting});
+              await fetchAllUsers({
+                s: text,
+                sort: sorting,
+                expertise_areas: category,
+              });
             }}
           />
         </View>
         <View style={styles.iconWrapper}>
+          
             <Picker
               selectedValue={category}
 			  ref={pickerRef}
               mode={Dialog}
 			  style={{ height: 50, width: '65%'}}
-			  itemTextStyle={{ fontSize:8 }}
-			//   itemStyle={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }]}}
-              onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
-              
+			  itemTextStyle={{fontSize:12}}
+              onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+              onPress={async () => {
+                setSorting('DESC');
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: sorting,
+                  expertise_areas: category,
+                });
+              }}>
               {Object.keys(expertise).map(key => {
                 return (
                   <Picker.Item label={expertise[key]} value={key} key={key} style={{fontSize:12}}  />
@@ -200,7 +215,11 @@ const People = props => {
               style={{marginTop: 15}}
               onPress={async () => {
                 setSorting('DESC');
-                await fetchAllUsers({s: searchKey, sort: 'DESC'});
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: 'DESC',
+                  expertise_areas: category,
+                });
               }}
             />
             <Ionicons
@@ -210,7 +229,11 @@ const People = props => {
               style={{marginTop: 15}}
               onPress={async () => {
                 setSorting('ASC');
-                await fetchAllUsers({s: searchKey, sort: 'ASC'});
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: 'ASC',
+                  expertise_areas: category,
+                });
               }}
             />
             <Text style={styles.textWrapper}>Sort</Text>

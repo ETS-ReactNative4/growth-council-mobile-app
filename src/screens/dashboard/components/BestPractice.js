@@ -19,7 +19,7 @@ import Footer from '../../../shared/footer';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const win = Dimensions.get('window');
-  const contentContainerWidth = win.width - 30;
+const contentContainerWidth = win.width - 30;
 
 const BestPractice = props => {
   const {
@@ -180,8 +180,8 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
-  console.log('Best Praacticee pillar_id', pillarId);
-  console.log({pillarMemberContents});
+  // console.log('Best Praacticee pillar_id', pillarId);
+  // console.log({pillarMemberContents});
 
   // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
   //console.log({bestPractices});
@@ -191,7 +191,7 @@ const BestPractice = props => {
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Best Practices Events</Text>
-          
+
           <View
             style={{
               display: 'flex',
@@ -207,7 +207,6 @@ const BestPractice = props => {
           </View>
         </View>
 
-		
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
           <ScrollView
@@ -215,12 +214,11 @@ const BestPractice = props => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             style={{marginLeft: 10}}>
-
-			{pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+            {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
             <FlatList
               horizontal
               // numColumns={Math.ceil(pillarPOEs.length / 2)}
@@ -370,11 +368,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
-	marginRight:10,
+    marginRight: 10,
   },
   ContentWrapper: {
     height: 210,
-    width:contentContainerWidth,
+    width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
