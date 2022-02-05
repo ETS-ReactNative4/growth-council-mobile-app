@@ -90,6 +90,13 @@ const DrawerNavigation = ({navigation}) => {
     state => state.profileEvent,
   );
 
+  
+  const logout = () => {
+    clearAsyncStorage();
+    navigation.navigate('Home');
+    ToastMessage.show('Your have successfully logout');
+  };
+
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
@@ -351,6 +358,13 @@ const DrawerNavigation = ({navigation}) => {
           ),
         })}
       />
+
+       <Drawer.Screen
+        name="Logout"
+        component={}
+        onPress={logout}
+      />
+     
     </Drawer.Navigator>
   );
 };
