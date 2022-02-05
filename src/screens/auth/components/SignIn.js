@@ -164,7 +164,7 @@ const SignInForm = props => {
                   Sign Up{' '}
                 </Text>
               </View>
-              <View style={[styles.signuptext, {marginTop: 90}]}>
+              <View style={[styles.signuptext, {marginTop: Platform.OS === 'ios' ? 20 : 40}]}>
                 {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                 <Text>Need Help? </Text>
                 <Text
@@ -188,13 +188,14 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 50,
-    marginTop: Platform.OS === 'ios' ? 60 : 50,
-    marginBottom: 30,
+    marginTop: Platform.OS === 'ios' ? 20 : 50,
+    marginBottom: Platform.OS === 'ios' ? 10 : 30,
     //width: '80%',
   },
   body: {
-    width: '90%',
+    width: '80%',
     justifyContent: 'center',
+
   },
   content: {
     backgroundColor: 'white',
@@ -236,7 +237,7 @@ const styles = StyleSheet.create({
   },
   forgotButtonWrapper: {
     ...CommonStyles.forgotButtonWrapper,
-    marginTop: 15,
+    marginTop: Platform.OS === 'ios' ? 5 : 15,
   },
   forgotButtonText: {
     ...CommonStyles.forgotButtonText,

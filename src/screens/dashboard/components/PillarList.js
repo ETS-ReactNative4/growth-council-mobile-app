@@ -48,7 +48,7 @@ const PillarList = props => {
 
 const styles = StyleSheet.create({
   ImageWrapper: {
-    width: Platform.OS === 'ios' ? 100 : 120,
+    width: Platform.OS === 'ios' ? 90 : 120,
     height: Platform.OS === 'ios' ? 150 : 172,
     borderRadius: 10,
     borderWidth: 4,
