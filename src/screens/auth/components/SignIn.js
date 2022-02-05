@@ -164,7 +164,7 @@ const SignInForm = props => {
                   Sign Up{' '}
                 </Text>
               </View>
-              <View style={[styles.signuptext, {marginTop: 40}]}>
+              <View style={[styles.signuptext, {marginTop: 90}]}>
                 {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                 <Text>Need Help? </Text>
                 <Text
