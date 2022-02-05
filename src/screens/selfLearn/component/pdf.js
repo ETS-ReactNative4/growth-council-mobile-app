@@ -3,8 +3,15 @@ import { StyleSheet, Dimensions, View } from 'react-native';
 import Pdf from 'react-native-pdf';
 
 const pdf = props => {
+	const {
+		navigation,
+		route,
+		
+	}=props
 
-	const source = { uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf', cache: true };
+
+	const source = { uri: route.params.paramsFile, cache: true };
+	console.log("selfLearns", route.params.paramsFile)
 	return (
 		<View style={styles.container}>
 					<Pdf
