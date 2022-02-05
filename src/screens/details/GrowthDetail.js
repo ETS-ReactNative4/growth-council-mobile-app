@@ -68,7 +68,7 @@ const GrowthDetailScreen = props => {
     dispatch(fetchAllPillarMemberContents(pillarId));
   };
 
-  const fetchCoachingSessions =poeId =>{
+  const fetchCoachingSessions = poeId =>{
 	  dispatch(fetchcoachingSession(poeId));
   }
 

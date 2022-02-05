@@ -9,11 +9,14 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import SelfAbout from './selfAbout';
 import SelfAssessment from '../../coachingSession/component/selfAssessment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import { fetchSelfLearnById, resetSelfLearnById } from '../slice/selfLearnByIdSlice';
+
 
 
 const SelfLearn = props => {
@@ -21,6 +24,18 @@ const SelfLearn = props => {
         navigation,
         route,
     } = props;
+
+	
+    const dispatch = useDispatch();
+	const {selfLearns, selfLearnLoading,selfLearnError} = useSelector((state) => state.selfLearns);
+
+	const fetchPoeSelfLearnById = selfLearnId =>{
+		dispatch(fetchSelfLearnById(selfLearnId));
+	}
+
+	const cleanSelfLearnById =()=>{
+		dispatch(resetSelfLearnById());
+	};
 
     // const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
     // const date = actualDate[1].split(' ', 3);
@@ -57,7 +72,15 @@ const SelfLearn = props => {
 
 							<View style={{marginTop:15}}>
 							{value === 'About' &&
-								<SelfAbout {...props}/>
+								<SelfAbout 
+								{...props}
+								selfLearns={selfLearns}
+								selfLearnLoading={selfLearnLoading}
+								selfLearnError={selfLearnError}
+								fetchPoeSelfLearnById={fetchPoeSelfLearnById}
+								cleanSelfLearnById={cleanSelfLearnById}
+
+								/>
                             }
                             {value === 'Self Assessment' &&
 								<View>
