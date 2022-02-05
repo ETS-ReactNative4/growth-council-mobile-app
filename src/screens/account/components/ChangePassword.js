@@ -21,11 +21,9 @@ import ToastMessage from '../../../shared/toast';
 const passwordSchema = Yup.object().shape({
   oldPassword: Yup.string()
     .min(6, 'Too Short!')
-    .max(10, 'Too Long!')
     .required('Old password is required.'),
   newPassword: Yup.string()
     .min(6, 'Too Short!')
-    .max(10, 'Too Long!')
     .required('New Password is required.'),
   confirmPassword: Yup.string()
     .oneOf(
@@ -69,8 +67,11 @@ const ChangePasswordForm = props => {
       confirmPassword: '',
     },
     onSubmit: async values => {
+      console.log({oldPassword}, {newPassword}, {confirmPassword});
       delete values.confirmPassword;
+      console.log({oldPassword}, {newPassword}, {confirmPassword});
       await updateCustomerPassword(values).then(response => {
+        console.log({response});
         if (response?.payload?.code === 200) {
           navigation.navigate('SignIn');
           ToastMessage.show('Your password has been successfully changed.');
