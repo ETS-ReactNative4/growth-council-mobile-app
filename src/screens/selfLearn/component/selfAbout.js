@@ -37,9 +37,16 @@ const selfAbout = props => {
 	console.log("learn", route.params.selfLearnId)
 	console.log("learn", selfLearns)
 
-	if (selfLearns?.length === 0 || selfLearns === undefined) {
-		return <></>;
-	  }
+	let title = selfLearns?.title;
+	if(title !== undefined){
+		title = selfLearns?.title;
+	}else {
+		title = '';
+	}
+
+	// if (selfLearns?.length === 0 || selfLearns === undefined) {
+	// 	return <></>;
+	//   }
 	
   return (
 	  <ScrollView>
@@ -57,7 +64,7 @@ const selfAbout = props => {
 				/>
 				<View style={{width:160, marginLeft:20}}>
 					<View style={{marginTop:30, height:130}}>
-						<Text style={{fontSize:18, fontWeight:"bold", marginBottom:10, color:"#080F18"}}>{selfLearns?.title}</Text>
+						<Text style={{fontSize:18, fontWeight:"bold", marginBottom:10, color:"#080F18"}}>{title}</Text>
 
 						<View style={{height:2, width:50,backgroundColor:"#4774B5"}}/>
 
