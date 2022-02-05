@@ -36,6 +36,7 @@ import {Colors} from '../theme';
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
 import {clearAsyncStorage} from '../utils/storageUtil';
+import ToastMessage from '../shared/toast';
 
 const Drawer = createDrawerNavigator();
 
@@ -44,11 +45,11 @@ const CustomDrawerContent = props => {
     props.navigation.toggleDrawer();
   };
 
-  // const logout = () => {
-  //   clearAsyncStorage();
-  //   navigation.navigate('Home');
-  //   ToastMessage.show('Your have successfully logout');
-  // };
+  const logout = () => {
+    clearAsyncStorage();
+    props.navigation.navigate('Home');
+    ToastMessage.show('Your have successfully logout');
+  };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -74,7 +75,7 @@ const CustomDrawerContent = props => {
         {/*}*/}
         {/*/>*/}
 
-        {/* <DrawerItem style={{marginLeft: 68}} label="Logout" onPress={logout} /> */}
+        <DrawerItem style={{marginLeft: 68}} label="Logout" onPress={logout} />
 
         <View style={styles.footer}>
           <Image
