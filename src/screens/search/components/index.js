@@ -102,7 +102,7 @@ const Search = (props) => {
 	
 	const _renderMiddleItem = ({item, index}) => {
 		let poePage = 'CommunityDetail';
-		if (item?.parent === 121) {
+		if (item?.parent === 119) {
 			poePage = 'GrowthDetail';
 			}
 		return (

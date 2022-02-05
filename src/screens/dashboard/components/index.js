@@ -126,7 +126,7 @@ const Dashboard = props => {
 
   const _renderMiddleItem = ({item, index}) => {
     let poePage = 'CommunityDetail';
-    if (item?.parent === 121) {
+    if (item?.parent === 119) {
       poePage = 'GrowthDetail';
     }
     return (
@@ -378,6 +378,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     borderRadius: 16,
     overflow: 'hidden',
+	marginRight:5,
   },
   header: {
     marginLeft: 10,

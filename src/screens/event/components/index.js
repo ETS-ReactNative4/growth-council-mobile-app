@@ -225,6 +225,7 @@ const Event = props => {
                       />
                     </View>
                   )}
+				  
                 </View>
               </View>
               <View style={styles.seperationline} />
@@ -274,6 +275,14 @@ const Event = props => {
               </View>
               <View style={styles.seperationline} />
               <View>
+			  {eventRegisterLoading && (
+                    <View style={styles.loading1}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  )}
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
                   <HTMLView value={description} style={{fontSize: 14}} />
