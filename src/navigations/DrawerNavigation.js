@@ -35,6 +35,7 @@ import BottomTabNavigation from './BottomTabNavigation';
 import {Colors} from '../theme';
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
+import {clearAsyncStorage} from '../utils/storageUtil';
 
 const Drawer = createDrawerNavigator();
 
@@ -42,6 +43,12 @@ const CustomDrawerContent = props => {
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
+
+  // const logout = () => {
+  //   clearAsyncStorage();
+  //   navigation.navigate('Home');
+  //   ToastMessage.show('Your have successfully logout');
+  // };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -67,6 +74,8 @@ const CustomDrawerContent = props => {
         {/*}*/}
         {/*/>*/}
 
+        {/* <DrawerItem style={{marginLeft: 68}} label="Logout" onPress={logout} /> */}
+
         <View style={styles.footer}>
           <Image
             source={require('../../src/assets/img/footer_logo.png')}
@@ -89,13 +98,6 @@ const DrawerNavigation = ({navigation}) => {
   const {profileEvent, profileEventLoading, profileEventError} = useSelector(
     state => state.profileEvent,
   );
-
-  
-  const logout = () => {
-    clearAsyncStorage();
-    navigation.navigate('Home');
-    ToastMessage.show('Your have successfully logout');
-  };
 
   return (
     <Drawer.Navigator
@@ -358,13 +360,6 @@ const DrawerNavigation = ({navigation}) => {
           ),
         })}
       />
-
-       <Drawer.Screen
-        name="Logout"
-        component={}
-        onPress={logout}
-      />
-     
     </Drawer.Navigator>
   );
 };
@@ -383,7 +378,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 150,
+    marginTop: 75,
   },
   footerText: {
     margin: 3,
