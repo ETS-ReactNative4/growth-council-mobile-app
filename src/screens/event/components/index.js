@@ -133,7 +133,7 @@ const Event = props => {
                       paddingLeft: 10,
                     }}>
                     {!isEventLoaded && (
-                      <Text style={styles.contentHeading}>
+                      <Text style={styles.eventDetails}>
                         {date[2]} {date[1]}, {actualDate[0]}
                       </Text>
                     )}
@@ -208,7 +208,7 @@ const Event = props => {
                         flex: 5,
                         paddingLeft: 10,
                       }}>
-                      <Text style={styles.contentHeading}>
+                      <Text style={styles.eventDetails}>
                         {events?.location?.location_city}{' '}
                         {events?.location?.location_state}{' '}
                         {events?.location?.location_country}
@@ -338,6 +338,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     color: '#ffff',
+  },
+  eventDetails: {
+    ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_NORMAL,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginBottom: 8,
   },
   contentHeading: {
     ...CommonStyles.headingText1,
