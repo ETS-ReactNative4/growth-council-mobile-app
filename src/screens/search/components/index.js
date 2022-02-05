@@ -98,8 +98,6 @@ const Search = (props) => {
 		);
 	};
 	
-
-	
 	const _renderMiddleItem = ({item, index}) => {
 		let poePage = 'CommunityDetail';
 		if (item?.parent === 119) {
@@ -122,8 +120,7 @@ const Search = (props) => {
 						</View>
 						<Text style={{marginTop: 8,fontSize:10 }}>{item?.name}</Text>
 					</View>
-			</TouchableOpacity>
-			
+			</TouchableOpacity>	
 		);
 	};
 
