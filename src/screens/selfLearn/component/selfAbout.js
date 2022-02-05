@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {
     Text,
     View,
@@ -10,19 +10,43 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {Button} from 'native-base';
-import Feather from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
-import moment from 'moment';
-import PDF from './pdf';
+
+import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 
 const selfAbout = props => {
 	const{
 		navigation,
+		route,
+		selfLearns,
+		selfLearnLoading,
+		selfLearnError,
+		fetchPoeSelfLearnById,
+		cleanSelfLearnById,
 	} = props
+
+	useEffect(()=>{
+		const fetchPoeSelfLearnByIdAsync = async () =>{
+			await fetchPoeSelfLearnById(route.params.selfLearnId);
+		};
+		fetchPoeSelfLearnByIdAsync();
+	},[]);
+
+	console.log("learn", route.params.selfLearnId)
+	console.log("learn", selfLearns)
+
+	let title = selfLearns?.title;
+	if(title !== undefined){
+		title = selfLearns?.title;
+	}else {
+		title = '';
+	}
+
+	// if (selfLearns?.length === 0 || selfLearns === undefined) {
+	// 	return <></>;
+	//   }
 	
   return (
 	  <ScrollView>
@@ -40,7 +64,7 @@ const selfAbout = props => {
 				/>
 				<View style={{width:160, marginLeft:20}}>
 					<View style={{marginTop:30, height:130}}>
-						<Text style={{fontSize:18, fontWeight:"bold", marginBottom:10, color:"#080F18"}}>THE GROWTH COACHING BOOK</Text>
+						<Text style={{fontSize:18, fontWeight:"bold", marginBottom:10, color:"#080F18"}}>{title}</Text>
 
 						<View style={{height:2, width:50,backgroundColor:"#4774B5"}}/>
 
@@ -49,17 +73,34 @@ const selfAbout = props => {
 
 						<Button 
 						style={styles.buttonWrapper}
-						onPress={() => navigation.navigate('pdf')}>
+						onPress={() => navigation.navigate('pdf',
+						{paramsFile:selfLearns?.file}
+						)}>
 						<Text style={{color:"white", fontSize:11}} >Read E-Book</Text>
 						</Button>
-						
-						
-					
-					
 					
 				</View>
 			</View>
 
+				{selfLearnLoading && (
+					 <View
+					 style={{
+						 top: 0,
+						 left: 0,
+						 right: 0,
+						 bottom: 0,
+						 justifyContent: 'center',
+						 alignItems: 'center',
+						 position: 'absolute',
+						 zIndex: 1011,
+					   
+					 }}>
+					 <BubblesLoader
+					   color={Colors.SECONDARY_TEXT_COLOR}
+					   size={80}
+					 />
+				   </View>
+				)}
 			<View style={{marginTop:10}}>
 				<Text style={{fontSize:14, fontFamily:Typography.FONT_SF_SEMIBOLD, color:"black"}}>Book Summary</Text>
 
