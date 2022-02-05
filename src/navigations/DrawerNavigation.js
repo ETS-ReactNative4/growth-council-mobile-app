@@ -68,13 +68,18 @@ const CustomDrawerContent = props => {
         {/*/>*/}
 
         <View style={styles.footer}>
-				<Image source={require("../../src/assets/img/footer_logo.png")} style={{width:195, height:30}}/>
-				<Text style={styles.footerText}>EmpoweredBy</Text>
-				<View style={{width:175,}}>
-					<Image source={require("../../src/assets/img/fristDigi.png")} style={{width:"100%", }} />
-				</View>
-				
-			</View>
+          <Image
+            source={require('../../src/assets/img/footer_logo.png')}
+            style={{width: 195, height: 30}}
+          />
+          <Text style={styles.footerText}>EmpoweredBy</Text>
+          <View style={{width: 175}}>
+            <Image
+              source={require('../../src/assets/img/fristDigi.png')}
+              style={{width: '100%'}}
+            />
+          </View>
+        </View>
       </DrawerContentScrollView>
     </SafeAreaView>
   );
@@ -108,7 +113,7 @@ const DrawerNavigation = ({navigation}) => {
                   name="menu-outline"
                   color={'white'}
                   size={30}
-                  style={{marginLeft: 10, top: 10}}
+                  style={{marginLeft: 10, top: 5}}
                 />
               </TouchableOpacity>
             </View>
@@ -120,7 +125,7 @@ const DrawerNavigation = ({navigation}) => {
                   style={{
                     top: -29,
                     position: 'absolute',
-                    height:Platform.OS === 'ios' ? 40 : 35,
+                    height: Platform.OS === 'ios' ? 40 : 35,
                     width: Platform.OS === 'ios' ? 40 : 35,
                     left: 30,
                     marginLeft: 17,
@@ -149,7 +154,6 @@ const DrawerNavigation = ({navigation}) => {
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Material name="group-work" color={'#14A2E2'} size={24} />
-			
           ),
           headerBackground: () => (
             <View>
