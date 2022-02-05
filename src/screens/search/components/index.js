@@ -69,7 +69,6 @@ const Search = (props) => {
 		);
 	};
 	
-	
 	const searchTag = ({item, index}) => {
 		let navigationPath = '';
     
@@ -148,11 +147,13 @@ const Search = (props) => {
                     <Text style={{fontFamily:Typography.FONT_SF_SEMIBOLD, fontSize: 11}}>Suggestions</Text>
 
                     <View style={{display: 'flex', flexDirection: 'row'}}>
+
 					{searchLoading && (
 					<View style={styles.loading1}>
 					<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
 					</View>
-				)}
+					)}
+					
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
