@@ -44,7 +44,7 @@ const Profile = (props) => {
         cleanProfile,
     } = props;
 
-    const [value, setValue] = useState('My Events');
+    const [value, setValue] = useState('My Sessions');
 
     const _renderItems = ({item, index}) => {
         return (

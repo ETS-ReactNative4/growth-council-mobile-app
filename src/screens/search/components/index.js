@@ -69,7 +69,6 @@ const Search = (props) => {
 		);
 	};
 	
-	
 	const searchTag = ({item, index}) => {
 		let navigationPath = '';
     
@@ -98,11 +97,9 @@ const Search = (props) => {
 		);
 	};
 	
-
-	
 	const _renderMiddleItem = ({item, index}) => {
 		let poePage = 'CommunityDetail';
-		if (item?.parent === 121) {
+		if (item?.parent === 119) {
 			poePage = 'GrowthDetail';
 			}
 		return (
@@ -122,8 +119,7 @@ const Search = (props) => {
 						</View>
 						<Text style={{marginTop: 8,fontSize:10 }}>{item?.name}</Text>
 					</View>
-			</TouchableOpacity>
-			
+			</TouchableOpacity>	
 		);
 	};
 
@@ -151,11 +147,13 @@ const Search = (props) => {
                     <Text style={{fontFamily:Typography.FONT_SF_SEMIBOLD, fontSize: 11}}>Suggestions</Text>
 
                     <View style={{display: 'flex', flexDirection: 'row'}}>
+
 					{searchLoading && (
 					<View style={styles.loading1}>
 					<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
 					</View>
-				)}
+					)}
+					
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}

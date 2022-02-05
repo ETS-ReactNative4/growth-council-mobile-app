@@ -214,11 +214,7 @@ const BestPractice = props => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             style={{marginLeft: 10}}>
-            {pillarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
+            
             <FlatList
               horizontal
               // numColumns={Math.ceil(pillarPOEs.length / 2)}
@@ -229,6 +225,11 @@ const BestPractice = props => {
           </ScrollView>
         </View>
 
+		{pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
         <View style={styles.bottom}>
           <Text style={styles.title}>Best Practices Members</Text>
           <View>

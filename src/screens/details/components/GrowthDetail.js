@@ -210,8 +210,9 @@ const GrowthDetail = props => {
                 marginTop: 10,
                 backgroundColor: '#EBECF0',
                 borderRadius: 15,
-                marginLeft: 60,
+                right:5,
                 padding: 5,
+				position:'absolute',
                 alignItems: 'center',
               }}>
               <Text>{date[1]}</Text>
