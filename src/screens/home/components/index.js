@@ -170,7 +170,9 @@ const Home = props => {
 
       <View style={styles.footer}>
         <Image
-          style={styles.footerlogo}
+          style={{width:150,height: 25,
+			    resizeMode: 'contain',
+			    opacity: 2,}}
           source={require('../../../assets/img/frost-sullivan.png')}
         />
         <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>
@@ -178,7 +180,7 @@ const Home = props => {
         </Text>
         <Image
           source={require('../../../assets/img/frost_digital_logo_1.png')}
-          style={styles.footerlogo}
+          style={styles.footerlogo1}
         />
       </View>
     </View>
@@ -298,7 +300,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  footerlogo: {
+//   footerlogo: {
+
+//     height: 15,
+//     resizeMode: 'contain',
+//     opacity: 0.75,
+//   },
+  footerlogo1: {
     width: 120,
     height: 15,
     resizeMode: 'contain',
