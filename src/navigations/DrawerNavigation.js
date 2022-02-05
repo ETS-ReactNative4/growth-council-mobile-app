@@ -72,7 +72,7 @@ const CustomDrawerContent = props => {
             source={require('../../src/assets/img/footer_logo.png')}
             style={{width: 195, height: 30}}
           />
-          <Text style={styles.footerText}>EmpoweredBy</Text>
+          <Text style={styles.footerText}>Powered By</Text>
           <View style={{width: 175}}>
             <Image
               source={require('../../src/assets/img/fristDigi.png')}
