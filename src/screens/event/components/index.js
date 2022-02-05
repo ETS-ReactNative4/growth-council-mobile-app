@@ -225,6 +225,7 @@ const Event = props => {
                       />
                     </View>
                   )}
+				   
 				  
                 </View>
               </View>
@@ -233,6 +234,7 @@ const Event = props => {
                 <View>
                   <Text style={styles.contentHeading}>Hosted By</Text>
                 </View>
+				
                 <View style={styles.hostdetail}>
                   <View
                     style={[
@@ -253,6 +255,14 @@ const Event = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
+						{eventRegisterLoading && (
+                    <View style={styles.loading1}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  )}
                     <Text style={styles.contentHeading}>
                       {events?.organizer?.term_name}
                     </Text>
@@ -275,14 +285,7 @@ const Event = props => {
               </View>
               <View style={styles.seperationline} />
               <View>
-			  {eventRegisterLoading && (
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  )}
+			 
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
                   <HTMLView value={description} style={{fontSize: 14}} />
