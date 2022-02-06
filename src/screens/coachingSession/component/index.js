@@ -13,7 +13,7 @@ import {
   Pressable,
 } from 'react-native';
 
-import SelfAssessment from './SelfAssessment';
+import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';

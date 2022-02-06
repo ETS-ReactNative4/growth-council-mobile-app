@@ -40,7 +40,8 @@ import ChatScreen from '../screens/chat';
 import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
-import SelfAssessment from '../screens/coachingSession/component/SelfAssessment';
+import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
+
 
 const Stack = createStackNavigator();
 

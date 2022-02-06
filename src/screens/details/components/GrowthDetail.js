@@ -89,10 +89,8 @@ const GrowthDetail = props => {
 //   console.log('POE id:::::::::::::::::', route.params.poeId);
 //   console.log('parent id:::::::::::::::::', route.params.pillarId);
   console.log('Self Learn ====', poeSelfLearns);
-
   console.log('session', route.params.poeId);
   
-
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
