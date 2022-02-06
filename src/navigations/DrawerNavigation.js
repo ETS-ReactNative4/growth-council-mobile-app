@@ -322,7 +322,7 @@ const DrawerNavigation = ({navigation}) => {
         component={FeedbackScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="thumbs-up-outline" color={'#00008B'} size={24} />
+            <Ionicons name="edit" color={'#00008B'} size={24} />
           ),
           headerTitle: () => (
             <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
@@ -252,8 +253,8 @@ const ManageAccount = props => {
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={choosePhotoFromLibrary}>
-                            <Ionicons
-                                name={'folder'}
+                            <AntDesign
+                                name={'upload'}
                                 size={20}
                                 color="#C4C8CC"
                                 style={{marginTop: 10, marginLeft: 30}}

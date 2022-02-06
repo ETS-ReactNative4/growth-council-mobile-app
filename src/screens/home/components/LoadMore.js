@@ -63,7 +63,7 @@ const CouncilAllDetail = props => {
             <Text style={styles.eventTitle}>{item.title}</Text>
             <Text style={styles.eventParagraph}>
               Hosted by {item?.organizer?.term_name}{' '}
-              {item?.pillar_categories[0]?.slug}
+              {item?.organizer?.description}
             </Text>
           </View>
           <View style={styles.eventDate}>
@@ -81,7 +81,7 @@ const CouncilAllDetail = props => {
   const _renderPOE = ({item, index}) => {
     return (
       <View style={styles.poeCard} key={index}>
-        <View style={styles.poeTheme}>
+        <View style={[styles.poeTheme, styles.shadowProp]}>
           <Image
             source={{uri: item.image}}
             style={{
@@ -206,13 +206,40 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flexDirection: 'row',
     flexWrap: 'nowrap',
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 5,
+	marginLeft:2,
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   poeTheme: {
     height: 50,
     width: 50,
+	justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+	backgroundColor: '#fff',
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   eventTheme: {
     height: 84,

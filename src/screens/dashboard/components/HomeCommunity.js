@@ -209,6 +209,8 @@ const HomeCommunity = props => {
       </View>
     );
   };
+  const listData = props.pillarPOEs ?? [];
+const numColumns = Math.ceil(listData.length / 2);
 
   return (
     <ScrollView>
@@ -235,25 +237,29 @@ const HomeCommunity = props => {
 	
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 10,
-            }}>
-				{pillarEventLoading && (
+		  {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              renderItem={_renderMiddleItem}
-            />
-          </View>
+		  
+			<ScrollView
+				horizontal
+				showsVerticalScrollIndicator={false}
+				showsHorizontalScrollIndicator={false}
+				contentContainerStyle={{ paddingVertical: 20, marginLeft:10,}}>
+					<FlatList
+						scrollEnabled={false}
+						contentContainerStyle={{
+						alignSelf: 'flex-start',
+						}}
+						numColumns={numColumns}
+						showsHorizontalScrollIndicator={false}
+						data={poes}
+						renderItem={_renderMiddleItem}
+						keyExtractor = {(item) => item.id}
+					/>
+			</ScrollView>
         </View>
 
         <View style={styles.bottom}>

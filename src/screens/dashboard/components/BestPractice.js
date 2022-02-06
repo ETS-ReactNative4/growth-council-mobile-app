@@ -180,6 +180,8 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
+const numColumns = Math.ceil(listData.length / 2);
+
   // console.log('Best Praacticee pillar_id', pillarId);
   // console.log({pillarMemberContents});
 
@@ -209,20 +211,23 @@ const BestPractice = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          <ScrollView
-            horizontal
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            style={{marginLeft: 10}}>
-            
-            <FlatList
-              horizontal
-              // numColumns={Math.ceil(pillarPOEs.length / 2)}
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              renderItem={_renderMiddleItem}
-            />
-          </ScrollView>
+			<ScrollView
+				horizontal
+				showsVerticalScrollIndicator={false}
+				showsHorizontalScrollIndicator={false}
+				contentContainerStyle={{ paddingVertical: 20, marginLeft:10,}}>
+					<FlatList
+						scrollEnabled={false}
+						contentContainerStyle={{
+						alignSelf: 'flex-start',
+						}}
+						numColumns={numColumns}
+						showsHorizontalScrollIndicator={false}
+						data={poes}
+						renderItem={_renderMiddleItem}
+						keyExtractor = {(item) => item.id}
+					/>
+			</ScrollView>
         </View>
 
 		{pillarEventLoading && (
