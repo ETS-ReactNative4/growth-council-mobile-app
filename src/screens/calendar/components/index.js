@@ -14,6 +14,7 @@ import ButtonToggleGroup from 'react-native-button-toggle-group';
 
 import {CommonStyles, Colors} from '../../../theme';
 import {BubblesLoader} from 'react-native-indicator';
+import Footer from '../../../shared/footer';
 
 const EventCalendar = props => {
   const {
@@ -197,6 +198,7 @@ const EventCalendar = props => {
           )}
         </View>
       </View>
+	  <Footer/>
     </ScrollView>
   );
 };

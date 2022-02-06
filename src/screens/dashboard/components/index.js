@@ -412,12 +412,13 @@ const styles = StyleSheet.create({
   middle: {
     marginTop: 10,
     marginLeft: 5,
-	marginRight:5,
+	
   },
   middleWrapper: {
     width: 80,
     borderRadius: 20,
     marginTop: 15,
+	marginRight:10,
     justifyContent: 'center',
     alignItems: 'center',
   },

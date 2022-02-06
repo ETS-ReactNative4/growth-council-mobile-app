@@ -15,7 +15,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import FlatTextInput from '../../../shared/form/FlatOutlineTextInput';
+import FlatTextInput from '../../../shared/form/FlatTextInput';
 import ToastMessage from '../../../shared/toast';
 
 const passwordSchema = Yup.object().shape({
@@ -172,7 +172,7 @@ const ChangePasswordForm = props => {
                 {errors.oldPassword}
               </Text>
             )}
-            <Ionicons
+            {/* <Ionicons
               name={hidePass ? 'eye-outline' : 'eye-off-outline'}
               size={25}
               color={Colors.PRIMARY_HEADING_COLOR}
@@ -182,7 +182,7 @@ const ChangePasswordForm = props => {
                 bottom: 190,
                 right: 10,
               }}
-            />
+            /> */}
 
             <FlatTextInput
               label="New Password"
@@ -205,7 +205,7 @@ const ChangePasswordForm = props => {
               onPress={() => setHidePass1(!hidePass1)}
               style={{
                 position: 'absolute',
-                bottom: 100,
+                bottom: 90,
                 right: 10,
               }}
             />

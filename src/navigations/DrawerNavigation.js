@@ -16,6 +16,7 @@ import {
   StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome5';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
@@ -322,7 +323,7 @@ const DrawerNavigation = ({navigation}) => {
         component={FeedbackScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="edit" color={'#00008B'} size={24} />
+            <Font name="edit" color={'#00008B'} size={20} />
           ),
           headerTitle: () => (
             <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
