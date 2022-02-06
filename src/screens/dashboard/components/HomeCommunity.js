@@ -165,8 +165,8 @@ const HomeCommunity = props => {
                 height: 50,
                 marginTop: 10,
                 marginLeft: 200,
-                backgroundColor: '#B0E0E6',
-                borderRadius: 14,
+                backgroundColor: '#EBECF0',
+                borderRadius: 10,
                 padding: 5,
                 alignItems: 'center',
               }}>
@@ -208,6 +208,8 @@ const HomeCommunity = props => {
       </View>
     );
   };
+  const listData = props.pillarPOEs ?? [];
+const numColumns = Math.ceil(listData.length / 2);
 
   return (
     <ScrollView>
@@ -231,25 +233,29 @@ const HomeCommunity = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 10,
-            }}>
-            {pillarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              renderItem={_renderMiddleItem}
-            />
-          </View>
+		  {pillarEventLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
+		  
+			<ScrollView
+				horizontal
+				showsVerticalScrollIndicator={false}
+				showsHorizontalScrollIndicator={false}
+				contentContainerStyle={{ paddingVertical: 20, marginLeft:10,}}>
+					<FlatList
+						scrollEnabled={false}
+						contentContainerStyle={{
+						alignSelf: 'flex-start',
+						}}
+						numColumns={4}
+						showsHorizontalScrollIndicator={false}
+						data={pillarPOEs}
+						renderItem={_renderMiddleItem}
+						keyExtractor = {(item) => item.id}
+					/>
+			</ScrollView>
         </View>
 
         <View style={styles.bottom}>

@@ -16,6 +16,7 @@ import {
   StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Font from 'react-native-vector-icons/FontAwesome5';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
@@ -128,14 +129,13 @@ const DrawerNavigation = ({navigation}) => {
               </TouchableOpacity>
             </View>
             <View>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('About')}>
+              <TouchableOpacity onPress={() => navigation.navigate('About')}>
                 <Image
                   source={require('../assets/img/dashboard_logo.png')}
                   style={{
                     top: -29,
                     position: 'absolute',
-                    height:Platform.OS === 'ios' ? 35 : 35,
+                    height: Platform.OS === 'ios' ? 35 : 35,
                     width: Platform.OS === 'ios' ? 35 : 35,
                     left: 30,
                     marginLeft: 17,
@@ -322,7 +322,7 @@ const DrawerNavigation = ({navigation}) => {
         component={FeedbackScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="thumbs-up-outline" color={'#00008B'} size={24} />
+            <Font name="edit" color={'#00008B'} size={20} />
           ),
           headerTitle: () => (
             <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>

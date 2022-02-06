@@ -68,6 +68,13 @@ const Session = props => {
       backgroundColor = Colors.COMMUNITY_COLOR;
   }
 
+  let description = sessions?.descirption;
+  if (description !== undefined) {
+    description = sessions?.descirption;
+  } else {
+    description = '';
+  }
+
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
@@ -166,8 +173,7 @@ const Session = props => {
                 <View
                   style={{
                     flex: 1,
-                    paddingTop: 5,
-                    paddingBottom: 5,
+                    paddingTop: 20,
                     flexDirection: 'row',
                   }}>
                   <View
@@ -177,7 +183,7 @@ const Session = props => {
                     ]}>
                     <Ionicons
                       name={'location-outline'}
-                      size={35}
+                      size={20}
                       color={'white'}
                     />
                   </View>
@@ -185,12 +191,12 @@ const Session = props => {
                   {!isSessionLoaded && (
                     <View
                       style={{
-                        flex: 4,
+                        flex: 5,
                         paddingLeft: 10,
                       }}>
                       <Text style={styles.contentHeading}>
-                        {sessions?.location?.location_city} ,
-                        {sessions?.location?.location_state} ,
+                        {sessions?.location?.location_city}{' '} ,
+                        {sessions?.location?.location_state}{' '} ,
                         {sessions?.location?.location_country}
                       </Text>
                       <Text>{sessions?.location?.location_address}</Text>
@@ -276,7 +282,7 @@ const Session = props => {
                     ]}>
                     <Image
                       source={{uri: sessions?.organizer_image}}
-                      style={{width: 30, height: 60}}
+                      style={{width: "100%", height:"100%"}}
                     />
                   </View>
 
@@ -322,7 +328,7 @@ const Session = props => {
               <View>
                 <Text style={styles.contentHeading}>Session Brief</Text>
                 {!isSessionLoaded && (
-                  <HTMLView value={sessions?.description} stylesheet={styles} />
+                  <HTMLView value={description} stylesheet={styles} />
                 )}
               </View>
 
@@ -388,8 +394,8 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_NORMAL,
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
-    fontSize: 17,
-	marginBottom:10,
+    fontSize: 14,
+	marginBottom:8,
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,

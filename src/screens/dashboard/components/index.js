@@ -227,6 +227,8 @@ const Dashboard = props => {
   };
 
   // console.log({contentSlider});
+  const listData = props.poes ?? [];
+const numColumns = Math.ceil(listData.length / 2);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -280,19 +282,23 @@ const Dashboard = props => {
           <Text style={[styles.title, {marginLeft: 15}]}>
             Points of Engagement
           </Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 10,
-            }}>
+          <ScrollView
+			horizontal
+			showsVerticalScrollIndicator={false}
+			showsHorizontalScrollIndicator={false}
+			contentContainerStyle={{ paddingVertical: 20, marginLeft:10,}}>
             <FlatList
-              horizontal
+				scrollEnabled={false}
+				contentContainerStyle={{
+				alignSelf: 'flex-start',
+				}}
+              numColumns={10}
               showsHorizontalScrollIndicator={false}
               data={poes}
               renderItem={_renderMiddleItem}
+			  keyExtractor = {(item) => item.id}
             />
-          </View>
+          </ScrollView>
         </View>
 
         <View style={styles.bottom}>
@@ -406,11 +412,13 @@ const styles = StyleSheet.create({
   middle: {
     marginTop: 10,
     marginLeft: 5,
+	
   },
   middleWrapper: {
     width: 80,
     borderRadius: 20,
     marginTop: 15,
+	marginRight:10,
     justifyContent: 'center',
     alignItems: 'center',
   },

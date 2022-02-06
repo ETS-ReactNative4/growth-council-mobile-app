@@ -4,11 +4,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import OthersAccount from './components/OthersAccount';
 import {fetchOtherProfileByID, resetProfile} from './slice/otherProfileSlice';
 
+
 const OtherAccountScreen = props => {
 
     const dispatch = useDispatch();
 
     const {otherProfiles, otherProfileLoading, otherProfileError} = useSelector(state => state.otherProfiles);
+
 
     /**
      * Fetch other member profile data.
@@ -23,6 +25,7 @@ const OtherAccountScreen = props => {
         dispatch(resetProfile());
     };
 
+	
     return (
         <OthersAccount
             {...props}
@@ -31,6 +34,7 @@ const OtherAccountScreen = props => {
             otherProfileError={otherProfileError}
             fetchOtherProfileByIdentifier={fetchOtherProfileByIdentifier}
             cleanProfile={cleanProfile}
+
         />
     );
 };

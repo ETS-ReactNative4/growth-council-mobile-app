@@ -14,6 +14,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 import {Button} from 'native-base';
 import {BubblesLoader} from 'react-native-indicator';
+import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
@@ -47,6 +48,8 @@ const Profile = (props) => {
     const [value, setValue] = useState('My Sessions');
 
     const _renderItems = ({item, index}) => {
+		const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
+		const date = actualDate[1].split(' ', 3);
         return (
             <View>
                 <TouchableOpacity
@@ -71,7 +74,7 @@ const Profile = (props) => {
                                     color="#0B0B45"
                                     style={{marginLeft: 20}}
 
-                                /><Text style={styles.text}>{item.text3}</Text>
+                                /><Text style={styles.text}>{date[2]} {date[1]}</Text>
                             </View>
                             <View style={styles.iconWrapper}>
                                 <Ionicon
@@ -101,6 +104,9 @@ const Profile = (props) => {
     };
 
     const _renderItem = ({item, index}) => {
+		const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
+		const date = actualDate[1].split(' ', 3);
+		console.log(date[2])
         return (
             <View key={index}>
                 <TouchableOpacity
@@ -127,7 +133,7 @@ const Profile = (props) => {
                                     color="#0B0B45"
                                     style={{marginLeft: 20}}
 
-                                /><Text style={styles.text}>{item.text3}</Text>
+                                /><Text style={styles.text}>{date[2]} {date[1]}</Text>
                             </View>
                             <View style={styles.iconWrapper}>
                                 <Ionicon
