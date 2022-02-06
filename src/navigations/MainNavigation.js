@@ -41,6 +41,7 @@ import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import selfAssessment from '../screens/coachingSession/component/selfAssessment';
+import { Platform } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -73,6 +74,7 @@ const MainNavigation = () => {
               <Ionicons
                 name={'arrow-back'}
                 size={80}
+                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
                 color={'white'}
                 onPress={() => navigation.navigate('Home')}
               />
@@ -93,6 +95,7 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={70}
                 color={'white'}
+                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
@@ -112,6 +115,7 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={80}
                 color={'white'}
+                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
