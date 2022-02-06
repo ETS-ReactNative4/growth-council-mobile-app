@@ -38,7 +38,7 @@ const profileSessionSlice = createSlice({
     [fetchSessionsByUserID.rejected]: (state, action) => {
       state.profileSessionLoading = false;
       if (action.payload) {
-        state.profileSessionError = action.payload.error.message;
+        state.profileSessionError = action?.payload?.error?.message;
       } else {
         state.profileSessionError = action.error;
       }

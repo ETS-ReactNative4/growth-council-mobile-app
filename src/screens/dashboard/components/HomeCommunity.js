@@ -21,7 +21,7 @@ import Footer from '../../../shared/footer';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const win = Dimensions.get('window');
-  const contentContainerWidth = win.width - 30;
+const contentContainerWidth = win.width - 30;
 
 const HomeCommunity = props => {
   const {
@@ -74,7 +74,6 @@ const HomeCommunity = props => {
   }, []);
 
   console.log('Commiunity pillar_id', pillarId);
-  console.log({pillarMemberContents});
 
   // console.log('Community ============', pillarPOEs);
   //console.log('Params ==== ', pillarId);
@@ -216,13 +215,11 @@ const HomeCommunity = props => {
         <View style={styles.top}>
           <Text style={styles.title}> Growth Community Events</Text>
 
-          
           <View
             style={{
               display: 'flex',
               flexDirection: 'row',
             }}>
-			
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -232,7 +229,6 @@ const HomeCommunity = props => {
           </View>
         </View>
 
-	
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
 
@@ -242,11 +238,11 @@ const HomeCommunity = props => {
               flexDirection: 'row',
               marginLeft: 10,
             }}>
-				{pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+            {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}

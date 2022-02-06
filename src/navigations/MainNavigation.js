@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Platform } from 'react-native';
 
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
@@ -40,8 +41,7 @@ import ChatScreen from '../screens/chat';
 import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
-import selfAssessment from '../screens/coachingSession/component/selfAssessment';
-import { Platform } from 'react-native';
+import SelfAssessment from '../screens/coachingSession/component/SelfAssessment';
 
 const Stack = createStackNavigator();
 
@@ -171,7 +171,7 @@ const MainNavigation = () => {
         />
         <Stack.Screen
           name="selfAssessment"
-          component={selfAssessment}
+          component={SelfAssessment}
           options={{
             headerTitle: 'Session',
           }}

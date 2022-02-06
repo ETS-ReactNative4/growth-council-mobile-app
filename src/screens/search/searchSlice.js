@@ -38,7 +38,7 @@ const searchSlice = createSlice({
     [searchEventsByKey.rejected]: (state, action) => {
       state.searchLoading = false;
       if (action.payload) {
-        state.searchError = action.payload.error.message;
+        state.searchError = action?.payload?.error?.message;
       } else {
         state.searchError = action.error;
       }

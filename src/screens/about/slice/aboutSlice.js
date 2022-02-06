@@ -38,7 +38,7 @@ const aboutSlice = createSlice({
     [fetchAbouts.rejected]: (state, action) => {
       state.aboutLoading = false;
       if (action.payload) {
-        state.aboutError = action.payload.error.message;
+        state.aboutError = action?.payload?.error?.message;
       } else {
         state.aboutError = action.error;
       }

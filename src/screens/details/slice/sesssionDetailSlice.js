@@ -38,7 +38,7 @@ const sessionDetailSlice = createSlice({
     [fetchSessionDetailByID.rejected]: (state, action) => {
       state.sessionDetailLoading = false;
       if (action.payload) {
-        state.sessionDetailError = action.payload.error.message;
+        state.sessionDetailError = action?.payload?.error?.message;
       } else {
         state.sessionDetailError = action.error;
       }

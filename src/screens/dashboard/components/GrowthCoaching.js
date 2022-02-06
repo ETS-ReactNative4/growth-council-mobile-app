@@ -71,12 +71,6 @@ const GrowthCoaching = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  // console.log('Coaching pillar_id', pillarId);
-  // console.log({pillarMemberContents});
-
-  // console.log('Growth Coaching =========', growthCoachings);
-  // console.log('Member================', growthCoachingMemberContents);
-
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
@@ -103,10 +97,10 @@ const GrowthCoaching = props => {
           </View>
         </TouchableOpacity>
 
-		<View style={styles.chatIcon}>
-			<TouchableOpacity onPress={() => navigation.navigate('People')}>
-          <Ionicons name={'add'} size={15} color="#B1AFAF" />
-		  </TouchableOpacity>
+        <View style={styles.chatIcon}>
+          <TouchableOpacity onPress={() => navigation.navigate('People')}>
+            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+          </TouchableOpacity>
         </View>
       </View>
     );

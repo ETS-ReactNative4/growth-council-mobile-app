@@ -38,7 +38,7 @@ const privacySlice = createSlice({
     [fetchPrivacy.rejected]: (state, action) => {
       state.privacyLoading = false;
       if (action.payload) {
-        state.privacyError = action.payload.error.message;
+        state.privacyError = action?.payload?.error?.message;
       } else {
         state.privacyError = action.error;
       }

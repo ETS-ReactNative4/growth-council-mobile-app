@@ -38,7 +38,7 @@ const pillarEventSlice = createSlice({
     [fetchAllPillarEvents.rejected]: (state, action) => {
       state.pillarEventLoading = false;
       if (action.payload) {
-        state.pillarEventError = action.payload.error.message;
+        state.pillarEventError = action?.payload?.error?.message;
       } else {
         state.pillarEventError = action.error;
       }

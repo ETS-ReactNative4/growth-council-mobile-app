@@ -38,7 +38,7 @@ const growthCoachingSlice = createSlice({
     [fetchAllgrowthCoachings.rejected]: (state, action) => {
       state.growthCoachingLoading = false;
       if (action.payload) {
-        state.growthCoachingError = action.payload.error.message;
+        state.growthCoachingError = action?.payload?.error?.message;
       } else {
         state.growthCoachingError = action.error;
       }
