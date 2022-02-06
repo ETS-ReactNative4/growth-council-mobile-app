@@ -98,33 +98,18 @@ const CoachingSession = props => {
                   }}
                 />
               </View>
-              {display ? (
-                <TouchableOpacity
-                  onPress={() => setModalVisible(true)}
-                  onPressIn={() => {
-                    setDisplay(!display);
-                  }}>
-                  <Ionicons
-                    name={'menu'}
-                    size={35}
-                    color={'black'}
-                    style={{marginLeft: 15}}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => setModalVisible(!modalVisible)}
-                  onPressIn={() => {
-                    setDisplay(!display);
-                  }}>
-                  <Ionicons
-                    name={'close'}
-                    size={35}
-                    color={'black'}
-                    style={{marginLeft: 15}}
-                  />
-                </TouchableOpacity>
-              )}
+              <TouchableOpacity
+                onPress={() => setModalVisible(!modalVisible)}
+                onPressIn={() => {
+                  setDisplay(!display);
+                }}>
+                <Ionicons
+                  name={modalVisible ? 'close' : 'menu'}
+                  size={35}
+                  color={'black'}
+                  style={{marginLeft: 15}}
+                />
+              </TouchableOpacity>
 
               <View style={styles.centeredView}>
                 <Modal
@@ -132,98 +117,74 @@ const CoachingSession = props => {
                   transparent={true}
                   visible={modalVisible}
                   onRequestClose={() => {
-                    Alert.alert('Modal has been closed.');
-                    setModalVisible(!modalVisible);
+                    setModalVisible(false);
                   }}>
                   <View>
                     <View style={styles.modalView}>
-                      <View style={styles.wrapper}>
-                        <View style={styles.traitWrapper}>
-                          <View style={[styles.traitW, styles.shadowProp]}>
-                            <Ionicons
-                              name={'medkit-sharp'}
-                              size={20}
-                              color={'#A1BA68'}
-                            />
+                      {traits?.map((trait, index) => (
+                        <View>
+                          <View style={styles.wrapper}>
+                            <View style={styles.traitWrapper}>
+                              <View style={[styles.traitW, styles.shadowProp]}>
+                                <Image
+                                  source={{uri: trait?.image}}
+                                  style={{width: 20, height: 20}}
+                                />
+                                {/* <Ionicons
+                                  name={'medkit-sharp'}
+                                  size={20}
+                                  color={'#A1BA68'}
+                                /> */}
+                              </View>
+
+                              <Text style={{padding: 10, fontSize: 12}}>
+                                {trait?.title}
+                              </Text>
+                            </View>
+                            {index === 0 && (
+                              <View style={{flexDirection: 'row'}}>
+                                <Text style={{marginTop: 15, fontSize: 12}}>
+                                  Score
+                                </Text>
+                                <View
+                                  style={{
+                                    width: 40,
+                                    height: 30,
+                                    marginLeft: 5,
+                                    backgroundColor: 'orange',
+                                    borderRadius: 50,
+                                    padding: 5,
+                                    marginTop: 10,
+                                    alignItems: 'center',
+                                  }}>
+                                  <Text style={{fontSize: 12}}>
+                                    {answers.totalScore}
+                                  </Text>
+                                </View>
+                              </View>
+                            )}
                           </View>
-
-                          <Text style={{padding: 10, fontSize: 12}}>
-                            Traits 1
-                          </Text>
-                        </View>
-                        <View style={{flexDirection: 'row'}}>
-                          <Text style={{marginTop: 15, fontSize: 12}}>
-                            Score
-                          </Text>
-                          <View
-                            style={{
-                              width: 40,
-                              height: 30,
-                              marginLeft: 5,
-                              backgroundColor: 'orange',
-                              borderRadius: 50,
-                              padding: 5,
-                              marginTop: 10,
-                              alignItems: 'center',
-                            }}>
-                            <Text style={{fontSize: 12}}>2.0</Text>
+                          <View style={{marginTop: 10, marginLeft: 50}}>
+                            {trait?.sub_traits?.map((subTrait, index) => (
+                              <View
+                                style={[styles.textStyle, styles.shadowProp]}>
+                                <Text style={{fontSize: 12}}>
+                                  {subTrait?.title}
+                                </Text>
+                                {/* <Ionicons
+                                name={'checkmark-outline'}
+                                size={20}
+                                color={'#A1BA68'}
+                              /> */}
+                              </View>
+                            ))}
                           </View>
                         </View>
-                      </View>
-
-                      <View style={{marginTop: 10, marginLeft: 50}}>
-                        <View style={[styles.textStyle, styles.shadowProp]}>
-                          <Text style={{fontSize: 12}}>Sub Traits 1</Text>
-                          <Ionicons
-                            name={'checkmark-outline'}
-                            size={20}
-                            color={'#A1BA68'}
-                          />
-                        </View>
-                        <View style={[styles.textStyle, styles.shadowProp]}>
-                          <Text style={{fontSize: 12}}>Sub Traits 2</Text>
-                        </View>
-                        <View style={[styles.textStyle, styles.shadowProp]}>
-                          <Text style={{fontSize: 12}}>Sub Traits 3</Text>
-                        </View>
-                      </View>
-
-                      <View style={styles.wrapper}>
-                        <View style={styles.traitWrapper}>
-                          <View style={[styles.traitW, styles.shadowProp]}>
-                            <Ionicons
-                              name={'medkit-sharp'}
-                              size={20}
-                              color={'#A1BA68'}
-                            />
-                          </View>
-
-                          <Text style={{padding: 10, fontSize: 12}}>
-                            Traits 2
-                          </Text>
-                        </View>
-                      </View>
-
-                      <View
-                        style={{
-                          marginTop: 10,
-                          marginBottom: 20,
-                          marginLeft: 50,
-                        }}>
-                        <View style={[styles.textStyle, styles.shadowProp]}>
-                          <Text style={{fontSize: 12}}>Sub Traits 4</Text>
-                        </View>
-                        <View style={[styles.textStyle, styles.shadowProp]}>
-                          <Text style={{fontSize: 12}}>Sub Traits 5</Text>
-                        </View>
-                        <View style={[styles.textStyle, styles.shadowProp]}>
-                          <Text style={{fontSize: 12}}>Sub Traits 6</Text>
-                        </View>
-                      </View>
+                      ))}
 
                       <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
+                        onPress={() => setModalVisible(false)}>
                         <Text style={styles.textS}>Close</Text>
                       </Pressable>
                     </View>
@@ -455,6 +416,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+    overflow: 'hidden',
   },
   modalView: {
     width: 295,
@@ -482,6 +444,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F194FF',
   },
   buttonClose: {
+    marginTop: 30,
     backgroundColor: '#2196F3',
   },
   textS: {
@@ -490,9 +453,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   textStyle: {
-    width: 178,
+    // width: 178,
     backgroundColor: '#ffff',
-    height: 40,
+    // height: 40,
     borderRadius: 10,
     justifyContent: 'space-between',
     marginLeft: 10,
