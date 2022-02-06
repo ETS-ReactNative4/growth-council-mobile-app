@@ -38,7 +38,7 @@ const profileSlice = createSlice({
     [fetchProfileByID.rejected]: (state, action) => {
       state.profileLoading = false;
       if (action.payload) {
-        state.profileError = action.payload.error.message;
+        state.profileError = action?.payload?.error?.message;
       } else {
         state.profileError = action.error;
       }

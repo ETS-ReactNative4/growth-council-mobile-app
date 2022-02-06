@@ -38,7 +38,7 @@ const eventSlice = createSlice({
     [fetchEventByID.rejected]: (state, action) => {
       state.eventLoading = false;
       if (action.payload) {
-        state.eventError = action.payload.error.message;
+        state.eventError = action?.payload?.error?.message;
       } else {
         state.eventError = action.error;
       }

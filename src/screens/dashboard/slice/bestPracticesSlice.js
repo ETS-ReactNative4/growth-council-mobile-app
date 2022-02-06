@@ -38,7 +38,7 @@ const bestPracticeSlice = createSlice({
     [fetchAllbestPractices.rejected]: (state, action) => {
       state.bestPracticeLoading = false;
       if (action.payload) {
-        state.bestPracticeError = action.payload.error.message;
+        state.bestPracticeError = action?.payload?.error?.message;
       } else {
         state.bestPracticeError = action.error;
       }

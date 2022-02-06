@@ -38,7 +38,7 @@ const calendarEventSlice = createSlice({
     [fetchAllCalendarEvents.rejected]: (state, action) => {
       state.calendarEventLoading = false;
       if (action.payload) {
-        state.calendarEventError = action.payload.error.message;
+        state.calendarEventError = action?.payload?.error?.message;
       } else {
         state.calendarEventError = action.error;
       }

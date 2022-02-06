@@ -48,7 +48,6 @@ const SignInForm = props => {
     validationSchema: signInSchema,
     initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     onSubmit: async values => {
-      console.log({values});
       await signIn(values);
     },
   });

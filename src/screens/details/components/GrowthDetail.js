@@ -184,9 +184,7 @@ const GrowthDetail = props => {
     const date = actualDate[0].split(' ', 3);
     console.log(date[1]);
     return (
-		
       <View>
-		 
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('coachingSession', {
@@ -210,9 +208,9 @@ const GrowthDetail = props => {
                 marginTop: 10,
                 backgroundColor: '#EBECF0',
                 borderRadius: 15,
-                right:5,
+                right: 5,
                 padding: 5,
-				position:'absolute',
+                position: 'absolute',
                 alignItems: 'center',
               }}>
               <Text>{date[1]}</Text>
@@ -240,7 +238,6 @@ const GrowthDetail = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videolink = link[1].split('&', 2);
-    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videolink[0]} />
@@ -263,43 +260,47 @@ const GrowthDetail = props => {
 
   const _renderLearnItem = ({item, index}) => {
     return (
-		<View>
-			<TouchableOpacity
-				onPress={() =>
-					navigation.navigate('selflearn', {
-					id: item.ID,
-					selfLearnId: item?.ID,
-					})
-				}>
-				<View style={styles.learnWrapper}>
-					<Image
-					style={{
-						width: 72,
-						height: 102,
-						margin: 10,
-						borderRadius: 10,
-					}}
-					source={require('../../../assets/img/best_practices_slider_image.png')}
-					/>
-					<View>
-					<View>
-						<Text
-						style={{
-							fontWeight: '500',
-							fontSize: 10,
-							marginLeft: 10,
-							marginTop: 10,
-							width:100,
-							
-						}}>
-						{item?.title}
-						</Text>
-						<Text
-						style={{marginLeft: 10, width: 100, marginTop: 10, fontSize: 8}}>
-							Prime Yourself to become Insenely Great Leader
-						</Text>
-					</View>
-					{/* <View
+      <View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('selflearn', {
+              id: item.ID,
+              selfLearnId: item?.ID,
+            })
+          }>
+          <View style={styles.learnWrapper}>
+            <Image
+              style={{
+                width: 72,
+                height: 102,
+                margin: 10,
+                borderRadius: 10,
+              }}
+              source={require('../../../assets/img/best_practices_slider_image.png')}
+            />
+            <View>
+              <View>
+                <Text
+                  style={{
+                    fontWeight: '500',
+                    fontSize: 10,
+                    marginLeft: 10,
+                    marginTop: 10,
+                    width: 100,
+                  }}>
+                  {item?.title}
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: 10,
+                    width: 100,
+                    marginTop: 10,
+                    fontSize: 8,
+                  }}>
+                  Prime Yourself to become Insenely Great Leader
+                </Text>
+              </View>
+              {/* <View
 						style={{
 						marginTop: 30,
 						display: 'flex',
@@ -314,9 +315,9 @@ const GrowthDetail = props => {
 						style={{right: 0, marginLeft: 80}}
 						/>
 					</View> */}
-					</View>
-				</View>
-			</TouchableOpacity>
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -344,7 +345,7 @@ const GrowthDetail = props => {
               }}
             />
           </View>
-		 
+
           <View style={styles.content}>
             <View style={styles.contentWrapper}>
               <Text
@@ -356,7 +357,7 @@ const GrowthDetail = props => {
                   marginTop: 50,
                 }}>
                 {poeDetails.name}
-              </Text>     
+              </Text>
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               {/* <View style={styles.top}>
@@ -374,7 +375,7 @@ const GrowthDetail = props => {
                   />
                 </View>
               </View> */}
-			   
+
               <View style={styles.middle}>
                 <Text style={styles.title}>Sessions</Text>
                 <View
@@ -382,27 +383,26 @@ const GrowthDetail = props => {
                     display: 'flex',
                     flexDirection: 'row',
                   }}>
-				{coachingSessionLoading && (
-					<>
-					<View
-						style={{
-							top: 0,
-							left: 0,
-							right: 0,
-							bottom: 0,
-							justifyContent: 'center',
-							alignItems: 'center',
-							position: 'absolute',
-							zIndex: 1011,
-						
-						}}>
-						<BubblesLoader
-						color={Colors.SECONDARY_TEXT_COLOR}
-						size={80}
-						/>
-					</View>
-					</>
-				)}
+                  {coachingSessionLoading && (
+                    <>
+                      <View
+                        style={{
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          position: 'absolute',
+                          zIndex: 1011,
+                        }}>
+                        <BubblesLoader
+                          color={Colors.SECONDARY_TEXT_COLOR}
+                          size={80}
+                        />
+                      </View>
+                    </>
+                  )}
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -474,11 +474,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   icon: {
-    width:  Platform.OS === 'ios' ? 80 : 80,
-    height:  Platform.OS === 'ios' ? 80 : 80,
+    width: Platform.OS === 'ios' ? 80 : 80,
+    height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-    marginLeft:  Platform.OS === 'ios' ? 120 : 150,
+    marginLeft: Platform.OS === 'ios' ? 120 : 150,
     marginTop: 190,
     alignItems: 'center',
     justifyContent: 'center',

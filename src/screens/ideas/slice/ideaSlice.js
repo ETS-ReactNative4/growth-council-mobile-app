@@ -38,7 +38,7 @@ const IdeaSlice = createSlice({
     [fetchIdeas.rejected]: (state, action) => {
       state.ideaLoading = false;
       if (action.payload) {
-        state.ideaError = action.payload.error.message;
+        state.ideaError = action?.payload?.error?.message;
       } else {
         state.ideaError = action.error;
       }
