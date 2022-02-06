@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import SelfAbout from './selfAbout';
-import SelfAssessment from '../../coachingSession/component/SelfAssessment';
+import SelfAssessment from '../../coachingSession/component/selfAssessment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 import {CommonStyles, Colors, Typography} from '../../../theme';

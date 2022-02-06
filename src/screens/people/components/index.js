@@ -240,6 +240,12 @@ const People = props => {
             <Text style={styles.textWrapper}>Sort</Text>
           </View>
         </View>
+		
+		{userLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
         <View style={{marginTop: 40}}>
 		{memberConnectionLoading && (
               <View style={styles.loading1}>
