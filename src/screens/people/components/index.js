@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,19 +8,20 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Font from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
+import { Dialog } from 'react-native-paper';
+import {BubblesLoader} from 'react-native-indicator';
 
 const win = Dimensions.get('window');
-  const contentContainerWidth = win.width - 30;
+const contentContainerWidth = win.width - 30;
 
 const People = props => {
   const {
@@ -45,14 +46,18 @@ const People = props => {
   } = props;
 
   const toast = useToast();
-  const [category, setCategory] = useState('Category');
+  const [category, setCategory] = useState( );
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
 
   useEffect(() => {
     const fetchAllUsersAsync = async () => {
-      await fetchAllUsers({s: searchKey, sort: sorting});
+      await fetchAllUsers({
+        s: searchKey,
+        sort: sorting,
+        expertise_areas: category,
+      });
     };
     fetchAllUsersAsync();
     setMemberConnection(users);
@@ -65,8 +70,9 @@ const People = props => {
     fetchAllExpertisesAsync();
   }, []);
 
-  console.log(memberConnections);
-  
+  console.log({searchKey}, {sorting}, {category});
+  console.log({memberConnections});
+
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
@@ -80,10 +86,19 @@ const People = props => {
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
-	  
     }
-	console.log(response)
+    console.log(response);
   };
+
+  const pickerRef = useRef();
+
+	function open() {
+	pickerRef.current.focus();
+	}
+
+	function close() {
+	pickerRef.current.blur();
+	}
  
 
   const _renderItem = ({item, index}) => {
@@ -161,25 +176,37 @@ const People = props => {
             value={searchKey}
             onChangeText={async text => {
               setSearchKey(text);
-              await fetchAllUsers({s: text, sort: sorting});
+              await fetchAllUsers({
+                s: text,
+                sort: sorting,
+                expertise_areas: category,
+              });
             }}
           />
         </View>
         <View style={styles.iconWrapper}>
-          <View style={{borderRightWidth: 0.2, borderColor: '#707070', width:"65%"}}>
+          
             <Picker
               selectedValue={category}
-              mode={'dropdown'}
-             
-              onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
-              
+			  ref={pickerRef}
+              mode={Dialog}
+			  style={{ height: 50, width: '65%'}}
+			  itemTextStyle={{fontSize:12}}
+              onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+              onPress={async () => {
+                setSorting('DESC');
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: sorting,
+                  expertise_areas: category,
+                });
+              }}>
               {Object.keys(expertise).map(key => {
                 return (
-                  <Picker.Item label={expertise[key]} value={key} key={key} />
+                  <Picker.Item label={expertise[key]} value={key} key={key} style={{fontSize:12}}  />
                 );
               })}
             </Picker>
-          </View>
 
           <View style={styles.icon}>
             <Ionicons
@@ -189,7 +216,11 @@ const People = props => {
               style={{marginTop: 15}}
               onPress={async () => {
                 setSorting('DESC');
-                await fetchAllUsers({s: searchKey, sort: 'DESC'});
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: 'DESC',
+                  expertise_areas: category,
+                });
               }}
             />
             <Ionicons
@@ -199,13 +230,22 @@ const People = props => {
               style={{marginTop: 15}}
               onPress={async () => {
                 setSorting('ASC');
-                await fetchAllUsers({s: searchKey, sort: 'ASC'});
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: 'ASC',
+                  expertise_areas: category,
+                });
               }}
             />
             <Text style={styles.textWrapper}>Sort</Text>
           </View>
         </View>
-        <View style={{marginTop: 30}}>
+        <View style={{marginTop: 40}}>
+		{memberConnectionLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
           <FlatList
             vertical
             showsVerticalScrollIndicator={false}
@@ -282,6 +322,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  loading1: {
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 

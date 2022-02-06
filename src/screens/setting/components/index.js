@@ -17,6 +17,7 @@ import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import {clearAsyncStorage} from '../../../utils/storageUtil';
+import {Linking} from 'react-native';
 
 const Setting = props => {
   const {

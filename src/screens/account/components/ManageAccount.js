@@ -183,8 +183,8 @@ const ManageAccount = props => {
             await updateUser(values).then(response => {
                 if (response?.payload?.code === 200) {
                     navigation.navigate('Person');
-                    ToastMessage.show('Your information has been successfully updated.');
-                    ToastMessage.show(values.email);
+                    ToastMessage.show('Profile has been successfully updated.');
+                    
                 }
             });
         },
@@ -212,7 +212,7 @@ const ManageAccount = props => {
             value,
         }));
         setItems(result);
-        return () => {setValue([])};
+        // return () => {setValue([])};
     }, []);
 
     return (

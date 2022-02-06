@@ -529,7 +529,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   body: {
-    width: '80%',
+    width: '90%',
     // alignItems: 'center',
     justifyContent: 'center',
   },
@@ -584,7 +584,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   signUpButtonText: {
-    color: Colors.SENDENARY_TEXT_COLOR,
+    color: Colors.PRIMARY_BUTTON_COLOR,
     fontFamily: Typography.FONT_NORMAL,
     paddingLeft: 5,
   },
@@ -593,7 +593,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   loading1: {
-	top: 10,
+    top: 10,
     left: 0,
     right: 0,
     bottom: 0,

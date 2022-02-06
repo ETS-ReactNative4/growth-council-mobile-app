@@ -178,7 +178,7 @@ const Home = props => {
         </Text>
         <Image
           source={require('../../../assets/img/frost_digital_logo_1.png')}
-          style={styles.footerlogo}
+          style={styles.footerlogo1}
         />
       </View>
     </View>
@@ -226,13 +226,12 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'space-around',
-
-    marginTop: 20,
+    marginTop: 40,
   },
   signupbutton: {
     ...CommonStyles.button,
     width: buttonContainerWidth,
-    marginBottom: 20,
+    marginBottom: Platform.OS === 'ios' ? 10 : 20,
     borderRadius: 25,
     height: 56,
     alignItems: 'center',
@@ -290,24 +289,30 @@ const styles = StyleSheet.create({
     color: '#6F8BA4',
     textAlign: 'center',
     fontWeight: '500',
-    marginTop: 30,
+    marginTop: Platform.OS === 'ios' ? 15 : 30,
   },
 
   footer: {
-    marginBottom: 20,
+    marginBottom: 10,
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
   footerlogo: {
+	width:150,
+	height: 25,
+	resizeMode: 'contain',
+	opacity: 2,
+  },
+  footerlogo1: {
     width: 120,
-    height: 18,
+    height: 15,
     resizeMode: 'contain',
     opacity: 0.75,
   },
   sliderView: {
     position: 'relative',
-    marginTop: 50,
+    marginTop: 30,
   },
   sliderText: {
     position: 'absolute',

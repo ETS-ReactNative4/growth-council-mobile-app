@@ -152,10 +152,10 @@ const styles = StyleSheet.create({
 		justifyContent:'space-between'
     },
     button: {
-        width: 160,
+        width:Platform.OS === 'ios' ? 140 : 160,
         borderRadius: 10,
         height: 38,
-        margin: 8,
+        marginTop: 8,
         backgroundColor: 'white'
     },
     buttonText: {

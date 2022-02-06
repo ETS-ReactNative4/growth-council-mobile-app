@@ -210,8 +210,9 @@ const GrowthDetail = props => {
                 marginTop: 10,
                 backgroundColor: '#EBECF0',
                 borderRadius: 15,
-                marginLeft: 60,
+                right:5,
                 padding: 5,
+				position:'absolute',
                 alignItems: 'center',
               }}>
               <Text>{date[1]}</Text>
@@ -336,8 +337,8 @@ const GrowthDetail = props => {
             <Image
               source={{uri: poeDetails?.image}}
               style={{
-                width: 50,
-                height: 50,
+                width: 30,
+                height: 30,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -473,11 +474,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   icon: {
-    width: 90,
-    height: 90,
+    width:  Platform.OS === 'ios' ? 80 : 80,
+    height:  Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-    marginLeft: 150,
+    marginLeft:  Platform.OS === 'ios' ? 120 : 150,
     marginTop: 190,
     alignItems: 'center',
     justifyContent: 'center',
