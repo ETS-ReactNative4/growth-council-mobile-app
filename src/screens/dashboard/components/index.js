@@ -429,8 +429,7 @@ const styles = StyleSheet.create({
     },
     middle: {
         marginTop: 10,
-        marginLeft: 5,
-
+        
     },
     middleWrapper: {
         width: (Dimensions.get('window').width - 10) / 4,

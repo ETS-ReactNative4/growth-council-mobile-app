@@ -328,13 +328,13 @@ const styles = StyleSheet.create({
   middle: {
     width: 400,
     marginTop: 10,
-	marginLeft:5,
+	
   },
   middleWrapper: {
-    width: 80,
+	width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
-	marginRight:10,
+	
     justifyContent: 'center',
     alignItems: 'center',
   },
