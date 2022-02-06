@@ -2664,6 +2664,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-masked-view/masked-view/-/masked-view-0.2.6.tgz#b26c52d5db3ad0926b13deea79c69620966a9221"
   integrity sha512-303CxmetUmgiX9NSUxatZkNh9qTYYdiM8xkGf9I3Uj20U3eGY3M78ljeNQ4UVCJA+FNGS5nC1dtS9GjIqvB4dg==
 
+"@react-native-picker/picker@^1.8.3":
+  version "1.16.8"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.16.8.tgz#2126ca54d4a5a3e9ea5e3f39ad1e6643f8e4b3d4"
+  integrity sha512-pacdQDX6V6EmjF+HoiIh6u++qx4mTK0WnhgUHRc01B+Qt5eoeUwseBqmqfTSXTx/aHDEd6PiIw7UGvKgFoqgFQ==
+
 "@react-native-picker/picker@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.2.1.tgz#32b9f540d8e88a73d8856f73cca88251cecb9614"
@@ -8406,6 +8411,14 @@ react-native-pdf@^6.4.0:
   dependencies:
     crypto-js "^3.2.0"
 
+react-native-picker-select@^8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-8.0.4.tgz#3f7f1f42df69b06e7d2c10338288332a6c40fd10"
+  integrity sha512-orBjPIwBkV5oipyVw263YNMI56f6Kj3p/ejabZoCYYNSG3AiLVVhC2RqsxMgDA7IayyURAW+AlV+mDJyVqLBkg==
+  dependencies:
+    "@react-native-picker/picker" "^1.8.3"
+    lodash.isequal "^4.5.0"
+
 react-native-radio-buttons-group@^2.2.10:
   version "2.2.10"
   resolved "https://registry.yarnpkg.com/react-native-radio-buttons-group/-/react-native-radio-buttons-group-2.2.10.tgz#619f63ee4d9207fe91b784d74e982bb70d45771a"
@@ -8443,6 +8456,11 @@ react-native-screens@^3.10.1, react-native-screens@^3.4.0:
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
+
+react-native-select-dropdown@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-select-dropdown/-/react-native-select-dropdown-1.7.0.tgz#bb57bf9cf263053e71917c5e7c88ff6cbb702d1c"
+  integrity sha512-zdHOHzrmWdNYLXuC+F1abbJhzUpBMgptWWOKN4gi3ge1gV3uPep/hpBznAUo7jHzObXQh6JHZP/AMmbg/1rWFA==
 
 react-native-snap-carousel@^3.9.1:
   version "3.9.1"
