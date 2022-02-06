@@ -67,14 +67,15 @@ const ChangePasswordForm = props => {
       confirmPassword: '',
     },
     onSubmit: async values => {
-      console.log({oldPassword}, {newPassword}, {confirmPassword});
+    
       delete values.confirmPassword;
-      console.log({oldPassword}, {newPassword}, {confirmPassword});
+      
       await updateCustomerPassword(values).then(response => {
         console.log({response});
         if (response?.payload?.code === 200) {
           navigation.navigate('SignIn');
           ToastMessage.show('Your password has been successfully changed.');
+		  console.log(values);
         }
       });
     },
@@ -159,39 +160,40 @@ const ChangePasswordForm = props => {
 
           <View style={styles.body}>
             <FlatTextInput
-              label="Current Password"
-              value={values.current_password}
+              label="Old Password"
+              value={values.oldPassword}
               secureTextEntry={hidePass}
-              onChangeText={handleChange('current_password')}
-              onFocus={handleBlur('current_password')}
-              error={errors.current_password}
-              touched={touched.current_password}
+              onChangeText={handleChange('oldPassword')}
+              onFocus={handleBlur('oldPassword')}
+              error={errors.oldPassword}
+              touched={touched.oldPassword}
             />
             {errors.oldPassword && (
               <Text style={{fontSize: 10, color: 'red'}}>
                 {errors.oldPassword}
               </Text>
             )}
-            <Ionicons
+            {/* <Ionicons
               name={hidePass ? 'eye-outline' : 'eye-off-outline'}
               size={25}
               color={Colors.PRIMARY_HEADING_COLOR}
               onPress={() => setHidePass(!hidePass)}
               style={{
-                position: 'absolute',
-                bottom: 190,
+				zIndex: 1011,
+				position: 'absolute',
+               
                 right: 10,
               }}
-            />
+            /> */}
 
             <FlatTextInput
               label="New Password"
-              value={values.new_password}
+              value={values.newPassword}
               secureTextEntry={hidePass1}
-              onChangeText={handleChange('new_password')}
-              onFocus={handleBlur('new_password')}
-              error={errors.new_password}
-              touched={touched.new_password}
+              onChangeText={handleChange('newPassword')}
+              onFocus={handleBlur('newPassword')}
+              error={errors.newPassword}
+              touched={touched.newPassword}
             />
             {errors.newPassword && (
               <Text style={{fontSize: 10, color: 'red'}}>
@@ -212,12 +214,12 @@ const ChangePasswordForm = props => {
 
             <FlatTextInput
               label="Re New Password"
-              value={values.confirm_password}
+              value={values.confirmPassword}
               secureTextEntry={hidePass2}
-              onChangeText={handleChange('confirm_password')}
-              onFocus={handleBlur('confirm_password')}
-              error={errors.confirm_password}
-              touched={touched.confirm_password}
+              onChangeText={handleChange('confirmPassword')}
+              onFocus={handleBlur('confirmPassword')}
+              error={errors.confirmPassword}
+              touched={touched.confirmPassword}
             />
             {errors.confirmPassword && (
               <Text style={{fontSize: 10, color: 'red'}}>
