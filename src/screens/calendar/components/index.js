@@ -152,54 +152,71 @@ const EventCalendar = props => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.container}>
-        <View style={[styles.calendar, styles.shadowProp]}>
-          <Calendar
-            markingType={'period'}
-            onMonthChange={async month => {
-              cleanCalendarEvent();
-              setCurrentMonth(moment(month?.dateString).format('MMMM'));
-              await fetchAllCalendarEvent({
-                year: moment(month?.dateString).format('YYYY'),
-                month: moment(month?.dateString).format('MM'),
-              }).then(response => {
-                setCurrentEvents(response?.payload);
-              });
-            }}
-            markedDates={markedDay}
-            //  markedDates={{
-            //      '2022-01-10': { color: 'green',textColor: 'white'},
-            //      '2022-01-12': { color: 'green',textColor: 'white'},
-            //      '2022-01-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
-            //      '2022-01-22': {color: '#70d7c7', textColor: 'white'},
-            //      '2022-01-23': {color: '#70d7c7', textColor: 'white', marked: true, dotColor: 'white'},
-            //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
-            //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
-            //  }}
-          />
-        </View>
-        <View style={styles.events}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            {currentMonth} Events
-          </Text>
-          {calendarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-            </View>
+    <View style={{...styles.container}}>
+      {!calendarEventLoading && (
+        <FlatList
+          contentContainerStyle={{paddingHorizontal: 15}}
+          Vertical
+          showsVerticalScrollIndicator={false}
+          data={currentEvents}
+          renderItem={renderItem}
+          ListHeaderComponent={() => (
+            <>
+              <View
+                style={[
+                  styles.calendar,
+                  styles.shadowProp,
+                  {backgroundColor: 'white'},
+                ]}>
+                <Calendar
+                  markingType={'period'}
+                  onMonthChange={async month => {
+                    cleanCalendarEvent();
+                    setCurrentMonth(moment(month?.dateString).format('MMMM'));
+                    await fetchAllCalendarEvent({
+                      year: moment(month?.dateString).format('YYYY'),
+                      month: moment(month?.dateString).format('MM'),
+                    }).then(response => {
+                      setCurrentEvents(response?.payload);
+                    });
+                  }}
+                  markedDates={markedDay}
+                  //  markedDates={{
+                  //      '2022-01-10': { color: 'green',textColor: 'white'},
+                  //      '2022-01-12': { color: 'green',textColor: 'white'},
+                  //      '2022-01-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
+                  //      '2022-01-22': {color: '#70d7c7', textColor: 'white'},
+                  //      '2022-01-23': {color: '#70d7c7', textColor: 'white', marked: true, dotColor: 'white'},
+                  //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
+                  //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
+                  //  }}
+                />
+              </View>
+              <View style={styles.events}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                  {currentMonth} Events
+                </Text>
+                {calendarEventLoading && (
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={60}
+                    />
+                  </View>
+                )}
+              </View>
+            </>
           )}
-          {!calendarEventLoading && (
-            <FlatList
-              Vertical
-              showsVerticalScrollIndicator={false}
-              data={currentEvents}
-              renderItem={renderItem}
-            />
-          )}
+<<<<<<< HEAD
         </View>
       </View>
 	  <Footer/>
     </ScrollView>
+=======
+        />
+      )}
+    </View>
+>>>>>>> 9db540b79e7a0569a0898a57a633d653818f0a55
   );
 };
 
@@ -237,15 +254,11 @@ const styles = StyleSheet.create({
     top: '20%',
   },
   calendar: {
-    width: '98%',
-    padding: 5,
-    marginLeft: 5,
     marginTop: 30,
     backgroundColor: '#F5F5F5',
-    borderRadius: 20,
   },
   events: {
-    padding: 20,
+    paddingVertical: 15,
     borderWidth: 0.1,
   },
   eventCard: {
