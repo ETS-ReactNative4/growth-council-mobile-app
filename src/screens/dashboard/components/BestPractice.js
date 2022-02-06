@@ -161,7 +161,13 @@ const BestPractice = props => {
               style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+            }}>
             {item?.name}
           </Text>
         </View>
@@ -204,19 +210,14 @@ const BestPractice = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          <ScrollView
+          <FlatList
+            contentContainerStyle={{flex: 1, flexWrap: 'wrap'}}
             horizontal
-            showsVerticalScrollIndicator={false}
+            // numColumns={Math.ceil(pillarPOEs.length / 2)}
             showsHorizontalScrollIndicator={false}
-            style={{marginLeft: 10}}>
-            <FlatList
-              horizontal
-              // numColumns={Math.ceil(pillarPOEs.length / 2)}
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              renderItem={_renderMiddleItem}
-            />
-          </ScrollView>
+            data={pillarPOEs}
+            renderItem={_renderMiddleItem}
+          />
         </View>
 
         {pillarEventLoading && (
@@ -310,7 +311,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   middleWrapper: {
-    width: 80,
+    width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
     justifyContent: 'center',

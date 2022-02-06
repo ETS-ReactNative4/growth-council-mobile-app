@@ -104,10 +104,10 @@ const HomeCommunity = props => {
           </View>
         </TouchableOpacity>
 
-		<View style={styles.chatIcon}>
-		<TouchableOpacity onPress={() => navigation.navigate('People')}>
-          <Ionicons name={'add'} size={15} color="#B1AFAF" />
-		  </TouchableOpacity>
+        <View style={styles.chatIcon}>
+          <TouchableOpacity onPress={() => navigation.navigate('People')}>
+            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -136,7 +136,13 @@ const HomeCommunity = props => {
               style={{width: 25, height: 25}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+            }}>
             {item?.name}
           </Text>
         </View>
@@ -244,6 +250,10 @@ const HomeCommunity = props => {
               </View>
             )}
             <FlatList
+              contentContainerStyle={{
+                flex: 1,
+                flexWrap: 'wrap',
+              }}
               horizontal
               showsHorizontalScrollIndicator={false}
               data={pillarPOEs}
@@ -333,7 +343,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   middleWrapper: {
-    width: 80,
+    width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
     justifyContent: 'center',

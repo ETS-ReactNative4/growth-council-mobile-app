@@ -126,7 +126,13 @@ const GrowthCoaching = props => {
               style={{width: 25, height: 25}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+            }}>
             {item?.name}
           </Text>
         </View>
@@ -225,25 +231,22 @@ const GrowthCoaching = props => {
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 10,
-            }}>
-            {pillarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              //renderItem={_renderMiddleItem}
-              renderItem={item => _renderMiddleItem(item, navigation)}
-            />
-          </View>
+          {pillarEventLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
+          <FlatList
+            contentContainerStyle={{
+              flex: 1,
+              flexWrap: 'wrap',
+            }}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={pillarPOEs}
+            //renderItem={_renderMiddleItem}
+            renderItem={item => _renderMiddleItem(item, navigation)}
+          />
         </View>
 
         <View style={styles.bottom}>
@@ -327,7 +330,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   middleWrapper: {
-    width: 80,
+    width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
     justifyContent: 'center',
