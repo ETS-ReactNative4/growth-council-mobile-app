@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Platform } from 'react-native';
 
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
@@ -74,6 +75,7 @@ const MainNavigation = () => {
               <Ionicons
                 name={'arrow-back'}
                 size={80}
+                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
                 color={'white'}
                 onPress={() => navigation.navigate('Home')}
               />
@@ -94,6 +96,7 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={70}
                 color={'white'}
+                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
@@ -113,6 +116,7 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={80}
                 color={'white'}
+                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
                 onPress={() => navigation.navigate('Home')}
               />
             ),

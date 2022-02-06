@@ -163,7 +163,11 @@ const SignInForm = props => {
                   Sign Up{' '}
                 </Text>
               </View>
-              <View style={[styles.signuptext, {marginTop: Platform.OS === 'ios' ? 20 : 40}]}>
+              <View
+                style={[
+                  styles.signuptext,
+                  {marginTop: Platform.OS === 'ios' ? 60 : 100},
+                ]}>
                 {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                 <Text>Need Help? </Text>
                 <Text
@@ -192,9 +196,8 @@ const styles = StyleSheet.create({
     //width: '80%',
   },
   body: {
-    width: '80%',
+    width: '90%',
     justifyContent: 'center',
-
   },
   content: {
     backgroundColor: 'white',

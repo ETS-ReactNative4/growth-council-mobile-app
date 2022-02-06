@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {
   COACHING_COLOR,
@@ -48,7 +55,7 @@ const PillarList = props => {
 
 const styles = StyleSheet.create({
   ImageWrapper: {
-    width: Platform.OS === 'ios' ? 90 : 120,
+    width: (Dimensions.get('window').width - 40) / 3,
     height: Platform.OS === 'ios' ? 150 : 172,
     borderRadius: 10,
     borderWidth: 4,
