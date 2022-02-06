@@ -230,25 +230,24 @@ const GrowthCoaching = props => {
                     </View>
                 </View>
 
-                <View style={styles.middle}>
-                    <Text style={styles.title}>Points of Engagement</Text>
-                    {pillarEventLoading && (
-                        <View style={styles.loading1}>
-                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
-                        </View>
-                    )}
-                    <FlatList
-                        contentContainerStyle={{
-                            flex: 1,
-                            flexWrap: 'wrap',
-                        }}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={pillarPOEs}
-                        //renderItem={_renderMiddleItem}
-                        renderItem={item => _renderMiddleItem(item, navigation)}
-                    />
-                </View>
+        <View style={styles.middle}>
+          <Text style={styles.title}>Points of Engagement</Text>
+		  {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
+			
+					<FlatList
+						
+						horizontal
+						showsHorizontalScrollIndicator={false}
+						data={pillarPOEs}
+						renderItem={item => _renderMiddleItem(item, navigation)}
+						
+					/>
+			
+        </View>
 
                 <View style={styles.bottom}>
                     <Text style={styles.title}>Growth Coaching Members</Text>
@@ -302,54 +301,56 @@ const styles = StyleSheet.create({
         marginLeft: 15,
     },
 
-    topWrapper: {
-        height: 144,
-        width: 256,
-        marginTop: 20,
-        marginLeft: 15,
-        borderRadius: 20,
-    },
-    header: {
-        margin: 10,
-    },
-    headingText1: {
-        fontFamily: Typography.FONT_SF_MEDIUM,
-        marginTop: 5,
-        fontWeight: '600',
-        color: 'white',
-        fontSize: 12,
-    },
-    headingText2: {
-        ...CommonStyles.headingText2,
-        fontFamily: Typography.FONT_SF_MEDIUM,
-        fontWeight: '400',
-        color: 'white',
-        fontSize: 8,
-    },
-    middle: {
-        width: 400,
-        marginTop: 10,
-    },
-    middleWrapper: {
-        width: (Dimensions.get('window').width - 10) / 4,
-        borderRadius: 20,
-        marginTop: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    middleW: {
-        backgroundColor: 'white',
-        width: 64,
-        height: 64,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-    },
-    headingText3: {
-        ...CommonStyles.headingText3,
-        fontFamily: Typography.FONT_NORMAL,
-        padding: 4,
-    },
+  topWrapper: {
+    height: 144,
+    width: 256,
+    marginTop: 20,
+    marginLeft: 15,
+    borderRadius: 20,
+  },
+  header: {
+    margin: 10,
+  },
+  headingText1: {
+    fontFamily: Typography.FONT_SF_MEDIUM,
+    marginTop: 5,
+    fontWeight: '600',
+    color: 'white',
+    fontSize: 12,
+  },
+  headingText2: {
+    ...CommonStyles.headingText2,
+    fontFamily: Typography.FONT_SF_MEDIUM,
+    fontWeight: '400',
+    color: 'white',
+    fontSize: 8,
+  },
+  middle: {
+    width: 400,
+    marginTop: 10,
+	
+  },
+  middleWrapper: {
+	width: (Dimensions.get('window').width - 10) / 4,
+    borderRadius: 20,
+    marginTop: 15,
+	
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  middleW: {
+    backgroundColor: 'white',
+    width: 64,
+    height: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  headingText3: {
+    ...CommonStyles.headingText3,
+    fontFamily: Typography.FONT_NORMAL,
+    padding: 4,
+  },
 
     bottom: {
         height: 172,

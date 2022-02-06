@@ -288,7 +288,7 @@ const Dashboard = props => {
                     <Text style={[styles.title, {marginLeft: 15}]}>
                         Points of Engagement
                     </Text>
-                    <FlatList
+                    {/* <FlatList
                         contentContainerStyle={{
                             flex: 1,
                             flexDirection: 'row',
@@ -299,7 +299,24 @@ const Dashboard = props => {
                         showsHorizontalScrollIndicator={false}
                         data={poes}
                         renderItem={_renderMiddleItem}
-                    />
+                    /> */}
+					 <ScrollView
+                        horizontal
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{paddingVertical: 20, marginLeft: 10,}}>
+                        <FlatList
+                            scrollEnabled={false}
+                            contentContainerStyle={{
+                                alignSelf: 'flex-start',
+                            }}
+                            numColumns={10}
+                            showsHorizontalScrollIndicator={false}
+                            data={poes}
+                            renderItem={_renderMiddleItem}
+                            keyExtractor={(item) => item.id}
+                        />
+                    </ScrollView>
                 </View>
 
                 <View style={styles.bottom}>
@@ -412,14 +429,14 @@ const styles = StyleSheet.create({
     },
     middle: {
         marginTop: 10,
-        marginLeft: 5,
-
+        
     },
     middleWrapper: {
         width: (Dimensions.get('window').width - 10) / 4,
+		// width:80,
         borderRadius: 20,
         marginTop: 15,
-        marginRight: 10,
+		// marginRight:10,
         justifyContent: 'center',
         alignItems: 'center',
     },
