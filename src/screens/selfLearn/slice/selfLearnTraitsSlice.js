@@ -38,7 +38,7 @@ const selfLearnTraitSlice = createSlice({
     [fetchSelfLearnTraits.rejected]: (state, action) => {
       state.selfLearnTraitLoading = false;
       if (action.payload) {
-        state.selfLearnTraitError = action.payload.error.message;
+        state.selfLearnTraitError = action?.payload?.error?.message;
       } else {
         state.selfLearnTraitError = action.error;
       }

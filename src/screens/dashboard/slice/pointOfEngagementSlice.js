@@ -38,7 +38,7 @@ const poeSlice = createSlice({
     [fetchAllPOEs.rejected]: (state, action) => {
       state.poeLoading = false;
       if (action.payload) {
-        state.poeError = action.payload.error.message;
+        state.poeError = action?.payload?.error?.message;
       } else {
         state.poeError = action.error;
       }

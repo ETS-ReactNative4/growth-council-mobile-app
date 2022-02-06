@@ -38,7 +38,7 @@ const poeDetailSlice = createSlice({
     [fetchAllPOEDetails.rejected]: (state, action) => {
       state.poeDetailLoading = false;
       if (action.payload) {
-        state.poeDetailError = action.payload.error.message;
+        state.poeDetailError = action?.payload?.error?.message;
       } else {
         state.poeDetailError = action.error;
       }
