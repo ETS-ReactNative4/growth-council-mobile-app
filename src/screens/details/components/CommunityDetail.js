@@ -308,11 +308,11 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    width:  Platform.OS === 'ios' ? 80 : 80,
-    height:  Platform.OS === 'ios' ? 80 : 80,
+    width: Platform.OS === 'ios' ? 80 : 80,
+    height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-	marginLeft:  Platform.OS === 'ios' ? 120 : 150,
+    marginLeft: Platform.OS === 'ios' ? 120 : 150,
     marginTop: 190,
     alignItems: 'center',
     justifyContent: 'center',

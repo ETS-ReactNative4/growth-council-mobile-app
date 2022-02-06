@@ -288,35 +288,18 @@ const Dashboard = props => {
           <Text style={[styles.title, {marginLeft: 15}]}>
             Points of Engagement
           </Text>
-          {/* <FlatList
-                        contentContainerStyle={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                        }}
-                        horizontal
-                        scrollEnabled={false}
-                        showsHorizontalScrollIndicator={false}
-                        data={poes}
-                        renderItem={_renderMiddleItem}
-                    /> */}
-          <ScrollView
+          <FlatList
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}
             horizontal
-            showsVerticalScrollIndicator={false}
+            scrollEnabled={false}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingVertical: 20, marginLeft: 10}}>
-            <FlatList
-              scrollEnabled={false}
-              contentContainerStyle={{
-                alignSelf: 'flex-start',
-              }}
-              numColumns={10}
-              showsHorizontalScrollIndicator={false}
-              data={poes}
-              renderItem={_renderMiddleItem}
-              keyExtractor={item => item.id}
-            />
-          </ScrollView>
+            data={poes}
+            renderItem={_renderMiddleItem}
+          />
         </View>
 
         <View style={styles.bottom}>
@@ -486,7 +469,7 @@ const styles = StyleSheet.create({
     // marginBottom: Platform.OS === 'ios' ? 0 : 10,
   },
   ContentWrapper: {
-    height: 300,
+    height: 210,
     width: contentContainerWidth,
     marginTop: 20,
     marginBottom: 10,
