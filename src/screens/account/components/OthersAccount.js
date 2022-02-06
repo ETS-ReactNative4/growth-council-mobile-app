@@ -45,6 +45,7 @@ const OthersAccount = props => {
 
     //   console.log('profile id =======', route.params.id);
     //   console.log('profile other ====== ', otherProfiles?.user_meta?.first_name[0]);
+	var json = JSON.stringify();
 
     return (
         <ScrollView
@@ -231,14 +232,12 @@ const OthersAccount = props => {
                                     EXPERTISE AREAS
                                 </Text>
                                 <TextInput
-                                    multiline={true}
-                                    numberOfLines={4}
-                                    style={styles.textarea}
+                                    style={styles.input}
                                     keyboardType="text"
                                     value={
                                         typeof expertise_areas1 === 'undefined'
                                             ? ''
-                                            : otherProfiles?.user_meta?.expertise_areas1[0]
+                                            : JSON.stringify(otherProfiles?.user_meta?.expertise_areas1[0])
                                     }
                                     editable={false}
                                 />
