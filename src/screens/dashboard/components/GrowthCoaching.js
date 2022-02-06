@@ -244,7 +244,7 @@ const numColumns = Math.ceil(listData.length / 2);
 						numColumns={4}
 						showsHorizontalScrollIndicator={false}
 						data={pillarPOEs}
-						renderItem={_renderMiddleItem}
+						renderItem={item => _renderMiddleItem(item, navigation)}
 						keyExtractor = {(item) => item.id}
 					/>
 			</ScrollView>
@@ -334,6 +334,7 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 20,
     marginTop: 15,
+	marginRight:10,
     justifyContent: 'center',
     alignItems: 'center',
   },

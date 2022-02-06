@@ -32,6 +32,11 @@ const OthersAccount = props => {
     let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
 
     let expertise_areas1 = otherProfiles?.expertise_areas1;
+	if (typeof expertise_areas1 === 'undefined') {
+		expertise_areas1 = [];
+	  } else {
+		expertise_areas1 = otherProfiles?.expertise_areas1;
+	  }
 
     let professional_summary = otherProfiles?.user_meta?.professional_summary;
 
@@ -45,11 +50,6 @@ const OthersAccount = props => {
         };
         fetchOtherProfileAsync();
     }, []);
-
-
-    //   console.log('profile id =======', route.params.id);
-    //   console.log('profile other ====== ', otherProfiles?.user_meta?.first_name[0]);
-
 
     return (
         <ScrollView
@@ -241,10 +241,11 @@ const OthersAccount = props => {
 									numberOfLines={4}
                                     style={styles.textarea}
                                     keyboardType="text"
-                                    value={
-                                        typeof expertise_areas1 === 'undefined'
-                                            ? ''
-                                            : otherProfiles?.expertise_areas1[0]
+                                    value={expertise_areas1.join(",")
+										
+                                        // typeof expertise_areas1 === 'undefined'
+                                        //     ? ''
+                                        //     : otherProfiles?.expertise_areas1[0]
                                     }
                                     editable={false}
                                 />
