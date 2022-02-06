@@ -35,12 +35,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Growth Coucil would like to use your location</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Growth Coucil would like to use your camera</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Growth Coucil would like to use your bluetooth</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Growth Coucil would like to use your camera</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Growth Coucil would like to use your location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Growth Coucil would like to use your photo gallery</string>
 	<key>UIAppFonts</key>
@@ -88,8 +88,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
