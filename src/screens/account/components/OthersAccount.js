@@ -13,8 +13,6 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
-import DropDownPicker from 'react-native-dropdown-picker';
-
 
 const OthersAccount = props => {
     const {
@@ -25,16 +23,9 @@ const OthersAccount = props => {
         otherProfiles,
         fetchOtherProfileByIdentifier,
 
-		expertise,
-    expertiseLoading,
-    expertiseError,
-    fetchAllExpertises,
-    cleanExperties,
+	
     } = props;
 
-	const [open, setOpen] = useState(false);
-	const [value, setValue] = useState([]);
-	const [items, setItems] = useState([]);
 
     let Location = otherProfiles?.user_meta?.Location;
 
@@ -55,16 +46,10 @@ const OthersAccount = props => {
         fetchOtherProfileAsync();
     }, []);
 
-	useEffect(() => {
-		const fetchAllExpertisesAsync = async () => {
-		  await fetchAllExpertises();
-		};
-		fetchAllExpertisesAsync();
-	  }, []);
 
     //   console.log('profile id =======', route.params.id);
     //   console.log('profile other ====== ', otherProfiles?.user_meta?.first_name[0]);
-	var json = JSON.stringify();
+
 
     return (
         <ScrollView
