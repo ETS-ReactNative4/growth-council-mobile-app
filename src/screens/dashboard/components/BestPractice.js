@@ -180,6 +180,13 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
+const numColumns = Math.ceil(listData.length / 2);
+
+  // console.log('Best Praacticee pillar_id', pillarId);
+  // console.log({pillarMemberContents});
+
+  // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
+  //console.log({bestPractices});
 
   return (
     <ScrollView>
@@ -204,26 +211,31 @@ const BestPractice = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          <ScrollView
-            horizontal
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            style={{marginLeft: 10}}>
-            <FlatList
-              horizontal
-              // numColumns={Math.ceil(pillarPOEs.length / 2)}
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              renderItem={_renderMiddleItem}
-            />
-          </ScrollView>
+		  {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
+			<ScrollView
+				horizontal
+				showsVerticalScrollIndicator={false}
+				showsHorizontalScrollIndicator={false}
+				contentContainerStyle={{ paddingVertical: 20, marginLeft:10,}}>
+					<FlatList
+						scrollEnabled={false}
+						contentContainerStyle={{
+						alignSelf: 'flex-start',
+						}}
+						numColumns={4}
+						showsHorizontalScrollIndicator={false}
+						data={pillarPOEs}
+						renderItem={_renderMiddleItem}
+						keyExtractor = {(item) => item.id}
+					/>
+			</ScrollView>
         </View>
 
-        {pillarEventLoading && (
-          <View style={styles.loading1}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+		
         <View style={styles.bottom}>
           <Text style={styles.title}>Best Practices Members</Text>
           <View>
