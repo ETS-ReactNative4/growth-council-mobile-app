@@ -32,19 +32,33 @@ const SelfAssessment = props => {
 
   const dispatch = useDispatch();
 
-  const {subTraits, subTraitsLoading, subTraitsError} = useSelector(
-    state => state.subTraits,
-  );
+  // const {subTraits, subTraitsLoading, subTraitsError} = useSelector(
+  //   state => state.subTraits,
+  // );
   const {traitsAnswer, traitsAnswerLoading, traitsAnswerError} = useSelector(
     state => state.traitsAnswer,
   );
 
+  const [value, setValue] = useState('Sub Trait');
+  const [index, setIndex] = useState({
+    traitIndex: 0,
+    subTraitIndex: 0,
+  });
+  const [traitLength, setTraitLength] = useState(0);
+  const [subTraitLength, setSubTraitLength] = useState(0);
+
+  const [subTraits, setSubTraits] = useState(traits[index.traitIndex]);
+
   useEffect(() => {
-    fetchAllSubTrait();
-    return () => {
-      cleanSubTrait();
-    };
-  }, []);
+    setSubTraits(traits[index.traitIndex]);
+  }, [traits]);
+
+  // useEffect(() => {
+  //   fetchAllSubTrait();
+  //   return () => {
+  //     cleanSubTrait();
+  //   };
+  // }, []);
 
   const fetchAllSubTrait = identifier => {
     dispatch(fetchAllSubTraits(identifier));
@@ -66,18 +80,6 @@ const SelfAssessment = props => {
     dispatch(resetTraitsAnswer());
   };
 
-  const [value, setValue] = useState('Sub Trait');
-  const [index, setIndex] = useState({
-    traitIndex: 0,
-    subTraitIndex: 0,
-  });
-  const [traitLength, setTraitLength] = useState(0);
-  const [subTraitLength, setSubTraitLength] = useState(0);
-
-  useEffect(() => {
-    fetchAllSubTrait(traits[index.traitIndex].ID);
-  }, []);
-
   useEffect(() => {
     if (traits?.length) {
       setTraitLength(traits.length);
@@ -85,7 +87,7 @@ const SelfAssessment = props => {
     if (subTraits?.sub_traits?.length) {
       setSubTraitLength(subTraits?.sub_traits?.length);
     }
-  }, [traits, subTraits]);
+  }, [traits, subTraits, index]);
 
   useEffect(() => {
     console.log({traitLength, subTraitLength});
@@ -101,11 +103,6 @@ const SelfAssessment = props => {
   };
 
   const handleNextButtonClick = () => {
-    console.log(
-      index.traitIndex === traitLength - 1 &&
-        index.subTraitIndex === subTraitLength - 1,
-    );
-    console.log(index.subTraitIndex === subTraitLength - 1);
     if (
       index.traitIndex === traitLength - 1 &&
       index.subTraitIndex === subTraitLength - 1
@@ -154,9 +151,9 @@ const SelfAssessment = props => {
           {value === 'Sub Trait' && (
             <Trait
               {...props}
-              subTraits={subTraits}
-              subTraitsLoading={subTraitsLoading}
-              subTraitsError={subTraitsError}
+              subTraits={traits[index.traitIndex]}
+              // subTraitsLoading={subTraitsLoading}
+              // subTraitsError={subTraitsError}
               fetchAllSubTrait={fetchAllSubTrait}
               cleanSubTrait={cleanSubTrait}
               count={index.subTraitIndex}
@@ -175,8 +172,8 @@ const SelfAssessment = props => {
           {value === 'Yellow Questions' && (
             <Question
               {...props}
-              subTraits={subTraits}
-              subTraitsLoading={subTraitsLoading}
+              subTraits={traits[index.traitIndex]}
+              // subTraitsLoading={subTraitsLoading}
               // fetchAllSubTrait={fetchAllSubTrait}
 
               count={index.subTraitIndex}

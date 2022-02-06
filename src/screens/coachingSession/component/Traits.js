@@ -17,8 +17,8 @@ const Traits = props => {
     navigation,
     route,
     subTraits,
-    subTraitsLoading,
-    subTraitsError,
+    // subTraitsLoading,
+    // subTraitsError,
     fetchAllSubTrait,
     cleanSubTrait,
 
@@ -51,9 +51,7 @@ const Traits = props => {
   // 	}
   //   };
 
-  if (subTraits?.length === 0 || subTraits === undefined) {
-    return <></>;
-  }
+  console.log(subTraits);
 
   return (
     <View>
