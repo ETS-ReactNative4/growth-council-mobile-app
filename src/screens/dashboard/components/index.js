@@ -292,7 +292,7 @@ const numColumns = Math.ceil(listData.length / 2);
 				contentContainerStyle={{
 				alignSelf: 'flex-start',
 				}}
-              numColumns={numColumns}
+              numColumns={10}
               showsHorizontalScrollIndicator={false}
               data={poes}
               renderItem={_renderMiddleItem}

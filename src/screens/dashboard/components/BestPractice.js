@@ -221,9 +221,9 @@ const numColumns = Math.ceil(listData.length / 2);
 						contentContainerStyle={{
 						alignSelf: 'flex-start',
 						}}
-						numColumns={numColumns}
+						numColumns={4}
 						showsHorizontalScrollIndicator={false}
-						data={poes}
+						data={pillarPOEs}
 						renderItem={_renderMiddleItem}
 						keyExtractor = {(item) => item.id}
 					/>
