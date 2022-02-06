@@ -2,13 +2,15 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {fetch} from '../../../utils/httpUtil';
 
-export const fetchAllSubTraits= createAsyncThunk(
+export const fetchAllSubTraits = createAsyncThunk(
   'subtraits/fetchAll',
   (identifier, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/traits/${identifier}`)
-      .then(response => response.data.data)
+      .then(response => {
+        console.log({test: response.data.data});
+        return response.data.data;
+      })
       .catch(error => rejectWithValue(error?.response?.data || error));
-
   },
 );
 
@@ -39,7 +41,7 @@ const SubTraitSlice = createSlice({
     [fetchAllSubTraits.rejected]: (state, action) => {
       state.subTraitsLoading = false;
       if (action.payload) {
-        state.subTraitsError = action.payload.error.message;
+        state.subTraitsError = action?.payload?.error?.message;
       } else {
         state.subTraitsError = action.error;
       }

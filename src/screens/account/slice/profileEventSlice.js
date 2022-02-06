@@ -38,7 +38,7 @@ const profileEventSlice = createSlice({
     [fetchEventsByUserID.rejected]: (state, action) => {
       state.profileEventLoading = false;
       if (action.payload) {
-        state.profileEventError = action.payload.error.message;
+        state.profileEventError = action?.payload?.error?.message;
       } else {
         state.profileEventError = action.error;
       }

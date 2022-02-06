@@ -19,8 +19,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('screen');
 
 const win = Dimensions.get('window');
-  const buttonContainerWidth = win.width - 80;
-
+const buttonContainerWidth = win.width - 80;
 
 const Home = props => {
   const {
@@ -53,8 +52,6 @@ const Home = props => {
     };
     fetchPillarSliderAsync();
   }, []);
-
-  console.log(pillarSliders);
 
   const _renderItem = ({item, index}, navigation) => {
     return (

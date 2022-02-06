@@ -38,7 +38,7 @@ const expertiseSlice = createSlice({
     [fetchAllExpertise.rejected]: (state, action) => {
       state.expertiseLoading = false;
       if (action.payload) {
-        state.expertiseError = action.payload.error.message;
+        state.expertiseError = action?.payload?.error?.message;
       } else {
         state.expertiseError = action.error;
       }

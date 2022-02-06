@@ -35,13 +35,6 @@ const Traits = props => {
     UpdateTraitsAnswer,
   } = props;
 
-  useEffect(() => {
-    const fetchAllSubTraitsAsync = async () => {
-      await fetchAllSubTrait(route.params.id);
-    };
-    fetchAllSubTraitsAsync();
-  }, []);
-
   // const SelfAssessmentByTraitsID = async (traitsID, index) => {
   // 	const response = await fetchAllSubTrait({subTraits.ID: traitsID});
   // 	if (response?.payload?.code === 200) {
@@ -77,33 +70,7 @@ const Traits = props => {
 
       <ScrollView style={styles.scrollBox}>
         <View style={{marginTop: 25}}>
-          <Text style={styles.paragraph}>
-            <HTMLView
-              value={subTraits?.sub_traits[count]?.content}
-              stylesheet={styles}
-            />
-          </Text>
-        </View>
-
-        <View style={{marginTop: 30}}>
-          <Text style={styles.title}>Key Points</Text>
-          <Text style={styles.paragraph}>
-            A practical and fresh perspective on the role of personal energy as
-            a resource in your life to increase your capacity.
-            {'\n'}
-            {'\n'}
-            Critical insights on the choices you are making right now that
-            impact your capacity.
-            {'\n'}
-            {'\n'}A proven technique to improve your day to day energy.
-            {'\n'}
-            {'\n'}A practical and fresh perspective on the role of personal
-            energy as a resource in your life to increase your capacity.
-            {'\n'}
-            {'\n'}
-            Critical insights on the choices you are making right now that
-            impact your capacity.
-          </Text>
+          <HTMLView value={subTraits?.sub_traits[count]?.content} />
         </View>
       </ScrollView>
     </View>

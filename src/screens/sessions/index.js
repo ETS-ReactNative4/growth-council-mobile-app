@@ -4,48 +4,60 @@ import {useDispatch, useSelector} from 'react-redux';
 import Session from './component';
 
 import {fetchSessionByID, resetSession} from './slice/sessionSlice';
-import {registerSessionByID, resetSessionRegister} from './slice/sessionRegister';
+import {
+  registerSessionByID,
+  resetSessionRegister,
+} from './slice/sessionRegister';
 
 const SessionDetailScreen = props => {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  const {sessions, sessionLoading, sessionError} = useSelector(
+    state => state.sessions,
+  );
+  const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} =
+    useSelector(state => state.sessionRegisters);
 
-	const {sessions, sessionLoading, sessionError} = useSelector((state) => state.sessions);
-	const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} = useSelector((state) => state.sessionRegisters);
-
-	const fetchSessionByIdentifier = identifier => {
-        dispatch(fetchSessionByID(identifier));
+  useEffect(() => {
+    const fetchSessionDetailAsync = async () => {
+      await fetchSessionByIdentifier(route.params.id);
     };
+    fetchSessionDetailAsync();
+  }, []);
 
-	const registerSessionByIdentifier = formData => {
-        return dispatch(registerSessionByID(formData));
-    };
+  const fetchSessionByIdentifier = identifier => {
+    dispatch(fetchSessionByID(identifier));
+  };
 
-	const cleanSession = () => {
-        dispatch(resetSession());
-    };
+  const registerSessionByIdentifier = formData => {
+    return dispatch(registerSessionByID(formData));
+  };
 
-	const cleanSessionRegister = () => {
-        dispatch(resetSessionRegister());
-    };
+  const cleanSession = () => {
+    dispatch(resetSession());
+  };
 
-    return (
-        <Session
-            {...props}
-			sessions={sessions}
-			sessionLoading={sessionLoading}
-			sessionError={sessionError}
-			fetchSessionByIdentifier={fetchSessionByIdentifier}
-			cleanSession={cleanSession}
+  const cleanSessionRegister = () => {
+    dispatch(resetSessionRegister());
+  };
 
-			sessionRegisters={sessionRegisters}
-			sessionRegisterLoading={sessionRegisterLoading}
-			sessionRegisterError={sessionRegisterError}
-			registerSessionByIdentifier={registerSessionByIdentifier}
-			cleanSessionRegister={cleanSessionRegister}
-           
-        />
-    )
+  console.log('session', route.params.id);
+
+  return (
+    <Session
+      {...props}
+      sessions={sessions}
+      sessionLoading={sessionLoading}
+      sessionError={sessionError}
+      fetchSessionByIdentifier={fetchSessionByIdentifier}
+      cleanSession={cleanSession}
+      sessionRegisters={sessionRegisters}
+      sessionRegisterLoading={sessionRegisterLoading}
+      sessionRegisterError={sessionRegisterError}
+      registerSessionByIdentifier={registerSessionByIdentifier}
+      cleanSessionRegister={cleanSessionRegister}
+    />
+  );
 };
 
 export default SessionDetailScreen;
