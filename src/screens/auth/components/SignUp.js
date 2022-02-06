@@ -94,7 +94,6 @@ const SignUpForm = props => {
         const token = await response.user.getIdToken();
         if (token) {
           await registerCustomer(values).then(response => {
-            console.log('response:::::::::::::::', response);
             if (response?.payload?.code === 200) {
               // navigation.navigate('SignUpNext');
               navigation.navigate('SignIn');
@@ -593,7 +592,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   loading1: {
-	top: 10,
+    top: 10,
     left: 0,
     right: 0,
     bottom: 0,

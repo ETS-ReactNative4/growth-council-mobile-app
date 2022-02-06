@@ -38,7 +38,7 @@ const poeSelfLearnSlice = createSlice({
     [fetchPoeSelfLearns.rejected]: (state, action) => {
       state.poeSelfLearnLoading = false;
       if (action.payload) {
-        state.poeSelfLearnError = action.payload.error.message;
+        state.poeSelfLearnError = action?.payload?.error?.message;
       } else {
         state.poeSelfLearnError = action.error;
       }

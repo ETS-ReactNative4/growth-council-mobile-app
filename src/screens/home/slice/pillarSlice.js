@@ -38,7 +38,7 @@ const pillarSlice = createSlice({
     [fetchPillarByID.rejected]: (state, action) => {
       state.pillarLoading = false;
       if (action.payload) {
-        state.pillarError = action.payload.error.message;
+        state.pillarError = action?.payload?.error?.message;
       } else {
         state.pillarError = action.error;
       }

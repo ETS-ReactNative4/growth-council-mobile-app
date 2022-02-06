@@ -47,7 +47,7 @@ const upcomingEventSlice = createSlice({
     [fetchAllUpcomingEvents.rejected]: (state, action) => {
       state.upcomingEventLoading = false;
       if (action.payload) {
-        state.upcomingEventError = action.payload.error.message;
+        state.upcomingEventError = action?.payload?.error?.message;
       } else {
         state.upcomingEventError = action.error;
       }
@@ -64,7 +64,7 @@ const upcomingEventSlice = createSlice({
     [fetchUpcomingEventsByID.rejected]: (state, action) => {
       state.upcomingEventLoading = false;
       if (action.payload) {
-        state.upcomingEventError = action.payload.error.message;
+        state.upcomingEventError = action?.payload?.error?.message;
       } else {
         state.upcomingEventError = action.error;
       }

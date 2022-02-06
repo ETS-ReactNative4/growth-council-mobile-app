@@ -85,13 +85,6 @@ const GrowthDetail = props => {
     fetchPoeSelfLearnAsync();
   }, []);
 
-  console.log('POE id:::::::::::::::::', route.params.poeId);
-//   console.log('parent id:::::::::::::::::', route.params.pillarId);
-//   console.log('Self Learn ====', poeSelfLearns);
-
-  console.log('session', route.params.poeId);
-  console.log('session', coachingSession);
-
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
@@ -236,7 +229,6 @@ const GrowthDetail = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videolink = link[1].split('&', 2);
-    console.log('videoLink === ', videolink);
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videolink[0]} />
@@ -345,15 +337,14 @@ const GrowthDetail = props => {
                 <>
                   <View
                     style={{
-						top: 10,
-						left: 0,
-						right: 0,
-						bottom: 0,
-						justifyContent: 'center',
-						alignItems: 'center',
-						position: 'absolute',
-						zIndex: 1011,
-					  
+                      top: 10,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      position: 'absolute',
+                      zIndex: 1011,
                     }}>
                     <BubblesLoader
                       color={Colors.SECONDARY_TEXT_COLOR}

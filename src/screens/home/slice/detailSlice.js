@@ -38,7 +38,7 @@ const detailSlice = createSlice({
     [fetchAllDetails.rejected]: (state, action) => {
       state.detailLoading = false;
       if (action.payload) {
-        state.detailError = action.payload.error.message;
+        state.detailError = action?.payload?.error?.message;
       } else {
         state.detailError = action.error;
       }

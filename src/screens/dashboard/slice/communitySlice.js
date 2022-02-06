@@ -38,7 +38,7 @@ const communitySlice = createSlice({
     [fetchAllCommunities.rejected]: (state, action) => {
       state.communityLoading = false;
       if (action.payload) {
-        state.communityError = action.payload.error.message;
+        state.communityError = action?.payload?.error?.message;
       } else {
         state.communityError = action.error;
       }

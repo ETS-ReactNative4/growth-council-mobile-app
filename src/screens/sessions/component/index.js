@@ -38,13 +38,6 @@ const Session = props => {
   const toast = useToast();
   const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
 
-  useEffect(() => {
-    const fetchSessionDetailAsync = async () => {
-      await fetchSessionByIdentifier(route.params.id);
-    };
-    fetchSessionDetailAsync();
-  }, []);
-
   const registerSessionBySessionID = async sessionID => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
     if (response?.payload?.code === 200) {
@@ -93,20 +86,7 @@ const Session = props => {
               )}
             </View>
           </View>
-          {/* <View
-                        style={{
-                            height: 28,
-                            position: 'absolute',
-                            top: 90,
-                            left: 40,
-                            backgroundColor: '#ffff',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            paddingLeft: 10,
-                            paddingRight: 10,
-                        }}>
-                        <Text>Megatrend Workshop</Text>
-                    </View> */}
+
           <View>
             <View style={[styles.content, {height: 'auto'}]}>
               <View
@@ -374,7 +354,7 @@ const Session = props => {
           </View>
         </ImageBackground>
       </View>
-      <Footer/>
+      <Footer />
     </ScrollView>
   );
 };
@@ -493,7 +473,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loading1: {
-	top: 10,
+    top: 10,
     left: 0,
     right: 0,
     bottom: 0,

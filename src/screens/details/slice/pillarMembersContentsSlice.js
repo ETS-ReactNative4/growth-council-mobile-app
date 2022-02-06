@@ -38,7 +38,7 @@ const pillarMemberContentSlice = createSlice({
     [fetchAllPillarMemberContents.rejected]: (state, action) => {
       state.pillarMemberContentLoading = false;
       if (action.payload) {
-        state.pillarMemberContentError = action.payload.error.message;
+        state.pillarMemberContentError = action?.payload?.error?.message;
       } else {
         state.pillarMemberContentError = action.error;
       }

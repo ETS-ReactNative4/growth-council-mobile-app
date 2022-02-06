@@ -38,7 +38,7 @@ const selfLearnSlice = createSlice({
     [fetchSelfLearnById.rejected]: (state, action) => {
       state.selfLearnLoading = false;
       if (action.payload) {
-        state.selfLearnError = action.payload.error.message;
+        state.selfLearnError = action?.payload?.error?.message;
       } else {
         state.selfLearnError = action.error;
       }

@@ -48,7 +48,6 @@ const SignInForm = props => {
     validationSchema: signInSchema,
     initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     onSubmit: async values => {
-      console.log({values});
       await signIn(values);
     },
   });
@@ -257,7 +256,7 @@ const styles = StyleSheet.create({
   signuptext: {
     flexDirection: 'row',
   },
- 
+
   loading1: {
     top: 10,
     left: 0,
@@ -268,7 +267,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1011,
   },
- 
 });
 
 export default SignInForm;

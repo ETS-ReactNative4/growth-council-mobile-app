@@ -38,7 +38,7 @@ const feedbackSlice = createSlice({
     [fetchFeedbacks.rejected]: (state, action) => {
       state.feedbackLoading = false;
       if (action.payload) {
-        state.feedbackError = action.payload.error.message;
+        state.feedbackError = action?.payload?.error?.message;
       } else {
         state.feedbackError = action.error;
       }
