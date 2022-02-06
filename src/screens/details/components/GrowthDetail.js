@@ -78,6 +78,7 @@ const GrowthDetail = props => {
     };
     fetchCoachingSessionAsync();
   }, []);
+
   useEffect(() => {
     const fetchPoeSelfLearnAsync = async () => {
       await fetchPoeSelfLearn(route.params.poeId);
@@ -200,8 +201,9 @@ const GrowthDetail = props => {
                 marginTop: 10,
                 backgroundColor: '#EBECF0',
                 borderRadius: 15,
-                marginLeft: 60,
+                right: 5,
                 padding: 5,
+                position: 'absolute',
                 alignItems: 'center',
               }}>
               <Text>{date[1]}</Text>
@@ -251,48 +253,64 @@ const GrowthDetail = props => {
 
   const _renderLearnItem = ({item, index}) => {
     return (
-      <View style={styles.learnWrapper}>
-        <Image
-          style={{
-            width: 72,
-            height: 102,
-            margin: 10,
-            borderRadius: 10,
-          }}
-          source={require('../../../assets/img/best_practices_slider_image.png')}
-        />
-        <View>
-          <View>
-            <Text
+      <View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('selflearn', {
+              id: item.ID,
+              selfLearnId: item?.ID,
+            })
+          }>
+          <View style={styles.learnWrapper}>
+            <Image
               style={{
-                fontWeight: '500',
-                fontSize: 10,
-                marginLeft: 10,
-                marginTop: 10,
-              }}>
-              {item.title}
-            </Text>
-            <Text
-              style={{marginLeft: 10, width: 80, marginTop: 10, fontSize: 8}}>
-              {item.text}
-            </Text>
-          </View>
-          <View
-            style={{
-              marginTop: 30,
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 10,
-              fontSize: 8,
-            }}>
-            <Ionicons
-              name={'book-outline'}
-              size={12}
-              color="#cccccc"
-              style={{right: 0, marginLeft: 80}}
+                width: 72,
+                height: 102,
+                margin: 10,
+                borderRadius: 10,
+              }}
+              source={require('../../../assets/img/best_practices_slider_image.png')}
             />
+            <View>
+              <View>
+                <Text
+                  style={{
+                    fontWeight: '500',
+                    fontSize: 10,
+                    marginLeft: 10,
+                    marginTop: 10,
+                    width: 100,
+                  }}>
+                  {item?.title}
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: 10,
+                    width: 100,
+                    marginTop: 10,
+                    fontSize: 8,
+                  }}>
+                  Prime Yourself to become Insenely Great Leader
+                </Text>
+              </View>
+              {/* <View
+						style={{
+						marginTop: 30,
+						display: 'flex',
+						flexDirection: 'row',
+						marginLeft: 10,
+						fontSize: 8,
+						}}>
+						<Ionicons
+						name={'book-outline'}
+						size={12}
+						color="#cccccc"
+						style={{right: 0, marginLeft: 80}}
+						/>
+					</View> */}
+            </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -313,8 +331,8 @@ const GrowthDetail = props => {
             <Image
               source={{uri: poeDetails?.image}}
               style={{
-                width: 50,
-                height: 50,
+                width: 30,
+                height: 30,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -333,26 +351,6 @@ const GrowthDetail = props => {
                 }}>
                 {poeDetails.name}
               </Text>
-              {poeEventLoading && (
-                <>
-                  <View
-                    style={{
-                      top: 10,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      position: 'absolute',
-                      zIndex: 1011,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )}
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               {/* <View style={styles.top}>
@@ -370,6 +368,7 @@ const GrowthDetail = props => {
                   />
                 </View>
               </View> */}
+
               <View style={styles.middle}>
                 <Text style={styles.title}>Sessions</Text>
                 <View
@@ -377,6 +376,26 @@ const GrowthDetail = props => {
                     display: 'flex',
                     flexDirection: 'row',
                   }}>
+                  {coachingSessionLoading && (
+                    <>
+                      <View
+                        style={{
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          position: 'absolute',
+                          zIndex: 1011,
+                        }}>
+                        <BubblesLoader
+                          color={Colors.SECONDARY_TEXT_COLOR}
+                          size={80}
+                        />
+                      </View>
+                    </>
+                  )}
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -395,7 +414,7 @@ const GrowthDetail = props => {
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={learn}
+                    data={poeSelfLearns}
                     renderItem={_renderLearnItem}
                   />
                 </View>
@@ -448,11 +467,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   icon: {
-    width: 90,
-    height: 90,
+    width: Platform.OS === 'ios' ? 80 : 80,
+    height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-    marginLeft: 150,
+    marginLeft: Platform.OS === 'ios' ? 120 : 150,
     marginTop: 190,
     alignItems: 'center',
     justifyContent: 'center',

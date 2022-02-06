@@ -207,7 +207,7 @@ const Session = props => {
                 </View>
               </View>
 
-              <View>
+              {/* <View>
                 <View style={{marginTop: 10}}>
                   <Text style={styles.contentHeading}>Traits</Text>
                 </View>
@@ -262,7 +262,7 @@ const Session = props => {
                     <Text style={{padding: 20}}>Trait 2</Text>
                   </View>
                 </View>
-              </View>
+              </View> */}
 
               <View style={{height: 150}}>
                 <View style={{marginTop: 25}}>
@@ -326,7 +326,7 @@ const Session = props => {
                 )}
               </View>
 
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={{justifyContent: 'center', alignItems: 'center', marginTop:10}}>
                 {!sessionStatus && (
                   <Button
                     style={styles.acceptButton}
@@ -389,6 +389,7 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
     fontSize: 17,
+	marginBottom:10,
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,

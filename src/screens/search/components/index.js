@@ -69,28 +69,57 @@ const Search = (props) => {
 		);
 	};
 	
-	
 	const searchTag = ({item, index}) => {
+		let navigationPath = '';
+    
+    switch (item?.slug) {
+      case 'community':
+        navigationPath = 'Community';
+        break;
+      case 'best-practices':
+        navigationPath = 'Best Practices';     
+        break;
+      case 'growth-coaching':
+        navigationPath = 'Growth Coaching';
+    }
 		return (
-			<View style={[styles.searchTagBtn, styles.shadowProp]}>
-				<Text style={styles.searchTabBtnText}>{item.name}</Text>
+			<View>
+				<TouchableOpacity
+				onPress={() =>
+				navigation.navigate(navigationPath, {pillarId: item.term_id})
+				}>
+					<View style={[styles.searchTagBtn, styles.shadowProp]}>
+						<Text style={styles.searchTabBtnText}>{item.name}</Text>
+					</View>
+				</TouchableOpacity>
 			</View>
+			
 		);
 	};
 	
-
-	
 	const _renderMiddleItem = ({item, index}) => {
+		let poePage = 'CommunityDetail';
+		if (item?.parent === 119) {
+			poePage = 'GrowthDetail';
+			}
 		return (
-			<View style={styles.middleWrapper}>
-				<View style={[styles.middleW, styles.shadowProp]}>
-				<Image
-					source={{uri: item?.image}}
-					style={{width: 30, height: 30}}
-            	/>
-				</View>
-				<Text style={{marginTop: 8,fontSize:10 }}>{item?.name}</Text>
-			</View>
+			<TouchableOpacity
+					onPress={() =>
+						navigation.navigate(poePage, {
+						poeId: item?.term_id,
+						pillarId: item?.parent,
+						})
+					}>
+					<View style={styles.middleWrapper}>
+						<View style={[styles.middleW, styles.shadowProp]}>
+						<Image
+							source={{uri: item?.image}}
+							style={{width: 30, height: 30}}
+						/>
+						</View>
+						<Text style={{marginTop: 8,fontSize:10 }}>{item?.name}</Text>
+					</View>
+			</TouchableOpacity>	
 		);
 	};
 
@@ -118,6 +147,12 @@ const Search = (props) => {
                     <Text style={{fontFamily:Typography.FONT_SF_SEMIBOLD, fontSize: 11}}>Suggestions</Text>
 
                     <View style={{display: 'flex', flexDirection: 'row'}}>
+
+					{searchLoading && (
+					<View style={styles.loading1}>
+					<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+					</View>
+					)}
 					
                         <FlatList
                             horizontal
@@ -127,12 +162,9 @@ const Search = (props) => {
                         />
                     </View>
                 </View>
-				{searchLoading && (
-					<View style={styles.loading1}>
-					<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-					</View>
-				)}
+				
                 <View style={styles.events}>
+				
 				
                     <FlatList
                         showsHorizontalScrollIndicator={false}
@@ -249,6 +281,8 @@ const styles = StyleSheet.create({
         flexWrap: 'nowrap',
         backgroundColor: '#fff',
         borderRadius: 10,
+		marginBottom:5,
+		marginRight:2,
     },
     eventTheme: {
         width: 10,

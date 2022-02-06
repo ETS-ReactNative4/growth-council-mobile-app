@@ -137,7 +137,9 @@ const BestPractice = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+          <TouchableOpacity onPress={() => navigation.navigate('People')}>
+            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -178,10 +180,6 @@ const BestPractice = props => {
     );
   };
   const listData = props.pillarPOEs ?? [];
-  console.log('Best Praacticee pillar_id', pillarId);
-
-  // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
-  //console.log({bestPractices});
 
   return (
     <ScrollView>
@@ -211,11 +209,6 @@ const BestPractice = props => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             style={{marginLeft: 10}}>
-            {pillarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
             <FlatList
               horizontal
               // numColumns={Math.ceil(pillarPOEs.length / 2)}
@@ -226,6 +219,11 @@ const BestPractice = props => {
           </ScrollView>
         </View>
 
+        {pillarEventLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
         <View style={styles.bottom}>
           <Text style={styles.title}>Best Practices Members</Text>
           <View>
@@ -349,7 +347,7 @@ const styles = StyleSheet.create({
   chatIcon: {
     borderRadius: 50,
     backgroundColor: '#F1F1F1',
-    padding: 6,
+    padding: 2,
     justifyContent: 'center',
     position: 'absolute',
     right: 4,

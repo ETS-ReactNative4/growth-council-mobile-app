@@ -71,11 +71,6 @@ const GrowthCoaching = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  console.log('Coaching pillar_id', pillarId);
-
-  // console.log('Growth Coaching =========', growthCoachings);
-  // console.log('Member================', growthCoachingMemberContents);
-
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
@@ -103,17 +98,23 @@ const GrowthCoaching = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+          <TouchableOpacity onPress={() => navigation.navigate('People')}>
+            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+          </TouchableOpacity>
         </View>
       </View>
     );
   };
 
   const _renderMiddleItem = ({item, index}, navigation) => {
+    let nav = 'CommunityDetail';
+    if (item?.slug === 'growth-leadership-coaching') {
+      nav = 'GrowthDetail';
+    }
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('GrowthDetail', {
+          navigation.navigate(nav, {
             poeId: item?.term_id,
             pillarId: item?.parent,
           })
@@ -364,7 +365,7 @@ const styles = StyleSheet.create({
   chatIcon: {
     borderRadius: 50,
     backgroundColor: '#F1F1F1',
-    padding: 6,
+    padding: 2,
     justifyContent: 'center',
     position: 'absolute',
     right: 4,

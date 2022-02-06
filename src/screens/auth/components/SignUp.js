@@ -528,7 +528,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   body: {
-    width: '80%',
+    width: '90%',
     // alignItems: 'center',
     justifyContent: 'center',
   },
@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   signUpButtonText: {
-    color: Colors.SENDENARY_TEXT_COLOR,
+    color: Colors.PRIMARY_BUTTON_COLOR,
     fontFamily: Typography.FONT_NORMAL,
     paddingLeft: 5,
   },
