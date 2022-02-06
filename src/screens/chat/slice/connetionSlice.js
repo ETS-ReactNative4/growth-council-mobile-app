@@ -38,7 +38,7 @@ const connectionSlice = createSlice({
     [fetchAllConnections.rejected]: (state, action) => {
       state.connectionLoading = false;
       if (action.payload) {
-        state.connectionError = action.payload.error.message;
+        state.connectionError = action?.payload?.error?.message;
       } else {
         state.connectionError = action.error;
       }

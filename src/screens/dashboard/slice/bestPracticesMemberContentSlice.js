@@ -38,7 +38,7 @@ const bestPracticesMemberContentSlice = createSlice({
     [fetchAllbestPracticesMemberContents.rejected]: (state, action) => {
       state.bestPracticesMemberContentLoading = false;
       if (action.payload) {
-        state.bestPracticesMemberContentError = action.payload.error.message;
+        state.bestPracticesMemberContentError = action?.payload?.error?.message;
       } else {
         state.bestPracticesMemberContentError = action.error;
       }

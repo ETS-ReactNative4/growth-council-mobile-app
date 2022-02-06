@@ -38,7 +38,7 @@ const coachingSessionSlice = createSlice({
     [fetchcoachingSession.rejected]: (state, action) => {
       state.coachingSessionLoading = false;
       if (action.payload) {
-        state.coachingSessionError = action.payload.error.message;
+        state.coachingSessionError = action?.payload?.error?.message;
       } else {
         state.coachingSessionError = action.error;
       }

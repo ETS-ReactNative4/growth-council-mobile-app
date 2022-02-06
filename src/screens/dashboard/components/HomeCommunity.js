@@ -21,7 +21,7 @@ import Footer from '../../../shared/footer';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const win = Dimensions.get('window');
-  const contentContainerWidth = win.width - 30;
+const contentContainerWidth = win.width - 30;
 
 const HomeCommunity = props => {
   const {
@@ -74,7 +74,6 @@ const HomeCommunity = props => {
   }, []);
 
   console.log('Commiunity pillar_id', pillarId);
-  console.log({pillarMemberContents});
 
   // console.log('Community ============', pillarPOEs);
   //console.log('Params ==== ', pillarId);
@@ -218,13 +217,11 @@ const numColumns = Math.ceil(listData.length / 2);
         <View style={styles.top}>
           <Text style={styles.title}> Growth Community Events</Text>
 
-          
           <View
             style={{
               display: 'flex',
               flexDirection: 'row',
             }}>
-			
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -234,7 +231,6 @@ const numColumns = Math.ceil(listData.length / 2);
           </View>
         </View>
 
-	
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
 		  {pillarEventLoading && (

@@ -136,10 +136,10 @@ const BestPractice = props => {
           </View>
         </TouchableOpacity>
 
-		<View style={styles.chatIcon}>
-		<TouchableOpacity onPress={() => navigation.navigate('People')}>
-          <Ionicons name={'add'} size={15} color="#B1AFAF" />
-		  </TouchableOpacity>
+        <View style={styles.chatIcon}>
+          <TouchableOpacity onPress={() => navigation.navigate('People')}>
+            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+          </TouchableOpacity>
         </View>
       </View>
     );

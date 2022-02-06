@@ -38,7 +38,7 @@ const pillarPOESlice = createSlice({
     [fetchAllPillarPOEs.rejected]: (state, action) => {
       state.pillarPOELoading = false;
       if (action.payload) {
-        state.pillarPOEError = action.payload.error.message;
+        state.pillarPOEError = action?.payload?.error?.message;
       } else {
         state.pillarPOEError = action.error;
       }

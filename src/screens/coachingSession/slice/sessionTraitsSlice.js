@@ -38,7 +38,7 @@ const TraitSlice = createSlice({
     [fetchAllTraits.rejected]: (state, action) => {
       state.traitsLoading = false;
       if (action.payload) {
-        state.traitsError = action.payload.error.message;
+        state.traitsError = action?.payload?.error?.message;
       } else {
         state.traitsError = action.error;
       }

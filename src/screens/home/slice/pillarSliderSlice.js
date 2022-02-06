@@ -38,7 +38,7 @@ const pillarSliderSlice = createSlice({
     [fetchAllPillarSliders.rejected]: (state, action) => {
       state.pillarSliderLoading = false;
       if (action.payload) {
-        state.pillarSliderError = action.payload.error.message;
+        state.pillarSliderError = action?.payload?.error?.message;
       } else {
         state.pillarSliderError = action.error;
       }
