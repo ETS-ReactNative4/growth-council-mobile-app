@@ -86,7 +86,7 @@ const HomeCommunity = props => {
           <Image
             source={{uri: item.avatar}}
             style={{
-              width: 83,
+              width: '100%',
               height: 83,
               borderRadius: 10,
             }}
@@ -367,15 +367,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   bottomWrapper: {
-    width: Platform.OS === 'ios' ? 70 : 84,
+    width: (Dimensions.get('window').width - 10) / 4,
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
     backgroundColor: 'white',
-    overflow: 'hidden',
-    // borderWidth:0.2,
   },
   chatIcon: {
     borderRadius: 50,
