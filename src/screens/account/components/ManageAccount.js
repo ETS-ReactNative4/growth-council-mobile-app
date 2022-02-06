@@ -256,8 +256,8 @@ const ManageAccount = props => {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={choosePhotoFromLibrary}>
-              <Ionicons
-                name={'folder'}
+              <AntDesign
+                name={'upload'}
                 size={20}
                 color="#C4C8CC"
                 style={{marginTop: 10, marginLeft: 30}}
@@ -292,44 +292,20 @@ const ManageAccount = props => {
                 {profileLoading && (
                   <>
                     <View
-                        style={{
-                            zIndex: 30,
-                            position: 'absolute',
-                            right: 5,
-                            marginTop: 10,
-                            marginRight: 10,
-                        }}>
-                        <TouchableOpacity onPress={takePhotoFromCamera}>
-                            <Ionicons
-                                name={'camera'}
-                                size={20}
-                                color="#C4C8CC"
-                                style={{marginTop: 5, marginLeft: 30}}
-                            />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={choosePhotoFromLibrary}>
-                            <AntDesign
-                                name={'upload'}
-                                size={20}
-                                color="#C4C8CC"
-                                style={{marginTop: 10, marginLeft: 30}}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.profileWrapper}>
-                        <View style={styles.icon}>
-                            <Image
-                                source={{uri: image}}
-                                style={{width: '100%', height: '100%'}}
-                                resizeMode="cover"
-                            />
-                        </View>
-                        <View style={styles.header}>
-                            <Button style={{marginBottom: 10}}>Update</Button>
-                            <Text style={styles.headingText1}>{profile.display_name}</Text>
-                            <Text>{profile.user_email}</Text>
-                        </View>
+                      style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around',
+                        position: 'absolute',
+                        zIndex: 1011,
+                        top: 120,
+                        left: 100,
+                      }}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
                     </View>
                   </>
                 )}
