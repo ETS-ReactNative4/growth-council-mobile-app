@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     StyleSheet,
     Text,
@@ -13,6 +13,8 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
+import DropDownPicker from 'react-native-dropdown-picker';
+
 
 const OthersAccount = props => {
     const {
@@ -22,13 +24,23 @@ const OthersAccount = props => {
         cleanProfile,
         otherProfiles,
         fetchOtherProfileByIdentifier,
+
+		expertise,
+    expertiseLoading,
+    expertiseError,
+    fetchAllExpertises,
+    cleanExperties,
     } = props;
+
+	const [open, setOpen] = useState(false);
+	const [value, setValue] = useState([]);
+	const [items, setItems] = useState([]);
 
     let Location = otherProfiles?.user_meta?.Location;
 
     let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
 
-    let expertise_areas1 = otherProfiles?.user_meta?.expertise_areas1;
+    let expertise_areas1 = otherProfiles?.expertise_areas1;
 
     let professional_summary = otherProfiles?.user_meta?.professional_summary;
 
@@ -42,6 +54,13 @@ const OthersAccount = props => {
         };
         fetchOtherProfileAsync();
     }, []);
+
+	useEffect(() => {
+		const fetchAllExpertisesAsync = async () => {
+		  await fetchAllExpertises();
+		};
+		fetchAllExpertisesAsync();
+	  }, []);
 
     //   console.log('profile id =======', route.params.id);
     //   console.log('profile other ====== ', otherProfiles?.user_meta?.first_name[0]);
@@ -231,13 +250,16 @@ const OthersAccount = props => {
                                 <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                                     EXPERTISE AREAS
                                 </Text>
+								
                                 <TextInput
-                                    style={styles.input}
+									multiline={true}
+									numberOfLines={4}
+                                    style={styles.textarea}
                                     keyboardType="text"
                                     value={
                                         typeof expertise_areas1 === 'undefined'
                                             ? ''
-                                            : JSON.stringify(otherProfiles?.user_meta?.expertise_areas1[0])
+                                            : otherProfiles?.expertise_areas1[0]
                                     }
                                     editable={false}
                                 />
