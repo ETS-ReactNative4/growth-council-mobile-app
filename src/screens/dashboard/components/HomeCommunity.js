@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {
     StyleSheet,
     View,
@@ -13,6 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import {useFocusEffect} from '@react-navigation/native';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
@@ -41,24 +42,24 @@ const HomeCommunity = props => {
 
     const pillarId = 117;
 
-    useEffect(() => {
-        const fetchAllPillarPOEAsync = async () => {
-            await fetchAllPillarPOE(pillarId);
-        };
-        fetchAllPillarPOEAsync();
-        return () => {
-            cleanPillarPOE();
-        };
-    }, []);
+	useFocusEffect(
+        useCallback(() => {
+            const fetchAllPillarPOEAsync = async () => {
+                await fetchAllPillarPOE(pillarId);
+            };
+            fetchAllPillarPOEAsync();
+
+            return () => {
+                cleanPillarPOE();
+            };
+        }, [])
+    );
 
     useEffect(() => {
         const fetchAllPillarEventAsync = async () => {
             await fetchAllPillarEvent(pillarId);
         };
         fetchAllPillarEventAsync();
-        return () => {
-            cleanPillarEvent();
-        };
     }, []);
 
     useEffect(() => {
@@ -206,7 +207,7 @@ const HomeCommunity = props => {
 
                 <View style={styles.middle}>
                     <Text style={styles.title}>Points of Engagement</Text>
-                    {pillarEventLoading && (
+                    {pillarEventLoading && pillarPOELoading && (
                         <View style={styles.loading1}>
                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
                         </View>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -8,12 +8,13 @@ import {
     ScrollView,
     FlatList,
     TouchableOpacity,
-    StatusBar,
     Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import {useFocusEffect} from '@react-navigation/native';
+
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -43,24 +44,25 @@ const BestPractice = props => {
     } = props;
 
     const pillarId = 118;
-    useEffect(() => {
-        const fetchAllPillarPOEAsync = async () => {
-            await fetchAllPillarPOE(pillarId);
-        };
-        fetchAllPillarPOEAsync();
-        // return () => {
-        //     cleanPillarPOE();
-        // };
-    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            const fetchAllPillarPOEAsync = async () => {
+                await fetchAllPillarPOE(pillarId);
+            };
+            fetchAllPillarPOEAsync();
+
+            return () => {
+                cleanPillarPOE();
+            };
+        }, [])
+    );
 
     useEffect(() => {
         const fetchAllPillarEventAsync = async () => {
             await fetchAllPillarEvent(pillarId);
         };
         fetchAllPillarEventAsync();
-        // return () => {
-        //     cleanPillarEvent();
-        // };
     }, []);
 
     useEffect(() => {
@@ -110,6 +112,7 @@ const BestPractice = props => {
             </View>
         );
     };
+
     const _renderItem = ({item, index}, navigation) => {
         return (
             <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -138,7 +141,7 @@ const BestPractice = props => {
 
                 <View style={styles.chatIcon}>
                     <TouchableOpacity onPress={() => navigation.navigate('People')}>
-                        <Ionicons name={'add'} size={15} color="#B1AFAF" />
+                        <Ionicons name={'add'} size={15} color="#B1AFAF"/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -161,7 +164,7 @@ const BestPractice = props => {
                             style={{width: 30, height: 30}}
                         />
                     </View>
-                    <Text  style={{
+                    <Text style={{
                         marginTop: 10,
                         fontSize: 10,
                         marginHorizontal: 10,
@@ -180,17 +183,10 @@ const BestPractice = props => {
         let videolink = link[1].split('&', 2);
         return (
             <View style={styles.ContentWrapper}>
-                <YoutubePlayer videoId={videolink[0]} />
+                <YoutubePlayer videoId={videolink[0]}/>
             </View>
         );
     };
-
-
-    // console.log('Best Praacticee pillar_id', pillarId);
-    // console.log({pillarMemberContents});
-
-    // console.log('File =======', bestPracticesMemberContents?.pillar_contents);
-    //console.log({bestPractices});
 
     return (
         <ScrollView>
@@ -215,23 +211,21 @@ const BestPractice = props => {
 
                 <View style={styles.middle}>
                     <Text style={styles.title}>Points of Engagement</Text>
-						{pillarEventLoading && (
-							<View style={styles.loading1}>
-								<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-							</View>
-						)}
-                  
-                        <FlatList
-                            contentContainerStyle={{
-								flex: 1,
-								flexDirection: 'row',
-								flexWrap: 'wrap',
-                            }}
-                            showsHorizontalScrollIndicator={false}
-                            data={pillarPOEs}
-							renderItem={item => _renderMiddleItem(item, navigation)}
-                        />
-                 
+                    {pillarEventLoading && pillarPOELoading && (
+                        <View style={styles.loading1}>
+                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                        </View>
+                    )}
+                    <FlatList
+                        contentContainerStyle={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                        }}
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarPOEs}
+                        renderItem={item => _renderMiddleItem(item, navigation)}
+                    />
                 </View>
 
                 <View style={styles.bottom}>
@@ -261,7 +255,7 @@ const BestPractice = props => {
                         />
                     </View>
                 </View>
-                <Footer />
+                <Footer/>
             </View>
         </ScrollView>
     );
@@ -314,75 +308,74 @@ const styles = StyleSheet.create({
         color: 'white',
     },
 
-  middle: {
-    width: 400,
-    marginTop: 10,
-  },
-  middleWrapper: {
-	width: (Dimensions.get('window').width - 10) / 4,
-    borderRadius: 20,
-    marginTop: 15,
-	
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  middleW: {
-    backgroundColor: 'white',
-    width: 64,
-    height: 64,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-  headingText3: {
-    ...CommonStyles.headingText3,
-    fontFamily: Typography.FONT_NORMAL,
-    padding: 4,
-  },
-  bottom: {
-    height: 172,
-    marginTop: 25,
-  },
-  bottomWrapper: {
-    width: Platform.OS === 'ios' ? 70 : 84,
-    position: 'relative',
-    borderRadius: 10,
-    marginTop: 15,
-    marginLeft: 15,
-    marginBottom: 10,
-    backgroundColor: 'white',
-    overflow: 'hidden',
-    // borderWidth:0.2,
-  },
-  chatIcon: {
-    borderRadius: 50,
-    backgroundColor: '#F1F1F1',
-    padding: 2,
-    justifyContent: 'center',
-    position: 'absolute',
-    right: 4,
-    bottom: 4,
-  },
-  bottomImage: {
-    width: '100%',
-    height: 100,
-    borderRadius: 20,
-  },
-  content: {
-    height: 260,
-    marginTop: 20,
-    justifyContent: 'center',
-    borderRadius: 20,
-    marginRight: 10,
-  },
-  ContentWrapper: {
-    height: 210,
-    width: contentContainerWidth,
-    marginTop: 20,
-    marginLeft: 15,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
+    middle: {
+        width: 400,
+        marginTop: 10,
+    },
+    middleWrapper: {
+        width: (Dimensions.get('window').width - 10) / 4,
+        borderRadius: 20,
+        marginTop: 15,
+
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    middleW: {
+        backgroundColor: 'white',
+        width: 64,
+        height: 64,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    headingText3: {
+        ...CommonStyles.headingText3,
+        fontFamily: Typography.FONT_NORMAL,
+        padding: 4,
+    },
+    bottom: {
+        height: 172,
+        marginTop: 25,
+    },
+    bottomWrapper: {
+        width: Platform.OS === 'ios' ? 70 : 84,
+        position: 'relative',
+        borderRadius: 10,
+        marginTop: 15,
+        marginLeft: 15,
+        marginBottom: 10,
+        backgroundColor: 'white',
+        overflow: 'hidden',
+    },
+    chatIcon: {
+        borderRadius: 50,
+        backgroundColor: '#F1F1F1',
+        padding: 2,
+        justifyContent: 'center',
+        position: 'absolute',
+        right: 4,
+        bottom: 4,
+    },
+    bottomImage: {
+        width: '100%',
+        height: 100,
+        borderRadius: 20,
+    },
+    content: {
+        height: 260,
+        marginTop: 20,
+        justifyContent: 'center',
+        borderRadius: 20,
+        marginRight: 10,
+    },
+    ContentWrapper: {
+        height: 210,
+        width: contentContainerWidth,
+        marginTop: 20,
+        marginLeft: 15,
+        borderRadius: 20,
+        overflow: 'hidden',
+    },
 
     shadowProp: {
         shadowColor: '#000',
@@ -392,7 +385,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
     },
     loading1: {

@@ -3,47 +3,47 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {fetch} from '../../../utils/httpUtil';
 
 export const fetchAllPillarEvents = createAsyncThunk(
-  'pillarEvents/fetchAll',
-  (pillarId, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/pillars/${pillarId}/events`)
-      .then(response => response.data.data)
-      .catch(error => rejectWithValue(error?.response?.data || error));
-  },
+    'pillarEvents/fetchAll',
+    (pillarId, {rejectWithValue}) => {
+        return fetch(`jwt-auth/v1/pillars/${pillarId}/events`)
+            .then(response => response.data.data)
+            .catch(error => rejectWithValue(error?.response?.data || error));
+    },
 );
 
 const pillarEventSlice = createSlice({
-  name: 'pillarEvent',
-  initialState: {
-    pillarEvents: [],
-    pillarEventLoading: false,
-    pillarEventError: null,
-  },
-  reducers: {
-    resetPillarEvent: state => {
-      state.pillarEvents = [];
-      state.pillarEventLoading = false;
-      state.pillarEventError = null;
+    name: 'pillarEvent',
+    initialState: {
+        pillarEvents: [],
+        pillarEventLoading: false,
+        pillarEventError: null,
     },
-  },
-  extraReducers: {
-    [fetchAllPillarEvents.pending]: (state, action) => {
-      state.pillarEventLoading = true;
-      state.pillarEventError = null;
+    reducers: {
+        resetPillarEvent: state => {
+            state.pillarEvents = [];
+            state.pillarEventLoading = false;
+            state.pillarEventError = null;
+        },
     },
-    [fetchAllPillarEvents.fulfilled]: (state, action) => {
-      state.pillarEvents = action.payload;
-      state.pillarEventLoading = false;
-      state.pillarEventError = null;
+    extraReducers: {
+        [fetchAllPillarEvents.pending]: (state, action) => {
+            state.pillarEventLoading = true;
+            state.pillarEventError = null;
+        },
+        [fetchAllPillarEvents.fulfilled]: (state, action) => {
+            state.pillarEvents = action.payload;
+            state.pillarEventLoading = false;
+            state.pillarEventError = null;
+        },
+        [fetchAllPillarEvents.rejected]: (state, action) => {
+            state.pillarEventLoading = false;
+            if (action.payload) {
+                state.pillarEventError = action?.payload?.error?.message;
+            } else {
+                state.pillarEventError = action.error;
+            }
+        },
     },
-    [fetchAllPillarEvents.rejected]: (state, action) => {
-      state.pillarEventLoading = false;
-      if (action.payload) {
-        state.pillarEventError = action?.payload?.error?.message;
-      } else {
-        state.pillarEventError = action.error;
-      }
-    },
-  },
 });
 
 export const {resetPillarEvent} = pillarEventSlice.actions;
