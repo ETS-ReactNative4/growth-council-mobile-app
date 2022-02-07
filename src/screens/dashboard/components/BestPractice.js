@@ -211,7 +211,7 @@ const BestPractice = props => {
 
                 <View style={styles.middle}>
                     <Text style={styles.title}>Points of Engagement</Text>
-                    {pillarEventLoading && (
+                    {pillarEventLoading && pillarPOELoading && (
                         <View style={styles.loading1}>
                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
                         </View>
@@ -235,7 +235,6 @@ const BestPractice = props => {
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             data={pillarMemberContents?.members}
-                            //renderItem={_renderItem}
                             renderItem={item => _renderItem(item, navigation)}
                         />
                     </View>
