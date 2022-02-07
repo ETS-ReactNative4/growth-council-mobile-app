@@ -177,7 +177,10 @@ const Profile = (props) => {
             await fetchEventsByUserIdentifier(userID);
         };
         fetchProfileEventAsync();
-
+        return () => {
+            cleanProfileEvent();
+        };
+       
     }, []);
 
     useEffect(() => {
@@ -188,15 +191,12 @@ const Profile = (props) => {
         };
         fetchProfileSessionAsync();
 
+        return () => {
+            cleanProfileSession();
+        };       
     }, []);
 
-    // useEffect(() => {
-    //     const fetchProfileAsync = async () => {
-    //         await fetchProfileByIdentifier();
-    //     };
-    //     fetchProfileAsync();
 
-    // }, []);
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR,}}>

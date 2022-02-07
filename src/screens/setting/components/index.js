@@ -179,6 +179,17 @@ const Setting = props => {
                     <Text style={styles.menuText}>Privacy Policy</Text>
                   </View>
                 </TouchableOpacity>
+
+
+                {/* <TouchableOpacity onPress={logout}>
+                  <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
+                    <View style={styles.middleImage1}>
+                      <Material name={'logout'} size={20} color="white" />
+                    </View>
+                    <Text style={styles.menuText}>Log Out</Text>
+                  </View>
+                </TouchableOpacity> */}
+
               </View>
             </View>
           </View>
