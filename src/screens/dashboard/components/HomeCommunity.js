@@ -231,15 +231,13 @@ const HomeCommunity = props => {
                         </View>
                     )}
 
-                    <ScrollView
-                        horizontal
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{paddingVertical: 20, marginLeft: 10,}}>
+                   
                         <FlatList
                             scrollEnabled={false}
                             contentContainerStyle={{
-                                alignSelf: 'flex-start',
+								flex: 1,
+							flexDirection: 'row',
+							flexWrap: 'wrap',
                             }}
                             numColumns={4}
                             showsHorizontalScrollIndicator={false}
@@ -247,7 +245,7 @@ const HomeCommunity = props => {
                             renderItem={_renderMiddleItem}
                             keyExtractor={(item) => item.id}
                         />
-                    </ScrollView>
+                    
                 </View>
 
                 <View style={styles.bottom}>

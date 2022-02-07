@@ -48,9 +48,9 @@ const BestPractice = props => {
             await fetchAllPillarPOE(pillarId);
         };
         fetchAllPillarPOEAsync();
-        return () => {
-            cleanPillarPOE();
-        };
+        // return () => {
+        //     cleanPillarPOE();
+        // };
     }, []);
 
     useEffect(() => {
@@ -58,9 +58,9 @@ const BestPractice = props => {
             await fetchAllPillarEvent(pillarId);
         };
         fetchAllPillarEventAsync();
-        return () => {
-            cleanPillarEvent();
-        };
+        // return () => {
+        //     cleanPillarEvent();
+        // };
     }, []);
 
     useEffect(() => {
@@ -221,23 +221,20 @@ const BestPractice = props => {
                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
                         </View>
                     )}
-                    <ScrollView
-                        horizontal
-                       // showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ paddingVertical: 20, marginLeft:10,}}>
+                  
                         <FlatList
-                            scrollEnabled={false}
                             contentContainerStyle={{
-                                alignSelf: 'flex-start',
+								flex: 1,
+								flexDirection: 'row',
+								flexWrap: 'wrap',
                             }}
                             numColumns={4}
                             showsHorizontalScrollIndicator={false}
                             data={pillarPOEs}
-                            // renderItem={_renderMiddleItem}
+                            
 							renderItem={item => _renderMiddleItem(item, navigation)}
                         />
-                    </ScrollView>
+                 
                 </View>
 
 

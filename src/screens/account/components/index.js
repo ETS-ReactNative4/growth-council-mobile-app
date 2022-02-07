@@ -187,8 +187,12 @@ const Profile = (props) => {
             await fetchSessionsByUserIdentifier(userID);
         };
         fetchProfileSessionAsync();
+		return () => {
+			cleanProfileSession()
+		  };
 
     }, []);
+	
 
     // useEffect(() => {
     //     const fetchProfileAsync = async () => {

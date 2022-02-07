@@ -22,6 +22,7 @@ import Feature from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
 
 import DashboardScreen from '../screens/dashboard';
+import {useAuthentication} from '../context/auth';
 
 import CalendarScreen from '../screens/calendar';
 import AboutScreen from '../screens/about';
@@ -42,14 +43,15 @@ import ToastMessage from '../shared/toast';
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = props => {
+
+	const {loading, setLoading, message, setMessage, signOut} =
+        useAuthentication();
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
 
   const logout = () => {
-    clearAsyncStorage();
-    props.navigation.navigate('Home');
-    ToastMessage.show('Your have successfully logout');
+    signOut()
   };
 
   return (
