@@ -152,7 +152,8 @@ const EventCalendar = props => {
     };
 
     return (
-        <View style={{...styles.container}}>
+		<ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor:'white'}}>
+			<View style={{...styles.container}}>
             {!calendarEventLoading && (
                 <FlatList
                     contentContainerStyle={{paddingHorizontal: 15}}
@@ -209,7 +210,11 @@ const EventCalendar = props => {
                     )}
                 />
             )}
+			
         </View>
+		<Footer/>
+		</ScrollView>
+        
     );
 };
 

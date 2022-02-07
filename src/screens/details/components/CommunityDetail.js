@@ -206,26 +206,7 @@ const CommunityDetail = props => {
             />
 			  
           </View>
-		  {poeDetailLoading && (
-                <>
-                  <View
-                    style={{
-                      top: 10,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      position: 'absolute',
-                      zIndex: 1011,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )}
+		 
           <View style={styles.content}>
 		 
             <View style={styles.contentWrapper}>
@@ -250,7 +231,26 @@ const CommunityDetail = props => {
                     display: 'flex',
                     flexDirection: 'row',
                   }}>
-				
+				 {poeDetailLoading && (
+                <>
+                  <View
+                    style={{
+                      top: 10,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      position: 'absolute',
+                      zIndex: 1011,
+                    }}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
