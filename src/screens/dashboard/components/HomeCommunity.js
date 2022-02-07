@@ -200,7 +200,7 @@ const HomeCommunity = props => {
             </View>
         );
     };
-   
+ 
 
     return (
         <ScrollView>
@@ -234,11 +234,11 @@ const HomeCommunity = props => {
                         <FlatList
                             scrollEnabled={false}
                             contentContainerStyle={{
-								flex: 1,
+                                flex: 1,
 								flexDirection: 'row',
 								flexWrap: 'wrap',
                             }}
-                            // numColumns={4}
+                            numColumns={4}
                             showsHorizontalScrollIndicator={false}
                             data={pillarPOEs}
                             renderItem={_renderMiddleItem}

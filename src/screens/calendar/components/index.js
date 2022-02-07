@@ -250,6 +250,8 @@ const styles = StyleSheet.create({
   eventCard: {
     height: 82,
     marginTop: 15,
+	marginLeft:2,
+	marginRight:2,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     backgroundColor: '#fff',
