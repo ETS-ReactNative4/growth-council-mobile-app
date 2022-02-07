@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -13,6 +13,8 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import { useFocusEffect } from '@react-navigation/native';
+
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
@@ -41,15 +43,18 @@ const HomeCommunity = props => {
 
     const pillarId = 117;
 
-    useEffect(() => {
-        const fetchAllPillarPOEAsync = async () => {
-            await fetchAllPillarPOE(pillarId);
-        };
-        fetchAllPillarPOEAsync();
-        return () => {
-            cleanPillarPOE();
-        };
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            const fetchAllPillarPOEAsync = async () => {
+                await fetchAllPillarPOE(pillarId);
+            };
+            fetchAllPillarPOEAsync();
+
+            return () => {
+                cleanPillarPOE();
+            };
+        }, [])
+    );
 
     useEffect(() => {
         const fetchAllPillarEventAsync = async () => {
@@ -68,11 +73,11 @@ const HomeCommunity = props => {
         fetchAllPillarMemberContentAsync();
     }, []);
 
-    console.log('Commiunity pillar_id', pillarId);
+    console.log("Home Community pillarPOEs::::::::::::::", pillarPOEs.length);
 
     const _renderItem = ({item, index}) => {
         return (
-            <View style={[styles.bottomWrapper, styles.shadowProp]}>
+            <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
                     <Image
@@ -105,13 +110,6 @@ const HomeCommunity = props => {
         );
     };
 
-    const data1 = [
-        {
-            icon: 'brain',
-            text: 'Executive MindChange',
-        },
-    ];
-
     const _renderMiddleItem = ({item, index}) => {
         return (
             <TouchableOpacity
@@ -120,7 +118,7 @@ const HomeCommunity = props => {
                         poeId: item?.term_id,
                         pillarId: item?.parent,
                     })
-                }>
+                } key={index}>
                 <View style={styles.middleWrapper}>
                     <View style={[styles.middleW, styles.shadowProp]}>
                         <Image
@@ -178,18 +176,6 @@ const HomeCommunity = props => {
         );
     };
 
-    const pic = [
-        {
-            uri: require('../../../assets/img/welcome_screen_info_image.png'),
-        },
-        {
-            uri: require('../../../assets/img/image.png'),
-        },
-        {
-            uri: require('../../../assets/img/contactus.png'),
-        },
-    ];
-
     const _renderContentItem = ({item, index}) => {
         const file = item?.file;
         const link = file.split('=', 2);
@@ -200,7 +186,7 @@ const HomeCommunity = props => {
             </View>
         );
     };
- 
+
 
     return (
         <ScrollView>
@@ -230,21 +216,20 @@ const HomeCommunity = props => {
                         </View>
                     )}
 
-                   
-                        <FlatList
-                            scrollEnabled={false}
-                            contentContainerStyle={{
-                                flex: 1,
-								flexDirection: 'row',
-								flexWrap: 'wrap',
-                            }}
-                            numColumns={4}
-                            showsHorizontalScrollIndicator={false}
-                            data={pillarPOEs}
-                            renderItem={_renderMiddleItem}
-                            keyExtractor={(item) => item.id}
-                        />
-                    
+                    <FlatList
+                        scrollEnabled={false}
+                        contentContainerStyle={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                        }}
+                        numColumns={4}
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarPOEs}
+                        renderItem={_renderMiddleItem}
+                        keyExtractor={(item) => item.id}
+                    />
+
                 </View>
 
                 <View style={styles.bottom}>
@@ -299,98 +284,98 @@ const styles = StyleSheet.create({
         color: Colors.PRIMARY_TEXT_COLOR,
     },
 
-  topWrapper: {
-    height: 144,
-    width: 256,
-    marginTop: 20,
-    marginLeft: 15,
-    borderRadius: 20,
-  },
-  header: {
-    margin: 10,
-  },
-  headingText1: {
-    fontFamily: Typography.FONT_SF_MEDIUM,
-    marginTop: 5,
-    fontWeight: '600',
-    color: 'white',
-    fontSize: 12,
-  },
-  headingText2: {
-    ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_SF_MEDIUM,
-    fontWeight: '400',
-    color: 'white',
-    fontSize: 8,
-  },
-  middle: {
-    width: 400,
-    marginTop: 10,
-  },
-  middleWrapper: {
-	width: (Dimensions.get('window').width - 10) / 4,
-    borderRadius: 20,
-    marginTop: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  middleW: {
-    backgroundColor: 'white',
-    width: 64,
-    height: 64,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-  headingText3: {
-    ...CommonStyles.headingText3,
-    fontFamily: Typography.FONT_NORMAL,
-    padding: 4,
-  },
-  bottom: {
-    height: 172,
-    marginTop: 15,
-  },
-  bottomWrapper: {
-    width: Platform.OS === 'ios' ? 70 : 84,
-    position: 'relative',
-    borderRadius: 10,
-    marginTop: 15,
-    marginLeft: 15,
-    marginBottom: 10,
-    backgroundColor: 'white',
-    overflow: 'hidden',
-    // borderWidth:0.2,
-  },
-  chatIcon: {
-    borderRadius: 50,
-    backgroundColor: '#F1F1F1',
-    padding: 2,
-    justifyContent: 'center',
-    position: 'absolute',
-    right: 4,
-    bottom: 4,
-  },
-  bottomImage: {
-    width: '100%',
-    height: 100,
-    borderRadius: 20,
-  },
-  content: {
-    height: 250,
-    marginTop: 20,
-    justifyContent: 'center',
-    borderRadius: 20,
-  },
-  ContentWrapper: {
-    height: 206,
-    width: Platform.OS === 'ios' ? 330 : 364,
-    marginTop: 20,
-    marginLeft: 15,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-  
+    topWrapper: {
+        height: 144,
+        width: 256,
+        marginTop: 20,
+        marginLeft: 15,
+        borderRadius: 20,
+    },
+    header: {
+        margin: 10,
+    },
+    headingText1: {
+        fontFamily: Typography.FONT_SF_MEDIUM,
+        marginTop: 5,
+        fontWeight: '600',
+        color: 'white',
+        fontSize: 12,
+    },
+    headingText2: {
+        ...CommonStyles.headingText2,
+        fontFamily: Typography.FONT_SF_MEDIUM,
+        fontWeight: '400',
+        color: 'white',
+        fontSize: 8,
+    },
+    middle: {
+        width: 400,
+        marginTop: 10,
+    },
+    middleWrapper: {
+        width: (Dimensions.get('window').width - 10) / 4,
+        borderRadius: 20,
+        marginTop: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    middleW: {
+        backgroundColor: 'white',
+        width: 64,
+        height: 64,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    headingText3: {
+        ...CommonStyles.headingText3,
+        fontFamily: Typography.FONT_NORMAL,
+        padding: 4,
+    },
+    bottom: {
+        height: 172,
+        marginTop: 15,
+    },
+    bottomWrapper: {
+        width: Platform.OS === 'ios' ? 70 : 84,
+        position: 'relative',
+        borderRadius: 10,
+        marginTop: 15,
+        marginLeft: 15,
+        marginBottom: 10,
+        backgroundColor: 'white',
+        overflow: 'hidden',
+        // borderWidth:0.2,
+    },
+    chatIcon: {
+        borderRadius: 50,
+        backgroundColor: '#F1F1F1',
+        padding: 2,
+        justifyContent: 'center',
+        position: 'absolute',
+        right: 4,
+        bottom: 4,
+    },
+    bottomImage: {
+        width: '100%',
+        height: 100,
+        borderRadius: 20,
+    },
+    content: {
+        height: 250,
+        marginTop: 20,
+        justifyContent: 'center',
+        borderRadius: 20,
+    },
+    ContentWrapper: {
+        height: 206,
+        width: Platform.OS === 'ios' ? 330 : 364,
+        marginTop: 20,
+        marginLeft: 15,
+        borderRadius: 20,
+        overflow: 'hidden',
+    },
+
     shadowProp: {
         shadowColor: '#000',
         shadowOffset: {
