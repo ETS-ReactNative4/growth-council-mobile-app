@@ -190,11 +190,15 @@ const Profile = (props) => {
             await fetchSessionsByUserIdentifier(userID);
         };
         fetchProfileSessionAsync();
+		return () => {
+			cleanProfileSession()
+		  };
 
         return () => {
             cleanProfileSession();
         };       
     }, []);
+	
 
 
 
