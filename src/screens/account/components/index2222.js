@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     ScrollView,
     FlatList,
-	Dimensions
+    Dimensions
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -48,8 +48,8 @@ const Profile = (props) => {
     const [value, setValue] = useState('My Sessions');
 
     const _renderItems = ({item, index}) => {
-		const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
-		const date = actualDate[1].split(' ', 3);
+        const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
+        const date = actualDate[1].split(' ', 3);
         return (
             <View>
                 <TouchableOpacity
@@ -104,9 +104,9 @@ const Profile = (props) => {
     };
 
     const _renderItem = ({item, index}) => {
-		const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
-		const date = actualDate[1].split(' ', 3);
-		console.log(date[2])
+        const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
+        const date = actualDate[1].split(' ', 3);
+        console.log(date[2])
         return (
             <View key={index}>
                 <TouchableOpacity
@@ -177,6 +177,9 @@ const Profile = (props) => {
             await fetchEventsByUserIdentifier(userID);
         };
         fetchProfileEventAsync();
+        return () => {
+            cleanProfileEvent();
+        };
 
     }, []);
 
@@ -187,16 +190,17 @@ const Profile = (props) => {
             await fetchSessionsByUserIdentifier(userID);
         };
         fetchProfileSessionAsync();
+        return () => {
+            cleanProfileSession()
+        };
 
+        return () => {
+            cleanProfileSession();
+        };
     }, []);
 
-    // useEffect(() => {
-    //     const fetchProfileAsync = async () => {
-    //         await fetchProfileByIdentifier();
-    //     };
-    //     fetchProfileAsync();
 
-    // }, []);
+
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR,}}>
@@ -300,7 +304,7 @@ const Profile = (props) => {
                     </View>
                 </View>
             </View>
-			<Footer />
+            <Footer />
         </ScrollView>
     );
 
@@ -312,8 +316,8 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
         paddingLeft: 20,
         paddingRight: 20,
-		justifyContent:'center',
-		alignContent:'center'
+        justifyContent:'center',
+        alignContent:'center'
     },
     header: {
         alignItems: 'center',
@@ -351,16 +355,16 @@ const styles = StyleSheet.create({
         borderColor: '#707070'
     },
     middle: {
-		justifyContent:'center',
-		alignContent:'center',
-	},
+        justifyContent:'center',
+        alignContent:'center',
+    },
     wrapper: {
         width:Platform.OS === 'ios' ? "65%" : "70%",
         marginLeft: 10,
         marginTop: 10,
     },
     middleWrapper: {
-		paddingBottom:20,
+        paddingBottom:20,
         width: "100%",
         borderRadius: 15,
         display: 'flex',
@@ -396,7 +400,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 10,
         marginTop: 15,
-		marginLeft:Platform.OS === 'ios' ? 10 : 40,
+        marginLeft:Platform.OS === 'ios' ? 10 : 40,
     },
 
     iconWrapper: {

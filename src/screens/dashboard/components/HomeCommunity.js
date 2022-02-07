@@ -200,8 +200,7 @@ const HomeCommunity = props => {
             </View>
         );
     };
-    const listData = props.pillarPOEs ?? [];
-    const numColumns = Math.ceil(listData.length / 2);
+   
 
     return (
         <ScrollView>
@@ -231,23 +230,21 @@ const HomeCommunity = props => {
                         </View>
                     )}
 
-                    <ScrollView
-                        horizontal
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{paddingVertical: 20, marginLeft: 10,}}>
+                   
                         <FlatList
                             scrollEnabled={false}
                             contentContainerStyle={{
-                                alignSelf: 'flex-start',
+								flex: 1,
+								flexDirection: 'row',
+								flexWrap: 'wrap',
                             }}
-                            numColumns={4}
+                            // numColumns={4}
                             showsHorizontalScrollIndicator={false}
                             data={pillarPOEs}
                             renderItem={_renderMiddleItem}
                             keyExtractor={(item) => item.id}
                         />
-                    </ScrollView>
+                    
                 </View>
 
                 <View style={styles.bottom}>

@@ -6,8 +6,6 @@ import {
     StyleSheet,
     TouchableOpacity,
     ScrollView,
-    FlatList,
-    Dimensions
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';

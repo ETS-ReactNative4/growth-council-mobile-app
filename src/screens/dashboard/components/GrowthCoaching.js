@@ -230,14 +230,14 @@ const GrowthCoaching = props => {
                     </View>
                 </View>
 
-        <View style={styles.middle}>
-          <Text style={styles.title}>Points of Engagement</Text>
-		  {pillarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
-			
+				<View style={styles.middle}>
+				<Text style={styles.title}>Points of Engagement</Text>
+				{pillarEventLoading && (
+					<View style={styles.loading1}>
+						<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+					</View>
+					)}
+					
 					<FlatList
 						
 						horizontal
