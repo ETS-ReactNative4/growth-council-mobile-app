@@ -194,6 +194,7 @@ const CommunityDetail = props => {
           </TouchableOpacity>
 
           <View style={styles.icon}>
+		
             <Image
               source={{uri: poeDetails?.image}}
               style={{
@@ -203,21 +204,9 @@ const CommunityDetail = props => {
                 justifyContent: 'center',
               }}
             />
+			  
           </View>
-
-          <View style={styles.content}>
-            <View style={styles.contentWrapper}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  color: '#1E2022',
-                  textAlign: 'center',
-                  marginTop: 50,
-                }}>
-                {poeDetails.name}
-              </Text>
-              {poeEventLoading && (
+		  {poeDetailLoading && (
                 <>
                   <View
                     style={{
@@ -237,6 +226,20 @@ const CommunityDetail = props => {
                   </View>
                 </>
               )}
+          <View style={styles.content}>
+		 
+            <View style={styles.contentWrapper}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '500',
+                  color: '#1E2022',
+                  textAlign: 'center',
+                  marginTop: 50,
+                }}>
+                {poeDetails.name}
+              </Text>
+              
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               <View style={styles.top}>
@@ -247,6 +250,7 @@ const CommunityDetail = props => {
                     display: 'flex',
                     flexDirection: 'row',
                   }}>
+				
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -308,11 +312,11 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    width:  Platform.OS === 'ios' ? 80 : 80,
-    height:  Platform.OS === 'ios' ? 80 : 80,
+    width: Platform.OS === 'ios' ? 80 : 80,
+    height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-	marginLeft:  Platform.OS === 'ios' ? 120 : 150,
+    marginLeft: Platform.OS === 'ios' ? 120 : 150,
     marginTop: 190,
     alignItems: 'center',
     justifyContent: 'center',

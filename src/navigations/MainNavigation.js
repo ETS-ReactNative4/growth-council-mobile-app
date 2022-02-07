@@ -256,7 +256,7 @@ const MainNavigation = () => {
           component={EventDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: 'Event Detail',
+            headerTitle: ' ',
           })}
         />
         <Stack.Screen
@@ -264,7 +264,7 @@ const MainNavigation = () => {
           component={SessionDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: 'Session Detail',
+            headerTitle: ' ',
           })}
         />
 

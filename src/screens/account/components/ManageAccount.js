@@ -217,7 +217,7 @@ const ManageAccount = props => {
       value,
     }));
     setItems(result);
-    return () => {setValue([])};
+    // return () => {setValue([])};
   }, []);
 
   return (

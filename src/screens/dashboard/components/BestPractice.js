@@ -234,8 +234,8 @@ const BestPractice = props => {
                             numColumns={4}
                             showsHorizontalScrollIndicator={false}
                             data={pillarPOEs}
-                            renderItem={_renderMiddleItem}
-                            keyExtractor = {(item) => item.id}
+                            // renderItem={_renderMiddleItem}
+							renderItem={item => _renderMiddleItem(item, navigation)}
                         />
                     </ScrollView>
                 </View>

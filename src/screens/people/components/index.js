@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
+  Modal,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,7 +18,7 @@ import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
-import { Dialog } from 'react-native-paper';
+import {Dialog} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
 
 const win = Dimensions.get('window');
@@ -46,7 +47,7 @@ const People = props => {
   } = props;
 
   const toast = useToast();
-  const [category, setCategory] = useState( );
+  const [category, setCategory] = useState();
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
@@ -92,14 +93,13 @@ const People = props => {
 
   const pickerRef = useRef();
 
-	function open() {
-	pickerRef.current.focus();
-	}
+  function open() {
+    pickerRef.current.focus();
+  }
 
-	function close() {
-	pickerRef.current.blur();
-	}
- 
+  function close() {
+    pickerRef.current.blur();
+  }
 
   const _renderItem = ({item, index}) => {
     return (
@@ -150,6 +150,8 @@ const People = props => {
     );
   };
 
+  const [pickerVisible, setPickerVisible] = useState(false);
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -185,35 +187,26 @@ const People = props => {
           />
         </View>
         <View style={styles.iconWrapper}>
-          
-            <Picker
-              selectedValue={category}
-			  ref={pickerRef}
-              mode={Dialog}
-			  style={{ height: 50, width: '65%'}}
-			  itemTextStyle={{fontSize:12}}
-              onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-              onPress={async () => {
-                setSorting('DESC');
-                await fetchAllUsers({
-                  s: searchKey,
-                  sort: sorting,
-                  expertise_areas: category,
-                });
-              }}>
-              {Object.keys(expertise).map(key => {
-                return (
-                  <Picker.Item label={expertise[key]} value={key} key={key} style={{fontSize:12}}  />
-                );
-              })}
-            </Picker>
-
+          <TouchableOpacity
+            onPress={() => setPickerVisible(true)}
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              borderWidth: 1,
+              paddingVertical: 10,
+              borderRadius: 10,
+              borderColor: 'gray',
+              marginRight: 30,
+            }}>
+            <Text style={{fontSize: 12}}>
+              {category === '' ? 'Select Category' : category}
+            </Text>
+          </TouchableOpacity>
           <View style={styles.icon}>
             <Ionicons
               name="arrow-up"
               size={20}
               color="#d7d7d7"
-              style={{marginTop: 15}}
               onPress={async () => {
                 setSorting('DESC');
                 await fetchAllUsers({
@@ -227,7 +220,6 @@ const People = props => {
               name="arrow-down"
               size={20}
               color="#d7d7d7"
-              style={{marginTop: 15}}
               onPress={async () => {
                 setSorting('ASC');
                 await fetchAllUsers({
@@ -240,18 +232,18 @@ const People = props => {
             <Text style={styles.textWrapper}>Sort</Text>
           </View>
         </View>
-		
-		{userLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
+
+        {userLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
         <View style={{marginTop: 40}}>
-		{memberConnectionLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
+          {memberConnectionLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
           <FlatList
             vertical
             showsVerticalScrollIndicator={false}
@@ -273,6 +265,62 @@ const People = props => {
           style={{width: '100%', height: 20}}
         />
       </View>
+      <Modal transparent visible={pickerVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setPickerVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={category}
+                ref={pickerRef}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 12}}
+                onValueChange={async (itemValue, itemIndex) => {
+                  setCategory(itemValue);
+                  await fetchAllUsers({
+                    s: searchKey,
+                    sort: 'ASC',
+                    expertise_areas: category,
+                  });
+                }}>
+                {Object.keys(expertise).map(key => {
+                  return (
+                    <Picker.Item
+                      label={expertise[key]}
+                      value={key}
+                      key={key}
+                      style={{fontSize: 12}}
+                    />
+                  );
+                })}
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -301,21 +349,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   iconWrapper: {
-    display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 15,
   },
   icon: {
-    width: '20%',
-    borderColor: '#707070',
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
+    width: '20%',
+    borderColor: '#707070',
   },
   textWrapper: {
-    marginTop: 15,
     fontSize: 14,
   },
   shadowProp: {

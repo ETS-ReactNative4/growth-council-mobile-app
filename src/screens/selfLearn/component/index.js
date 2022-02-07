@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   Text,
   View,
@@ -21,12 +21,29 @@ import {
 } from '../slice/selfLearnByIdSlice';
 
 const SelfLearn = props => {
-  const {navigation, route} = props;
+  const {navigation, route,
+	traits,
+    traitsLoading,
+    traitsError,
+    fetchAllTraits,
+    fetchAllTraitBySession,
+    cleanTraits,} = props;
 
   // const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
   // const date = actualDate[1].split(' ', 3);
 
   const [value, setValue] = useState('About');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [totalScore, setTotalScore] = useState(0);
+  const [answers, setAnswers] = useState({
+    totalScore: 0,
+    questions: [],
+    yellowBenchmarkQuestions: [],
+  });
+
+  const [display, setDisplay] = useState(true);
+  const ref = useRef();
+  const [selectedId, setSelectedId] = useState(null);
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -71,7 +88,17 @@ const SelfLearn = props => {
               {value === 'About' && <SelfAbout {...props} />}
               {value === 'Self Assessment' && (
                 <View>
-                  <SelfAssessment />
+                  <SelfAssessment 
+				   {...props}
+				   traits={traits}
+				   traitsLoading={traitsLoading}
+				   traitsError={traitsError}
+				   fetchAllTraitBySession={fetchAllTraitBySession}
+				   cleanTraits={cleanTraits}
+				   answers={answers}
+				   setAnswers={setAnswers}
+				   selectedId={selectedId}
+				   setSelectedId={setSelectedId}/>
                 </View>
               )}
             </View>
