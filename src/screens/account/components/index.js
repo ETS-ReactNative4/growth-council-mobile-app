@@ -6,38 +6,21 @@ import {
     StyleSheet,
     TouchableOpacity,
     ScrollView,
-    FlatList,
-	Dimensions
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
-import {Button} from 'native-base';
 import {BubblesLoader} from 'react-native-indicator';
-import moment from 'moment';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import {getAsyncStorage} from '../../../utils/storageUtil';
-import {JWT_TOKEN} from '../../../constants';
-import {decodeUserID} from '../../../utils/jwtUtil';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
-
+import MyEvent from './MyEvent';
+import MySession from './MySession';
 
 const Profile = (props) => {
     const {
         navigation,
-        route,
-        profileEvent,
-        profileEventLoading,
-        profileEventError,
-        fetchEventsByUserIdentifier,
-        cleanProfileEvent,
-        profileSession,
-        profileSessionLoading,
-        profileSessionError,
-        fetchSessionsByUserIdentifier,
-        cleanProfileSession,
         profile,
         profileLoading,
         profileError,
@@ -47,121 +30,6 @@ const Profile = (props) => {
 
     const [value, setValue] = useState('My Sessions');
 
-    const _renderItems = ({item, index}) => {
-		const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
-		const date = actualDate[1].split(' ', 3);
-        return (
-            <View>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('SessionDetail', {id: item.ID})}>
-                    <View style={styles.middleWrapper} key={index}>
-                        <View style={styles.wrapper}>
-
-                            <Text style={styles.text}>{item.title}</Text>
-
-                            <Text style={{fontSize: 6, fontFamily: Typography.FONT_SF_REGULAR,}}>Hosted
-                                by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
-                            <View style={styles.iconWrapper}>
-                                <Ionicon
-                                    name={'person'}
-                                    size={15}
-                                    color="#0B0B45"
-                                />
-                                <Text style={styles.text}/>
-                                <Ionicon
-                                    name={'calendar'}
-                                    size={15}
-                                    color="#0B0B45"
-                                    style={{marginLeft: 20}}
-
-                                /><Text style={styles.text}>{date[2]} {date[1]}</Text>
-                            </View>
-                            <View style={styles.iconWrapper}>
-                                <Ionicon
-                                    name={'time'}
-                                    size={15}
-                                    color="#0B0B45"
-                                />
-                                <Text
-                                    style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
-                                <Ionicon
-                                    name={'location'}
-                                    size={15}
-                                    color="#0B0B45"
-                                    style={{marginLeft: 20}}
-                                />
-                                <Text style={styles.text}>{item.location?.location_address}</Text>
-                            </View>
-
-
-                        </View>
-                        <Button style={{height: 35, top: 40, backgroundColor: '#183863', borderRadius: 15,}}>
-                            <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        );
-    };
-
-    const _renderItem = ({item, index}) => {
-		const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
-		const date = actualDate[1].split(' ', 3);
-		console.log(date[2])
-        return (
-            <View key={index}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-                    <View style={styles.middleWrapper}>
-
-                        <View style={[styles.wrapper]}>
-
-                            <Text style={styles.text}>{item.title}</Text>
-
-                            <Text style={{fontSize: 6, fontFamily: Typography.FONT_SF_REGULAR,}}>Hosted
-                                by {item?.organizer?.term_name} {item?.organizer?.description}</Text>
-                            <View style={styles.iconWrapper}>
-                                <Ionicon
-                                    name={'person'}
-                                    size={15}
-                                    color="#0B0B45"
-
-                                />
-                                <Text style={styles.text}/>
-                                <Ionicon
-                                    name={'calendar'}
-                                    size={15}
-                                    color="#0B0B45"
-                                    style={{marginLeft: 20}}
-
-                                /><Text style={styles.text}>{date[2]} {date[1]}</Text>
-                            </View>
-                            <View style={styles.iconWrapper}>
-                                <Ionicon
-                                    name={'time'}
-                                    size={15}
-                                    color="#0B0B45"
-                                /><Text
-                                style={styles.text}>{item?.event_meta._start_hour[0]}:{item?.event_meta._start_minute[0]}{item.event_meta._start_ampm[0]}</Text>
-                                <Ionicon
-                                    name={'location'}
-                                    size={15}
-                                    color="#0B0B45"
-                                    style={{marginLeft: 20}}
-
-                                />
-                                <Text style={styles.text}>{item.location?.location_address}</Text>
-                            </View>
-
-                        </View>
-                        <Button style={{height: 35, top: 40, backgroundColor: '#183863', borderRadius: 15, }}>
-                            <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>Upcoming</Text></Button>
-
-                    </View>
-                </TouchableOpacity>
-            </View>
-        );
-    };
-
     useEffect(() => {
         const fetchProfileAsync = async () => {
             await fetchProfileByIdentifier();
@@ -169,42 +37,9 @@ const Profile = (props) => {
         fetchProfileAsync();
     }, []);
 
-
-    useEffect(() => {
-        const fetchProfileEventAsync = async () => {
-            let token = await getAsyncStorage(JWT_TOKEN);
-            let userID = decodeUserID(token);
-            await fetchEventsByUserIdentifier(userID);
-        };
-        fetchProfileEventAsync();
-
-    }, []);
-
-    useEffect(() => {
-        const fetchProfileSessionAsync = async () => {
-            let token1 = await getAsyncStorage(JWT_TOKEN);
-            let userID = decodeUserID(token1);
-            await fetchSessionsByUserIdentifier(userID);
-        };
-        fetchProfileSessionAsync();
-		return () => {
-			cleanProfileSession()
-		  };
-
-    }, []);
-	
-
-    // useEffect(() => {
-    //     const fetchProfileAsync = async () => {
-    //         await fetchProfileByIdentifier();
-    //     };
-    //     fetchProfileAsync();
-
-    // }, []);
-
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR,}}>
-            <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, justifyContent:"center", alignContent:"center"}}>
+            <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, justifyContent: "center", alignContent: "center"}}>
                 <Image source={require("../../../assets/img/appBG.png")} style={{height: 160}}/>
                 <View style={{
                     display: 'flex',
@@ -266,7 +101,7 @@ const Profile = (props) => {
                                     style={{height: 40, marginTop: 5, width: '90%', marginLeft: 10,}}
                                 />
                             </View>
-                            {profileLoading && profileEventLoading && (
+                            {profileLoading && (
                                 <>
                                     <View style={{
                                         flex: 1,
@@ -283,28 +118,18 @@ const Profile = (props) => {
                                 </>
                             )}
                             {value === 'My Events' &&
-                            <FlatList
-                                Vertical
-                                showsVerticalScrollIndicator={false}
-                                data={profileEvent}
-                                renderItem={_renderItem}
-                            />
+                            <MyEvent {...props}/>
                             }
 
                             {value === 'My Sessions' &&
-                            <FlatList
-                                Vertical
-                                showsVerticalScrollIndicator={false}
-                                data={profileSession}
-                                renderItem={_renderItems}
-                            />
+                            <MySession {...props}/>
                             }
 
                         </View>
                     </View>
                 </View>
             </View>
-			<Footer />
+            <Footer/>
         </ScrollView>
     );
 
@@ -316,8 +141,8 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
         paddingLeft: 20,
         paddingRight: 20,
-		justifyContent:'center',
-		alignContent:'center'
+        justifyContent: 'center',
+        alignContent: 'center'
     },
     header: {
         alignItems: 'center',
@@ -355,16 +180,16 @@ const styles = StyleSheet.create({
         borderColor: '#707070'
     },
     middle: {
-		justifyContent:'center',
-		alignContent:'center',
-	},
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
     wrapper: {
-        width:Platform.OS === 'ios' ? "65%" : "70%",
+        width: Platform.OS === 'ios' ? "65%" : "70%",
         marginLeft: 10,
         marginTop: 10,
     },
     middleWrapper: {
-		paddingBottom:20,
+        paddingBottom: 20,
         width: "100%",
         borderRadius: 15,
         display: 'flex',
@@ -400,7 +225,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 10,
         marginTop: 15,
-		marginLeft:Platform.OS === 'ios' ? 10 : 40,
+        marginLeft: Platform.OS === 'ios' ? 10 : 40,
     },
 
     iconWrapper: {
