@@ -105,13 +105,6 @@ const HomeCommunity = props => {
         );
     };
 
-    const data1 = [
-        {
-            icon: 'brain',
-            text: 'Executive MindChange',
-        },
-    ];
-
     const _renderMiddleItem = ({item, index}) => {
         return (
             <TouchableOpacity
@@ -178,17 +171,6 @@ const HomeCommunity = props => {
         );
     };
 
-    const pic = [
-        {
-            uri: require('../../../assets/img/welcome_screen_info_image.png'),
-        },
-        {
-            uri: require('../../../assets/img/image.png'),
-        },
-        {
-            uri: require('../../../assets/img/contactus.png'),
-        },
-    ];
 
     const _renderContentItem = ({item, index}) => {
         const file = item?.file;

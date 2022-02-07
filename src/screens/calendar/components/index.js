@@ -8,10 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import {Picker} from '@react-native-picker/picker';
 import moment from 'moment';
-import ButtonToggleGroup from 'react-native-button-toggle-group';
-
 import {CommonStyles, Colors} from '../../../theme';
 import {BubblesLoader} from 'react-native-indicator';
 

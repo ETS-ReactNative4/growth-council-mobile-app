@@ -209,18 +209,6 @@ const Dashboard = props => {
     );
   };
 
-  const pic = [
-    {
-      uri: require('../../../assets/img/welcome_screen_info_image.png'),
-    },
-    {
-      uri: require('../../../assets/img/image.png'),
-    },
-    {
-      uri: require('../../../assets/img/contactus.png'),
-    },
-  ];
-
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
@@ -232,9 +220,7 @@ const Dashboard = props => {
     );
   };
 
-  // console.log({contentSlider});
-  const listData = props.poes ?? [];
-  const numColumns = Math.ceil(listData.length / 2);
+
 
   return (
     <SafeAreaView style={{flex: 1}}>

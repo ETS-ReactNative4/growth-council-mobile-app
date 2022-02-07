@@ -182,17 +182,7 @@ const GrowthCoaching = props => {
         );
     };
 
-    const pic = [
-        {
-            uri: require('../../../assets/img/welcome_screen_info_image.png'),
-        },
-        {
-            uri: require('../../../assets/img/image.png'),
-        },
-        {
-            uri: require('../../../assets/img/contactus.png'),
-        },
-    ];
+
 
     const _renderContentItem = ({item, index}) => {
         const file = item?.file;
@@ -204,12 +194,10 @@ const GrowthCoaching = props => {
             </View>
         );
     };
-    const listData = props.pillarPOEs ?? [];
-    const numColumns = Math.ceil(listData.length / 2);
+
 
     return (
         <ScrollView>
-            {/* <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle.png')} translucent = {true}/> */}
 
             <View style={styles.container}>
                 <View style={styles.top}>
@@ -231,12 +219,12 @@ const GrowthCoaching = props => {
                 </View>
 
 				<View style={styles.middle}>
-				<Text style={styles.title}>Points of Engagement</Text>
-				{pillarEventLoading && (
-					<View style={styles.loading1}>
-						<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-					</View>
-					)}
+					<Text style={styles.title}>Points of Engagement</Text>
+					{pillarEventLoading && (
+						<View style={styles.loading1}>
+							<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+						</View>
+						)}
 					
 					<FlatList
 						
@@ -247,7 +235,7 @@ const GrowthCoaching = props => {
 						
 					/>
 			
-        </View>
+        		</View>
 
                 <View style={styles.bottom}>
                     <Text style={styles.title}>Growth Coaching Members</Text>

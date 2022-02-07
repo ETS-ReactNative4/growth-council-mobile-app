@@ -184,8 +184,7 @@ const BestPractice = props => {
             </View>
         );
     };
-    const listData = props.pillarPOEs ?? [];
-    const numColumns = Math.ceil(listData.length / 2);
+
 
     // console.log('Best Praacticee pillar_id', pillarId);
     // console.log({pillarMemberContents});
@@ -216,11 +215,11 @@ const BestPractice = props => {
 
                 <View style={styles.middle}>
                     <Text style={styles.title}>Points of Engagement</Text>
-                    {pillarEventLoading && (
-                        <View style={styles.loading1}>
-                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-                        </View>
-                    )}
+						{pillarEventLoading && (
+							<View style={styles.loading1}>
+								<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+							</View>
+						)}
                   
                         <FlatList
                             contentContainerStyle={{
@@ -230,12 +229,10 @@ const BestPractice = props => {
                             }}
                             showsHorizontalScrollIndicator={false}
                             data={pillarPOEs}
-                            
 							renderItem={item => _renderMiddleItem(item, navigation)}
                         />
                  
                 </View>
-
 
                 <View style={styles.bottom}>
                     <Text style={styles.title}>Best Practices Members</Text>
@@ -244,7 +241,6 @@ const BestPractice = props => {
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             data={pillarMemberContents?.members}
-                            //renderItem={_renderItem}
                             renderItem={item => _renderItem(item, navigation)}
                         />
                     </View>

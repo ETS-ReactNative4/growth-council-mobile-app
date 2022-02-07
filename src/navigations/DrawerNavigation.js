@@ -163,7 +163,7 @@ const DrawerNavigation = ({navigation}) => {
         component={BottomTabNavigation}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="calendar-outline" color={'blue'} size={24} />
+            <Material name="inbox" color={'#00008B'} size={24} />
           ),
         })}
       />
