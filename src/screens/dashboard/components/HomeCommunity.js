@@ -69,11 +69,9 @@ const HomeCommunity = props => {
         fetchAllPillarMemberContentAsync();
     }, []);
 
-    console.log('Commiunity pillar_id', pillarId);
-
     const _renderItem = ({item, index}) => {
         return (
-            <View style={[styles.bottomWrapper, styles.shadowProp]}>
+            <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
                     <Image
@@ -114,7 +112,7 @@ const HomeCommunity = props => {
                         poeId: item?.term_id,
                         pillarId: item?.parent,
                     })
-                }>
+                } key={index}>
                 <View style={styles.middleWrapper}>
                     <View style={[styles.middleW, styles.shadowProp]}>
                         <Image
@@ -183,7 +181,7 @@ const HomeCommunity = props => {
             </View>
         );
     };
- 
+
 
     return (
         <ScrollView>
@@ -213,7 +211,7 @@ const HomeCommunity = props => {
                         </View>
                     )}
 
-                   
+
                         <FlatList
                             scrollEnabled={false}
                             contentContainerStyle={{
@@ -227,7 +225,7 @@ const HomeCommunity = props => {
                             renderItem={_renderMiddleItem}
                             keyExtractor={(item) => item.id}
                         />
-                    
+
                 </View>
 
                 <View style={styles.bottom}>
@@ -373,7 +371,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
   },
-  
+
     shadowProp: {
         shadowColor: '#000',
         shadowOffset: {
