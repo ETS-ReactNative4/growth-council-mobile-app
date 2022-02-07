@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Session from './component';
@@ -10,6 +10,7 @@ import {
 } from './slice/sessionRegister';
 
 const SessionDetailScreen = props => {
+	const {navigation, route}=props
   const dispatch = useDispatch();
 
   const {sessions, sessionLoading, sessionError} = useSelector(

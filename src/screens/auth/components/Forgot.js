@@ -15,6 +15,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Spinner from '../../../shared/spinner';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 import ToastMessage from '../../../shared/toast';
+import Footer from '../../../shared/footer';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -86,6 +87,7 @@ const ForgotForm = props => {
           </Button>
         </View>
       </View>
+	 
     </ScrollView>
   );
 };

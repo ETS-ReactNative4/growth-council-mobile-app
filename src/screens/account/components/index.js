@@ -190,10 +190,13 @@ const Profile = (props) => {
             await fetchSessionsByUserIdentifier(userID);
         };
         fetchProfileSessionAsync();
+
         return () => {
             cleanProfileSession();
         };       
     }, []);
+
+
 
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR,}}>

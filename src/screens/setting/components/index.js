@@ -180,6 +180,7 @@ const Setting = props => {
                   </View>
                 </TouchableOpacity>
 
+
                 {/* <TouchableOpacity onPress={logout}>
                   <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
                     <View style={styles.middleImage1}>
@@ -188,6 +189,7 @@ const Setting = props => {
                     <Text style={styles.menuText}>Log Out</Text>
                   </View>
                 </TouchableOpacity> */}
+
               </View>
             </View>
           </View>

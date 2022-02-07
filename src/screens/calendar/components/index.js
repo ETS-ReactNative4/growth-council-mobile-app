@@ -199,6 +199,7 @@ const EventCalendar = props => {
       </View>
     </ScrollView>
   );
+   
 };
 
 const styles = StyleSheet.create({
