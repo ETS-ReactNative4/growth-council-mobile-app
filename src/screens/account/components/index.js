@@ -195,14 +195,6 @@ const Profile = (props) => {
         };       
     }, []);
 
-    useEffect(() => {
-        const fetchProfileAsync = async () => {
-            await fetchProfileByIdentifier();
-        };
-        fetchProfileAsync();
-
-    }, []);
-
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: PRIMARY_BACKGROUND_COLOR,}}>
             <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, justifyContent:"center", alignContent:"center"}}>
