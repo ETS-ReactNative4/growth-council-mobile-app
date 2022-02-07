@@ -200,8 +200,7 @@ const HomeCommunity = props => {
             </View>
         );
     };
-    const listData = props.pillarPOEs ?? [];
-    const numColumns = Math.ceil(listData.length / 2);
+   
 
     return (
         <ScrollView>
@@ -236,10 +235,10 @@ const HomeCommunity = props => {
                             scrollEnabled={false}
                             contentContainerStyle={{
 								flex: 1,
-							flexDirection: 'row',
-							flexWrap: 'wrap',
+								flexDirection: 'row',
+								flexWrap: 'wrap',
                             }}
-                            numColumns={4}
+                            // numColumns={4}
                             showsHorizontalScrollIndicator={false}
                             data={pillarPOEs}
                             renderItem={_renderMiddleItem}

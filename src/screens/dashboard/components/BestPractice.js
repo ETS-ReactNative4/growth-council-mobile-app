@@ -228,7 +228,6 @@ const BestPractice = props => {
 								flexDirection: 'row',
 								flexWrap: 'wrap',
                             }}
-                            numColumns={4}
                             showsHorizontalScrollIndicator={false}
                             data={pillarPOEs}
                             
