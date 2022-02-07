@@ -177,7 +177,10 @@ const Profile = (props) => {
             await fetchEventsByUserIdentifier(userID);
         };
         fetchProfileEventAsync();
-
+        return () => {
+            cleanProfileEvent();
+        };
+       
     }, []);
 
     useEffect(() => {
@@ -187,7 +190,9 @@ const Profile = (props) => {
             await fetchSessionsByUserIdentifier(userID);
         };
         fetchProfileSessionAsync();
-
+        return () => {
+            cleanProfileSession();
+        };       
     }, []);
 
     useEffect(() => {
