@@ -73,8 +73,6 @@ const HomeCommunity = props => {
         fetchAllPillarMemberContentAsync();
     }, []);
 
-    console.log("Home Community pillarPOEs::::::::::::::", pillarPOEs.length);
-
     const _renderItem = ({item, index}) => {
         return (
             <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>

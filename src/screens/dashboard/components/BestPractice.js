@@ -72,8 +72,6 @@ const BestPractice = props => {
         fetchAllPillarMemberContentAsync();
     }, []);
 
-    console.log("Best pillarPOEs::::::::::::::", pillarPOEs.length);
-
     const _renderTopItem = ({item, index}, navigation) => {
         const actualDate = moment(item.event_start).format('ll').split(',', 3);
         const date = actualDate[0].split(' ', 3);

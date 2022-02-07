@@ -76,8 +76,6 @@ const GrowthCoaching = props => {
         fetchAllPillarMemberContentAsync();
     }, []);
 
-    console.log("Growth Coaching pillarPOEs::::::::::::::", pillarPOEs.length);
-
     const _renderItem = ({item, index}, navigation) => {
         return (
             <View style={[styles.bottomWrapper, styles.shadowProp]}>
