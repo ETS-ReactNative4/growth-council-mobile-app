@@ -238,7 +238,7 @@ const HomeCommunity = props => {
 								flexDirection: 'row',
 								flexWrap: 'wrap',
                             }}
-                            // numColumns={4}
+                            numColumns={4}
                             showsHorizontalScrollIndicator={false}
                             data={pillarPOEs}
                             renderItem={_renderMiddleItem}
