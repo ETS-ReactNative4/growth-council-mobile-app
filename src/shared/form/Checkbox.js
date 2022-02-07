@@ -8,7 +8,14 @@ function CheckBox({label, status, onPress}) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.checkbox}>
-        <Checkbox status={status} />
+        <View
+          style={{
+            borderWidth: 0.2,
+            borderRadius: 4,
+            marginRight: 10,
+          }}>
+          <Checkbox status={status} />
+        </View>
         <Text>{label}</Text>
       </View>
     </TouchableOpacity>

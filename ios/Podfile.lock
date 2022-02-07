@@ -276,7 +276,7 @@ PODS:
     - React-Core
   - react-native-flipper (0.127.0):
     - React-Core
-  - react-native-image-picker (4.7.3):
+  - react-native-image-picker (4.7.1):
     - React-Core
   - react-native-pdf (6.4.0):
     - React-Core
@@ -286,7 +286,7 @@ PODS:
     - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
-  - react-native-webview (11.17.1):
+  - react-native-webview (11.17.0):
     - React-Core
   - React-perflogger (0.66.4)
   - React-RCTActionSheet (0.66.4):
@@ -355,9 +355,9 @@ PODS:
     - React-perflogger (= 0.66.4)
   - ReactNativeART (1.2.0):
     - React
-  - RNBootSplash (4.1.1):
+  - RNBootSplash (4.0.2):
     - React-Core
-  - RNCAsyncStorage (1.15.17):
+  - RNCAsyncStorage (1.15.15):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
@@ -365,7 +365,7 @@ PODS:
     - React-Core
   - RNDateTimePicker (5.1.0):
     - React-Core
-  - RNGestureHandler (2.2.0):
+  - RNGestureHandler (2.1.1):
     - React-Core
   - RNImageCropPicker (0.37.2):
     - React-Core
@@ -376,7 +376,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNReanimated (2.4.0):
+  - RNReanimated (2.3.1):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -404,7 +404,7 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.10.2):
+  - RNScreens (3.10.1):
     - React-Core
     - React-RCTImage
   - RNSVG (12.1.1):
@@ -644,12 +644,12 @@ SPEC CHECKSUMS:
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
   react-native-blob-util: 600972b1782380a5a7d5db61a3817ea32349dae9
   react-native-flipper: b9e2e817604af8da0d5a9ba20a8516e780e30f3c
-  react-native-image-picker: 4e6008ad8c2321622affa2c85432a5ebd02d480c
+  react-native-image-picker: 5fe0a96bef4935bbdfb02f59b910bf40d5526109
   react-native-pdf: a6a5a3f0bdf340eb2eed6c96034424d2cc3f84b0
   react-native-progress-bar-android: be43138ab7da30d51fc038bafa98e9ed594d0c40
   react-native-progress-view: 9e6b6a5305a9115c2157ae3b8852081aba0aab7c
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
-  react-native-webview: 162b6453d074e0b1c7025242bb7a939b6f72b9e7
+  react-native-webview: 10996be8bcc5e37a30dbc139fc544bb651dc8612
   React-perflogger: 93075d8931c32cd1fce8a98c15d2d5ccc4d891bd
   React-RCTActionSheet: 7d3041e6761b4f3044a37079ddcb156575fb6d89
   React-RCTAnimation: 743e88b55ac62511ae5c2e22803d4f503f2a3a13
@@ -663,15 +663,15 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: dec32ee6f2e2a26e13e58152271535fadff5455a
   ReactCommon: 57b69f6383eafcbd7da625bfa6003810332313c4
   ReactNativeART: 78edc68dd4a1e675338cd0cd113319cf3a65f2ab
-  RNBootSplash: adb9a48344896cd30956848e5db27c5d1d98263f
-  RNCAsyncStorage: 6bd5a7ba3dde1c3facba418aa273f449bdc5437a
+  RNBootSplash: 5e82ba24a59a07315cbb2bb4855bb8d76fc7e802
+  RNCAsyncStorage: 0bef6a21517c0254bd6bd59a3672963abfa0d18e
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPicker: cb57c823d5ce8d2d0b5dfb45ad97b737260dc59e
   RNDateTimePicker: 1dd15d7ed1ab7d999056bc77879a42920d139c12
-  RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
+  RNGestureHandler: e1ad51d31a580755079d5124d3ab66f0fcaa8311
   RNImageCropPicker: 448d3c6e923fde3466b49caf3c2457c2a0ba02dd
-  RNReanimated: fb56abd99a5d7efe91ae3c7bf3cd3663cee1b21b
-  RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
+  RNReanimated: da3860204e5660c0dd66739936732197d359d753
+  RNScreens: 522705f2e5c9d27efb17f24aceb2bf8335bc7b8e
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
