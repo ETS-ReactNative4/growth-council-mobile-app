@@ -72,6 +72,12 @@ const sessionAbout = props => {
   };
 
   //   console.log("traits", route.params.sessionId);
+  let description = sessions?.descirption;
+  if (description !== undefined) {
+    description = sessions?.descirption;
+  } else {
+    description = '';
+  }
 
   const isSessionLoaded = Object.keys(sessions).length === 0;
   const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
@@ -174,19 +180,18 @@ const sessionAbout = props => {
         <View
           style={{
             flex: 1,
-            paddingTop: 5,
-            paddingBottom: 5,
+            paddingTop: 20,
             flexDirection: 'row',
           }}>
           <View
             style={{
-              flex: 1,
-              backgroundColor: '#A1BA68',
-              height: 60,
-              width: 30,
-              borderRadius: 15,
-              justifyContent: 'center',
-              alignItems: 'center',
+				flex: 1,
+				backgroundColor: '#A1BA68',
+				height: 60,
+				width: 48,
+				borderRadius: 14,
+				justifyContent: 'center',
+				alignItems: 'center',
             }}>
             <Ionicons name={'location-outline'} size={35} color={'white'} />
           </View>
@@ -194,7 +199,7 @@ const sessionAbout = props => {
           {!isSessionLoaded && (
             <View
               style={{
-                flex: 4,
+                flex: 5,
                 paddingLeft: 10,
               }}>
               <Text style={styles.contentHeading}>
@@ -229,7 +234,7 @@ const sessionAbout = props => {
           <View style={styles.hostimage}>
             <Image
               source={{uri: sessions?.organizer_image}}
-              style={{width: 30, height: 60}}
+              style={{width:'100%', height:'100%'}}
             />
           </View>
 
@@ -258,7 +263,7 @@ const sessionAbout = props => {
       <View>
         <Text style={styles.contentHeading}>Session Brief</Text>
         {!isSessionLoaded && (
-          <HTMLView value={sessions?.description} stylesheet={styles} />
+          <HTMLView value={description} stylesheet={styles} />
         )}
       </View>
 
@@ -314,7 +319,8 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_NORMAL,
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 14,
+    marginBottom: 8,
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,

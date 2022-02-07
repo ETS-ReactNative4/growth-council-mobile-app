@@ -23,6 +23,7 @@ import ToastMessage from '../../../shared/toast';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
 
+
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
   first_name: Yup.string().required('First name is required.'),
@@ -216,7 +217,7 @@ const ManageAccount = props => {
       value,
     }));
     setItems(result);
-    // return () => {setValue([])};
+    return () => {setValue([])};
   }, []);
 
   return (

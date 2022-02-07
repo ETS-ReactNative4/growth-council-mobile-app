@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
     bottom: {
         height: 172,
         margin: 5,
-        marginTop: 25,
+        // marginTop: 15,
     },
     bottomWrapper: {
         width: Platform.OS === 'ios' ? 70 : 84,

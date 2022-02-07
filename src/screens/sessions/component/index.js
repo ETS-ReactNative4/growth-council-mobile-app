@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -37,6 +37,13 @@ const Session = props => {
   } = props;
   const toast = useToast();
   const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
+
+  useEffect(() => {
+    const fetchSessionDetailAsync = async () => {
+      await fetchSessionByIdentifier(route.params.id);
+    };
+    fetchSessionDetailAsync();
+  }, []);
 
   const registerSessionBySessionID = async sessionID => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
