@@ -8,6 +8,7 @@ import {
   StatusBar,
   TouchableOpacity,
   ImageBackground,
+  Modal,
 } from 'react-native';
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
@@ -132,7 +133,7 @@ const SignUpForm = props => {
 
   const [checked, setChecked] = React.useState(false);
 
-  const [country, setCountry] = useState('Country');
+  const [country, setCountry] = useState('United States');
 
   const countries = [
     'Afghanistan',
@@ -333,6 +334,8 @@ const SignUpForm = props => {
     'Zimbabwe',
   ];
 
+  const [isPickerVisible, setIsPickerVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -432,7 +435,8 @@ const SignUpForm = props => {
               )}
 
               <Text style={{marginTop: 20, color: 'black'}}>Country *</Text>
-              <View
+              <TouchableOpacity
+                onPress={() => setIsPickerVisible(true)}
                 style={{
                   borderRadius: 5,
                   borderWidth: 0.5,
@@ -440,28 +444,13 @@ const SignUpForm = props => {
                   height: 50,
                   marginTop: 10,
                   marginBottom: 10,
+                  justifyContent: 'center',
+                  paddingLeft: 20,
                 }}>
-                <Picker
-                  selectedValue={country}
-                  mode={'dropdown'}
-                  // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
-                  onValueChange={(itemValue, itemIndex) => {
-                    setFieldValue('country', itemValue);
-                    setCountry(itemValue);
-                    setErrors({});
-                  }}>
-                  <Picker.Item label="Select Country" style={{fontSize: 12}} />
-                  {countries.map((value, index) => {
-                    return (
-                      <Picker.Item
-                        label={value}
-                        value={value}
-                        style={{fontSize: 12}}
-                      />
-                    );
-                  })}
-                </Picker>
-              </View>
+                <Text style={{fontWeight: 'bold', color: 'gray'}}>
+                  {values.country ? values.country : 'Select a Country'}
+                </Text>
+              </TouchableOpacity>
               {errors.country && (
                 <Text style={{fontSize: 10, color: 'red'}}>
                   {errors.country}
@@ -509,6 +498,59 @@ const SignUpForm = props => {
           </ScrollView>
         </View>
       </ImageBackground>
+      <Modal transparent visible={isPickerVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setIsPickerVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={country}
+                mode={'dropdown'}
+                // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
+                onValueChange={(itemValue, itemIndex) => {
+                  if (itemValue !== null) {
+                    setFieldValue('country', itemValue);
+                    setCountry(itemValue);
+                    setErrors({});
+                  }
+                }}>
+                {countries.map((value, index) => {
+                  return (
+                    <Picker.Item
+                      label={value}
+                      value={value}
+                      style={{fontSize: 12}}
+                    />
+                  );
+                })}
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

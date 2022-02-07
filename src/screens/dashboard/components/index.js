@@ -28,7 +28,7 @@ import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
 const win = Dimensions.get('window');
-  const contentContainerWidth = win.width - 30;
+const contentContainerWidth = win.width - 30;
 
 const Dashboard = props => {
   const {
@@ -114,11 +114,11 @@ const Dashboard = props => {
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
-		
+
         <View style={styles.chatIcon}>
-		<TouchableOpacity onPress={() => navigation.navigate('People')}>
-          <Ionicons name={'add'} size={15} color="#B1AFAF" />
-		  </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('People')}>
+            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -144,7 +144,13 @@ const Dashboard = props => {
               style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+            }}>
             {item?.name}
           </Text>
         </View>
@@ -228,7 +234,7 @@ const Dashboard = props => {
 
   // console.log({contentSlider});
   const listData = props.poes ?? [];
-const numColumns = Math.ceil(listData.length / 2);
+  const numColumns = Math.ceil(listData.length / 2);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -282,23 +288,18 @@ const numColumns = Math.ceil(listData.length / 2);
           <Text style={[styles.title, {marginLeft: 15}]}>
             Points of Engagement
           </Text>
-          <ScrollView
-			horizontal
-			showsVerticalScrollIndicator={false}
-			showsHorizontalScrollIndicator={false}
-			contentContainerStyle={{ paddingVertical: 20, marginLeft:10,}}>
-            <FlatList
-				scrollEnabled={false}
-				contentContainerStyle={{
-				alignSelf: 'flex-start',
-				}}
-              numColumns={10}
-              showsHorizontalScrollIndicator={false}
-              data={poes}
-              renderItem={_renderMiddleItem}
-			  keyExtractor = {(item) => item.id}
-            />
-          </ScrollView>
+          <FlatList
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}
+            horizontal
+            scrollEnabled={false}
+            showsHorizontalScrollIndicator={false}
+            data={poes}
+            renderItem={_renderMiddleItem}
+          />
         </View>
 
         <View style={styles.bottom}>
@@ -358,7 +359,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 65 : 50,
     justifyContent: 'space-between',
   },
-  
+
   viewAll: {
     fontSize: 10,
     color: SECONDARY_TEXT_COLOR,
@@ -384,7 +385,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     borderRadius: 16,
     overflow: 'hidden',
-	marginRight:5,
+    marginRight: 5,
   },
   header: {
     marginLeft: 10,
@@ -411,14 +412,13 @@ const styles = StyleSheet.create({
   },
   middle: {
     marginTop: 10,
-    marginLeft: 5,
-	
   },
   middleWrapper: {
-    width: 80,
+    width: (Dimensions.get('window').width - 10) / 4,
+    // width:80,
     borderRadius: 20,
     marginTop: 15,
-	marginRight:10,
+    // marginRight:10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -469,10 +469,10 @@ const styles = StyleSheet.create({
     // marginBottom: Platform.OS === 'ios' ? 0 : 10,
   },
   ContentWrapper: {
-    height: 204,
+    height: 210,
     width: contentContainerWidth,
     marginTop: 20,
-	marginBottom:10,
+    marginBottom: 10,
     marginLeft: 15,
     borderRadius: 20,
     overflow: 'hidden',
