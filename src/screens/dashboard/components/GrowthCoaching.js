@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {
     StyleSheet,
     View,
@@ -8,12 +8,13 @@ import {
     ScrollView,
     FlatList,
     TouchableOpacity,
-    StatusBar,
     Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import {useFocusEffect} from '@react-navigation/native';
+
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
@@ -44,15 +45,19 @@ const GrowthCoaching = props => {
     } = props;
 
     const pillarId = 119;
-    useEffect(() => {
-        const fetchAllPillarPOEAsync = async () => {
-            await fetchAllPillarPOE(pillarId);
-        };
-        fetchAllPillarPOEAsync();
-        return () => {
-            cleanPillarPOE();
-        };
-    }, []);
+
+    useFocusEffect(
+       useCallback(() => {
+           const fetchAllPillarPOEAsync = async () => {
+               await fetchAllPillarPOE(pillarId);
+           };
+           fetchAllPillarPOEAsync();
+
+           return () => {
+               cleanPillarPOE();
+           };
+        }, [])
+    );
 
     useEffect(() => {
         const fetchAllPillarEventAsync = async () => {
@@ -107,10 +112,7 @@ const GrowthCoaching = props => {
     };
 
     const _renderMiddleItem = ({item, index}, navigation) => {
-        // let nav = 'CommunityDetail';
-        // if (item?.slug === 'growth-leadership-coaching') {
-        //   nav = 'GrowthDetail';
-        // }
+
         return (
             <TouchableOpacity
                 onPress={() =>
@@ -182,18 +184,6 @@ const GrowthCoaching = props => {
         );
     };
 
-    const pic = [
-        {
-            uri: require('../../../assets/img/welcome_screen_info_image.png'),
-        },
-        {
-            uri: require('../../../assets/img/image.png'),
-        },
-        {
-            uri: require('../../../assets/img/contactus.png'),
-        },
-    ];
-
     const _renderContentItem = ({item, index}) => {
         const file = item?.file;
         const link = file.split('=', 2);
@@ -204,13 +194,9 @@ const GrowthCoaching = props => {
             </View>
         );
     };
-    const listData = props.pillarPOEs ?? [];
-    const numColumns = Math.ceil(listData.length / 2);
 
     return (
         <ScrollView>
-            {/* <StatusBar barStyle="light-content" hidden = {false} backgroundColor = {require('../../../assets/img/Rectangle.png')} translucent = {true}/> */}
-
             <View style={styles.container}>
                 <View style={styles.top}>
                     <Text style={styles.title}> Growth Coaching Events</Text>
@@ -230,24 +216,22 @@ const GrowthCoaching = props => {
                     </View>
                 </View>
 
-				<View style={styles.middle}>
-				<Text style={styles.title}>Points of Engagement</Text>
-				{pillarEventLoading && (
-					<View style={styles.loading1}>
-						<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-					</View>
-					)}
-					
-					<FlatList
-						
-						horizontal
-						showsHorizontalScrollIndicator={false}
-						data={pillarPOEs}
-						renderItem={item => _renderMiddleItem(item, navigation)}
-						
-					/>
-			
-        </View>
+                <View style={styles.middle}>
+                    <Text style={styles.title}>Points of Engagement</Text>
+                    {pillarEventLoading && pillarPOELoading &&(
+                        <View style={styles.loading1}>
+                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
+                        </View>
+                    )}
+
+                    <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarPOEs}
+                        renderItem={item => _renderMiddleItem(item, navigation)}
+                    />
+
+                </View>
 
                 <View style={styles.bottom}>
                     <Text style={styles.title}>Growth Coaching Members</Text>
@@ -301,56 +285,56 @@ const styles = StyleSheet.create({
         marginLeft: 15,
     },
 
-  topWrapper: {
-    height: 144,
-    width: 256,
-    marginTop: 20,
-    marginLeft: 15,
-    borderRadius: 20,
-  },
-  header: {
-    margin: 10,
-  },
-  headingText1: {
-    fontFamily: Typography.FONT_SF_MEDIUM,
-    marginTop: 5,
-    fontWeight: '600',
-    color: 'white',
-    fontSize: 12,
-  },
-  headingText2: {
-    ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_SF_MEDIUM,
-    fontWeight: '400',
-    color: 'white',
-    fontSize: 8,
-  },
-  middle: {
-    width: 400,
-    marginTop: 10,
-	
-  },
-  middleWrapper: {
-	width: (Dimensions.get('window').width - 10) / 4,
-    borderRadius: 20,
-    marginTop: 15,
-	
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  middleW: {
-    backgroundColor: 'white',
-    width: 64,
-    height: 64,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-  headingText3: {
-    ...CommonStyles.headingText3,
-    fontFamily: Typography.FONT_NORMAL,
-    padding: 4,
-  },
+    topWrapper: {
+        height: 144,
+        width: 256,
+        marginTop: 20,
+        marginLeft: 15,
+        borderRadius: 20,
+    },
+    header: {
+        margin: 10,
+    },
+    headingText1: {
+        fontFamily: Typography.FONT_SF_MEDIUM,
+        marginTop: 5,
+        fontWeight: '600',
+        color: 'white',
+        fontSize: 12,
+    },
+    headingText2: {
+        ...CommonStyles.headingText2,
+        fontFamily: Typography.FONT_SF_MEDIUM,
+        fontWeight: '400',
+        color: 'white',
+        fontSize: 8,
+    },
+    middle: {
+        width: 400,
+        marginTop: 10,
+
+    },
+    middleWrapper: {
+        width: (Dimensions.get('window').width - 10) / 4,
+        borderRadius: 20,
+        marginTop: 15,
+
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    middleW: {
+        backgroundColor: 'white',
+        width: 64,
+        height: 64,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    headingText3: {
+        ...CommonStyles.headingText3,
+        fontFamily: Typography.FONT_NORMAL,
+        padding: 4,
+    },
 
     bottom: {
         height: 172,
@@ -365,7 +349,6 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         backgroundColor: 'white',
         overflow: 'hidden',
-        // borderWidth:0.2,
     },
     chatIcon: {
         borderRadius: 50,
@@ -404,7 +387,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
     },
     loading1: {

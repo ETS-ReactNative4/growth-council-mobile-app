@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {
     StyleSheet,
     View,
@@ -13,6 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import {useFocusEffect} from '@react-navigation/native';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
@@ -41,24 +42,24 @@ const HomeCommunity = props => {
 
     const pillarId = 117;
 
-    useEffect(() => {
-        const fetchAllPillarPOEAsync = async () => {
-            await fetchAllPillarPOE(pillarId);
-        };
-        fetchAllPillarPOEAsync();
-        return () => {
-            cleanPillarPOE();
-        };
-    }, []);
+	useFocusEffect(
+        useCallback(() => {
+            const fetchAllPillarPOEAsync = async () => {
+                await fetchAllPillarPOE(pillarId);
+            };
+            fetchAllPillarPOEAsync();
+
+            return () => {
+                cleanPillarPOE();
+            };
+        }, [])
+    );
 
     useEffect(() => {
         const fetchAllPillarEventAsync = async () => {
             await fetchAllPillarEvent(pillarId);
         };
         fetchAllPillarEventAsync();
-        return () => {
-            cleanPillarEvent();
-        };
     }, []);
 
     useEffect(() => {
@@ -68,11 +69,9 @@ const HomeCommunity = props => {
         fetchAllPillarMemberContentAsync();
     }, []);
 
-    console.log('Commiunity pillar_id', pillarId);
-
     const _renderItem = ({item, index}) => {
         return (
-            <View style={[styles.bottomWrapper, styles.shadowProp]}>
+            <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
                     <Image
@@ -105,13 +104,6 @@ const HomeCommunity = props => {
         );
     };
 
-    const data1 = [
-        {
-            icon: 'brain',
-            text: 'Executive MindChange',
-        },
-    ];
-
     const _renderMiddleItem = ({item, index}) => {
         return (
             <TouchableOpacity
@@ -120,7 +112,7 @@ const HomeCommunity = props => {
                         poeId: item?.term_id,
                         pillarId: item?.parent,
                     })
-                }>
+                } key={index}>
                 <View style={styles.middleWrapper}>
                     <View style={[styles.middleW, styles.shadowProp]}>
                         <Image
@@ -178,17 +170,6 @@ const HomeCommunity = props => {
         );
     };
 
-    const pic = [
-        {
-            uri: require('../../../assets/img/welcome_screen_info_image.png'),
-        },
-        {
-            uri: require('../../../assets/img/image.png'),
-        },
-        {
-            uri: require('../../../assets/img/contactus.png'),
-        },
-    ];
 
     const _renderContentItem = ({item, index}) => {
         const file = item?.file;
@@ -200,7 +181,7 @@ const HomeCommunity = props => {
             </View>
         );
     };
- 
+
 
     return (
         <ScrollView>
@@ -224,13 +205,13 @@ const HomeCommunity = props => {
 
                 <View style={styles.middle}>
                     <Text style={styles.title}>Points of Engagement</Text>
-                    {pillarEventLoading && (
+                    {pillarEventLoading && pillarPOELoading && (
                         <View style={styles.loading1}>
                             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80}/>
                         </View>
                     )}
 
-                   
+
                         <FlatList
                             scrollEnabled={false}
                             contentContainerStyle={{
@@ -244,7 +225,7 @@ const HomeCommunity = props => {
                             renderItem={_renderMiddleItem}
                             keyExtractor={(item) => item.id}
                         />
-                    
+
                 </View>
 
                 <View style={styles.bottom}>
@@ -390,7 +371,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
   },
-  
+
     shadowProp: {
         shadowColor: '#000',
         shadowOffset: {
