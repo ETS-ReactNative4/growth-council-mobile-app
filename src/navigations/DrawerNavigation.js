@@ -61,22 +61,29 @@ const CustomDrawerContent = props => {
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        {/*<DrawerItem*/}
-        {/*label="Community"*/}
-        {/*onPress={() => props.navigation.navigate('Community')}*/}
-        {/*icon={() =>*/}
-        {/*<Ionicons name="calendar-outline" color={'#000'} size={24}/>*/}
-        {/*}*/}
-        {/*/>*/}
+        {/* <DrawerItem
+        label="Community"
+        onPress={() => props.navigation.navigate('Community')}
+        icon={() =>
+        <Ionicons name="calendar-outline" color={'#000'} size={24}/>
+        }
+        /> */}
         {/*<DrawerItem*/}
         {/*label="Calendar"*/}
         {/*onPress={() => props.navigation.navigate('Calendar')}*/}
         {/*icon={() =>*/}
         {/*<Ionicons name="calendar-outline" color={'#000'} size={24}/>*/}
         {/*}*/}
-        {/*/>*/}
+        {/*/>
 
-        <DrawerItem style={{marginLeft: 68}} label="Logout" onPress={logout} />
+        {/* <DrawerItem style={{marginLeft: 68}} label="Logout" onPress={logout} /> */}
+		<DrawerItem
+        label="Logout"
+        onPress={logout}
+        icon={() =>
+			<Material name={'logout'} size={24} color={'#00008B'} />
+        }
+        />
 
         <View style={styles.footer}>
           <Image
@@ -129,7 +136,7 @@ const DrawerNavigation = ({navigation}) => {
               </TouchableOpacity>
             </View>
             <View>
-              <TouchableOpacity onPress={() => navigation.navigate('About')}>
+              
                 <Image
                   source={require('../assets/img/dashboard_logo.png')}
                   style={{
@@ -142,7 +149,7 @@ const DrawerNavigation = ({navigation}) => {
                     // borderWidth: 5,
                   }}
                 />
-              </TouchableOpacity>
+          
             </View>
           </View>
         ),
@@ -361,6 +368,7 @@ const DrawerNavigation = ({navigation}) => {
           ),
         })}
       />
+	  
     </Drawer.Navigator>
   );
 };

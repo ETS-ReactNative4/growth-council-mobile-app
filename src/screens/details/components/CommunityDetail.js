@@ -194,6 +194,7 @@ const CommunityDetail = props => {
           </TouchableOpacity>
 
           <View style={styles.icon}>
+		
             <Image
               source={{uri: poeDetails?.image}}
               style={{
@@ -203,9 +204,11 @@ const CommunityDetail = props => {
                 justifyContent: 'center',
               }}
             />
+			  
           </View>
-
+		 
           <View style={styles.content}>
+		 
             <View style={styles.contentWrapper}>
               <Text
                 style={{
@@ -217,7 +220,18 @@ const CommunityDetail = props => {
                 }}>
                 {poeDetails.name}
               </Text>
-              {poeEventLoading && (
+              
+              <Text style={styles.paragraph}>{poeDetails.description}</Text>
+
+              <View style={styles.top}>
+                <Text style={styles.title}> Events</Text>
+
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+				 {poeDetailLoading && (
                 <>
                   <View
                     style={{
@@ -237,16 +251,6 @@ const CommunityDetail = props => {
                   </View>
                 </>
               )}
-              <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-              <View style={styles.top}>
-                <Text style={styles.title}> Events</Text>
-
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
