@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-    marginLeft: Platform.OS === 'ios' ? 120 : 150,
+    marginLeft: Platform.OS === 'ios' ? 120 : 155,
     marginTop: 190,
     alignItems: 'center',
     justifyContent: 'center',
