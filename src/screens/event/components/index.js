@@ -41,11 +41,12 @@ const Event = props => {
   const [eventStatus, setEventStatus] = useState(events?.register_status);
 
   useEffect(() => {
-    const fetchEventDetailAsync = async () => {
-      await fetchEventByIdentifier(route.params.id);
-    };
-    fetchEventDetailAsync();
+     fetchEventByIdentifier(route.params.id); 
   }, []);
+
+  useEffect(()=>{
+	setEventStatus(events?.register_status);
+  },[events])
 
   const registerEventByEventID = async eventID => {
     console.log('event_id ===', eventID);

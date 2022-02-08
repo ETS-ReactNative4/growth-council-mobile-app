@@ -94,7 +94,6 @@ const EventCalendar = props => {
     }
   });
 
-  console.log('markedDay:::::::::::::;', calendarEvents);
 
   const renderItem = ({item, index}) => {
     //date
@@ -148,7 +147,7 @@ const EventCalendar = props => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+  
       <View style={styles.container}>
         <View style={[styles.calendar, styles.shadowProp]}>
           <Calendar
@@ -194,7 +193,7 @@ const EventCalendar = props => {
           )}
         </View>
       </View>
-    </ScrollView>
+  
   );
    
 };
