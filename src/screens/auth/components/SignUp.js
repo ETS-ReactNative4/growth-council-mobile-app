@@ -337,18 +337,6 @@ const SignUpForm = props => {
 
   const [isPickerVisible, setIsPickerVisible] = useState(false);
 
-  const onPressText = () => {
-	Alert.alert("Please login first!!!");
-	[
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-  }
-
   return (
     <View style={styles.container}>
       <ImageBackground
