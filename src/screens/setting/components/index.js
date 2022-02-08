@@ -101,21 +101,24 @@ const Setting = props => {
           <View>
             <View style={styles.middle}>
               <View style={styles.wrapper}>
-                <View style={styles.middleWrapper}>
-                  <View style={styles.middleImage}>
-                    <Ionicons name="person-outline" color="white" size={20} />
-                  </View>
-                  <Text style={styles.menuText}>Account</Text>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('ManageAccount')}
-                    style={{right: 0, position: 'absolute'}}>
-                    <Ionicons
+                
+				 <TouchableOpacity
+                  onPress={() => navigation.navigate('ManageAccount')}>
+                  <View style={styles.middleWrapper}>
+                    <View style={styles.middleImage}>
+						<Ionicons name="person-outline" color="white" size={20} />
+                    </View>
+                    <Text style={styles.menuText}>Account</Text>
+					<View style={{right: 0,
+                      position: 'absolute',}}>
+					<Ionicons
                       name="chevron-forward-outline"
                       size={20}
                       color="#d7d7d7"
                     />
-                  </TouchableOpacity>
-                </View>
+					</View>
+                  </View>
+                </TouchableOpacity>
 
                 {/* <View style={styles.middleWrapper}>
                                     <View style={styles.middleImage}>

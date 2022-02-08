@@ -15,6 +15,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
+import {useIsFocused} from '@react-navigation/native';
 import MyEvent from './MyEvent';
 import MySession from './MySession';
 
@@ -29,13 +30,18 @@ const Profile = props => {
   } = props;
 
   const [value, setValue] = useState('My Sessions');
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const fetchProfileAsync = async () => {
       await fetchProfileByIdentifier();
     };
     fetchProfileAsync();
-  }, []);
+
+	return () => {
+		cleanProfile();
+	  };
+	}, [isFocused]);
 
   return (
     <ScrollView
@@ -82,7 +88,7 @@ const Profile = props => {
             <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
               <Ionicon
                 name={'settings-outline'}
-                size={20}
+                size={24}
                 color="#C4C8CC"
                 style={{marginTop: 10, marginLeft: 5}}
               />
@@ -250,7 +256,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 10,
     marginTop: 15,
-    marginLeft: Platform.OS === 'ios' ? 10 : 40,
+    marginLeft: Platform.OS === 'ios' ? 10 : 10,
   },
 
   iconWrapper: {

@@ -122,7 +122,12 @@ const Dashboard = props => {
   const _renderMiddleItem = ({item, index}) => {
     let poePage = 'CommunityDetail';
     if (item?.parent === 119) {
-      poePage = 'GrowthDetail';
+    //   poePage = 'GrowthDetail';
+		if (item?.slug === 'growth-leadership-coaching') {
+			poePage = 'GrowthDetail';
+		}else{
+			poePage = 'CommunityDetail';	
+		}
     }
     return (
       <TouchableOpacity
@@ -389,11 +394,13 @@ const styles = StyleSheet.create({
   },
   middle: {
     marginTop: 10,
+	marginLeft:5,
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
+	
     justifyContent: 'center',
     alignItems: 'center',
   },
