@@ -290,7 +290,7 @@ const ManageAccount = props => {
                     <Text style={styles.errorText}>{profileError.message}</Text>
                   </View>
                 )}
-                {profileLoading && (
+                {expertiseLoading && (
                   <>
                     <View
                       style={{

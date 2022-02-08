@@ -296,8 +296,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footerlogo: {
-	width:150,
-	height: 25,
+	// width:150,
+	height: 22,
 	resizeMode: 'contain',
 	opacity: 2,
   },

@@ -394,11 +394,13 @@ const styles = StyleSheet.create({
   },
   middle: {
     marginTop: 10,
+	marginLeft:5,
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
+	
     justifyContent: 'center',
     alignItems: 'center',
   },
