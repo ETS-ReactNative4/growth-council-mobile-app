@@ -312,7 +312,7 @@ const People = props => {
                       label={expertise[key]}
                       value={key}
                       key={key}
-                      style={{fontSize: 12}}
+                      style={{fontSize: 14}}
                     />
                   );
                 })}

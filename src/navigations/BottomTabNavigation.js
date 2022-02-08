@@ -8,6 +8,7 @@ import {Colors} from '../theme';
 import DashboardScreen from '../screens/dashboard';
 import AccountScreen from '../screens/account';
 import SearchScreen from '../screens/search';
+import CalendarScreen from '../screens/calendar';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
 
@@ -42,15 +43,15 @@ const BottomTabNavigation = ({navigation}) => {
             />
 
             <Tab.Screen
-                name="Search"
-                component={SearchScreen}
+                name="Calendar"
+				component={CalendarScreen}
                 options={{
                     tabBarLabel: 'Search',
                     tabBarIcon: ({color, size}) => (
                         <View style={{
                             top: Platform.OS === 'ios' ? 8 : 0,
                         }}>
-                            <Ionicons name="options-outline" color={'#000'} size={size}/>
+                            <Ionicons name="calendar-outline" color={'#000'} size={size}/>
                         </View>
                     ),
                     tabBarVisible: true,

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Modal,
+  Alert
 } from 'react-native';
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
@@ -336,6 +337,18 @@ const SignUpForm = props => {
 
   const [isPickerVisible, setIsPickerVisible] = useState(false);
 
+  const onPressText = () => {
+	Alert.alert("Please login first!!!");
+	[
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -458,14 +471,47 @@ const SignUpForm = props => {
               )}
 
               <View>
-                <CheckBox
-                  label="By Clicking submit, I agree to Frost & Sullivan's Terms of Use and Privacy Policy."
-                  status={checked ? 'checked' : 'unchecked'}
-                  onPress={() => {
-                    setFieldValue('checked', !checked);
-                    setChecked(!checked);
-                  }}
-                />
+				  <View style={{flexDirection:'row'}}>
+					<CheckBox
+					
+					status={checked ? 'checked' : 'unchecked'}
+					onPress={() => {
+						setFieldValue('checked', !checked);
+						setChecked(!checked);
+					}}
+					/>
+					<View>
+						<Text style={{marginTop:7, width:"55%"}}>
+							By Clicking submit, I agree to Frost & Sullivan's 
+							<Text style={{paddingTop:5, color:'blue'}} 
+							onPress={()=>Alert.alert("Please login first!!!")
+									[
+										{
+										text: "Cancel",
+										onPress: () => console.log("Cancel Pressed"),
+										style: "cancel"
+										},
+										{ text: "OK", onPress: () => console.log("OK Pressed") }
+									]}> Terms of Use </Text>
+						 and 
+						 <Text style={{paddingTop:5, color:'blue'}} 
+							onPress={()=>Alert.alert("Please login first!!!")
+									[
+										{
+										text: "Cancel",
+										onPress: () => console.log("Cancel Pressed"),
+										style: "cancel"
+										},
+										{ text: "OK", onPress: () => console.log("OK Pressed") }
+									]}> Privacy Policy</Text>
+						
+						</Text>
+						
+						
+					</View>
+				
+				  </View>
+              
                 {errors.checked && (
                   <Text style={{fontSize: 10, color: 'red'}}>
                     {errors.checked}

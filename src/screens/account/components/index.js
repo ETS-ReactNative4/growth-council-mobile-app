@@ -82,7 +82,7 @@ const Profile = props => {
             <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
               <Ionicon
                 name={'settings-outline'}
-                size={20}
+                size={24}
                 color="#C4C8CC"
                 style={{marginTop: 10, marginLeft: 5}}
               />
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 10,
     marginTop: 15,
-    marginLeft: Platform.OS === 'ios' ? 10 : 40,
+    marginLeft: Platform.OS === 'ios' ? 10 : 10,
   },
 
   iconWrapper: {

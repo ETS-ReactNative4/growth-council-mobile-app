@@ -462,6 +462,8 @@ const ManageAccount = props => {
                     onChangeValue={value => {
                       setFieldValue('expertise_areas1', value);
                     }}
+					containerStyle={{width:"94%", marginLeft:10,}}
+				
                   />
 
                   <Text
