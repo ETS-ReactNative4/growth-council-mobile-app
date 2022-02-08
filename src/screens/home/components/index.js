@@ -46,12 +46,10 @@ const Home = props => {
   const itemHorizontalMargin = wp(2);
   const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-  useEffect(() => {
-    const fetchPillarSliderAsync = async () => {
-      await fetchAllPillarSlider();
-    };
-    fetchPillarSliderAsync();
-  }, []);
+	useEffect(() => {
+		fetchAllPillarSlider();  
+		
+	}, []);
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -130,7 +128,7 @@ const Home = props => {
               />
 
               <Pagination
-                dotsLength={pillarSliders.length}
+                dotsLength={pillarSliders?.length}
                 activeDotIndex={activeSlider}
                 dotStyle={{
                   width: 16,
@@ -296,8 +294,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footerlogo: {
-	width:150,
-	height: 25,
+	// width:150,
+	height: 22,
 	resizeMode: 'contain',
 	opacity: 2,
   },

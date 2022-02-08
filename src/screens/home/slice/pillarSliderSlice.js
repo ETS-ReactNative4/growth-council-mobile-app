@@ -6,9 +6,15 @@ export const fetchAllPillarSliders = createAsyncThunk(
   'pillarSlider/fetchAll',
   (_, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/pillars`)
-      .then(response => response.data.data)
-      .catch(error => rejectWithValue(error?.response?.data || error));
+	.then((response) => {
+        return response.data.data;
+      })
+      .catch(error => 
+		{
+			rejectWithValue(error?.response?.data || error)
+		});
   },
+  
 );
 
 const pillarSliderSlice = createSlice({

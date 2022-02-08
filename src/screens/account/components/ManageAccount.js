@@ -290,7 +290,7 @@ const ManageAccount = props => {
                     <Text style={styles.errorText}>{profileError.message}</Text>
                   </View>
                 )}
-                {profileLoading && (
+                {expertiseLoading && (
                   <>
                     <View
                       style={{
@@ -335,7 +335,7 @@ const ManageAccount = props => {
                     Username
                   </Text>
                   <TextInput
-                    style={styles.input}
+                    style={[styles.input,{color:"#808080"}]}
                     keyboardType="text"
                     value={values.display_name}
                     onChangeText={handleChange('display_name')}
@@ -388,7 +388,7 @@ const ManageAccount = props => {
                     Email Address
                   </Text>
                   <TextInput
-                    style={styles.input}
+                    style={[styles.input,{color:"#808080"}]}
                     keyboardType="text"
                     value={values.email}
                     onChangeText={handleChange('email')}
@@ -462,6 +462,8 @@ const ManageAccount = props => {
                     onChangeValue={value => {
                       setFieldValue('expertise_areas1', value);
                     }}
+					containerStyle={{width:"94%", marginLeft:10,}}
+				
                   />
 
                   <Text
@@ -534,12 +536,14 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     padding: 10,
     borderRadius: 10,
+	color:"black",
   },
   textarea: {
     margin: 10,
     borderWidth: 0.5,
     padding: 10,
     borderRadius: 10,
+	color:"black",
   },
 
   loginButtonWrapper: {

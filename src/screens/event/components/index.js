@@ -41,11 +41,12 @@ const Event = props => {
   const [eventStatus, setEventStatus] = useState(events?.register_status);
 
   useEffect(() => {
-    const fetchEventDetailAsync = async () => {
-      await fetchEventByIdentifier(route.params.id);
-    };
-    fetchEventDetailAsync();
+     fetchEventByIdentifier(route.params.id); 
   }, []);
+
+  useEffect(()=>{
+	setEventStatus(events?.register_status);
+  },[events])
 
   const registerEventByEventID = async eventID => {
     console.log('event_id ===', eventID);
@@ -487,8 +488,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   loading1: {
-    top: 10,
-    left: 0,
+    top: 0,
+    left: 5,
     right: 0,
     bottom: 0,
     justifyContent: 'center',

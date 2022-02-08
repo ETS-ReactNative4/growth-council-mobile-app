@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Modal,
+  ActivityIndicator,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,6 +21,7 @@ import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {Dialog} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
+import Footer from '../../../shared/footer';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -51,6 +53,7 @@ const People = props => {
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
+  
 
   useEffect(() => {
     const fetchAllUsersAsync = async () => {
@@ -90,16 +93,6 @@ const People = props => {
     }
     console.log(response);
   };
-
-  const pickerRef = useRef();
-
-  function open() {
-    pickerRef.current.focus();
-  }
-
-  function close() {
-    pickerRef.current.blur();
-  }
 
   const _renderItem = ({item, index}) => {
     return (
@@ -151,6 +144,10 @@ const People = props => {
   };
 
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+    
+  
 
   return (
     <ScrollView
@@ -177,7 +174,7 @@ const People = props => {
             keyboardType="text"
             value={searchKey}
             onChangeText={async text => {
-              setSearchKey(text);
+              setSearchKey(text); 
               await fetchAllUsers({
                 s: text,
                 sort: sorting,
@@ -209,6 +206,7 @@ const People = props => {
               color="#d7d7d7"
               onPress={async () => {
                 setSorting('DESC');
+				
                 await fetchAllUsers({
                   s: searchKey,
                   sort: 'DESC',
@@ -222,6 +220,7 @@ const People = props => {
               color="#d7d7d7"
               onPress={async () => {
                 setSorting('ASC');
+				
                 await fetchAllUsers({
                   s: searchKey,
                   sort: 'ASC',
@@ -232,12 +231,12 @@ const People = props => {
             <Text style={styles.textWrapper}>Sort</Text>
           </View>
         </View>
-
         {userLoading && (
           <View style={styles.loading1}>
             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
           </View>
         )}
+		
         <View style={{marginTop: 40}}>
           {memberConnectionLoading && (
             <View style={styles.loading1}>
@@ -252,19 +251,7 @@ const People = props => {
           />
         </View>
       </View>
-      <View
-        style={{
-          alignItems: 'center',
-          width: '35%',
-          marginLeft: 140,
-          marginBottom: 10,
-        }}>
-        <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-        <Image
-          source={require('../../../assets/img/fristDigi.png')}
-          style={{width: '100%', height: 20}}
-        />
-      </View>
+     <Footer/>
       <Modal transparent visible={pickerVisible}>
         <View
           style={{
@@ -295,7 +282,6 @@ const People = props => {
             <View style={{marginBottom: 40}}>
               <Picker
                 selectedValue={category}
-                ref={pickerRef}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
                 onValueChange={async (itemValue, itemIndex) => {
@@ -312,7 +298,7 @@ const People = props => {
                       label={expertise[key]}
                       value={key}
                       key={key}
-                      style={{fontSize: 12}}
+                      style={{fontSize: 14}}
                     />
                   );
                 })}

@@ -112,11 +112,15 @@ const GrowthCoaching = props => {
     };
 
     const _renderMiddleItem = ({item, index}, navigation) => {
+		let navigationPath = 'CommunityDetail';
+		if (item?.slug === 'growth-leadership-coaching') {
+			navigationPath = 'GrowthDetail';
+		}
 
         return (
             <TouchableOpacity
                 onPress={() =>
-                    navigation.navigate('GrowthDetail', {
+                    navigation.navigate(navigationPath, {
                         poeId: item?.term_id,
                         pillarId: item?.parent,
                     })

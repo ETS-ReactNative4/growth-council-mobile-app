@@ -129,12 +129,7 @@ const OthersAccount = props => {
                             </View>
                             <View style={styles.TextWrapper}>
                                 <Text
-                                    style={{
-                                        size: 7,
-                                        marginLeft: 10,
-                                        fontSize: 10,
-                                        color: '#8F9BB3',
-                                    }}>
+                                    style={styles.title}>
                                     Username
                                 </Text>
                                 <TextInput
@@ -145,12 +140,7 @@ const OthersAccount = props => {
                                 />
 
                                 <Text
-                                    style={{
-                                        size: 7,
-                                        marginLeft: 10,
-                                        fontSize: 10,
-                                        color: '#8F9BB3',
-                                    }}>
+                                    style={styles.title}>
                                     First Name
                                 </Text>
                                 <TextInput
@@ -161,12 +151,7 @@ const OthersAccount = props => {
                                 />
 
                                 <Text
-                                    style={{
-                                        size: 7,
-                                        marginLeft: 10,
-                                        fontSize: 10,
-                                        color: '#8F9BB3',
-                                    }}>
+                                    style={styles.title}>
                                     Last Name
                                 </Text>
                                 <TextInput
@@ -176,7 +161,7 @@ const OthersAccount = props => {
                                     editable={false}
                                 />
 
-                                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                                <Text style={styles.title}>
                                     Email
                                 </Text>
                                 <TextInput
@@ -186,7 +171,7 @@ const OthersAccount = props => {
                                     editable={false}
                                 />
 
-                                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                                <Text style={styles.title}>
                                     Location
                                 </Text>
                                 <TextInput
@@ -200,7 +185,7 @@ const OthersAccount = props => {
                                     editable={false}
                                 />
 
-                                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                                <Text style={styles.title}>
                                     FAVORITE QUOTE
                                 </Text>
                                 <TextInput
@@ -216,7 +201,7 @@ const OthersAccount = props => {
                                     editable={false}
                                 />
 
-                                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                                <Text style={styles.title}>
                                     PROFESSIONAL SUMMARY
                                 </Text>
                                 <TextInput
@@ -232,7 +217,7 @@ const OthersAccount = props => {
                                     editable={false}
                                 />
 
-                                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                                <Text style={styles.title}>
                                     EXPERTISE AREAS
                                 </Text>
 								
@@ -250,7 +235,7 @@ const OthersAccount = props => {
                                     editable={false}
                                 />
 
-                                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                                <Text style={styles.title}>
                                     MOST RECENT GROWTH/INNOVATION INITIATIVE
                                 </Text>
                                 <TextInput
@@ -266,7 +251,7 @@ const OthersAccount = props => {
                                     editable={false}
                                 />
 
-                                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                                <Text style={styles.title}>
                                     I'M SEEKING INSIGHTS ON
                                 </Text>
                                 <TextInput
@@ -286,7 +271,7 @@ const OthersAccount = props => {
                     </View>
                 </View>
             </View>
-            <Footer/>
+            <Footer style={{marginBottom:5}}/>
         </ScrollView>
     );
 };
@@ -300,6 +285,12 @@ const styles = StyleSheet.create({
         paddingLeft: 40,
         paddingRight: 40,
     },
+	title:{
+		size: 7,
+		marginLeft: 15,
+		fontSize: 10,
+		color: '#8F9BB3',
+	},
     profileWrapper: {
         padding: 20,
         alignItems: 'center',
@@ -346,6 +337,7 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     TextWrapper: {
+		flex:1,
         marginTop: 10,
         marginBottom: 10,
     },
