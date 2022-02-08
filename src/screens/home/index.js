@@ -11,10 +11,7 @@ const HomeScreen = (props) => {
 
     const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector((state) => state.pillarSliders);
 
-	useEffect(() => {
-		fetchAllPillarSlider();  
-		
-	}, []);
+	
 
     /**
      * Fetch all pillar slider data.

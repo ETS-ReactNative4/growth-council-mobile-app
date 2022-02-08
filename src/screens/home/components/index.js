@@ -46,7 +46,10 @@ const Home = props => {
   const itemHorizontalMargin = wp(2);
   const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-  
+	useEffect(() => {
+		fetchAllPillarSlider();  
+		
+	}, []);
 
   const _renderItem = ({item, index}, navigation) => {
     return (
