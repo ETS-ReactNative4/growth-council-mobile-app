@@ -122,7 +122,12 @@ const Dashboard = props => {
   const _renderMiddleItem = ({item, index}) => {
     let poePage = 'CommunityDetail';
     if (item?.parent === 119) {
-      poePage = 'GrowthDetail';
+    //   poePage = 'GrowthDetail';
+		if (item?.slug === 'growth-leadership-coaching') {
+			poePage = 'GrowthDetail';
+		}else{
+			poePage = 'CommunityDetail';	
+		}
     }
     return (
       <TouchableOpacity

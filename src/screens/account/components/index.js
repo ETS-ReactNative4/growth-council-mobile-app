@@ -15,6 +15,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
+import {useIsFocused} from '@react-navigation/native';
 import MyEvent from './MyEvent';
 import MySession from './MySession';
 
@@ -29,13 +30,18 @@ const Profile = props => {
   } = props;
 
   const [value, setValue] = useState('My Sessions');
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const fetchProfileAsync = async () => {
       await fetchProfileByIdentifier();
     };
     fetchProfileAsync();
-  }, []);
+
+	return () => {
+		cleanProfile();
+	  };
+	}, [isFocused]);
 
   return (
     <ScrollView
