@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Home from './components';
@@ -11,12 +11,18 @@ const HomeScreen = (props) => {
 
     const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector((state) => state.pillarSliders);
 
+	useEffect(() => {
+		fetchAllPillarSlider();  
+		
+	}, []);
+
     /**
      * Fetch all pillar slider data.
      *
      */
     const fetchAllPillarSlider = () => {
         dispatch(fetchAllPillarSliders());
+
     };
 
 
@@ -27,6 +33,8 @@ const HomeScreen = (props) => {
     const cleanPillarSlider = () => {
         dispatch(resetPillarSlider());
     };
+
+	
     return (
         <Home
             {...props}

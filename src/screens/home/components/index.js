@@ -46,12 +46,7 @@ const Home = props => {
   const itemHorizontalMargin = wp(2);
   const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-  useEffect(() => {
-    const fetchPillarSliderAsync = async () => {
-      await fetchAllPillarSlider();
-    };
-    fetchPillarSliderAsync();
-  }, []);
+  
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -130,7 +125,7 @@ const Home = props => {
               />
 
               <Pagination
-                dotsLength={pillarSliders.length}
+                dotsLength={pillarSliders?.length}
                 activeDotIndex={activeSlider}
                 dotStyle={{
                   width: 16,
