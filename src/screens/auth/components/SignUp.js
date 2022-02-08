@@ -363,7 +363,6 @@ const SignUpForm = props => {
             <View style={styles.body}>
               <FlatTextInput
                 label="First Name *"
-                // mode='outlined'
                 value={values.first_name}
                 onChangeText={handleChange('first_name')}
                 onFocus={handleBlur('first_name')}
@@ -472,7 +471,7 @@ const SignUpForm = props => {
 						<Text style={{marginTop:7, width:"55%"}}>
 							By Clicking submit, I agree to Frost & Sullivan's 
 							<Text style={{paddingTop:5, color:'blue'}} 
-							onPress={()=>Alert.alert("Please login first!!!")
+								onPress={()=>Alert.alert("Please login first!!!")
 									[
 										{
 										text: "Cancel",
@@ -481,18 +480,19 @@ const SignUpForm = props => {
 										},
 										{ text: "OK", onPress: () => console.log("OK Pressed") }
 									]}> Terms of Use </Text>
-						 and 
-						 <Text style={{paddingTop:5, color:'blue'}} 
-							onPress={()=>Alert.alert("Please login first!!!")
-									[
-										{
-										text: "Cancel",
-										onPress: () => console.log("Cancel Pressed"),
-										style: "cancel"
-										},
-										{ text: "OK", onPress: () => console.log("OK Pressed") }
-									]}> Privacy Policy</Text>
-						
+							and 
+							
+							<Text style={{paddingTop:5, color:'blue'}} 
+								onPress={()=>Alert.alert("Please login first!!!")
+										[
+											{
+											text: "Cancel",
+											onPress: () => console.log("Cancel Pressed"),
+											style: "cancel"
+											},
+											{ text: "OK", onPress: () => console.log("OK Pressed") }
+										]}> Privacy Policy</Text>
+							
 						</Text>
 						
 						
