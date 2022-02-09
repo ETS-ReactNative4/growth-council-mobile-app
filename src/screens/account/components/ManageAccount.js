@@ -17,6 +17,7 @@ import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
 import DropDownPicker from 'react-native-dropdown-picker';
 import ImagePicker from 'react-native-image-crop-picker';
+import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
@@ -62,6 +63,7 @@ const ManageAccount = props => {
     cleanExperties,
   } = props;
 
+  const isFocused = useIsFocused();
   const [open, setOpen] = useState(false);
 
   let Location = profile?.user_meta?.Location;
@@ -110,6 +112,25 @@ const ManageAccount = props => {
   const [items, setItems] = useState([]);
 
   const [image, setImage] = useState(profile.avatar);
+
+  useEffect(() => {
+   fetchProfileByIdentifier();
+  }, []);
+
+  useEffect(() => {
+  	 fetchAllExpertises();
+  }, []);
+
+  useEffect(() => {
+    console.log('expertise_areas1::::::::::', expertise_areas1);
+    setValue(expertise_areas1);
+    const result = Object.entries(expertise).map(([key, value]) => ({
+      label: key,
+      value,
+    }));
+    setItems(result);
+    // return () => {setValue([])};
+  }, [isFocused]);
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -195,30 +216,7 @@ const ManageAccount = props => {
     },
   });
 
-  useEffect(() => {
-    const fetchProfileAsync = async () => {
-      await fetchProfileByIdentifier();
-    };
-    fetchProfileAsync();
-  }, []);
-
-  useEffect(() => {
-    const fetchAllExpertisesAsync = async () => {
-      await fetchAllExpertises();
-    };
-    fetchAllExpertisesAsync();
-  }, []);
-
-  useEffect(() => {
-    console.log('expertise_areas1::::::::::', expertise_areas1);
-    setValue(expertise_areas1);
-    const result = Object.entries(expertise).map(([key, value]) => ({
-      label: key,
-      value,
-    }));
-    setItems(result);
-    // return () => {setValue([])};
-  }, []);
+ 
 
   return (
     <ScrollView
@@ -290,19 +288,10 @@ const ManageAccount = props => {
                     <Text style={styles.errorText}>{profileError.message}</Text>
                   </View>
                 )}
-                {expertiseLoading && (
+                {profileLoading && (
                   <>
                     <View
-                      style={{
-                        flex: 1,
-                        alignItems: 'center',
-                        flexDirection: 'column',
-                        justifyContent: 'space-around',
-                        position: 'absolute',
-                        zIndex: 1011,
-                        top: 120,
-                        left: 100,
-                      }}>
+                      style={styles.loading1}>
                       <BubblesLoader
                         color={Colors.SECONDARY_TEXT_COLOR}
                         size={80}
@@ -414,7 +403,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    FAVORITE QUOTE
+                     Favorite Quote
                   </Text>
                   <TextInput
                     multiline={true}
@@ -430,7 +419,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    PROFESSIONAL SUMMARY
+                    Professional Summary
                   </Text>
                   <TextInput
                     multiline={true}
@@ -446,7 +435,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    EXPERTISE AREAS
+                    Expertise Areas
                   </Text>
 
                   <DropDownPicker
@@ -468,7 +457,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    MOST RECENT GROWTH/INNOVATION INITIATIVE
+                    Most Recent Growth/Innovation Initative
                   </Text>
                   <TextInput
                     multiline={true}
@@ -481,10 +470,10 @@ const ManageAccount = props => {
                     error={errors.initatives}
                     touched={touched.initatives}
                   />
-
+					 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    I'M SEEKING INSIGHTS ON
+                    I'm Seeking Insights On
                   </Text>
                   <TextInput
                     multiline={true}
@@ -497,6 +486,26 @@ const ManageAccount = props => {
                     error={errors.insights}
                     touched={touched.insights}
                   />
+				  {userLoading && (
+						<>
+							<View
+							style={{
+								flex: 1,
+								alignItems: 'center',
+								flexDirection: 'column',
+								justifyContent: 'space-around',
+								position: 'absolute',
+								zIndex: 1011,
+								top: 120,
+								left: 100,
+							}}>
+							<BubblesLoader
+								color={Colors.SECONDARY_TEXT_COLOR}
+								size={80}
+							/>
+							</View>
+						</>
+						)}
 
                   <View style={styles.loginButtonWrapper}>
                     <TouchableOpacity>
@@ -642,5 +651,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     margin: 15,
+  },
+  loading1: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
