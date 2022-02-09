@@ -1,64 +1,51 @@
-import React,{useEffect, useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Session from './component';
 
 import {fetchSessionByID, resetSession} from './slice/sessionSlice';
-import {
-  registerSessionByID,
-  resetSessionRegister,
-} from './slice/sessionRegister';
+import {registerSessionByID, resetSessionRegister} from './slice/sessionRegister';
 
 const SessionDetailScreen = props => {
-	const {navigation, route}=props
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const {sessions, sessionLoading, sessionError} = useSelector(
-    state => state.sessions,
-  );
-  const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} =
-    useSelector(state => state.sessionRegisters);
+    const {sessions, sessionLoading, sessionError} = useSelector(
+        state => state.sessions,
+    );
+    const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} =
+        useSelector(state => state.sessionRegisters);
 
-  useEffect(() => {
-    const fetchSessionDetailAsync = async () => {
-      await fetchSessionByIdentifier(route.params.id);
+    const fetchSessionByIdentifier = identifier => {
+        dispatch(fetchSessionByID(identifier));
     };
-    fetchSessionDetailAsync();
-  }, []);
 
-  const fetchSessionByIdentifier = identifier => {
-    dispatch(fetchSessionByID(identifier));
-  };
+    const registerSessionByIdentifier = formData => {
+        return dispatch(registerSessionByID(formData));
+    };
 
-  const registerSessionByIdentifier = formData => {
-    return dispatch(registerSessionByID(formData));
-  };
+    const cleanSession = () => {
+        dispatch(resetSession());
+    };
 
-  const cleanSession = () => {
-    dispatch(resetSession());
-  };
+    const cleanSessionRegister = () => {
+        dispatch(resetSessionRegister());
+    };
 
-  const cleanSessionRegister = () => {
-    dispatch(resetSessionRegister());
-  };
-
-  console.log('session', route.params.id);
-
-  return (
-    <Session
-      {...props}
-      sessions={sessions}
-      sessionLoading={sessionLoading}
-      sessionError={sessionError}
-      fetchSessionByIdentifier={fetchSessionByIdentifier}
-      cleanSession={cleanSession}
-      sessionRegisters={sessionRegisters}
-      sessionRegisterLoading={sessionRegisterLoading}
-      sessionRegisterError={sessionRegisterError}
-      registerSessionByIdentifier={registerSessionByIdentifier}
-      cleanSessionRegister={cleanSessionRegister}
-    />
-  );
+    return (
+        <Session
+            {...props}
+            sessions={sessions}
+            sessionLoading={sessionLoading}
+            sessionError={sessionError}
+            fetchSessionByIdentifier={fetchSessionByIdentifier}
+            cleanSession={cleanSession}
+            sessionRegisters={sessionRegisters}
+            sessionRegisterLoading={sessionRegisterLoading}
+            sessionRegisterError={sessionRegisterError}
+            registerSessionByIdentifier={registerSessionByIdentifier}
+            cleanSessionRegister={cleanSessionRegister}
+        />
+    );
 };
 
 export default SessionDetailScreen;

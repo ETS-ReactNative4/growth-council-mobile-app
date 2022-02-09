@@ -1,88 +1,79 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
-import { 
-	StyleSheet, 
-	Text,
-	View,
-	ScrollView }
- from 'react-native';
- import {CommonStyles, Colors, Typography} from '../../../theme';
- import { RadioButton } from 'react-native-paper';
+import {Typography} from '../../../theme';
+import {RadioButton} from 'react-native-paper';
 
-const YellowQuestion = (props) =>{
-	const{
-		question,
-	}=props
+const YellowQuestion = (props) => {
 
-	const [checked, setChecked]=useState(null)
+    const {question} = props;
 
-	return(
-		<View style={[styles.questionWrapper,styles.shadowProp]}>
+    const [checked, setChecked] = useState(null);
 
-				<View style={{ alignItems:"center",  justifyContent:'center', borderBottomWidth:0.1}}>
-					<Text style={styles.title}>{question?.post_title}</Text>
-				</View>
-			{[
-			{ name: "Yes", value: true },
-			{ name: "No", value: false }
-			].map((option) => (
-					<View style={styles.wrapper}>	
-						<View style={{flexDirection:'row'}}>
-							<RadioButton
-								value={option?.value}
-								status={ option?.value === checked ? "checked":"unchecked"}
-								onPress={()=>{
-									setChecked(option?.value);
-								}}
+    return (
+        <View style={[styles.questionWrapper, styles.shadowProp]}>
 
-							/>
-							<Text style={{marginTop:5}}key={option.name}>{option.name}</Text>
-						</View>
-					
-					</View>
-				 ))}
-					
-				<View>
+            <View style={{alignItems: "center", justifyContent: 'center', borderBottomWidth: 0.1}}>
+                <Text style={styles.title}>{question?.post_title}</Text>
+            </View>
+            {[
+                {name: "Yes", value: true},
+                {name: "No", value: false}
+            ].map((option) => (
+                <View style={styles.wrapper}>
+                    <View style={{flexDirection: 'row'}}>
+                        <RadioButton
+                            value={option?.value}
+                            status={option?.value === checked ? "checked" : "unchecked"}
+                            onPress={() => {
+                                setChecked(option?.value);
+                            }}
 
-				</View>
-				</View>
-	)
+                        />
+                        <Text style={{marginTop: 5}} key={option.name}>{option.name}</Text>
+                    </View>
 
-}
+                </View>
+            ))}
+
+            <View>
+
+            </View>
+        </View>
+    )
+
+};
 const styles = StyleSheet.create({
 
-	questionWrapper:{
-		height:154,
-		borderRadius:22,
-		 margin:5,
-		 marginTop:25,
-		 padding:12,
-		 backgroundColor: 'white',
-    	overflow: 'hidden',
-	},
-	title:{
-		fontSize:14,
-		fontFamily:Typography.FONT_SF_SEMIBOLD, 
-		color:"#1E2022"
-	},
-	shadowProp: {
-		shadowColor: '#000',
-		shadowOffset: {
-		  width: 0,
-		  height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-	
-		elevation: 5,
-	  },
-	  wrapper:{
-		  display:'flex',
-		  flexDirection:'row',
-		  
-		  marginLeft:20,
-		
-	  }
+    questionWrapper: {
+        height: 154,
+        borderRadius: 22,
+        margin: 5,
+        marginTop: 25,
+        padding: 12,
+        backgroundColor: 'white',
+        overflow: 'hidden',
+    },
+    title: {
+        fontSize: 14,
+        fontFamily: Typography.FONT_SF_SEMIBOLD,
+        color: "#1E2022"
+    },
+    shadowProp: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    wrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginLeft: 20,
+    }
 
 });
 

@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {Text} from 'react-native';
-
 import CoachingSession from './component';
 import {fetchAllTraits, resetTraits} from './slice/sessionTraitsSlice';
 import {fetchSessionByID, resetSession} from '../sessions/slice/sessionSlice';
