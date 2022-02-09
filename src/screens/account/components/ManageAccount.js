@@ -403,7 +403,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    FAVORITE QUOTE
+                     Favorite Quote
                   </Text>
                   <TextInput
                     multiline={true}
@@ -419,7 +419,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    PROFESSIONAL SUMMARY
+                    Professional Summary
                   </Text>
                   <TextInput
                     multiline={true}
@@ -435,7 +435,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    EXPERTISE AREAS
+                    Expertise Areas
                   </Text>
 
                   <DropDownPicker
@@ -457,7 +457,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    MOST RECENT GROWTH/INNOVATION INITIATIVE
+                    Most Recent Growth/Innovation Initative
                   </Text>
                   <TextInput
                     multiline={true}
@@ -473,7 +473,7 @@ const ManageAccount = props => {
 					 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    I'M SEEKING INSIGHTS ON
+                    I'm Seeking Insights On
                   </Text>
                   <TextInput
                     multiline={true}

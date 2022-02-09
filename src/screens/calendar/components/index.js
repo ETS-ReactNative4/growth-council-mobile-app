@@ -31,15 +31,13 @@ const EventCalendar = props => {
   const [timeValue, setTimeValue] = useState('Time Zone');
 
   useEffect(() => {
-    const fetchCalendarEventAsync = async () => {
-      await fetchAllCalendarEvent({
+    fetchAllCalendarEvent({
         year: moment().format('YYYY'),
         month: moment().format('MM'),
       }).then(response => {
         setCurrentEvents(response?.payload);
       });
-    };
-    fetchCalendarEventAsync();
+    
   }, []);
 
   const getDates = (startDate, endDate) => {
@@ -58,9 +56,10 @@ const EventCalendar = props => {
   };
 
   let markedDay = {};
-  currentEvents.map(item => {
-    const startDate = moment(item.event_start).format('YYYY-MM-DD');
-    const endDate = moment(item.event_end).format('YYYY-MM-DD');
+  
+  currentEvents?.map(item => {
+    const startDate = moment(item?.event_start).format('YYYY-MM-DD');
+    const endDate = moment(item?.event_end).format('YYYY-MM-DD');
     if (moment(startDate).isSame(endDate)) {
       markedDay[startDate] = {
         color: 'green',
@@ -71,7 +70,7 @@ const EventCalendar = props => {
         new Date(moment(startDate).format('YYYY-MM-DD')),
         new Date(moment(endDate).format('YYYY-MM-DD')),
       );
-      dates.map((item, index) => {
+      dates?.map((item, index) => {
         if (index === 0) {
           markedDay[moment(item).format('YYYY-MM-DD')] = {
             startingDay: true,
@@ -97,11 +96,11 @@ const EventCalendar = props => {
 
   const renderItem = ({item, index}) => {
     //date
-    const actualDate = moment(item.event_start).format('ll').split(',', 3);
+    const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
 
     //time
-    let dt = item.event_start;
+    let dt = item?.event_start;
     dt = dt.split(' ');
     let [date1, time] = [
       dt[0].split('-').map(Number),
@@ -112,7 +111,7 @@ const EventCalendar = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() => navigation.navigate('EventDetail', {id: item?.ID})}>
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <Text
               style={{
@@ -163,15 +162,7 @@ const EventCalendar = props => {
               });
             }}
             markedDates={markedDay}
-            //  markedDates={{
-            //      '2022-01-10': { color: 'green',textColor: 'white'},
-            //      '2022-01-12': { color: 'green',textColor: 'white'},
-            //      '2022-01-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
-            //      '2022-01-22': {color: '#70d7c7', textColor: 'white'},
-            //      '2022-01-23': {color: '#70d7c7', textColor: 'white', marked: true, dotColor: 'white'},
-            //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
-            //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
-            //  }}
+         
           />
         </View>
         <View style={styles.events}>
