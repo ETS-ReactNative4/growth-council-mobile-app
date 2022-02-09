@@ -39,11 +39,12 @@ const Session = props => {
   const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
 
   useEffect(() => {
-    const fetchSessionDetailAsync = async () => {
-      await fetchSessionByIdentifier(route.params.id);
-    };
-    fetchSessionDetailAsync();
+      fetchSessionByIdentifier(route.params.id); 
   }, []);
+
+  useEffect(()=>{
+	setSessionStatus(sessions?.register_status);
+  },[events])
 
   const registerSessionBySessionID = async sessionID => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
@@ -220,62 +221,7 @@ const Session = props => {
                 </View>
               </View>
 
-              {/* <View>
-                <View style={{marginTop: 10}}>
-                  <Text style={styles.contentHeading}>Traits</Text>
-                </View>
 
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: 10,
-                  }}>
-                  <View
-                    style={{
-                      paddingTop: 5,
-                      paddingBottom: 5,
-                      flexDirection: 'row',
-                    }}>
-                    <View
-                      style={{
-                        height: 60,
-                        width: 60,
-                        borderRadius: 15,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'white',
-                        borderWidth: 0.3,
-                      }}>
-                      <Ionicons name={'medkit'} size={30} color={'#A1BA68'} />
-                    </View>
-
-                    <Text style={{padding: 20}}>Trait 1</Text>
-                  </View>
-
-                  <View
-                    style={{
-                      paddingTop: 5,
-                      paddingBottom: 5,
-                      flexDirection: 'row',
-                    }}>
-                    <View
-                      style={{
-                        height: 60,
-                        width: 60,
-                        borderRadius: 15,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'white',
-                        borderWidth: 0.3,
-                      }}>
-                      <Ionicons name={'medkit'} size={30} color={'#A1BA68'} />
-                    </View>
-
-                    <Text style={{padding: 20}}>Trait 2</Text>
-                  </View>
-                </View>
-              </View> */}
 
               <View style={{height: 150}}>
                 <View style={{marginTop: 25}}>
@@ -298,6 +244,14 @@ const Session = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
+						{sessionRegisterLoading && (
+							<View style={styles.loading1}>
+							<BubblesLoader
+								color={Colors.SECONDARY_TEXT_COLOR}
+								size={80}
+							/>
+							</View>
+						)}
                     <Text style={styles.contentHeading}>
                       {sessions?.organizer?.term_name}
                     </Text>
@@ -312,22 +266,6 @@ const Session = props => {
                       justifyContent: 'center',
                       alignItems: 'flex-end',
                     }}>
-                    {/* <Button
-                                            style={{
-                                                width: '85%',
-                                                height: 40,
-                                                backgroundColor: '#183863',
-                                                borderRadius: 15,
-                                            }}
-                                            onPress={() => navigation.navigate('SignUp')}>
-                                            <Text
-                                                style={[
-                                                    styles.acceptButtonText,
-                                                    {fontWeight: 'bold', fontSize: 15},
-                                                ]}>
-                                                Follow
-                                            </Text>
-                                        </Button> */}
                   </View>
                 </View>
               </View>
