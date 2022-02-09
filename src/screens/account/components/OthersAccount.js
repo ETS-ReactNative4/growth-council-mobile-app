@@ -186,7 +186,7 @@ const OthersAccount = props => {
                                 />
 
                                 <Text style={styles.title}>
-                                    FAVORITE QUOTE
+                                    Favorite Quote
                                 </Text>
                                 <TextInput
                                     multiline={true}
@@ -202,7 +202,7 @@ const OthersAccount = props => {
                                 />
 
                                 <Text style={styles.title}>
-                                    PROFESSIONAL SUMMARY
+                                    Professional Summary
                                 </Text>
                                 <TextInput
                                     multiline={true}
@@ -218,7 +218,7 @@ const OthersAccount = props => {
                                 />
 
                                 <Text style={styles.title}>
-                                    EXPERTISE AREAS
+                                    Expertise Areas
                                 </Text>
 								
                                 <TextInput
@@ -227,16 +227,13 @@ const OthersAccount = props => {
                                     style={styles.textarea}
                                     keyboardType="text"
                                     value={expertise_areas1.join(",")
-										
-                                        // typeof expertise_areas1 === 'undefined'
-                                        //     ? ''
-                                        //     : otherProfiles?.expertise_areas1[0]
+									
                                     }
                                     editable={false}
                                 />
 
                                 <Text style={styles.title}>
-                                    MOST RECENT GROWTH/INNOVATION INITIATIVE
+                                    Most Recent Growth/Innovation Initative
                                 </Text>
                                 <TextInput
                                     multiline={true}
@@ -252,7 +249,7 @@ const OthersAccount = props => {
                                 />
 
                                 <Text style={styles.title}>
-                                    I'M SEEKING INSIGHTS ON
+									I'm Seeking Insights On
                                 </Text>
                                 <TextInput
                                     multiline={true}
@@ -284,6 +281,7 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
         paddingLeft: 40,
         paddingRight: 40,
+
     },
 	title:{
 		size: 7,
@@ -358,16 +356,20 @@ const styles = StyleSheet.create({
         margin: 15,
     },
     input: {
-        margin: 10,
+        marginTop: 10,
+		marginBottom:10,
         borderWidth: 0.5,
         padding: 10,
         borderRadius: 10,
+		borderColor:"#707070",
     },
     textarea: {
-        margin: 10,
+		marginTop: 10,
+		marginBottom:10,
         borderWidth: 0.5,
         padding: 10,
         borderRadius: 10,
+		borderColor:"#707070",
     },
     loginButtonWrapper: {
         marginLeft: 10,
