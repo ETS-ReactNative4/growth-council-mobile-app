@@ -38,9 +38,6 @@ const sessionAbout = props => {
         sessionRegisterError,
         registerSessionByIdentifier,
         cleanSessionRegister,
-
-        selectedId,
-        setSelectedId,
     } = props;
 
     const toast = useToast();
@@ -53,7 +50,7 @@ const sessionAbout = props => {
             ToastMessage.show('You have successfully registered this event.');
         } else {
             toast.closeAll();
-            ToastMessage.show(response?.payload?.response);
+            ToastMessage.show(response?.payload?.message);
         }
     };
 
@@ -139,7 +136,7 @@ const sessionAbout = props => {
                                 alignItems: 'center',
                             }}>
                             <TouchableOpacity
-                                onPress={() => registerSessionBySessionID(route?.params?.id)}>
+                                onPress={async() => await registerSessionBySessionID(sessions?.ID)}>
                                 <Feather
                                     name={'plus-circle'}
                                     size={35}
@@ -257,7 +254,7 @@ const sessionAbout = props => {
                 {!sessionStatus && (
                     <Button
                         style={styles.acceptButton}
-                        onPress={() => registerSessionBySessionID(route?.params?.id)}>
+                        onPress={async () => await registerSessionBySessionID(sessions?.ID)}>
                         <Text style={styles.acceptButtonText}>Sign Up in One Click</Text>
                     </Button>
                 )}
