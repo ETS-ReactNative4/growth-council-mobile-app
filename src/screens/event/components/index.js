@@ -270,17 +270,7 @@ const Event = props => {
                     <Text>{events?.organizer?.description}</Text>
                   </View>
                   <View style={styles.eventaddress}>
-                    {/* <Button
-                                            style={styles.followbtn}
-                                            onPress={() => navigation.navigate('SignUp')}>
-                                            <Text
-                                                style={[
-                                                    styles.acceptButtonText,
-                                                    {fontWeight: 'bold', fontSize: 15},
-                                                ]}>
-                                                Follow
-                                            </Text>
-                                        </Button> */}
+               
                   </View>
                 </View>
               </View>
