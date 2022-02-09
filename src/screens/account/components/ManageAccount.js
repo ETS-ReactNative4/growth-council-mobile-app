@@ -23,7 +23,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
-
+import {useSelector} from 'react-redux';
 
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
@@ -114,23 +114,21 @@ const ManageAccount = props => {
   const [image, setImage] = useState(profile.avatar);
 
   useEffect(() => {
-   fetchProfileByIdentifier();
+    fetchProfileByIdentifier();
   }, []);
 
   useEffect(() => {
-  	 fetchAllExpertises();
+    fetchAllExpertises();
   }, []);
 
   useEffect(() => {
-    console.log('expertise_areas1::::::::::', expertise_areas1);
-    setValue(expertise_areas1);
     const result = Object.entries(expertise).map(([key, value]) => ({
       label: key,
       value,
     }));
     setItems(result);
-    // return () => {setValue([])};
-  }, [isFocused]);
+    setValue(expertise_areas1);
+  }, [expertise]);
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -216,8 +214,6 @@ const ManageAccount = props => {
     },
   });
 
- 
-
   return (
     <ScrollView
       contentContainerStyle={{
@@ -290,8 +286,7 @@ const ManageAccount = props => {
                 )}
                 {profileLoading && (
                   <>
-                    <View
-                      style={styles.loading1}>
+                    <View style={styles.loading1}>
                       <BubblesLoader
                         color={Colors.SECONDARY_TEXT_COLOR}
                         size={80}
@@ -324,8 +319,7 @@ const ManageAccount = props => {
                     Username
                   </Text>
                   <TextInput
-                    style={[styles.input,{color:"#808080"}]}
-                    keyboardType="text"
+                    style={[styles.input, {color: '#808080'}]}
                     value={values.display_name}
                     onChangeText={handleChange('display_name')}
                     onBlur={handleBlur('display_name')}
@@ -345,7 +339,6 @@ const ManageAccount = props => {
                   </Text>
                   <TextInput
                     style={styles.input}
-                    keyboardType="text"
                     value={values.first_name}
                     onChangeText={handleChange('first_name')}
                     onBlur={handleBlur('first_name')}
@@ -364,7 +357,6 @@ const ManageAccount = props => {
                   </Text>
                   <TextInput
                     style={styles.input}
-                    keyboardType="text"
                     value={values.last_name}
                     onChangeText={handleChange('last_name')}
                     onBlur={handleBlur('last_name')}
@@ -377,8 +369,7 @@ const ManageAccount = props => {
                     Email Address
                   </Text>
                   <TextInput
-                    style={[styles.input,{color:"#808080"}]}
-                    keyboardType="text"
+                    style={[styles.input, {color: '#808080'}]}
                     value={values.email}
                     onChangeText={handleChange('email')}
                     onBlur={handleBlur('email')}
@@ -393,7 +384,6 @@ const ManageAccount = props => {
                   </Text>
                   <TextInput
                     style={styles.input}
-                    keyboardType="text"
                     value={values.Location}
                     onChangeText={handleChange('Location')}
                     onBlur={handleBlur('Location')}
@@ -403,13 +393,12 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                     Favorite Quote
+                    Favorite Quote
                   </Text>
                   <TextInput
                     multiline={true}
                     numberOfLines={4}
                     style={styles.textarea}
-                    keyboardType="text"
                     value={values.favorite_quote}
                     onChangeText={handleChange('favorite_quote')}
                     onBlur={handleBlur('favorite_quote')}
@@ -425,7 +414,6 @@ const ManageAccount = props => {
                     multiline={true}
                     numberOfLines={6}
                     style={styles.textarea}
-                    keyboardType="text"
                     value={values.professional_summary}
                     onChangeText={handleChange('professional_summary')}
                     onBlur={handleBlur('professional_summary')}
@@ -451,8 +439,7 @@ const ManageAccount = props => {
                     onChangeValue={value => {
                       setFieldValue('expertise_areas1', value);
                     }}
-					containerStyle={{width:"94%", marginLeft:10,}}
-				
+                    containerStyle={{width: '94%', marginLeft: 10}}
                   />
 
                   <Text
@@ -463,14 +450,13 @@ const ManageAccount = props => {
                     multiline={true}
                     numberOfLines={4}
                     style={styles.textarea}
-                    keyboardType="text"
                     value={values.initatives}
                     onChangeText={handleChange('initatives')}
                     onBlur={handleBlur('initatives')}
                     error={errors.initatives}
                     touched={touched.initatives}
                   />
-					 
+
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     I'm Seeking Insights On
@@ -479,33 +465,32 @@ const ManageAccount = props => {
                     multiline={true}
                     numberOfLines={4}
                     style={styles.textarea}
-                    keyboardType="text"
                     value={values.insights}
                     onChangeText={handleChange('insights')}
                     onBlur={handleBlur('insights')}
                     error={errors.insights}
                     touched={touched.insights}
                   />
-				  {userLoading && (
-						<>
-							<View
-							style={{
-								flex: 1,
-								alignItems: 'center',
-								flexDirection: 'column',
-								justifyContent: 'space-around',
-								position: 'absolute',
-								zIndex: 1011,
-								top: 120,
-								left: 100,
-							}}>
-							<BubblesLoader
-								color={Colors.SECONDARY_TEXT_COLOR}
-								size={80}
-							/>
-							</View>
-						</>
-						)}
+                  {userLoading && (
+                    <>
+                      <View
+                        style={{
+                          flex: 1,
+                          alignItems: 'center',
+                          flexDirection: 'column',
+                          justifyContent: 'space-around',
+                          position: 'absolute',
+                          zIndex: 1011,
+                          top: 120,
+                          left: 100,
+                        }}>
+                        <BubblesLoader
+                          color={Colors.SECONDARY_TEXT_COLOR}
+                          size={80}
+                        />
+                      </View>
+                    </>
+                  )}
 
                   <View style={styles.loginButtonWrapper}>
                     <TouchableOpacity>
@@ -545,14 +530,14 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     padding: 10,
     borderRadius: 10,
-	color:"black",
+    color: 'black',
   },
   textarea: {
     margin: 10,
     borderWidth: 0.5,
     padding: 10,
     borderRadius: 10,
-	color:"black",
+    color: 'black',
   },
 
   loginButtonWrapper: {
