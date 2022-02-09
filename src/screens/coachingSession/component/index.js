@@ -185,8 +185,6 @@ const CoachingSession = props => {
                                     sessionRegisterError={sessionRegisterError}
                                     registerSessionByIdentifier={registerSessionByIdentifier}
                                     cleanSessionRegister={cleanSessionRegister}
-                                    selectedId={selectedId}
-                                    setSelectedId={setSelectedId}
                                 />
                             )}
                             {value === 'Self Assessment' && (
