@@ -86,36 +86,39 @@ const GrowthDetail = props => {
     fetchPoeSelfLearnAsync();
   }, []);
 
-//   console.log('POE id:::::::::::::::::', route.params.poeId);
-//   console.log('parent id:::::::::::::::::', route.params.pillarId);
   console.log('Self Learn ====', poeSelfLearns);
   console.log('session', route.params.poeId);
   
-  const _renderItem = ({item, index}) => {
+  const _renderItem = ({item, index}, navigation) => {
     return (
-      <View style={[styles.bottomWrapper, styles.shadowProp]}>
-        <Image
-          source={{uri: item?.avatar}}
-          style={{
-            width: 83,
-            height: 83,
-            borderRadius: 10,
-          }}
-        />
-        <View style={{padding: 10, paddingBottom: 20}}>
-          <Text
+		<View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+          <Image
+            source={{uri: item.avatar}}
             style={{
-              fontSize: 10,
-              fontFamily: Typography.FONT_SF_SEMIBOLD,
-              color: Colors.TERTIARY_TEXT_COLOR,
-            }}>
-            {item?.display_name}
-          </Text>
-          <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
-        </View>
+              width: 83,
+              height: 83,
+              borderRadius: 10,
+            }}
+          />
+          <View style={{padding: 10, paddingBottom: 20}}>
+            <Text
+              style={{
+                fontSize: 10,
+                fontFamily: Typography.FONT_SF_SEMIBOLD,
+                color: Colors.TERTIARY_TEXT_COLOR,
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+          </View>
+        </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
+          <TouchableOpacity onPress={() => navigation.navigate('People')}>
+            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -162,20 +165,6 @@ const GrowthDetail = props => {
     );
   };
 
-  const middle = [
-    {
-      date: '10',
-      month: 'july',
-      title: 'SESSION 1',
-      text: 'Coach John Roller',
-    },
-    {
-      date: '10',
-      month: 'Oct',
-      title: 'SESSION 2',
-      text: 'Coach John Roller',
-    },
-  ];
 
   const _renderMiddleItem = ({item, index}) => {
     const actualDate = moment(item?.event_start).format('ll').split(',', 3);
@@ -220,17 +209,6 @@ const GrowthDetail = props => {
     );
   };
 
-  const pic = [
-    {
-      uri: require('../../../assets/img/welcome_screen_info_image.png'),
-    },
-    {
-      uri: require('../../../assets/img/image.png'),
-    },
-    {
-      uri: require('../../../assets/img/contactus.png'),
-    },
-  ];
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
@@ -243,18 +221,7 @@ const GrowthDetail = props => {
     );
   };
 
-  const learn = [
-    {
-      title: 'Growth Coaching',
-      text: 'Prime Yourself to become Insenely Great Leader',
-      text1: 'Frost',
-    },
-    {
-      title: 'Growth Coaching',
-      text: 'Prime Yourself to become Insenely Great Leader',
-      text1: 'Frost',
-    },
-  ];
+  
 
   const _renderLearnItem = ({item, index}) => {
     return (
@@ -432,7 +399,7 @@ const GrowthDetail = props => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={pillarMemberContents.members}
-                    renderItem={_renderItem}
+					renderItem={item => _renderItem(item, navigation)}
                   />
                 </View>
               </View>
@@ -576,7 +543,7 @@ const styles = StyleSheet.create({
   chatIcon: {
     borderRadius: 50,
     backgroundColor: '#F1F1F1',
-    padding: 6,
+    padding: 2,
     justifyContent: 'center',
     position: 'absolute',
     right: 4,

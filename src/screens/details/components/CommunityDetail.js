@@ -78,9 +78,10 @@ const CommunityDetail = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
-  const _renderItem = ({item, index}) => {
+
+  const _renderItem = ({item, index}, navigation) => {
     return (
-      <View style={[styles.bottomWrapper, styles.shadowProp]}>
+		<View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
@@ -102,11 +103,13 @@ const CommunityDetail = props => {
             </Text>
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
-
-          <View style={styles.chatIcon}>
-            <Ionicons name={'chatbox'} size={10} color="#B1AFAF" />
-          </View>
         </TouchableOpacity>
+
+        <View style={styles.chatIcon}>
+          <TouchableOpacity onPress={() => navigation.navigate('People')}>
+            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -155,17 +158,7 @@ const CommunityDetail = props => {
     );
   };
 
-  const pic = [
-    {
-      uri: require('../../../assets/img/welcome_screen_info_image.png'),
-    },
-    {
-      uri: require('../../../assets/img/image.png'),
-    },
-    {
-      uri: require('../../../assets/img/contactus.png'),
-    },
-  ];
+
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
@@ -177,9 +170,6 @@ const CommunityDetail = props => {
       </View>
     );
   };
-
-  console.log('POE id:::::::::::::::::', route.params.poeId);
-  console.log('parent id:::::::::::::::::', route.params.pillarId);
 
   return (
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -193,8 +183,7 @@ const CommunityDetail = props => {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.icon}>
-		
+          <View style={styles.icon}>	
             <Image
               source={{uri: poeDetails?.image}}
               style={{
@@ -208,7 +197,6 @@ const CommunityDetail = props => {
           </View>
 		 
           <View style={styles.content}>
-		 
             <View style={styles.contentWrapper}>
               <Text
                 style={{
@@ -266,7 +254,7 @@ const CommunityDetail = props => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={pillarMemberContents?.members}
-                    renderItem={_renderItem}
+					renderItem={item => _renderItem(item, navigation)}
                   />
                 </View>
               </View>
@@ -374,7 +362,7 @@ const styles = StyleSheet.create({
   chatIcon: {
     borderRadius: 50,
     backgroundColor: '#F1F1F1',
-    padding: 6,
+    padding: 2,
     justifyContent: 'center',
     position: 'absolute',
     right: 4,
