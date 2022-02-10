@@ -39,7 +39,7 @@ const EventCalendar = props => {
 				
             }).then(response => {
                 if (response?.payload?.code === 200) {
-                    setCurrentEvents(response?.payload);
+                    setCurrentEvents(response?.payload?.data);
                 }
             });
         };
@@ -184,7 +184,7 @@ const EventCalendar = props => {
 							all_events:allEvents,
                         }).then(response => {
                             if (response?.payload?.code === 200) {
-                                setCurrentEvents(response?.payload);
+                                setCurrentEvents(response?.payload?.data);
                             }
 							console.log({response})
                         });

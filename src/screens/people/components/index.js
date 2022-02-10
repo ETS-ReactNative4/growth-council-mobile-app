@@ -144,10 +144,6 @@ const People = props => {
   };
 
   const [pickerVisible, setPickerVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-    
-  
 
   return (
     <ScrollView
@@ -196,7 +192,7 @@ const People = props => {
               marginRight: 30,
             }}>
             <Text style={{fontSize: 12}}>
-              {category === '' ? 'Select Category' : category}
+              {category === 'Select Category' ? 'Select Category' : category}
             </Text>
           </TouchableOpacity>
           <View style={styles.icon}>

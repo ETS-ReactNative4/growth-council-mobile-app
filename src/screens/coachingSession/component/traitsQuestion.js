@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
-
 import {Typography} from '../../../theme';
-
 
 const TraitsQuestion = props => {
     const {question, answers, setAnswers, questionIndex} = props;
