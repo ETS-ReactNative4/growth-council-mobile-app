@@ -101,22 +101,20 @@ const Setting = props => {
           <View>
             <View style={styles.middle}>
               <View style={styles.wrapper}>
-                
-				 <TouchableOpacity
+                <TouchableOpacity
                   onPress={() => navigation.navigate('ManageAccount')}>
                   <View style={styles.middleWrapper}>
                     <View style={styles.middleImage}>
-						<Ionicons name="person-outline" color="white" size={20} />
+                      <Ionicons name="person-outline" color="white" size={20} />
                     </View>
                     <Text style={styles.menuText}>Account</Text>
-					<View style={{right: 0,
-                      position: 'absolute',}}>
-					<Ionicons
-                      name="chevron-forward-outline"
-                      size={20}
-                      color="#d7d7d7"
-                    />
-					</View>
+                    <View style={{right: 0, position: 'absolute'}}>
+                      <Ionicons
+                        name="chevron-forward-outline"
+                        size={20}
+                        color="#d7d7d7"
+                      />
+                    </View>
                   </View>
                 </TouchableOpacity>
 
@@ -143,7 +141,6 @@ const Setting = props => {
                     <Ionicons name={'notifications'} size={20} color="white" />
                   </View>
                   <Text style={styles.menuText}>Notifications</Text>
-
                   <Switch
                     trackColor={{false: '#767577', true: '#32a32e'}}
                     thumbColor={isEnabled ? 'white' : 'white'}
@@ -151,7 +148,7 @@ const Setting = props => {
                     onValueChange={toggleSwitch}
                     value={isEnabled}
                     style={{
-                      transform: [{scaleX: 1.4}, {scaleY: 1.5}],
+                      // transform: [{scaleX: 1.4}, {scaleY: 1.5}],
                       right: 0,
                       position: 'absolute',
                     }}
@@ -183,7 +180,6 @@ const Setting = props => {
                   </View>
                 </TouchableOpacity>
 
-
                 {/* <TouchableOpacity onPress={logout}>
                   <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
                     <View style={styles.middleImage1}>
@@ -192,13 +188,12 @@ const Setting = props => {
                     <Text style={styles.menuText}>Log Out</Text>
                   </View>
                 </TouchableOpacity> */}
-
               </View>
             </View>
           </View>
         </View>
       </View>
-     <Footer/>
+      <Footer />
     </ScrollView>
   );
 };
@@ -209,8 +204,8 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     backgroundColor: PRIMARY_BACKGROUND_COLOR,
-    paddingLeft: Platform.OS === 'ios' ? 40: 50,
-    paddingRight: Platform.OS === 'ios' ? 40: 50,
+    paddingLeft: Platform.OS === 'ios' ? 40 : 50,
+    paddingRight: Platform.OS === 'ios' ? 40 : 50,
   },
   header: {
     alignItems: 'center',

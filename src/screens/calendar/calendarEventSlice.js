@@ -6,7 +6,7 @@ export const fetchAllCalendarEvents = createAsyncThunk(
   'calendarEvent/fetchAll',
   (formData, {rejectWithValue}) => {
     return store(`jwt-auth/v1/calendar`, formData)
-      .then(response => response.data.data)
+      .then(response => response.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );

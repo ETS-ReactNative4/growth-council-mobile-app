@@ -8,6 +8,7 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -78,16 +79,15 @@ const CommunityDetail = props => {
     fetchAllPillarMemberContentAsync();
   }, []);
 
-
   const _renderItem = ({item, index}, navigation) => {
     return (
-		<View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
+      <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
             source={{uri: item.avatar}}
             style={{
-              width: 83,
+              width: '100%',
               height: 83,
               borderRadius: 10,
             }}
@@ -158,8 +158,6 @@ const CommunityDetail = props => {
     );
   };
 
-
-
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
@@ -183,7 +181,7 @@ const CommunityDetail = props => {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.icon}>	
+          <View style={styles.icon}>
             <Image
               source={{uri: poeDetails?.image}}
               style={{
@@ -193,9 +191,8 @@ const CommunityDetail = props => {
                 justifyContent: 'center',
               }}
             />
-			  
           </View>
-		 
+
           <View style={styles.content}>
             <View style={styles.contentWrapper}>
               <Text
@@ -208,7 +205,7 @@ const CommunityDetail = props => {
                 }}>
                 {poeDetails.name}
               </Text>
-              
+
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
               <View style={styles.top}>
@@ -219,26 +216,26 @@ const CommunityDetail = props => {
                     display: 'flex',
                     flexDirection: 'row',
                   }}>
-				 {poeDetailLoading && (
-                <>
-                  <View
-                    style={{
-                      top: 10,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      position: 'absolute',
-                      zIndex: 1011,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )}
+                  {poeDetailLoading && (
+                    <>
+                      <View
+                        style={{
+                          top: 10,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          position: 'absolute',
+                          zIndex: 1011,
+                        }}>
+                        <BubblesLoader
+                          color={Colors.SECONDARY_TEXT_COLOR}
+                          size={80}
+                        />
+                      </View>
+                    </>
+                  )}
                   <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -254,7 +251,7 @@ const CommunityDetail = props => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={pillarMemberContents?.members}
-					renderItem={item => _renderItem(item, navigation)}
+                    renderItem={item => _renderItem(item, navigation)}
                   />
                 </View>
               </View>
@@ -349,15 +346,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   bottomWrapper: {
-    width: 84,
+    width: Dimensions.get('window').width / 4,
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
     backgroundColor: 'white',
-    overflow: 'hidden',
-    // borderWidth:0.2,
   },
   chatIcon: {
     borderRadius: 50,

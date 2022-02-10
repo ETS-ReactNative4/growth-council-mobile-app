@@ -41,12 +41,12 @@ const Event = props => {
   const [eventStatus, setEventStatus] = useState(events?.register_status);
 
   useEffect(() => {
-     fetchEventByIdentifier(route.params.id); 
+    fetchEventByIdentifier(route.params.id);
   }, []);
 
-  useEffect(()=>{
-	setEventStatus(events?.register_status);
-  },[events])
+  useEffect(() => {
+    setEventStatus(events?.register_status);
+  }, [events]);
 
   const registerEventByEventID = async eventID => {
     console.log('event_id ===', eventID);
@@ -226,8 +226,6 @@ const Event = props => {
                       />
                     </View>
                   )}
-				   
-				  
                 </View>
               </View>
               <View style={styles.seperationline} />
@@ -235,7 +233,7 @@ const Event = props => {
                 <View>
                   <Text style={styles.contentHeading}>Hosted By</Text>
                 </View>
-				
+
                 <View style={styles.hostdetail}>
                   <View
                     style={[
@@ -256,27 +254,24 @@ const Event = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
-						{eventRegisterLoading && (
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  )}
+                    {eventRegisterLoading && (
+                      <View style={styles.loading1}>
+                        <BubblesLoader
+                          color={Colors.SECONDARY_TEXT_COLOR}
+                          size={80}
+                        />
+                      </View>
+                    )}
                     <Text style={styles.contentHeading}>
                       {events?.organizer?.term_name}
                     </Text>
                     <Text>{events?.organizer?.description}</Text>
                   </View>
-                  <View style={styles.eventaddress}>
-               
-                  </View>
+                  <View style={styles.eventaddress}></View>
                 </View>
               </View>
               <View style={styles.seperationline} />
               <View>
-			 
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
                   <HTMLView value={description} style={{fontSize: 14}} />
@@ -295,10 +290,13 @@ const Event = props => {
                 )}
                 {eventStatus && (
                   <TouchableOpacity style={styles.registeredButton}>
-                    <View style={{paddingLeft: 10}}>
+                    <View style={{position: 'absolute', left: 20}}>
                       <Image
                         source={require('../../../assets/img/tick-icon.png')}
-                        style={{width: 30, height: 30}}
+                        style={{
+                          width: 25,
+                          height: 25,
+                        }}
                       />
                     </View>
                     <Text style={styles.registeredButtonText}>Registered</Text>
@@ -380,6 +378,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   registeredButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     width: '100%',
     height: 50,
@@ -387,8 +388,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     borderColor: '#F26722',
     borderWidth: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
+    position: 'relative',
   },
   acceptButtonText: {
     width: '100%',
@@ -397,11 +397,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   registeredButtonText: {
-    width: '100%',
-    height: 20,
-    fontSize: 14,
     color: '#F26722',
-    paddingLeft: Platform.OS === 'ios' ? 70 : 110,
   },
   topbanner: {
     backgroundColor: 'rgba(54,147,172,1)',

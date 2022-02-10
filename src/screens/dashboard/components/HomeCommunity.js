@@ -324,15 +324,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   bottomWrapper: {
-    width: Platform.OS === 'ios' ? 70 : 84,
     position: 'relative',
+    width: Dimensions.get('window').width / 4,
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
     backgroundColor: 'white',
-    overflow: 'hidden',
-    // borderWidth:0.2,
   },
   chatIcon: {
     borderRadius: 50,
