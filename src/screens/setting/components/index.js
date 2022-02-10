@@ -58,7 +58,7 @@ const Setting = props => {
         flexGrow: 1,
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
       }}>
-      <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
+      <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, width:'100%'}}>
         <Image
           source={require('../../../assets/img/appBG.png')}
           style={{height: 160}}
@@ -118,24 +118,6 @@ const Setting = props => {
                   </View>
                 </TouchableOpacity>
 
-                {/* <View style={styles.middleWrapper}>
-                                    <View style={styles.middleImage}>
-                                        <Material
-                                            name={'payment'}
-                                            size={20}
-                                            color="white"
-
-                                        />
-                                    </View>
-                                    <Text style={styles.menuText}>Payment Method</Text>
-                                    <Ionicons
-                                        name='chevron-forward-outline'
-                                        size={20}
-                                        color='#d7d7d7'
-                                        style={{right:0 ,  position:'absolute'}}
-                                    />
-
-                                </View> */}
                 <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
                   <View style={styles.middleImage}>
                     <Ionicons name={'notifications'} size={20} color="white" />
@@ -179,15 +161,6 @@ const Setting = props => {
                     <Text style={styles.menuText}>Privacy Policy</Text>
                   </View>
                 </TouchableOpacity>
-
-                {/* <TouchableOpacity onPress={logout}>
-                  <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
-                    <View style={styles.middleImage1}>
-                      <Material name={'logout'} size={20} color="white" />
-                    </View>
-                    <Text style={styles.menuText}>Log Out</Text>
-                  </View>
-                </TouchableOpacity> */}
               </View>
             </View>
           </View>

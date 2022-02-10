@@ -37,11 +37,7 @@ const Profile = props => {
       await fetchProfileByIdentifier();
     };
     fetchProfileAsync();
-
-	return () => {
-		cleanProfile();
-	  };
-	}, [isFocused]);
+	}, []);
 
   return (
     <ScrollView
