@@ -19,6 +19,9 @@ import Footer from '../../../shared/footer';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
+
 const HomeCommunity = props => {
   const {
     route,
@@ -352,7 +355,7 @@ const styles = StyleSheet.create({
   },
   ContentWrapper: {
     height: 206,
-    width: Platform.OS === 'ios' ? 330 : 364,
+    width:contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
