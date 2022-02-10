@@ -39,10 +39,9 @@ const ProfileScreen = (props) => {
         dispatch(fetchSessionsByUserID(identifier));
     };
 
-    const cleanSessionEvent = () => {
-        dispatch(resetprofileSession());
-    };
-
+	const cleanProfileSession =() =>{
+		dispatch(resetprofileSession());
+	}
     return (
         <Profile
             {...props}
@@ -57,8 +56,8 @@ const ProfileScreen = (props) => {
 			profileSessionLoading={profileSessionLoading}
 			profileSessionError={profileSessionError}
 			fetchSessionsByUserIdentifier={fetchSessionsByUserIdentifier}
-			cleanSessionEvent={cleanSessionEvent}
-
+			cleanProfileSession={cleanProfileSession}
+	
             profile={profile}
             profileLoading={profileLoading}
             profileError={profileError}
