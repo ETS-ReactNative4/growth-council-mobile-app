@@ -148,7 +148,7 @@ const EventCalendar = props => {
     };
 
     return (
-
+		
         <View style={styles.container}>
             <View style={[styles.calendar, styles.shadowProp]}>
                 <Calendar

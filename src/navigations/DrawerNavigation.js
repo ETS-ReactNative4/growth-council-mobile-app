@@ -19,7 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 
 import DashboardScreen from '../screens/dashboard';
 import {useAuthentication} from '../context/auth';
@@ -40,6 +40,7 @@ import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
 import {clearAsyncStorage} from '../utils/storageUtil';
 import ToastMessage from '../shared/toast';
+import {fetchProfileByID, resetProfile} from '../screens/account/slice/profileSlice';
 
 const Drawer = createDrawerNavigator();
 
@@ -106,10 +107,12 @@ const CustomDrawerContent = props => {
   );
 };
 
-const DrawerNavigation = ({navigation}) => {
-  const {profileEvent, profileEventLoading, profileEventError} = useSelector(
-    state => state.profileEvent,
-  );
+const DrawerNavigation = props => {
+	const dispatch = useDispatch();
+const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
+  const fetchProfileByIdentifier = () => {
+	dispatch(fetchProfileByID());
+};
 
   return (
     <Drawer.Navigator
@@ -125,7 +128,9 @@ const DrawerNavigation = ({navigation}) => {
             />
           </View>
         ),
-        headerTitle: () => <HeaderTitle />,
+        headerTitle: () => <HeaderTitle {...props}
+		profile={profile}
+		fetchProfileByIdentifier={fetchProfileByIdentifier}/>,
         headerLeft: () => (
           <View>
             <View>
@@ -156,7 +161,10 @@ const DrawerNavigation = ({navigation}) => {
             </View>
           </View>
         ),
-        headerRight: () => <HeaderRight navigation={navigation} />,
+        headerRight: () => <HeaderRight navigation={navigation}
+		{...props}
+		profile={profile}
+		fetchProfileByIdentifier={fetchProfileByIdentifier} />,
       })}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
