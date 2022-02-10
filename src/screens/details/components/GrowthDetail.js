@@ -86,9 +86,6 @@ const GrowthDetail = props => {
     fetchPoeSelfLearnAsync();
   }, []);
 
-  console.log('Self Learn ====', poeSelfLearns);
-  console.log('session', route.params.poeId);
-
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>

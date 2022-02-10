@@ -19,6 +19,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
+import session from 'redux-persist/lib/storage/session';
 
 const Session = props => {
   const {
@@ -44,8 +45,10 @@ const Session = props => {
   }, []);
 
   useEffect(() => {
-    setSessionStatus(sessions?.register_status);
+	  	console.log("sessions",sessions?.register_status)
+    	setSessionStatus(sessions?.register_status);
   }, [sessions]);
+
 
   const registerSessionBySessionID = async sessionID => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
