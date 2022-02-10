@@ -11,6 +11,7 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors} from '../../../theme';
+import { ScrollView } from 'native-base';
 
 const EventCalendar = props => {
     const {
@@ -148,8 +149,8 @@ const EventCalendar = props => {
     };
 
     return (
-
-        <View style={styles.container}>
+		<ScrollView>
+			<View style={styles.container}>
             <View style={[styles.calendar, styles.shadowProp]}>
                 <Calendar
                     markingType={'period'}
@@ -196,6 +197,8 @@ const EventCalendar = props => {
                 )}
             </View>
         </View>
+		</ScrollView>
+        
 
     );
 
