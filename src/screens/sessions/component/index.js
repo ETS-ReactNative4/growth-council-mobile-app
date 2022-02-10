@@ -144,7 +144,7 @@ const Session = props => {
                       </Text>
                     )}
                   </View>
-                  {/* {!sessionStatus && (
+                  {!sessionStatus && (
                     <View
                       style={{
                         flex: 1,
@@ -163,8 +163,8 @@ const Session = props => {
                         />
                       </TouchableOpacity>
                     </View>
-                  )} */}
-                  {!sessionStatus && (
+                  )}
+                  {sessionStatus && (
                     <View
                       style={{
                         flex: 1,
@@ -281,7 +281,7 @@ const Session = props => {
                   alignItems: 'center',
                   marginTop: 10,
                 }}>
-                {/* {!sessionStatus && (
+                {!sessionStatus && (
                   <Button
                     style={styles.acceptButton}
                     onPress={() =>
@@ -291,8 +291,8 @@ const Session = props => {
                       Sign Up in One Click
                     </Text>
                   </Button>
-                )} */}
-                {!sessionStatus && (
+                )}
+                {sessionStatus && (
                   <TouchableOpacity style={styles.registeredButton}>
                     <View style={{position: 'absolute', left: 20}}>
                       <Image
