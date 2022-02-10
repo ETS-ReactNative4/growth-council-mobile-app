@@ -87,7 +87,7 @@ const Event = props => {
     description = '';
   }
 
-  console.log('event Id ==', route?.params?.id);
+
 
   return (
     <ScrollView style={styles.scrollBox}>

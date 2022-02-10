@@ -174,7 +174,7 @@ const CommunityDetail = props => {
       <View style={styles.container}>
         <ImageBackground
           source={{uri: poeDetails?.pillar_detail_image}}
-          style={{height: 400}}>
+          style={{height: 400,}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
@@ -185,8 +185,8 @@ const CommunityDetail = props => {
             <Image
               source={{uri: poeDetails?.image}}
               style={{
-                width: 30,
-                height: 30,
+                width: 35,
+                height: 35,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -302,10 +302,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 19,
     marginLeft: Platform.OS === 'ios' ? 120 : 155,
-    marginTop: 190,
-    alignItems: 'center',
+    marginTop: 200,
     justifyContent: 'center',
     position: 'absolute',
+	alignItems: 'center',
     zIndex: 10,
     borderWidth: 0.3,
   },
