@@ -25,9 +25,11 @@ const EventCalendar = props => {
         cleanCalendarEvent,
     } = props;
 
-    const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
+    const [currentMonth, setCurrentMonth] = useState(moment().format('MM'));
+	const [calendarMonth, setCalendarMonth] = useState(moment().format('MM'));
+	const [calendarYear, setCalendarYear] = useState(moment().format('YYYY'));
     const [currentEvents, setCurrentEvents] = useState([]);
-	const [allEvents, setAllEvents] = useState(false);
+	const [showAllEvents, setShowAllEvents] = useState(false);
 	const [pickerVisible, setPickerVisible] = useState(false);
 
     useEffect(() => {
@@ -35,7 +37,7 @@ const EventCalendar = props => {
             await fetchAllCalendarEvent({
                 year: moment().format('YYYY'),
                 month: moment().format('MM'),
-				// all_events:allEvents,
+				all_events:showAllEvents,
 				
             }).then(response => {
                 if (response?.payload?.code === 200) {
@@ -99,7 +101,6 @@ const EventCalendar = props => {
 		
     });
 	
-	// console.log({currentEvents})
 
 
     const renderItem = ({item, index}) => {
@@ -153,9 +154,9 @@ const EventCalendar = props => {
     };
 
     return (
-
-        <View style={styles.container}>
-			{/* <View style={styles.iconWrapper}>
+		<ScrollView >
+			 <View style={styles.container}>
+			<View style={styles.iconWrapper}>
 				<TouchableOpacity
 					onPress={() => setPickerVisible(true)}
 					style={{
@@ -168,25 +169,29 @@ const EventCalendar = props => {
 					marginRight: 30,
 					}}>
 					<Text style={{fontSize: 12}}>
-					{allEvents === 'Select Events' ? 'Select Events' : allEvents}
+					{showAllEvents ? 'All Events' : "My Events"}
+					{/* Select Events */}
 					</Text>
 				</TouchableOpacity>
-			</View> */}
+			</View>
 				<View style={[styles.calendar, styles.shadowProp]}>
                 <Calendar
                     markingType={'period'}
                     onMonthChange={async month => {
                         cleanCalendarEvent();
+						setCalendarMonth(moment(month?.dateString).format('MM'));
+						setCalendarYear(moment(month?.dateString).format('YYYY'));
                         setCurrentMonth(moment(month?.dateString).format('MMMM'));
+
                         await fetchAllCalendarEvent({
                             year: moment(month?.dateString).format('YYYY'),
                             month: moment(month?.dateString).format('MM'),
-							// all_events:allEvents,
+							all_events:showAllEvents,
                         }).then(response => {
                             if (response?.payload?.code === 200) {
                                 setCurrentEvents(response?.payload?.data);
                             }
-							console.log({response})
+						
                         });
 						
                     }}
@@ -204,17 +209,13 @@ const EventCalendar = props => {
                     </View>
                 )}
                 {!calendarEventLoading && (
-					<ScrollView>
 						<FlatList
-                        Vertical
-                        showsVerticalScrollIndicator={false}
+                        horizontal={false}
+                        showsVerticalScrollIndicator={true}
                         data={currentEvents}
                         renderItem={renderItem}
 						
                     />
-					</ScrollView>
-                    
-					
                 )}
 				
             </View>
@@ -247,19 +248,27 @@ const EventCalendar = props => {
             </TouchableOpacity>
             <View >
               <Picker
-                selectedValue={allEvents}
+                selectedValue={showAllEvents}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 14}}
                 onValueChange={async (itemValue, itemIndex) => {
-                  setAllEvents(itemValue);
+                  setShowAllEvents(itemValue);
+
                   await fetchAllCalendarEvent({
-					year: moment().format('YYYY'),
-					month: moment().format('MM'),
-					all_events:allEvents,	
+					year: calendarYear,
+					month: calendarMonth,
+					all_events:itemValue,	
+					})
+
+					.then(response => {
+						if (response?.payload?.code === 200) {
+							setCurrentEvents(response?.payload?.data);
+						}
+						
 					})
                 }}>
-                <Picker.Item label="All Events" value="All Events" />
-        		<Picker.Item label="My Events" value="My Events" />
+                <Picker.Item label="All Events" value={true} />
+        		<Picker.Item label="My Events" value={false} />
                   
                
               </Picker>
@@ -269,6 +278,8 @@ const EventCalendar = props => {
       </Modal>
         </View>
 
+		</ScrollView>
+       
     );
 
 };
