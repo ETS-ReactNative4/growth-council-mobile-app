@@ -5,11 +5,13 @@ import {
     Text,
     FlatList,
     TouchableOpacity,
+	Modal
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-
+import {Picker} from '@react-native-picker/picker';
+import {useToast} from 'native-base';
 import {CommonStyles, Colors} from '../../../theme';
 
 const EventCalendar = props => {
@@ -23,18 +25,18 @@ const EventCalendar = props => {
         cleanCalendarEvent,
     } = props;
 
-    const [value, setValue] = useState('2021');
     const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
     const [currentEvents, setCurrentEvents] = useState([]);
-
-    const [selectedValue, setSelectedValue] = useState('Region');
-    const [timeValue, setTimeValue] = useState('Time Zone');
+	const [allEvents, setAllEvents] = useState( );
+	const [pickerVisible, setPickerVisible] = useState(false);
 
     useEffect(() => {
         const fetchCalendarEventAsync = async () => {
             await fetchAllCalendarEvent({
                 year: moment().format('YYYY'),
                 month: moment().format('MM'),
+				// all_events:allEvents,
+				
             }).then(response => {
                 if (response?.payload?.code === 200) {
                     setCurrentEvents(response?.payload);
@@ -94,7 +96,10 @@ const EventCalendar = props => {
                 }
             });
         }
+		
     });
+	
+	console.log({calendarEvents})
 
 
     const renderItem = ({item, index}) => {
@@ -150,7 +155,24 @@ const EventCalendar = props => {
     return (
 
         <View style={styles.container}>
-            <View style={[styles.calendar, styles.shadowProp]}>
+			<View style={styles.iconWrapper}>
+				<TouchableOpacity
+					onPress={() => setPickerVisible(true)}
+					style={{
+					flex: 1,
+					alignItems: 'center',
+					borderWidth: 1,
+					paddingVertical: 10,
+					borderRadius: 10,
+					borderColor: 'gray',
+					marginRight: 30,
+					}}>
+					<Text style={{fontSize: 12}}>
+					{/* {allEvents === 'Select Events' ? 'Select Events' : allEvents} */}
+					</Text>
+				</TouchableOpacity>
+			</View>
+				<View style={[styles.calendar, styles.shadowProp]}>
                 <Calendar
                     markingType={'period'}
                     onMonthChange={async month => {
@@ -159,6 +181,7 @@ const EventCalendar = props => {
                         await fetchAllCalendarEvent({
                             year: moment(month?.dateString).format('YYYY'),
                             month: moment(month?.dateString).format('MM'),
+							// all_events:allEvents,
                         }).then(response => {
                             if (response?.payload?.code === 200) {
                                 setCurrentEvents(response?.payload);
@@ -166,15 +189,7 @@ const EventCalendar = props => {
                         });
                     }}
                     markedDates={markedDay}
-                    //  markedDates={{
-                    //      '2022-01-10': { color: 'green',textColor: 'white'},
-                    //      '2022-01-12': { color: 'green',textColor: 'white'},
-                    //      '2022-01-21': {startingDay: true, color: '#50cebb', textColor: 'white'},
-                    //      '2022-01-22': {color: '#70d7c7', textColor: 'white'},
-                    //      '2022-01-23': {color: '#70d7c7', textColor: 'white', marked: true, dotColor: 'white'},
-                    //      '2022-01-24': {color: '#70d7c7', textColor: 'white'},
-                    //      '2022-01-25': {endingDay: true, color: '#50cebb', textColor: 'white'}
-                    //  }}
+                  
                 />
             </View>
             <View style={styles.events}>
@@ -192,9 +207,61 @@ const EventCalendar = props => {
                         showsVerticalScrollIndicator={false}
                         data={currentEvents}
                         renderItem={renderItem}
+						
                     />
+					
                 )}
+				
             </View>
+			<Modal transparent visible={pickerVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setPickerVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View >
+              <Picker
+                // selectedValue={allEvents}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 14}}
+                onValueChange={async (itemValue, itemIndex) => {
+                //   setAllEvents(itemValue);
+                  await fetchAllCalendarEvent({
+					year: moment().format('YYYY'),
+					month: moment().format('MM'),
+					// all_events:allEvents,	
+					})
+                }}>
+                <Picker.Item label="All Events" value="All Events" />
+        		<Picker.Item label="My Events" value="My Events" />
+                  
+               
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
         </View>
 
     );
@@ -215,6 +282,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: '#F2F2F2',
     },
+	iconWrapper: {
+		flexDirection: 'row',
+		justifyContent:'center',
+		alignItems: 'center',
+		marginTop:20,
+		marginLeft:20,
+	  },
     activeWrapper: {
         backgroundColor: '#fff',
         alignItems: 'center',
