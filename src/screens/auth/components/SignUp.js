@@ -469,30 +469,14 @@ const SignUpForm = props => {
 					/>
 					<View>
 						<Text style={{marginTop:7, width:"55%"}}>
-							By Clicking submit, I agree to Frost & Sullivan's 
+							By Clicking submit, I agree to Frost & Sullivan 
 							<Text style={{paddingTop:5, color:'blue'}} 
-									onPress={()=>Alert.alert("Please login first!!!")
-									[
-										{
-										text: "Cancel",
-										onPress: () => console.log("Cancel Pressed"),
-										style: "cancel"
-										},
-										{ text: "OK", onPress: () => console.log("OK Pressed") }
-									]}> Terms of Use 
+								onPress={() => navigation.navigate('Terms')}> Terms of Use 
 							</Text>
 							and 
 							
 							<Text style={{paddingTop:5, color:'blue'}} 
-									onPress={()=>Alert.alert("Please login first!!!")
-									[
-										{
-										text: "Cancel",
-										onPress: () => console.log("Cancel Pressed"),
-										style: "cancel"
-										},
-										{ text: "OK", onPress: () => console.log("OK Pressed") }
-									]}> Privacy Policy
+									onPress={() => navigation.navigate('Privacy')}> Privacy Policy
 							</Text>
 							
 						</Text>
@@ -604,11 +588,13 @@ const styles = StyleSheet.create({
     height: '65%',
     width: '100%',
     marginBottom: 0,
+
   },
   body: {
-    width: '90%',
+    width: '98%',
     // alignItems: 'center',
     justifyContent: 'center',
+	
   },
   content: {
     height: '86%',

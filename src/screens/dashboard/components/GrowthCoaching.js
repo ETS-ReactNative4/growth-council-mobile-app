@@ -277,7 +277,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   top: {
-    height: 200,
     marginTop: 25,
     justifyContent: 'center',
   },
@@ -314,7 +313,7 @@ const styles = StyleSheet.create({
   },
   middle: {
     width: 400,
-    marginTop: 10,
+    marginTop: 20,
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
@@ -339,7 +338,7 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
-    height: 172,
+   
     marginTop: 25,
   },
   bottomWrapper: {

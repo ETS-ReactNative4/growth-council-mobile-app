@@ -9,11 +9,10 @@ import {registerSessionByID, resetSessionRegister} from './slice/sessionRegister
 const SessionDetailScreen = props => {
     const dispatch = useDispatch();
 
-    const {sessions, sessionLoading, sessionError} = useSelector(
-        state => state.sessions,
+    const {sessions, sessionLoading, sessionError} = useSelector(( state) => state.sessions
     );
     const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} =
-        useSelector(state => state.sessionRegisters);
+        useSelector((state) => state.sessionRegisters);
 
     const fetchSessionByIdentifier = identifier => {
         dispatch(fetchSessionByID(identifier));
