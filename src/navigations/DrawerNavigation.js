@@ -25,7 +25,7 @@ import DashboardScreen from '../screens/dashboard';
 import {useAuthentication} from '../context/auth';
 
 import CalendarScreen from '../screens/calendar';
-import SearchScreen from '../screens/search';
+
 import AboutScreen from '../screens/about';
 import FeedbackScreen from '../screens/feedback';
 import ContributeIdeasScreen from '../screens/ideas';
@@ -266,12 +266,11 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
         })}
       />
       <Drawer.Screen
-        name="Search"
-       
-		component={SearchScreen}
+        name="Calendar"   
+		component={CalendarScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="options-outline" color={'#00008B'} size={24} />
+			<Ionicons name="calendar-outline" color={'#00008B'} size={size}/>
           ),
           headerTitle: () => (
             <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
@@ -282,7 +281,7 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
                   fontSize: 22,
                   marginTop: 10,
                 }}>
-                Search
+                Calendar
               </Text>
             </View>
           ),
