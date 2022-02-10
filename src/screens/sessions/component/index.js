@@ -35,15 +35,17 @@ const Session = props => {
     registerSessionByIdentifier,
     cleanSessionRegister,
   } = props;
+
   const toast = useToast();
   const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
 
   useEffect(() => {
-    const fetchSessionDetailAsync = async () => {
-      await fetchSessionByIdentifier(route.params.id);
-    };
-    fetchSessionDetailAsync();
+    fetchSessionByIdentifier(route.params.id);
   }, []);
+
+  useEffect(() => {
+    setSessionStatus(sessions?.register_status);
+  }, [sessions]);
 
   const registerSessionBySessionID = async sessionID => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
@@ -202,8 +204,8 @@ const Session = props => {
                         paddingLeft: 10,
                       }}>
                       <Text style={styles.contentHeading}>
-                        {sessions?.location?.location_city}{' '} ,
-                        {sessions?.location?.location_state}{' '} ,
+                        {sessions?.location?.location_city} ,
+                        {sessions?.location?.location_state} ,
                         {sessions?.location?.location_country}
                       </Text>
                       <Text>{sessions?.location?.location_address}</Text>
@@ -220,63 +222,6 @@ const Session = props => {
                 </View>
               </View>
 
-              {/* <View>
-                <View style={{marginTop: 10}}>
-                  <Text style={styles.contentHeading}>Traits</Text>
-                </View>
-
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: 10,
-                  }}>
-                  <View
-                    style={{
-                      paddingTop: 5,
-                      paddingBottom: 5,
-                      flexDirection: 'row',
-                    }}>
-                    <View
-                      style={{
-                        height: 60,
-                        width: 60,
-                        borderRadius: 15,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'white',
-                        borderWidth: 0.3,
-                      }}>
-                      <Ionicons name={'medkit'} size={30} color={'#A1BA68'} />
-                    </View>
-
-                    <Text style={{padding: 20}}>Trait 1</Text>
-                  </View>
-
-                  <View
-                    style={{
-                      paddingTop: 5,
-                      paddingBottom: 5,
-                      flexDirection: 'row',
-                    }}>
-                    <View
-                      style={{
-                        height: 60,
-                        width: 60,
-                        borderRadius: 15,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'white',
-                        borderWidth: 0.3,
-                      }}>
-                      <Ionicons name={'medkit'} size={30} color={'#A1BA68'} />
-                    </View>
-
-                    <Text style={{padding: 20}}>Trait 2</Text>
-                  </View>
-                </View>
-              </View> */}
-
               <View style={{height: 150}}>
                 <View style={{marginTop: 25}}>
                   <Text style={styles.contentHeading}>Coached By</Text>
@@ -289,7 +234,7 @@ const Session = props => {
                     ]}>
                     <Image
                       source={{uri: sessions?.organizer_image}}
-                      style={{width: "100%", height:"100%"}}
+                      style={{width: '100%', height: '100%'}}
                     />
                   </View>
 
@@ -298,6 +243,14 @@ const Session = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
+                    {sessionRegisterLoading && (
+                      <View style={styles.loading1}>
+                        <BubblesLoader
+                          color={Colors.SECONDARY_TEXT_COLOR}
+                          size={80}
+                        />
+                      </View>
+                    )}
                     <Text style={styles.contentHeading}>
                       {sessions?.organizer?.term_name}
                     </Text>
@@ -311,24 +264,7 @@ const Session = props => {
                       borderRadius: 15,
                       justifyContent: 'center',
                       alignItems: 'flex-end',
-                    }}>
-                    {/* <Button
-                                            style={{
-                                                width: '85%',
-                                                height: 40,
-                                                backgroundColor: '#183863',
-                                                borderRadius: 15,
-                                            }}
-                                            onPress={() => navigation.navigate('SignUp')}>
-                                            <Text
-                                                style={[
-                                                    styles.acceptButtonText,
-                                                    {fontWeight: 'bold', fontSize: 15},
-                                                ]}>
-                                                Follow
-                                            </Text>
-                                        </Button> */}
-                  </View>
+                    }}></View>
                 </View>
               </View>
 
@@ -339,7 +275,12 @@ const Session = props => {
                 )}
               </View>
 
-              <View style={{justifyContent: 'center', alignItems: 'center', marginTop:10}}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 10,
+                }}>
                 {!sessionStatus && (
                   <Button
                     style={styles.acceptButton}
@@ -353,10 +294,10 @@ const Session = props => {
                 )}
                 {sessionStatus && (
                   <TouchableOpacity style={styles.registeredButton}>
-                    <View style={{paddingLeft: 10}}>
+                    <View style={{position: 'absolute', left: 20}}>
                       <Image
                         source={require('../../../assets/img/tick-icon.png')}
-                        style={{width: 30, height: 30}}
+                        style={{width: 25, height: 25}}
                       />
                     </View>
                     <Text style={styles.registeredButtonText}>Registered</Text>
@@ -402,7 +343,7 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
     fontSize: 14,
-	marginBottom:8,
+    marginBottom: 8,
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,
@@ -454,6 +395,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   registeredButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     width: '100%',
     height: 50,
@@ -461,8 +405,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     borderColor: '#F26722',
     borderWidth: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
+    position: 'relative',
   },
   acceptButtonText: {
     width: '100%',
@@ -471,11 +414,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   registeredButtonText: {
-    width: '100%',
-    height: 20,
-    fontSize: 14,
     color: '#F26722',
-    paddingLeft: 110,
   },
   infoicon: {
     flex: 1,

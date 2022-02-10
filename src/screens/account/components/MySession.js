@@ -43,7 +43,7 @@ const MySession = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() => navigation.navigate('SessionDetail', {id: item.ID})}>
           <View style={styles.middleWrapper} key={index}>
             <View style={styles.wrapper}>
               <Text style={styles.text}>{item.title}</Text>
