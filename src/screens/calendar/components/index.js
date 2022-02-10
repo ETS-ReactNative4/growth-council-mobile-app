@@ -35,7 +35,7 @@ const EventCalendar = props => {
             await fetchAllCalendarEvent({
                 year: moment().format('YYYY'),
                 month: moment().format('MM'),
-				all_events:allEvents,
+				// all_events:allEvents,
 				
             }).then(response => {
                 if (response?.payload?.code === 200) {
@@ -155,7 +155,7 @@ const EventCalendar = props => {
     return (
 
         <View style={styles.container}>
-			<View style={styles.iconWrapper}>
+			{/* <View style={styles.iconWrapper}>
 				<TouchableOpacity
 					onPress={() => setPickerVisible(true)}
 					style={{
@@ -171,7 +171,7 @@ const EventCalendar = props => {
 					{allEvents === 'Select Events' ? 'Select Events' : allEvents}
 					</Text>
 				</TouchableOpacity>
-			</View>
+			</View> */}
 				<View style={[styles.calendar, styles.shadowProp]}>
                 <Calendar
                     markingType={'period'}
@@ -181,7 +181,7 @@ const EventCalendar = props => {
                         await fetchAllCalendarEvent({
                             year: moment(month?.dateString).format('YYYY'),
                             month: moment(month?.dateString).format('MM'),
-							all_events:allEvents,
+							// all_events:allEvents,
                         }).then(response => {
                             if (response?.payload?.code === 200) {
                                 setCurrentEvents(response?.payload?.data);
