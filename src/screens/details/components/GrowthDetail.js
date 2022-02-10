@@ -88,16 +88,16 @@ const GrowthDetail = props => {
 
   console.log('Self Learn ====', poeSelfLearns);
   console.log('session', route.params.poeId);
-  
+
   const _renderItem = ({item, index}, navigation) => {
     return (
-		<View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
+      <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
             source={{uri: item.avatar}}
             style={{
-              width: 83,
+              width: '100%',
               height: 83,
               borderRadius: 10,
             }}
@@ -165,7 +165,6 @@ const GrowthDetail = props => {
     );
   };
 
-
   const _renderMiddleItem = ({item, index}) => {
     const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
@@ -209,7 +208,6 @@ const GrowthDetail = props => {
     );
   };
 
-
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
@@ -220,8 +218,6 @@ const GrowthDetail = props => {
       </View>
     );
   };
-
-  
 
   const _renderLearnItem = ({item, index}) => {
     return (
@@ -399,7 +395,7 @@ const GrowthDetail = props => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={pillarMemberContents.members}
-					renderItem={item => _renderItem(item, navigation)}
+                    renderItem={item => _renderItem(item, navigation)}
                   />
                 </View>
               </View>
@@ -532,13 +528,12 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   bottomWrapper: {
-    width: 84,
+    width: Dimensions.get('window').width / 4,
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
     backgroundColor: 'white',
-    overflow: 'hidden',
   },
   chatIcon: {
     borderRadius: 50,

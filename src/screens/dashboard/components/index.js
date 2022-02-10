@@ -92,7 +92,7 @@ const Dashboard = props => {
           <Image
             source={{uri: item.avatar}}
             style={{
-              width: 83,
+              width: '100%',
               height: 83,
               borderRadius: 10,
             }}
@@ -122,12 +122,12 @@ const Dashboard = props => {
   const _renderMiddleItem = ({item, index}) => {
     let poePage = 'CommunityDetail';
     if (item?.parent === 119) {
-    //   poePage = 'GrowthDetail';
-		if (item?.slug === 'growth-leadership-coaching') {
-			poePage = 'GrowthDetail';
-		}else{
-			poePage = 'CommunityDetail';	
-		}
+      //   poePage = 'GrowthDetail';
+      if (item?.slug === 'growth-leadership-coaching') {
+        poePage = 'GrowthDetail';
+      } else {
+        poePage = 'CommunityDetail';
+      }
     }
     return (
       <TouchableOpacity
@@ -394,13 +394,13 @@ const styles = StyleSheet.create({
   },
   middle: {
     marginTop: 10,
-	marginLeft:5,
+    marginLeft: 5,
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
-	
+
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -424,14 +424,13 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   bottomWrapper: {
-    width: Platform.OS === 'ios' ? 70 : 84,
     position: 'relative',
+    width: Dimensions.get('window').width / 4,
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
     backgroundColor: 'white',
-    overflow: 'hidden',
   },
   chatIcon: {
     borderRadius: 50,
