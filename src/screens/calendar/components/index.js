@@ -11,7 +11,7 @@ import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {Picker} from '@react-native-picker/picker';
-import {useToast} from 'native-base';
+import {ScrollView, useToast} from 'native-base';
 import {CommonStyles, Colors} from '../../../theme';
 
 const EventCalendar = props => {
@@ -27,7 +27,7 @@ const EventCalendar = props => {
 
     const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
     const [currentEvents, setCurrentEvents] = useState([]);
-	const [allEvents, setAllEvents] = useState( );
+	const [allEvents, setAllEvents] = useState(false);
 	const [pickerVisible, setPickerVisible] = useState(false);
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const EventCalendar = props => {
             await fetchAllCalendarEvent({
                 year: moment().format('YYYY'),
                 month: moment().format('MM'),
-				// all_events:allEvents,
+				all_events:allEvents,
 				
             }).then(response => {
                 if (response?.payload?.code === 200) {
@@ -99,7 +99,7 @@ const EventCalendar = props => {
 		
     });
 	
-	console.log({calendarEvents})
+	// console.log({currentEvents})
 
 
     const renderItem = ({item, index}) => {
@@ -168,7 +168,7 @@ const EventCalendar = props => {
 					marginRight: 30,
 					}}>
 					<Text style={{fontSize: 12}}>
-					{/* {allEvents === 'Select Events' ? 'Select Events' : allEvents} */}
+					{allEvents === 'Select Events' ? 'Select Events' : allEvents}
 					</Text>
 				</TouchableOpacity>
 			</View>
@@ -181,12 +181,14 @@ const EventCalendar = props => {
                         await fetchAllCalendarEvent({
                             year: moment(month?.dateString).format('YYYY'),
                             month: moment(month?.dateString).format('MM'),
-							// all_events:allEvents,
+							all_events:allEvents,
                         }).then(response => {
                             if (response?.payload?.code === 200) {
                                 setCurrentEvents(response?.payload);
                             }
+							console.log({response})
                         });
+						
                     }}
                     markedDates={markedDay}
                   
@@ -202,13 +204,16 @@ const EventCalendar = props => {
                     </View>
                 )}
                 {!calendarEventLoading && (
-                    <FlatList
+					<ScrollView>
+						<FlatList
                         Vertical
                         showsVerticalScrollIndicator={false}
                         data={currentEvents}
                         renderItem={renderItem}
 						
                     />
+					</ScrollView>
+                    
 					
                 )}
 				
@@ -242,15 +247,15 @@ const EventCalendar = props => {
             </TouchableOpacity>
             <View >
               <Picker
-                // selectedValue={allEvents}
+                selectedValue={allEvents}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 14}}
                 onValueChange={async (itemValue, itemIndex) => {
-                //   setAllEvents(itemValue);
+                  setAllEvents(itemValue);
                   await fetchAllCalendarEvent({
 					year: moment().format('YYYY'),
 					month: moment().format('MM'),
-					// all_events:allEvents,	
+					all_events:allEvents,	
 					})
                 }}>
                 <Picker.Item label="All Events" value="All Events" />
