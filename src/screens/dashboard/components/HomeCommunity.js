@@ -296,7 +296,6 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
   middle: {
-    width: 400,
     marginTop: 20,
   },
   middleWrapper: {
@@ -320,7 +319,6 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   bottom: {
-  
     marginTop: 15,
   },
   bottomWrapper: {
