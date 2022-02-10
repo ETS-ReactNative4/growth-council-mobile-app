@@ -49,15 +49,11 @@ const sessionAbout = props => {
 	}, [sessions]);
 
     const registerSessionBySessionID = async sessionID => {
-		// console.log({session_id: sessionID});
         const response = await registerSessionByIdentifier({session_id: sessionID});
-		console.log({response})
-        if (response?.payload?.code === 200) {
-			
+        if (response?.payload?.code === 200) {	
             setSessionStatus(true);
             ToastMessage.show('You have successfully registered this event.');
-        } else {
-			
+        } else {	
             toast.closeAll();
             ToastMessage.show(response?.payload?.message);
         }

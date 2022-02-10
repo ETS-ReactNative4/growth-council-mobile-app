@@ -45,7 +45,6 @@ const Session = props => {
   }, []);
 
   useEffect(() => {
-	  	console.log("sessions",sessions?.register_status)
     	setSessionStatus(sessions?.register_status);
   }, [sessions]);
 
