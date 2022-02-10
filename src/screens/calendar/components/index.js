@@ -37,7 +37,7 @@ const EventCalendar = props => {
                 month: moment().format('MM'),
             }).then(response => {
                 if (response?.payload?.code === 200) {
-                    setCurrentEvents(response?.payload);
+                    setCurrentEvents(response?.payload?.data);
                 }
             });
         };
@@ -161,7 +161,7 @@ const EventCalendar = props => {
                             month: moment(month?.dateString).format('MM'),
                         }).then(response => {
                             if (response?.payload?.code === 200) {
-                                setCurrentEvents(response?.payload);
+                                setCurrentEvents(response?.payload?.data);
                             }
                         });
                     }}
