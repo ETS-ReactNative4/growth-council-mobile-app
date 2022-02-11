@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Text,
     View,
@@ -43,12 +43,17 @@ const sessionAbout = props => {
     const toast = useToast();
     const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
 
+	
+	useEffect(() => {		
+	  setSessionStatus(sessions?.register_status);	
+	}, [sessions]);
+
     const registerSessionBySessionID = async sessionID => {
         const response = await registerSessionByIdentifier({session_id: sessionID});
-        if (response?.payload?.code === 200) {
+        if (response?.payload?.code === 200) {	
             setSessionStatus(true);
             ToastMessage.show('You have successfully registered this event.');
-        } else {
+        } else {	
             toast.closeAll();
             ToastMessage.show(response?.payload?.message);
         }
@@ -123,7 +128,9 @@ const sessionAbout = props => {
                                 {sessions?.event_meta?._start_ampm} /
                                 {sessions?.event_meta?._end_hour}:
                                 {sessions?.event_meta?._end_minute}
-                                {sessions?.event_meta?._end_ampm} (PDT)
+                                {sessions?.event_meta?._end_ampm}
+								{'\n'}
+								{sessions?.time_zone}
                             </Text>
                         )}
                     </View>
@@ -259,7 +266,7 @@ const sessionAbout = props => {
                     </Button>
                 )}
                 {sessionStatus && (
-                    <TouchableOpacity style={styles.registeredButton}>
+                    <TouchableOpacity style={styles.registeredButton} disabled>
                         <View style={{paddingLeft: 10}}>
                             <Image
                                 source={require('../../../assets/img/tick-icon.png')}

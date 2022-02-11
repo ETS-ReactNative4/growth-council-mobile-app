@@ -61,6 +61,7 @@ const Event = props => {
     }
   };
 
+  
   const isEventLoaded = Object.keys(events).length === 0;
   const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
   const date = actualDate[1].split(' ', 3);

@@ -222,6 +222,7 @@ const GrowthCoaching = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
+
           {pillarEventLoading && pillarPOELoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -318,7 +319,6 @@ const styles = StyleSheet.create({
     width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
-
     justifyContent: 'center',
     alignItems: 'center',
   },
