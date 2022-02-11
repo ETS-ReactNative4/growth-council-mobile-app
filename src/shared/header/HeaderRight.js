@@ -19,10 +19,8 @@ const HeaderRight = props => {
   } = props;
 
   useEffect(() => {
-   
        fetchProfileByIdentifier();
-
-	}, [isFocused]);
+	}, []);
 
 //   useEffect(() => {
 //     async function myAvatarImg() {

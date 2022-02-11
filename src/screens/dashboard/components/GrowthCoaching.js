@@ -312,7 +312,6 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
   middle: {
-    width: 400,
     marginTop: 20,
   },
   middleWrapper: {

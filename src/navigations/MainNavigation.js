@@ -267,6 +267,11 @@ const MainNavigation = () => {
             headerTitle: ' ',
           })}
         />
+		<Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{headerShown: false}}
+        />
 
         <Stack.Screen
           name="Chat"

@@ -16,10 +16,8 @@ const HeaderTitle = props => {
   } = props;
 
   useEffect(() => {
-   
        fetchProfileByIdentifier();
-
-	}, [isFocused]);
+	}, []);
 
 //   useEffect(() => {
 //     async function myName() {

@@ -54,7 +54,6 @@ const Session = props => {
       ToastMessage.show('You have successfully registered this event.');
     } else {
       toast.closeAll();
-	  console.log({response});
       ToastMessage.show(response?.payload?.response);
     }
   };
