@@ -286,14 +286,15 @@ const GrowthDetail = props => {
   return (
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
-        <ImageBackground
+	  <ImageBackground
           source={{uri: poeDetails?.pillar_detail_image}}
-          style={{height: 400}}>
+          style={{height: 240, width: '100%'}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
           </TouchableOpacity>
+        </ImageBackground>
 
           <View style={styles.icon}>
             <Image
@@ -417,7 +418,6 @@ const GrowthDetail = props => {
               </View>
             </View>
           </View>
-        </ImageBackground>
       </View>
       <Footer />
     </ScrollView>
@@ -430,6 +430,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     height: 1350,
+	alignItems: 'center',
   },
   arrow: {
     marginTop: 30,
@@ -439,8 +440,7 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-    marginLeft: Platform.OS === 'ios' ? 120 : 150,
-    marginTop: 190,
+    marginTop: 200,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
@@ -457,7 +457,6 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
     borderRadius: 18,
-    marginTop: 150,
     borderTopWidth: 10,
     borderColor: Colors.COACHING_COLOR,
   },
