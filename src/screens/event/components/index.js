@@ -21,6 +21,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
+import Timezone from './timezone';
 
 const Event = props => {
   const {
@@ -236,12 +237,24 @@ const Event = props => {
   //   console.log(london.format('ha z'))
   //   console.log(london.isDST())
 
-  const jun = moment.tz(events?.event_start, );
-  const a = jun.clone().tz("America/Los_Angeles");
-  const b = jun.clone().tz('Asia/Katmandu')
+//   const jun = moment.tz(events?.event_start, );
+//   const a = jun.clone().tz("America/Los_Angeles");
+//   const b = jun.clone().tz('Asia/Katmandu')
 
-  console.log(a.format());
-  console.log(b.format());
+//   console.log(a.format());
+//   console.log(b.format());
+
+const dateToTime = date => date.toLocaleString('en-US', {
+	hour: 'numeric',
+	minute: 'numeric'
+  });
+  
+  const dateString = events?.event_start
+  const userOffset = new Date().getTimezoneOffset()*60*1000;
+  const localDate = new Date(dateString);
+  const utcDate = new Date(localDate.getTime() + userOffset);
+  
+  console.log(`${dateToTime(utcDate)} (${dateToTime(localDate)} Your Time)`);
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -301,6 +314,7 @@ const Event = props => {
                         {events?.event_meta?._end_hour}:
                         {events?.event_meta?._end_minute}
                         {events?.event_meta?._end_ampm} (PDT)
+						{/* <Timezone/> */}
                       </Text>
                     )}
                   </View>
