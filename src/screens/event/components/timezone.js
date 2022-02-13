@@ -1,36 +1,15 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import TimezoneSelect from 'react-timezone-select'
+export const language = "en-US";
+export const timeZone = { timeZone: "Pacific/Auckland" };
 
-const timezone = () => {
-  const [selectedTimezone, setSelectedTimezone] = useState({});
-  return (
-    <View>
-      <Text>Please make a selection</Text>
-      <TimezoneSelect value={selectedTimezone} onChange={setSelectedTimezone} />
+//to initialize the date
+export function getGlobalDate() {
+  return new Date().toLocaleString(language, timeZone);
+}
 
-      <Text>Output:</Text>
-      <View
-        style={{
-          backgroundColor: '#ccc',
-          padding: '20px',
-          margin: '20px auto',
-          borderRadius: '5px',
-          maxWidth: '600px',
-        }}>
-        <Text
-          style={{
-            margin: '0 20px',
-            fontWeight: 500,
-            fontFamily: 'monospace',
-          }}>
-          {JSON.stringify(selectedTimezone, null, 2)}
-        </Text>
-      </View>
-    </View>
-  );
-};
+//for onChanging the date and convert it to the timzone
+export function onChangeFormat(e) {
+  const convertToUTC = e.toLocaleString(language, timeZone);
+  console.log(convertToUTC);
 
-const styles = StyleSheet.create({});
-
-export default timezone;
+  return convertToUTC;
+}
