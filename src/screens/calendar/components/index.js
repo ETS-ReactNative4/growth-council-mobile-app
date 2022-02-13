@@ -151,7 +151,7 @@ const EventCalendar = props => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.iconWrapper}>
           <TouchableOpacity
@@ -309,9 +309,9 @@ const styles = StyleSheet.create({
     top: '20%',
   },
   calendar: {
-    width: '98%',
+    width: '95%',
     padding: 5,
-    marginLeft: 5,
+    marginLeft: 10,
     marginTop: 30,
     backgroundColor: '#F5F5F5',
     borderRadius: 20,
