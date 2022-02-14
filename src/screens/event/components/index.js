@@ -26,6 +26,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
 
+
 const Event = props => {
   const {
     navigation,
@@ -252,7 +253,9 @@ const Event = props => {
 
     // Set the state or whatever
     setTimeToDisplay(convertedToLocalTime);
-  }, []);
+
+    console.log({timeToDisplay});
+  }, [events]);
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -295,7 +298,7 @@ const Event = props => {
             <Text style={{fontSize: 14, marginBottom: 20}}>
               Converted To local timezone: {timeToDisplay}
             </Text>
-            0<Text>Your timezone: {deviceTimeZone}</Text>
+            <Text>Your timezone: {deviceTimeZone}</Text>
             <View style={styles.content}>
               <View style={{flexDirection: 'column'}}>
                 <View
