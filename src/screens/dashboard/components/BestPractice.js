@@ -190,7 +190,7 @@ const BestPractice = props => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Best Practices Events</Text>
