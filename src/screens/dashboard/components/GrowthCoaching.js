@@ -200,7 +200,7 @@ const GrowthCoaching = props => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Growth Coaching Events</Text>
@@ -222,7 +222,8 @@ const GrowthCoaching = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          {pillarEventLoading && pillarPOELoading && (
+
+          {pillarPOELoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
@@ -318,7 +319,6 @@ const styles = StyleSheet.create({
     width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
-
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -336,8 +336,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
 
-  bottom: {
-   
+  bottom: { 
     marginTop: 25,
   },
   bottomWrapper: {
@@ -364,7 +363,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   content: {
-    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,

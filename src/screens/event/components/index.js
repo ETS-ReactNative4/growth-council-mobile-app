@@ -101,7 +101,7 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format("dddd, MMMM Do YYYY, h:mm:ss a")
+  const GobalDate = moment(timeToDisplay).format("dddd, MMMM Do, h:mm a")
   console.log(GobalDate);
 
   useEffect(() => {
@@ -155,11 +155,12 @@ const Event = props => {
                   <View
                     style={{
                       flex: 4,
-                      paddingLeft: 10,
+                      paddingLeft: 5,
                     }}>
                     <Text style={styles.eventDetails}>
-                      {GobalDate}, {deviceTimeZone}
+                      {GobalDate}
                     </Text>
+					<Text>{deviceTimeZone}</Text>
 
                   </View>
                   {!eventStatus && (
@@ -219,7 +220,7 @@ const Event = props => {
                     <View
                       style={{
                         flex: 5,
-                        paddingLeft: 10,
+                        paddingLeft: 5,
                       }}>
                       <Text style={styles.eventDetails}>
                         {events?.location?.location_city}{' '}
