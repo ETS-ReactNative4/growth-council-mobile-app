@@ -9,7 +9,7 @@ const Footer = props => {
         justifyContent: 'center',
         marginBottom: 10,
       }}>
-      <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
+      <Text style={{fontSize: 8, marginTop: 10, marginBottom:5}}>Powered By</Text>
       <Image
         source={require('../../assets/img/fristDigi.png')}
         style={{width: '35%', height: 20}}

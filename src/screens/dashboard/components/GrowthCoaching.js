@@ -336,8 +336,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
 
-  bottom: {
-   
+  bottom: { 
     marginTop: 25,
   },
   bottomWrapper: {
@@ -364,7 +363,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   content: {
-    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,

@@ -194,7 +194,7 @@ const CommunityDetail = props => {
           />
         </View>
 
-        <View style={styles.content}>
+        <ScrollView style={styles.content}>
           <View style={styles.contentWrapper}>
             <Text
               style={{
@@ -275,7 +275,7 @@ const CommunityDetail = props => {
 
             <Footer />
           </View>
-        </View>
+        </ScrollView>
       </View>
     </ScrollView>
   );
@@ -284,7 +284,6 @@ const CommunityDetail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1300,
     alignItems: 'center',
   },
   arrow: {
@@ -316,7 +315,6 @@ const styles = StyleSheet.create({
   contentWrapper: {
     backgroundColor: 'white',
     borderRadius: 18,
-    height: 1300,
     overflow: 'scroll',
     marginTop: 10,
   },
@@ -329,7 +327,6 @@ const styles = StyleSheet.create({
     color: '#77838F',
   },
   top: {
-    height: 200,
     marginTop: 10,
     justifyContent: 'center',
   },
@@ -341,7 +338,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   bottom: {
-    height: 172,
     marginTop: 15,
   },
   bottomWrapper: {
@@ -387,7 +383,6 @@ const styles = StyleSheet.create({
   },
 
   growthContent: {
-    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,

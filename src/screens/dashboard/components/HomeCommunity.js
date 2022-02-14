@@ -263,7 +263,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   top: {
-    // height: 200,
     marginTop: 25,
     justifyContent: 'center',
   },
@@ -348,7 +347,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   content: {
-    height: 250,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
