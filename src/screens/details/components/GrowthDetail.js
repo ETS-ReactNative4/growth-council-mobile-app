@@ -283,7 +283,7 @@ const GrowthDetail = props => {
   return (
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
-	  <ImageBackground
+        <ImageBackground
           source={{uri: poeDetails?.pillar_detail_image}}
           style={{height: 240, width: '100%'}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -293,33 +293,33 @@ const GrowthDetail = props => {
           </TouchableOpacity>
         </ImageBackground>
 
-          <View style={styles.icon}>
-            <Image
-              source={{uri: poeDetails?.image}}
+        <View style={styles.icon}>
+          <Image
+            source={{uri: poeDetails?.image}}
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          />
+        </View>
+
+        <ScrollView style={styles.content}>
+          <View style={styles.contentWrapper}>
+            <Text
               style={{
-                width: 30,
-                height: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            />
-          </View>
+                fontSize: 16,
+                fontWeight: '500',
+                color: '#1E2022',
+                textAlign: 'center',
+                marginTop: 50,
+              }}>
+              {poeDetails.name}
+            </Text>
+            <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
-          <View style={styles.content}>
-            <View style={styles.contentWrapper}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  color: '#1E2022',
-                  textAlign: 'center',
-                  marginTop: 50,
-                }}>
-                {poeDetails.name}
-              </Text>
-              <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-              {/* <View style={styles.top}>
+            {/* <View style={styles.top}>
                 <Text style={styles.title}> Growth Coaching Events</Text>
                 <View
                   style={{
@@ -335,86 +335,86 @@ const GrowthDetail = props => {
                 </View>
               </View> */}
 
-              <View style={styles.middle}>
-                <Text style={styles.title}>Sessions</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  {coachingSessionLoading && (
-                    <>
-                      <View
-                        style={{
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          position: 'absolute',
-                          zIndex: 1011,
-                        }}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    </>
-                  )}
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={coachingSession}
-                    renderItem={_renderMiddleItem}
-                  />
-                </View>
+            <View style={styles.middle}>
+              <Text style={styles.title}>Sessions</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                {coachingSessionLoading && (
+                  <>
+                    <View
+                      style={{
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        zIndex: 1011,
+                      }}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={coachingSession}
+                  renderItem={_renderMiddleItem}
+                />
               </View>
-              <View style={styles.learn}>
-                <Text style={styles.title}>Self Learn</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={poeSelfLearns}
-                    renderItem={_renderLearnItem}
-                  />
-                </View>
+            </View>
+            <View style={styles.learn}>
+              <Text style={styles.title}>Self Learn</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={poeSelfLearns}
+                  renderItem={_renderLearnItem}
+                />
               </View>
+            </View>
 
-              <View style={styles.bottom}>
-                <Text style={styles.title}> Members</Text>
-                <View>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents.members}
-                    renderItem={item => _renderItem(item, navigation)}
-                  />
-                </View>
+            <View style={styles.bottom}>
+              <Text style={styles.title}> Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents.members}
+                  renderItem={item => _renderItem(item, navigation)}
+                />
               </View>
+            </View>
 
-              <View style={styles.growthContent}>
-                <Text style={styles.title}> Growth Coaching Content</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.pillar_contents}
-                    renderItem={_renderContentItem}
-                  />
-                </View>
+            <View style={styles.growthContent}>
+              <Text style={styles.title}> Growth Coaching Content</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.pillar_contents}
+                  renderItem={_renderContentItem}
+                />
               </View>
             </View>
           </View>
+        </ScrollView>
       </View>
       <Footer />
     </ScrollView>
@@ -426,8 +426,7 @@ export default GrowthDetail;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1350,
-	alignItems: 'center',
+    alignItems: 'center',
   },
   arrow: {
     marginTop: 30,
@@ -462,7 +461,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     overflow: 'scroll',
     marginTop: 10,
-    height: 1400,
   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
@@ -485,7 +483,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   middle: {
-    height: 130,
     marginTop: 10,
     justifyContent: 'center',
   },
@@ -520,7 +517,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   bottom: {
-    height: 172,
     marginTop: 25,
   },
   bottomWrapper: {
@@ -530,6 +526,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 15,
     backgroundColor: 'white',
+    marginBottom: 5,
   },
   chatIcon: {
     borderRadius: 50,
@@ -564,7 +561,6 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
   growthContent: {
-    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
