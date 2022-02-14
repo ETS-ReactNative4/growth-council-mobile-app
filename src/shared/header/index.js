@@ -12,12 +12,13 @@ const HeaderTitle = props => {
   const {
     profile,   
     fetchProfileByIdentifier,
+	profileLoading
     
   } = props;
 
   useEffect(() => {
        fetchProfileByIdentifier();
-	}, []);
+	}, [isFocused]);
 
 //   useEffect(() => {
 //     async function myName() {
