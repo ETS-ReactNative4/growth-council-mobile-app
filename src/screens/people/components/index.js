@@ -191,8 +191,8 @@ const People = props => {
               borderColor: 'gray',
               marginRight: 30,
             }}>
-            <Text style={{fontSize: 12}}>
-              {category === 'Select Category' ? 'Select Category' : category}
+            <Text style={{fontSize: 14}}>
+              {category ? category : 'Select Category' }
             </Text>
           </TouchableOpacity>
           <View style={styles.icon}>

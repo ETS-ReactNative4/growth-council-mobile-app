@@ -29,7 +29,7 @@ import SettingScreen from '../screens/setting/index';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
-import TermsConditionsScreen from '../screens/static/TermsConditions';
+import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
 import BestPracticeScreen from '../screens/dashboard/BestPractice';
@@ -267,6 +267,11 @@ const MainNavigation = () => {
             headerTitle: ' ',
           })}
         />
+		<Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{headerShown: false}}
+        />
 
         <Stack.Screen
           name="Chat"
@@ -286,6 +291,13 @@ const MainNavigation = () => {
             headerTitle: 'Privacy Policy',
           }}
         />
+		<Stack.Screen
+          name="Terms"
+          component={Terms}
+          options={{
+            headerTitle: 'Terms of Use',
+          }}
+        />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'modal'}}>
@@ -302,11 +314,6 @@ const MainNavigation = () => {
             pillarId: route.params.pillarId,
             headerShown: false,
           })}
-        />
-        <Stack.Screen
-          name="Terms"
-          component={TermsConditionsScreen}
-          options={{headerShown: false}}
         />
         <Stack.Screen
           name="CouncilDetail"

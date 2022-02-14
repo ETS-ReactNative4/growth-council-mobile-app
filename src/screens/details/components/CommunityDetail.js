@@ -174,108 +174,108 @@ const CommunityDetail = props => {
       <View style={styles.container}>
         <ImageBackground
           source={{uri: poeDetails?.pillar_detail_image}}
-          style={{height: 400}}>
+          style={{height: 240, width: '100%'}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
           </TouchableOpacity>
-
-          <View style={styles.icon}>
-            <Image
-              source={{uri: poeDetails?.image}}
-              style={{
-                width: 30,
-                height: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            />
-          </View>
-
-          <View style={styles.content}>
-            <View style={styles.contentWrapper}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  color: '#1E2022',
-                  textAlign: 'center',
-                  marginTop: 50,
-                }}>
-                {poeDetails.name}
-              </Text>
-
-              <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-              <View style={styles.top}>
-                <Text style={styles.title}> Events</Text>
-
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  {poeDetailLoading && (
-                    <>
-                      <View
-                        style={{
-                          top: 10,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          position: 'absolute',
-                          zIndex: 1011,
-                        }}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    </>
-                  )}
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={poeEvents}
-                    renderItem={_renderTopItem}
-                  />
-                </View>
-              </View>
-              <View style={styles.bottom}>
-                <Text style={styles.title}> Members</Text>
-                <View>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.members}
-                    renderItem={item => _renderItem(item, navigation)}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.growthContent}>
-                <Text style={styles.title}> Growth Coaching Content</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.pillar_contents}
-                    renderItem={_renderContentItem}
-                  />
-                </View>
-              </View>
-
-              <Footer />
-            </View>
-          </View>
         </ImageBackground>
+
+        <View style={styles.icon}>
+          <Image
+            source={{uri: poeDetails?.image}}
+            style={{
+              width: 35,
+              height: 35,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          />
+        </View>
+
+        <ScrollView style={styles.content}>
+          <View style={styles.contentWrapper}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                color: '#1E2022',
+                textAlign: 'center',
+                marginTop: 50,
+              }}>
+              {poeDetails.name}
+            </Text>
+
+            <Text style={styles.paragraph}>{poeDetails.description}</Text>
+
+            <View style={styles.top}>
+              <Text style={styles.title}> Events</Text>
+
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                {poeDetailLoading && (
+                  <>
+                    <View
+                      style={{
+                        top: 10,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        zIndex: 1011,
+                      }}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={poeEvents}
+                  renderItem={_renderTopItem}
+                />
+              </View>
+            </View>
+            <View style={styles.bottom}>
+              <Text style={styles.title}> Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.members}
+                  renderItem={item => _renderItem(item, navigation)}
+                />
+              </View>
+            </View>
+
+            <View style={styles.growthContent}>
+              <Text style={styles.title}> Growth Coaching Content</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.pillar_contents}
+                  renderItem={_renderContentItem}
+                />
+              </View>
+            </View>
+
+            <Footer />
+          </View>
+        </ScrollView>
       </View>
     </ScrollView>
   );
@@ -284,7 +284,7 @@ const CommunityDetail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1300,
+    alignItems: 'center',
   },
   arrow: {
     marginTop: 30,
@@ -301,23 +301,20 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-    marginLeft: Platform.OS === 'ios' ? 120 : 155,
-    marginTop: 190,
-    alignItems: 'center',
+    marginTop: 200,
     justifyContent: 'center',
     position: 'absolute',
+    alignItems: 'center',
     zIndex: 10,
     borderWidth: 0.3,
   },
   content: {
     backgroundColor: 'skyblue',
     borderRadius: 18,
-    marginTop: 150,
   },
   contentWrapper: {
     backgroundColor: 'white',
     borderRadius: 18,
-    height: 1300,
     overflow: 'scroll',
     marginTop: 10,
   },
@@ -330,7 +327,6 @@ const styles = StyleSheet.create({
     color: '#77838F',
   },
   top: {
-    height: 200,
     marginTop: 10,
     justifyContent: 'center',
   },
@@ -342,7 +338,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   bottom: {
-    height: 172,
     marginTop: 15,
   },
   bottomWrapper: {
@@ -388,7 +383,6 @@ const styles = StyleSheet.create({
   },
 
   growthContent: {
-    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,

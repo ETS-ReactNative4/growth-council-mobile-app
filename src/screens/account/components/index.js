@@ -33,15 +33,8 @@ const Profile = props => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    const fetchProfileAsync = async () => {
-      await fetchProfileByIdentifier();
-    };
-    fetchProfileAsync();
-
-	return () => {
-		cleanProfile();
-	  };
-	}, [isFocused]);
+      fetchProfileByIdentifier();
+	}, []);
 
   return (
     <ScrollView
@@ -150,11 +143,11 @@ const Profile = props => {
                 </>
               )}
               {value === 'My Events' && (
-                <MyEvent cleanProfileEvent={cleanProfile} {...props} />
+                <MyEvent  {...props} />
               )}
 
               {value === 'My Sessions' && (
-                <MySession cleanProfileSession={cleanProfile} {...props} />
+                <MySession  {...props} />
               )}
             </View>
           </View>

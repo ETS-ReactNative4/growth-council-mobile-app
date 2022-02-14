@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Font from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import SearchBox from '../../../shared/form/SearchBar';
 import {BubblesLoader} from 'react-native-indicator';
@@ -127,8 +128,13 @@ const Search = (props) => {
         <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
             <View style={styles.container}>
                 <ImageBackground
-                    style={{width: '100%', height: 100}}
+                    style={{width: '100%', height: 160}}
                     source={require('../../../assets/img/search_back_image.png')}>
+					<TouchableOpacity onPress={() => navigation.goBack()}>
+					<View style={{marginTop:10}}>
+					<Ionicons name={'arrow-back'} size={50} color="white" />
+					</View>
+         			 </TouchableOpacity>
                     <View style={{alignItems: 'center', justifyContent: 'center',}}>
                         <SearchBox searchEventsByIdentifier={searchEventsByIdentifier}/>
                     </View>

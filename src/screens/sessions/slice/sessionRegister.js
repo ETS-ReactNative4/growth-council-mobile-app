@@ -5,8 +5,8 @@ import {store} from '../../../utils/httpUtil';
 export const registerSessionByID = createAsyncThunk(
     'sessionRegister/registerSessionByID',
     (formData, {rejectWithValue}) => {
-        return store(`jwt-auth/v1/events/register`, formData)
-            .then(response => response.data)
+        return store(`jwt-auth/v1/sessions/register`, formData)
+            .then(response => response.data.data)
             .catch(error => rejectWithValue(error?.response?.data || error));
     },
 );

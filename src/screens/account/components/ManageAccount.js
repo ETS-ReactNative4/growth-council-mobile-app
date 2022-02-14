@@ -143,12 +143,12 @@ const ManageAccount = props => {
         name: 'profile_photo.jpg',
       };
       fd.append('file', file);
-      console.log('choosePhotoFromLibrary', fd);
+      console.log('takePhotoFromCamera', fd);
       await uploadImage(fd).then(async response => {
-        console.log('Upload response:::::::::::', response?.payload?.id);
+        // console.log('Upload response:::::::::::', response?.payload?.id);
         await updateImage({attachment_id: response?.payload?.id}).then(
           async response => {
-            console.log('Update response::::::::::', response);
+            console.log('upload response::::::::::', response);
           },
         );
       });
@@ -169,7 +169,7 @@ const ManageAccount = props => {
       fd.append('file', file);
       console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
-        console.log('Upload response:::::::::::', response?.payload?.id);
+        // console.log('Upload response:::::::::::', response?.payload?.id);
         await updateImage({attachment_id: response?.payload?.id}).then(
           async response => {
             console.log('Update response::::::::::', response);
