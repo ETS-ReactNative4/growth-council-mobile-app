@@ -95,18 +95,14 @@ const Event = props => {
   const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
   const date = actualDate[1].split(' ', 3);
 
-
   const backEndTimeStamp = events?.event_start;
   const deviceTimeZone = RNLocalize.getTimeZone();
 
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('LLLL').split(',', 6);
-  const gDate = GobalDate[1].split(' ', 3);
-  const gTime = GobalDate[2].split(' ', 4);
+  const GobalDate = moment(timeToDisplay).format("dddd, MMMM Do YYYY, h:mm:ss a")
   console.log(GobalDate);
-  console.log({gTime});
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -118,7 +114,7 @@ const Event = props => {
 
   return (
     <ScrollView style={styles.scrollBox}>
-      <View style={styles.container}>
+     <View style={styles.container}>
         <ImageBackground
           source={{uri: events?.image}}
           resizeMode="cover"
@@ -139,10 +135,7 @@ const Event = props => {
           </View>
 
           <View>
-            {/* <Text style={{fontSize: 14, marginBottom: 20}}>
-              Converted To local timezone: {timeToDisplay}
-            </Text>
-            <Text>Your timezone: {deviceTimeZone}</Text> */}
+            
             <View style={styles.content}>
               <View style={{flexDirection: 'column'}}>
                 <View
@@ -164,17 +157,10 @@ const Event = props => {
                       flex: 4,
                       paddingLeft: 10,
                     }}>
-                   
-                      <Text style={styles.eventDetails}>
-                        {gDate[2]} {gDate[1]}, {GobalDate[0]}
-                      </Text>
-                   
-                      <Text>
-						  {gTime[2]}
-						{gTime[3]}, {deviceTimeZone}
-                        
-                      </Text>
-                    
+                    <Text style={styles.eventDetails}>
+                      {GobalDate}, {deviceTimeZone}
+                    </Text>
+
                   </View>
                   {!eventStatus && (
                     <View
@@ -332,59 +318,9 @@ const Event = props => {
             </View>
           </View>
         </ImageBackground>
-      </View>
+      </View> 
       <Footer />
-      {/* <Modal transparent visible={isPickerVisible}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(56,56,56,0.3)',
-            justifyContent: 'flex-end',
-          }}>
-          <View
-            style={{
-              height: 300,
-              backgroundColor: 'white',
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              padding: 20,
-            }}>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => setIsPickerVisible(false)}
-              style={{alignItems: 'flex-end'}}>
-              <Text
-                style={{
-                  padding: 15,
-                  fontSize: 18,
-                }}>
-                Done
-              </Text>
-            </TouchableOpacity>
-            <View style={{marginBottom: 40}}>
-              <Picker
-                selectedValue={globalTime}
-                mode={'dropdown'}
-                // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
-                onValueChange={(itemValue, itemIndex) => {
-                  if (itemValue !== null) {
-                    setGlobalTime(itemValue);
-                  }
-                }}>
-                {/* {time?.map((value, index) => {
-                  return (
-                    <Picker.Item
-                      label={value}
-                      value={value}
-                      style={{fontSize: 12}}
-                    />
-                  );
-                })} */}
-              {/* </Picker> */}
-            {/* </View>
-          </View>
-        </View>
-      </Modal>  */}
+    
     </ScrollView>
   );
 };
