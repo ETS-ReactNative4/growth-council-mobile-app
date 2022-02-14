@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   Image,
+  Modal,
   TouchableOpacity,
 } from 'react-native';
 import {Button, useToast} from 'native-base';
@@ -15,13 +16,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
+import {Picker} from '@react-native-picker/picker';
 import 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
+import {formatTimeByOffset} from './timezone';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
-import {DateTime} from '../../../shared/luxan/index';
 
 const Event = props => {
   const {
@@ -41,6 +44,8 @@ const Event = props => {
 
   const toast = useToast();
   const [eventStatus, setEventStatus] = useState(events?.register_status);
+  const [isPickerVisible, setIsPickerVisible] = useState(false);
+  const [globalTime, setGlobalTime] = useState('America/Los_Angeles');
 
   useEffect(() => {
     fetchEventByIdentifier(route.params.id);
@@ -89,16 +94,166 @@ const Event = props => {
     description = '';
   }
 
-//   const jun = moment.tz(events?.event_start, );
-//   const a = jun.clone().tz("America/Los_Angeles");
-//   const b = jun.clone().tz('Asia/Katmandu')
+  let time = {
+    'Dateline Standard Time': 'Etc/GMT+12',
+    'UTC-11': 'Etc/GMT+11',
+    'Aleutian Standard Time': 'America/Adak',
+    'Hawaiian Standard Time': 'Pacific/Honolulu',
+    'Marquesas Standard Time': 'Pacific/Marquesas',
+    'Alaskan Standard Time': 'America/Anchorage',
+    'UTC-09': 'Etc/GMT+9',
+    'Pacific Standard Time (Mexico)': 'America/Tijuana',
+    'UTC-08': 'Etc/GMT+8',
+    'Pacific Standard Time': 'America/Los_Angeles',
+    'US Mountain Standard Time': 'America/Phoenix',
+    'Mountain Standard Time (Mexico)': 'America/Chihuahua',
+    'Mountain Standard Time': 'America/Denver',
+    'Central America Standard Time': 'America/Guatemala',
+    'Central Standard Time': 'America/Chicago',
+    'Easter Island Standard Time': 'Pacific/Easter',
+    'Central Standard Time (Mexico)': 'America/Mexico_City',
+    'Canada Central Standard Time': 'America/Regina',
+    'SA Pacific Standard Time': 'America/Bogota',
+    'Eastern Standard Time (Mexico)': 'America/Cancun',
+    'Eastern Standard Time': 'America/New_York',
+    'Haiti Standard Time': 'America/Port-au-Prince',
+    'Cuba Standard Time': 'America/Havana',
+    'US Eastern Standard Time': 'America/Indianapolis',
+    'Paraguay Standard Time': 'America/Asuncion',
+    'Atlantic Standard Time': 'America/Halifax',
+    'Venezuela Standard Time': 'America/Caracas',
+    'Central Brazilian Standard Time': 'America/Cuiaba',
+    'SA Western Standard Time': 'America/La_Paz',
+    'Pacific SA Standard Time': 'America/Santiago',
+    'Turks And Caicos Standard Time': 'America/Grand_Turk',
+    'Newfoundland Standard Time': 'America/St_Johns',
+    'Tocantins Standard Time': 'America/Araguaina',
+    'E. South America Standard Time': 'America/Sao_Paulo',
+    'SA Eastern Standard Time': 'America/Cayenne',
+    'Argentina Standard Time': 'America/Buenos_Aires',
+    'Greenland Standard Time': 'America/Godthab',
+    'Montevideo Standard Time': 'America/Montevideo',
+    'Magallanes Standard Time': 'America/Punta_Arenas',
+    'Saint Pierre Standard Time': 'America/Miquelon',
+    'Bahia Standard Time': 'America/Bahia',
+    'UTC-02': 'Etc/GMT+2',
+    'Azores Standard Time': 'Atlantic/Azores',
+    'Cape Verde Standard Time': 'Atlantic/Cape_Verde',
+    UTC: 'Etc/GMT',
+    'Morocco Standard Time': 'Africa/Casablanca',
+    'GMT Standard Time': 'Europe/London',
+    'Greenwich Standard Time': 'Atlantic/Reykjavik',
+    'W. Europe Standard Time': 'Europe/Berlin',
+    'Central Europe Standard Time': 'Europe/Budapest',
+    'Romance Standard Time': 'Europe/Paris',
+    'Central European Standard Time': 'Europe/Warsaw',
+    'W. Central Africa Standard Time': 'Africa/Lagos',
+    'Jordan Standard Time': 'Asia/Amman',
+    'GTB Standard Time': 'Europe/Bucharest',
+    'Middle East Standard Time': 'Asia/Beirut',
+    'Egypt Standard Time': 'Africa/Cairo',
+    'E. Europe Standard Time': 'Europe/Chisinau',
+    'Syria Standard Time': 'Asia/Damascus',
+    'West Bank Standard Time': 'Asia/Hebron',
+    'South Africa Standard Time': 'Africa/Johannesburg',
+    'FLE Standard Time': 'Europe/Kiev',
+    'Israel Standard Time': 'Asia/Jerusalem',
+    'Kaliningrad Standard Time': 'Europe/Kaliningrad',
+    'Sudan Standard Time': 'Africa/Khartoum',
+    'Libya Standard Time': 'Africa/Tripoli',
+    'Namibia Standard Time': 'Africa/Windhoek',
+    'Arabic Standard Time': 'Asia/Baghdad',
+    'Turkey Standard Time': 'Europe/Istanbul',
+    'Arab Standard Time': 'Asia/Riyadh',
+    'Belarus Standard Time': 'Europe/Minsk',
+    'Russian Standard Time': 'Europe/Moscow',
+    'E. Africa Standard Time': 'Africa/Nairobi',
+    'Iran Standard Time': 'Asia/Tehran',
+    'Arabian Standard Time': 'Asia/Dubai',
+    'Astrakhan Standard Time': 'Europe/Astrakhan',
+    'Azerbaijan Standard Time': 'Asia/Baku',
+    'Russia Time Zone 3': 'Europe/Samara',
+    'Mauritius Standard Time': 'Indian/Mauritius',
+    'Saratov Standard Time': 'Europe/Saratov',
+    'Georgian Standard Time': 'Asia/Tbilisi',
+    'Caucasus Standard Time': 'Asia/Yerevan',
+    'Afghanistan Standard Time': 'Asia/Kabul',
+    'West Asia Standard Time': 'Asia/Tashkent',
+    'Ekaterinburg Standard Time': 'Asia/Yekaterinburg',
+    'Pakistan Standard Time': 'Asia/Karachi',
+    'India Standard Time': 'Asia/Calcutta',
+    'Sri Lanka Standard Time': 'Asia/Colombo',
+    'Nepal Standard Time': 'Asia/Katmandu',
+    'Central Asia Standard Time': 'Asia/Almaty',
+    'Bangladesh Standard Time': 'Asia/Dhaka',
+    'Omsk Standard Time': 'Asia/Omsk',
+    'Myanmar Standard Time': 'Asia/Rangoon',
+    'SE Asia Standard Time': 'Asia/Bangkok',
+    'Altai Standard Time': 'Asia/Barnaul',
+    'W. Mongolia Standard Time': 'Asia/Hovd',
+    'North Asia Standard Time': 'Asia/Krasnoyarsk',
+    'N. Central Asia Standard Time': 'Asia/Novosibirsk',
+    'Tomsk Standard Time': 'Asia/Tomsk',
+    'China Standard Time': 'Asia/Shanghai',
+    'North Asia East Standard Time': 'Asia/Irkutsk',
+    'Singapore Standard Time': 'Asia/Singapore',
+    'W. Australia Standard Time': 'Australia/Perth',
+    'Taipei Standard Time': 'Asia/Taipei',
+    'Ulaanbaatar Standard Time': 'Asia/Ulaanbaatar',
+    'Aus Central W. Standard Time': 'Australia/Eucla',
+    'Transbaikal Standard Time': 'Asia/Chita',
+    'Tokyo Standard Time': 'Asia/Tokyo',
+    'North Korea Standard Time': 'Asia/Pyongyang',
+    'Korea Standard Time': 'Asia/Seoul',
+    'Yakutsk Standard Time': 'Asia/Yakutsk',
+    'Cen. Australia Standard Time': 'Australia/Adelaide',
+    'AUS Central Standard Time': 'Australia/Darwin',
+    'E. Australia Standard Time': 'Australia/Brisbane',
+    'AUS Eastern Standard Time': 'Australia/Sydney',
+    'West Pacific Standard Time': 'Pacific/Port_Moresby',
+    'Tasmania Standard Time': 'Australia/Hobart',
+    'Vladivostok Standard Time': 'Asia/Vladivostok',
+    'Lord Howe Standard Time': 'Australia/Lord_Howe',
+    'Bougainville Standard Time': 'Pacific/Bougainville',
+    'Russia Time Zone 10': 'Asia/Srednekolymsk',
+    'Magadan Standard Time': 'Asia/Magadan',
+    'Norfolk Standard Time': 'Pacific/Norfolk',
+    'Sakhalin Standard Time': 'Asia/Sakhalin',
+    'Central Pacific Standard Time': 'Pacific/Guadalcanal',
+    'Russia Time Zone 11': 'Asia/Kamchatka',
+    'New Zealand Standard Time': 'Pacific/Auckland',
+    'UTC+12': 'Etc/GMT-12',
+    'Fiji Standard Time': 'Pacific/Fiji',
+    'Chatham Islands Standard Time': 'Pacific/Chatham',
+    'UTC+13': 'Etc/GMT-13',
+    'Tonga Standard Time': 'Pacific/Tongatapu',
+    'Samoa Standard Time': 'Pacific/Apia',
+    'Line Islands Standard Time': 'Pacific/Kiritimati',
+  };
+  const [timeToDisplay, setTimeToDisplay] = useState('');
 
-//   console.log(a.format());
-//   console.log(b.format());
+  const backEndTimeStamp = events.event_start;
 
-	const epochDate = 1597354080
-	const luxonDate = DateTime.fromSeconds(epochDate)
-	console.log(luxonDate.toLocaleString(DateTime.TIME_SIMPLE))
+  // get device timezone eg. -> "Asia/Shanghai"
+  const deviceTimeZone = RNLocalize.getTimeZone();
+
+  // Make moment of right now, using the device timezone
+  const today = moment().tz(deviceTimeZone);
+
+  // Get the UTC offset in hours
+  const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+  useEffect(() => {
+    // Run the function as we coded above.
+    const convertedToLocalTime = formatTimeByOffset(
+      backEndTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+
+    // Set the state or whatever
+    setTimeToDisplay(convertedToLocalTime);
+  }, []);
+
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
@@ -122,6 +277,25 @@ const Event = props => {
           </View>
 
           <View>
+            {/* <TouchableOpacity
+              onPress={() => setIsPickerVisible(true)}
+              style={{
+                borderRadius: 5,
+                borderWidth: 0.5,
+                overflow: 'hidden',
+                height: 50,
+                margin: 20,
+                justifyContent: 'center',
+                paddingLeft: 20,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'gray'}}>
+                {globalTime ? globalTime : 'Select a Country'}
+              </Text>
+            </TouchableOpacity> */}
+            <Text style={{fontSize: 14, marginBottom: 20}}>
+              Converted To local timezone: {timeToDisplay}
+            </Text>
+            0<Text>Your timezone: {deviceTimeZone}</Text>
             <View style={styles.content}>
               <View style={{flexDirection: 'column'}}>
                 <View
@@ -157,7 +331,7 @@ const Event = props => {
                         {events?.event_meta?._end_hour}:
                         {events?.event_meta?._end_minute}
                         {events?.event_meta?._end_ampm} (PDT)
-						{/* <Timezone/> */}
+                        {/* <Timezone/> */}
                       </Text>
                     )}
                   </View>
@@ -319,6 +493,57 @@ const Event = props => {
         </ImageBackground>
       </View>
       <Footer />
+      <Modal transparent visible={isPickerVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setIsPickerVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={globalTime}
+                mode={'dropdown'}
+                // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
+                onValueChange={(itemValue, itemIndex) => {
+                  if (itemValue !== null) {
+                    setGlobalTime(itemValue);
+                  }
+                }}>
+                {/* {time?.map((value, index) => {
+                  return (
+                    <Picker.Item
+                      label={value}
+                      value={value}
+                      style={{fontSize: 12}}
+                    />
+                  );
+                })} */}
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
