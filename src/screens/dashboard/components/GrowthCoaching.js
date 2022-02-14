@@ -223,7 +223,7 @@ const GrowthCoaching = props => {
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
 
-          {pillarEventLoading && pillarPOELoading && (
+          {pillarPOELoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
