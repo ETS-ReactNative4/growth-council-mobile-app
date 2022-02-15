@@ -130,6 +130,7 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
         ),
         headerTitle: () => <HeaderTitle {...props}
 		profile={profile}
+		profileLoading={profileLoading}
 		fetchProfileByIdentifier={fetchProfileByIdentifier}/>,
         headerLeft: () => (
           <View>

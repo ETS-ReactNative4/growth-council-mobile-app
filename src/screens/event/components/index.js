@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   Image,
+  Modal,
   TouchableOpacity,
 } from 'react-native';
 import {Button, useToast} from 'native-base';
@@ -15,6 +16,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
+import {Picker} from '@react-native-picker/picker';
+import 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
+import {formatTimeByOffset} from './timezone';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -39,6 +44,9 @@ const Event = props => {
 
   const toast = useToast();
   const [eventStatus, setEventStatus] = useState(events?.register_status);
+  const [isPickerVisible, setIsPickerVisible] = useState(false);
+  const [globalTime, setGlobalTime] = useState('America/Los_Angeles');
+  const [timeToDisplay, setTimeToDisplay] = useState('');
 
   useEffect(() => {
     fetchEventByIdentifier(route.params.id);
@@ -60,11 +68,6 @@ const Event = props => {
       ToastMessage.show(response?.payload?.response);
     }
   };
-
-  
-  const isEventLoaded = Object.keys(events).length === 0;
-  const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
-  const date = actualDate[1].split(' ', 3);
 
   let backgroundColor = Colors.COMMUNITY_COLOR;
   const pillarCategory = events?.pillar_categories
@@ -88,11 +91,30 @@ const Event = props => {
     description = '';
   }
 
+  const isEventLoaded = Object.keys(events).length === 0;
+  const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
+  const date = actualDate[1].split(' ', 3);
 
+  const backEndTimeStamp = events?.event_start;
+  const deviceTimeZone = RNLocalize.getTimeZone();
+
+  const today = moment().tz(deviceTimeZone);
+  const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+  const GobalDate = moment(timeToDisplay).format("dddd, MMMM Do, h:mm a")
+  console.log(GobalDate);
+
+  useEffect(() => {
+    const convertedToLocalTime = formatTimeByOffset(
+      backEndTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+    setTimeToDisplay(convertedToLocalTime);
+  }, [events]);
 
   return (
     <ScrollView style={styles.scrollBox}>
-      <View style={styles.container}>
+     <View style={styles.container}>
         <ImageBackground
           source={{uri: events?.image}}
           resizeMode="cover"
@@ -113,6 +135,7 @@ const Event = props => {
           </View>
 
           <View>
+            
             <View style={styles.content}>
               <View style={{flexDirection: 'column'}}>
                 <View
@@ -132,24 +155,13 @@ const Event = props => {
                   <View
                     style={{
                       flex: 4,
-                      paddingLeft: 10,
+                      paddingLeft: 5,
                     }}>
-                    {!isEventLoaded && (
-                      <Text style={styles.eventDetails}>
-                        {date[2]} {date[1]}, {actualDate[0]}
-                      </Text>
-                    )}
+                    <Text style={styles.eventDetails}>
+                      {GobalDate}
+                    </Text>
+					<Text>{deviceTimeZone}</Text>
 
-                    {!isEventLoaded && (
-                      <Text>
-                        {events?.event_meta?._start_hour}:
-                        {events?.event_meta?._start_minute}
-                        {events?.event_meta?._start_ampm} /
-                        {events?.event_meta?._end_hour}:
-                        {events?.event_meta?._end_minute}
-                        {events?.event_meta?._end_ampm} (PDT)
-                      </Text>
-                    )}
                   </View>
                   {!eventStatus && (
                     <View
@@ -208,7 +220,7 @@ const Event = props => {
                     <View
                       style={{
                         flex: 5,
-                        paddingLeft: 10,
+                        paddingLeft: 5,
                       }}>
                       <Text style={styles.eventDetails}>
                         {events?.location?.location_city}{' '}
@@ -307,8 +319,9 @@ const Event = props => {
             </View>
           </View>
         </ImageBackground>
-      </View>
+      </View> 
       <Footer />
+    
     </ScrollView>
   );
 };

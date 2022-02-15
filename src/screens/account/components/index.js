@@ -34,7 +34,7 @@ const Profile = props => {
 
   useEffect(() => {
       fetchProfileByIdentifier();
-	}, []);
+	}, [isFocused]);
 
   return (
     <ScrollView
@@ -131,9 +131,8 @@ const Profile = props => {
                       flexDirection: 'column',
                       justifyContent: 'space-around',
                       position: 'absolute',
-                      zIndex: 1011,
-                      top: 120,
                       left: 120,
+					  top:120,
                     }}>
                     <BubblesLoader
                       color={Colors.SECONDARY_TEXT_COLOR}
