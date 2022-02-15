@@ -94,11 +94,11 @@ const GrowthCoaching = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+				color: '#030303',
               }}>
               {item?.display_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303',}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
 
@@ -129,7 +129,7 @@ const GrowthCoaching = props => {
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
+              style={{width: 30, height: 30}}
             />
           </View>
           <Text
@@ -138,6 +138,7 @@ const GrowthCoaching = props => {
               fontSize: 10,
               marginHorizontal: 10,
               textAlign: 'center',
+			  color: '#222B45',
             }}>
             {item?.name}
           </Text>
@@ -172,8 +173,8 @@ const GrowthCoaching = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{ color: '#030303'}}>{date[1]}</Text>
+              <Text style={{ color: '#030303',}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>

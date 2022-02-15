@@ -466,7 +466,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
     lineHeight: 24,
-    margin: 10,
+    padding: 15,
     textAlign: 'left',
     color: '#77838F',
   },

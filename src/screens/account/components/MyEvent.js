@@ -57,7 +57,11 @@ const Profile = props => {
               <Text style={styles.text}>{item.title}</Text>
 
               <Text
-                style={{fontSize: 6, fontFamily: Typography.FONT_SF_REGULAR}}>
+                style={{
+                  fontSize: 6,
+                  fontFamily: Typography.FONT_SF_REGULAR,
+                  color: '#222B45',
+                }}>
                 Hosted by {item?.organizer?.term_name}{' '}
                 {item?.organizer?.description}
               </Text>

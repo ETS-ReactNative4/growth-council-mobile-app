@@ -287,7 +287,7 @@ const Event = props => {
               <View>
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
-                  <HTMLView value={description} style={{fontSize: 14}} />
+                  <HTMLView value={description} style={{fontSize: 14, color:"#77838F"}} />
                 )}
               </View>
 
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
     fontSize: 14,
-    marginBottom: 8,
+    marginBottom: 4,
   },
   contentHeading: {
     ...CommonStyles.headingText1,

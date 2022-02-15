@@ -58,7 +58,7 @@ const Setting = props => {
         flexGrow: 1,
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
       }}>
-      <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, width:'100%'}}>
+      <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, width: '100%'}}>
         <Image
           source={require('../../../assets/img/appBG.png')}
           style={{height: 160}}
@@ -92,7 +92,7 @@ const Setting = props => {
             </View>
             <View style={styles.header}>
               <Text style={styles.headingText1}>{profile.display_name}</Text>
-              <Text>{profile.user_email}</Text>
+              <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
           </View>
         </View>
@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_NORMAL,
     fontSize: 22,
     fontWeight: '600',
+    color: '#222B45',
   },
   middle: {},
   wrapper: {
@@ -236,5 +237,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     margin: 15,
+    color: '#222B45',
   },
 });

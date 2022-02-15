@@ -90,11 +90,13 @@ const HomeCommunity = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+                color: '#030303',
               }}>
               {item?.display_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303'}}>
+              Frost and Sullivan
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -121,10 +123,17 @@ const HomeCommunity = props => {
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
+              style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+              color: '#222B45',
+            }}>
             {item?.name}
           </Text>
         </View>
@@ -158,8 +167,8 @@ const HomeCommunity = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
+              <Text style={{color: '#030303'}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
@@ -186,7 +195,7 @@ const HomeCommunity = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Growth Community Events</Text>
@@ -353,7 +362,7 @@ const styles = StyleSheet.create({
   },
   ContentWrapper: {
     height: 206,
-    width:contentContainerWidth,
+    width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
