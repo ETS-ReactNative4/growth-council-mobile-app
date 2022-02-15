@@ -123,14 +123,15 @@ const HomeCommunity = props => {
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
+              style={{width: 30, height: 30}}
             />
           </View>
           <Text
             style={{
               marginTop: 10,
               fontSize: 10,
-              marginLeft: 5,
+              marginHorizontal: 10,
+              textAlign: 'center',
               color: '#222B45',
             }}>
             {item?.name}

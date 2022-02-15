@@ -129,7 +129,7 @@ const GrowthCoaching = props => {
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
+              style={{width: 30, height: 30}}
             />
           </View>
           <Text
