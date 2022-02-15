@@ -102,11 +102,11 @@ const Dashboard = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+                color: '#030303',
               }}>
               {item?.display_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303',}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
 
@@ -150,6 +150,7 @@ const Dashboard = props => {
               fontSize: 10,
               marginHorizontal: 10,
               textAlign: 'center',
+			  color: '#222B45',
             }}>
             {item?.name}
           </Text>
@@ -192,8 +193,8 @@ const Dashboard = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
+              <Text style={{color: '#030303'}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>

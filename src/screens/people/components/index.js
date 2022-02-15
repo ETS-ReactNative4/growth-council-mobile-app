@@ -53,7 +53,6 @@ const People = props => {
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
-  
 
   useEffect(() => {
     const fetchAllUsersAsync = async () => {
@@ -111,14 +110,14 @@ const People = props => {
             style={{
               fontSize: 14,
               fontFamily: Typography.FONT_SF_REGULAR,
-              color: 'black',
+              color: '#222B45',
             }}>
             {item?.display_name}
           </Text>
-          <Text style={{fontSize: 12, color: '#77838F'}}>
+          <Text style={{fontSize: 12, color: '#222B45'}}>
             {item?.user_email}
           </Text>
-          <Text style={{fontSize: 12, color: '#77838F'}}>{item?.company}</Text>
+          <Text style={{fontSize: 12, color: '#222B45'}}>{item?.company}</Text>
         </View>
         {!memberConnection[index]?.connection && (
           <TouchableOpacity
@@ -170,7 +169,7 @@ const People = props => {
             keyboardType="text"
             value={searchKey}
             onChangeText={async text => {
-              setSearchKey(text); 
+              setSearchKey(text);
               await fetchAllUsers({
                 s: text,
                 sort: sorting,
@@ -191,18 +190,18 @@ const People = props => {
               borderColor: 'gray',
               marginRight: 30,
             }}>
-            <Text style={{fontSize: 14}}>
-              {category ? category : 'Select Category' }
+            <Text style={{fontSize: 14, color: '#222B45'}}>
+              {category ? category : 'Select Category'}
             </Text>
           </TouchableOpacity>
           <View style={styles.icon}>
             <Ionicons
               name="arrow-up"
               size={20}
-              color="#d7d7d7"
+              color="#7E7F84"
               onPress={async () => {
                 setSorting('DESC');
-				
+
                 await fetchAllUsers({
                   s: searchKey,
                   sort: 'DESC',
@@ -213,10 +212,10 @@ const People = props => {
             <Ionicons
               name="arrow-down"
               size={20}
-              color="#d7d7d7"
+              color="#7E7F84"
               onPress={async () => {
                 setSorting('ASC');
-				
+
                 await fetchAllUsers({
                   s: searchKey,
                   sort: 'ASC',
@@ -232,7 +231,7 @@ const People = props => {
             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
           </View>
         )}
-		
+
         <View style={{marginTop: 40}}>
           {memberConnectionLoading && (
             <View style={styles.loading1}>
@@ -247,7 +246,7 @@ const People = props => {
           />
         </View>
       </View>
-     <Footer/>
+      <Footer />
       <Modal transparent visible={pickerVisible}>
         <View
           style={{
@@ -345,6 +344,7 @@ const styles = StyleSheet.create({
   },
   textWrapper: {
     fontSize: 14,
+    color: '#7E7F84',
   },
   shadowProp: {
     shadowColor: '#000',
