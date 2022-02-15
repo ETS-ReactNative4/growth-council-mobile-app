@@ -111,11 +111,14 @@ const GrowthCoaching = props => {
     );
   };
 
-  const _renderMiddleItem = ({item, index}, navigation) => {
-    let navigationPath = 'CommunityDetail';
-    if (item?.slug === 'growth-leadership-coaching') {
-      navigationPath = 'GrowthDetail';
-    }
+  const _renderMiddleItem = ({item, index}) => {
+    let navigationPath = ' ';
+	if (item?.slug === 'growth-leadership-coaching') {
+        navigationPath = 'GrowthDetail';
+      } else {
+        navigationPath = 'CommunityDetail';
+      }
+    console.log(item?.slug);
 
     return (
       <TouchableOpacity
@@ -201,7 +204,7 @@ const GrowthCoaching = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}> Growth Coaching Events</Text>
@@ -234,7 +237,8 @@ const GrowthCoaching = props => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
-            renderItem={item => _renderMiddleItem(item, navigation)}
+			renderItem={_renderMiddleItem}
+            // renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
 
@@ -337,7 +341,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
 
-  bottom: { 
+  bottom: {
     marginTop: 25,
   },
   bottomWrapper: {

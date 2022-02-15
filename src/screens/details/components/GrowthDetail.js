@@ -498,7 +498,7 @@ const styles = StyleSheet.create({
   },
   learn: {
     height: 140,
-    marginTop: 10,
+    marginTop: 30,
     justifyContent: 'center',
   },
   learnWrapper: {

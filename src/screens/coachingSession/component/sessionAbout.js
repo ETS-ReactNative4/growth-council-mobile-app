@@ -12,7 +12,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
+import {formatTimeByOffset} from '../../event/components/timezone';
 import moment from 'moment';
+import 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
 
 import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -42,6 +45,8 @@ const sessionAbout = props => {
 
     const toast = useToast();
     const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
+	const [timeToDisplay, setTimeToDisplay] = useState('');
+	const [timeToEnd, setTimeToEnd] = useState('');
 
 	
 	useEffect(() => {		
@@ -86,6 +91,34 @@ const sessionAbout = props => {
             </View>
         );
     };
+	const backStartTimeStamp = sessions?.event_start;
+	const backEndTimeStamp = sessions?.event_end;
+	const deviceTimeZone = RNLocalize.getTimeZone();
+
+	const today = moment().tz(deviceTimeZone);
+	const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+	const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
+	console.log(GobalDate);
+
+	const GobalDateEnd = moment(timeToEnd).format('Do MMMM, h:mm a');
+	console.log(GobalDateEnd);
+
+	useEffect(() => {
+		const convertedToLocalTime = formatTimeByOffset(
+		backStartTimeStamp,
+		currentTimeZoneOffsetInHours,
+		);
+		setTimeToDisplay(convertedToLocalTime);
+	}, [sessions]);
+
+	useEffect(() => {
+		const convertedToLocalTimeEnd = formatTimeByOffset(
+		backEndTimeStamp,
+		currentTimeZoneOffsetInHours,
+		);
+		setTimeToEnd(convertedToLocalTimeEnd);
+	}, [sessions]);
 
     return (
         <View>
@@ -115,24 +148,11 @@ const sessionAbout = props => {
                             flex: 4,
                             paddingLeft: 10,
                         }}>
-                        {!isSessionLoaded && (
-                            <Text style={styles.contentHeading}>
-                                {date[2]} {date[1]}, {actualDate[0]}
-                            </Text>
-                        )}
-
-                        {!isSessionLoaded && (
-                            <Text>
-                                {sessions?.event_meta?._start_hour}:
-                                {sessions?.event_meta?._start_minute}
-                                {sessions?.event_meta?._start_ampm} /
-                                {sessions?.event_meta?._end_hour}:
-                                {sessions?.event_meta?._end_minute}
-                                {sessions?.event_meta?._end_ampm}
-								{'\n'}
-								{sessions?.time_zone}
-                            </Text>
-                        )}
+                        
+                        <Text style={styles.eventDetails}>{GobalDate} /</Text>
+                        <Text style={styles.eventDetails}>
+							{GobalDateEnd} ({deviceTimeZone})
+						</Text>
                     </View>
                     {!sessionStatus && (
                         <View
@@ -192,7 +212,7 @@ const sessionAbout = props => {
                                 flex: 5,
                                 paddingLeft: 10,
                             }}>
-                            <Text style={styles.contentHeading}>
+                            <Text style={styles.eventLocationDetails}>
                                 {sessions?.location?.location_city} ,
                                 {sessions?.location?.location_state} ,
                                 {sessions?.location?.location_country}
@@ -321,6 +341,21 @@ const styles = StyleSheet.create({
         color: Colors.TERTIARY_TEXT_COLOR,
         textAlign: 'left',
     },
+	eventDetails: {
+		fontFamily: Typography.FONT_NORMAL,
+		color: Colors.NONARY_TEXT_COLOR,
+		fontWeight: 'bold',
+		marginLeft: 5,
+		fontSize: 14,
+	  },
+	eventLocationDetails: {
+		fontFamily: Typography.FONT_NORMAL,
+		color: Colors.NONARY_TEXT_COLOR,
+		fontWeight: 'bold',
+		fontSize: 14,
+		marginBottom: 5,
+		marginTop: 5,
+	  },
     topbanner: {
         backgroundColor: '#A1BA68',
         height: 60,

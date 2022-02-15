@@ -109,16 +109,16 @@ const HomeCommunity = props => {
     );
   };
 
-  const _renderMiddleItem = ({item, index}) => {
+  const _renderMiddleItem = ({item, index},navigation) => {
+    
     return (
-      <TouchableOpacity
+		<TouchableOpacity
         onPress={() =>
           navigation.navigate('CommunityDetail', {
             poeId: item?.term_id,
             pillarId: item?.parent,
           })
-        }
-        key={index}>
+        }>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
@@ -221,13 +221,15 @@ const HomeCommunity = props => {
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-          <FlatList
-            contentContainerStyle={{flex: 1}}
-            numColumns={4}
+           <FlatList
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
-            renderItem={_renderMiddleItem}
-            keyExtractor={item => item.id}
+            renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
 
