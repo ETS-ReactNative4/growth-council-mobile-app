@@ -124,6 +124,7 @@ const EventCalendar = props => {
                 marginLeft: 10,
                 marginRight: 10,
                 fontSize: 17,
+				color: '#030303',
               }}>
               {time[0]}:{time[1]}
             </Text>
@@ -165,7 +166,7 @@ const EventCalendar = props => {
               borderColor: 'gray',
               marginRight: 30,
             }}>
-            <Text style={{fontSize: 12}}>
+            <Text style={{fontSize: 12, color: '#030303',}}>
               {showAllEvents ? 'All Events' : 'My Events'}
               {/* Select Events */}
             </Text>
@@ -354,9 +355,11 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     fontSize: 14,
+	color: '#030303',
   },
   eventParagraph: {
     fontSize: 8,
+	color: '#030303',
   },
   eventDate: {
     flex: 1,
@@ -367,6 +370,7 @@ const styles = StyleSheet.create({
   },
   eventDateText: {
     textAlign: 'center',
+	color: '#030303',
   },
   buttonWrapper: {
     width: 350,
