@@ -16,7 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
-import {Picker} from '@react-native-picker/picker';
+
 import 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {formatTimeByOffset} from './timezone';
@@ -44,9 +44,8 @@ const Event = props => {
 
   const toast = useToast();
   const [eventStatus, setEventStatus] = useState(events?.register_status);
-  const [isPickerVisible, setIsPickerVisible] = useState(false);
-  const [globalTime, setGlobalTime] = useState('America/Los_Angeles');
   const [timeToDisplay, setTimeToDisplay] = useState('');
+  const [timeToEnd, setTimeToEnd] = useState('');
 
   useEffect(() => {
     fetchEventByIdentifier(route.params.id);
@@ -92,29 +91,39 @@ const Event = props => {
   }
 
   const isEventLoaded = Object.keys(events).length === 0;
-  const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
-  const date = actualDate[1].split(' ', 3);
 
-  const backEndTimeStamp = events?.event_start;
+  const backStartTimeStamp = events?.event_start;
+  const backEndTimeStamp = events?.event_end;
   const deviceTimeZone = RNLocalize.getTimeZone();
 
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format("dddd, MMMM Do, h:mm a")
+  const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
   console.log(GobalDate);
+
+  const GobalDateEnd = moment(timeToEnd).format('Do MMMM, h:mm a');
+  console.log(GobalDateEnd);
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
-      backEndTimeStamp,
+      backStartTimeStamp,
       currentTimeZoneOffsetInHours,
     );
     setTimeToDisplay(convertedToLocalTime);
   }, [events]);
 
+  useEffect(() => {
+    const convertedToLocalTimeEnd = formatTimeByOffset(
+      backEndTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+    setTimeToEnd(convertedToLocalTimeEnd);
+  }, [events]);
+
   return (
     <ScrollView style={styles.scrollBox}>
-     <View style={styles.container}>
+      <View style={styles.container}>
         <ImageBackground
           source={{uri: events?.image}}
           resizeMode="cover"
@@ -135,7 +144,6 @@ const Event = props => {
           </View>
 
           <View>
-            
             <View style={styles.content}>
               <View style={{flexDirection: 'column'}}>
                 <View
@@ -149,7 +157,7 @@ const Event = props => {
                       styles.infoicon,
                       {backgroundColor: backgroundColor},
                     ]}>
-                    <MaterialIcons name={'event'} size={20} color={'white'} />
+                    <MaterialIcons name={'event'} size={25} color={'white'} />
                   </View>
 
                   <View
@@ -157,11 +165,10 @@ const Event = props => {
                       flex: 4,
                       paddingLeft: 5,
                     }}>
+                    <Text style={styles.eventDetails}>{GobalDate} /</Text>
                     <Text style={styles.eventDetails}>
-                      {GobalDate}
+                      {GobalDateEnd} ({deviceTimeZone})
                     </Text>
-					<Text>{deviceTimeZone}</Text>
-
                   </View>
                   {!eventStatus && (
                     <View
@@ -211,7 +218,7 @@ const Event = props => {
                     ]}>
                     <Ionicons
                       name={'location-outline'}
-                      size={20}
+                      size={25}
                       color={'white'}
                     />
                   </View>
@@ -220,9 +227,9 @@ const Event = props => {
                     <View
                       style={{
                         flex: 5,
-                        paddingLeft: 5,
+                        paddingLeft: 10,
                       }}>
-                      <Text style={styles.eventDetails}>
+                      <Text style={styles.eventLocationDetails}>
                         {events?.location?.location_city}{' '}
                         {events?.location?.location_state}{' '}
                         {events?.location?.location_country}
@@ -319,9 +326,8 @@ const Event = props => {
             </View>
           </View>
         </ImageBackground>
-      </View> 
+      </View>
       <Footer />
-    
     </ScrollView>
   );
 };
@@ -355,12 +361,19 @@ const styles = StyleSheet.create({
     color: '#ffff',
   },
   eventDetails: {
-    ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_NORMAL,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontWeight: 'bold',
+    marginLeft: 5,
+    fontSize: 14,
+  },
+  eventLocationDetails: {
     fontFamily: Typography.FONT_NORMAL,
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
     fontSize: 14,
-    marginBottom: 8,
+    marginBottom: 5,
+    marginTop: 5,
   },
   contentHeading: {
     ...CommonStyles.headingText1,
@@ -441,8 +454,8 @@ const styles = StyleSheet.create({
   infoicon: {
     flex: 1,
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 48,
-    width: 48,
+    height: 60,
+    width: 50,
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',

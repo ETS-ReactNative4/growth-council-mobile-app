@@ -108,10 +108,11 @@ const HomeCommunity = props => {
   };
 
   const _renderMiddleItem = ({item, index}) => {
+	  let  navigationPath = 'CommunityDetail';
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('CommunityDetail', {
+          navigation.navigate(navigationPath, {
             poeId: item?.term_id,
             pillarId: item?.parent,
           })
