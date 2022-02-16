@@ -51,12 +51,12 @@ const CommunityDetail = props => {
     fetchEventDetailAsync();
   }, []);
 
-  useEffect(() => {
-    const fetchAllbestPracticeMemberContentAsync = async () => {
-      await fetchAllbestPracticesMemberContent();
-    };
-    fetchAllbestPracticeMemberContentAsync();
-  }, []);
+  // useEffect(() => {
+  //   const fetchAllbestPracticeMemberContentAsync = async () => {
+  //     await fetchAllbestPracticesMemberContent();
+  //   };
+  //   fetchAllbestPracticeMemberContentAsync();
+  // }, []);
 
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
