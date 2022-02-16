@@ -13,6 +13,7 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
+import {useIsFocused} from '@react-navigation/native';
 
 
 const EventCalendar = props => {
@@ -32,6 +33,7 @@ const EventCalendar = props => {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const fetchCalendarEventAsync = async () => {
@@ -46,7 +48,7 @@ const EventCalendar = props => {
       });
     };
     fetchCalendarEventAsync();
-  }, []);
+  }, [isFocused]);
 
   const getDates = (startDate, endDate) => {
     const dates = [];
