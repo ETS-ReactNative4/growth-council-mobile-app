@@ -18,13 +18,13 @@ const BottomTabNavigation = ({navigation}) => {
 
     return (
         <Tab.Navigator
-            initialRouteName="Dashboard"
-            screenOptions={() => ({
-                headerShown: false,
-                tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
-                tabBarInactiveTintColor: 'gray',
-                tabBarShowLabel: false,
-            })}
+            // initialRouteName="Dashboard"
+            // screenOptions={() => ({
+            //     headerShown: false,
+            //     tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
+            //     tabBarInactiveTintColor: 'gray',
+            //     tabBarShowLabel: false,
+            // })}
         >
             <Tab.Screen
                 name="Dashboard"
