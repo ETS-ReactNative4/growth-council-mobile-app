@@ -109,8 +109,7 @@ const HomeCommunity = props => {
     );
   };
 
-  const _renderMiddleItem = ({item, index},navigation) => {
-    
+  const _renderMiddleItem = ({item, index}, navigation) => {
     return (
 		<TouchableOpacity
         onPress={() =>
@@ -222,13 +221,10 @@ const HomeCommunity = props => {
             </View>
           )}
            <FlatList
-            contentContainerStyle={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}
+            numColumns={4}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
+			// renderItem={_renderMiddleItem}
             renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>

@@ -221,13 +221,10 @@ const BestPractice = props => {
             </View>
           )}
           <FlatList
-            contentContainerStyle={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}
+            numColumns={4}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
+			// renderItem={_renderMiddleItem}
             renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
