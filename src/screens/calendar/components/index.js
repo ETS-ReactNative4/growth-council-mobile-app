@@ -240,26 +240,31 @@ const EventCalendar = props => {
                 </Text>
               </TouchableOpacity>
               <View>
-                <Picker
-                  selectedValue={showAllEvents}
-                  mode="dropdown"
-                  itemTextStyle={{fontSize: 14}}
-                  onValueChange={async (itemValue, itemIndex) => {
-                    setShowAllEvents(itemValue);
-					
-                    await fetchAllCalendarEvent({
-                      year: calendarYear,
-                      month: calendarMonth,
-                      all_events: itemValue,
-                    }).then(response => {
-                      if (response?.payload?.code === 200) {
-                        setCurrentEvents(response?.payload?.data);
-                      }
-                    });
-                  }}>
-                  <Picker.Item label="All Events" value={true} />
-                  <Picker.Item label="My Events" value={false} />
-                </Picker>
+			  <Picker
+                selectedValue={showAllEvents}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 14}}
+                onValueChange={async (itemValue, itemIndex) => {
+                  setShowAllEvents(itemValue);
+
+                  await fetchAllCalendarEvent({
+					year: calendarYear,
+					month: calendarMonth,
+					all_events:itemValue,	
+					})
+
+					.then(response => {
+						if (response?.payload?.code === 200) {
+							setCurrentEvents(response?.payload?.data);
+						}
+
+					})
+                }}>
+                <Picker.Item label="All Events" value={true} />
+        		<Picker.Item label="My Events" value={false} />
+
+
+              </Picker>
               </View>
             </View>
           </View>
