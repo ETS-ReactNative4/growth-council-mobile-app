@@ -13,7 +13,6 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
-import {useIsFocused} from '@react-navigation/native';
 
 
 const EventCalendar = props => {
@@ -33,7 +32,6 @@ const EventCalendar = props => {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     const fetchCalendarEventAsync = async () => {
@@ -48,7 +46,7 @@ const EventCalendar = props => {
       });
     };
     fetchCalendarEventAsync();
-  }, [isFocused]);
+  }, []);
 
   const getDates = (startDate, endDate) => {
     const dates = [];
@@ -169,7 +167,7 @@ const EventCalendar = props => {
               marginRight: 30,
             }}>
             <Text style={{fontSize: 12, color: '#030303',}}>
-              {showAllEvents ? 'All Events' : 'My Events'}
+              {showAllEvents ?  'All Events':'My Events'}
               {/* Select Events */}
             </Text>
           </TouchableOpacity>
@@ -248,7 +246,7 @@ const EventCalendar = props => {
                   itemTextStyle={{fontSize: 14}}
                   onValueChange={async (itemValue, itemIndex) => {
                     setShowAllEvents(itemValue);
-
+					
                     await fetchAllCalendarEvent({
                       year: calendarYear,
                       month: calendarMonth,
