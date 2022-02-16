@@ -234,6 +234,7 @@ const HomeCommunity = props => {
             }}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
+			// renderItem={_renderMiddleItem}
             renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
