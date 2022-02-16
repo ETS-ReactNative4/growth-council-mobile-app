@@ -51,13 +51,6 @@ const CommunityDetail = props => {
     fetchEventDetailAsync();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchAllbestPracticeMemberContentAsync = async () => {
-  //     await fetchAllbestPracticesMemberContent();
-  //   };
-  //   fetchAllbestPracticeMemberContentAsync();
-  // }, []);
-
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
       await fetchAllPOEDetail(route.params.poeId);
@@ -182,7 +175,7 @@ const CommunityDetail = props => {
           </TouchableOpacity>
         </ImageBackground>
 
-        <View style={styles.icon}>
+        <View style={[styles.icon, styles.shadowProp]}>
           <Image
             source={{uri: poeDetails?.image}}
             style={{
@@ -306,17 +299,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     zIndex: 10,
-    borderWidth: 0.3,
   },
-  content: {
-    backgroundColor: 'skyblue',
-    borderRadius: 18,
-  },
+    content: {
+		borderRadius:18,
+		backgroundColor:'skyblue',
+		Index: 1011,
+    },
   contentWrapper: {
     backgroundColor: 'white',
-    borderRadius: 18,
     overflow: 'scroll',
     marginTop: 10,
+    zIndex: 110,
   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,

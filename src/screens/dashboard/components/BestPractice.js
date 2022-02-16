@@ -58,12 +58,18 @@ const BestPractice = props => {
     }, []),
   );
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     const fetchAllPillarEventAsync = async () => {
       await fetchAllPillarEvent(pillarId);
     };
     fetchAllPillarEventAsync();
-  }, []);
+
+	return () =>{
+		cleanPillarEvent();
+	}
+	}, []),
+	);
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {
@@ -215,7 +221,7 @@ const BestPractice = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          {pillarPOELoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>

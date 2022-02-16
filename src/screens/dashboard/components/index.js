@@ -359,7 +359,6 @@ const styles = StyleSheet.create({
     height: 200,
     marginTop: 60,
     justifyContent: 'center',
-    marginLeft: 5,
   },
 
   topWrapper: {
