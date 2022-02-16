@@ -427,7 +427,7 @@ const ManageAccount = props => {
                   <DropDownPicker
                     multiple={true}
                     min={0}
-                    max={5}
+                    max={6}
                     open={open}
                     value={value}
                     items={items}
@@ -437,7 +437,10 @@ const ManageAccount = props => {
                     onChangeValue={value => {
                       setFieldValue('expertise_areas1', value);
                     }}
-                    containerStyle={{width: '94%', marginLeft: 10}}
+                    containerStyle={{
+                      width: '94%',
+                      marginLeft: 10,
+                    }}
                   />
 
                   <Text

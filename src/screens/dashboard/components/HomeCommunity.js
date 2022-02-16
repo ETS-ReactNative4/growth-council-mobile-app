@@ -58,12 +58,18 @@ const HomeCommunity = props => {
     }, []),
   );
 
-  useEffect(() => {
-    const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(pillarId);
-    };
-    fetchAllPillarEventAsync();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarEventAsync = async () => {
+        await fetchAllPillarEvent(pillarId);
+      };
+      fetchAllPillarEventAsync();
+
+      return () => {
+        cleanPillarEvent();
+      };
+    }, []),
+  );
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {
@@ -111,7 +117,7 @@ const HomeCommunity = props => {
 
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
-		<TouchableOpacity
+      <TouchableOpacity
         onPress={() =>
           navigation.navigate('CommunityDetail', {
             poeId: item?.term_id,
@@ -215,13 +221,17 @@ const HomeCommunity = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          {pillarPOELoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-           <FlatList
-            numColumns={4}
+          <FlatList
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
 			// renderItem={_renderMiddleItem}

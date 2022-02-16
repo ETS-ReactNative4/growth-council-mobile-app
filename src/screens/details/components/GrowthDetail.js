@@ -293,7 +293,7 @@ const GrowthDetail = props => {
           </TouchableOpacity>
         </ImageBackground>
 
-        <View style={styles.icon}>
+        <View style={[styles.icon, styles.shadowProp]}>
           <Image
             source={{uri: poeDetails?.image}}
             style={{
@@ -441,7 +441,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     zIndex: 10,
-    borderWidth: 0.3,
   },
   title: {
     fontFamily: Typography.FONT_SF_SEMIBOLD,
