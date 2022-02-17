@@ -90,7 +90,7 @@ const CoachingSession = props => {
                   name={modalVisible ? 'close' : 'menu'}
                   size={35}
                   color={'black'}
-                //   style={{marginLeft: 5}}
+                  //   style={{marginLeft: 5}}
                 />
               </TouchableOpacity>
 
@@ -187,7 +187,7 @@ const CoachingSession = props => {
                   cleanSessionRegister={cleanSessionRegister}
                 />
               )}
-              {value === 'Self Assessment' && (
+              {value === 'SelfAssessment' && (
                 <SelfAssessment
                   {...props}
                   traits={traits}
