@@ -62,13 +62,13 @@ const SelfLearn = props => {
                   highlightTextColor={'#0B0B45'}
                   inactiveBackgroundColor={'transparent'}
                   inactiveTextColor={'grey'}
-                  values={['About', 'Self Assessment']}
+                  values={['About', 'SelfAssessment']}
                   value={value}
                   onSelect={val => setValue(val)}
                   style={{
                     height: 30,
                     marginTop: 5,
-                    width: '90%',
+                    width: '88%',
                     marginLeft: 10,
                     fontSize: 12,
                     borderRadius: 15,
@@ -80,7 +80,7 @@ const SelfLearn = props => {
                 name={'menu'}
                 size={35}
                 color={'black'}
-                style={{marginLeft: 15}}
+                // style={{marginLeft: 5}}
               />
             </View>
 
