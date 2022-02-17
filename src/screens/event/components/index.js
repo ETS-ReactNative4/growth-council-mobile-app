@@ -275,7 +275,16 @@ const Event = props => {
                       paddingLeft: 20,
                     }}>
                     {eventRegisterLoading && (
-                      <View style={styles.loading1}>
+                      <View style={{
+						top: 0,
+						left: 5,
+						right: 0,
+						bottom: 0,
+						justifyContent: 'center',
+						alignItems: 'center',
+						position: 'absolute',
+						zIndex: 1011,
+					  }}>
                         <BubblesLoader
                           color={Colors.SECONDARY_TEXT_COLOR}
                           size={80}
