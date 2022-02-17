@@ -105,6 +105,7 @@ const People = props => {
             borderRadius: 8,
           }}
         />
+
         <View style={{margin: 10, width: '55%'}}>
           <Text
             style={{
@@ -232,9 +233,19 @@ const People = props => {
           </View>
         )}
 
-        <View style={{marginTop: 40}}>
+        <View style={{marginTop: 10}}>
           {memberConnectionLoading && (
-            <View style={styles.loading1}>
+            <View
+              style={{
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'absolute',
+                zIndex: 1011,
+              }}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}

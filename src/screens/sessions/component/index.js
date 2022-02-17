@@ -267,14 +267,7 @@ const Session = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
-                    {sessionRegisterLoading && (
-                      <View style={styles.loading1}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    )}
+                   
                     <Text style={styles.contentHeading}>
                       {sessions?.organizer?.term_name}
                     </Text>
@@ -303,8 +296,15 @@ const Session = props => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  marginTop: 10,
                 }}>
+					 {sessionRegisterLoading && (
+                      <View style={styles.loading1}>
+                        <BubblesLoader
+                          color={Colors.SECONDARY_TEXT_COLOR}
+                          size={80}
+                        />
+                      </View>
+                    )}
                 {!sessionStatus && (
                   <Button
                     style={styles.acceptButton}
