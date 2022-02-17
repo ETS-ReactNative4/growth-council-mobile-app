@@ -6,10 +6,7 @@ export const fetchSessionByID = createAsyncThunk(
   'session/fetchByID',
   (identifier, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/sessions/${identifier}`)
-      .then(response => 
-		{
-			return response.data.data
-		})
+      .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },
 );

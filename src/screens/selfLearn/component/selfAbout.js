@@ -44,9 +44,7 @@ const selfAbout = props => {
 		title = '';
 	}
 
-	// if (selfLearns?.length === 0 || selfLearns === undefined) {
-	// 	return <></>;
-	//   }
+
 	
   return (
 	  <ScrollView>
@@ -54,13 +52,12 @@ const selfAbout = props => {
 
 			<View style={styles.learnWrapper}>
 				<Image
-				style={{
-					width: 163,
-					height: 232,
-					
-					borderRadius: 10,
-				}}
-				source={require('../../../assets/img/best_practices_slider_image.png')}
+					source={{uri: selfLearns?.image}}
+					style={{
+						width: 163,
+						height: 232,
+						borderRadius: 10,
+					}}
 				/>
 				<View style={{width:160, marginLeft:20}}>
 					<View style={{marginTop:30, height:130}}>
@@ -68,7 +65,7 @@ const selfAbout = props => {
 
 						<View style={{height:2, width:50,backgroundColor:"#4774B5"}}/>
 
-						<Text style={{fontSize:10, marginTop:15, color:"#77838F"}}>Prime yourself to become an insanely great leader</Text>
+						<Text style={{fontSize:10, marginTop:15, color:"#77838F"}}></Text>
 					</View>
 
 						<Button 
@@ -105,22 +102,14 @@ const selfAbout = props => {
 				<Text style={{fontSize:14, fontFamily:Typography.FONT_SF_SEMIBOLD, color:"black"}}>Book Summary</Text>
 
 				<Text style={{marginTop:10, fontSize:14, fontFamily:Typography.FONT_SF_REGULAR}}>
-				It’s time to account for the full toll that modern work is exacting on our ability to keep up with and stay ahead of the pace of change.
-				With our boundaries broken down by a more interconnected world, time has proven to be an insufficient resource in this era.
-				It is energy, not time, that is our most precious and undervalued resource to solve this extraordinary challenge</Text>
+				</Text>
 			</View>
 
 			<View style={{marginTop:20}}>
 				<Text style={{fontSize:14, fontFamily:Typography.FONT_SF_SEMIBOLD, color:"black"}}>Key Take-Aways:</Text>
 
 				<Text style={{marginTop:10, fontSize:14, fontFamily:Typography.FONT_SF_REGULAR}}>
-					A practical and fresh perspective on the role of personal energy as a resource in your life to increase your capacity.
-					{"\n"}
-					{"\n"}
-					Critical insights on the choices you are making right now that impact your capacity.
-					{"\n"}
-					{"\n"}
-					A proven technique to improve your day to day energy
+					
 				</Text>
 			</View>
 		</View>

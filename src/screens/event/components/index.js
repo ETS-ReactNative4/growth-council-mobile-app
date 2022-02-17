@@ -274,14 +274,6 @@ const Event = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
-                    {eventRegisterLoading && (
-                      <View style={styles.loading1}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    )}
                     <Text style={styles.contentHeading}>
                       {events?.organizer?.term_name}
                     </Text>
@@ -294,11 +286,22 @@ const Event = props => {
               <View>
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
-                  <HTMLView value={description} style={{fontSize: 14, color:"#77838F"}} />
+                  <HTMLView
+                    value={description}
+                    style={{fontSize: 14, color: '#77838F'}}
+                  />
                 )}
               </View>
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                {eventRegisterLoading && (
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                )}
                 {!eventStatus && (
                   <Button
                     style={styles.acceptButton}
@@ -503,7 +506,7 @@ const styles = StyleSheet.create({
   },
   loading1: {
     top: 0,
-    left: 5,
+    left: 0,
     right: 0,
     bottom: 0,
     justifyContent: 'center',
