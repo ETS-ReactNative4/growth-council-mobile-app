@@ -99,10 +99,10 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
+  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mm a');
   console.log(GobalDate);
 
-  const GobalDateEnd = moment(timeToEnd).format('Do MMMM, h:mm a');
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a');
   console.log(GobalDateEnd);
 
   useEffect(() => {
@@ -167,7 +167,8 @@ const Event = props => {
                     }}>
                     <Text style={styles.eventDetails}>{GobalDate} /</Text>
                     <Text style={styles.eventDetails}>
-                      {GobalDateEnd} ({deviceTimeZone})
+						{backEndTimeStamp.split(/(\s+)/)[0] === backStartTimeStamp.split(/(\s+)/)[0] ? GobalDateEnd.split(/(\s+)/)[6] + GobalDateEnd.split(/(\s+)/)[8] : GobalDateEnd }
+                       ({deviceTimeZone})
                     </Text>
                   </View>
                   {!eventStatus && (
