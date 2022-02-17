@@ -33,16 +33,15 @@ const Search = (props) => {
 	
 		const actualDate = moment(item.event_start).format('ll').split(',', 3);
 		const date = actualDate[0].split(' ', 3);
-
-		let backgroundColor = Colors.COMMUNITY_COLOR;
+		let backgroundColor = '';
 		switch (item?.pillar_categories[0]?.slug) {
-		case 'growth-community':
+		  case 'community':
 			backgroundColor = Colors.COMMUNITY_COLOR;
 			break;
-		case 'basic-practices':
+		  case 'best-practices':
 			backgroundColor = Colors.PRACTICE_COLOR;
 			break;
-		case 'growth-coaching':
+		  default:
 			backgroundColor =Colors.COACHING_COLOR ;
 		}
 		return (
