@@ -203,7 +203,7 @@ const HomeCommunity = props => {
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
-          <Text style={styles.title}> Growth Community Events</Text>
+          <Text style={styles.title}>Growth Community Events</Text>
 
           <View
             style={{
@@ -252,7 +252,7 @@ const HomeCommunity = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}> Growth Community Content</Text>
+          <Text style={styles.title}>Growth Community Content</Text>
           <View
             style={{
               display: 'flex',

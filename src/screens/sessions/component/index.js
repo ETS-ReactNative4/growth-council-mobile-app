@@ -228,8 +228,8 @@ const Session = props => {
                         paddingLeft: 10,
                       }}>
                       <Text style={styles.eventLocationDetails}>
-                        {sessions?.location?.location_city} ,
-                        {sessions?.location?.location_state} ,
+                        {sessions?.location?.location_city} 
+                        {sessions?.location?.location_state} 
                         {sessions?.location?.location_country}
                       </Text>
                       <Text>{sessions?.location?.location_address}</Text>

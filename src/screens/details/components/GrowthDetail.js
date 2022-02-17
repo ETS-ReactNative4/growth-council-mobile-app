@@ -228,13 +228,14 @@ const GrowthDetail = props => {
           }>
           <View style={styles.learnWrapper}>
             <Image
+				source={{uri: item?.image}}
               style={{
                 width: 72,
                 height: 102,
                 margin: 10,
                 borderRadius: 10,
               }}
-              source={require('../../../assets/img/best_practices_slider_image.png')}
+              
             />
             <View>
               <View>
@@ -255,7 +256,7 @@ const GrowthDetail = props => {
                     marginTop: 10,
                     fontSize: 8,
                   }}>
-                  Prime Yourself to become Insenely Great Leader
+                
                 </Text>
               </View>
               {/* <View

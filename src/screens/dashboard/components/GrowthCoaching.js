@@ -210,7 +210,7 @@ const GrowthCoaching = props => {
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
-          <Text style={styles.title}> Growth Coaching Events</Text>
+          <Text style={styles.title}>Growth Coaching Events</Text>
 
           <View
             style={{
@@ -259,7 +259,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}> Growth Coaching Content</Text>
+          <Text style={styles.title}>Growth Coaching Content</Text>
           <View
             style={{
               display: 'flex',

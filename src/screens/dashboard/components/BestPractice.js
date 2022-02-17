@@ -202,7 +202,7 @@ const BestPractice = props => {
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
-          <Text style={styles.title}> Best Practices Events</Text>
+          <Text style={styles.title}>Best Practices Events</Text>
 
           <View
             style={{
@@ -248,7 +248,7 @@ const BestPractice = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}> Best Practices Content</Text>
+          <Text style={styles.title}>Best Practices Content</Text>
           <View
             style={{
               display: 'flex',
