@@ -212,8 +212,10 @@ const ManageAccount = props => {
     fetchAllExpertises();
   }, []);
 
+  console.log({expertise});
+
   useEffect(() => {
-    const result = Object.entries(expertise).map(([key, value]) => ({
+    const result = Object.entries(expertise)?.map(([key, value]) => ({
       label: key,
       value,
     }));
@@ -280,26 +282,26 @@ const ManageAccount = props => {
               />
             </View>
             <View style={styles.header}>
-			{uploadProfileImageLoading && (
-                  <>
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
-				{updateLoading && (
-                  <>
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
+              {uploadProfileImageLoading && (
+                <>
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
+              {updateLoading && (
+                <>
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
               <Text style={styles.headingText1}>{profile.display_name}</Text>
               <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
