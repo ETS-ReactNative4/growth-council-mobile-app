@@ -214,14 +214,14 @@ const ManageAccount = props => {
 
   console.log({expertise});
 
-  useEffect(() => {
-    const result = Object.entries(expertise)?.map(([key, value]) => ({
-      label: key,
-      value,
-    }));
-    setItems(result);
-    setValue(expertise_areas1);
-  }, [expertise]);
+//   useEffect(() => {
+//     const result = Object.entries(expertise)?.map(([key, value]) => ({
+//       label: key,
+//       value,
+//     }));
+//     setItems(result);
+//     setValue(expertise_areas1);
+//   }, [expertise]);
 
   return (
     <ScrollView
@@ -232,12 +232,7 @@ const ManageAccount = props => {
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
         <ImageBackground
           source={require('../../../assets/img/appBG.png')}
-          style={{height: 220}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <View style={{marginTop: 10, zIndex: 30, position: 'absolute'}}>
-              <Ionicons name={'arrow-back'} size={50} color="white" />
-            </View>
-          </TouchableOpacity>
+          style={{height: 180}}>
         </ImageBackground>
         <View
           style={{
