@@ -285,6 +285,11 @@ const sessionAbout = props => {
       </View>
 
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        {sessionRegisterLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
         {!sessionStatus && (
           <Button
             style={styles.acceptButton}
