@@ -78,7 +78,7 @@ const Profile = props => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
               <Ionicon
                 name={'settings-outline'}
                 size={24}
