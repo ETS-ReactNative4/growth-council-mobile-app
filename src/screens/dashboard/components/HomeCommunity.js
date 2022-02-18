@@ -13,7 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect,useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
@@ -150,6 +150,20 @@ const HomeCommunity = props => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
 
+    let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined) {
+      organizer = ' ';
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
+
     return (
       <View style={styles.topWrapper} key={index}>
         <TouchableOpacity
@@ -179,7 +193,7 @@ const HomeCommunity = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
+                {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -234,7 +248,7 @@ const HomeCommunity = props => {
             }}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
-			// renderItem={_renderMiddleItem}
+            // renderItem={_renderMiddleItem}
             renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
@@ -282,6 +296,7 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 25,
     justifyContent: 'center',
+	marginRight:2,
   },
   title: {
     fontFamily: Typography.FONT_SF_SEMIBOLD,
