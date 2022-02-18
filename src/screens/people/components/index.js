@@ -73,8 +73,6 @@ const People = props => {
     fetchAllExpertisesAsync();
   }, []);
 
-  console.log({searchKey}, {sorting}, {category});
-  console.log({memberConnections});
 
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
