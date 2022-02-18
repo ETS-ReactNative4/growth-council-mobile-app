@@ -24,7 +24,7 @@ const Chat = (props) => {
     const userAvatar = route.params.userAvatar;
     const userName = route.params.userName;
 
-    console.log("CHAT:::::::::::::::", friendID, userID);
+    console.log("CHAT:::::::::::::::", friendName, userID);
 
     const chatID = () => {
         const chatIDPre = [];

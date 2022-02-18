@@ -46,11 +46,6 @@ const Setting = props => {
     fetchProfileAsync();
   }, []);
 
-  const logout = () => {
-    clearAsyncStorage();
-    navigation.navigate('Home');
-    ToastMessage.show('Your have successfully logout');
-  };
 
   return (
     <ScrollView

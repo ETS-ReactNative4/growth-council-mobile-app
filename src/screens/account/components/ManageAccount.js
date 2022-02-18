@@ -230,7 +230,7 @@ const ManageAccount = props => {
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
         <ImageBackground
           source={require('../../../assets/img/appBG.png')}
-          style={{height: 250}}>
+          style={{height: 220}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={{marginTop: 10, zIndex: 30, position: 'absolute'}}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
@@ -240,7 +240,7 @@ const ManageAccount = props => {
         <View
           style={{
             display: 'flex',
-            marginTop: -120,
+            marginTop: -90,
             alignContent: 'center',
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -280,7 +280,26 @@ const ManageAccount = props => {
               />
             </View>
             <View style={styles.header}>
-              <Button style={{marginBottom: 10}}>Update</Button>
+			{uploadProfileImageLoading && (
+                  <>
+                    <View style={styles.loading1}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
+				{updateLoading && (
+                  <>
+                    <View style={styles.loading1}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
               <Text style={styles.headingText1}>{profile.display_name}</Text>
               <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
