@@ -99,10 +99,12 @@ const Session = props => {
 	const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
 	const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
+	const GobalStartMonth=moment(timeToDisplay).format('D MMMM');
 	console.log(GobalDate);
 
-	const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a');
-	console.log(GobalDateEnd.split(/(\s+)/)[0]);
+	const GobalDateEnd = moment(timeToEnd).format('Do MMMM, dddd, h:mm a');
+	const GobalEndMonth = moment(timeToEnd).format('D MMMM');
+	console.log(GobalDateEnd);
 
 	useEffect(() => {
 		const convertedToLocalTime = formatTimeByOffset(
@@ -166,12 +168,12 @@ const Session = props => {
                   <View
                     style={{
                       flex: 4,
-                      paddingLeft: 10,
+                      paddingLeft: 5,
                     }}>
                     <Text style={styles.eventDetails}>{GobalDate} /</Text>
                         <Text style={styles.eventDetails}>
-						{/* {backEndTimeStamp.split(/(\s+)/)[0] === backStartTimeStamp.split(/(\s+)/)[0] ? GobalDateEnd.split(/(\s+)/)[6] + GobalDateEnd.split(/(\s+)/)[8] : GobalDateEnd } */}
-                       ({deviceTimeZone})
+							{GobalStartMonth === GobalEndMonth ? GobalDateEnd.split(/(\s+)/)[6] + GobalDateEnd.split(/(\s+)/)[8] : GobalDateEnd }
+							({deviceTimeZone})
 						</Text>
                   </View>
                   {!sessionStatus && (
