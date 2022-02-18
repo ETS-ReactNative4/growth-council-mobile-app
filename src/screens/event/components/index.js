@@ -68,19 +68,19 @@ const Event = props => {
     }
   };
 
-  let backgroundColor = Colors.COMMUNITY_COLOR;
+  let backgroundColor = ' ';
   const pillarCategory = events?.pillar_categories
     ? events?.pillar_categories[0]?.slug
     : '';
   switch (pillarCategory) {
-    case 'growth-coaching':
-      backgroundColor = Colors.COACHING_COLOR;
-      break;
-    case 'basic-practices':
+    case 'best-practices':
       backgroundColor = Colors.PRACTICE_COLOR;
       break;
-    case 'growth-community':
+    case 'community':
       backgroundColor = Colors.COMMUNITY_COLOR;
+      break;
+    default:
+      backgroundColor = Colors.COACHING_COLOR;
   }
 
   let description = events?.descirption;
@@ -100,11 +100,11 @@ const Event = props => {
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
   const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mm a');
-  const GobalStartMonth=moment(timeToDisplay).format('D MMMM')
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
   console.log(GobalStartMonth);
 
   const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM')
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
   console.log(GobalEndMonth);
 
   useEffect(() => {
@@ -169,8 +169,11 @@ const Event = props => {
                     }}>
                     <Text style={styles.eventDetails}>{GobalDate} /</Text>
                     <Text style={styles.eventDetails}>
-						{GobalStartMonth === GobalEndMonth ? GobalDateEnd.split(/(\s+)/)[6] + GobalDateEnd.split(/(\s+)/)[8] : GobalDateEnd }
-                       ({deviceTimeZone})
+                      {GobalStartMonth === GobalEndMonth
+                        ? GobalDateEnd.split(/(\s+)/)[6] +
+                          GobalDateEnd.split(/(\s+)/)[8]
+                        : GobalDateEnd}
+                      ({deviceTimeZone})
                     </Text>
                   </View>
                   {!eventStatus && (
@@ -276,11 +279,14 @@ const Event = props => {
                     style={{
                       flex: 3,
                       paddingLeft: 20,
+                      justifyContent: 'center',
                     }}>
-                    <Text style={styles.contentHeading}>
+                    <Text style={styles.contentTitle}>
                       {events?.organizer?.term_name}
                     </Text>
-                    <Text>{events?.organizer?.description}</Text>
+                    <Text style={{fontSize: 14}}>
+                      {events?.organizer?.description}
+                    </Text>
                   </View>
                   <View style={styles.eventaddress}></View>
                 </View>
@@ -367,28 +373,36 @@ const styles = StyleSheet.create({
     color: '#ffff',
   },
   eventDetails: {
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
-    fontWeight: 'bold',
     marginLeft: 5,
     fontSize: 14,
+    color: '#1E2022',
+    fontWeight: 'bold',
   },
   eventLocationDetails: {
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
-    fontWeight: 'bold',
     fontSize: 14,
     marginBottom: 5,
     marginTop: 5,
     marginBottom: 4,
+    fontWeight: 'bold',
   },
   contentHeading: {
     ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
-    fontWeight: 'semi-bold',
     fontSize: 14,
     marginBottom: 15,
+    fontWeight: 'bold',
+  },
+  contentTitle: {
+    ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_SF_MEDIUM,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,
@@ -479,7 +493,6 @@ const styles = StyleSheet.create({
   },
   hostdetail: {
     flex: 1,
-    paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
     marginTop: 10,
@@ -487,7 +500,7 @@ const styles = StyleSheet.create({
   hostimage: {
     flex: 1,
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 64,
+    height: 62,
     width: 62,
     borderRadius: 14,
     justifyContent: 'center',
