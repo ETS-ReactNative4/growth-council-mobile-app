@@ -98,7 +98,10 @@ const sessionAbout = props => {
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
   const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
-  const GobalDateEnd = moment(timeToEnd).format('Do MMMM, h:mm a');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+
+  const GobalDateEnd = moment(timeToEnd).format('Do MMMM, dddd, h:mm a');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -142,11 +145,15 @@ const sessionAbout = props => {
           <View
             style={{
               flex: 4,
-              paddingLeft: 10,
+              paddingLeft: 5,
             }}>
             <Text style={styles.eventDetails}>{GobalDate} /</Text>
             <Text style={styles.eventDetails}>
-              {GobalDateEnd} ({deviceTimeZone})
+              {GobalStartMonth === GobalEndMonth
+                ? GobalDateEnd.split(/(\s+)/)[6] +
+                  GobalDateEnd.split(/(\s+)/)[8]
+                : GobalDateEnd}
+              ({deviceTimeZone})
             </Text>
           </View>
           {!sessionStatus && (
@@ -278,6 +285,11 @@ const sessionAbout = props => {
       </View>
 
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        {sessionRegisterLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
         {!sessionStatus && (
           <Button
             style={styles.acceptButton}

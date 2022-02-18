@@ -22,7 +22,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
-import session from 'redux-persist/lib/storage/session';
+
 
 const Session = props => {
   const {
@@ -99,9 +99,11 @@ const Session = props => {
 	const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
 	const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
+	const GobalStartMonth=moment(timeToDisplay).format('D MMMM');
 	console.log(GobalDate);
 
-	const GobalDateEnd = moment(timeToEnd).format('Do MMMM, h:mm a');
+	const GobalDateEnd = moment(timeToEnd).format('Do MMMM, dddd, h:mm a');
+	const GobalEndMonth = moment(timeToEnd).format('D MMMM');
 	console.log(GobalDateEnd);
 
 	useEffect(() => {
@@ -127,6 +129,11 @@ const Session = props => {
           source={{uri: sessions?.image}}
           resizeMode="cover"
           style={{height: '55%'}}>
+			<TouchableOpacity onPress={() => navigation.goBack()}>
+				<View style={{marginTop:10}}>
+				<Ionicons name={'arrow-back'} size={50} color="white" />
+				</View>
+			</TouchableOpacity>
           <View
             style={{
               alignItems: 'center',
@@ -161,11 +168,12 @@ const Session = props => {
                   <View
                     style={{
                       flex: 4,
-                      paddingLeft: 10,
+                      paddingLeft: 5,
                     }}>
                     <Text style={styles.eventDetails}>{GobalDate} /</Text>
                         <Text style={styles.eventDetails}>
-							{GobalDateEnd} ({deviceTimeZone})
+							{GobalStartMonth === GobalEndMonth ? GobalDateEnd.split(/(\s+)/)[6] + GobalDateEnd.split(/(\s+)/)[8] : GobalDateEnd }
+							({deviceTimeZone})
 						</Text>
                   </View>
                   {!sessionStatus && (

@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -63,154 +64,162 @@ const ManageAccount = props => {
     cleanExperties,
   } = props;
 
-	const isFocused = useIsFocused();
-	const [open, setOpen] = useState(false);
+  const isFocused = useIsFocused();
+  const [open, setOpen] = useState(false);
 
-	let Location = profile?.user_meta?.Location;
-	if (typeof Location === 'undefined') {
-		Location = ' ';
-	} else {
-		Location = profile?.user_meta?.Location[0];
-	}
+  let Location = profile?.user_meta?.Location;
+  if (typeof Location === 'undefined') {
+    Location = ' ';
+  } else {
+    Location = profile?.user_meta?.Location[0];
+  }
 
-	let favorite_quote = profile?.user_meta?.favorite_quote;
-	if (typeof favorite_quote === 'undefined') {
-		favorite_quote = ' ';
-	} else {
-		favorite_quote = profile?.user_meta?.favorite_quote[0];
-	}
+  let favorite_quote = profile?.user_meta?.favorite_quote;
+  if (typeof favorite_quote === 'undefined') {
+    favorite_quote = ' ';
+  } else {
+    favorite_quote = profile?.user_meta?.favorite_quote[0];
+  }
 
-	let professional_summary = profile?.user_meta?.professional_summary;
-	if (typeof professional_summary === 'undefined') {
-		professional_summary = ' ';
-	} else {
-		professional_summary = profile?.user_meta?.professional_summary[0];
-	}
+  let professional_summary = profile?.user_meta?.professional_summary;
+  if (typeof professional_summary === 'undefined') {
+    professional_summary = ' ';
+  } else {
+    professional_summary = profile?.user_meta?.professional_summary[0];
+  }
 
-	let initatives = profile?.user_meta?.initatives;
-	if (typeof initatives === 'undefined') {
-		initatives = ' ';
-	} else {
-		initatives = profile?.user_meta?.initatives[0];
-	}
+  let initatives = profile?.user_meta?.initatives;
+  if (typeof initatives === 'undefined') {
+    initatives = ' ';
+  } else {
+    initatives = profile?.user_meta?.initatives[0];
+  }
 
-	let insights = profile?.user_meta?.insights;
-	if (typeof insights === 'undefined') {
-		insights = ' ';
-	} else {
-		insights = profile?.user_meta?.insights[0];
-	}
+  let insights = profile?.user_meta?.insights;
+  if (typeof insights === 'undefined') {
+    insights = ' ';
+  } else {
+    insights = profile?.user_meta?.insights[0];
+  }
 
-	let expertise_areas1 = profile?.expertise_areas1;
-	if (typeof expertise_areas1 === 'undefined') {
-		expertise_areas1 = [];
-	} else {
-		expertise_areas1 = profile?.expertise_areas1;
-	}
+  let expertise_areas1 = profile?.expertise_areas1;
+  if (typeof expertise_areas1 === 'undefined') {
+    expertise_areas1 = [];
+  } else {
+    expertise_areas1 = profile?.expertise_areas1;
+  }
 
-	const [value, setValue] = useState([]);
-	const [items, setItems] = useState([]);
+  const [value, setValue] = useState([]);
+  const [items, setItems] = useState([]);
 
-	const [image, setImage] = useState(profile.avatar);
+  const [image, setImage] = useState(profile.avatar);
 
-	
+  const takePhotoFromCamera = () => {
+    ImagePicker.openCamera({
+      cropping: true,
+    }).then(async image => {
+      setImage(image.path);
+      let fd = new FormData();
+      const file = {
+        type: image.mime,
+        uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
+        //name: image.filename || image.path.split('/').pop(),
+        name: 'profile_photo.jpg',
+      };
+      fd.append('file', file);
+      console.log('choosePhotoFromLibrary', fd);
+      await uploadImage(fd).then(async response => {
+        console.log('Upload response:::::::::::', response?.payload?.id);
+        await updateImage({attachment_id: response?.payload?.id}).then(
+          response => {
+            if (response?.payload?.code === 200) {
+              navigation.navigate('Person');
+              ToastMessage.show('Profile Image has been successfully updated.');
+            }
+          },
+        );
+      });
+    });
+  };
+  const choosePhotoFromLibrary = () => {
+    ImagePicker.openPicker({
+      cropping: true,
+    }).then(async image => {
+      setImage(image.path);
+      let fd = new FormData();
+      const file = {
+        type: image.mime,
+        uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
+        //name: image.filename || image.path.split('/').pop(),
+        name: 'profile_photo.jpg',
+      };
+      fd.append('file', file);
+      console.log('choosePhotoFromLibrary', fd);
+      await uploadImage(fd).then(async response => {
+        console.log('Upload response:::::::::::', response?.payload?.id);
+        await updateImage({attachment_id: response?.payload?.id}).then(
+          response => {
+            if (response?.payload?.code === 200) {
+              navigation.navigate('Person');
+              ToastMessage.show('Profile Image has been successfully updated.');
+            }
+          },
+        );
+      });
+    });
+  };
 
-	const takePhotoFromCamera = () => {
-		ImagePicker.openCamera({
-			cropping: true,
-		}).then(async image => {
-			setImage(image.path);
-			let fd = new FormData();
-			const file = {
-				type: image.mime,
-				uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
-				//name: image.filename || image.path.split('/').pop(),
-				name: 'profile_photo.jpg',
-			};
-			fd.append("file", file);
-			console.log("choosePhotoFromLibrary", fd);
-			await uploadImage(fd).then(async response => {
-				console.log("Upload response:::::::::::", response?.payload?.id);
-				await updateImage({attachment_id: response?.payload?.id}).then(async response => {
-					console.log("Update response::::::::::", response);
-				});
-			});
-		});
-	};
-	const choosePhotoFromLibrary = () => {
-		ImagePicker.openPicker({
-			cropping: true,
-		}).then(async image => {
-			setImage(image.path);
-			let fd = new FormData();
-			const file = {
-				type: image.mime,
-				uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
-				//name: image.filename || image.path.split('/').pop(),
-				name: 'profile_photo.jpg',
-			};
-			fd.append("file", file);
-			console.log("choosePhotoFromLibrary", fd);
-			await uploadImage(fd).then(async response => {
-				console.log("Upload response:::::::::::", response?.payload?.id);
-				await updateImage({attachment_id: response?.payload?.id}).then(async response => {
-					console.log("Update response::::::::::", response);
-				});
-			});
-		});
-	};
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    isValid,
+    setFieldValue,
+  } = useFormik({
+    enableReinitialize: true,
+    validationSchema: profileUpdateSchema,
+    initialValues: {
+      display_name: profile?.display_name,
+      first_name: profile?.user_meta?.first_name[0],
+      last_name: profile?.user_meta?.last_name[0],
+      email: profile?.user_email,
+      Location: Location,
+      favorite_quote: favorite_quote,
+      insights: insights,
+      expertise_areas1: expertise_areas1,
+      initatives: initatives,
+      professional_summary: professional_summary,
+    },
+    onSubmit: async values => {
+      console.log('values::::::::::', values);
+      await updateUser(values).then(response => {
+        if (response?.payload?.code === 200) {
+          navigation.navigate('Person');
+          ToastMessage.show('Profile has been successfully updated.');
+        }
+      });
+    },
+  });
 
-	const {
-		handleChange,
-		handleBlur,
-		handleSubmit,
-		values,
-		errors,
-		touched,
-		isValid,
-		setFieldValue,
-	} = useFormik({
-		enableReinitialize: true,
-		validationSchema: profileUpdateSchema,
-		initialValues: {
-		display_name: profile?.display_name,
-		first_name: profile?.user_meta?.first_name[0],
-		last_name: profile?.user_meta?.last_name[0],
-		email: profile?.user_email,
-		Location: Location,
-		favorite_quote: favorite_quote,
-		insights: insights,
-		expertise_areas1: expertise_areas1,
-		initatives: initatives,
-		professional_summary: professional_summary,
-		},
-		onSubmit: async values => {
-		console.log('values::::::::::', values);
-		await updateUser(values).then(response => {
-			if (response?.payload?.code === 200) {
-			navigation.navigate('Person');
-			ToastMessage.show('Profile has been successfully updated.');
-			}
-		});
-		},
-	});
+  useEffect(() => {
+    fetchProfileByIdentifier();
+  }, []);
 
-	useEffect(() => {
-		fetchProfileByIdentifier();
-	}, []);
+  useEffect(() => {
+    fetchAllExpertises();
+  }, []);
 
-	useEffect(() => {
-		fetchAllExpertises();
-	}, []);
-
-	useEffect(() => {
-		const result = Object.entries(expertise).map(([key, value]) => ({
-		label: key,
-		value,
-		}));
-		setItems(result);
-		setValue(expertise_areas1);
-	}, [expertise]);
+  useEffect(() => {
+    const result = Object.entries(expertise).map(([key, value]) => ({
+      label: key,
+      value,
+    }));
+    setItems(result);
+    setValue(expertise_areas1);
+  }, [expertise]);
 
   return (
     <ScrollView
@@ -219,10 +228,15 @@ const ManageAccount = props => {
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
       }}>
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
-        <Image
+        <ImageBackground
           source={require('../../../assets/img/appBG.png')}
-          style={{height: 160}}
-        />
+          style={{height: 220}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={{marginTop: 10, zIndex: 30, position: 'absolute'}}>
+              <Ionicons name={'arrow-back'} size={50} color="white" />
+            </View>
+          </TouchableOpacity>
+        </ImageBackground>
         <View
           style={{
             display: 'flex',
@@ -266,7 +280,26 @@ const ManageAccount = props => {
               />
             </View>
             <View style={styles.header}>
-              <Button style={{marginBottom: 10}}>Update</Button>
+			{uploadProfileImageLoading && (
+                  <>
+                    <View style={styles.loading1}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
+				{updateLoading && (
+                  <>
+                    <View style={styles.loading1}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
               <Text style={styles.headingText1}>{profile.display_name}</Text>
               <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>

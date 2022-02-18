@@ -13,7 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect,useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
@@ -45,6 +45,7 @@ const GrowthCoaching = props => {
   } = props;
 
   const pillarId = 119;
+  const isFocused = useIsFocused();
 
   useFocusEffect(
     useCallback(() => {
@@ -77,7 +78,7 @@ const GrowthCoaching = props => {
       await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -157,6 +158,21 @@ const GrowthCoaching = props => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
 
+	let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined){
+      organizer = ' '; 
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+	if (description === undefined){
+		description = ' '; 
+	  } else {
+		description = item?.organizer?.description;
+	  }
+
+
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -186,7 +202,7 @@ const GrowthCoaching = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
+			  {organizer} {description}
               </Text>
             </View>
           </ImageBackground>

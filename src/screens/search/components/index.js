@@ -44,6 +44,20 @@ const Search = (props) => {
 		  default:
 			backgroundColor =Colors.COACHING_COLOR ;
 		}
+
+		let organizer = item?.organizer?.term_name;
+		let description = item?.organizer?.description;
+		if (organizer === undefined){
+		organizer = ' '; 
+		} else {
+		organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+		}
+
+		if (description === undefined){
+			description = ' '; 
+		} else {
+			description = item?.organizer?.description;
+		}
 		return (
 			<View>
 				<TouchableOpacity
@@ -53,7 +67,7 @@ const Search = (props) => {
 						<View style={styles.eventDetails}>
 							<View style={styles.eventInfo}>
 								<Text style={styles.evnetTitle}>{item?.title}</Text>
-								<Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name}  {item?.organizer?.description}</Text>
+								<Text style={styles.eventParagraph}>{organizer} {description}</Text>
 							</View>
 							<View style={styles.eventDate}>
 								<Text style={styles.eventDateText}>

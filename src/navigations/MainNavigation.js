@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
@@ -43,7 +43,6 @@ import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
 
-
 const Stack = createStackNavigator();
 
 const MainNavigation = () => {
@@ -75,7 +74,9 @@ const MainNavigation = () => {
               <Ionicons
                 name={'arrow-back'}
                 size={80}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 color={'white'}
                 onPress={() => navigation.navigate('Home')}
               />
@@ -96,7 +97,9 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={70}
                 color={'white'}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
@@ -116,7 +119,9 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={80}
                 color={'white'}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
@@ -191,21 +196,21 @@ const MainNavigation = () => {
             headerTitle: 'Self Learn',
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Setting"
           component={SettingScreen}
           options={{
             headerLeft: () => null,
-            headerTitle: '',
+            headerTitle: 'Settings',
             headerTransparent: true,
             ...TransitionPresets.RevealFromBottomAndroid,
           }}
-        />
+        /> */}
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
           options={{
-            headerTitle: 'Manage Account',
+            headerShown: false
             // headerTransparent: true,
             // ...TransitionPresets.RevealFromBottomAndroid,
           }}
@@ -264,10 +269,10 @@ const MainNavigation = () => {
           component={SessionDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: ' ',
+            headerShown: false
           })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="Search"
           component={SearchScreen}
           options={{headerShown: false}}
@@ -291,7 +296,7 @@ const MainNavigation = () => {
             headerTitle: 'Privacy Policy',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="Terms"
           component={Terms}
           options={{

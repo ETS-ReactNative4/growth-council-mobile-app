@@ -106,7 +106,9 @@ const Dashboard = props => {
               }}>
               {item?.display_name}
             </Text>
-            <Text style={{fontSize: 6, color: '#030303',}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303'}}>
+              Frost and Sullivan
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -150,7 +152,7 @@ const Dashboard = props => {
               fontSize: 10,
               marginHorizontal: 10,
               textAlign: 'center',
-			  color: '#222B45',
+              color: '#222B45',
             }}>
             {item?.name}
           </Text>
@@ -174,6 +176,20 @@ const Dashboard = props => {
       default:
         backgroundImage = require('../../../assets/img/Rectangle.png');
     }
+
+    let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined){
+      organizer = ' '; 
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+	if (description === undefined){
+		description = ' '; 
+	  } else {
+		description = item?.organizer?.description;
+	  }
 
     return (
       <View key={index} style={styles.topWrapper}>
@@ -200,8 +216,7 @@ const Dashboard = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
-                {item?.organizer?.description}
+                {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -359,7 +374,7 @@ const styles = StyleSheet.create({
     height: 200,
     marginTop: 60,
     justifyContent: 'center',
-	marginLeft: 5,
+    marginLeft: 5,
   },
 
   topWrapper: {
