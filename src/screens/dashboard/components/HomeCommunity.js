@@ -13,7 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect,useIsFocused} from '@react-navigation/native';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
@@ -44,7 +44,7 @@ const HomeCommunity = props => {
   } = props;
 
   const pillarId = 117;
-
+  const isFocused = useIsFocused();
   useFocusEffect(
     useCallback(() => {
       const fetchAllPillarPOEAsync = async () => {
@@ -76,7 +76,7 @@ const HomeCommunity = props => {
       await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
 
   const _renderItem = ({item, index}) => {
     return (
