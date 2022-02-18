@@ -212,14 +212,16 @@ const ManageAccount = props => {
     fetchAllExpertises();
   }, []);
 
-  useEffect(() => {
-    const result = Object.entries(expertise).map(([key, value]) => ({
-      label: key,
-      value,
-    }));
-    setItems(result);
-    setValue(expertise_areas1);
-  }, [expertise]);
+  console.log({expertise});
+
+//   useEffect(() => {
+//     const result = Object.entries(expertise)?.map(([key, value]) => ({
+//       label: key,
+//       value,
+//     }));
+//     setItems(result);
+//     setValue(expertise_areas1);
+//   }, [expertise]);
 
   return (
     <ScrollView
@@ -230,12 +232,7 @@ const ManageAccount = props => {
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
         <ImageBackground
           source={require('../../../assets/img/appBG.png')}
-          style={{height: 220}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <View style={{marginTop: 10, zIndex: 30, position: 'absolute'}}>
-              <Ionicons name={'arrow-back'} size={50} color="white" />
-            </View>
-          </TouchableOpacity>
+          style={{height: 180}}>
         </ImageBackground>
         <View
           style={{
@@ -280,26 +277,26 @@ const ManageAccount = props => {
               />
             </View>
             <View style={styles.header}>
-			{uploadProfileImageLoading && (
-                  <>
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
-				{updateLoading && (
-                  <>
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
+              {uploadProfileImageLoading && (
+                <>
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
+              {updateLoading && (
+                <>
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
               <Text style={styles.headingText1}>{profile.display_name}</Text>
               <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
