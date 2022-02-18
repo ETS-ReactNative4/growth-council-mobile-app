@@ -72,12 +72,17 @@ const BestPractice = props => {
 	}, []),
 	);
 
-  useEffect(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
-  }, [isFocused]);
+	useFocusEffect(
+		useCallback(() => {
+		const fetchAllPillarMemberContentAsync = async () => {
+		  await fetchAllPillarMemberContent(pillarId);
+		};
+		fetchAllPillarMemberContentAsync();
+		return () => {
+			cleanPillarMemberContent();
+		  };
+		}, []),
+	  );
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
