@@ -76,7 +76,6 @@ const Chat = (props) => {
                 </TouchableOpacity>
 
                 <Image
-                    // source={require('../../../assets/img/profile_image.png')}
                     source={{
                         uri: friendAvatar,
                     }}

@@ -13,7 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect,useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
@@ -45,6 +45,7 @@ const GrowthCoaching = props => {
   } = props;
 
   const pillarId = 119;
+  const isFocused = useIsFocused();
 
   useFocusEffect(
     useCallback(() => {
@@ -77,7 +78,7 @@ const GrowthCoaching = props => {
       await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -186,7 +187,7 @@ const GrowthCoaching = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
+                Hosted by {item?.organizer?.term_name} {item?.organizer?.description}
               </Text>
             </View>
           </ImageBackground>
