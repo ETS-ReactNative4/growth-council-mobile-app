@@ -48,6 +48,20 @@ const Profile = props => {
     const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
 
+	let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined){
+      organizer = ' '; 
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+	if (description === undefined){
+		description = ' '; 
+	  } else {
+		description = item?.organizer?.description;
+	  }
+
     return (
       <View key={index}>
         <TouchableOpacity
@@ -62,8 +76,7 @@ const Profile = props => {
                   fontFamily: Typography.FONT_SF_REGULAR,
                   color: '#222B45',
                 }}>
-                Hosted by {item?.organizer?.term_name}{' '}
-                {item?.organizer?.description}
+                {organizer} {description}
               </Text>
               <View style={styles.iconWrapper}>
                 <Ionicon name={'person'} size={15} color="#0B0B45" />
