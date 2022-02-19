@@ -55,6 +55,14 @@ const CoachingSession = props => {
   const [display, setDisplay] = useState(true);
   const [selectedId, setSelectedId] = useState(null);
 
+  const checkMark = (traitIndex, subTraitIndex) => {
+    if (traitIndex === 0) {
+      return answers.questions.growthIndex[subTraitIndex];
+    } else {
+      return answers.questions.innovativeIndex[subTraitIndex];
+    }
+  };
+
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
@@ -160,6 +168,13 @@ const CoachingSession = props => {
                                 <Text style={{fontSize: 12}}>
                                   {subTrait?.title}
                                 </Text>
+                                {checkMark(index1, index2) && (
+                                  <Ionicons
+                                    name={'checkmark-outline'}
+                                    size={20}
+                                    color={'#A1BA68'}
+                                  />
+                                )}
                               </View>
                             ))}
                           </View>
