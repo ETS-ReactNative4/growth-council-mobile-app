@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -17,6 +17,7 @@ import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {BubblesLoader} from 'react-native-indicator';
+import {set} from 'immer/dist/internal';
 
 const CoachingSession = props => {
   const {
@@ -44,12 +45,14 @@ const CoachingSession = props => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [answers, setAnswers] = useState({
-    growthIndexScore: 0,
-    innovativeIndexScore: 0,
     questions: {
       growthIndex: [],
       innovativeIndex: [],
     },
+  });
+  const [score, setScore] = useState({
+    growthIndexScore: 0,
+    innovativeIndexScore: 0,
   });
 
   const [display, setDisplay] = useState(true);
@@ -62,6 +65,36 @@ const CoachingSession = props => {
       return answers.questions.innovativeIndex[subTraitIndex];
     }
   };
+
+  useEffect(() => {
+    let traitsLength = traits.length;
+    let subtraitsLength = [];
+    let growthIndexScore = 0;
+    let innovativeIndexScore = 0;
+    traits?.map((trait, index) => {
+      subtraitsLength[index] = trait?.sub_traits.length;
+    });
+    answers?.questions?.growthIndex?.map(value => {
+      if (value) {
+        growthIndexScore += parseInt(value);
+      }
+    });
+    answers?.questions?.innovativeIndex?.map(value => {
+      if (value) {
+        innovativeIndexScore += parseInt(value);
+      }
+    });
+    setScore({
+      growthIndexScore: growthIndexScore / subtraitsLength[0],
+      innovativeIndexScore: innovativeIndexScore / subtraitsLength[1],
+    });
+    console.log({
+      traitsLength,
+      subtraitsLength,
+      growthIndexScore,
+      innovativeIndexScore,
+    });
+  }, [answers]);
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -154,7 +187,9 @@ const CoachingSession = props => {
                                     alignItems: 'center',
                                   }}>
                                   <Text style={{fontSize: 12}}>
-                                    {answers.totalScore}
+                                    {(score.growthIndexScore +
+                                      score.innovativeIndexScore) /
+                                      2}
                                   </Text>
                                 </View>
                               </View>
