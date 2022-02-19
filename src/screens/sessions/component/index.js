@@ -23,7 +23,6 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
 
-
 const Session = props => {
   const {
     navigation,
@@ -40,19 +39,18 @@ const Session = props => {
     cleanSessionRegister,
   } = props;
 
-	const toast = useToast();
-	const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
-	const [timeToDisplay, setTimeToDisplay] = useState('');
-	const [timeToEnd, setTimeToEnd] = useState('');
+  const toast = useToast();
+  const [sessionStatus, setSessionStatus] = useState(sessions?.register_status);
+  const [timeToDisplay, setTimeToDisplay] = useState('');
+  const [timeToEnd, setTimeToEnd] = useState('');
 
   useEffect(() => {
     fetchSessionByIdentifier(route.params.id);
   }, []);
 
   useEffect(() => {
-    	setSessionStatus(sessions?.register_status);
+    setSessionStatus(sessions?.register_status);
   }, [sessions]);
-
 
   const registerSessionBySessionID = async sessionID => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
@@ -91,36 +89,34 @@ const Session = props => {
     description = '';
   }
 
-	const backStartTimeStamp = sessions?.event_start;
-	const backEndTimeStamp = sessions?.event_end;
-	const deviceTimeZone = RNLocalize.getTimeZone();
+  const backStartTimeStamp = sessions?.event_start;
+  const backEndTimeStamp = sessions?.event_end;
+  const deviceTimeZone = RNLocalize.getTimeZone();
 
-	const today = moment().tz(deviceTimeZone);
-	const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+  const today = moment().tz(deviceTimeZone);
+  const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-	const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
-	const GobalStartMonth=moment(timeToDisplay).format('D MMMM');
-	console.log(GobalDate);
+  const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
 
-	const GobalDateEnd = moment(timeToEnd).format('Do MMMM, dddd, h:mm a');
-	const GobalEndMonth = moment(timeToEnd).format('D MMMM');
-	console.log(GobalDateEnd);
+  const GobalDateEnd = moment(timeToEnd).format('Do MMMM, dddd, h:mm a');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
 
-	useEffect(() => {
-		const convertedToLocalTime = formatTimeByOffset(
-		backStartTimeStamp,
-		currentTimeZoneOffsetInHours,
-		);
-		setTimeToDisplay(convertedToLocalTime);
-	}, [sessions]);
+  useEffect(() => {
+    const convertedToLocalTime = formatTimeByOffset(
+      backStartTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+    setTimeToDisplay(convertedToLocalTime);
+  }, [sessions]);
 
-	useEffect(() => {
-		const convertedToLocalTimeEnd = formatTimeByOffset(
-		backEndTimeStamp,
-		currentTimeZoneOffsetInHours,
-		);
-		setTimeToEnd(convertedToLocalTimeEnd);
-	}, [sessions]);
+  useEffect(() => {
+    const convertedToLocalTimeEnd = formatTimeByOffset(
+      backEndTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+    setTimeToEnd(convertedToLocalTimeEnd);
+  }, [sessions]);
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -129,11 +125,11 @@ const Session = props => {
           source={{uri: sessions?.image}}
           resizeMode="cover"
           style={{height: '55%'}}>
-			<TouchableOpacity onPress={() => navigation.goBack()}>
-				<View style={{marginTop:10}}>
-				<Ionicons name={'arrow-back'} size={50} color="white" />
-				</View>
-			</TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={{marginTop: 10}}>
+              <Ionicons name={'arrow-back'} size={50} color="white" />
+            </View>
+          </TouchableOpacity>
           <View
             style={{
               alignItems: 'center',
@@ -171,10 +167,13 @@ const Session = props => {
                       paddingLeft: 5,
                     }}>
                     <Text style={styles.eventDetails}>{GobalDate} /</Text>
-                        <Text style={styles.eventDetails}>
-							{GobalStartMonth === GobalEndMonth ? GobalDateEnd.split(/(\s+)/)[6] + GobalDateEnd.split(/(\s+)/)[8] : GobalDateEnd }
-							({deviceTimeZone})
-						</Text>
+                    <Text style={styles.eventDetails}>
+                      {GobalStartMonth === GobalEndMonth
+                        ? GobalDateEnd.split(/(\s+)/)[6] +
+                          GobalDateEnd.split(/(\s+)/)[8]
+                        : GobalDateEnd}
+                      ({deviceTimeZone})
+                    </Text>
                   </View>
                   {!sessionStatus && (
                     <View
@@ -236,8 +235,8 @@ const Session = props => {
                         paddingLeft: 10,
                       }}>
                       <Text style={styles.eventLocationDetails}>
-                        {sessions?.location?.location_city} 
-                        {sessions?.location?.location_state} 
+                        {sessions?.location?.location_city}
+                        {sessions?.location?.location_state}
                         {sessions?.location?.location_country}
                       </Text>
                       <Text>{sessions?.location?.location_address}</Text>
@@ -275,7 +274,6 @@ const Session = props => {
                       flex: 3,
                       paddingLeft: 20,
                     }}>
-                   
                     <Text style={styles.contentHeading}>
                       {sessions?.organizer?.term_name}
                     </Text>
@@ -305,14 +303,14 @@ const Session = props => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-					 {sessionRegisterLoading && (
-                      <View style={styles.loading1}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    )}
+                {sessionRegisterLoading && (
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                )}
                 {!sessionStatus && (
                   <Button
                     style={styles.acceptButton}
@@ -393,19 +391,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(242,103,34,1)',
   },
   eventDetails: {
-	fontFamily: Typography.FONT_NORMAL,
-	color: Colors.NONARY_TEXT_COLOR,
-	fontWeight: 'bold',
-	marginLeft: 5,
-	fontSize: 14,
+    fontFamily: Typography.FONT_NORMAL,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontWeight: 'bold',
+    marginLeft: 5,
+    fontSize: 14,
   },
-eventLocationDetails: {
-	fontFamily: Typography.FONT_NORMAL,
-	color: Colors.NONARY_TEXT_COLOR,
-	fontWeight: 'bold',
-	fontSize: 14,
-	marginBottom: 5,
-	marginTop: 5,
+  eventLocationDetails: {
+    fontFamily: Typography.FONT_NORMAL,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginBottom: 5,
+    marginTop: 5,
   },
   topbanner: {
     backgroundColor: 'rgba(54,147,172,1)',

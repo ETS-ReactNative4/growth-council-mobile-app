@@ -16,6 +16,7 @@ import ButtonToggleGroup from 'react-native-button-toggle-group';
 import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import {BubblesLoader} from 'react-native-indicator';
 
 const CoachingSession = props => {
   const {
@@ -43,13 +44,24 @@ const CoachingSession = props => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [answers, setAnswers] = useState({
-    totalScore: 0,
-    questions: [],
-    yellowBenchmarkQuestions: [],
+    growthIndexScore: 0,
+    innovativeIndexScore: 0,
+    questions: {
+      growthIndex: [],
+      innovativeIndex: [],
+    },
   });
 
   const [display, setDisplay] = useState(true);
   const [selectedId, setSelectedId] = useState(null);
+
+  const checkMark = (traitIndex, subTraitIndex) => {
+    if (traitIndex === 0) {
+      return answers.questions.growthIndex[subTraitIndex];
+    } else {
+      return answers.questions.innovativeIndex[subTraitIndex];
+    }
+  };
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -58,6 +70,12 @@ const CoachingSession = props => {
           barStyle="dark-content"
           backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
         />
+
+        {traitsLoading && sessionLoading && (
+          <View style={styles.bubblesLoader}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
 
         <View>
           <View style={[styles.content, {height: 'auto'}]}>
@@ -104,8 +122,8 @@ const CoachingSession = props => {
                   }}>
                   <View>
                     <View style={styles.modalView}>
-                      {traits?.map((trait, index) => (
-                        <View>
+                      {traits?.map((trait, index1) => (
+                        <View key={index1}>
                           <View style={styles.wrapper}>
                             <View style={styles.traitWrapper}>
                               <View style={[styles.traitW, styles.shadowProp]}>
@@ -119,7 +137,7 @@ const CoachingSession = props => {
                                 {trait?.title}
                               </Text>
                             </View>
-                            {index === 0 && (
+                            {index1 === 0 && (
                               <View style={{flexDirection: 'row'}}>
                                 <Text style={{marginTop: 15, fontSize: 12}}>
                                   Score
@@ -143,12 +161,20 @@ const CoachingSession = props => {
                             )}
                           </View>
                           <View style={{marginTop: 10, marginLeft: 50}}>
-                            {trait?.sub_traits?.map((subTrait, index) => (
+                            {trait?.sub_traits?.map((subTrait, index2) => (
                               <View
-                                style={[styles.textStyle, styles.shadowProp]}>
+                                style={[styles.textStyle, styles.shadowProp]}
+                                key={index2}>
                                 <Text style={{fontSize: 12}}>
                                   {subTrait?.title}
                                 </Text>
+                                {checkMark(index1, index2) && (
+                                  <Ionicons
+                                    name={'checkmark-outline'}
+                                    size={20}
+                                    color={'#A1BA68'}
+                                  />
+                                )}
                               </View>
                             ))}
                           </View>
@@ -428,6 +454,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  bubblesLoader: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 export default CoachingSession;
