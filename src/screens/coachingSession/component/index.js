@@ -88,12 +88,6 @@ const CoachingSession = props => {
       growthIndexScore: growthIndexScore / subtraitsLength[0],
       innovativeIndexScore: innovativeIndexScore / subtraitsLength[1],
     });
-    console.log({
-      traitsLength,
-      subtraitsLength,
-      growthIndexScore,
-      innovativeIndexScore,
-    });
   }, [answers]);
 
   return (
