@@ -90,20 +90,17 @@ const CoachingSession = props => {
     });
   }, [answers]);
 
-  return (
+  return traitsLoading && sessionLoading ? (
+    <View style={styles.bubblesLoader}>
+      <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+    </View>
+  ) : (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
         <StatusBar
           barStyle="dark-content"
           backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
         />
-
-        {traitsLoading && sessionLoading && (
-          <View style={styles.bubblesLoader}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
-
         <View>
           <View style={[styles.content, {height: 'auto'}]}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
