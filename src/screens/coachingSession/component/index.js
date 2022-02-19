@@ -16,6 +16,7 @@ import ButtonToggleGroup from 'react-native-button-toggle-group';
 import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import {BubblesLoader} from 'react-native-indicator';
 
 const CoachingSession = props => {
   const {
@@ -43,9 +44,12 @@ const CoachingSession = props => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [answers, setAnswers] = useState({
-    totalScore: 0,
-    questions: [],
-    yellowBenchmarkQuestions: [],
+    growthIndexScore: 0,
+    innovativeIndexScore: 0,
+    questions: {
+      growthIndex: [],
+      innovatieIndex: [],
+    },
   });
 
   const [display, setDisplay] = useState(true);
@@ -58,6 +62,12 @@ const CoachingSession = props => {
           barStyle="dark-content"
           backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
         />
+
+        {traitsLoading && sessionLoading && (
+          <View style={styles.bubblesLoader}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
 
         <View>
           <View style={[styles.content, {height: 'auto'}]}>
@@ -428,6 +438,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  bubblesLoader: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 export default CoachingSession;
