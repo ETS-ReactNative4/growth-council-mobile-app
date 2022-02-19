@@ -6,6 +6,15 @@ import {Typography} from '../../../theme';
 const TraitsQuestion = props => {
   const {question, answers, count, setAnswers, questionIndex, traitIndex} =
     props;
+  const [status, setStatus] = useState(0);
+
+  useEffect(() => {
+    if (traitIndex.traitIndex === 0) {
+      setStatus(answers?.questions?.growthIndex[count]);
+    } else {
+      setStatus(answers?.questions?.innovativeIndex[count]);
+    }
+  }, [count, answers]);
 
   return (
     <View style={[styles.questionWrapper, styles.shadowProp]}>
@@ -17,19 +26,7 @@ const TraitsQuestion = props => {
           <View style={{display: 'flex', flexDirection: 'row'}}>
             <RadioButton
               value={option1?.score}
-              status={option1 => {
-                if (traitIndex.traitIndex === 0) {
-                  return answers?.questions?.growthIndex[count] ===
-                    option1?.score
-                    ? 'checked'
-                    : 'unchecked';
-                } else {
-                  return answers?.questions?.innovativeIndex[count] ===
-                    option1?.score
-                    ? 'checked'
-                    : 'unchecked';
-                }
-              }}
+              status={status === option1.score ? 'checked' : 'unchecked'}
               onPress={() => {
                 let newAnswers = answers;
                 if (traitIndex.traitIndex === 0) {

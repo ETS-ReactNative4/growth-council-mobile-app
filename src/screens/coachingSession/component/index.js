@@ -48,7 +48,7 @@ const CoachingSession = props => {
     innovativeIndexScore: 0,
     questions: {
       growthIndex: [],
-      innovatieIndex: [],
+      innovativeIndex: [],
     },
   });
 
@@ -114,8 +114,8 @@ const CoachingSession = props => {
                   }}>
                   <View>
                     <View style={styles.modalView}>
-                      {traits?.map((trait, index) => (
-                        <View>
+                      {traits?.map((trait, index1) => (
+                        <View key={index1}>
                           <View style={styles.wrapper}>
                             <View style={styles.traitWrapper}>
                               <View style={[styles.traitW, styles.shadowProp]}>
@@ -129,7 +129,7 @@ const CoachingSession = props => {
                                 {trait?.title}
                               </Text>
                             </View>
-                            {index === 0 && (
+                            {index1 === 0 && (
                               <View style={{flexDirection: 'row'}}>
                                 <Text style={{marginTop: 15, fontSize: 12}}>
                                   Score
@@ -153,9 +153,10 @@ const CoachingSession = props => {
                             )}
                           </View>
                           <View style={{marginTop: 10, marginLeft: 50}}>
-                            {trait?.sub_traits?.map((subTrait, index) => (
+                            {trait?.sub_traits?.map((subTrait, index2) => (
                               <View
-                                style={[styles.textStyle, styles.shadowProp]}>
+                                style={[styles.textStyle, styles.shadowProp]}
+                                key={index2}>
                                 <Text style={{fontSize: 12}}>
                                   {subTrait?.title}
                                 </Text>
