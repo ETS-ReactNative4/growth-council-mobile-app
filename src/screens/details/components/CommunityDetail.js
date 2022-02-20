@@ -300,16 +300,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 10,
   },
-    content: {
-		borderRadius:18,
-		backgroundColor:'skyblue',
-		Index: 1011,
-    },
+  content: {
+    borderRadius: 18,
+    backgroundColor: 'skyblue',
+  },
   contentWrapper: {
     backgroundColor: 'white',
     overflow: 'scroll',
     marginTop: 10,
-    zIndex: 110,
   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,

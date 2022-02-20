@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector,useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   Platform,
   SafeAreaView,
@@ -59,11 +59,13 @@ import HeaderRight from '../shared/header/HeaderRight';
 const Stack = createStackNavigator();
 
 const MainNavigation = props => {
-	const dispatch = useDispatch();
-const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  const {profile, profileLoading, profileError} = useSelector(
+    state => state.profile,
+  );
   const fetchProfileByIdentifier = () => {
-	dispatch(fetchProfileByID());
-};
+    dispatch(fetchProfileByID());
+  };
   return (
     <Stack.Navigator
       detachInactiveScreens={false}
@@ -217,50 +219,84 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
-		  options={({navigation}) => ({
-			headerLeft: () => (
-				<View>
-				  <View>
-					<TouchableOpacity onPress={() => navigation.goBack()}>
-					  <Ionicons
-						 name={'arrow-back'} size={30} color="white" 
-						style={{marginLeft: 10, top: 5}}
-					  />
-					</TouchableOpacity>
-				  </View>
-				  
-				</View>
-			  ),
-			headerTitle: () => (
-				<View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-				  <Text
-					style={{
-					  color: Colors.PRIMARY_BACKGROUND_COLOR,
-					  fontSize: 22,
-					  marginTop: 10,
-					}}>
-					ManageAccount
-				  </Text>
-				</View>
-			  ),
-			
-			headerBackground: () => (
-				<View>
-				  <ImageBackground
-					source={require('../../src/assets/img/appBG.png')}
-					style={{width: '100%', height: 60}}
-				  />
-				</View>
-			  ),
+          options={({navigation}) => ({
+            headerLeft: () => (
+              <View>
+                <View>
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Ionicons
+                      name={'arrow-back'}
+                      size={30}
+                      color="white"
+                      style={{marginLeft: 10, top: 5}}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ),
+            headerTitle: () => (
+              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+                <Text
+                  style={{
+                    color: Colors.PRIMARY_BACKGROUND_COLOR,
+                    fontSize: 22,
+                    marginTop: 10,
+                  }}>
+                  ManageAccount
+                </Text>
+              </View>
+            ),
+
+            headerBackground: () => (
+              <View>
+                <ImageBackground
+                  source={require('../../src/assets/img/appBG.png')}
+                  style={{width: '100%', height: 60}}
+                />
+              </View>
+            ),
           })}
-         
         />
         <Stack.Screen
           name="OthersAccount"
           component={OtherAccountScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             id: route?.params?.id,
-            headerTitle: 'Account Info',
+            headerLeft: () => (
+              <View>
+                <View>
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Ionicons
+                      name={'arrow-back'}
+                      size={30}
+                      color="white"
+                      style={{marginLeft: 10, top: 5}}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ),
+            headerTitle: () => (
+              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+                <Text
+                  style={{
+                    color: Colors.PRIMARY_BACKGROUND_COLOR,
+                    fontSize: 22,
+                    marginTop: 10,
+                  }}>
+                  Others Account
+                </Text>
+              </View>
+            ),
+
+            headerBackground: () => (
+              <View>
+                <ImageBackground
+                  source={require('../../src/assets/img/appBG.png')}
+                  style={{width: '100%', height: 60}}
+                />
+              </View>
+            ),
           })}
         />
 
