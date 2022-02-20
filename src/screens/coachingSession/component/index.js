@@ -49,6 +49,7 @@ const CoachingSession = props => {
       growthIndex: [],
       innovativeIndex: [],
     },
+    yellowQuestions: [],
   });
   const [score, setScore] = useState({
     growthIndexScore: 0,

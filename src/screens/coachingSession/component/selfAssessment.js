@@ -166,6 +166,7 @@ const SelfAssessment = props => {
               <Question
                 {...props}
                 subTraits={traits[index.traitIndex]}
+                traitIndex={index}
                 // subTraitsLoading={subTraitsLoading}
                 // fetchAllSubTrait={fetchAllSubTrait}
 
