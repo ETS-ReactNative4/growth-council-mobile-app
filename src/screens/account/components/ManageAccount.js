@@ -189,7 +189,7 @@ const ManageAccount = props => {
       Location: Location,
       favorite_quote: favorite_quote,
       insights: insights,
-      expertise_areas1: expertise_areas1,
+      expertise_areas1:profile?.expertise_areas1,
       initatives: initatives,
       professional_summary: professional_summary,
     },
@@ -214,14 +214,14 @@ const ManageAccount = props => {
 
   console.log({expertise});
 
-//   useEffect(() => {
-//     const result = Object.entries(expertise)?.map(([key, value]) => ({
-//       label: key,
-//       value,
-//     }));
-//     setItems(result);
-//     setValue(expertise_areas1);
-//   }, [expertise]);
+  useEffect(() => {
+    const result = Object.entries(expertise)?.map(([key, value]) => ({
+      label: key,
+      value,
+    }));
+    setItems(result);
+    setValue(profile?.expertise_areas1);
+  }, [expertise]);
 
   return (
     <ScrollView
