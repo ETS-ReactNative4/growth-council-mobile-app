@@ -8,6 +8,7 @@ import {Colors} from '../../../theme';
 import Trait from './Traits';
 import Question from './Question';
 import {fetchAllSubTraits, resetSubTraits} from '../slice/subTraitsSlice';
+import {submitSessionScores} from '../slice/sessionScoreSlice';
 import {
   fetchTraitsAnswerByUserId,
   updateTraitsAnswerByUserId,
@@ -20,6 +21,7 @@ const SelfAssessment = props => {
   const {
     navigation,
     route,
+    score,
     traits,
     traitsLoading,
     traitsError,
@@ -83,15 +85,30 @@ const SelfAssessment = props => {
 
   useEffect(() => {}, [traitLength, subTraitLength]);
 
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
     if (
       index.traitIndex === traitLength - 1 &&
       index.subTraitIndex === subTraitLength - 1
     ) {
-      ToastMessage.show(
-        'You score has submitted. Please complete all the session.',
+      const response = await dispatch(
+        submitSessionScores(route?.params?.id, score),
       );
-      navigation.navigate('radar');
+      if (response?.payload?.code === 200) {
+        ToastMessage.show(
+          'You score has submitted. Please complete all the session.',
+        );
+        setAnswers({
+          questions: {
+            growthIndex: [],
+            innovativeIndex: [],
+          },
+          yellowQuestions: [],
+        });
+        // navigation.navigate('radar');
+      } else {
+        toast.closeAll();
+        ToastMessage.show(response?.payload?.response);
+      }
     } else if (index.subTraitIndex === subTraitLength - 1) {
       setIndex({...index, subTraitIndex: 0, traitIndex: index.traitIndex + 1});
     } else {

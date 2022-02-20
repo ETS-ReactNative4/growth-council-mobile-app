@@ -226,6 +226,7 @@ const CoachingSession = props => {
                 <SessionAbout
                   {...props}
                   traits={traits}
+                  score={score}
                   traitsLoading={traitsLoading}
                   traitsError={traitsError}
                   fetchAllTraitBySession={fetchAllTraitBySession}
