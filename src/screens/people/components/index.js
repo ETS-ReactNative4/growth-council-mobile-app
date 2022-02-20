@@ -75,7 +75,7 @@ const People = props => {
     };
     fetchAllExpertisesAsync();
   }, []);
-  
+
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
