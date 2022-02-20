@@ -49,24 +49,24 @@ export const AuthProvider = ({children}) => {
                             await setAsyncStorage(JWT_TOKEN, response.data.token);
                             await setAsyncStorage(USER_NAME, response.data.user_display_name);
                             await setAsyncStorage(USER_AVATAR, response.data.avatar);
-                            if (!response?.data?.firebase_password) {
-                                const firebaseUserResponse = await createUserWithEmailAndPassword(auth, fromData?.username?.trim(), uuid.v4());
-                                const firebaseToken = await firebaseUserResponse.user.getIdToken();
-                                console.log('Firebase Token::::', firebaseUserResponse);
-                                const profileResponse = await axios.post(
-                                    API_URL + '}/jwt-auth/v1/users/profile',
-                                    {firebase_password: uuid.v4()},
-                                    {
-                                        headers: {
-                                            Accept: 'application/json',
-                                            'Content-Type': 'application/json',
-                                            'authorization': response?.data?.token,
-                                        },
-                                        responseType: 'json',
-                                    },
-                                );
-                                console.log('Profile response::::', profileResponse);
-                            }
+                            // if (!response?.data?.firebase_password) {
+                            //     const firebaseUserResponse = await createUserWithEmailAndPassword(auth, fromData?.username?.trim(), uuid.v4());
+                            //     const firebaseToken = await firebaseUserResponse.user.getIdToken();
+                            //     console.log('Firebase Token::::', firebaseUserResponse);
+                            //     const profileResponse = await axios.post(
+                            //         API_URL + '}/jwt-auth/v1/users/profile',
+                            //         {firebase_password: uuid.v4()},
+                            //         {
+                            //             headers: {
+                            //                 Accept: 'application/json',
+                            //                 'Content-Type': 'application/json',
+                            //                 'authorization': response?.data?.token,
+                            //             },
+                            //             responseType: 'json',
+                            //         },
+                            //     );
+                            //     console.log('Profile response::::', profileResponse);
+                            // }
                             const firebaseResponse = await signInWithEmailAndPassword(
                                 auth,
                                 response?.data?.user_email,
