@@ -71,13 +71,17 @@ const HomeCommunity = props => {
     }, []),
   );
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     const fetchAllPillarMemberContentAsync = async () => {
       await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, [isFocused]);
-
+	return () => {
+        cleanPillarMemberContent();
+      };
+    }, []),
+  );
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>

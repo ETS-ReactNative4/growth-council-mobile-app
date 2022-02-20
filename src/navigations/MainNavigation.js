@@ -1,9 +1,18 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Platform} from 'react-native';
-
+import {useSelector,useDispatch} from 'react-redux';
+import {
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+  Text,
+  ImageBackground,
+} from 'react-native';
+import {Colors} from '../theme';
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 
@@ -42,14 +51,23 @@ import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
+import {useIsFocused} from '@react-navigation/native';
+
+import HeaderTitle from '../shared/header';
+import HeaderRight from '../shared/header/HeaderRight';
 
 const Stack = createStackNavigator();
 
-const MainNavigation = () => {
+const MainNavigation = props => {
+	const dispatch = useDispatch();
+const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
+  const fetchProfileByIdentifier = () => {
+	dispatch(fetchProfileByID());
+};
   return (
     <Stack.Navigator
       detachInactiveScreens={false}
-      screenOptions={({route}) => ({
+      screenOptions={({navigation}) => ({
         headerTitleAlign: 'center',
       })}>
       <Stack.Group>
@@ -209,11 +227,43 @@ const MainNavigation = () => {
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
-          options={{
-            headerShown: false
-            // headerTransparent: true,
-            // ...TransitionPresets.RevealFromBottomAndroid,
-          }}
+		  options={({navigation}) => ({
+			headerLeft: () => (
+				<View>
+				  <View>
+					<TouchableOpacity onPress={() => navigation.goBack()}>
+					  <Ionicons
+						 name={'arrow-back'} size={30} color="white" 
+						style={{marginLeft: 10, top: 5}}
+					  />
+					</TouchableOpacity>
+				  </View>
+				  
+				</View>
+			  ),
+			headerTitle: () => (
+				<View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+				  <Text
+					style={{
+					  color: Colors.PRIMARY_BACKGROUND_COLOR,
+					  fontSize: 22,
+					  marginTop: 10,
+					}}>
+					ManageAccount
+				  </Text>
+				</View>
+			  ),
+			
+			headerBackground: () => (
+				<View>
+				  <ImageBackground
+					source={require('../../src/assets/img/appBG.png')}
+					style={{width: '100%', height: 60}}
+				  />
+				</View>
+			  ),
+          })}
+         
         />
         <Stack.Screen
           name="OthersAccount"
@@ -269,7 +319,7 @@ const MainNavigation = () => {
           component={SessionDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerShown: false
+            headerShown: false,
           })}
         />
         <Stack.Screen

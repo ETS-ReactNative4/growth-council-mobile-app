@@ -99,11 +99,11 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mm a');
+  const GobalDate = moment(timeToDisplay).format('D MMMM, (dddd), h:mm a');
   const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
   console.log(GobalStartMonth);
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a');
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM, (dddd), h:mm a');
   const GobalEndMonth = moment(timeToEnd).format('D MMMM');
   console.log(GobalEndMonth);
 

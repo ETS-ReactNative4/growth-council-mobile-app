@@ -73,12 +73,17 @@ const GrowthCoaching = props => {
   }, []),
   );
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     const fetchAllPillarMemberContentAsync = async () => {
       await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, [isFocused]);
+	return () => {
+        cleanPillarMemberContent();
+      };
+    }, []),
+  );
 
   const _renderItem = ({item, index}, navigation) => {
     return (

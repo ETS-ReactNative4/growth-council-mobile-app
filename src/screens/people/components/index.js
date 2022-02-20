@@ -82,7 +82,6 @@ const People = props => {
       item.connection = true;
       items[index] = item;
       setMemberConnection(items);
-
       ToastMessage.show('You have successfully connected.');
     } else {
       toast.closeAll();
