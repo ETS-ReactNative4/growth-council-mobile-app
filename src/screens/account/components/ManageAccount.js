@@ -66,8 +66,12 @@ const ManageAccount = props => {
 
   const isFocused = useIsFocused();
   const [open, setOpen] = useState(false);
-
+  const [value, setValue] = useState([]);
+  const [items, setItems] = useState([]);
   const [image, setImage] = useState(profile.avatar);
+
+  
+ 
 
   let Location = profile?.user_meta?.Location;
   if (typeof Location === 'undefined') {
@@ -109,13 +113,11 @@ const ManageAccount = props => {
 // 	  expertise_areas1 = [];
 //   } else {
 // 	  expertise_areas1 = profile?.expertise_areas1;
-//   }
 
-    const expertise_areas1 = profile?.expertise_areas1 !== 'undefined' ? profile?.expertise_areas1 : [];
+	const expertise_areas1 = profile?.expertise_areas1;
+	const expertise_areas = typeof expertise_areas1  !== null ? profile?.expertise_areas1 : [];
 
-
-	const [value, setValue] = useState([]);
-	const [items, setItems] = useState([]);
+console.log({expertise_areas});
 
  	const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -216,14 +218,15 @@ const ManageAccount = props => {
   }, []);
 
   useEffect(() => {
-	console.log("expertise_areas1::::::::::", expertise_areas1);
-	setValue(expertise_areas1);
 	const result = Object.entries(expertise).map(([key, value]) => ({
 		label: key,
 		value,
 	}));
 	setItems(result);
+	setValue(expertise_areas1);
 }, [expertise]);
+
+
   return (
     <ScrollView
       contentContainerStyle={{
