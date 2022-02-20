@@ -16,6 +16,7 @@ import {
 } from '../slice/traitAnswerbyUserId';
 import {BubblesLoader} from 'react-native-indicator';
 import ToastMessage from '../../../shared/toast';
+import {store} from '../../../utils/httpUtil';
 
 const SelfAssessment = props => {
   const {
@@ -90,25 +91,29 @@ const SelfAssessment = props => {
       index.traitIndex === traitLength - 1 &&
       index.subTraitIndex === subTraitLength - 1
     ) {
-      const response = await dispatch(
-        submitSessionScores(route?.params?.id, score),
-      );
-      if (response?.payload?.code === 200) {
-        ToastMessage.show(
-          'You score has submitted. Please complete all the session.',
-        );
-        setAnswers({
-          questions: {
-            growthIndex: [],
-            innovativeIndex: [],
-          },
-          yellowQuestions: [],
+      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, score)
+        .then(response => {
+          if (response?.payload?.code === 200) {
+            ToastMessage.show(
+              'You score has submitted. Please complete all the session.',
+            );
+            setAnswers({
+              questions: {
+                growthIndex: [],
+                innovativeIndex: [],
+              },
+              yellowQuestions: [],
+            });
+            // navigation.navigate('radar');
+          } else {
+            toast.closeAll();
+            ToastMessage.show(response?.payload?.response);
+          }
+        })
+        .catch(error => {
+          toast.closeAll();
+          ToastMessage.show('Something is wrong, please contact admin.');
         });
-        // navigation.navigate('radar');
-      } else {
-        toast.closeAll();
-        ToastMessage.show(response?.payload?.response);
-      }
     } else if (index.subTraitIndex === subTraitLength - 1) {
       setIndex({...index, subTraitIndex: 0, traitIndex: index.traitIndex + 1});
     } else {
