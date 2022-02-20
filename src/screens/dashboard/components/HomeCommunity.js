@@ -73,11 +73,11 @@ const HomeCommunity = props => {
 
   useFocusEffect(
     useCallback(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
-	return () => {
+      const fetchAllPillarMemberContentAsync = async () => {
+        await fetchAllPillarMemberContent(pillarId);
+      };
+      fetchAllPillarMemberContentAsync();
+      return () => {
         cleanPillarMemberContent();
       };
     }, []),
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 25,
     justifyContent: 'center',
-	marginRight:2,
+    marginRight: 2,
   },
   title: {
     fontFamily: Typography.FONT_SF_SEMIBOLD,
@@ -365,6 +365,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+    marginRight: 2,
     marginBottom: 10,
     backgroundColor: 'white',
   },

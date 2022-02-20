@@ -232,17 +232,13 @@ const Dashboard = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    console.log({file});
 
     const togglePlaying = () => {
       setPlaying(prev => !prev);
     };
     return (
       <View style={styles.ContentWrapper}>
-        <YoutubePlayer
-          play={playing}
-          videoId={videoLink[0]}
-        />
+        <YoutubePlayer play={playing} videoId={videoLink[0]} />
         <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} />
       </View>
     );
@@ -458,6 +454,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
+    marginRight: 2,
     backgroundColor: 'white',
   },
   chatIcon: {
