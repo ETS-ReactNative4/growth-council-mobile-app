@@ -63,8 +63,11 @@ const People = props => {
       });
     };
     fetchAllUsersAsync();
-    setMemberConnection(users);
   }, []);
+
+    useEffect(() => {
+        setMemberConnection(users);
+    }, [users]);
 
   useEffect(() => {
     const fetchAllExpertisesAsync = async () => {
@@ -72,7 +75,6 @@ const People = props => {
     };
     fetchAllExpertisesAsync();
   }, []);
-
 
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
