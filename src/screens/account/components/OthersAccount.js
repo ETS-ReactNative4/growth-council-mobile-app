@@ -29,7 +29,7 @@ const OthersAccount = props => {
   let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
 
 
-  const expertise_areas1 = otherProfiles?.expertise_areas1 ? otherProfiles?.expertise_areas?.join(',') : []
+  const expertise_areas1 = otherProfiles?.expertise_areas1 ? otherProfiles?.expertise_areas1?.join(','): []
 
 
   let professional_summary = otherProfiles?.user_meta?.professional_summary;
