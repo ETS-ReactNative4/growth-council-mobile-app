@@ -13,10 +13,12 @@ const YellowQuestion = props => {
   useEffect(() => {
     if (
       answers.yellowQuestions.length &&
-      answers.yellowQuestions[traitIndex.traitIndex].length &&
+      answers.yellowQuestions[traitIndex.traitIndex] !== undefined &&
       answers.yellowQuestions[traitIndex.traitIndex][count]
     ) {
-      setStatus(answers.yellowQuestions[traitIndex.traitIndex][count]);
+      answers.yellowQuestions[traitIndex.traitIndex][count] !== undefined
+        ? setStatus(answers.yellowQuestions[traitIndex.traitIndex][count])
+        : setStatus([]);
     } else {
       setStatus([]);
     }
