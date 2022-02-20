@@ -13,6 +13,7 @@ import {
   updateTraitsAnswerByUserId,
   resetTraitsAnswer,
 } from '../slice/traitAnswerbyUserId';
+import {BubblesLoader} from 'react-native-indicator';
 
 const SelfAssessment = props => {
   const {
@@ -116,70 +117,76 @@ const SelfAssessment = props => {
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
-      <View style={{flex: 1}}>
-        <View style={styles.Wrapper}>
-          <ButtonToggleGroup
-            highlightBackgroundColor={'white'}
-            highlightTextColor={'#0B0B45'}
-            inactiveBackgroundColor={'transparent'}
-            inactiveTextColor={'grey'}
-            values={['Sub Trait', 'Yellow Questions']}
-            value={value}
-            onSelect={val => setValue(val)}
-            style={{
-              height: 30,
-              marginTop: 5,
-              width: '95%',
-              marginLeft: 10,
-              fontSize: 12,
-              borderRadius: 15,
-            }}
-          />
-        </View>
-
-        <View>
-          {value === 'Sub Trait' && (
-            <Trait
-              {...props}
-              subTraits={traits[index.traitIndex]}
-              // subTraitsLoading={subTraitsLoading}
-              // subTraitsError={subTraitsError}
-              fetchAllSubTrait={fetchAllSubTrait}
-              cleanSubTrait={cleanSubTrait}
-              count={index.subTraitIndex}
-              answers={answers}
-              setAnswers={setAnswers}
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              traitsAnswer={traitsAnswer}
-              traitsAnswerLoading={traitsAnswerLoading}
-              traitsAnswerError={traitsAnswerError}
-              fetchTraitsAnswer={fetchTraitsAnswer}
-              updateTraitsAnswer={updateTraitsAnswer}
-              cleanTraitsAnswer={cleanTraitsAnswer}
+      {traits?.length > 0 ? (
+        <View style={{flex: 1}}>
+          <View style={styles.Wrapper}>
+            <ButtonToggleGroup
+              highlightBackgroundColor={'white'}
+              highlightTextColor={'#0B0B45'}
+              inactiveBackgroundColor={'transparent'}
+              inactiveTextColor={'grey'}
+              values={['Sub Trait', 'Yellow Questions']}
+              value={value}
+              onSelect={val => setValue(val)}
+              style={{
+                height: 30,
+                marginTop: 5,
+                width: '95%',
+                marginLeft: 10,
+                fontSize: 12,
+                borderRadius: 15,
+              }}
             />
-          )}
-          {value === 'Yellow Questions' && (
-            <Question
-              {...props}
-              subTraits={traits[index.traitIndex]}
-              // subTraitsLoading={subTraitsLoading}
-              // fetchAllSubTrait={fetchAllSubTrait}
+          </View>
 
-              count={index.subTraitIndex}
-              answers={answers}
-              setAnswers={setAnswers}
-              traitsAnswer={traitsAnswer}
-              traitsAnswerLoading={traitsAnswerLoading}
-              traitsAnswerError={traitsAnswerError}
-              fetchTraitsAnswer={fetchTraitsAnswer}
-              updateTraitsAnswer={updateTraitsAnswer}
-              cleanTraitsAnswer={cleanTraitsAnswer}
-            />
-          )}
+          <View>
+            {value === 'Sub Trait' && (
+              <Trait
+                {...props}
+                subTraits={traits[index.traitIndex]}
+                // subTraitsLoading={subTraitsLoading}
+                // subTraitsError={subTraitsError}
+                fetchAllSubTrait={fetchAllSubTrait}
+                cleanSubTrait={cleanSubTrait}
+                count={index.subTraitIndex}
+                traitIndex={index}
+                answers={answers}
+                setAnswers={setAnswers}
+                selectedId={selectedId}
+                setSelectedId={setSelectedId}
+                traitsAnswer={traitsAnswer}
+                traitsAnswerLoading={traitsAnswerLoading}
+                traitsAnswerError={traitsAnswerError}
+                fetchTraitsAnswer={fetchTraitsAnswer}
+                updateTraitsAnswer={updateTraitsAnswer}
+                cleanTraitsAnswer={cleanTraitsAnswer}
+              />
+            )}
+            {value === 'Yellow Questions' && (
+              <Question
+                {...props}
+                subTraits={traits[index.traitIndex]}
+                // subTraitsLoading={subTraitsLoading}
+                // fetchAllSubTrait={fetchAllSubTrait}
+
+                count={index.subTraitIndex}
+                answers={answers}
+                setAnswers={setAnswers}
+                traitsAnswer={traitsAnswer}
+                traitsAnswerLoading={traitsAnswerLoading}
+                traitsAnswerError={traitsAnswerError}
+                fetchTraitsAnswer={fetchTraitsAnswer}
+                updateTraitsAnswer={updateTraitsAnswer}
+                cleanTraitsAnswer={cleanTraitsAnswer}
+              />
+            )}
+          </View>
         </View>
-      </View>
-
+      ) : (
+        <View style={styles.bubblesLoader}>
+          <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+        </View>
+      )}
       <View
         style={{
           height: 90,
@@ -228,6 +235,15 @@ const styles = StyleSheet.create({
   scrollBox: {
     height: '65%',
     width: '100%',
+  },
+  bubblesLoader: {
+    top: '50%',
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 
