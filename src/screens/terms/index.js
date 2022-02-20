@@ -23,10 +23,6 @@ const Terms = props => {
   } = props;
 
   const win = Dimensions.get('window');
-
-  
-  // console.log('privacy policy::::::', privacy);
-
   return (
     <>
       <StatusBar

@@ -106,15 +106,9 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
-//   let expertise_areas1 = profile?.expertise_areas1;
-//   if (typeof expertise_areas1 === 0) {
-//     expertise_areas1 = [];
-//   } else {
-//     expertise_areas1 = profile?.expertise_areas1;
-//   }
-
-
-  const expertise_areas1 = profile?.expertise_areas1 ? profile?.expertise_areas1: []
+  const expertise_areas1 = profile?.expertise_areas1
+    ? profile?.expertise_areas1
+    : [];
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -469,7 +463,6 @@ const ManageAccount = props => {
                     containerStyle={{
                       width: '94%',
                       marginLeft: 10,
-                      color: 'black',
                     }}
                   />
 
