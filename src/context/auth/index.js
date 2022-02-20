@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth';
+import uuid from 'react-native-uuid';
 
 import {setAsyncStorage, clearAsyncStorage, getAsyncStorage} from '../../utils/storageUtil';
 import {JWT_TOKEN, API_URL, USER_NAME, USER_AVATAR} from '../../constants';
@@ -16,7 +17,9 @@ export const AuthProvider = ({children}) => {
     useEffect(() => {
         const isUserAlreadyLoggedIn = async () => {
             const token = await getAsyncStorage(JWT_TOKEN);
-            if (token) navigate('Dashboard');
+            if (token) {
+                navigate('Dashboard');
+            }
         };
         isUserAlreadyLoggedIn();
     });
@@ -46,6 +49,11 @@ export const AuthProvider = ({children}) => {
                             await setAsyncStorage(JWT_TOKEN, response.data.token);
                             await setAsyncStorage(USER_NAME, response.data.user_display_name);
                             await setAsyncStorage(USER_AVATAR, response.data.avatar);
+                            if (!response?.data?.firebase_password) {
+                                const response = await createUserWithEmailAndPassword(auth, fromData?.username?.trim(), uuid.v4());
+                                const token = await response.user.getIdToken();
+                                console.log('Firebase Token::::', token);
+                            }
                             const firebaseResponse = await signInWithEmailAndPassword(
                                 auth,
                                 response?.data?.user_email,
@@ -53,7 +61,9 @@ export const AuthProvider = ({children}) => {
                             );
                             //const firebaseResponse = await signInWithEmailAndPassword(auth, response?.data?.user_email, '55c20a44-6136-4c16-aa48-f5638d031a03');
                             const token = await firebaseResponse.user;
-                            if (token) navigate('Dashboard');
+                            if (token) {
+                                navigate('Dashboard');
+                            }
                         } else {
                             setLoading(false);
                             setMessage(response?.data?.message);
