@@ -60,10 +60,6 @@ const CoachingSessionDetailScreen = props => {
     dispatch(resetSessionRegister());
   };
 
-  if (traitsLoading && sessionLoading) {
-    return null;
-  }
-
   return (
     <CoachingSession
       {...props}
