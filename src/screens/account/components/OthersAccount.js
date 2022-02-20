@@ -32,7 +32,7 @@ const OthersAccount = props => {
     let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
 
     let expertise_areas1 = otherProfiles?.expertise_areas1;
-	if (typeof expertise_areas1 === 'undefined') {
+	if ( expertise_areas1 === 'undefined') {
 		expertise_areas1 = [];
 	  } else {
 		expertise_areas1 = otherProfiles?.expertise_areas1;
