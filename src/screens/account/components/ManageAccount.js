@@ -105,10 +105,9 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
-	const expertise_areas1 = profile?.expertise_areas1;
-	const expertise_areas = typeof expertise_areas1  !== null ? profile?.expertise_areas1 : [];
+	let expertise_areas1 = profile?.expertise_areas1 ? profile?.expertise_areas1 : []; 
 
-	console.log({expertise_areas});
+	console.log({expertise_areas1});
 
  	const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -209,7 +208,7 @@ const ManageAccount = props => {
 	}, []);
 
 	useEffect(() => {
-		const result = Object.entries(expertise).map(([key, value]) => ({
+		const result = Object.entries(expertise)?.map(([key, value]) => ({
 			label: key,
 			value,
 		}));
