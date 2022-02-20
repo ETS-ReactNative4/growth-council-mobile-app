@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import OthersAccount from './components/OthersAccount';
 import {fetchOtherProfileByID, resetProfile} from './slice/otherProfileSlice';
-import {fetchProfileByID, resetProfile} from './slice/profileSlice';
+import {fetchProfileByID,} from './slice/profileSlice';
 
 
 const OtherAccountScreen = props => {
