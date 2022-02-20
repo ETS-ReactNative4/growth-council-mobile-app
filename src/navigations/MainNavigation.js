@@ -214,16 +214,6 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
             headerTitle: 'Self Learn',
           }}
         />
-        {/* <Stack.Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{
-            headerLeft: () => null,
-            headerTitle: 'Settings',
-            headerTransparent: true,
-            ...TransitionPresets.RevealFromBottomAndroid,
-          }}
-        /> */}
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  Button,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
@@ -55,6 +56,8 @@ const Dashboard = props => {
     cleanPillarEvent,
     contentSlider,
   } = props;
+
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -179,17 +182,17 @@ const Dashboard = props => {
 
     let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
-    if (organizer === undefined){
-      organizer = ' '; 
+    if (organizer === undefined) {
+      organizer = ' ';
     } else {
       organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
     }
 
-	if (description === undefined){
-		description = ' '; 
-	  } else {
-		description = item?.organizer?.description;
-	  }
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
 
     return (
       <View key={index} style={styles.topWrapper}>
@@ -229,9 +232,14 @@ const Dashboard = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
+
+    const togglePlaying = () => {
+      setPlaying(prev => !prev);
+    };
     return (
       <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videoLink[0]} />
+        <YoutubePlayer play={playing} videoId={videoLink[0]} />
+        <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} />
       </View>
     );
   };
@@ -446,6 +454,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
+    marginRight: 2,
     backgroundColor: 'white',
   },
   chatIcon: {
