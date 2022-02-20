@@ -14,6 +14,7 @@ import {
   resetTraitsAnswer,
 } from '../slice/traitAnswerbyUserId';
 import {BubblesLoader} from 'react-native-indicator';
+import ToastMessage from '../../../shared/toast';
 
 const SelfAssessment = props => {
   const {
@@ -82,20 +83,14 @@ const SelfAssessment = props => {
 
   useEffect(() => {}, [traitLength, subTraitLength]);
 
-  const handleAnswerButtonClick = () => {
-    const nextTraits = count + 1;
-    if (nextTraits < subTraits?.sub_traits?.length) {
-      setCount(nextTraits);
-    } else {
-      navigation.navigate('radar');
-    }
-  };
-
   const handleNextButtonClick = () => {
     if (
       index.traitIndex === traitLength - 1 &&
       index.subTraitIndex === subTraitLength - 1
     ) {
+      ToastMessage.show(
+        'You score has submitted. Please complete all the session.',
+      );
       navigation.navigate('radar');
     } else if (index.subTraitIndex === subTraitLength - 1) {
       setIndex({...index, subTraitIndex: 0, traitIndex: index.traitIndex + 1});
@@ -207,7 +202,10 @@ const SelfAssessment = props => {
         </Button>
         <Button style={styles.buttonWrapper} onPress={handleNextButtonClick}>
           <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
-            Next
+            {index.traitIndex === traitLength - 1 &&
+            index.subTraitIndex === subTraitLength - 1
+              ? 'Submit'
+              : 'Next'}
           </Text>
         </Button>
       </View>

@@ -179,9 +179,11 @@ const CoachingSession = props => {
                                     alignItems: 'center',
                                   }}>
                                   <Text style={{fontSize: 12}}>
-                                    {(score.growthIndexScore +
-                                      score.innovativeIndexScore) /
-                                      2}
+                                    {(
+                                      (score.growthIndexScore +
+                                        score.innovativeIndexScore) /
+                                      2
+                                    ).toFixed(2)}
                                   </Text>
                                 </View>
                               </View>
