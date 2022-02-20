@@ -66,6 +66,10 @@ const ManageAccount = props => {
 
   const isFocused = useIsFocused();
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([]);
+  const [items, setItems] = useState([]);
+
+  const [image, setImage] = useState(profile.avatar);
 
   let Location = profile?.user_meta?.Location;
   if (typeof Location === 'undefined') {
@@ -102,17 +106,15 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
-  let expertise_areas1 = profile?.expertise_areas1;
-  if (typeof expertise_areas1 === 'undefined') {
-    expertise_areas1 = [];
-  } else {
-    expertise_areas1 = profile?.expertise_areas1;
-  }
+//   let expertise_areas1 = profile?.expertise_areas1;
+//   if (typeof expertise_areas1 === 0) {
+//     expertise_areas1 = [];
+//   } else {
+//     expertise_areas1 = profile?.expertise_areas1;
+//   }
 
-  const [value, setValue] = useState([]);
-  const [items, setItems] = useState([]);
 
-  const [image, setImage] = useState(profile.avatar);
+  const expertise_areas1 = profile?.expertise_areas1 ? profile?.expertise_areas1: []
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -189,7 +191,7 @@ const ManageAccount = props => {
       Location: Location,
       favorite_quote: favorite_quote,
       insights: insights,
-      expertise_areas1:profile?.expertise_areas1,
+      expertise_areas1: expertise_areas1,
       initatives: initatives,
       professional_summary: professional_summary,
     },
@@ -212,15 +214,13 @@ const ManageAccount = props => {
     fetchAllExpertises();
   }, []);
 
-  console.log({expertise});
-
   useEffect(() => {
     const result = Object.entries(expertise)?.map(([key, value]) => ({
       label: key,
       value,
     }));
     setItems(result);
-    setValue(profile?.expertise_areas1);
+    setValue(expertise_areas1);
   }, [expertise]);
 
   return (
@@ -232,8 +232,7 @@ const ManageAccount = props => {
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
         <ImageBackground
           source={require('../../../assets/img/appBG.png')}
-          style={{height: 180}}>
-        </ImageBackground>
+          style={{height: 180}}></ImageBackground>
         <View
           style={{
             display: 'flex',
@@ -465,11 +464,12 @@ const ManageAccount = props => {
                     setValue={setValue}
                     setItems={setItems}
                     onChangeValue={value => {
-                      setFieldValue('expertise_areas1', value);
+                      setFieldValue('expertise_areas', value);
                     }}
                     containerStyle={{
                       width: '94%',
                       marginLeft: 10,
+                      color: 'black',
                     }}
                   />
 
@@ -502,28 +502,16 @@ const ManageAccount = props => {
                     error={errors.insights}
                     touched={touched.insights}
                   />
-                  {userLoading && (
-                    <>
-                      <View
-                        style={{
-                          flex: 1,
-                          alignItems: 'center',
-                          flexDirection: 'column',
-                          justifyContent: 'space-around',
-                          position: 'absolute',
-                          zIndex: 1011,
-                          top: 120,
-                          left: 100,
-                        }}>
+
+                  <View style={styles.loginButtonWrapper}>
+                    {userLoading && (
+                      <View style={styles.loading1}>
                         <BubblesLoader
                           color={Colors.SECONDARY_TEXT_COLOR}
                           size={80}
                         />
                       </View>
-                    </>
-                  )}
-
-                  <View style={styles.loginButtonWrapper}>
+                    )}
                     <TouchableOpacity>
                       <Button style={styles.loginButton} onPress={handleSubmit}>
                         <Text style={styles.loginButtonText}>Update</Text>
