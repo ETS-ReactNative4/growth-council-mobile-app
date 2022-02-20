@@ -70,9 +70,6 @@ const ManageAccount = props => {
   const [items, setItems] = useState([]);
   const [image, setImage] = useState(profile.avatar);
 
-  
- 
-
   let Location = profile?.user_meta?.Location;
   if (typeof Location === 'undefined') {
     Location = ' ';
@@ -108,16 +105,10 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
-//   let expertise_areas1 = profile?.expertise_areas1;
-//   if (typeof expertise_areas1 === 'undefined') {
-// 	  expertise_areas1 = [];
-//   } else {
-// 	  expertise_areas1 = profile?.expertise_areas1;
-
 	const expertise_areas1 = profile?.expertise_areas1;
 	const expertise_areas = typeof expertise_areas1  !== null ? profile?.expertise_areas1 : [];
 
-console.log({expertise_areas});
+	console.log({expertise_areas});
 
  	const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -209,22 +200,22 @@ console.log({expertise_areas});
     },
   });
 
-  useEffect(() => {
-    fetchProfileByIdentifier();
-  }, []);
+	useEffect(() => {
+		fetchProfileByIdentifier();
+	}, []);
 
-  useEffect(() => {
-    fetchAllExpertises();
-  }, []);
+	useEffect(() => {
+		fetchAllExpertises();
+	}, []);
 
-  useEffect(() => {
-	const result = Object.entries(expertise).map(([key, value]) => ({
-		label: key,
-		value,
-	}));
-	setItems(result);
-	setValue(expertise_areas1);
-}, [expertise]);
+	useEffect(() => {
+		const result = Object.entries(expertise).map(([key, value]) => ({
+			label: key,
+			value,
+		}));
+		setItems(result);
+		setValue(expertise_areas1);
+	}, [expertise]);
 
 
   return (
