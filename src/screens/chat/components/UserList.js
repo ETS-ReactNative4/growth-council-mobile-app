@@ -58,7 +58,7 @@ const UserList = props => {
           onPress={() =>
             navigation.navigate('Chat', {
               friendID: item.ID,
-              friendName: item.displayname,
+                friendName: item.display_name,
               friendAvatar: item.avatar,
               userID: userID,
               userName: userName,
