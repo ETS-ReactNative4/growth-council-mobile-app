@@ -34,8 +34,6 @@ const OthersAccount = props => {
     cleanConnectMember,
   } = props;
 
-  const [memberConnection, setMemberConnection] = useState(false);
-
   let Location = otherProfiles?.user_meta?.Location;
 
   let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
@@ -57,21 +55,7 @@ const OthersAccount = props => {
     fetchOtherProfileAsync();
   }, []);
 
-  useEffect(() => {
-    setMemberConnection(false);
-  }, [otherProfiles]);
 
-  const connectMemberByMemberID = async memberID => {
-    const response = await connectMemberByIdentifier({member_id: memberID});
-    if (response?.payload?.code === 200) {
-      setMemberConnection(true);
-      ToastMessage.show('You have successfully connected.');
-    } else {
-      toast.closeAll();
-      ToastMessage.show(response?.payload?.response);
-    }
-    console.log(response);
-  };
   return (
     <ScrollView
       contentContainerStyle={{
@@ -106,19 +90,7 @@ const OthersAccount = props => {
               </Text>
               <Text>{otherProfiles?.user_email}</Text>
             </View>
-            {!memberConnection && (
-              <TouchableOpacity
-                style={styles.acceptButton}
-                onPress={() => connectMemberByMemberID(otherProfiles.ID)}>
-                <Text style={styles.acceptButtonText}>Connect</Text>
-              </TouchableOpacity>
-            )}
-            {memberConnection && (
-              <TouchableOpacity style={styles.registeredButton}>
-                <View style={{position: 'absolute', left: 20}}></View>
-                <Text style={styles.registeredButtonText}>Connected</Text>
-              </TouchableOpacity>
-            )}
+            
           </View>
         </View>
 
