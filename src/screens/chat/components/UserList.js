@@ -57,12 +57,12 @@ const UserList = props => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('Chat', {
-              friendID: item.ID,
-                friendName: item.display_name,
-              friendAvatar: item.avatar,
-              userID: userID,
-              userName: userName,
-              userAvatar: avatarImg,
+              	friendID: item.ID,
+            	friendName: item.display_name,
+				friendAvatar: item.avatar,
+				userID: userID,
+				userName: userName,
+				userAvatar: avatarImg,
             })
           }>
           <View style={[styles.wrapper, styles.shadowProp]} key={index}>

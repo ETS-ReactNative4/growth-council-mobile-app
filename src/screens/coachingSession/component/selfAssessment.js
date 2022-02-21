@@ -8,17 +8,21 @@ import {Colors} from '../../../theme';
 import Trait from './Traits';
 import Question from './Question';
 import {fetchAllSubTraits, resetSubTraits} from '../slice/subTraitsSlice';
+import {submitSessionScores} from '../slice/sessionScoreSlice';
 import {
   fetchTraitsAnswerByUserId,
   updateTraitsAnswerByUserId,
   resetTraitsAnswer,
 } from '../slice/traitAnswerbyUserId';
 import {BubblesLoader} from 'react-native-indicator';
+import ToastMessage from '../../../shared/toast';
+import {store} from '../../../utils/httpUtil';
 
 const SelfAssessment = props => {
   const {
     navigation,
     route,
+    score,
     traits,
     traitsLoading,
     traitsError,
@@ -82,21 +86,34 @@ const SelfAssessment = props => {
 
   useEffect(() => {}, [traitLength, subTraitLength]);
 
-  const handleAnswerButtonClick = () => {
-    const nextTraits = count + 1;
-    if (nextTraits < subTraits?.sub_traits?.length) {
-      setCount(nextTraits);
-    } else {
-      navigation.navigate('radar');
-    }
-  };
-
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
     if (
       index.traitIndex === traitLength - 1 &&
       index.subTraitIndex === subTraitLength - 1
     ) {
-      navigation.navigate('radar');
+      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, score)
+        .then(response => {
+          if (response?.payload?.code === 200) {
+            ToastMessage.show(
+              'You score has submitted. Please complete all the session.',
+            );
+            setAnswers({
+              questions: {
+                growthIndex: [],
+                innovativeIndex: [],
+              },
+              yellowQuestions: [],
+            });
+            // navigation.navigate('radar');
+          } else {
+            toast.closeAll();
+            ToastMessage.show(response?.payload?.response);
+          }
+        })
+        .catch(error => {
+          toast.closeAll();
+          ToastMessage.show('Something is wrong, please contact admin.');
+        });
     } else if (index.subTraitIndex === subTraitLength - 1) {
       setIndex({...index, subTraitIndex: 0, traitIndex: index.traitIndex + 1});
     } else {
@@ -166,6 +183,7 @@ const SelfAssessment = props => {
               <Question
                 {...props}
                 subTraits={traits[index.traitIndex]}
+                traitIndex={index}
                 // subTraitsLoading={subTraitsLoading}
                 // fetchAllSubTrait={fetchAllSubTrait}
 
@@ -206,7 +224,10 @@ const SelfAssessment = props => {
         </Button>
         <Button style={styles.buttonWrapper} onPress={handleNextButtonClick}>
           <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
-            Next
+            {index.traitIndex === traitLength - 1 &&
+            index.subTraitIndex === subTraitLength - 1
+              ? 'Submit'
+              : 'Next'}
           </Text>
         </Button>
       </View>

@@ -56,7 +56,6 @@ const Event = props => {
   }, [events]);
 
   const registerEventByEventID = async eventID => {
-    console.log('event_id ===', eventID);
     const response = await registerEventByIdentifier({event_id: eventID});
     if (response?.payload?.code === 200) {
       setEventStatus(true);

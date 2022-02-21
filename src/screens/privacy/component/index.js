@@ -41,8 +41,6 @@ const privacy = props => {
     description = '';
   }
 
-  // console.log('privacy policy::::::', privacy);
-
   return (
     <>
       <StatusBar
