@@ -49,6 +49,7 @@ const CoachingSession = props => {
       growthIndex: [],
       innovativeIndex: [],
     },
+    yellowQuestions: [],
   });
   const [score, setScore] = useState({
     growthIndexScore: 0,
@@ -90,20 +91,17 @@ const CoachingSession = props => {
     });
   }, [answers]);
 
-  return (
+  return traitsLoading && sessionLoading ? (
+    <View style={styles.bubblesLoader}>
+      <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+    </View>
+  ) : (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
         <StatusBar
           barStyle="dark-content"
           backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
         />
-
-        {traitsLoading && sessionLoading && (
-          <View style={styles.bubblesLoader}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
-
         <View>
           <View style={[styles.content, {height: 'auto'}]}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
@@ -181,9 +179,11 @@ const CoachingSession = props => {
                                     alignItems: 'center',
                                   }}>
                                   <Text style={{fontSize: 12}}>
-                                    {(score.growthIndexScore +
-                                      score.innovativeIndexScore) /
-                                      2}
+                                    {(
+                                      (score.growthIndexScore +
+                                        score.innovativeIndexScore) /
+                                      2
+                                    ).toFixed(2)}
                                   </Text>
                                 </View>
                               </View>
@@ -226,6 +226,7 @@ const CoachingSession = props => {
                 <SessionAbout
                   {...props}
                   traits={traits}
+                  score={score}
                   traitsLoading={traitsLoading}
                   traitsError={traitsError}
                   fetchAllTraitBySession={fetchAllTraitBySession}
