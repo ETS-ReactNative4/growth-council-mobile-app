@@ -111,6 +111,32 @@ const CommunityDetail = props => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
     console.log(date[1]);
+
+    let backgroundImage = '';
+    switch (item?.pillar_categories[0]?.parent) {
+      case 119:
+        backgroundImage = require('../../../assets/img/Rectangle.png');
+        break;
+      case 118:
+        backgroundImage = require('../../../assets/img/Rectangle1.png');
+        break;
+      default:
+        backgroundImage = require('../../../assets/img/Rectangle2.png');
+    }
+
+    let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined) {
+      organizer = ' ';
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -121,7 +147,7 @@ const CommunityDetail = props => {
               height: '100%',
               borderRadius: 20,
             }}
-            source={require('../../../assets/img/blank_event_design.png')}>
+            source={backgroundImage}>
             <View
               style={{
                 width: 40,
@@ -140,9 +166,7 @@ const CommunityDetail = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
-                {'  '}
-                {item?.organizer?.description}
+                {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -300,16 +324,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 10,
   },
-    content: {
-		borderRadius:18,
-		backgroundColor:'skyblue',
-		Index: 1011,
-    },
+  content: {
+    borderRadius: 18,
+    backgroundColor: 'skyblue',
+  },
   contentWrapper: {
     backgroundColor: 'white',
     overflow: 'scroll',
     marginTop: 10,
-    zIndex: 110,
   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,

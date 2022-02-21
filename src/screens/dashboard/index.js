@@ -62,10 +62,7 @@ const DashboardScreen = props => {
     dispatch(fetchAllPillarSliders());
   };
 
-  /**
-   * Clear upcoming event data.
-   *
-   */
+
   const cleanUpcomingEvent = () => {
     dispatch(resetUpcomingEvent());
   };
