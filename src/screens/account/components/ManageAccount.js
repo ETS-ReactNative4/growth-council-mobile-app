@@ -68,7 +68,6 @@ const ManageAccount = props => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
   const [items, setItems] = useState([]);
-
   const [image, setImage] = useState(profile.avatar);
 
   let Location = profile?.user_meta?.Location;
@@ -106,11 +105,11 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
-  const expertise_areas1 = profile?.expertise_areas1
-    ? profile?.expertise_areas1
-    : [];
+	let expertise_areas1 = profile?.expertise_areas1 ? profile?.expertise_areas1 : []; 
 
-  const takePhotoFromCamera = () => {
+	console.log({expertise_areas1});
+
+ 	const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
     }).then(async image => {
@@ -200,22 +199,23 @@ const ManageAccount = props => {
     },
   });
 
-  useEffect(() => {
-    fetchProfileByIdentifier();
-  }, []);
+	useEffect(() => {
+		fetchProfileByIdentifier();
+	}, []);
 
-  useEffect(() => {
-    fetchAllExpertises();
-  }, []);
+	useEffect(() => {
+		fetchAllExpertises();
+	}, []);
 
-  useEffect(() => {
-    const result = Object.entries(expertise)?.map(([key, value]) => ({
-      label: key,
-      value,
-    }));
-    setItems(result);
-    setValue(expertise_areas1);
-  }, [expertise]);
+	useEffect(() => {
+		const result = Object.entries(expertise)?.map(([key, value]) => ({
+			label: key,
+			value,
+		}));
+		setItems(result);
+		setValue(expertise_areas1);
+	}, [expertise]);
+
 
   return (
     <ScrollView
@@ -449,17 +449,17 @@ const ManageAccount = props => {
 
                   <DropDownPicker
                     multiple={true}
-                    min={0}
-                    max={6}
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    onChangeValue={value => {
-                      setFieldValue('expertise_areas', value);
-                    }}
+					min={0}
+					max={5}
+					open={open}
+					value={value}
+					items={items}
+					setOpen={setOpen}
+					setValue={setValue}
+					setItems={setItems}
+					onChangeValue={value => {
+						setFieldValue('expertise_areas1', value);
+					}}
                     containerStyle={{
                       width: '94%',
                       marginLeft: 10,
