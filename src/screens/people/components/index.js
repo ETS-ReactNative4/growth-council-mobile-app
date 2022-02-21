@@ -53,7 +53,6 @@ const People = props => {
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
-  
 
   useEffect(() => {
     const fetchAllUsersAsync = async () => {
@@ -64,8 +63,11 @@ const People = props => {
       });
     };
     fetchAllUsersAsync();
-    setMemberConnection(users);
   }, []);
+
+    useEffect(() => {
+        setMemberConnection(users);
+    }, [users]);
 
   useEffect(() => {
     const fetchAllExpertisesAsync = async () => {
@@ -73,9 +75,6 @@ const People = props => {
     };
     fetchAllExpertisesAsync();
   }, []);
-
-  console.log({searchKey}, {sorting}, {category});
-  console.log({memberConnections});
 
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
@@ -85,7 +84,6 @@ const People = props => {
       item.connection = true;
       items[index] = item;
       setMemberConnection(items);
-
       ToastMessage.show('You have successfully connected.');
     } else {
       toast.closeAll();
@@ -106,19 +104,20 @@ const People = props => {
             borderRadius: 8,
           }}
         />
+
         <View style={{margin: 10, width: '55%'}}>
           <Text
             style={{
               fontSize: 14,
               fontFamily: Typography.FONT_SF_REGULAR,
-              color: 'black',
+              color: '#222B45',
             }}>
             {item?.display_name}
           </Text>
-          <Text style={{fontSize: 12, color: '#77838F'}}>
+          <Text style={{fontSize: 12, color: '#222B45'}}>
             {item?.user_email}
           </Text>
-          <Text style={{fontSize: 12, color: '#77838F'}}>{item?.company}</Text>
+          <Text style={{fontSize: 12, color: '#222B45'}}>{item?.company}</Text>
         </View>
         {!memberConnection[index]?.connection && (
           <TouchableOpacity
@@ -170,7 +169,7 @@ const People = props => {
             keyboardType="text"
             value={searchKey}
             onChangeText={async text => {
-              setSearchKey(text); 
+              setSearchKey(text);
               await fetchAllUsers({
                 s: text,
                 sort: sorting,
@@ -191,18 +190,18 @@ const People = props => {
               borderColor: 'gray',
               marginRight: 30,
             }}>
-            <Text style={{fontSize: 14}}>
-              {category ? category : 'Select Category' }
+            <Text style={{fontSize: 14, color: '#222B45'}}>
+              {category ? category : 'Select Category'}
             </Text>
           </TouchableOpacity>
           <View style={styles.icon}>
             <Ionicons
               name="arrow-up"
               size={20}
-              color="#d7d7d7"
+              color="#7E7F84"
               onPress={async () => {
                 setSorting('DESC');
-				
+
                 await fetchAllUsers({
                   s: searchKey,
                   sort: 'DESC',
@@ -213,10 +212,10 @@ const People = props => {
             <Ionicons
               name="arrow-down"
               size={20}
-              color="#d7d7d7"
+              color="#7E7F84"
               onPress={async () => {
                 setSorting('ASC');
-				
+
                 await fetchAllUsers({
                   s: searchKey,
                   sort: 'ASC',
@@ -232,10 +231,20 @@ const People = props => {
             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
           </View>
         )}
-		
-        <View style={{marginTop: 40}}>
+
+        <View style={{marginTop: 10}}>
           {memberConnectionLoading && (
-            <View style={styles.loading1}>
+            <View
+              style={{
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'absolute',
+                zIndex: 1011,
+              }}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
@@ -247,7 +256,7 @@ const People = props => {
           />
         </View>
       </View>
-     <Footer/>
+      <Footer />
       <Modal transparent visible={pickerVisible}>
         <View
           style={{
@@ -345,6 +354,7 @@ const styles = StyleSheet.create({
   },
   textWrapper: {
     fontSize: 14,
+    color: '#7E7F84',
   },
   shadowProp: {
     shadowColor: '#000',

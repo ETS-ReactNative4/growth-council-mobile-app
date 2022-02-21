@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   Image,
+  Modal,
   TouchableOpacity,
 } from 'react-native';
 import {Button, useToast} from 'native-base';
@@ -15,6 +16,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
+
+import 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
+import {formatTimeByOffset} from './timezone';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -39,6 +44,8 @@ const Event = props => {
 
   const toast = useToast();
   const [eventStatus, setEventStatus] = useState(events?.register_status);
+  const [timeToDisplay, setTimeToDisplay] = useState('');
+  const [timeToEnd, setTimeToEnd] = useState('');
 
   useEffect(() => {
     fetchEventByIdentifier(route.params.id);
@@ -49,7 +56,6 @@ const Event = props => {
   }, [events]);
 
   const registerEventByEventID = async eventID => {
-    console.log('event_id ===', eventID);
     const response = await registerEventByIdentifier({event_id: eventID});
     if (response?.payload?.code === 200) {
       setEventStatus(true);
@@ -61,24 +67,19 @@ const Event = props => {
     }
   };
 
-  
-  const isEventLoaded = Object.keys(events).length === 0;
-  const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
-  const date = actualDate[1].split(' ', 3);
-
-  let backgroundColor = Colors.COMMUNITY_COLOR;
+  let backgroundColor = ' ';
   const pillarCategory = events?.pillar_categories
     ? events?.pillar_categories[0]?.slug
     : '';
   switch (pillarCategory) {
-    case 'growth-coaching':
-      backgroundColor = Colors.COACHING_COLOR;
-      break;
-    case 'basic-practices':
+    case 'best-practices':
       backgroundColor = Colors.PRACTICE_COLOR;
       break;
-    case 'growth-community':
+    case 'community':
       backgroundColor = Colors.COMMUNITY_COLOR;
+      break;
+    default:
+      backgroundColor = Colors.COACHING_COLOR;
   }
 
   let description = events?.descirption;
@@ -88,7 +89,38 @@ const Event = props => {
     description = '';
   }
 
+  const isEventLoaded = Object.keys(events).length === 0;
 
+  const backStartTimeStamp = events?.event_start;
+  const backEndTimeStamp = events?.event_end;
+  const deviceTimeZone = RNLocalize.getTimeZone();
+
+  const today = moment().tz(deviceTimeZone);
+  const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+  const GobalDate = moment(timeToDisplay).format('D MMMM, (dddd), h:mm a');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+  console.log(GobalStartMonth);
+
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM, (dddd), h:mm a');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
+  console.log(GobalEndMonth);
+
+  useEffect(() => {
+    const convertedToLocalTime = formatTimeByOffset(
+      backStartTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+    setTimeToDisplay(convertedToLocalTime);
+  }, [events]);
+
+  useEffect(() => {
+    const convertedToLocalTimeEnd = formatTimeByOffset(
+      backEndTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+    setTimeToEnd(convertedToLocalTimeEnd);
+  }, [events]);
 
   return (
     <ScrollView style={styles.scrollBox}>
@@ -126,30 +158,22 @@ const Event = props => {
                       styles.infoicon,
                       {backgroundColor: backgroundColor},
                     ]}>
-                    <MaterialIcons name={'event'} size={20} color={'white'} />
+                    <MaterialIcons name={'event'} size={25} color={'white'} />
                   </View>
 
                   <View
                     style={{
                       flex: 4,
-                      paddingLeft: 10,
+                      paddingLeft: 5,
                     }}>
-                    {!isEventLoaded && (
-                      <Text style={styles.eventDetails}>
-                        {date[2]} {date[1]}, {actualDate[0]}
-                      </Text>
-                    )}
-
-                    {!isEventLoaded && (
-                      <Text>
-                        {events?.event_meta?._start_hour}:
-                        {events?.event_meta?._start_minute}
-                        {events?.event_meta?._start_ampm} /
-                        {events?.event_meta?._end_hour}:
-                        {events?.event_meta?._end_minute}
-                        {events?.event_meta?._end_ampm} (PDT)
-                      </Text>
-                    )}
+                    <Text style={styles.eventDetails}>{GobalDate} /</Text>
+                    <Text style={styles.eventDetails}>
+                      {GobalStartMonth === GobalEndMonth
+                        ? GobalDateEnd.split(/(\s+)/)[6] +
+                          GobalDateEnd.split(/(\s+)/)[8]
+                        : GobalDateEnd}
+                      ({deviceTimeZone})
+                    </Text>
                   </View>
                   {!eventStatus && (
                     <View
@@ -199,7 +223,7 @@ const Event = props => {
                     ]}>
                     <Ionicons
                       name={'location-outline'}
-                      size={20}
+                      size={25}
                       color={'white'}
                     />
                   </View>
@@ -210,7 +234,7 @@ const Event = props => {
                         flex: 5,
                         paddingLeft: 10,
                       }}>
-                      <Text style={styles.eventDetails}>
+                      <Text style={styles.eventLocationDetails}>
                         {events?.location?.location_city}{' '}
                         {events?.location?.location_state}{' '}
                         {events?.location?.location_country}
@@ -254,19 +278,14 @@ const Event = props => {
                     style={{
                       flex: 3,
                       paddingLeft: 20,
+                      justifyContent: 'center',
                     }}>
-                    {eventRegisterLoading && (
-                      <View style={styles.loading1}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    )}
-                    <Text style={styles.contentHeading}>
+                    <Text style={styles.contentTitle}>
                       {events?.organizer?.term_name}
                     </Text>
-                    <Text>{events?.organizer?.description}</Text>
+                    <Text style={{fontSize: 14}}>
+                      {events?.organizer?.description}
+                    </Text>
                   </View>
                   <View style={styles.eventaddress}></View>
                 </View>
@@ -275,11 +294,22 @@ const Event = props => {
               <View>
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
-                  <HTMLView value={description} style={{fontSize: 14}} />
+                  <HTMLView
+                    value={description}
+                    style={{fontSize: 14, color: '#77838F'}}
+                  />
                 )}
               </View>
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                {eventRegisterLoading && (
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                )}
                 {!eventStatus && (
                   <Button
                     style={styles.acceptButton}
@@ -342,20 +372,36 @@ const styles = StyleSheet.create({
     color: '#ffff',
   },
   eventDetails: {
-    ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
-    fontWeight: 'bold',
+    marginLeft: 5,
     fontSize: 14,
-    marginBottom: 8,
+    color: '#1E2022',
+    fontWeight: 'bold',
+  },
+  eventLocationDetails: {
+    fontFamily: Typography.FONT_SF_MEDIUM,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontSize: 14,
+    marginBottom: 5,
+    marginTop: 5,
+    marginBottom: 4,
+    fontWeight: 'bold',
   },
   contentHeading: {
     ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
-    fontWeight: 'semi-bold',
     fontSize: 14,
     marginBottom: 15,
+    fontWeight: 'bold',
+  },
+  contentTitle: {
+    ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_SF_MEDIUM,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,
@@ -428,8 +474,8 @@ const styles = StyleSheet.create({
   infoicon: {
     flex: 1,
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 48,
-    width: 48,
+    height: 60,
+    width: 50,
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
@@ -446,7 +492,6 @@ const styles = StyleSheet.create({
   },
   hostdetail: {
     flex: 1,
-    paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
     marginTop: 10,
@@ -454,7 +499,7 @@ const styles = StyleSheet.create({
   hostimage: {
     flex: 1,
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 64,
+    height: 62,
     width: 62,
     borderRadius: 14,
     justifyContent: 'center',
@@ -476,7 +521,7 @@ const styles = StyleSheet.create({
   },
   loading1: {
     top: 0,
-    left: 5,
+    left: 0,
     right: 0,
     bottom: 0,
     justifyContent: 'center',

@@ -113,6 +113,19 @@ const EventCalendar = props => {
       dt[1].split(':').map(Number),
     ];
 
+	let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+	if (organizer === undefined){
+		organizer = ' '; 
+	  } else {
+		organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+	  }
+  
+	  if (description === undefined){
+		  description = ' '; 
+		} else {
+		  description = item?.organizer?.description;
+		}
     return (
       <View>
         <TouchableOpacity
@@ -124,6 +137,7 @@ const EventCalendar = props => {
                 marginLeft: 10,
                 marginRight: 10,
                 fontSize: 17,
+				color: '#030303',
               }}>
               {time[0]}:{time[1]}
             </Text>
@@ -132,8 +146,7 @@ const EventCalendar = props => {
               <View style={styles.eventInfo}>
                 <Text style={styles.eventTitle}>{item?.title}</Text>
                 <Text style={styles.eventParagraph}>
-                  Hosted by {item?.organizer?.term_name}{' '}
-                  {item?.organizer?.description}
+				{organizer} {description}
                 </Text>
               </View>
               <View style={styles.eventDate}>
@@ -165,8 +178,8 @@ const EventCalendar = props => {
               borderColor: 'gray',
               marginRight: 30,
             }}>
-            <Text style={{fontSize: 12}}>
-              {showAllEvents ? 'All Events' : 'My Events'}
+            <Text style={{fontSize: 12, color: '#030303',}}>
+              {showAllEvents ?  'All Events':'My Events'}
               {/* Select Events */}
             </Text>
           </TouchableOpacity>
@@ -239,26 +252,31 @@ const EventCalendar = props => {
                 </Text>
               </TouchableOpacity>
               <View>
-                <Picker
-                  selectedValue={showAllEvents}
-                  mode="dropdown"
-                  itemTextStyle={{fontSize: 14}}
-                  onValueChange={async (itemValue, itemIndex) => {
-                    setShowAllEvents(itemValue);
+			  <Picker
+                selectedValue={showAllEvents}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 14}}
+                onValueChange={async (itemValue, itemIndex) => {
+                  setShowAllEvents(itemValue);
 
-                    await fetchAllCalendarEvent({
-                      year: calendarYear,
-                      month: calendarMonth,
-                      all_events: itemValue,
-                    }).then(response => {
-                      if (response?.payload?.code === 200) {
-                        setCurrentEvents(response?.payload?.data);
-                      }
-                    });
-                  }}>
-                  <Picker.Item label="All Events" value={true} />
-                  <Picker.Item label="My Events" value={false} />
-                </Picker>
+                  await fetchAllCalendarEvent({
+					year: calendarYear,
+					month: calendarMonth,
+					all_events:itemValue,	
+					})
+
+					.then(response => {
+						if (response?.payload?.code === 200) {
+							setCurrentEvents(response?.payload?.data);
+						}
+
+					})
+                }}>
+                <Picker.Item label="All Events" value={true} />
+        		<Picker.Item label="My Events" value={false} />
+
+
+              </Picker>
               </View>
             </View>
           </View>
@@ -354,9 +372,11 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     fontSize: 14,
+	color: '#030303',
   },
   eventParagraph: {
     fontSize: 8,
+	color: '#030303',
   },
   eventDate: {
     flex: 1,
@@ -367,6 +387,7 @@ const styles = StyleSheet.create({
   },
   eventDateText: {
     textAlign: 'center',
+	color: '#030303',
   },
   buttonWrapper: {
     width: 350,

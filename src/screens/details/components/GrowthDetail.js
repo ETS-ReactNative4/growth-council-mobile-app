@@ -228,13 +228,14 @@ const GrowthDetail = props => {
           }>
           <View style={styles.learnWrapper}>
             <Image
+				source={{uri: item?.image}}
               style={{
                 width: 72,
                 height: 102,
                 margin: 10,
                 borderRadius: 10,
               }}
-              source={require('../../../assets/img/best_practices_slider_image.png')}
+              
             />
             <View>
               <View>
@@ -255,7 +256,7 @@ const GrowthDetail = props => {
                     marginTop: 10,
                     fontSize: 8,
                   }}>
-                  Prime Yourself to become Insenely Great Leader
+                
                 </Text>
               </View>
               {/* <View
@@ -293,7 +294,7 @@ const GrowthDetail = props => {
           </TouchableOpacity>
         </ImageBackground>
 
-        <View style={styles.icon}>
+        <View style={[styles.icon, styles.shadowProp]}>
           <Image
             source={{uri: poeDetails?.image}}
             style={{
@@ -441,7 +442,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     zIndex: 10,
-    borderWidth: 0.3,
   },
   title: {
     fontFamily: Typography.FONT_SF_SEMIBOLD,
@@ -466,7 +466,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
     lineHeight: 24,
-    margin: 10,
+    padding: 15,
     textAlign: 'left',
     color: '#77838F',
   },
@@ -498,7 +498,7 @@ const styles = StyleSheet.create({
   },
   learn: {
     height: 140,
-    marginTop: 10,
+    marginTop: 30,
     justifyContent: 'center',
   },
   learnWrapper: {

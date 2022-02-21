@@ -24,7 +24,7 @@ const Chat = (props) => {
     const userAvatar = route.params.userAvatar;
     const userName = route.params.userName;
 
-    console.log("CHAT:::::::::::::::", friendID, userID);
+    console.log("CHAT:::::::::::::::", friendName, userID);
 
     const chatID = () => {
         const chatIDPre = [];
@@ -76,7 +76,6 @@ const Chat = (props) => {
                 </TouchableOpacity>
 
                 <Image
-                    // source={require('../../../assets/img/profile_image.png')}
                     source={{
                         uri: friendAvatar,
                     }}

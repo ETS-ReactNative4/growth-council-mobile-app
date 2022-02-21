@@ -13,7 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect,useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
@@ -45,6 +45,7 @@ const GrowthCoaching = props => {
   } = props;
 
   const pillarId = 119;
+  const isFocused = useIsFocused();
 
   useFocusEffect(
     useCallback(() => {
@@ -59,22 +60,30 @@ const GrowthCoaching = props => {
     }, []),
   );
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     const fetchAllPillarEventAsync = async () => {
       await fetchAllPillarEvent(pillarId);
     };
     fetchAllPillarEventAsync();
-    return () => {
-      cleanPillarEvent();
-    };
-  }, []);
 
-  useEffect(() => {
+    return () =>{
+		cleanPillarEvent();
+	}
+  }, []),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
     const fetchAllPillarMemberContentAsync = async () => {
       await fetchAllPillarMemberContent(pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+	return () => {
+        cleanPillarMemberContent();
+      };
+    }, []),
+  );
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -94,11 +103,11 @@ const GrowthCoaching = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+				color: '#030303',
               }}>
               {item?.display_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303',}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
 
@@ -111,11 +120,14 @@ const GrowthCoaching = props => {
     );
   };
 
-  const _renderMiddleItem = ({item, index}, navigation) => {
-    let navigationPath = 'CommunityDetail';
-    if (item?.slug === 'growth-leadership-coaching') {
-      navigationPath = 'GrowthDetail';
-    }
+  const _renderMiddleItem = ({item, index}) => {
+    let navigationPath = ' ';
+	if (item?.slug === 'growth-leadership-coaching') {
+        navigationPath = 'GrowthDetail';
+      } else {
+        navigationPath = 'CommunityDetail';
+      }
+    console.log(item?.slug);
 
     return (
       <TouchableOpacity
@@ -129,7 +141,7 @@ const GrowthCoaching = props => {
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
+              style={{width: 30, height: 30}}
             />
           </View>
           <Text
@@ -138,6 +150,7 @@ const GrowthCoaching = props => {
               fontSize: 10,
               marginHorizontal: 10,
               textAlign: 'center',
+			  color: '#222B45',
             }}>
             {item?.name}
           </Text>
@@ -149,6 +162,21 @@ const GrowthCoaching = props => {
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
+
+	let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined){
+      organizer = ' '; 
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+	if (description === undefined){
+		description = ' '; 
+	  } else {
+		description = item?.organizer?.description;
+	  }
+
 
     return (
       <View style={styles.topWrapper}>
@@ -172,14 +200,14 @@ const GrowthCoaching = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{ color: '#030303'}}>{date[1]}</Text>
+              <Text style={{ color: '#030303',}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
+			  {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -200,10 +228,10 @@ const GrowthCoaching = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
-          <Text style={styles.title}> Growth Coaching Events</Text>
+          <Text style={styles.title}>Growth Coaching Events</Text>
 
           <View
             style={{
@@ -223,7 +251,7 @@ const GrowthCoaching = props => {
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
 
-          {pillarPOELoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
@@ -233,7 +261,8 @@ const GrowthCoaching = props => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
-            renderItem={item => _renderMiddleItem(item, navigation)}
+			renderItem={_renderMiddleItem}
+            // renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
 
@@ -251,7 +280,7 @@ const GrowthCoaching = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}> Growth Coaching Content</Text>
+          <Text style={styles.title}>Growth Coaching Content</Text>
           <View
             style={{
               display: 'flex',
@@ -336,7 +365,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
 
-  bottom: { 
+  bottom: {
     marginTop: 25,
   },
   bottomWrapper: {

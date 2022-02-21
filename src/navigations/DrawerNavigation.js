@@ -65,22 +65,7 @@ const CustomDrawerContent = props => {
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        {/* <DrawerItem
-        label="Community"
-        onPress={() => props.navigation.navigate('Community')}
-        icon={() =>
-        <Ionicons name="calendar-outline" color={'#000'} size={24}/>
-        }
-        /> */}
-        {/*<DrawerItem*/}
-        {/*label="Calendar"*/}
-        {/*onPress={() => props.navigation.navigate('Calendar')}*/}
-        {/*icon={() =>*/}
-        {/*<Ionicons name="calendar-outline" color={'#000'} size={24}/>*/}
-        {/*}*/}
-        {/*/>
-
-        {/* <DrawerItem style={{marginLeft: 68}} label="Logout" onPress={logout} /> */}
+       
 		<DrawerItem
         label="Logout"
         onPress={logout}
@@ -113,7 +98,6 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
   const fetchProfileByIdentifier = () => {
 	dispatch(fetchProfileByID());
 };
-
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
@@ -130,6 +114,7 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
         ),
         headerTitle: () => <HeaderTitle {...props}
 		profile={profile}
+		profileLoading={profileLoading}
 		fetchProfileByIdentifier={fetchProfileByIdentifier}/>,
         headerLeft: () => (
           <View>

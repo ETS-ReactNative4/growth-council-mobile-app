@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -65,6 +66,9 @@ const ManageAccount = props => {
 
   const isFocused = useIsFocused();
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([]);
+  const [items, setItems] = useState([]);
+  const [image, setImage] = useState(profile.avatar);
 
   let Location = profile?.user_meta?.Location;
   if (typeof Location === 'undefined') {
@@ -101,36 +105,11 @@ const ManageAccount = props => {
     insights = profile?.user_meta?.insights[0];
   }
 
-  let expertise_areas1 = profile?.expertise_areas1;
-  if (typeof expertise_areas1 === 'undefined') {
-    expertise_areas1 = [];
-  } else {
-    expertise_areas1 = profile?.expertise_areas1;
-  }
+	let expertise_areas1 = profile?.expertise_areas1 ? profile?.expertise_areas1 : []; 
 
-  const [value, setValue] = useState([]);
-  const [items, setItems] = useState([]);
+	console.log({expertise_areas1});
 
-  const [image, setImage] = useState(profile.avatar);
-
-  useEffect(() => {
-    fetchProfileByIdentifier();
-  }, []);
-
-  useEffect(() => {
-    fetchAllExpertises();
-  }, []);
-
-  useEffect(() => {
-    const result = Object.entries(expertise).map(([key, value]) => ({
-      label: key,
-      value,
-    }));
-    setItems(result);
-    setValue(expertise_areas1);
-  }, [expertise]);
-
-  const takePhotoFromCamera = () => {
+ 	const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
     }).then(async image => {
@@ -143,12 +122,15 @@ const ManageAccount = props => {
         name: 'profile_photo.jpg',
       };
       fd.append('file', file);
-      console.log('takePhotoFromCamera', fd);
+      console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
-        // console.log('Upload response:::::::::::', response?.payload?.id);
+        console.log('Upload response:::::::::::', response?.payload?.id);
         await updateImage({attachment_id: response?.payload?.id}).then(
-          async response => {
-            console.log('upload response::::::::::', response);
+          response => {
+            if (response?.payload?.code === 200) {
+              navigation.navigate('Person');
+              ToastMessage.show('Profile Image has been successfully updated.');
+            }
           },
         );
       });
@@ -169,10 +151,13 @@ const ManageAccount = props => {
       fd.append('file', file);
       console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
-        // console.log('Upload response:::::::::::', response?.payload?.id);
+        console.log('Upload response:::::::::::', response?.payload?.id);
         await updateImage({attachment_id: response?.payload?.id}).then(
-          async response => {
-            console.log('Update response::::::::::', response);
+          response => {
+            if (response?.payload?.code === 200) {
+              navigation.navigate('Person');
+              ToastMessage.show('Profile Image has been successfully updated.');
+            }
           },
         );
       });
@@ -214,6 +199,24 @@ const ManageAccount = props => {
     },
   });
 
+	useEffect(() => {
+		fetchProfileByIdentifier();
+	}, []);
+
+	useEffect(() => {
+		fetchAllExpertises();
+	}, []);
+
+	useEffect(() => {
+		const result = Object.entries(expertise)?.map(([key, value]) => ({
+			label: key,
+			value,
+		}));
+		setItems(result);
+		setValue(expertise_areas1);
+	}, [expertise]);
+
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -221,10 +224,9 @@ const ManageAccount = props => {
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
       }}>
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
-        <Image
+        <ImageBackground
           source={require('../../../assets/img/appBG.png')}
-          style={{height: 160}}
-        />
+          style={{height: 180}}></ImageBackground>
         <View
           style={{
             display: 'flex',
@@ -268,9 +270,28 @@ const ManageAccount = props => {
               />
             </View>
             <View style={styles.header}>
-              <Button style={{marginBottom: 10}}>Update</Button>
+              {uploadProfileImageLoading && (
+                <>
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
+              {updateLoading && (
+                <>
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
               <Text style={styles.headingText1}>{profile.display_name}</Text>
-              <Text>{profile.user_email}</Text>
+              <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
           </View>
         </View>
@@ -428,18 +449,21 @@ const ManageAccount = props => {
 
                   <DropDownPicker
                     multiple={true}
-                    min={0}
-                    max={5}
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    onChangeValue={value => {
-                      setFieldValue('expertise_areas1', value);
+					min={0}
+					max={5}
+					open={open}
+					value={value}
+					items={items}
+					setOpen={setOpen}
+					setValue={setValue}
+					setItems={setItems}
+					onChangeValue={value => {
+						setFieldValue('expertise_areas1', value);
+					}}
+                    containerStyle={{
+                      width: '94%',
+                      marginLeft: 10,
                     }}
-                    containerStyle={{width: '94%', marginLeft: 10}}
                   />
 
                   <Text
@@ -471,28 +495,16 @@ const ManageAccount = props => {
                     error={errors.insights}
                     touched={touched.insights}
                   />
-                  {userLoading && (
-                    <>
-                      <View
-                        style={{
-                          flex: 1,
-                          alignItems: 'center',
-                          flexDirection: 'column',
-                          justifyContent: 'space-around',
-                          position: 'absolute',
-                          zIndex: 1011,
-                          top: 120,
-                          left: 100,
-                        }}>
+
+                  <View style={styles.loginButtonWrapper}>
+                    {userLoading && (
+                      <View style={styles.loading1}>
                         <BubblesLoader
                           color={Colors.SECONDARY_TEXT_COLOR}
                           size={80}
                         />
                       </View>
-                    </>
-                  )}
-
-                  <View style={styles.loginButtonWrapper}>
+                    )}
                     <TouchableOpacity>
                       <Button style={styles.loginButton} onPress={handleSubmit}>
                         <Text style={styles.loginButtonText}>Update</Text>
@@ -601,6 +613,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_NORMAL,
     fontSize: 22,
     fontWeight: '600',
+    color: '#222B45',
   },
   middle: {},
   wrapper: {
@@ -636,6 +649,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     margin: 15,
+    color: '#222B45',
   },
   loading1: {
     top: 0,

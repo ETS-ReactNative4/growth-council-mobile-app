@@ -13,7 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect,useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
@@ -44,6 +44,7 @@ const BestPractice = props => {
   } = props;
 
   const pillarId = 118;
+  const isFocused = useIsFocused();
 
   useFocusEffect(
     useCallback(() => {
@@ -58,23 +59,48 @@ const BestPractice = props => {
     }, []),
   );
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     const fetchAllPillarEventAsync = async () => {
       await fetchAllPillarEvent(pillarId);
     };
     fetchAllPillarEventAsync();
-  }, []);
 
-  useEffect(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
-  }, []);
+	return () =>{
+		cleanPillarEvent();
+	}
+	}, []),
+	);
+
+	useFocusEffect(
+		useCallback(() => {
+		const fetchAllPillarMemberContentAsync = async () => {
+		  await fetchAllPillarMemberContent(pillarId);
+		};
+		fetchAllPillarMemberContentAsync();
+		return () => {
+			cleanPillarMemberContent();
+		  };
+		}, []),
+	  );
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
+
+	let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined){
+      organizer = ' '; 
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+	if (description === undefined){
+		description = ' '; 
+	  } else {
+		description = item?.organizer?.description;
+	  }
 
     return (
       <View key={index} style={styles.topWrapper}>
@@ -94,18 +120,15 @@ const BestPractice = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
+              <Text style={{color: '#030303'}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
-              </Text>
-              <Text style={styles.headingText}>
-                {item?.organizer?.description}
-              </Text>
+			  {organizer} {description}
+			  </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -131,11 +154,13 @@ const BestPractice = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+                color: '#222B45',
               }}>
               {item?.display_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303'}}>
+              Frost and Sullivan
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -170,6 +195,7 @@ const BestPractice = props => {
               fontSize: 10,
               marginHorizontal: 10,
               textAlign: 'center',
+              color: '#030303',
             }}>
             {item?.name}
           </Text>
@@ -190,10 +216,10 @@ const BestPractice = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
-          <Text style={styles.title}> Best Practices Events</Text>
+          <Text style={styles.title}>Best Practices Events</Text>
 
           <View
             style={{
@@ -212,19 +238,16 @@ const BestPractice = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          {pillarPOELoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
           <FlatList
-            contentContainerStyle={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}
+            numColumns={4}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
+			// renderItem={_renderMiddleItem}
             renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
@@ -242,7 +265,7 @@ const BestPractice = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}> Best Practices Content</Text>
+          <Text style={styles.title}>Best Practices Content</Text>
           <View
             style={{
               display: 'flex',

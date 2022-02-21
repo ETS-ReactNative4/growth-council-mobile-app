@@ -1,9 +1,18 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Platform } from 'react-native';
-
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+  Text,
+  ImageBackground,
+} from 'react-native';
+import {Colors} from '../theme';
 import DrawerNavigation from '../navigations/DrawerNavigation';
 import BottomTabNavigation from '../navigations/BottomTabNavigation';
 
@@ -42,15 +51,25 @@ import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
+import {useIsFocused} from '@react-navigation/native';
 
+import HeaderTitle from '../shared/header';
+import HeaderRight from '../shared/header/HeaderRight';
 
 const Stack = createStackNavigator();
 
-const MainNavigation = () => {
+const MainNavigation = props => {
+  const dispatch = useDispatch();
+  const {profile, profileLoading, profileError} = useSelector(
+    state => state.profile,
+  );
+  const fetchProfileByIdentifier = () => {
+    dispatch(fetchProfileByID());
+  };
   return (
     <Stack.Navigator
       detachInactiveScreens={false}
-      screenOptions={({route}) => ({
+      screenOptions={({navigation}) => ({
         headerTitleAlign: 'center',
       })}>
       <Stack.Group>
@@ -75,7 +94,9 @@ const MainNavigation = () => {
               <Ionicons
                 name={'arrow-back'}
                 size={80}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 color={'white'}
                 onPress={() => navigation.navigate('Home')}
               />
@@ -96,7 +117,9 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={70}
                 color={'white'}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
@@ -116,7 +139,9 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={80}
                 color={'white'}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
@@ -192,30 +217,86 @@ const MainNavigation = () => {
           }}
         />
         <Stack.Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{
-            headerLeft: () => null,
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.RevealFromBottomAndroid,
-          }}
-        />
-        <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
-          options={{
-            headerTitle: 'Manage Account',
-            // headerTransparent: true,
-            // ...TransitionPresets.RevealFromBottomAndroid,
-          }}
+          options={({navigation}) => ({
+            headerLeft: () => (
+              <View>
+                <View>
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Ionicons
+                      name={'arrow-back'}
+                      size={30}
+                      color="white"
+                      style={{marginLeft: 10, top: 5}}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ),
+            headerTitle: () => (
+              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+                <Text
+                  style={{
+                    color: Colors.PRIMARY_BACKGROUND_COLOR,
+                    fontSize: 22,
+                    marginTop: 10,
+                  }}>
+                  ManageAccount
+                </Text>
+              </View>
+            ),
+
+            headerBackground: () => (
+              <View>
+                <ImageBackground
+                  source={require('../../src/assets/img/appBG.png')}
+                  style={{width: '100%', height: 60}}
+                />
+              </View>
+            ),
+          })}
         />
         <Stack.Screen
           name="OthersAccount"
           component={OtherAccountScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             id: route?.params?.id,
-            headerTitle: 'Account Info',
+            headerLeft: () => (
+              <View>
+                <View>
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Ionicons
+                      name={'arrow-back'}
+                      size={30}
+                      color="white"
+                      style={{marginLeft: 10, top: 5}}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ),
+            headerTitle: () => (
+              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+                <Text
+                  style={{
+                    color: Colors.PRIMARY_BACKGROUND_COLOR,
+                    fontSize: 22,
+                    marginTop: 10,
+                  }}>
+                  Others Account
+                </Text>
+              </View>
+            ),
+
+            headerBackground: () => (
+              <View>
+                <ImageBackground
+                  source={require('../../src/assets/img/appBG.png')}
+                  style={{width: '100%', height: 60}}
+                />
+              </View>
+            ),
           })}
         />
 
@@ -264,10 +345,10 @@ const MainNavigation = () => {
           component={SessionDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: ' ',
+            headerShown: false,
           })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="Search"
           component={SearchScreen}
           options={{headerShown: false}}
@@ -291,7 +372,7 @@ const MainNavigation = () => {
             headerTitle: 'Privacy Policy',
           }}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="Terms"
           component={Terms}
           options={{

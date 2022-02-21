@@ -13,7 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 
@@ -44,7 +44,7 @@ const HomeCommunity = props => {
   } = props;
 
   const pillarId = 117;
-
+  const isFocused = useIsFocused();
   useFocusEffect(
     useCallback(() => {
       const fetchAllPillarPOEAsync = async () => {
@@ -58,20 +58,30 @@ const HomeCommunity = props => {
     }, []),
   );
 
-  useEffect(() => {
-    const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(pillarId);
-    };
-    fetchAllPillarEventAsync();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarEventAsync = async () => {
+        await fetchAllPillarEvent(pillarId);
+      };
+      fetchAllPillarEventAsync();
 
-  useEffect(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
-  }, []);
+      return () => {
+        cleanPillarEvent();
+      };
+    }, []),
+  );
 
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarMemberContentAsync = async () => {
+        await fetchAllPillarMemberContent(pillarId);
+      };
+      fetchAllPillarMemberContentAsync();
+      return () => {
+        cleanPillarMemberContent();
+      };
+    }, []),
+  );
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -90,11 +100,13 @@ const HomeCommunity = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+                color: '#030303',
               }}>
               {item?.display_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303'}}>
+              Frost and Sullivan
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -107,7 +119,7 @@ const HomeCommunity = props => {
     );
   };
 
-  const _renderMiddleItem = ({item, index}) => {
+  const _renderMiddleItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
         onPress={() =>
@@ -115,16 +127,22 @@ const HomeCommunity = props => {
             poeId: item?.term_id,
             pillarId: item?.parent,
           })
-        }
-        key={index}>
+        }>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
+              style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+              color: '#222B45',
+            }}>
             {item?.name}
           </Text>
         </View>
@@ -135,6 +153,20 @@ const HomeCommunity = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
+
+    let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined) {
+      organizer = ' ';
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
 
     return (
       <View style={styles.topWrapper} key={index}>
@@ -158,14 +190,14 @@ const HomeCommunity = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
+              <Text style={{color: '#030303'}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
+                {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -186,10 +218,10 @@ const HomeCommunity = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
-          <Text style={styles.title}> Growth Community Events</Text>
+          <Text style={styles.title}>Growth Community Events</Text>
 
           <View
             style={{
@@ -207,18 +239,21 @@ const HomeCommunity = props => {
 
         <View style={styles.middle}>
           <Text style={styles.title}>Points of Engagement</Text>
-          {pillarPOELoading && (
+          {pillarEventLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
           <FlatList
-            contentContainerStyle={{flex: 1}}
-            numColumns={4}
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
-            renderItem={_renderMiddleItem}
-            keyExtractor={item => item.id}
+            // renderItem={_renderMiddleItem}
+            renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
 
@@ -235,7 +270,7 @@ const HomeCommunity = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}> Growth Community Content</Text>
+          <Text style={styles.title}>Growth Community Content</Text>
           <View
             style={{
               display: 'flex',
@@ -265,6 +300,7 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 25,
     justifyContent: 'center',
+    marginRight: 2,
   },
   title: {
     fontFamily: Typography.FONT_SF_SEMIBOLD,
@@ -329,6 +365,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+    marginRight: 2,
     marginBottom: 10,
     backgroundColor: 'white',
   },
@@ -353,7 +390,7 @@ const styles = StyleSheet.create({
   },
   ContentWrapper: {
     height: 206,
-    width:contentContainerWidth,
+    width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,

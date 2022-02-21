@@ -33,8 +33,8 @@ const Profile = props => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-      fetchProfileByIdentifier();
-	}, []);
+    fetchProfileByIdentifier();
+  }, [isFocused]);
 
   return (
     <ScrollView
@@ -78,7 +78,7 @@ const Profile = props => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
               <Ionicon
                 name={'settings-outline'}
                 size={24}
@@ -97,7 +97,7 @@ const Profile = props => {
             </View>
             <View style={styles.header}>
               <Text style={styles.headingText1}>{profile.display_name}</Text>
-              <Text>{profile.user_email}</Text>
+              <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
           </View>
         </View>
@@ -131,9 +131,8 @@ const Profile = props => {
                       flexDirection: 'column',
                       justifyContent: 'space-around',
                       position: 'absolute',
-                      zIndex: 1011,
-                      top: 120,
                       left: 120,
+                      top: 120,
                     }}>
                     <BubblesLoader
                       color={Colors.SECONDARY_TEXT_COLOR}
@@ -142,13 +141,9 @@ const Profile = props => {
                   </View>
                 </>
               )}
-              {value === 'My Events' && (
-                <MyEvent  {...props} />
-              )}
+              {value === 'My Events' && <MyEvent {...props} />}
 
-              {value === 'My Sessions' && (
-                <MySession  {...props} />
-              )}
+              {value === 'My Sessions' && <MySession {...props} />}
             </View>
           </View>
         </View>
@@ -190,6 +185,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_NORMAL,
     fontSize: 22,
     fontWeight: '600',
+    color: '#222B45',
   },
   profileWrapper: {
     padding: 20,

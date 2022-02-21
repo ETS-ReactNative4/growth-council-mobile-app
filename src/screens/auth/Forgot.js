@@ -10,11 +10,6 @@ const ForgotScreen = (props) => {
 
     const {loading} = useSelector((state) => state.auth);
 
-    /**
-     * Forgot customer password.
-     * @param {object} formData
-     *
-     */
     const forgotPassword = formData => {
         return dispatch(forgotCustomerPassword(formData));
     };

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  Button,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
@@ -55,6 +56,8 @@ const Dashboard = props => {
     cleanPillarEvent,
     contentSlider,
   } = props;
+
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -102,11 +105,13 @@ const Dashboard = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+                color: '#030303',
               }}>
               {item?.display_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303'}}>
+              Frost and Sullivan
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -150,6 +155,7 @@ const Dashboard = props => {
               fontSize: 10,
               marginHorizontal: 10,
               textAlign: 'center',
+              color: '#222B45',
             }}>
             {item?.name}
           </Text>
@@ -174,6 +180,20 @@ const Dashboard = props => {
         backgroundImage = require('../../../assets/img/Rectangle.png');
     }
 
+    let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined) {
+      organizer = ' ';
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
+
     return (
       <View key={index} style={styles.topWrapper}>
         <TouchableOpacity
@@ -192,15 +212,14 @@ const Dashboard = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
+              <Text style={{color: '#030303'}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
-                {item?.organizer?.description}
+                {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -213,9 +232,14 @@ const Dashboard = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
+
+    const togglePlaying = () => {
+      setPlaying(prev => !prev);
+    };
     return (
       <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videoLink[0]} />
+        <YoutubePlayer play={playing} videoId={videoLink[0]} />
+        <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} />
       </View>
     );
   };
@@ -430,6 +454,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
+    marginRight: 2,
     backgroundColor: 'white',
   },
   chatIcon: {
