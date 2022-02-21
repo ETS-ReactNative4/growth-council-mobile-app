@@ -34,7 +34,7 @@ const OthersAccount = props => {
     cleanConnectMember,
   } = props;
 
-  const [memberConnection, setMemberConnection] = useState(otherProfiles);
+  const [memberConnection, setMemberConnection] = useState(false);
 
   let Location = otherProfiles?.user_meta?.Location;
 
@@ -58,7 +58,7 @@ const OthersAccount = props => {
   }, []);
 
   useEffect(() => {
-    setMemberConnection(otherProfiles);
+    setMemberConnection(false);
   }, [otherProfiles]);
 
   const connectMemberByMemberID = async memberID => {
@@ -106,17 +106,16 @@ const OthersAccount = props => {
               </Text>
               <Text>{otherProfiles?.user_email}</Text>
             </View>
-            {!memberConnection?.connection && (
+            {!memberConnection && (
               <TouchableOpacity
                 style={styles.acceptButton}
                 onPress={() => connectMemberByMemberID(otherProfiles.ID)}>
                 <Text style={styles.acceptButtonText}>Connect</Text>
               </TouchableOpacity>
             )}
-            {memberConnection?.connection && (
+            {memberConnection && (
               <TouchableOpacity style={styles.registeredButton}>
-                <View style={{position: 'absolute', left: 20}}>
-                </View>
+                <View style={{position: 'absolute', left: 20}}></View>
                 <Text style={styles.registeredButtonText}>Connected</Text>
               </TouchableOpacity>
             )}
