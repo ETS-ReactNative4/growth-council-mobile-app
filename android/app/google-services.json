@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "98653816763",
+    "firebase_url": "https://growth-council-default-rtdb.firebaseio.com",
+    "project_id": "growth-council",
+    "storage_bucket": "growth-council.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98653816763:android:9d71b31b05a40b313a669e",
+        "android_client_info": {
+          "package_name": "com.growthcouncil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98653816763-iqfs729oiv0ebdh7it2lvdk5as4jbtb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3jlrr6heMtEdVALh2uoWgZtwXFxtExrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98653816763-iqfs729oiv0ebdh7it2lvdk5as4jbtb6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98653816763:android:e6ab1fc3696872223a669e",
+        "android_client_info": {
+          "package_name": "growth.council.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98653816763-iqfs729oiv0ebdh7it2lvdk5as4jbtb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3jlrr6heMtEdVALh2uoWgZtwXFxtExrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98653816763-iqfs729oiv0ebdh7it2lvdk5as4jbtb6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
