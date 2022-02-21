@@ -16,10 +16,14 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {BubblesLoader} from 'react-native-indicator';
 import {Linking} from 'react-native';
+import messaging from '@react-native-firebase/messaging';
+
+import axios from 'axios';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
+import {API_URL} from '../../../constants';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -49,9 +53,20 @@ const SignInForm = props => {
         // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
         initialValues: {username: '', password: ''},
         onSubmit: async values => {
+            const messageToken = await messaging().getToken();
+            const firebasePayload = {
+                username: values.username,
+                token: values,
+            };
+            const resp = await postToAPI(firebasePayload);
+            console.log('API Response::::', resp?.data);
             await signIn(values);
         },
     });
+
+    const postToAPI = async (data) => {
+        return await axios.get(`${API_URL}/pd/fcm/subscribe?api_secret_key=s3D6nHoU9AUw%jjTHy0K@UO)&user_email=${data?.username}&device_token=${data.token}&subscribed=UserNotification`);
+    };
 
     useFocusEffect(
         useCallback(() => {
@@ -67,7 +82,7 @@ const SignInForm = props => {
                 <ImageBackground
                     source={require('../../../assets/img/splash-screen.png')}
                     resizeMode="cover">
-                    <View style={{height: '15%'}}></View>
+                    <View style={{height: '15%'}}/>
 
                     <View>
                         <View style={styles.content}>
