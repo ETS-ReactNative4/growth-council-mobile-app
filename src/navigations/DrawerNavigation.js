@@ -19,7 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
-import {useSelector,useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import DashboardScreen from '../screens/dashboard';
 import {useAuthentication} from '../context/auth';
@@ -40,20 +40,23 @@ import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
 import {clearAsyncStorage} from '../utils/storageUtil';
 import ToastMessage from '../shared/toast';
-import {fetchProfileByID, resetProfile} from '../screens/account/slice/profileSlice';
+import {
+  fetchProfileByID,
+  resetProfile,
+} from '../screens/account/slice/profileSlice';
+import MainHeader from '../shared/header/MainHeader';
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = props => {
-
-	const {loading, setLoading, message, setMessage, signOut} =
-        useAuthentication();
+  const {loading, setLoading, message, setMessage, signOut} =
+    useAuthentication();
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
 
   const logout = () => {
-    signOut()
+    signOut();
   };
 
   return (
@@ -65,13 +68,11 @@ const CustomDrawerContent = props => {
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-       
-		<DrawerItem
-        label="Logout"
-        onPress={logout}
-        icon={() =>
-			<Material name={'logout'} size={24} color={'#00008B'} />
-        }
+
+        <DrawerItem
+          label="Logout"
+          onPress={logout}
+          icon={() => <Material name={'logout'} size={24} color={'#00008B'} />}
         />
 
         <View style={styles.footer}>
@@ -93,63 +94,12 @@ const CustomDrawerContent = props => {
 };
 
 const DrawerNavigation = props => {
-	const dispatch = useDispatch();
-const {profile, profileLoading, profileError} = useSelector((state) => state.profile);
-  const fetchProfileByIdentifier = () => {
-	dispatch(fetchProfileByID());
-};
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
       screenOptions={({navigation}) => ({
         activeTintColor: '#e91e63',
         itemStyle: {marginVertical: 5},
-        headerBackground: () => (
-          <View>
-            <ImageBackground
-              source={require('../../src/assets/img/appBG.png')}
-              style={{width: '100%', height: 60}}
-            />
-          </View>
-        ),
-        headerTitle: () => <HeaderTitle {...props}
-		profile={profile}
-		profileLoading={profileLoading}
-		fetchProfileByIdentifier={fetchProfileByIdentifier}/>,
-        headerLeft: () => (
-          <View>
-            <View>
-              <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-                <Ionicons
-                  name="menu-outline"
-                  color={'white'}
-                  size={30}
-                  style={{marginLeft: 10, top: 5}}
-                />
-              </TouchableOpacity>
-            </View>
-            <View>
-              
-                <Image
-                  source={require('../assets/img/dashboard_logo.png')}
-                  style={{
-                    top: -29,
-                    position: 'absolute',
-                    height: Platform.OS === 'ios' ? 35 : 35,
-                    width: Platform.OS === 'ios' ? 35 : 35,
-                    left: 30,
-                    marginLeft: 17,
-                    // borderWidth: 5,
-                  }}
-                />
-          
-            </View>
-          </View>
-        ),
-        headerRight: () => <HeaderRight navigation={navigation}
-		{...props}
-		profile={profile}
-		fetchProfileByIdentifier={fetchProfileByIdentifier} />,
       })}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
@@ -159,6 +109,7 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
           drawerIcon: ({focused, size}) => (
             <Material name="inbox" color={'#00008B'} size={24} />
           ),
+          header: ({navigation}) => <MainHeader navigation={navigation} />,
         })}
       />
       <Drawer.Screen
@@ -251,11 +202,11 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
         })}
       />
       <Drawer.Screen
-        name="Calendar"   
-		component={CalendarScreen}
+        name="Calendar"
+        component={CalendarScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-			<Ionicons name="calendar-outline" color={'#00008B'} size={size}/>
+            <Ionicons name="calendar-outline" color={'#00008B'} size={size} />
           ),
           headerTitle: () => (
             <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
@@ -364,7 +315,6 @@ const {profile, profileLoading, profileError} = useSelector((state) => state.pro
           ),
         })}
       />
-	  
     </Drawer.Navigator>
   );
 };

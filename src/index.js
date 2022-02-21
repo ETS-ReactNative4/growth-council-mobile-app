@@ -12,6 +12,8 @@ import {MainNavigation} from './navigations';
 import {navigationRef} from './utils/navigationUtil';
 import {AuthProvider} from './context/auth';
 import SplashScreen from './screens/splash';
+import {SafeAreaView} from 'react-native';
+import {Colors} from './theme';
 
 XMLHttpRequest = GLOBAL.originalXMLHttpRequest
   ? GLOBAL.originalXMLHttpRequest

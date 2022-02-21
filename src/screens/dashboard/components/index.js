@@ -252,7 +252,7 @@ const Dashboard = props => {
         backgroundColor={require('../../../assets/img/appBG.png')}
         translucent={true}
       />
-      <ScrollView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <View style={styles.container}>
           <ImageBackground
             style={{width: '100%', height: 180}}

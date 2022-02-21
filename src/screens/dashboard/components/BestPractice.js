@@ -13,7 +13,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect,useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
@@ -61,46 +61,46 @@ const BestPractice = props => {
 
   useFocusEffect(
     useCallback(() => {
-    const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(pillarId);
-    };
-    fetchAllPillarEventAsync();
+      const fetchAllPillarEventAsync = async () => {
+        await fetchAllPillarEvent(pillarId);
+      };
+      fetchAllPillarEventAsync();
 
-	return () =>{
-		cleanPillarEvent();
-	}
-	}, []),
-	);
+      return () => {
+        cleanPillarEvent();
+      };
+    }, []),
+  );
 
-	useFocusEffect(
-		useCallback(() => {
-		const fetchAllPillarMemberContentAsync = async () => {
-		  await fetchAllPillarMemberContent(pillarId);
-		};
-		fetchAllPillarMemberContentAsync();
-		return () => {
-			cleanPillarMemberContent();
-		  };
-		}, []),
-	  );
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarMemberContentAsync = async () => {
+        await fetchAllPillarMemberContent(pillarId);
+      };
+      fetchAllPillarMemberContentAsync();
+      return () => {
+        cleanPillarMemberContent();
+      };
+    }, []),
+  );
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
 
-	let organizer = item?.organizer?.term_name;
+    let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
-    if (organizer === undefined){
-      organizer = ' '; 
+    if (organizer === undefined) {
+      organizer = ' ';
     } else {
       organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
     }
 
-	if (description === undefined){
-		description = ' '; 
-	  } else {
-		description = item?.organizer?.description;
-	  }
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
 
     return (
       <View key={index} style={styles.topWrapper}>
@@ -127,8 +127,8 @@ const BestPractice = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-			  {organizer} {description}
-			  </Text>
+                {organizer} {description}
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -216,7 +216,9 @@ const BestPractice = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.title}>Best Practices Events</Text>
@@ -247,7 +249,7 @@ const BestPractice = props => {
             numColumns={4}
             showsHorizontalScrollIndicator={false}
             data={pillarPOEs}
-			// renderItem={_renderMiddleItem}
+            // renderItem={_renderMiddleItem}
             renderItem={item => _renderMiddleItem(item, navigation)}
           />
         </View>
