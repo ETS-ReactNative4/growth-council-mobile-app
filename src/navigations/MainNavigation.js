@@ -374,7 +374,7 @@ const MainNavigation = props => {
         />
       </Stack.Group>
 
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
+      <Stack.Group>
         {/* <Stack.Screen
           name="PrivacyPolicy"
           component={PrivacyPolicyScreen}

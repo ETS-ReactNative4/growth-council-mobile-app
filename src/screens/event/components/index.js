@@ -126,7 +126,9 @@ const Event = props => {
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
         <ImageBackground
-          source={{uri: events?.image}}
+          source={{
+            uri: typeof events?.image === 'boolean' ? null : events?.image,
+          }}
           resizeMode="cover"
           style={{height: '55%'}}>
           <View
@@ -266,7 +268,12 @@ const Event = props => {
                       {backgroundColor: backgroundColor},
                     ]}>
                     <Image
-                      source={{uri: events?.organizer_image}}
+                      source={{
+                        uri:
+                          typeof events?.organizer_image === 'boolean'
+                            ? null
+                            : events?.organizer_image,
+                      }}
                       style={{
                         width: '100%',
                         height: '100%',
