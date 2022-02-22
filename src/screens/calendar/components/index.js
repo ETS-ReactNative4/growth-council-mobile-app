@@ -256,16 +256,13 @@ const EventCalendar = props => {
                   mode="dropdown"
                   itemTextStyle={{fontSize: 14}}
                   onValueChange={async (itemValue, itemIndex) => {
-                    console.log(itemValue);
                     setShowAllEvents(itemValue);
-
                     await fetchAllCalendarEvent({
                       year: calendarYear,
                       month: calendarMonth,
                       all_events: itemValue,
                     }).then(response => {
-                      console.log(response.payload.data);
-                      if (response) {
+                      if (response?.payload?.code === 200) {
                         setCurrentEvents(response?.payload?.data);
                       }
                     });
