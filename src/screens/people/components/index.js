@@ -95,6 +95,8 @@ const People = props => {
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.wrapper, styles.shadowProp]} key={index}>
+		  <TouchableOpacity
+          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
         <Image
           source={{uri: item.avatar}}
           style={{
@@ -138,6 +140,7 @@ const People = props => {
             style={{marginTop: 25}}
           />
         )}
+		</TouchableOpacity>
       </View>
     );
   };
