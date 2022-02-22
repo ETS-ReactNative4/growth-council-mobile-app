@@ -57,7 +57,7 @@ const Dashboard = props => {
     contentSlider,
   } = props;
 
-  const [playing, setPlaying] = useState(false);
+ 
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -233,13 +233,10 @@ const Dashboard = props => {
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
 
-    const togglePlaying = () => {
-      setPlaying(prev => !prev);
-    };
     return (
       <View style={styles.ContentWrapper}>
-        <YoutubePlayer play={playing} videoId={videoLink[0]} />
-        <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} />
+        <YoutubePlayer videoId={videoLink[0]} />
+       
       </View>
     );
   };
@@ -252,7 +249,7 @@ const Dashboard = props => {
         backgroundColor={require('../../../assets/img/appBG.png')}
         translucent={true}
       />
-      <ScrollView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <View style={styles.container}>
           <ImageBackground
             style={{width: '100%', height: 180}}

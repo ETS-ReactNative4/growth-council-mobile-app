@@ -257,7 +257,6 @@ const EventCalendar = props => {
                   itemTextStyle={{fontSize: 14}}
                   onValueChange={async (itemValue, itemIndex) => {
                     setShowAllEvents(itemValue);
-
                     await fetchAllCalendarEvent({
                       year: calendarYear,
                       month: calendarMonth,

@@ -6,13 +6,17 @@ import {
   ScrollView,
   TextInput,
   Image,
+  TouchableOpacity,
+  Button,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
+import ToastMessage from '../../../shared/toast';
 
 const OthersAccount = props => {
   const {
@@ -22,15 +26,21 @@ const OthersAccount = props => {
     cleanProfile,
     otherProfiles,
     fetchOtherProfileByIdentifier,
+
+    memberConnections,
+    memberConnectionLoading,
+    memberConnectionError,
+    connectMemberByIdentifier,
+    cleanConnectMember,
   } = props;
 
   let Location = otherProfiles?.user_meta?.Location;
 
   let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
 
-
-  const expertise_areas1 = otherProfiles?.expertise_areas1 ? otherProfiles?.expertise_areas1?.join(','): []
-
+  const expertise_areas1 = otherProfiles?.expertise_areas1
+    ? otherProfiles?.expertise_areas1?.join(',')
+    : [];
 
   let professional_summary = otherProfiles?.user_meta?.professional_summary;
 
@@ -44,6 +54,7 @@ const OthersAccount = props => {
     };
     fetchOtherProfileAsync();
   }, []);
+
 
   return (
     <ScrollView
@@ -79,6 +90,7 @@ const OthersAccount = props => {
               </Text>
               <Text>{otherProfiles?.user_email}</Text>
             </View>
+            
           </View>
         </View>
 
@@ -364,5 +376,39 @@ const styles = StyleSheet.create({
   },
   errorText: {
     ...CommonStyles.errorText,
+  },
+  acceptButton: {
+    borderRadius: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    width: '30%',
+    height: 40,
+    marginTop: 10,
+    backgroundColor: '#F26722',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  registeredButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    width: '30%',
+    height: 40,
+    backgroundColor: '#ffffff',
+    marginTop: 25,
+    borderColor: '#F26722',
+    borderWidth: 2,
+    position: 'relative',
+  },
+  acceptButtonText: {
+    width: '100%',
+    height: 20,
+    fontSize: 16,
+    color: '#ffffff',
+    paddingLeft: 10,
+  },
+  registeredButtonText: {
+    color: '#F26722',
   },
 });
