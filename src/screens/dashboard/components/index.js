@@ -169,14 +169,18 @@ const Dashboard = props => {
     const date = actualDate[0].split(' ', 3);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.slug) {
-      case 'community':
+    switch (item?.pillar_categories[0]?.parent) {
+		case 0:
+		case 117:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
-      case 'best-practices':
+
+		case 0:
+		case 118:
         backgroundImage = require('../../../assets/img/Rectangle1.png');
         break;
-      default:
+
+    	default:
         backgroundImage = require('../../../assets/img/Rectangle.png');
     }
 

@@ -67,15 +67,17 @@ const Event = props => {
     }
   };
 
-  let backgroundColor = ' ';
+  let backgroundColor = '';
   const pillarCategory = events?.pillar_categories
-    ? events?.pillar_categories[0]?.slug
+    ? events?.pillar_categories[0]?.parent
     : '';
   switch (pillarCategory) {
-    case 'best-practices':
+    case 0:
+    case 118:
       backgroundColor = Colors.PRACTICE_COLOR;
       break;
-    case 'community':
+    case 0:
+    case 117:
       backgroundColor = Colors.COMMUNITY_COLOR;
       break;
     default:

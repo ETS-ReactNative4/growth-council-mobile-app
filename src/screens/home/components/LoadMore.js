@@ -55,9 +55,26 @@ const CouncilAllDetail = props => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
     // console.log(date[1]);
+
+	let backgroundColor = '';
+	const pillarCategory = events?.pillar_categories
+	  ? events?.pillar_categories[0]?.parent
+	  : '';
+	switch (pillarCategory) {
+	  case 0:
+	  case 118:
+		backgroundColor = Colors.PRACTICE_COLOR;
+		break;
+	  case 0:
+	  case 117:
+		backgroundColor = Colors.COMMUNITY_COLOR;
+		break;
+	  default:
+		backgroundColor = Colors.COACHING_COLOR;
+	}
     return (
       <View style={styles.eventCard} key={index}>
-        <View style={styles.eventTheme} />
+        <View style={styles.eventTheme, {backgroundColor:backgroundColor}} />
         <View style={styles.eventDetails}>
           <View style={styles.eventInfo}>
             <Text style={styles.eventTitle}>{item.title}</Text>
@@ -245,7 +262,7 @@ const styles = StyleSheet.create({
     height: 84,
     width: 10,
     borderRadius: 50,
-    backgroundColor: 'rgba(128,186,116,1)',
+    // backgroundColor: 'rgba(128,186,116,1)',
   },
   eventDetails: {
     flex: 1,
