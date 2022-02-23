@@ -17,7 +17,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
 import PillarList from './PillarList';
-import Video from 'react-native-video';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
@@ -231,14 +230,54 @@ const Dashboard = props => {
   };
 
   const _renderContentItem = ({item, index}) => {
+	const [modalVisible, setModalVisible] = useState(false);
+    const [display, setDisplay] = useState(true);
+
     const file = item?.file;
     console.log(file);
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
+	
 
     return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videoLink[0]} />
+		<View>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}>
+          <View style={styles.ContentWrapper}>
+            <YoutubePlayer videoId={videoLink[0]} />
+            {/* <Thumbnail url={item?.file} /> */}
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(false);
+            }}>
+            <View>
+              <View style={styles.modalView}>
+                <View style={styles.mainPlayerView}>
+                  <View
+                    style={{
+                      width: '100%',
+                      backgroundColor: 'red',
+                    }}>
+                    <YoutubePlayer videoId={videoLink[0]} />
+                  </View>
+                </View>
+
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(false)}>
+                  <Text style={styles.textS}>Close</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </View>
     );
   };
