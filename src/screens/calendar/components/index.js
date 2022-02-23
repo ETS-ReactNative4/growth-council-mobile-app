@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     borderLeftWidth: 10,
-    borderColor: '#80BA74',
+
   },
   eventInfo: {
     paddingRight: 5,

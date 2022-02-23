@@ -57,7 +57,7 @@ const SignInForm = props => {
             const messageToken = await messaging().getToken();
             const firebasePayload = {
                 username: values.username,
-                token: values,
+                token: messageToken,
             };
             const resp = await postToAPI(firebasePayload);
             console.log('API Response::::', resp?.data);

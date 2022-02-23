@@ -55,7 +55,6 @@ const OthersAccount = props => {
     fetchOtherProfileAsync();
   }, []);
 
-
   return (
     <ScrollView
       contentContainerStyle={{
@@ -90,7 +89,6 @@ const OthersAccount = props => {
               </Text>
               <Text>{otherProfiles?.user_email}</Text>
             </View>
-            
           </View>
         </View>
 
@@ -137,7 +135,7 @@ const OthersAccount = props => {
                 <Text style={styles.title}>Username</Text>
                 <TextInput
                   style={styles.input}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={otherProfiles?.display_name}
                   editable={false}
                 />
@@ -145,7 +143,7 @@ const OthersAccount = props => {
                 <Text style={styles.title}>First Name</Text>
                 <TextInput
                   style={styles.input}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={otherProfiles?.user_meta?.first_name[0]}
                   editable={false}
                 />
@@ -153,7 +151,7 @@ const OthersAccount = props => {
                 <Text style={styles.title}>Last Name</Text>
                 <TextInput
                   style={styles.input}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={otherProfiles?.user_meta?.last_name[0]}
                   editable={false}
                 />
@@ -161,7 +159,7 @@ const OthersAccount = props => {
                 <Text style={styles.title}>Email</Text>
                 <TextInput
                   style={styles.input}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={otherProfiles?.user_email}
                   editable={false}
                 />
@@ -169,7 +167,7 @@ const OthersAccount = props => {
                 <Text style={styles.title}>Location</Text>
                 <TextInput
                   style={styles.input}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={
                     typeof Location === 'undefined'
                       ? ''
@@ -183,7 +181,7 @@ const OthersAccount = props => {
                   multiline={true}
                   numberOfLines={4}
                   style={styles.textarea}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={
                     typeof favorite_quote === 'undefined'
                       ? ''
@@ -197,7 +195,7 @@ const OthersAccount = props => {
                   multiline={true}
                   numberOfLines={4}
                   style={styles.textarea}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={
                     typeof professional_summary === 'undefined'
                       ? ''
@@ -212,7 +210,7 @@ const OthersAccount = props => {
                   multiline={true}
                   numberOfLines={4}
                   style={styles.textarea}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={expertise_areas1}
                   editable={false}
                 />
@@ -224,7 +222,7 @@ const OthersAccount = props => {
                   multiline={true}
                   numberOfLines={4}
                   style={styles.textarea}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={
                     typeof initatives === 'undefined'
                       ? ''
@@ -238,7 +236,7 @@ const OthersAccount = props => {
                   multiline={true}
                   numberOfLines={4}
                   style={styles.textarea}
-                  keyboardType="text"
+                  keyboardType="default"
                   value={
                     typeof insights === 'undefined'
                       ? ''

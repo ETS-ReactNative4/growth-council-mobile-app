@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  Dimensions,
 } from 'react-native';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -26,7 +27,7 @@ const MainHeader = props => {
   return (
     <ImageBackground
       source={require('../../assets/img/appBG.png')}
-      style={{width: '100%'}}>
+      style={{width: Dimensions.get('window').width}}>
       <View
         style={{
           flexDirection: 'row',

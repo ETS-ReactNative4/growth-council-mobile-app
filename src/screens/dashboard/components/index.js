@@ -59,9 +59,7 @@ const Dashboard = props => {
     cleanPillarEvent,
     contentSlider,
   } = props;
-
- 
-
+  
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();

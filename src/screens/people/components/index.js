@@ -95,56 +95,56 @@ const People = props => {
 
   const _renderItem = ({item, index}) => {
     return (
-		<TouchableOpacity
-          onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
-			  <View style={[styles.wrapper, styles.shadowProp]} key={index}>
-		  
-		  <Image
-			source={{uri: item.avatar}}
-			style={{
-			  width: 66,
-			  height: 66,
-			  margin: 8,
-			  borderRadius: 8,
-			}}
-		  />
-  
-		  <View style={{margin: 10, width: '55%'}}>
-			<Text
-			  style={{
-				fontSize: 14,
-				fontFamily: Typography.FONT_SF_REGULAR,
-				color: '#222B45',
-			  }}>
-			  {item?.display_name}
-			</Text>
-			<Text style={{fontSize: 12, color: '#222B45'}}>
-			  {item?.user_email}
-			</Text>
-			<Text style={{fontSize: 12, color: '#222B45'}}>{item?.company}</Text>
-		  </View>
-		  {!memberConnection[index]?.connection && (
-			<TouchableOpacity
-			  onPress={() => connectMemberByMemberID(item.ID, index)}>
-			  <Feather
-				name="plus-circle"
-				size={25}
-				color="skyblue"
-				style={{marginTop: 25}}
-			  />
-			</TouchableOpacity>
-		  )}
-		  {memberConnection[index]?.connection && (
-			<Feather
-			  name="check-circle"
-			  size={25}
-			  color="skyblue"
-			  style={{marginTop: 25}}
-			/>
-		  )}
-		</View>
-		  </TouchableOpacity>
-      
+      <TouchableOpacity
+        onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+        <View style={[styles.wrapper, styles.shadowProp]} key={index}>
+          <Image
+            source={{uri: item.avatar}}
+            style={{
+              width: 66,
+              height: 66,
+              margin: 8,
+              borderRadius: 8,
+            }}
+          />
+
+          <View style={{margin: 10, width: '55%'}}>
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: Typography.FONT_SF_REGULAR,
+                color: '#222B45',
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 12, color: '#222B45'}}>
+              {item?.user_email}
+            </Text>
+            <Text style={{fontSize: 12, color: '#222B45'}}>
+              {item?.company}
+            </Text>
+          </View>
+          {!memberConnection[index]?.connection && (
+            <TouchableOpacity
+              onPress={() => connectMemberByMemberID(item.ID, index)}>
+              <Feather
+                name="plus-circle"
+                size={25}
+                color="skyblue"
+                style={{marginTop: 25}}
+              />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
+            <Feather
+              name="check-circle"
+              size={25}
+              color="skyblue"
+              style={{marginTop: 25}}
+            />
+          )}
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -161,7 +161,7 @@ const People = props => {
           <Searchbar
             style={styles.input}
             placeholder="Search"
-            keyboardType="text"
+            keyboardType="default"
             value={searchKey}
             onChangeText={async text => {
               setSearchKey(text);
@@ -186,7 +186,7 @@ const People = props => {
               marginRight: 30,
             }}>
             <Text style={{fontSize: 14, color: '#222B45'}}>
-              {category ? category : 'Select Category'}
+              {category ? category : 'Select Expertise Areas'}
             </Text>
           </TouchableOpacity>
           <View style={styles.icon}>
