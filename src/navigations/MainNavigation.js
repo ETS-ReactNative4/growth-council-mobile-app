@@ -59,13 +59,6 @@ import HeaderRight from '../shared/header/HeaderRight';
 const Stack = createStackNavigator();
 
 const MainNavigation = props => {
-  const dispatch = useDispatch();
-  const {profile, profileLoading, profileError} = useSelector(
-    state => state.profile,
-  );
-  const fetchProfileByIdentifier = () => {
-    dispatch(fetchProfileByID());
-  };
   return (
     <Stack.Navigator
       detachInactiveScreens={false}
