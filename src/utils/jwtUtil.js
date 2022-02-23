@@ -27,7 +27,6 @@ export const isAuthenticated = () => {
 export let decodeUserID = token => {
   try {
     const decoded = jwt_decode(token);
-	console.log(decoded)
     return decoded?.data?.user?.id;
   } catch (e) {
     return null;
