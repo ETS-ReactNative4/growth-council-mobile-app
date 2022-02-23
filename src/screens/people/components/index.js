@@ -22,6 +22,7 @@ import ToastMessage from '../../../shared/toast';
 import {Dialog} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
 import Footer from '../../../shared/footer';
+import {Searchbar} from 'react-native-paper';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -65,9 +66,9 @@ const People = props => {
     fetchAllUsersAsync();
   }, []);
 
-    useEffect(() => {
-        setMemberConnection(users);
-    }, [users]);
+  useEffect(() => {
+    setMemberConnection(users);
+  }, [users]);
 
   useEffect(() => {
     const fetchAllExpertisesAsync = async () => {
@@ -94,51 +95,56 @@ const People = props => {
 
   const _renderItem = ({item, index}) => {
     return (
-      <View style={[styles.wrapper, styles.shadowProp]} key={index}>
-        <Image
-          source={{uri: item.avatar}}
-          style={{
-            width: 66,
-            height: 66,
-            margin: 8,
-            borderRadius: 8,
-          }}
-        />
-
-        <View style={{margin: 10, width: '55%'}}>
-          <Text
+      <TouchableOpacity
+        onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
+        <View style={[styles.wrapper, styles.shadowProp]} key={index}>
+          <Image
+            source={{uri: item.avatar}}
             style={{
-              fontSize: 14,
-              fontFamily: Typography.FONT_SF_REGULAR,
-              color: '#222B45',
-            }}>
-            {item?.display_name}
-          </Text>
-          <Text style={{fontSize: 12, color: '#222B45'}}>
-            {item?.user_email}
-          </Text>
-          <Text style={{fontSize: 12, color: '#222B45'}}>{item?.company}</Text>
-        </View>
-        {!memberConnection[index]?.connection && (
-          <TouchableOpacity
-            onPress={() => connectMemberByMemberID(item.ID, index)}>
+              width: 66,
+              height: 66,
+              margin: 8,
+              borderRadius: 8,
+            }}
+          />
+
+          <View style={{margin: 10, width: '55%'}}>
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: Typography.FONT_SF_REGULAR,
+                color: '#222B45',
+              }}>
+              {item?.display_name}
+            </Text>
+            <Text style={{fontSize: 12, color: '#222B45'}}>
+              {item?.user_email}
+            </Text>
+            <Text style={{fontSize: 12, color: '#222B45'}}>
+              {item?.company}
+            </Text>
+          </View>
+          {!memberConnection[index]?.connection && (
+            <TouchableOpacity
+              onPress={() => connectMemberByMemberID(item.ID, index)}>
+              <Feather
+                name="plus-circle"
+                size={25}
+                color="skyblue"
+                style={{marginTop: 25}}
+              />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
             <Feather
-              name="plus-circle"
+              name="check-circle"
               size={25}
               color="skyblue"
               style={{marginTop: 25}}
             />
-          </TouchableOpacity>
-        )}
-        {memberConnection[index]?.connection && (
-          <Feather
-            name="check-circle"
-            size={25}
-            color="skyblue"
-            style={{marginTop: 25}}
-          />
-        )}
-      </View>
+          )}
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -163,7 +169,7 @@ const People = props => {
               position: 'absolute',
             }}
           />
-          <TextInput
+          <Searchbar
             style={styles.input}
             placeholder="Search"
             keyboardType="text"
@@ -326,8 +332,6 @@ const styles = StyleSheet.create({
     height: 45,
     width: '90%',
     margin: 20,
-    borderWidth: 0.2,
-    paddingLeft: 50,
     borderRadius: 20,
     backgroundColor: '#F5F5F5',
   },

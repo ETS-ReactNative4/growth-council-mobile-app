@@ -26,7 +26,7 @@ const EventCalendar = props => {
     cleanCalendarEvent,
   } = props;
 
-  const [currentMonth, setCurrentMonth] = useState(moment().format('MM'));
+  const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
   const [calendarMonth, setCalendarMonth] = useState(moment().format('MM'));
   const [calendarYear, setCalendarYear] = useState(moment().format('YYYY'));
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -251,32 +251,26 @@ const EventCalendar = props => {
                   Done
                 </Text>
               </TouchableOpacity>
-              <View>
-			  <Picker
-                selectedValue={showAllEvents}
-                mode="dropdown"
-                itemTextStyle={{fontSize: 14}}
-                onValueChange={async (itemValue, itemIndex) => {
-                  setShowAllEvents(itemValue);
-
-                  await fetchAllCalendarEvent({
-					year: calendarYear,
-					month: calendarMonth,
-					all_events:itemValue,	
-					})
-
-					.then(response => {
-						if (response?.payload?.code === 200) {
-							setCurrentEvents(response?.payload?.data);
-						}
-
-					})
-                }}>
-                <Picker.Item label="All Events" value={true} />
-        		<Picker.Item label="My Events" value={false} />
-
-
-              </Picker>
+			  <View>
+                <Picker
+                  selectedValue={showAllEvents}
+                  mode="dropdown"
+                  itemTextStyle={{fontSize: 14}}
+                  onValueChange={async (itemValue, itemIndex) => {
+                    setShowAllEvents(itemValue);
+                    await fetchAllCalendarEvent({
+                      year: calendarYear,
+                      month: calendarMonth,
+                      all_events: itemValue,
+                    }).then(response => {
+                      if (response?.payload?.code === 200) {
+                        setCurrentEvents(response?.payload?.data);
+                      }
+                    });
+                  }}>
+                  <Picker.Item label="All Events" value={true} />
+                  <Picker.Item label="My Events" value={false} />
+                </Picker>
               </View>
             </View>
           </View>
