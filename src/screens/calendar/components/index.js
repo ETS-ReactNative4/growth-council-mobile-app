@@ -125,6 +125,24 @@ const EventCalendar = props => {
     } else {
       description = item?.organizer?.description;
     }
+
+    let borderColor = '';
+    const pillarCategory = item?.pillar_categories
+      ? item?.pillar_categories[0]?.parent
+      : '';
+    switch (pillarCategory) {
+      case 0:
+      case 118:
+        borderColor = Colors.PRACTICE_COLOR;
+        break;
+      case 0:
+      case 117:
+        borderColor = Colors.COMMUNITY_COLOR;
+        break;
+      default:
+        borderColor = Colors.COACHING_COLOR;
+    }
+
     return (
       <View>
         <TouchableOpacity
@@ -141,7 +159,7 @@ const EventCalendar = props => {
               {time[0]}:{time[1]}
             </Text>
 
-            <View style={styles.eventDetails}>
+            <View style={[styles.eventDetails, {borderColor: borderColor}]}>
               <View style={styles.eventInfo}>
                 <Text style={styles.eventTitle}>{item?.title}</Text>
                 <Text style={styles.eventParagraph}>
