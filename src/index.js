@@ -9,7 +9,7 @@ import RNBootSplash from 'react-native-bootsplash';
 import {Provider as PaperProvider} from 'react-native-paper';
 
 import messaging from '@react-native-firebase/messaging';
-import PushNotification from 'react-native-push-notification';
+import PushNotification, {Importance} from 'react-native-push-notification';
 
 import {store, persistor} from './store';
 import {MainNavigation} from './navigations';
@@ -42,10 +42,27 @@ const App = () => {
     const TOPIC = 'UserNotification';
     const showNotification = (notification) => {
         PushNotification.localNotification({
+            channelId: 'growth-council-default-channel-id',
             title: notification.title,
             message: notification.body,
         });
     };
+
+    const createChannel = () => {
+        PushNotification.createChannel(
+            {
+                channelId: 'growth-council-default-channel-id', // (required)
+                channelName: 'growth council default channel', // (required)
+                channelDescription: 'A growth council default channel"', // (optional) default: undefined.
+                playSound: false, // (optional) default: true
+                soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+                importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+                vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+            },
+            (created) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+        );
+    };
+
     const requestUserPermission = async () => {
         /**
          * On iOS, messaging permission must be requested by
