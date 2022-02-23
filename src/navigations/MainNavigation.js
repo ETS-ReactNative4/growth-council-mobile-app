@@ -389,7 +389,7 @@ const MainNavigation = props => {
             friendID: route?.params?.friendID,
             friendName: route?.params?.friendName,
             //headerTitle: route?.params?.friendName,
-            headerTitle: 'Chat',
+			headerShown: false,
           })}
         />
         <Stack.Screen
