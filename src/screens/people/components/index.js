@@ -66,9 +66,9 @@ const People = props => {
     fetchAllUsersAsync();
   }, []);
 
-    useEffect(() => {
-        setMemberConnection(users);
-    }, [users]);
+  useEffect(() => {
+    setMemberConnection(users);
+  }, [users]);
 
   useEffect(() => {
     const fetchAllExpertisesAsync = async () => {
@@ -158,7 +158,6 @@ const People = props => {
       }}>
       <View style={styles.container}>
         <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
-          
           <Searchbar
             style={styles.input}
             placeholder="Search"
@@ -322,7 +321,6 @@ const styles = StyleSheet.create({
     height: 45,
     width: '90%',
     margin: 20,
-    // borderWidth: 0.2,
     borderRadius: 20,
     backgroundColor: '#F5F5F5',
   },

@@ -73,7 +73,7 @@ const ChangePasswordForm = props => {
       await updateCustomerPassword(values).then(response => {
         console.log({response});
         if (response?.payload?.code === 200) {
-          // navigation.navigate(SignIn)
+          navigation.navigate('Dashboard')
           ToastMessage.show(response?.payload?.message);
           console.log(values);
         }
