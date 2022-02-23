@@ -99,12 +99,12 @@ const Chat = (props) => {
                     <Text style={{color: '#969696', fontSize: 14}}>Last seen recently</Text>
                 </View>
 
-                <Ionicons
+                {/* <Ionicons
                     name='ellipsis-horizontal-sharp'
                     size={30}
                     color='#969696'
                     style={{marginTop: 10, marginLeft: 30}}
-                />
+                /> */}
 
             </View>
             <GiftedChat
