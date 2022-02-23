@@ -16,8 +16,8 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
-
 import PillarList from './PillarList';
+import Video from 'react-native-video';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
@@ -56,8 +56,6 @@ const Dashboard = props => {
     cleanPillarEvent,
     contentSlider,
   } = props;
-
- 
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -170,17 +168,17 @@ const Dashboard = props => {
 
     let backgroundImage = '';
     switch (item?.pillar_categories[0]?.parent) {
-		case 0:
-		case 117:
+      case 0:
+      case 117:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
 
-		case 0:
-		case 118:
+      case 0:
+      case 118:
         backgroundImage = require('../../../assets/img/Rectangle1.png');
         break;
 
-    	default:
+      default:
         backgroundImage = require('../../../assets/img/Rectangle.png');
     }
 
@@ -234,13 +232,13 @@ const Dashboard = props => {
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
+    console.log(file);
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
 
     return (
       <View style={styles.ContentWrapper}>
         <YoutubePlayer videoId={videoLink[0]} />
-       
       </View>
     );
   };
