@@ -43,8 +43,8 @@ const App = () => {
     const showNotification = (notification) => {
         PushNotification.localNotification({
             channelId: 'growth-council-default-channel-id',
-            title: notification.title,
-            message: notification.body,
+            title: notification?.data?.title,
+            message: notification?.message?.body,
         });
     };
 
@@ -77,6 +77,7 @@ const App = () => {
     };
 
     useEffect(() => {
+        createChannel();
         if (requestUserPermission()) {
             /**
              * Returns an FCM token for this device
