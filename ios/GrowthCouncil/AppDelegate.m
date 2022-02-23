@@ -35,6 +35,8 @@ static void InitializeFlipper(UIApplication *application) {
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"GrowthCouncil"
                                             initialProperties:nil];
+  
+  for (NSString* family in [UIFont familyNames]) { NSLog(@"%@", family); for (NSString* name in [UIFont fontNamesForFamilyName: family]) { NSLog(@" %@", name); } }
 
   if (@available(iOS 13.0, *)) {
       rootView.backgroundColor = [UIColor systemBackgroundColor];
