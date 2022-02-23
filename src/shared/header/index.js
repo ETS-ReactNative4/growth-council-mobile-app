@@ -25,7 +25,7 @@ const HeaderTitle = props => {
   //   }, [isFocused]);
 
   return (
-    <View style={{marginLeft: 10}}>
+    <View style={{marginLeft: 20}}>
       <Text
         style={{
           color: 'white',
