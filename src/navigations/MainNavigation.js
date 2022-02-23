@@ -307,9 +307,43 @@ const MainNavigation = props => {
         <Stack.Screen
           name="ChangePassword"
           component={ChangePasswordScreen}
-          options={{
-            headerTitle: 'Change Password',
-          }}
+		  options={({navigation}) => ({
+			headerLeft: () => (
+				<View>
+				  <View>
+					<TouchableOpacity onPress={() => navigation.goBack()}>
+					  <Ionicons
+						name={'arrow-back'}
+						size={30}
+						color="white"
+						style={{marginLeft: 10, top: 5}}
+					  />
+					</TouchableOpacity>
+				  </View>
+				</View>
+			  ),
+			  headerTitle: () => (
+				<View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+				  <Text
+					style={{
+					  color: Colors.PRIMARY_BACKGROUND_COLOR,
+					  fontSize: 22,
+					  marginTop: 10,
+					}}>
+					Change Password
+				  </Text>
+				</View>
+			  ),
+  
+			  headerBackground: () => (
+				<View>
+				  <ImageBackground
+					source={require('../../src/assets/img/appBG.png')}
+					style={{width: '100%', height: 60}}
+				  />
+				</View>
+			  ),
+			})}
         />
         <Stack.Screen
           name="ContactUs"
@@ -330,7 +364,7 @@ const MainNavigation = props => {
           component={EventDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: ' ',
+            headerShown: false,
           })}
         />
         <Stack.Screen
@@ -355,7 +389,7 @@ const MainNavigation = props => {
             friendID: route?.params?.friendID,
             friendName: route?.params?.friendName,
             //headerTitle: route?.params?.friendName,
-            headerTitle: 'Chat',
+			headerShown: false,
           })}
         />
         <Stack.Screen

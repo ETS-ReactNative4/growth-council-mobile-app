@@ -56,25 +56,23 @@ const CouncilAllDetail = props => {
     const date = actualDate[0].split(' ', 3);
     // console.log(date[1]);
 
-	let backgroundColor = '';
-	const pillarCategory = events?.pillar_categories
-	  ? events?.pillar_categories[0]?.parent
-	  : '';
-	switch (pillarCategory) {
-	  case 0:
-	  case 118:
-		backgroundColor = Colors.PRACTICE_COLOR;
-		break;
-	  case 0:
-	  case 117:
-		backgroundColor = Colors.COMMUNITY_COLOR;
-		break;
-	  default:
-		backgroundColor = Colors.COACHING_COLOR;
-	}
+    let backgroundColor = '';
+    const pillarCategory = item?.pillar_categories[0]?.parent;
+    switch (pillarCategory) {
+      case 0:
+      case 118:
+        backgroundColor = Colors.PRACTICE_COLOR;
+        break;
+      case 0:
+      case 117:
+        backgroundColor = Colors.COMMUNITY_COLOR;
+        break;
+      default:
+        backgroundColor = Colors.COACHING_COLOR;
+    }
     return (
       <View style={styles.eventCard} key={index}>
-        <View style={styles.eventTheme, {backgroundColor:backgroundColor}} />
+        <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
         <View style={styles.eventDetails}>
           <View style={styles.eventInfo}>
             <Text style={styles.eventTitle}>{item.title}</Text>
@@ -125,7 +123,7 @@ const CouncilAllDetail = props => {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.events}>
-            <Text style={styles.poeTitle}>POINTS OF ENGAGEMENT</Text>
+            <Text style={styles.poeTitle}>POINTS OF ENGAGEMENT </Text>
             <View styles={styles.eventList}>
               <FlatList
                 vertical
@@ -226,7 +224,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 5,
-	marginLeft:2,
+    marginLeft: 2,
   },
   shadowProp: {
     shadowColor: '#000',
@@ -242,10 +240,10 @@ const styles = StyleSheet.create({
   poeTheme: {
     height: 50,
     width: 50,
-	justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-	backgroundColor: '#fff',
+    backgroundColor: '#fff',
   },
   shadowProp: {
     shadowColor: '#000',
@@ -259,10 +257,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   eventTheme: {
-    height: 84,
     width: 10,
     borderRadius: 50,
-    // backgroundColor: 'rgba(128,186,116,1)',
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    borderLeftWidth: 10,
   },
   eventDetails: {
     flex: 1,
