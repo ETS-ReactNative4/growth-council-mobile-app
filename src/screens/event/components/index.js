@@ -100,12 +100,16 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM, (dddd), h:mm a');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
-  console.log(GobalStartMonth);
+  const GobalDate = moment(timeToDisplay).format('D MMMM (dddd), h:mm a / ');
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM, (dddd), h:mm a');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
+  const GobalTime = moment(timeToDisplay).format('h:mm a');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (dddd)');
+  const GobalMonth = moment(timeToDisplay).format('D MMMM (dddd) / ');
+  console.log(GobalTime);
+
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM (dddd), h:mm a');
+  const GobalEndTime = moment(timeToEnd).format('h:mm a');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM (dddd)');
   console.log(GobalEndMonth);
 
   useEffect(() => {
@@ -131,6 +135,11 @@ const Event = props => {
           source={{uri: events?.image}}
           resizeMode="cover"
           style={{height: '55%'}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={styles.arrow}>
+              <Ionicons name={'arrow-back'} size={30} color="black" />
+            </View>
+          </TouchableOpacity>
           <View
             style={{
               alignItems: 'center',
@@ -168,12 +177,13 @@ const Event = props => {
                       flex: 4,
                       paddingLeft: 5,
                     }}>
-                    <Text style={styles.eventDetails}>{GobalDate} /</Text>
+                    {/* <Text style={styles.eventDetails}>{GobalDate} /</Text> */}
                     <Text style={styles.eventDetails}>
                       {GobalStartMonth === GobalEndMonth
-                        ? GobalDateEnd.split(/(\s+)/)[6] +
+                        ? GobalDate +
+                          GobalDateEnd.split(/(\s+)/)[6] +
                           GobalDateEnd.split(/(\s+)/)[8]
-                        : GobalDateEnd}
+                        : GobalMonth + GobalEndMonth}
                       ({deviceTimeZone})
                     </Text>
                   </View>
@@ -190,7 +200,7 @@ const Event = props => {
                         }>
                         <Feather
                           name={'plus-circle'}
-                          size={30}
+                          size={25}
                           color={'rgba(54,147,172,1)'}
                         />
                       </TouchableOpacity>
@@ -205,7 +215,7 @@ const Event = props => {
                       }}>
                       <Feather
                         name={'check-circle'}
-                        size={35}
+                        size={25}
                         color={'rgba(54,147,172,1)'}
                       />
                     </View>
@@ -355,6 +365,10 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
   },
+  arrow: {
+    marginTop: 30,
+    marginLeft: 10,
+  },
   headingTitle: {
     ...CommonStyles.headingTitle,
     textAlign: 'left',
@@ -377,6 +391,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
     marginLeft: 5,
+    marginTop: 3,
     fontSize: 14,
     color: '#1E2022',
     fontWeight: 'bold',
@@ -386,8 +401,6 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontSize: 14,
     marginBottom: 5,
-    marginTop: 5,
-    marginBottom: 4,
     fontWeight: 'bold',
   },
   contentHeading: {
@@ -476,8 +489,8 @@ const styles = StyleSheet.create({
   infoicon: {
     flex: 1,
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 60,
-    width: 50,
+    height: 48,
+    width: 48,
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
@@ -496,7 +509,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: 5,
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 5,
   },
   hostimage: {
     flex: 1,

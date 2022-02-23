@@ -123,7 +123,7 @@ const CouncilAllDetail = props => {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.events}>
-            <Text style={styles.poeTitle}>POINTS OF ENGAGEMENT</Text>
+            <Text style={styles.poeTitle}>POINTS OF ENGAGEMENT </Text>
             <View styles={styles.eventList}>
               <FlatList
                 vertical

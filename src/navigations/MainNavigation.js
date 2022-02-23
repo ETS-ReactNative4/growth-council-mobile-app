@@ -330,7 +330,7 @@ const MainNavigation = props => {
           component={EventDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: ' ',
+            headerShown: false,
           })}
         />
         <Stack.Screen
