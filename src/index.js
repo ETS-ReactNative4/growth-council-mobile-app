@@ -44,7 +44,7 @@ const App = () => {
         PushNotification.localNotification({
             channelId: 'growth-council-default-channel-id',
             title: notification?.data?.title,
-            message: notification?.message?.body,
+            message: notification?.data?.message,
         });
     };
 
