@@ -179,7 +179,7 @@ const EventCalendar = props => {
               marginRight: 30,
             }}>
             <Text style={{fontSize: 12, color: '#030303',}}>
-              {showAllEvents ?  'All Events':'My Events'}
+              {showAllEvents ?  'All Events' : 'My Events'}
               {/* Select Events */}
             </Text>
           </TouchableOpacity>
