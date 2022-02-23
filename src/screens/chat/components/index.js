@@ -3,10 +3,10 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
 } from 'react-native';
-import {GiftedChat, Send} from 'react-native-gifted-chat'
-import {collection, getDocs, addDoc, query, orderBy} from 'firebase/firestore';
+import {GiftedChat, Send} from 'react-native-gifted-chat';
+import {collection, addDoc, query, orderBy, onSnapshot} from 'firebase/firestore';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -24,7 +24,8 @@ const Chat = (props) => {
     const userAvatar = route.params.userAvatar;
     const userName = route.params.userName;
 
-    console.log("CHAT:::::::::::::::", friendName, userID);
+    console.log('FRIEND NAME:::::::::::::::', friendID, friendName);
+    console.log('USER NAME:::::::::::::::', userID, userName);
 
     const chatID = () => {
         const chatIDPre = [];
@@ -37,29 +38,35 @@ const Chat = (props) => {
     const [messages, setMessages] = useState([]);
 
     useLayoutEffect(() => {
+        let unsubscribe = null;
         const fetchMessageAsync = async () => {
             const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
-            const chatSnapshot = await getDocs(query(chatsCol, orderBy('createdAt', 'desc')));
-            const messageList = chatSnapshot.docs.map(doc => ({
-                _id: doc.data()._id,
-                createdAt: doc.data().createdAt.toDate(),
-                text: doc.data().text,
-                user: doc.data().user,
-            }));
-            setMessages(messageList);
+            const q = await query(chatsCol, orderBy('createdAt', 'desc'));
+            let messageList = [];
+            unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const messageList = querySnapshot?.docs?.map(doc => ({
+                    _id: doc.data()._id,
+                    createdAt: doc.data().createdAt.toDate(),
+                    text: doc.data().text,
+                    user: doc.data().user,
+                }));
+                setMessages(messageList);
+            });
         };
         fetchMessageAsync();
+
+        return () => unsubscribe();
 
     }, []);
 
     const onSend = useCallback(async (messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
-        console.log("Message ID::::::::::: ", messages[0]);
-        const {_id, createdAt, text, user,} = messages[0];
+        console.log('Message ID::::::::::: ', messages[0]);
+        const {_id, createdAt, text, user} = messages[0];
         const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
-        console.log("chatsCol ID::::::::::: ", chatsCol);
+        console.log('chatsCol ID::::::::::: ', chatsCol);
         const newDoc = await addDoc(chatsCol, {_id, createdAt, text, user});
-        console.log("Document ID::::::::::: ", newDoc);
+        console.log('Document ID::::::::::: ', newDoc);
     }, []);
 
     return (
@@ -87,7 +94,7 @@ const Chat = (props) => {
 
                     }}
                 />
-                <View style={{marginLeft: 10, width: "50%"}}>
+                <View style={{marginLeft: 10, width: '50%'}}>
                     <Text style={{color: '#323232', fontSize: 16}}>{friendName}</Text>
                     <Text style={{color: '#969696', fontSize: 14}}>Last seen recently</Text>
                 </View>
@@ -107,7 +114,7 @@ const Chat = (props) => {
                 user={{
                     _id: userID,
                     name: userName,
-                    avatar: userAvatar
+                    avatar: userAvatar,
                     // name: auth?.currentUser?.displayName,
                     // avatar: auth?.currentUser?.photoURL
                 }}
@@ -154,7 +161,7 @@ const styles = StyleSheet.create({
         padding: 10,
 
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
 });
 
