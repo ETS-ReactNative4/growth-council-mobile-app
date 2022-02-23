@@ -86,7 +86,7 @@ const Setting = props => {
               />
             </View>
             <View style={styles.header}>
-              <Text style={styles.headingText1}>{profile.display_name}</Text>
+              <Text style={styles.headingText1}>{profile?.user_meta?.first_name} {profile?.user_meta?.last_name}</Text>
               <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
           </View>
