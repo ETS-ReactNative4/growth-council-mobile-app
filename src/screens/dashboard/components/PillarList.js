@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  FlatList
 } from 'react-native';
 
 import {Typography} from '../../../theme';
@@ -20,38 +21,54 @@ import {
 const PillarList = props => {
   const {navigation, pillarSliders} = props;
 
-  return pillarSliders.map((item, index) => {
-    let navigationPath = '';
-    let borderColor = PRIMARY_BACKGROUND_COLOR;
-    switch (item?.slug) {
-      case 'community':
-        navigationPath = 'Community';
-        borderColor = COMMUNITY_COLOR;
-        break;
-      case 'best-practices':
-        navigationPath = 'Best Practices';
-        borderColor = PRACTICE_COLOR;
-        break;
-      case 'growth-coaching':
-        navigationPath = 'Growth Coaching';
-        borderColor = COACHING_COLOR;
-    }
+
+	const _renderItem = ({item, index}) => {
+		
+		let navigationPath = '';
+		let borderColor = PRIMARY_BACKGROUND_COLOR;
+		switch (item?.slug) {
+		  case 'community':
+			navigationPath = 'Community';
+			borderColor = COMMUNITY_COLOR;
+			break;
+		  case 'best-practices':
+			navigationPath = 'Best Practices';
+			borderColor = PRACTICE_COLOR;
+			break;
+		  case 'growth-coaching':
+			navigationPath = 'Growth Coaching';
+			borderColor = COACHING_COLOR;
+		}
+		return (
+			<>
+			<View
+			  style={[styles.ImageWrapper, {borderColor: borderColor}]}
+			  key={index}
+			  >
+			  <TouchableOpacity
+				onPress={() =>
+				  navigation.navigate(navigationPath, {pillarId: item.term_id})
+				}>
+				<Image source={{uri: item?.image}} style={styles.ImageStyle} />
+				<Text style={styles.sliderText}>{item?.name}</Text>
+			  </TouchableOpacity>
+			</View>
+		  
+			</>
+		);
+	  };
 
     return (
-      <View
-        style={[styles.ImageWrapper, {borderColor: borderColor}]}
-        key={index}
-		>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(navigationPath, {pillarId: item.term_id})
-          }>
-          <Image source={{uri: item?.image}} style={styles.ImageStyle} />
-          <Text style={styles.sliderText}>{item?.name}</Text>
-        </TouchableOpacity>
-      </View>
+	
+		<FlatList
+				horizontal
+				showsHorizontalScrollIndicator={false}
+				data={pillarSliders}
+				renderItem={_renderItem}
+				// renderItem={item => _renderMiddleItem(item, navigation)}
+			/>
     );
-  });
+
 };
 
 const styles = StyleSheet.create({
