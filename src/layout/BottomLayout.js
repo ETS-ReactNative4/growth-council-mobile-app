@@ -104,7 +104,7 @@ const BottomLayout = ({focused, navigation}) => {
 const styles = StyleSheet.create({
   NavContainer: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 45,
     left: 10,
     right: 10,
     marginBottom: 3,
