@@ -53,9 +53,16 @@ import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
 import {useIsFocused} from '@react-navigation/native';
 
+import MainHeader from '../shared/header/MainHeader';
+import AccountScreen from '../screens/account';
+import CalendarScreen from '../screens/calendar';
+import UserListScreen from '../screens/chat/UserList';
+import PeopleScreen from '../screens/people';
+
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
 import SubHeader from '../shared/header/SubHeader';
+
 
 const Stack = createStackNavigator();
 
@@ -249,6 +256,35 @@ const MainNavigation = props => {
             gestureDirection: 'horizontal-inverted',
             headerLeft: () => null,
           })}
+        />
+		<Stack.Screen
+          name="Calendars"
+          component={CalendarScreen}
+		  options={(navigation) => ({
+			header: ({navigation}) => <MainHeader navigation={navigation} />,
+		  })}
+        />
+		<Stack.Screen
+          name="UserList"
+          component={UserListScreen}
+          options={(navigation) => ({
+			header: ({navigation}) => <MainHeader navigation={navigation} />,
+		  })}
+        />
+		<Stack.Screen
+          name="People"
+          component={PeopleScreen}
+          options={(navigation) => ({
+			header: ({navigation}) => <MainHeader navigation={navigation} />,
+		  })}
+        />
+		<Stack.Screen
+          name="Person"
+          component={AccountScreen}
+		  options={(navigation) => ({
+	
+			header: ({navigation}) => <MainHeader navigation={navigation} />,
+		  })}
         />
         <Stack.Screen
           name="ChangePassword"

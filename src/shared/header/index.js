@@ -15,14 +15,6 @@ const HeaderTitle = props => {
     fetchProfileByIdentifier();
   }, [isFocused]);
 
-  //   useEffect(() => {
-  //     async function myName() {
-  //       const name = await getAsyncStorage(USER_NAME);
-  //       setUsername(name);
-  //     }
-
-  //     myName();
-  //   }, [isFocused]);
 
   return (
     <View style={{marginLeft: 20}}>

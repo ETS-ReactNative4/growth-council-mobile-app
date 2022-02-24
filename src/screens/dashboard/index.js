@@ -35,7 +35,7 @@ const DashboardScreen = props => {
     useSelector(state => state.communityMembers);
 
   useEffect(() => {
-    let content = pillarSliders.flatMap((value, key) => {
+    let content = pillarSliders?.flatMap((value, key) => {
       return value?.pillar_contents;
     });
     setContentSlider(content);

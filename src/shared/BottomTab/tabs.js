@@ -1,36 +1,40 @@
 import React from 'react';
-import {Platform, View, Text} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {createBottomTabNavigator,NavigationContainer} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Colors} from '../../theme';
+import DashboardScreen from '../../screens/dashboard';
+import AccountScreen from '../../screens/account';
+import CalendarScreen from '../../screens/calendar';
+import UserListScreen from '../../screens/chat/UserList';
+import PeopleScreen from '../../screens/people';
 
-import {Colors} from '../theme';
-
-import DashboardScreen from '../screens/dashboard';
-import AccountScreen from '../screens/account';
-
-import CalendarScreen from '../screens/calendar';
-import UserListScreen from '../screens/chat/UserList';
-import PeopleScreen from '../screens/people';
-import MainHeader from '../shared/header/MainHeader';
-import SubHeader from '../shared/header/SubHeader';
+import { DashboardNavigator, CalendarNavigator,ChatNavigator, PersonNavigator, ProfileNavigator} from '../../layout/BottomLayout';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigation = ({navigation}) => {
+const Tabs = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Dashboard"
-      screenOptions={() => ({
-        headerShown: false,
-        tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
-        tabBarInactiveTintColor: 'gray',
-        tabBarShowLabel: false,
-      })}>
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          position: 'absolute',
+          bottom: 25,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          backgroundColor: '#ffffff',
+          borderRadius: 15,
+          height: 120,
+          ...styles.shadow,
+        },
+      }}>
       <Tab.Screen
         name="Dashboard"
         component={DashboardScreen}
         options={() => ({
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Dashboard',
           tabBarIcon: ({focused, color, size}) => (
             <View>
               <View
@@ -59,7 +63,7 @@ const BottomTabNavigation = ({navigation}) => {
         name="Calendar"
         component={CalendarScreen}
         options={{
-          tabBarLabel: 'Search',
+          tabBarLabel: 'Calendar',
           tabBarIcon: ({color, size, focused}) => (
             <View>
               <View
@@ -137,7 +141,7 @@ const BottomTabNavigation = ({navigation}) => {
         }}
       />
       <Tab.Screen
-        name="Person"
+        name="Account"
         component={AccountScreen}
         options={{
           tabBarLabel: 'Account',
@@ -167,4 +171,16 @@ const BottomTabNavigation = ({navigation}) => {
   );
 };
 
-export default BottomTabNavigation;
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: '#7F5DF0',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5,
+  },
+});
+export default Tabs;
