@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -18,6 +19,8 @@ import Footer from '../../../shared/footer';
 import {useIsFocused} from '@react-navigation/native';
 import MyEvent from './MyEvent';
 import MySession from './MySession';
+import BottomNav from '../../../layout/BottomLayout';
+
 
 const Profile = props => {
   const {
@@ -38,6 +41,7 @@ const Profile = props => {
 
   console.log({profile});
   return (
+	<SafeAreaView style={{flex: 1}}>
     <ScrollView
       contentContainerStyle={{
         flexGrow: 1,
@@ -151,6 +155,8 @@ const Profile = props => {
       </View>
       <Footer />
     </ScrollView>
+	<BottomNav {...props} navigation={navigation}/>
+	</SafeAreaView>
   );
 };
 

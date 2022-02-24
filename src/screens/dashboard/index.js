@@ -34,12 +34,12 @@ const DashboardScreen = props => {
   const {communityMembers, communityMemberLoading, communityMemberError} =
     useSelector(state => state.communityMembers);
 
-  useEffect(() => {
-    let content = pillarSliders.flatMap((value, key) => {
-      return value?.pillar_contents;
-    });
-    setContentSlider(content);
-  }, [pillarSliders]);
+//   useEffect(() => {
+//     let content = pillarSliders.flatMap((value, key) => {
+//       return value?.pillar_contents;
+//     });
+//     setContentSlider(content);
+//   }, [pillarSliders]);
 
   /**
    * Fetch all upcoming events data.

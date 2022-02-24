@@ -23,7 +23,7 @@ const HeaderRight = props => {
         onPress={() => navigation.navigate('Person')}>
         <Image
           source={{
-            uri: profile.avatar,
+            uri: profile?.avatar,
           }}
           style={{
             height: 40,

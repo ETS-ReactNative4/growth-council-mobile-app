@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   Modal,
   ScrollView,
+  SafeAreaView
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
+import BottomNav from '../../../layout/BottomLayout';
 
 const EventCalendar = props => {
   const {
@@ -181,6 +183,7 @@ const EventCalendar = props => {
   };
 
   return (
+	<SafeAreaView style={{flex: 1}}>
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.iconWrapper}>
@@ -298,6 +301,8 @@ const EventCalendar = props => {
         </Modal>
       </View>
     </ScrollView>
+	<BottomNav {...props} navigation={navigation}/>
+	</SafeAreaView>
   );
 };
 

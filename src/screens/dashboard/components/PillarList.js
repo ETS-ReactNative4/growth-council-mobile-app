@@ -40,7 +40,8 @@ const PillarList = props => {
     return (
       <View
         style={[styles.ImageWrapper, {borderColor: borderColor}]}
-        key={index}>
+        key={index}
+		>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate(navigationPath, {pillarId: item.term_id})

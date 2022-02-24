@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Image,
     ScrollView,
+	SafeAreaView
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
@@ -18,6 +19,7 @@ import {JWT_TOKEN, USER_NAME, USER_AVATAR} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
 import {useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
+import BottomNav from '../../../layout/BottomLayout';
 
 const UserList = props => {
     const {
@@ -98,6 +100,8 @@ const UserList = props => {
     };
 
     return (
+		
+	<SafeAreaView style={{flex: 1}}>
         <ScrollView
             contentContainerStyle={{
                 flexGrow: 1,
@@ -135,6 +139,8 @@ const UserList = props => {
 
             <Footer/>
         </ScrollView>
+		<BottomNav {...props} navigation={navigation}/>
+		</SafeAreaView>
     );
 };
 

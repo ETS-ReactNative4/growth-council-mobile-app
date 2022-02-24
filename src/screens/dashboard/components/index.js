@@ -25,6 +25,7 @@ import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from './Player';
+import BottomNav from '../../../layout/BottomLayout';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -353,6 +354,7 @@ const Dashboard = props => {
 
         <Footer />
       </ScrollView>
+	  <BottomNav {...props} navigation={navigation}/>
     </SafeAreaView>
   );
 };

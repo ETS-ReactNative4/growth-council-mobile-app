@@ -55,6 +55,11 @@ import {useIsFocused} from '@react-navigation/native';
 
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
+import AccountScreen from '../screens/account';
+
+import CalendarScreen from '../screens/calendar';
+import UserListScreen from '../screens/chat/UserList';
+import PeopleScreen from '../screens/people';
 
 const Stack = createStackNavigator();
 
@@ -296,6 +301,50 @@ const MainNavigation = props => {
         <Stack.Screen
           name="Dashboard"
           component={DrawerNavigation}
+          options={({navigation}) => ({
+            headerTitle: '',
+            headerTransparent: true,
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal-inverted',
+            headerLeft: () => null,
+          })}
+        />
+		<Stack.Screen
+          name="Calendar"
+          component={CalendarScreen}
+          options={({navigation}) => ({
+            headerTitle: '',
+            headerTransparent: true,
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal-inverted',
+            headerLeft: () => null,
+          })}
+        />
+		<Stack.Screen
+          name="UserList"
+          component={UserListScreen}
+          options={({navigation}) => ({
+            headerTitle: '',
+            headerTransparent: true,
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal-inverted',
+            headerLeft: () => null,
+          })}
+        />
+		<Stack.Screen
+          name="People"
+          component={PeopleScreen}
+          options={({navigation}) => ({
+            headerTitle: '',
+            headerTransparent: true,
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal-inverted',
+            headerLeft: () => null,
+          })}
+        />
+		<Stack.Screen
+          name="Person"
+          component={AccountScreen}
           options={({navigation}) => ({
             headerTitle: '',
             headerTransparent: true,

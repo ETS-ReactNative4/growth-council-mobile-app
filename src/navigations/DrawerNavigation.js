@@ -33,17 +33,9 @@ import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
 import BestPracticeScreen from '../screens/dashboard/BestPractice';
 import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import SettingScreen from '../screens/setting/index';
-
-import BottomTabNavigation from './BottomTabNavigation';
+import BottomNav from '../layout/BottomLayout';
 import {Colors} from '../theme';
-import HeaderTitle from '../shared/header';
-import HeaderRight from '../shared/header/HeaderRight';
-import {clearAsyncStorage} from '../utils/storageUtil';
-import ToastMessage from '../shared/toast';
-import {
-  fetchProfileByID,
-  resetProfile,
-} from '../screens/account/slice/profileSlice';
+
 import MainHeader from '../shared/header/MainHeader';
 
 const Drawer = createDrawerNavigator();
@@ -93,7 +85,12 @@ const CustomDrawerContent = props => {
   );
 };
 
+
 const DrawerNavigation = props => {
+	const nav = () =>{
+		DashboardScreen
+		BottomNav
+	}
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
@@ -104,7 +101,7 @@ const DrawerNavigation = props => {
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
         name="Dashboard"
-        component={BottomTabNavigation}
+        component={DashboardScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Material name="inbox" color={'#00008B'} size={24} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, View} from 'react-native';
+import {Platform, View, Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -17,24 +17,36 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigation = ({navigation}) => {
   return (
     <Tab.Navigator
-	initialRouteName="Dashboard"
-	screenOptions={() => ({
-	  headerShown: false,
-	  tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
-	  tabBarInactiveTintColor: 'gray',
-	  tabBarShowLabel: false,
-	})}>
+      initialRouteName="Dashboard"
+      screenOptions={() => ({
+        headerShown: false,
+        tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
+        tabBarInactiveTintColor: 'gray',
+        tabBarShowLabel: false,
+      })}>
       <Tab.Screen
         name="Dashboard"
         component={DashboardScreen}
         options={() => ({
           tabBarLabel: 'Home',
-          tabBarIcon: ({color, size}) => (
-            <View
-              style={{
-                top: Platform.OS === 'ios' ? 8 : 0,
-              }}>
-              <Ionicons name="home-outline" color={'#000'} size={size} />
+          tabBarIcon: ({focused, color, size}) => (
+            <View>
+              <View
+                style={{
+                  top: Platform.OS === 'ios' ? 8 : 0,
+                  tintColor: focused ? '#e32f45' : '#748c94',
+                }}>
+                <Ionicons
+                  name="home-outline"
+                  color={'#000'}
+                  size={size}
+                  style={{color: focused ? '#e32f45' : '#748c94'}}
+                />
+              </View>
+              <Text
+                style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12}}>
+                Home
+              </Text>
             </View>
           ),
           tabBarVisible: true,
@@ -46,12 +58,23 @@ const BottomTabNavigation = ({navigation}) => {
         component={CalendarScreen}
         options={{
           tabBarLabel: 'Search',
-          tabBarIcon: ({color, size}) => (
-            <View
-              style={{
-                top: Platform.OS === 'ios' ? 8 : 0,
-              }}>
-              <Ionicons name="calendar-outline" color={'#000'} size={size} />
+          tabBarIcon: ({color, size, focused}) => (
+            <View>
+              <View
+                style={{
+                  top: Platform.OS === 'ios' ? 8 : 0,
+                }}>
+                <Ionicons
+                  name="calendar-outline"
+                  color={'#000'}
+                  size={size}
+                  style={{color: focused ? '#e32f45' : '#748c94'}}
+                />
+              </View>
+              <Text
+                style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12}}>
+                Calendar
+              </Text>
             </View>
           ),
           tabBarVisible: true,
@@ -62,12 +85,23 @@ const BottomTabNavigation = ({navigation}) => {
         component={UserListScreen}
         options={{
           tabBarLabel: 'UserList',
-          tabBarIcon: ({color, size}) => (
-            <View
-              style={{
-                top: Platform.OS === 'ios' ? 8 : 0,
-              }}>
-              <Ionicons name="chatbox-outline" color={'#000'} size={size} />
+          tabBarIcon: ({color, size, focused}) => (
+            <View>
+              <View
+                style={{
+                  top: Platform.OS === 'ios' ? 8 : 0,
+                }}>
+                <Ionicons
+                  name="chatbox-outline"
+                  color={'#000'}
+                  size={size}
+                  style={{color: focused ? '#e32f45' : '#748c94'}}
+                />
+              </View>
+              <Text
+                style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12}}>
+                Chat
+              </Text>
             </View>
           ),
           tabBarVisible: true,
@@ -78,12 +112,23 @@ const BottomTabNavigation = ({navigation}) => {
         component={PeopleScreen}
         options={{
           tabBarLabel: 'People',
-          tabBarIcon: ({color, size}) => (
-            <View
-              style={{
-                top: Platform.OS === 'ios' ? 8 : 0,
-              }}>
-              <Ionicons name="people-outline" color={'#000'} size={size} />
+          tabBarIcon: ({color, size, focused}) => (
+            <View>
+              <View
+                style={{
+                  top: Platform.OS === 'ios' ? 8 : 0,
+                }}>
+                <Ionicons
+                  name="people-outline"
+                  color={'#000'}
+                  size={size}
+                  style={{color: focused ? '#e32f45' : '#748c94'}}
+                />
+              </View>
+              <Text
+                style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12}}>
+                People
+              </Text>
             </View>
           ),
           tabBarVisible: true,
@@ -94,12 +139,23 @@ const BottomTabNavigation = ({navigation}) => {
         component={AccountScreen}
         options={{
           tabBarLabel: 'Account',
-          tabBarIcon: ({color, size}) => (
-            <View
-              style={{
-                top: Platform.OS === 'ios' ? 8 : 0,
-              }}>
-              <Ionicons name="person-outline" color={'#000'} size={size} />
+          tabBarIcon: ({color, size, focused}) => (
+            <View>
+              <View
+                style={{
+                  top: Platform.OS === 'ios' ? 8 : 0,
+                }}>
+                <Ionicons
+                  name="person-outline"
+                  color={'#000'}
+                  size={size}
+                  style={{color: focused ? '#e32f45' : '#748c94'}}
+                />
+              </View>
+              <Text
+                style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12}}>
+                Profile
+              </Text>
             </View>
           ),
           tabBarVisible: true,

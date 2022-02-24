@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Modal,
-  ActivityIndicator,
+  SafeAreaView
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -23,6 +23,7 @@ import {Dialog} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
 import Footer from '../../../shared/footer';
 import {Searchbar} from 'react-native-paper';
+import BottomNav from '../../../layout/BottomLayout';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -151,7 +152,9 @@ const People = props => {
   const [pickerVisible, setPickerVisible] = useState(false);
 
   return (
-    <ScrollView
+	  
+	<SafeAreaView style={{flex: 1}}>
+		 <ScrollView
       contentContainerStyle={{
         flexGrow: 1,
         backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -308,6 +311,9 @@ const People = props => {
         </View>
       </Modal>
     </ScrollView>
+	<BottomNav {...props} navigation={navigation}/>
+	</SafeAreaView>
+   
   );
 };
 
