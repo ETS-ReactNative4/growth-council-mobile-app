@@ -103,21 +103,21 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Dashboard"
         component={DashboardStackScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Material name="inbox" color={'#00008B'} size={24} />
           ),
-          header: ({navigation}) => <MainHeader navigation={navigation} />,
+          header: () => <MainHeader navigation={navigation} />,
         })}
       />
       <Drawer.Screen
         name="Community"
         component={HomeCommunityScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Material name="group-work" color={'#14A2E2'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Community"
               image={require('../assets/img/Rectangle2.png')}
@@ -129,11 +129,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Best Practices"
         component={BestPracticeScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Feature name="thumbs-up" color={'#3693AC'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Best Practices"
               image={require('../assets/img/Rectangle1.png')}
@@ -145,11 +145,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Growth Coaching"
         component={GrowthCoachingScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Feature name="git-pull-request" color={'#80BA74'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Growth Coaching"
               image={require('../assets/img/Rectangle.png')}
@@ -161,11 +161,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="calendar-outline" color={'#00008B'} size={size} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Calendar"
               image={require('../assets/img/appBG.png')}

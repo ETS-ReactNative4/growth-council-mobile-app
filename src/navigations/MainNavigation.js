@@ -72,7 +72,13 @@ export const DashboardStackScreen = () => {
   return (
     <DashboardStack.Navigator screenOptions={{headerShown: false}}>
       <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
-      <DashboardStack.Screen name="Calendars" component={CalendarScreen} />
+      <DashboardStack.Screen
+        name="Calendars"
+        component={CalendarScreen}
+        options={{
+          header: ({navigation}) => <MainHeader navigation={navigation} />,
+        }}
+      />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen name="People" component={PeopleScreen} />
       <DashboardStack.Screen name="Person" component={AccountScreen} />
