@@ -64,9 +64,40 @@ const SignInForm = props => {
     },
   });
 
-  const postToAPI = async data => {
-    return await axios.get(
-      `${API_URL}/pd/fcm/subscribe?api_secret_key=s3D6nHoU9AUw%jjTHy0K@UO)&user_email=${data?.username}&device_token=${data.token}&subscribed=UserNotification`,
+    const {
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+        touched,
+        isValid,
+    } = useFormik({
+        validationSchema: signInSchema,
+        // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
+        initialValues: {username: '', password: ''},
+        onSubmit: async values => {
+            const messageToken = await messaging().getToken();
+            const firebasePayload = {
+                username: values.username,
+                token: messageToken,
+            };
+            const resp = await postToAPI(firebasePayload);
+            console.log('API Response::::', resp?.data);
+            await signIn(values);
+        },
+    });
+
+    const postToAPI = async (data) => {
+        return await axios.get(`${API_URL}/pd/fcm/subscribe?api_secret_key=s3D6nHoU9AUw%jjTHy0K@UO)&user_email=${data?.username}&device_token=${data.token}&subscribed=UserNotification`);
+    };
+
+    useFocusEffect(
+        useCallback(() => {
+            setMessage(null);
+            ``;
+            setLoading(false);
+        }, []),
     );
   };
 

@@ -30,7 +30,7 @@ const CircleIcon = props => {
         videoId={videoId}
         onChangeState={onStateChange}
       />
-      <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} />
+      {/* <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} /> */}
     </View>
   );
 };

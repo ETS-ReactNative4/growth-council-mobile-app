@@ -15,7 +15,7 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
-
+import Player from '../../dashboard/components/Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -208,11 +208,12 @@ const GrowthDetail = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
+    let videoLink = link[1].split('&', 2);
+    return(
+		<Player {...props}
+		item={item}
+		file={file}
+		videoLink={videoLink}/>
     );
   };
 
@@ -228,14 +229,13 @@ const GrowthDetail = props => {
           }>
           <View style={styles.learnWrapper}>
             <Image
-				source={{uri: item?.image}}
+              source={{uri: item?.image}}
               style={{
                 width: 72,
                 height: 102,
                 margin: 10,
                 borderRadius: 10,
               }}
-              
             />
             <View>
               <View>
@@ -255,9 +255,7 @@ const GrowthDetail = props => {
                     width: 100,
                     marginTop: 10,
                     fontSize: 8,
-                  }}>
-                
-                </Text>
+                  }}></Text>
               </View>
               {/* <View
 						style={{

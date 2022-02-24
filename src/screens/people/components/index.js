@@ -186,7 +186,7 @@ const People = props => {
               marginRight: 30,
             }}>
             <Text style={{fontSize: 14, color: '#222B45'}}>
-              {category ? category : 'Select Category'}
+              {category ? category : 'Select Expertise Areas'}
             </Text>
           </TouchableOpacity>
           <View style={styles.icon}>

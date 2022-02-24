@@ -12,16 +12,19 @@ import {
   StatusBar,
   Dimensions,
   Button,
+  Modal, Pressable
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
+import { Thumbnail } from 'react-native-thumbnail-video';
 
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from './Player';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -56,9 +59,7 @@ const Dashboard = props => {
     cleanPillarEvent,
     contentSlider,
   } = props;
-
- 
-
+  
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -232,16 +233,20 @@ const Dashboard = props => {
     );
   };
 
+
   const _renderContentItem = ({item, index}) => {
+	
+
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
 
     return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videoLink[0]} />
-       
-      </View>
+		<Player {...props}
+		item={item}
+		file={file}
+		videoLink={videoLink}/>
+
     );
   };
 
@@ -468,14 +473,12 @@ const styles = StyleSheet.create({
     bottom: 4,
   },
   content: {
-    height: 250,
     marginLeft: 5,
     marginTop: 25,
     justifyContent: 'center',
     borderRadius: 20,
   },
   ContentWrapper: {
-    height: 210,
     width: contentContainerWidth,
     marginTop: 20,
     marginBottom: 10,

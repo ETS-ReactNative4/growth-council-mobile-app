@@ -109,8 +109,6 @@ const ManageAccount = props => {
     ? profile?.expertise_areas1
     : [];
 
-  console.log({expertise_areas1});
-
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
@@ -120,15 +118,14 @@ const ManageAccount = props => {
       const file = {
         type: image.mime,
         uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
-        //name: image.filename || image.path.split('/').pop(),
         name: 'profile_photo.jpg',
       };
       fd.append('file', file);
       console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
         console.log('Upload response:::::::::::', response?.payload?.id);
-        await updateImage({attachment_id: response?.payload?.id}).then(
-          response => {
+        await updateImage({attachment_id: response?.payload?.id})
+		.then(response => {
             if (response?.payload?.code === 200) {
               navigation.navigate('Person');
               ToastMessage.show('Profile Image has been successfully updated.');
@@ -147,15 +144,14 @@ const ManageAccount = props => {
       const file = {
         type: image.mime,
         uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
-        //name: image.filename || image.path.split('/').pop(),
         name: 'profile_photo.jpg',
       };
       fd.append('file', file);
       console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
         console.log('Upload response:::::::::::', response?.payload?.id);
-        await updateImage({attachment_id: response?.payload?.id}).then(
-          response => {
+        await updateImage({attachment_id: response?.payload?.id})
+		.then(response => {
             if (response?.payload?.code === 200) {
               navigation.navigate('Person');
               ToastMessage.show('Profile Image has been successfully updated.');
@@ -291,7 +287,7 @@ const ManageAccount = props => {
                   </View>
                 </>
               )}
-              <Text style={styles.headingText1}>{profile.display_name}</Text>
+              <Text style={styles.headingText1}>{profile?.user_meta?.first_name} {profile?.user_meta?.last_name}</Text>
               <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
           </View>

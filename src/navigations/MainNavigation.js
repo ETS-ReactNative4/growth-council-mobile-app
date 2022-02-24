@@ -283,7 +283,7 @@ const MainNavigation = props => {
           component={EventDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: ' ',
+            headerShown: false,
           })}
         />
         <Stack.Screen
@@ -308,7 +308,7 @@ const MainNavigation = props => {
             friendID: route?.params?.friendID,
             friendName: route?.params?.friendName,
             //headerTitle: route?.params?.friendName,
-            headerTitle: 'Chat',
+			headerShown: false,
           })}
         />
         <Stack.Screen
