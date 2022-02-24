@@ -38,6 +38,7 @@ import {Colors} from '../theme';
 
 import MainHeader from '../shared/header/MainHeader';
 import SubHeader from '../shared/header/SubHeader';
+import {DashboardStackScreen} from './MainNavigation';
 
 const Drawer = createDrawerNavigator();
 
@@ -86,12 +87,11 @@ const CustomDrawerContent = props => {
   );
 };
 
-
 const DrawerNavigation = props => {
-	const nav = () =>{
-		DashboardScreen
-		BottomNav
-	}
+  const nav = () => {
+    DashboardScreen;
+    BottomNav;
+  };
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
@@ -100,10 +100,9 @@ const DrawerNavigation = props => {
         itemStyle: {marginVertical: 5},
       })}
       drawerContent={props => <CustomDrawerContent {...props} />}>
-		  
       <Drawer.Screen
         name="Dashboard"
-        component={DashboardScreen}
+        component={DashboardStackScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
             <Material name="inbox" color={'#00008B'} size={24} />

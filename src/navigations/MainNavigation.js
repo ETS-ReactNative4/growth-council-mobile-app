@@ -62,9 +62,23 @@ import PeopleScreen from '../screens/people';
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
 import SubHeader from '../shared/header/SubHeader';
-
+import DashboardScreen from '../screens/dashboard';
 
 const Stack = createStackNavigator();
+
+const DashboardStack = createStackNavigator();
+
+export const DashboardStackScreen = () => {
+  return (
+    <DashboardStack.Navigator screenOptions={{headerShown: false}}>
+      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen name="Calendar" component={CalendarScreen} />
+      <DashboardStack.Screen name="UserList" component={UserListScreen} />
+      <DashboardStack.Screen name="People" component={PeopleScreen} />
+      <DashboardStack.Screen name="Person" component={AccountScreen} />
+    </DashboardStack.Navigator>
+  );
+};
 
 const MainNavigation = props => {
   return (
@@ -257,34 +271,33 @@ const MainNavigation = props => {
             headerLeft: () => null,
           })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="Calendars"
           component={CalendarScreen}
-		  options={(navigation) => ({
-			header: ({navigation}) => <MainHeader navigation={navigation} />,
-		  })}
+          options={navigation => ({
+            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="UserList"
           component={UserListScreen}
-          options={(navigation) => ({
-			header: ({navigation}) => <MainHeader navigation={navigation} />,
-		  })}
+          options={navigation => ({
+            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="People"
           component={PeopleScreen}
-          options={(navigation) => ({
-			header: ({navigation}) => <MainHeader navigation={navigation} />,
-		  })}
+          options={navigation => ({
+            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="Person"
           component={AccountScreen}
-		  options={(navigation) => ({
-	
-			header: ({navigation}) => <MainHeader navigation={navigation} />,
-		  })}
+          options={navigation => ({
+            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          })}
         />
         <Stack.Screen
           name="ChangePassword"
@@ -344,7 +357,7 @@ const MainNavigation = props => {
             friendID: route?.params?.friendID,
             friendName: route?.params?.friendName,
             //headerTitle: route?.params?.friendName,
-			headerShown: false,
+            headerShown: false,
           })}
         />
         <Stack.Screen
