@@ -40,6 +40,29 @@ const SignInForm = props => {
   const {loading, setLoading, message, setMessage, signIn} =
     useAuthentication();
 
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    isValid,
+  } = useFormik({
+    validationSchema: signInSchema,
+    // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
+    initialValues: {username: '', password: ''},
+    onSubmit: async values => {
+      const messageToken = await messaging().getToken();
+      const firebasePayload = {
+        username: values.username,
+        token: values,
+      };
+      const resp = await postToAPI(firebasePayload);
+      console.log('API Response::::', resp?.data);
+      await signIn(values);
+    },
+  });
 
     const {
         handleChange,
@@ -76,15 +99,23 @@ const SignInForm = props => {
             setLoading(false);
         }, []),
     );
+  };
 
-    return (
-        <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
-            <View style={styles.container}>
-                <ImageBackground
-                    source={require('../../../assets/img/splash-screen.png')}
-                    resizeMode="cover">
-                    <View style={{height: '15%'}}/>
+  useFocusEffect(
+    useCallback(() => {
+      setMessage(null);
+      ``;
+      setLoading(false);
+    }, []),
+  );
 
+  return (
+    <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require('../../../assets/img/splash-screen.png')}
+          resizeMode="cover">
+          <View style={{height: '15%'}} />
 
           <View>
             <View style={styles.content}>

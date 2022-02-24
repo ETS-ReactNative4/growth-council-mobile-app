@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   View,
+  Text,
   Platform,
   TouchableOpacity,
   Image,
@@ -10,7 +11,6 @@ import {
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 
-import HeaderTitle from '.';
 import {fetchProfileByID} from '../../screens/account/slice/profileSlice';
 import HeaderRight from './HeaderRight';
 
@@ -24,9 +24,7 @@ const SubHeader = props => {
   };
 
   return (
-    <ImageBackground
-      source={require('../../assets/img/appBG.png')}
-      style={{width: '100%'}}>
+    <ImageBackground source={props.image} style={{width: '100%'}}>
       <View
         style={{
           flexDirection: 'row',
@@ -42,9 +40,15 @@ const SubHeader = props => {
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
-            <IonIcon name="menu-outline" color={'white'} size={30} />
-          </TouchableOpacity>
+          {props.noDrawer ? (
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
+              <IonIcon name="arrow-back-sharp" size={30} color="white" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
+              <IonIcon name="menu-outline" color={'white'} size={30} />
+            </TouchableOpacity>
+          )}
           <Image
             source={require('../../assets/img/dashboard_logo.png')}
             style={{
@@ -53,12 +57,15 @@ const SubHeader = props => {
               marginLeft: 15,
             }}
           />
-          <HeaderTitle
-            {...props}
-            profile={profile}
-            profileLoading={profileLoading}
-            fetchProfileByIdentifier={fetchProfileByIdentifier}
-          />
+          <Text
+            style={{
+              marginLeft: 10,
+              fontFamily: 'SFProText-Medium',
+              fontSize: 21,
+              color: 'white',
+            }}>
+            {props.title}
+          </Text>
         </View>
 
         <HeaderRight
