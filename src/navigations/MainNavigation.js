@@ -53,8 +53,7 @@ import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
 import {useIsFocused} from '@react-navigation/native';
 
-import HeaderTitle from '../shared/header';
-import HeaderRight from '../shared/header/HeaderRight';
+import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
 
 import CalendarScreen from '../screens/calendar';
@@ -310,48 +309,33 @@ const MainNavigation = props => {
           })}
         />
 		<Stack.Screen
-          name="Calendar"
+          name="Calendars"
           component={CalendarScreen}
-          options={({navigation}) => ({
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureDirection: 'horizontal-inverted',
-            headerLeft: () => null,
-          })}
+		  options={(navigation) => ({
+			header: ({navigation}) => <MainHeader navigation={navigation} />,
+		  })}
         />
 		<Stack.Screen
           name="UserList"
           component={UserListScreen}
-          options={({navigation}) => ({
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureDirection: 'horizontal-inverted',
-            headerLeft: () => null,
-          })}
+          options={(navigation) => ({
+			header: ({navigation}) => <MainHeader navigation={navigation} />,
+		  })}
         />
 		<Stack.Screen
           name="People"
           component={PeopleScreen}
-          options={({navigation}) => ({
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureDirection: 'horizontal-inverted',
-            headerLeft: () => null,
-          })}
+          options={(navigation) => ({
+			header: ({navigation}) => <MainHeader navigation={navigation} />,
+		  })}
         />
 		<Stack.Screen
           name="Person"
           component={AccountScreen}
-          options={({navigation}) => ({
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureDirection: 'horizontal-inverted',
-            headerLeft: () => null,
-          })}
+		  options={(navigation) => ({
+	
+			header: ({navigation}) => <MainHeader navigation={navigation} />,
+		  })}
         />
         <Stack.Screen
           name="ChangePassword"

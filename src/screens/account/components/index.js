@@ -39,7 +39,6 @@ const Profile = props => {
     fetchProfileByIdentifier();
   }, [isFocused]);
 
-  console.log({profile});
   return (
 	<SafeAreaView style={{flex: 1}}>
     <ScrollView

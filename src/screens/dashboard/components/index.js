@@ -12,12 +12,13 @@ import {
   StatusBar,
   Dimensions,
   Button,
-  Modal, Pressable
+  Modal,
+  Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
-import { Thumbnail } from 'react-native-thumbnail-video';
+import {Thumbnail} from 'react-native-thumbnail-video';
 
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -60,7 +61,7 @@ const Dashboard = props => {
     cleanPillarEvent,
     contentSlider,
   } = props;
-  
+
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -172,17 +173,17 @@ const Dashboard = props => {
 
     let backgroundImage = '';
     switch (item?.pillar_categories[0]?.parent) {
-		case 0:
-		case 117:
+      case 0:
+      case 117:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
 
-		case 0:
-		case 118:
+      case 0:
+      case 118:
         backgroundImage = require('../../../assets/img/Rectangle1.png');
         break;
 
-    	default:
+      default:
         backgroundImage = require('../../../assets/img/Rectangle.png');
     }
 
@@ -234,21 +235,13 @@ const Dashboard = props => {
     );
   };
 
-
   const _renderContentItem = ({item, index}) => {
-	
-
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
+    console.log({file});
 
-    return (
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
@@ -260,7 +253,7 @@ const Dashboard = props => {
         translucent={true}
       />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <View style={styles.container}>
+        <View>
           <ImageBackground
             style={{width: '100%', height: 180}}
             source={require('../../../assets/img/appBG.png')}>
@@ -354,7 +347,7 @@ const Dashboard = props => {
 
         <Footer />
       </ScrollView>
-	  <BottomNav {...props} navigation={navigation}/>
+      <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -364,6 +357,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+    paddingBottom: 100,
   },
   pillar: {
     display: 'flex',

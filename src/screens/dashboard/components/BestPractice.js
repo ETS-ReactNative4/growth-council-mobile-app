@@ -18,6 +18,7 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from './Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
 
@@ -209,11 +210,12 @@ const BestPractice = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
+    let videoLink = link[1].split('&', 2);
     return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
+		<Player {...props}
+		item={item}
+		file={file}
+		videoLink={videoLink}/>
     );
   };
 

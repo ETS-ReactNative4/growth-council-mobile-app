@@ -99,6 +99,7 @@ const DrawerNavigation = props => {
         itemStyle: {marginVertical: 5},
       })}
       drawerContent={props => <CustomDrawerContent {...props} />}>
+		  
       <Drawer.Screen
         name="Dashboard"
         component={DashboardScreen}
