@@ -37,6 +37,7 @@ import BottomNav from '../layout/BottomLayout';
 import {Colors} from '../theme';
 
 import MainHeader from '../shared/header/MainHeader';
+import SubHeader from '../shared/header/SubHeader';
 
 const Drawer = createDrawerNavigator();
 
@@ -47,7 +48,7 @@ const CustomDrawerContent = props => {
     props.navigation.toggleDrawer();
   };
 
-  const logout = async() => {
+  const logout = async () => {
     await signOut();
   };
 
@@ -117,26 +118,12 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Material name="group-work" color={'#14A2E2'} size={24} />
           ),
-          headerBackground: () => (
-            <View>
-              <ImageBackground
-                source={require('../../src/assets/img/Rectangle2.png')}
-                style={{width: '100%', height: 60}}
-              />
-            </View>
-          ),
-          headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-              <Text
-                style={{
-                  color: Colors.PRIMARY_BACKGROUND_COLOR,
-                  fontSize: 22,
-                  marginLeft: 5,
-                  marginTop: 10,
-                }}>
-                Community
-              </Text>
-            </View>
+          header: ({navigation}) => (
+            <SubHeader
+              title="Community"
+              image={require('../assets/img/Rectangle2.png')}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -147,25 +134,12 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Feature name="thumbs-up" color={'#3693AC'} size={24} />
           ),
-          headerBackground: () => (
-            <View>
-              <ImageBackground
-                source={require('../../src/assets/img/Rectangle1.png')}
-                style={{width: '100%', height: 60}}
-              />
-            </View>
-          ),
-          headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-              <Text
-                style={{
-                  color: Colors.PRIMARY_BACKGROUND_COLOR,
-                  fontSize: 22,
-                  marginTop: 10,
-                }}>
-                Best Practices
-              </Text>
-            </View>
+          header: ({navigation}) => (
+            <SubHeader
+              title="Best Practices"
+              image={require('../assets/img/Rectangle1.png')}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -176,26 +150,12 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Feature name="git-pull-request" color={'#80BA74'} size={24} />
           ),
-          headerBackground: () => (
-            <View>
-              <ImageBackground
-                source={require('../../src/assets/img/Rectangle.png')}
-                style={{width: '100%', height: 60}}
-              />
-            </View>
-          ),
-          headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-              <Text
-                style={{
-                  color: Colors.PRIMARY_BACKGROUND_COLOR,
-                  fontSize: 22,
-
-                  marginTop: 10,
-                }}>
-                Growth Coaching
-              </Text>
-            </View>
+          header: ({navigation}) => (
+            <SubHeader
+              title="Growth Coaching"
+              image={require('../assets/img/Rectangle.png')}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -206,18 +166,12 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Ionicons name="calendar-outline" color={'#00008B'} size={size} />
           ),
-          headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-              <Text
-                style={{
-                  fontWeight: '400',
-                  color: 'white',
-                  fontSize: 22,
-                  marginTop: 10,
-                }}>
-                Calendar
-              </Text>
-            </View>
+          header: ({navigation}) => (
+            <SubHeader
+              title="Calendar"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -232,18 +186,12 @@ const DrawerNavigation = props => {
               size={24}
             />
           ),
-          headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-              <Text
-                style={{
-                  fontWeight: '400',
-                  color: 'white',
-                  fontSize: 22,
-                  marginTop: 10,
-                }}>
-                About
-              </Text>
-            </View>
+          header: ({navigation}) => (
+            <SubHeader
+              title="About"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -254,18 +202,12 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Ionicons name="settings-outline" color={'#00008B'} size={24} />
           ),
-          headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-              <Text
-                style={{
-                  fontWeight: '400',
-                  color: 'white',
-                  fontSize: 22,
-                  marginTop: 10,
-                }}>
-                Settings
-              </Text>
-            </View>
+          header: ({navigation}) => (
+            <SubHeader
+              title="Settings"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -276,18 +218,12 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Font name="edit" color={'#00008B'} size={20} />
           ),
-          headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-              <Text
-                style={{
-                  fontWeight: '400',
-                  color: 'white',
-                  fontSize: 22,
-                  marginTop: 10,
-                }}>
-                Feedback
-              </Text>
-            </View>
+          header: ({navigation}) => (
+            <SubHeader
+              title="Feedback"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -298,18 +234,12 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Ionicons name="bulb-outline" color={'#00008B'} size={24} />
           ),
-          headerTitle: () => (
-            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-              <Text
-                style={{
-                  fontWeight: '400',
-                  color: 'white',
-                  fontSize: 22,
-                  marginTop: 10,
-                }}>
-                Contribute Ideas
-              </Text>
-            </View>
+          header: ({navigation}) => (
+            <SubHeader
+              title="Contribute Ideas"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
           ),
         })}
       />
