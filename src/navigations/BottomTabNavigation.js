@@ -11,6 +11,8 @@ import SearchScreen from '../screens/search';
 import CalendarScreen from '../screens/calendar';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
+import MainHeader from '../shared/header/MainHeader';
+import SubHeader from '../shared/header/SubHeader';
 
 const Tab = createBottomTabNavigator();
 

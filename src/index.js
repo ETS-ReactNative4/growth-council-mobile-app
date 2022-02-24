@@ -20,13 +20,14 @@ import {SafeAreaView} from 'react-native';
 import {Colors} from './theme';
 
 XMLHttpRequest = GLOBAL.originalXMLHttpRequest
-    ? GLOBAL.originalXMLHttpRequest
-    : GLOBAL.XMLHttpRequest;
+  ? GLOBAL.originalXMLHttpRequest
+  : GLOBAL.XMLHttpRequest;
 
 let fakeApiCallWithoutBadNetwork = ms =>
-    new Promise(resolve => setTimeout(resolve, ms));
+  new Promise(resolve => setTimeout(resolve, ms));
 
 const App = () => {
+
     let init = async () => {
         await RNBootSplash.hide();
     };
@@ -155,48 +156,78 @@ const App = () => {
                 showNotification(remoteMessage);
             },
         );
+        console.log(remoteMessage);
+        alert(
+          'onNotificationOpenedApp: Notification caused app to' +
+            ' open from background state',
+        );
+      }
+    });
 
-        /**
-         * Apps can subscribe to a topic, which allows the FCM
-         * server to send targeted messages to only those devices
-         * subscribed to that topic.
-         */
-        messaging()
-            .subscribeToTopic(TOPIC)
-            .then(() => {
-                console.log(`Topic: ${TOPIC} Suscribed`);
-            });
+    /**
+     * Set a message handler function which is called when
+     * the app is in the background or terminated. In Android,
+     * a headless task is created, allowing you to access the
+     * React Native environment to perform tasks such as updating
+     * local storage, or sending a network request.
+     */
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
 
-        return () => {
-            unsubscribe;
-        };
-    }, []);
+    /**
+     * When any FCM payload is received, the listener callback
+     * is called with a `RemoteMessage`. Returns an unsubscribe
+     * function to stop listening for new messages.
+     */
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      if (Platform.OS !== 'ios') {
+        showNotification(remoteMessage?.notification);
+      }
+    });
 
-    return (
-        <Provider store={store}>
-            {/**
-             * PersistGate delays the rendering of the app's UI until the persisted state has been retrieved
-             * and saved to redux.
-             * The `loading` prop can be `null` or any react instance to show during loading (e.g. a splash screen),
-             * for example `loading={<SplashScreen />}`.
-             * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
-             */}
-            <PersistGate
-                loading={<SplashScreen/>}
-                onBeforeLift={onBeforeLift}
-                persistor={persistor}>
-                <NativeBaseProvider>
-                    <PaperProvider>
-                        <AuthProvider>
-                            <NavigationContainer ref={navigationRef}>
-                                <MainNavigation/>
-                            </NavigationContainer>
-                        </AuthProvider>
-                    </PaperProvider>
-                </NativeBaseProvider>
-            </PersistGate>
-        </Provider>
-    );
+    /**
+     * Apps can subscribe to a topic, which allows the FCM
+     * server to send targeted messages to only those devices
+     * subscribed to that topic.
+     */
+    messaging()
+      .subscribeToTopic(TOPIC)
+      .then(() => {
+        console.log(`Topic: ${TOPIC} Suscribed`);
+      });
+
+    return () => {
+      unsubscribe;
+    };
+  }, []);
+
+  return (
+    <Provider store={store}>
+      {/**
+       * PersistGate delays the rendering of the app's UI until the persisted state has been retrieved
+       * and saved to redux.
+       * The `loading` prop can be `null` or any react instance to show during loading (e.g. a splash screen),
+       * for example `loading={<SplashScreen />}`.
+       * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
+       */}
+      <PersistGate
+        loading={<SplashScreen />}
+        onBeforeLift={onBeforeLift}
+        persistor={persistor}>
+        <NativeBaseProvider>
+          <PaperProvider>
+            <AuthProvider>
+              <NavigationContainer ref={navigationRef}>
+                <MainNavigation />
+              </NavigationContainer>
+            </AuthProvider>
+          </PaperProvider>
+        </NativeBaseProvider>
+      </PersistGate>
+    </Provider>
+  );
 };
 
 export default App;
