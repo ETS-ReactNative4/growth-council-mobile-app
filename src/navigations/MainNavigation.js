@@ -55,6 +55,7 @@ import {useIsFocused} from '@react-navigation/native';
 
 import HeaderTitle from '../shared/header';
 import HeaderRight from '../shared/header/HeaderRight';
+import SubHeader from '../shared/header/SubHeader';
 
 const Stack = createStackNavigator();
 
@@ -212,41 +213,14 @@ const MainNavigation = props => {
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
-          options={({navigation}) => ({
-            headerLeft: () => (
-              <View>
-                <View>
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons
-                      name={'arrow-back'}
-                      size={30}
-                      color="white"
-                      style={{marginLeft: 10, top: 5}}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ),
-            headerTitle: () => (
-              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-                <Text
-                  style={{
-                    color: Colors.PRIMARY_BACKGROUND_COLOR,
-                    fontSize: 22,
-                    marginTop: 10,
-                  }}>
-                  ManageAccount
-                </Text>
-              </View>
-            ),
-
-            headerBackground: () => (
-              <View>
-                <ImageBackground
-                  source={require('../../src/assets/img/appBG.png')}
-                  style={{width: '100%', height: 60}}
-                />
-              </View>
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
             ),
           })}
         />
@@ -255,40 +229,13 @@ const MainNavigation = props => {
           component={OtherAccountScreen}
           options={({route, navigation}) => ({
             id: route?.params?.id,
-            headerLeft: () => (
-              <View>
-                <View>
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons
-                      name={'arrow-back'}
-                      size={30}
-                      color="white"
-                      style={{marginLeft: 10, top: 5}}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ),
-            headerTitle: () => (
-              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-                <Text
-                  style={{
-                    color: Colors.PRIMARY_BACKGROUND_COLOR,
-                    fontSize: 22,
-                    marginTop: 10,
-                  }}>
-                  Others Account
-                </Text>
-              </View>
-            ),
-
-            headerBackground: () => (
-              <View>
-                <ImageBackground
-                  source={require('../../src/assets/img/appBG.png')}
-                  style={{width: '100%', height: 60}}
-                />
-              </View>
+            header: ({navigation}) => (
+              <SubHeader
+                title="Others Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
             ),
           })}
         />
@@ -297,8 +244,7 @@ const MainNavigation = props => {
           name="Dashboard"
           component={DrawerNavigation}
           options={({navigation}) => ({
-            headerTitle: '',
-            headerTransparent: true,
+            headerShown: false,
             ...TransitionPresets.SlideFromRightIOS,
             gestureDirection: 'horizontal-inverted',
             headerLeft: () => null,
@@ -308,7 +254,14 @@ const MainNavigation = props => {
           name="ChangePassword"
           component={ChangePasswordScreen}
           options={{
-            headerTitle: 'Change Password',
+            header: ({navigation}) => (
+              <SubHeader
+                title="Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           }}
         />
         <Stack.Screen
@@ -362,7 +315,14 @@ const MainNavigation = props => {
           name="Privacy"
           component={PrivacyScreen}
           options={{
-            headerTitle: 'Privacy Policy',
+            header: ({navigation}) => (
+              <SubHeader
+                title="Privacy Policy"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           }}
         />
         <Stack.Screen
@@ -400,7 +360,14 @@ const MainNavigation = props => {
           component={HomeCommunityScreen}
           options={({route}) => ({
             pillarId: route?.params?.pillarId,
-            headerShown: false,
+            header: ({navigation}) => (
+              <SubHeader
+                title="Community"
+                image={require('../assets/img/Rectangle2.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
 

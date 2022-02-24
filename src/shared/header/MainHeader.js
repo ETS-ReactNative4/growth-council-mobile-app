@@ -6,6 +6,7 @@ import {
   Image,
   ImageBackground,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -28,12 +29,13 @@ const MainHeader = props => {
     <ImageBackground
       source={require('../../assets/img/appBG.png')}
       style={{width: Dimensions.get('window').width}}>
+      <SafeAreaView style={{marginTop: -20}} />
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingTop: Platform.OS === 'ios' ? 40 : 20,
+          paddingTop: 20,
           paddingBottom: 10,
           paddingHorizontal: 15,
         }}>

@@ -97,6 +97,7 @@
 		A9A75481ABED4A92B027B833 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		B374B5390ABC4A6AB247844A /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		BDE462456A87E12702B9DFB7 /* libPods-GrowthCouncil-GrowthCouncilTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GrowthCouncil-GrowthCouncilTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51E3A4527C6A35D001F6F53 /* GrowthCouncil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = GrowthCouncil.entitlements; path = GrowthCouncil/GrowthCouncil.entitlements; sourceTree = "<group>"; };
 		C5B06A0927C5491B00DB41C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D151889042653C6C600572F0 /* Pods-GrowthCouncil-GrowthCouncilTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrowthCouncil-GrowthCouncilTests.release.xcconfig"; path = "Target Support Files/Pods-GrowthCouncil-GrowthCouncilTests/Pods-GrowthCouncil-GrowthCouncilTests.release.xcconfig"; sourceTree = "<group>"; };
 		D6E812BF9B8941FDA1F5A042 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 		13B07FAE1A68108700A75B9A /* GrowthCouncil */ = {
 			isa = PBXGroup;
 			children = (
+				C51E3A4527C6A35D001F6F53 /* GrowthCouncil.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -623,7 +625,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CODE_SIGN_ENTITLEMENTS = GrowthCouncil/GrowthCouncil.entitlements;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 3GB43PZ5Z7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = GrowthCouncil/Info.plist;
@@ -650,7 +653,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CODE_SIGN_ENTITLEMENTS = GrowthCouncil/GrowthCouncil.entitlements;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 3GB43PZ5Z7;
 				INFOPLIST_FILE = GrowthCouncil/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
