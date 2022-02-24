@@ -73,7 +73,7 @@ const ChangePasswordForm = props => {
       await updateCustomerPassword(values).then(response => {
         console.log({response});
         if (response?.payload?.code === 200) {
-          // navigation.navigate(SignIn)
+          navigation.navigate('Dashboard');
           ToastMessage.show(response?.payload?.message);
           console.log(values);
         }
@@ -123,7 +123,9 @@ const ChangePasswordForm = props => {
               />
             </View>
             <View style={styles.header}>
-              <Text style={styles.headingText1}>{profile.display_name}</Text>
+              <Text style={styles.headingText1}>
+                {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
+              </Text>
               <Text>{profile.user_email}</Text>
             </View>
           </View>

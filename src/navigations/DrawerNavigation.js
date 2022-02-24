@@ -55,8 +55,8 @@ const CustomDrawerContent = props => {
     props.navigation.toggleDrawer();
   };
 
-  const logout = () => {
-    signOut();
+  const logout = async() => {
+    await signOut();
   };
 
   return (

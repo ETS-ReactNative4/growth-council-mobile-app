@@ -64,6 +64,7 @@ const About = props => {
   return (
     <>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={{
           height: Platform.OS === 'ios' ? 400 : 350,
         }}>
@@ -119,7 +120,7 @@ const About = props => {
 
               <View style={styles.backgroundTitleBorder}></View>
             </View>
-           
+
             <HTMLView
               value={content2}
               textComponentProps={{style: {color: 'white', fontSize: 14}}}

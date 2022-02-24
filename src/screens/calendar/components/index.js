@@ -195,8 +195,10 @@ const EventCalendar = props => {
               borderColor: 'gray',
               marginRight: 30,
             }}>
+
             <Text style={{fontSize: 12, color: '#030303'}}>
               {showAllEvents ? 'All Events' : 'My Events'}
+
               {/* Select Events */}
             </Text>
           </TouchableOpacity>
@@ -268,7 +270,9 @@ const EventCalendar = props => {
                   Done
                 </Text>
               </TouchableOpacity>
+
               <View>
+
                 <Picker
                   selectedValue={showAllEvents}
                   mode="dropdown"
@@ -375,7 +379,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     borderLeftWidth: 10,
-    borderColor: '#80BA74',
+
   },
   eventInfo: {
     paddingRight: 5,
