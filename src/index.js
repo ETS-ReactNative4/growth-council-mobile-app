@@ -42,17 +42,19 @@ const App = () => {
     const TOPIC = 'UserNotification';
     const showNotification = (notification) => {
         PushNotification.localNotification({
-            channelId: 'growth-council-default-channel-id',
-            title: notification?.data?.title,
-            message: notification?.data?.message,
+            channelId: 'growth-council-reminder',
+            title: notification?.data?.title || notification?.title,
+            message: notification?.data?.message || notification?.message,
+            priority: "high",
+            messageId: notification?.messageId,
         });
     };
 
     const createChannel = () => {
         PushNotification.createChannel(
             {
-                channelId: 'growth-council-default-channel-id', // (required)
-                channelName: 'growth council default channel', // (required)
+                channelId: 'growth-council-reminder', // (required)
+                channelName: 'growth council reminder', // (required)
                 channelDescription: 'A growth council default channel"', // (optional) default: undefined.
                 playSound: false, // (optional) default: true
                 soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
@@ -139,9 +141,7 @@ const App = () => {
         messaging().setBackgroundMessageHandler(
             async (remoteMessage) => {
                 console.log('Message handled in the background!', remoteMessage);
-                if (Platform.OS !== 'ios') {
-                    showNotification(remoteMessage?.notification);
-                }
+                showNotification(remoteMessage);
             });
 
         /**
@@ -152,9 +152,7 @@ const App = () => {
         const unsubscribe = messaging().onMessage(
             async (remoteMessage) => {
                 console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
-                if (Platform.OS !== 'ios') {
-                    showNotification(remoteMessage?.notification);
-                }
+                showNotification(remoteMessage);
             },
         );
 
