@@ -7,7 +7,7 @@ import {Colors} from '../theme';
 
 import DashboardScreen from '../screens/dashboard';
 import AccountScreen from '../screens/account';
-import SearchScreen from '../screens/search';
+
 import CalendarScreen from '../screens/calendar';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
@@ -17,13 +17,13 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigation = ({navigation}) => {
   return (
     <Tab.Navigator
-      initialRouteName="Dashboard"
-      screenOptions={() => ({
-        headerShown: false,
-        tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
-        tabBarInactiveTintColor: 'gray',
-        tabBarShowLabel: false,
-      })}>
+	initialRouteName="Dashboard"
+	screenOptions={() => ({
+	  headerShown: false,
+	  tabBarActiveTintColor: Colors.PRIMARY_TEXT_COLOR,
+	  tabBarInactiveTintColor: 'gray',
+	  tabBarShowLabel: false,
+	})}>
       <Tab.Screen
         name="Dashboard"
         component={DashboardScreen}

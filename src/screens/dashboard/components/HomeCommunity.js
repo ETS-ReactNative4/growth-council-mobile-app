@@ -286,9 +286,10 @@ const HomeCommunity = props => {
             />
           </View>
         </View>
-
+			
         <Footer />
       </View>
+	  
     </ScrollView>
   );
 };
@@ -422,4 +423,6 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default HomeCommunity;
+

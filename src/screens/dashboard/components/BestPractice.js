@@ -18,6 +18,8 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Tabs from '../../../shared/BottomTab/tabs';
+
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -283,6 +285,7 @@ const BestPractice = props => {
         </View>
         <Footer />
       </View>
+	  <Tabs/>
     </ScrollView>
   );
 };
