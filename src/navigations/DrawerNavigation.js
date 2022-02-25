@@ -95,7 +95,7 @@ const DrawerNavigation = props => {
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
-      screenOptions={({navigation}) => ({
+      screenOptions={() => ({
         activeTintColor: '#e91e63',
         itemStyle: {marginVertical: 5},
         headerShown: false,
@@ -104,7 +104,7 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Dashboard"
         component={DashboardStackScreen}
-        options={navigation => ({
+        options={() => ({
           drawerIcon: ({focused, size}) => (
             <Material name="inbox" color={'#00008B'} size={24} />
           ),
@@ -197,7 +197,7 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Settings"
         component={SettingScreen}
-        options={navigation => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="settings-outline" color={'#00008B'} size={24} />
           ),
@@ -213,7 +213,7 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Feedback"
         component={FeedbackScreen}
-        options={navigation => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Font name="edit" color={'#00008B'} size={20} />
           ),
@@ -229,7 +229,7 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Contribute Ideas"
         component={ContributeIdeasScreen}
-        options={navigation => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="bulb-outline" color={'#00008B'} size={24} />
           ),
