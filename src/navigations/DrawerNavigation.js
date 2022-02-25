@@ -55,9 +55,13 @@ const CustomDrawerContent = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={{flexDirection: 'row'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingHorizontal: 10,
+        }}>
         <TouchableOpacity onPress={toggleDrawer}>
-          <Ionicons name="close-outline" color={'#000'} size={24} />
+          <Ionicons name="close-outline" color={'#000'} size={30} />
         </TouchableOpacity>
       </View>
       <DrawerContentScrollView {...props}>
@@ -177,7 +181,7 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="About"
         component={AboutScreen}
-        options={navigation => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons
               name="information-circle-outline"

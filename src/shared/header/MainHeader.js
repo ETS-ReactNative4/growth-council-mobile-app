@@ -36,7 +36,7 @@ const MainHeader = props => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingTop: 20,
+          paddingTop: 40,
           paddingBottom: 10,
           paddingHorizontal: 15,
         }}>
