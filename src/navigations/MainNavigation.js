@@ -303,7 +303,7 @@ const MainNavigation = props => {
           options={{headerShown: false}}
         />
 
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Chat"
           component={ChatScreen}
           options={({route}) => ({
@@ -313,7 +313,7 @@ const MainNavigation = props => {
             //headerTitle: route?.params?.friendName,
             headerShown: false,
           })}
-        /> */}
+        />
         <Stack.Screen
           name="Privacy"
           component={PrivacyScreen}

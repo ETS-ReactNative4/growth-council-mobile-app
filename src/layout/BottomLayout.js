@@ -35,7 +35,7 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-				tintColor: focused ? '#e32f45' : 'black',
+                tintColor: focused ? '#e32f45' : 'black',
               }}>
               <Ionicons
                 name="calendar-outline"
@@ -52,7 +52,7 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-				tintColor: focused ? '#e32f45' : 'black',
+                tintColor: focused ? '#e32f45' : 'black',
               }}>
               <Ionicons
                 name="chatbox-outline"
@@ -69,7 +69,7 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-				tintColor: focused ? '#e32f45' : 'black',
+                tintColor: focused ? '#e32f45' : 'black',
               }}>
               <Ionicons
                 name="people-outline"
@@ -86,7 +86,7 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-				tintColor: focused ? '#e32f45' : 'black',
+                tintColor: focused ? '#e32f45' : 'black',
               }}>
               <Ionicons
                 name="person-outline"
@@ -104,7 +104,7 @@ const BottomLayout = ({focused, navigation}) => {
 const styles = StyleSheet.create({
   NavContainer: {
     position: 'absolute',
-    bottom: 45,
+    bottom: 10,
     left: 10,
     right: 10,
     marginBottom: 3,
