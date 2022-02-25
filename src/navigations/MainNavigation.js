@@ -68,11 +68,7 @@ export const DashboardStackScreen = () => {
 
 const MainNavigation = props => {
   return (
-    <Stack.Navigator
-      detachInactiveScreens={false}
-      screenOptions={() => ({
-        headerTitleAlign: 'center',
-      })}>
+    <Stack.Navigator detachInactiveScreens={false} screenOptions={() => ({})}>
       <Stack.Group>
         <Stack.Screen
           name="Home"
@@ -258,34 +254,6 @@ const MainNavigation = props => {
           })}
         />
         <Stack.Screen
-          name="Calendars"
-          component={CalendarScreen}
-          options={({navigation}) => ({
-            header: () => <MainHeader navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="UserList"
-          component={UserListScreen}
-          options={({navigation}) => ({
-            header: () => <MainHeader navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="People"
-          component={PeopleScreen}
-          options={({navigation}) => ({
-            header: () => <MainHeader navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Person"
-          component={AccountScreen}
-          options={({navigation}) => ({
-            header: () => <MainHeader navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
           name="ChangePassword"
           component={ChangePasswordScreen}
           options={({navigation}) => ({
@@ -335,7 +303,7 @@ const MainNavigation = props => {
           options={{headerShown: false}}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Chat"
           component={ChatScreen}
           options={({route}) => ({
@@ -345,7 +313,7 @@ const MainNavigation = props => {
             //headerTitle: route?.params?.friendName,
             headerShown: false,
           })}
-        />
+        /> */}
         <Stack.Screen
           name="Privacy"
           component={PrivacyScreen}

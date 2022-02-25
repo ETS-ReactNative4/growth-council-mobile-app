@@ -98,7 +98,6 @@ const DrawerNavigation = props => {
       screenOptions={() => ({
         activeTintColor: '#e91e63',
         itemStyle: {marginVertical: 5},
-        headerShown: false,
       })}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
@@ -108,6 +107,7 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Material name="inbox" color={'#00008B'} size={24} />
           ),
+          headerShown: false,
         })}
       />
       <Drawer.Screen
