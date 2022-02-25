@@ -1,20 +1,8 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector, useDispatch} from 'react-redux';
-import {
-  Platform,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Image,
-  Text,
-  ImageBackground,
-} from 'react-native';
-import {Colors} from '../theme';
+import {Platform} from 'react-native';
 import DrawerNavigation from '../navigations/DrawerNavigation';
-import BottomTabNavigation from '../navigations/BottomTabNavigation';
 
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
@@ -34,7 +22,6 @@ import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
-import SettingScreen from '../screens/setting/index';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
@@ -51,16 +38,12 @@ import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
-import {useIsFocused} from '@react-navigation/native';
 
 import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
 import CalendarScreen from '../screens/calendar';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
-
-import HeaderTitle from '../shared/header';
-import HeaderRight from '../shared/header/HeaderRight';
 import SubHeader from '../shared/header/SubHeader';
 import DashboardScreen from '../screens/dashboard';
 
@@ -70,15 +53,12 @@ const DashboardStack = createStackNavigator();
 
 export const DashboardStackScreen = () => {
   return (
-    <DashboardStack.Navigator screenOptions={{headerShown: false}}>
+    <DashboardStack.Navigator
+      screenOptions={({navigation}) => ({
+        header: () => <MainHeader navigation={navigation} />,
+      })}>
       <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
-      <DashboardStack.Screen
-        name="Calendars"
-        component={CalendarScreen}
-        options={{
-          header: ({navigation}) => <MainHeader navigation={navigation} />,
-        }}
-      />
+      <DashboardStack.Screen name="Calendars" component={CalendarScreen} />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen name="People" component={PeopleScreen} />
       <DashboardStack.Screen name="Person" component={AccountScreen} />
@@ -90,7 +70,7 @@ const MainNavigation = props => {
   return (
     <Stack.Navigator
       detachInactiveScreens={false}
-      screenOptions={({navigation}) => ({
+      screenOptions={() => ({
         headerTitleAlign: 'center',
       })}>
       <Stack.Group>
@@ -256,7 +236,7 @@ const MainNavigation = props => {
           component={OtherAccountScreen}
           options={({route, navigation}) => ({
             id: route?.params?.id,
-            header: ({navigation}) => (
+            header: () => (
               <SubHeader
                 title="Others Account"
                 image={require('../assets/img/appBG.png')}
@@ -280,36 +260,36 @@ const MainNavigation = props => {
         <Stack.Screen
           name="Calendars"
           component={CalendarScreen}
-          options={navigation => ({
-            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          options={({navigation}) => ({
+            header: () => <MainHeader navigation={navigation} />,
           })}
         />
         <Stack.Screen
           name="UserList"
           component={UserListScreen}
-          options={navigation => ({
-            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          options={({navigation}) => ({
+            header: () => <MainHeader navigation={navigation} />,
           })}
         />
         <Stack.Screen
           name="People"
           component={PeopleScreen}
-          options={navigation => ({
-            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          options={({navigation}) => ({
+            header: () => <MainHeader navigation={navigation} />,
           })}
         />
         <Stack.Screen
           name="Person"
           component={AccountScreen}
-          options={navigation => ({
-            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          options={({navigation}) => ({
+            header: () => <MainHeader navigation={navigation} />,
           })}
         />
         <Stack.Screen
           name="ChangePassword"
           component={ChangePasswordScreen}
-          options={{
-            header: ({navigation}) => (
+          options={({navigation}) => ({
+            header: () => (
               <SubHeader
                 title="Account"
                 image={require('../assets/img/appBG.png')}
@@ -317,7 +297,7 @@ const MainNavigation = props => {
                 noDrawer
               />
             ),
-          }}
+          })}
         />
         <Stack.Screen
           name="ContactUs"
@@ -369,8 +349,8 @@ const MainNavigation = props => {
         <Stack.Screen
           name="Privacy"
           component={PrivacyScreen}
-          options={{
-            header: ({navigation}) => (
+          options={({navigation}) => ({
+            header: () => (
               <SubHeader
                 title="Privacy Policy"
                 image={require('../assets/img/appBG.png')}
@@ -378,7 +358,7 @@ const MainNavigation = props => {
                 noDrawer
               />
             ),
-          }}
+          })}
         />
         <Stack.Screen
           name="Terms"
@@ -413,9 +393,9 @@ const MainNavigation = props => {
         <Stack.Screen
           name="Community"
           component={HomeCommunityScreen}
-          options={({route}) => ({
+          options={({navigation}) => ({
             pillarId: route?.params?.pillarId,
-            header: ({navigation}) => (
+            header: () => (
               <SubHeader
                 title="Community"
                 image={require('../assets/img/Rectangle2.png')}

@@ -95,19 +95,19 @@ const DrawerNavigation = props => {
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
-      screenOptions={({navigation}) => ({
+      screenOptions={() => ({
         activeTintColor: '#e91e63',
         itemStyle: {marginVertical: 5},
+        headerShown: false,
       })}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
         name="Dashboard"
         component={DashboardStackScreen}
-        options={({navigation}) => ({
+        options={() => ({
           drawerIcon: ({focused, size}) => (
             <Material name="inbox" color={'#00008B'} size={24} />
           ),
-          header: () => <MainHeader navigation={navigation} />,
         })}
       />
       <Drawer.Screen
@@ -177,7 +177,7 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="About"
         component={AboutScreen}
-        options={() => ({
+        options={navigation => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons
               name="information-circle-outline"
@@ -185,7 +185,7 @@ const DrawerNavigation = props => {
               size={24}
             />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="About"
               image={require('../assets/img/appBG.png')}
@@ -197,11 +197,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Settings"
         component={SettingScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="settings-outline" color={'#00008B'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Settings"
               image={require('../assets/img/appBG.png')}
@@ -213,11 +213,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Feedback"
         component={FeedbackScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Font name="edit" color={'#00008B'} size={20} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Feedback"
               image={require('../assets/img/appBG.png')}
@@ -229,11 +229,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Contribute Ideas"
         component={ContributeIdeasScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="bulb-outline" color={'#00008B'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Contribute Ideas"
               image={require('../assets/img/appBG.png')}
