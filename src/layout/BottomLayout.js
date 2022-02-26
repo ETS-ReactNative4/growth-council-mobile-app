@@ -35,7 +35,7 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-				tintColor: focused ? '#e32f45' : 'black',
+                tintColor: focused ? '#e32f45' : 'black',
               }}>
               <Ionicons
                 name="calendar-outline"
@@ -52,7 +52,7 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-				tintColor: focused ? '#e32f45' : 'black',
+                tintColor: focused ? '#e32f45' : 'black',
               }}>
               <Ionicons
                 name="chatbox-outline"
@@ -69,7 +69,7 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-				tintColor: focused ? '#e32f45' : 'black',
+                tintColor: focused ? '#e32f45' : 'black',
               }}>
               <Ionicons
                 name="people-outline"
@@ -81,12 +81,12 @@ const BottomLayout = ({focused, navigation}) => {
           </View>
         </Pressable>
 
-        <Pressable onPress={() => navigation.navigate('Person')}>
+        <Pressable onPress={() => navigation.navigate('Account')}>
           <View>
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-				tintColor: focused ? '#e32f45' : 'black',
+                tintColor: focused ? '#e32f45' : 'black',
               }}>
               <Ionicons
                 name="person-outline"

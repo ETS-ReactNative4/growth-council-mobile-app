@@ -14,7 +14,6 @@ import {
 } from 'react-native';
 import {Colors} from '../theme';
 import DrawerNavigation from '../navigations/DrawerNavigation';
-import BottomTabNavigation from '../navigations/BottomTabNavigation';
 
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
@@ -75,7 +74,7 @@ export const DashboardStackScreen = () => {
       <DashboardStack.Screen name="Calendars" component={CalendarScreen} />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen name="People" component={PeopleScreen} />
-      <DashboardStack.Screen name="Person" component={AccountScreen} />
+      <DashboardStack.Screen name="Account" component={AccountScreen} />
     </DashboardStack.Navigator>
   );
 };
@@ -84,7 +83,7 @@ const MainNavigation = props => {
   return (
     <Stack.Navigator
       detachInactiveScreens={false}
-      screenOptions={({navigation}) => ({
+      screenOptions={({}) => ({
         headerTitleAlign: 'center',
       })}>
       <Stack.Group>
@@ -293,10 +292,12 @@ const MainNavigation = props => {
           })}
         />
         <Stack.Screen
-          name="Person"
+          name="Account"
           component={AccountScreen}
-          options={navigation => ({
-            header: ({navigation}) => <MainHeader navigation={navigation} />,
+          options={() => ({
+            header: ({navigation}) => 
+              <MainHeader {...props} navigation={navigation} />
+            ,
           })}
         />
         <Stack.Screen

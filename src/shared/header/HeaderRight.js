@@ -20,7 +20,7 @@ const HeaderRight = props => {
 
       <TouchableOpacity
         style={{height: 40, width: 40, borderRadius: 20}}
-        onPress={() => navigation.navigate('Person')}>
+        onPress={() => navigation.navigate('Persons')}>
         <Image
           source={{
             uri: profile?.avatar,
