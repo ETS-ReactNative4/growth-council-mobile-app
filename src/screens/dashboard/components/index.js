@@ -120,7 +120,7 @@ const Dashboard = props => {
 
         <View style={styles.chatIcon}>
           <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+            <Ionicons name="add-circle" size={20} color="#B2B3B9" />
           </TouchableOpacity>
         </View>
       </View>
@@ -460,7 +460,6 @@ const styles = StyleSheet.create({
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',

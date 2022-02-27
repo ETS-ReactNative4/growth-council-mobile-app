@@ -13,7 +13,7 @@ const HeaderRight = props => {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <TouchableOpacity
-        style={{marginRight: 15}}
+        style={{marginRight: 10}}
         onPress={() => navigation.navigate('Search')}>
         <Ionicons name="search-outline" color={'white'} size={25} />
       </TouchableOpacity>

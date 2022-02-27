@@ -55,9 +55,13 @@ const CustomDrawerContent = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={{flexDirection: 'row'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingHorizontal: 10,
+        }}>
         <TouchableOpacity onPress={toggleDrawer}>
-          <Ionicons name="close-outline" color={'#000'} size={24} />
+          <Ionicons name="close-outline" color={'#000'} size={30} />
         </TouchableOpacity>
       </View>
       <DrawerContentScrollView {...props}>
@@ -95,7 +99,7 @@ const DrawerNavigation = props => {
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
-      screenOptions={({navigation}) => ({
+      screenOptions={() => ({
         activeTintColor: '#e91e63',
         itemStyle: {marginVertical: 5},
       })}
@@ -107,17 +111,17 @@ const DrawerNavigation = props => {
           drawerIcon: ({focused, size}) => (
             <Material name="inbox" color={'#00008B'} size={24} />
           ),
-          header: ({navigation}) => <MainHeader navigation={navigation} />,
+          headerShown: false,
         })}
       />
       <Drawer.Screen
         name="Community"
         component={HomeCommunityScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Material name="group-work" color={'#14A2E2'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Community"
               image={require('../assets/img/Rectangle2.png')}
@@ -129,11 +133,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Best Practices"
         component={BestPracticeScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Feature name="thumbs-up" color={'#3693AC'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Best Practices"
               image={require('../assets/img/Rectangle1.png')}
@@ -145,11 +149,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Growth Coaching"
         component={GrowthCoachingScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Feature name="git-pull-request" color={'#80BA74'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Growth Coaching"
               image={require('../assets/img/Rectangle.png')}
@@ -161,11 +165,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="calendar-outline" color={'#00008B'} size={size} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Calendar"
               image={require('../assets/img/appBG.png')}
@@ -177,7 +181,7 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="About"
         component={AboutScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons
               name="information-circle-outline"
@@ -185,7 +189,7 @@ const DrawerNavigation = props => {
               size={24}
             />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="About"
               image={require('../assets/img/appBG.png')}
@@ -197,11 +201,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Settings"
         component={SettingScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="settings-outline" color={'#00008B'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Settings"
               image={require('../assets/img/appBG.png')}
@@ -213,11 +217,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Feedback"
         component={FeedbackScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Font name="edit" color={'#00008B'} size={20} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Feedback"
               image={require('../assets/img/appBG.png')}
@@ -229,11 +233,11 @@ const DrawerNavigation = props => {
       <Drawer.Screen
         name="Contribute Ideas"
         component={ContributeIdeasScreen}
-        options={() => ({
+        options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
             <Ionicons name="bulb-outline" color={'#00008B'} size={24} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <SubHeader
               title="Contribute Ideas"
               image={require('../assets/img/appBG.png')}

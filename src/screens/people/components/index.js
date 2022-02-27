@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
@@ -128,19 +128,19 @@ const People = props => {
           {!memberConnection[index]?.connection && (
             <TouchableOpacity
               onPress={() => connectMemberByMemberID(item.ID, index)}>
-              <Feather
-                name="plus-circle"
-                size={25}
-                color="skyblue"
+              <Ionicons
+                name="add-circle"
+                size={30}
+                color="#B2B3B9"
                 style={{marginTop: 25}}
               />
             </TouchableOpacity>
           )}
           {memberConnection[index]?.connection && (
-            <Feather
+            <Material
               name="check-circle"
-              size={25}
-              color="skyblue"
+              size={30}
+              color="#14A2E2"
               style={{marginTop: 25}}
             />
           )}

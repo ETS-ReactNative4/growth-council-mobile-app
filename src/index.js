@@ -170,7 +170,7 @@ const App = () => {
     return () => {
       unsubscribe;
     };
-  }, []);
+  });
 
   return (
     <Provider store={store}>

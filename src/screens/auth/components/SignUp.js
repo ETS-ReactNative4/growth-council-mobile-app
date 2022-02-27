@@ -30,11 +30,11 @@ const signUpSchema = Yup.object().shape({
     first_name: Yup.string().required('First Name is required.'),
     last_name: Yup.string().required('Last Name is required.'),
     email: Yup.string()
-        .email('Please enter valid email')
+        .email('Please enter valid email.')
         .trim()
-        .required('Email Address is Required'),
+        .required('Email Address is Required.'),
     phone: Yup.string()
-        .matches(phoneRegExp, 'Phone number is not valid')
+        .matches(phoneRegExp, 'Phone number is not valid.')
         .required('Phone Number is required.'),
     title: Yup.string().required('Title is required.'),
     company: Yup.string().required('Company is required.'),
@@ -465,7 +465,7 @@ const SignUpForm = props => {
                                         <Text style={{marginTop: 7, width: '55%'}}>
                                             By Clicking submit, I agree to Frost & Sullivan
                                             <Text style={{paddingTop: 5, color: 'blue'}}
-                                                  onPress={() => navigation.navigate('Terms')}> Terms of Use
+                                                  onPress={() => navigation.navigate('Terms')}> Terms of Use&nbsp;
                                             </Text>
                                             and
 

@@ -157,7 +157,7 @@ const SelfAssessment = props => {
           </View>
 
           <View>
-            {value === 'Sub Trait' && (
+            {value === 'Sub Trait ' && (
               <Trait
                 {...props}
                 subTraits={traits[index.traitIndex]}
@@ -226,7 +226,7 @@ const SelfAssessment = props => {
           <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
             {index.traitIndex === traitLength - 1 &&
             index.subTraitIndex === subTraitLength - 1
-              ? 'Submit'
+              ? 'Complete'
               : 'Next'}
           </Text>
         </Button>

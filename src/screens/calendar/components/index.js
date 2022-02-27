@@ -145,10 +145,17 @@ const EventCalendar = props => {
         borderColor = Colors.COACHING_COLOR;
     }
 
+	let nav ='SessionDetail'
+	if (item?.pillar_categories[0].slug === 'growth-leadership-coaching') {
+        nav = 'SessionDetail';
+      } else {
+        nav = 'EventDetail';
+      }
+
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() => navigation.navigate(nav, {id: item.ID})}>
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <Text
               style={{

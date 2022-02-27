@@ -326,6 +326,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.PRIMARY_TEXT_COLOR,
     marginLeft: 15,
+	fontWeight: '700',
   },
 
   topWrapper: {
