@@ -157,7 +157,7 @@ const SelfAssessment = props => {
           </View>
 
           <View>
-            {value === 'Sub Trait ' && (
+            {value === 'Sub Trait' && (
               <Trait
                 {...props}
                 subTraits={traits[index.traitIndex]}
