@@ -85,7 +85,9 @@ const sessionAbout = props => {
             />
           </View>
 
-          <Text style={{padding: 10, width: 100}}>{item?.title}</Text>
+          <Text style={{paddingLeft: 10, width: 100, fontSize: 12}}>
+            {item?.title}
+          </Text>
         </View>
       </View>
     );
@@ -154,12 +156,12 @@ const sessionAbout = props => {
             }}>
             {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
-               {GobalStartMonth === GobalEndMonth
-                        ? GobalDate +
-                          GobalDateEnd.split(/(\s+)/)[6] +
-                          GobalDateEnd.split(/(\s+)/)[8]
-                        : GobalMonth + GobalEndMonth}{' '}
-                      ({deviceTimeZone})
+              {GobalStartMonth === GobalEndMonth
+                ? GobalDate +
+                  GobalDateEnd.split(/(\s+)/)[6] +
+                  GobalDateEnd.split(/(\s+)/)[8]
+                : GobalMonth + GobalEndMonth}{' '}
+              ({deviceTimeZone})
             </Text>
           </View>
           {!sessionStatus && (
