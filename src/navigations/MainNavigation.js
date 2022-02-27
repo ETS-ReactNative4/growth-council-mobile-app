@@ -1,20 +1,8 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector, useDispatch} from 'react-redux';
-import {
-  Platform,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Image,
-  Text,
-  ImageBackground,
-} from 'react-native';
-import {Colors} from '../theme';
+import {Platform} from 'react-native';
 import DrawerNavigation from '../navigations/DrawerNavigation';
-import BottomTabNavigation from '../navigations/BottomTabNavigation';
 
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
@@ -34,7 +22,6 @@ import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
-import SettingScreen from '../screens/setting/index';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
@@ -51,20 +38,73 @@ import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
-import {useIsFocused} from '@react-navigation/native';
 
-import HeaderTitle from '../shared/header';
-import HeaderRight from '../shared/header/HeaderRight';
+import MainHeader from '../shared/header/MainHeader';
+import AccountScreen from '../screens/account';
+import CalendarScreen from '../screens/calendar';
+import UserListScreen from '../screens/chat/UserList';
+import PeopleScreen from '../screens/people';
+import SubHeader from '../shared/header/SubHeader';
+import DashboardScreen from '../screens/dashboard';
 
 const Stack = createStackNavigator();
 
+const DashboardStack = createStackNavigator();
+
+export const DashboardStackScreen = () => {
+  return (
+    <DashboardStack.Navigator
+      screenOptions={({navigation}) => ({
+        header: () => <MainHeader navigation={navigation} />,
+      })}>
+      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen
+        name="Calendars"
+        component={CalendarScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Calendar"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <DashboardStack.Screen name="UserList" component={UserListScreen} />
+      <DashboardStack.Screen
+        name="People"
+        component={PeopleScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Member Connection"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <DashboardStack.Screen
+        name="Account"
+        component={AccountScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Profile"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+    </DashboardStack.Navigator>
+  );
+};
+
 const MainNavigation = props => {
   return (
-    <Stack.Navigator
-      detachInactiveScreens={false}
-      screenOptions={({navigation}) => ({
-        headerTitleAlign: 'center',
-      })}>
+    <Stack.Navigator detachInactiveScreens={false} screenOptions={() => ({})}>
       <Stack.Group>
         <Stack.Screen
           name="Home"
@@ -212,41 +252,14 @@ const MainNavigation = props => {
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
-          options={({navigation}) => ({
-            headerLeft: () => (
-              <View>
-                <View>
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons
-                      name={'arrow-back'}
-                      size={30}
-                      color="white"
-                      style={{marginLeft: 10, top: 5}}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ),
-            headerTitle: () => (
-              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-                <Text
-                  style={{
-                    color: Colors.PRIMARY_BACKGROUND_COLOR,
-                    fontSize: 22,
-                    marginTop: 10,
-                  }}>
-                  ManageAccount
-                </Text>
-              </View>
-            ),
-
-            headerBackground: () => (
-              <View>
-                <ImageBackground
-                  source={require('../../src/assets/img/appBG.png')}
-                  style={{width: '100%', height: 60}}
-                />
-              </View>
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
             ),
           })}
         />
@@ -255,40 +268,13 @@ const MainNavigation = props => {
           component={OtherAccountScreen}
           options={({route, navigation}) => ({
             id: route?.params?.id,
-            headerLeft: () => (
-              <View>
-                <View>
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons
-                      name={'arrow-back'}
-                      size={30}
-                      color="white"
-                      style={{marginLeft: 10, top: 5}}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ),
-            headerTitle: () => (
-              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-                <Text
-                  style={{
-                    color: Colors.PRIMARY_BACKGROUND_COLOR,
-                    fontSize: 22,
-                    marginTop: 10,
-                  }}>
-                  Others Account
-                </Text>
-              </View>
-            ),
-
-            headerBackground: () => (
-              <View>
-                <ImageBackground
-                  source={require('../../src/assets/img/appBG.png')}
-                  style={{width: '100%', height: 60}}
-                />
-              </View>
+            header: () => (
+              <SubHeader
+                title="Others Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
             ),
           })}
         />
@@ -297,8 +283,7 @@ const MainNavigation = props => {
           name="Dashboard"
           component={DrawerNavigation}
           options={({navigation}) => ({
-            headerTitle: '',
-            headerTransparent: true,
+            headerShown: false,
             ...TransitionPresets.SlideFromRightIOS,
             gestureDirection: 'horizontal-inverted',
             headerLeft: () => null,
@@ -307,43 +292,16 @@ const MainNavigation = props => {
         <Stack.Screen
           name="ChangePassword"
           component={ChangePasswordScreen}
-		  options={({navigation}) => ({
-			headerLeft: () => (
-				<View>
-				  <View>
-					<TouchableOpacity onPress={() => navigation.goBack()}>
-					  <Ionicons
-						name={'arrow-back'}
-						size={30}
-						color="white"
-						style={{marginLeft: 10, top: 5}}
-					  />
-					</TouchableOpacity>
-				  </View>
-				</View>
-			  ),
-			  headerTitle: () => (
-				<View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-				  <Text
-					style={{
-					  color: Colors.PRIMARY_BACKGROUND_COLOR,
-					  fontSize: 22,
-					  marginTop: 10,
-					}}>
-					Change Password
-				  </Text>
-				</View>
-			  ),
-  
-			  headerBackground: () => (
-				<View>
-				  <ImageBackground
-					source={require('../../src/assets/img/appBG.png')}
-					style={{width: '100%', height: 60}}
-				  />
-				</View>
-			  ),
-			})}
+          options={({navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="ContactUs"
@@ -389,15 +347,22 @@ const MainNavigation = props => {
             friendID: route?.params?.friendID,
             friendName: route?.params?.friendName,
             //headerTitle: route?.params?.friendName,
-			headerShown: false,
+            headerShown: false,
           })}
         />
         <Stack.Screen
           name="Privacy"
           component={PrivacyScreen}
-          options={{
-            headerTitle: 'Privacy Policy',
-          }}
+          options={({navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Privacy Policy"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="Terms"
@@ -432,9 +397,16 @@ const MainNavigation = props => {
         <Stack.Screen
           name="Community"
           component={HomeCommunityScreen}
-          options={({route}) => ({
+          options={({navigation}) => ({
             pillarId: route?.params?.pillarId,
-            headerShown: false,
+            header: () => (
+              <SubHeader
+                title="Community"
+                image={require('../assets/img/Rectangle2.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
 

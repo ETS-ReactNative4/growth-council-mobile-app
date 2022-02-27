@@ -28,7 +28,7 @@ import {API_URL} from '../../../constants';
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const signInSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required.'),
+  username: Yup.string().required('Email is required.'),
   password: Yup.string().required('Password is required.'),
 });
 
@@ -40,58 +40,58 @@ const SignInForm = props => {
   const {loading, setLoading, message, setMessage, signIn} =
     useAuthentication();
 
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    isValid,
+  } = useFormik({
+    validationSchema: signInSchema,
+    // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
+    initialValues: {username: '', password: ''},
+    onSubmit: async values => {
+      const messageToken = await messaging().getToken();
+      const firebasePayload = {
+        username: values.username,
+        token: messageToken,
+      };
+      const resp = await postToAPI(firebasePayload);
+      console.log('API Response::::', resp?.data);
+      await signIn(values);
+    },
+  });
 
-    const {
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        errors,
-        touched,
-        isValid,
-    } = useFormik({
-        validationSchema: signInSchema,
-        // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
-        initialValues: {username: '', password: ''},
-        onSubmit: async values => {
-            const messageToken = await messaging().getToken();
-            const firebasePayload = {
-                username: values.username,
-                token: messageToken,
-            };
-            const resp = await postToAPI(firebasePayload);
-            console.log('API Response::::', resp?.data);
-            await signIn(values);
-        },
-    });
-
-    const postToAPI = async (data) => {
-        return await axios.get(`${API_URL}/pd/fcm/subscribe?api_secret_key=s3D6nHoU9AUw%jjTHy0K@UO)&user_email=${data?.username}&device_token=${data.token}&subscribed=UserNotification`);
-    };
-
-    useFocusEffect(
-        useCallback(() => {
-            setMessage(null);
-            ``;
-            setLoading(false);
-        }, []),
+  const postToAPI = async data => {
+    return await axios.get(
+      `${API_URL}/pd/fcm/subscribe?api_secret_key=s3D6nHoU9AUw%jjTHy0K@UO)&user_email=${data?.username}&device_token=${data.token}&subscribed=UserNotification`,
     );
+  };
 
-    return (
-        <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
-            <View style={styles.container}>
-                <ImageBackground
-                    source={require('../../../assets/img/splash-screen.png')}
-                    resizeMode="cover">
-                    <View style={{height: '15%'}}/>
+  useFocusEffect(
+    useCallback(() => {
+      setMessage(null);
+      ``;
+      setLoading(false);
+    }, []),
+  );
 
+  return (
+    <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require('../../../assets/img/splash-screen.png')}
+          resizeMode="cover">
+          <View style={{height: '15%'}} />
 
           <View>
             <View style={styles.content}>
               <View style={styles.header}>
                 <Text style={styles.headingText1}>Growth Innovation </Text>
                 <Text style={[styles.headingText1, {marginBottom: 10}]}>
-                  Leadership Portal
+					Leadership Council
                 </Text>
                 <Text>
                   Login to your account below. If you are having trouble logging

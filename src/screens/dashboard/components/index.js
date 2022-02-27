@@ -12,12 +12,13 @@ import {
   StatusBar,
   Dimensions,
   Button,
-  Modal, Pressable
+  Modal,
+  Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
-import { Thumbnail } from 'react-native-thumbnail-video';
+import {Thumbnail} from 'react-native-thumbnail-video';
 
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -25,6 +26,7 @@ import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from './Player';
+import BottomNav from '../../../layout/BottomLayout';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -59,7 +61,7 @@ const Dashboard = props => {
     cleanPillarEvent,
     contentSlider,
   } = props;
-  
+
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -118,7 +120,7 @@ const Dashboard = props => {
 
         <View style={styles.chatIcon}>
           <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
+            <Ionicons name="add-circle" size={20} color="#B2B3B9" />
           </TouchableOpacity>
         </View>
       </View>
@@ -233,23 +235,14 @@ const Dashboard = props => {
     );
   };
 
-
   const _renderContentItem = ({item, index}) => {
-	
-
     const file = item?.file;
     console.log(file);
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
 	
 
-    return (
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
@@ -261,7 +254,7 @@ const Dashboard = props => {
         translucent={true}
       />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <View style={styles.container}>
+        <View>
           <ImageBackground
             style={{width: '100%', height: 180}}
             source={require('../../../assets/img/appBG.png')}>
@@ -355,6 +348,7 @@ const Dashboard = props => {
 
         <Footer />
       </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -364,6 +358,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+    paddingBottom: 100,
   },
   pillar: {
     display: 'flex',
@@ -467,7 +462,6 @@ const styles = StyleSheet.create({
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',

@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -6,6 +7,7 @@ import {
   Image,
   ImageBackground,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -23,17 +25,18 @@ const MainHeader = props => {
   const fetchProfileByIdentifier = () => {
     dispatch(fetchProfileByID());
   };
-
+  
   return (
     <ImageBackground
       source={require('../../assets/img/appBG.png')}
       style={{width: Dimensions.get('window').width}}>
+      <SafeAreaView style={{marginTop: -20}} />
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingTop: Platform.OS === 'ios' ? 40 : 20,
+          paddingTop: 40,
           paddingBottom: 10,
           paddingHorizontal: 15,
         }}>
@@ -46,6 +49,7 @@ const MainHeader = props => {
           <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
             <IonIcon name="menu-outline" color={'white'} size={30} />
           </TouchableOpacity>
+		   
           <Image
             source={require('../../assets/img/dashboard_logo.png')}
             style={{

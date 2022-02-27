@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   Modal,
   ScrollView,
+  SafeAreaView
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
+import BottomNav from '../../../layout/BottomLayout';
 
 const EventCalendar = props => {
   const {
@@ -143,10 +145,17 @@ const EventCalendar = props => {
         borderColor = Colors.COACHING_COLOR;
     }
 
+	let nav ='SessionDetail'
+	if (item?.pillar_categories[0].slug === 'growth-leadership-coaching') {
+        nav = 'SessionDetail';
+      } else {
+        nav = 'EventDetail';
+      }
+
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() => navigation.navigate(nav, {id: item.ID})}>
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <Text
               style={{
@@ -181,6 +190,7 @@ const EventCalendar = props => {
   };
 
   return (
+	<SafeAreaView style={{flex: 1}}>
     <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.iconWrapper}>
@@ -298,6 +308,8 @@ const EventCalendar = props => {
         </Modal>
       </View>
     </ScrollView>
+	<BottomNav {...props} navigation={navigation}/>
+	</SafeAreaView>
   );
 };
 

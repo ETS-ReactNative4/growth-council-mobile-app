@@ -10,11 +10,11 @@ import {
   TouchableOpacity,
   Dimensions,
   Modal,
-  ActivityIndicator,
+  SafeAreaView
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
@@ -23,6 +23,7 @@ import {Dialog} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
 import Footer from '../../../shared/footer';
 import {Searchbar} from 'react-native-paper';
+import BottomNav from '../../../layout/BottomLayout';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -127,19 +128,19 @@ const People = props => {
           {!memberConnection[index]?.connection && (
             <TouchableOpacity
               onPress={() => connectMemberByMemberID(item.ID, index)}>
-              <Feather
-                name="plus-circle"
-                size={25}
-                color="skyblue"
+              <Ionicons
+                name="add-circle"
+                size={30}
+                color="#B2B3B9"
                 style={{marginTop: 25}}
               />
             </TouchableOpacity>
           )}
           {memberConnection[index]?.connection && (
-            <Feather
+            <Material
               name="check-circle"
-              size={25}
-              color="skyblue"
+              size={30}
+              color="#14A2E2"
               style={{marginTop: 25}}
             />
           )}
@@ -151,7 +152,9 @@ const People = props => {
   const [pickerVisible, setPickerVisible] = useState(false);
 
   return (
-    <ScrollView
+	  
+	<SafeAreaView style={{flex: 1}}>
+		 <ScrollView
       contentContainerStyle={{
         flexGrow: 1,
         backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -308,6 +311,9 @@ const People = props => {
         </View>
       </Modal>
     </ScrollView>
+	<BottomNav {...props} navigation={navigation}/>
+	</SafeAreaView>
+   
   );
 };
 

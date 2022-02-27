@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    marginTop: 22,
+    // marginTop: 22,
   },
   modalView: {
     width: modalContainerWidth,

@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
+  Dimensions,
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -18,6 +20,7 @@ import Footer from '../../../shared/footer';
 import {useIsFocused} from '@react-navigation/native';
 import MyEvent from './MyEvent';
 import MySession from './MySession';
+import BottomNav from '../../../layout/BottomLayout';
 
 const Profile = props => {
   const {
@@ -29,6 +32,8 @@ const Profile = props => {
     cleanProfile,
   } = props;
 
+  const win = Dimensions.get('window');
+
   const [value, setValue] = useState('My Sessions');
   const isFocused = useIsFocused();
 
@@ -36,121 +41,126 @@ const Profile = props => {
     fetchProfileByIdentifier();
   }, [isFocused]);
 
-  console.log({profile});
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        backgroundColor: PRIMARY_BACKGROUND_COLOR,
-      }}>
-      <View
-        style={{
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
           backgroundColor: PRIMARY_BACKGROUND_COLOR,
-          justifyContent: 'center',
-          alignContent: 'center',
         }}>
-        <Image
-          source={require('../../../assets/img/appBG.png')}
-          style={{height: 160}}
-        />
         <View
           style={{
-            display: 'flex',
-            marginTop: -90,
+            backgroundColor: PRIMARY_BACKGROUND_COLOR,
+            justifyContent: 'center',
             alignContent: 'center',
-            marginLeft: 'auto',
-            marginRight: 'auto',
           }}>
+          <Image
+            source={require('../../../assets/img/appBG.png')}
+            style={{height: 160, width: win.width}}
+          />
           <View
             style={{
-              zIndex: 30,
-              position: 'absolute',
-              right: 5,
-              marginTop: 10,
-              marginRight: 10,
+              display: 'flex',
+              marginTop: -90,
+              alignContent: 'center',
+              marginLeft: 'auto',
+              marginRight: 'auto',
             }}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ManageAccount')}>
-              <Font
-                name={'edit'}
-                size={20}
-                color="#C4C8CC"
-                style={{marginTop: 5, marginLeft: 5}}
-              />
-            </TouchableOpacity>
+            <View
+              style={{
+                zIndex: 30,
+                position: 'absolute',
+                right: 5,
+                marginTop: 10,
+                marginRight: 10,
+              }}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ManageAccount')}>
+                <Font
+                  name={'edit'}
+                  size={20}
+                  color="#C4C8CC"
+                  style={{marginTop: 5, marginLeft: 5}}
+                />
+              </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-              <Ionicon
-                name={'settings-outline'}
-                size={24}
-                color="#C4C8CC"
-                style={{marginTop: 10, marginLeft: 5}}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.profileWrapper}>
-            <View style={styles.icon}>
-              <Image
-                source={{uri: profile.avatar}}
-                style={{width: '100%', height: '100%'}}
-                resizeMode="cover"
-              />
+              <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                <Ionicon
+                  name={'settings-outline'}
+                  size={24}
+                  color="#C4C8CC"
+                  style={{marginTop: 10, marginLeft: 5}}
+                />
+              </TouchableOpacity>
             </View>
-            <View style={styles.header}>
-              <Text style={styles.headingText1}>{profile?.user_meta?.first_name} {profile?.user_meta?.last_name}</Text>
-              <Text style={{color: '#222B45'}}>{profile?.user_email}</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.container}>
-          <View>
-            <View style={styles.middle}>
-              <View style={styles.buttonWrapper}>
-                <ButtonToggleGroup
-                  highlightBackgroundColor={'white'}
-                  highlightTextColor={'#0B0B45'}
-                  inactiveBackgroundColor={'transparent'}
-                  inactiveTextColor={'grey'}
-                  values={['My Sessions', 'My Events']}
-                  value={value}
-                  onSelect={val => setValue(val)}
-                  style={{
-                    height: 40,
-                    marginTop: 5,
-                    width: '90%',
-                    marginLeft: 10,
-                  }}
+            <View style={styles.profileWrapper}>
+              <View style={styles.icon}>
+                <Image
+                  source={{uri: profile.avatar}}
+                  style={{width: '100%', height: '100%'}}
+                  resizeMode="cover"
                 />
               </View>
-              {profileLoading && (
-                <>
-                  <View
-                    style={{
-                      flex: 1,
-                      alignItems: 'center',
-                      flexDirection: 'column',
-                      justifyContent: 'space-around',
-                      position: 'absolute',
-                      left: 120,
-                      top: 120,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )}
-              {value === 'My Events' && <MyEvent {...props} />}
+              <View style={styles.header}>
+                <Text style={styles.headingText1}>
+                  {profile?.user_meta?.first_name}{' '}
+                  {profile?.user_meta?.last_name}
+                </Text>
+                <Text style={{color: '#222B45'}}>{profile?.user_email}</Text>
+              </View>
+            </View>
+          </View>
 
-              {value === 'My Sessions' && <MySession {...props} />}
+          <View style={styles.container}>
+            <View>
+              <View style={styles.middle}>
+                <View style={styles.buttonWrapper}>
+                  <ButtonToggleGroup
+                    highlightBackgroundColor={'white'}
+                    highlightTextColor={'#0B0B45'}
+                    inactiveBackgroundColor={'transparent'}
+                    inactiveTextColor={'grey'}
+                    values={['My Sessions', 'My Events']}
+                    value={value}
+                    onSelect={val => setValue(val)}
+                    style={{
+                      height: 40,
+                      marginTop: 5,
+                      width: '90%',
+                      marginLeft: 10,
+                    }}
+                  />
+                </View>
+                {profileLoading && (
+                  <>
+                    <View
+                      style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around',
+                        position: 'absolute',
+                        left: 120,
+                        top: 120,
+                      }}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
+                {value === 'My Events' && <MyEvent {...props} />}
+
+                {value === 'My Sessions' && <MySession {...props} />}
+              </View>
             </View>
           </View>
         </View>
-      </View>
-      <Footer />
-    </ScrollView>
+        <Footer />
+      </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
+    </SafeAreaView>
   );
 };
 

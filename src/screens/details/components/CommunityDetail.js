@@ -15,6 +15,7 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from '../../dashboard/components/Player';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -178,16 +179,26 @@ const CommunityDetail = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
-    );
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
-
+  let backgroundColor = '';
+  const parent = poeDetails?.parent;
+  switch (parent) {
+    case 118:
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+    case 117:
+      backgroundColor = Colors.COMMUNITY_COLOR;
+      break;
+    case 119:
+      backgroundColor = Colors.COACHING_COLOR;
+  }
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView
+      style={{
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+      }}>
       <View style={styles.container}>
         <ImageBackground
           source={{uri: poeDetails?.pillar_detail_image}}
@@ -211,7 +222,8 @@ const CommunityDetail = props => {
           />
         </View>
 
-        <ScrollView style={styles.content}>
+        <ScrollView
+          style={[styles.content, {backgroundColor: backgroundColor}]}>
           <View style={styles.contentWrapper}>
             <Text
               style={{
@@ -234,26 +246,6 @@ const CommunityDetail = props => {
                   display: 'flex',
                   flexDirection: 'row',
                 }}>
-                {poeDetailLoading && (
-                  <>
-                    <View
-                      style={{
-                        top: 10,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        zIndex: 1011,
-                      }}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
                 <FlatList
                   horizontal
                   showsHorizontalScrollIndicator={false}
@@ -294,6 +286,19 @@ const CommunityDetail = props => {
           </View>
         </ScrollView>
       </View>
+      {poeDetailLoading && (
+        <View
+          style={{
+            height: Dimensions.get('window').height,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            left: 0,
+            right: 0,
+          }}>
+          <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -302,6 +307,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     alignItems: 'center',
+    position: 'relative',
   },
   arrow: {
     marginTop: 30,
@@ -325,8 +331,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   content: {
-    borderRadius: 18,
-    backgroundColor: 'skyblue',
+    // borderRadius: 18,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   contentWrapper: {
     backgroundColor: 'white',
