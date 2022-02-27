@@ -306,10 +306,11 @@ const styles = StyleSheet.create({
     marginRight: 2,
   },
   title: {
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
     marginLeft: 15,
     color: Colors.PRIMARY_TEXT_COLOR,
+    fontWeight: '700',
   },
 
   topWrapper: {

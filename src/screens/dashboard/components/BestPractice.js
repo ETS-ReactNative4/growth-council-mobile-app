@@ -305,10 +305,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontFamily: Typography.FONT_SF_BOLD,
     fontSize: 14,
     color: Colors.PRIMARY_TEXT_COLOR,
     marginLeft: 15,
+	fontWeight: '700',
   },
 
   topWrapper: {

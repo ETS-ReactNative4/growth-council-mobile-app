@@ -111,13 +111,13 @@ const CoachingSession = props => {
                   highlightTextColor={'#0B0B45'}
                   inactiveBackgroundColor={'transparent'}
                   inactiveTextColor={'grey'}
-                  values={['About', 'SelfAssessment']}
+                  values={['About', 'Self-Assessment']}
                   value={value}
                   onSelect={val => setValue(val)}
                   style={{
                     height: 30,
                     marginTop: 5,
-                    width: '88%',
+                    width: '90%',
                     marginLeft: 10,
                     fontSize: 12,
                     borderRadius: 15,
@@ -158,7 +158,12 @@ const CoachingSession = props => {
                                 />
                               </View>
 
-                              <Text style={{padding: 10, fontSize: 12}}>
+                              <Text
+                                style={{
+                                  padding: 10,
+                                  fontSize: 12,
+                                  width: '55%',
+                                }}>
                                 {trait?.title}
                               </Text>
                             </View>
@@ -183,7 +188,7 @@ const CoachingSession = props => {
                                       (score.growthIndexScore +
                                         score.innovativeIndexScore) /
                                       2
-                                    ).toFixed(2)}
+                                    ).toFixed(2) || 0}
                                   </Text>
                                 </View>
                               </View>
@@ -243,7 +248,7 @@ const CoachingSession = props => {
                   cleanSessionRegister={cleanSessionRegister}
                 />
               )}
-              {value === 'SelfAssessment' && (
+              {value === 'Self-Assessment' && (
                 <SelfAssessment
                   {...props}
                   score={score}
@@ -397,7 +402,7 @@ const styles = StyleSheet.create({
     paddingLeft: 110,
   },
   buttonWrapper: {
-    width: 308,
+    width: 310,
     height: 40,
     backgroundColor: '#ECECEC',
     borderRadius: 15,

@@ -180,14 +180,20 @@ const CommunityDetail = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    return (
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
-
+  let backgroundColor = '';
+  const parent = poeDetails?.parent;
+  switch (parent) {
+    case 118:
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+    case 117:
+      backgroundColor = Colors.COMMUNITY_COLOR;
+      break;
+    case 119:
+      backgroundColor = Colors.COACHING_COLOR;
+  }
   return (
     <ScrollView
       style={{
@@ -216,7 +222,8 @@ const CommunityDetail = props => {
           />
         </View>
 
-        <ScrollView style={styles.content}>
+        <ScrollView
+          style={[styles.content, {backgroundColor: backgroundColor}]}>
           <View style={styles.contentWrapper}>
             <Text
               style={{
@@ -324,8 +331,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   content: {
-    borderRadius: 18,
-    backgroundColor: 'skyblue',
+    // borderRadius: 18,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   contentWrapper: {
     backgroundColor: 'white',
