@@ -160,7 +160,7 @@ const CoachingSession = props => {
 
                               <Text
                                 style={{
-                                  padding: 10,
+                                  paddingLeft: 10,
                                   fontSize: 12,
                                   width: '55%',
                                 }}>
