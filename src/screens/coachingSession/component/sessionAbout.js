@@ -85,9 +85,7 @@ const sessionAbout = props => {
             />
           </View>
 
-          <Text style={{paddingLeft: 10, width: 100, fontSize: 14}}>
-            {item?.title}
-          </Text>
+          <Text style={{padding: 10, width: 100}}>{item?.title}</Text>
         </View>
       </View>
     );
@@ -108,6 +106,7 @@ const sessionAbout = props => {
   const GobalDateEnd = moment(timeToEnd).format('D MMMM (dddd), h:mm a ');
   const GobalEndTime = moment(timeToEnd).format('h:mm a ');
   const GobalEndMonth = moment(timeToEnd).format('D MMMM (dddd)');
+  console.log(GobalDateEnd.split(/(\s+)/)[8]);
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -153,14 +152,14 @@ const sessionAbout = props => {
               flex: 4,
               paddingLeft: 5,
             }}>
-            {/* <Text style={styles.eventDetails}>{GobalDate} /</Text> */}
+            {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
-              {GobalStartMonth === GobalEndMonth
-                ? GobalDate +
-                  GobalDateEnd.split(/(\s+)/)[6] +
-                  GobalDateEnd.split(/(\s+)/)[8]
-                : GobalMonth + GobalEndMonth}{' '}
-              ({deviceTimeZone})
+               {GobalStartMonth === GobalEndMonth
+                        ? GobalDate +
+                          GobalDateEnd.split(/(\s+)/)[6] +
+                          GobalDateEnd.split(/(\s+)/)[8]
+                        : GobalMonth + GobalEndMonth}{' '}
+                      ({deviceTimeZone})
             </Text>
           </View>
           {!sessionStatus && (
@@ -174,7 +173,7 @@ const sessionAbout = props => {
                 onPress={() => registerSessionBySessionID(route?.params?.id)}>
                 <Feather
                   name={'plus-circle'}
-                  size={25}
+                  size={30}
                   color={'rgba(54,147,172,1)'}
                 />
               </TouchableOpacity>
@@ -189,7 +188,7 @@ const sessionAbout = props => {
               }}>
               <Feather
                 name={'check-circle'}
-                size={25}
+                size={35}
                 color={'rgba(54,147,172,1)'}
               />
             </View>
@@ -471,7 +470,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
-    marginRight: 5,
   },
   traitW: {
     height: 60,
