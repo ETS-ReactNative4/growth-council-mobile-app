@@ -353,7 +353,8 @@ const Dashboard = props => {
               marginLeft: 15,
               marginRight: 15,
             }}>
-            <Text style={styles.title}> Growth Community Members</Text>          </View>
+            <Text style={styles.title}> Growth Community Members</Text>
+          </View>
           <View>
             <FlatList
               horizontal
