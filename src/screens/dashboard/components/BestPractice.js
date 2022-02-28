@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -12,6 +12,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
@@ -49,6 +50,8 @@ const BestPractice = props => {
   const pillarId = 118;
   const isFocused = useIsFocused();
 
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useFocusEffect(
     useCallback(() => {
       const fetchAllPillarPOEAsync = async () => {
@@ -84,8 +87,28 @@ const BestPractice = props => {
       return () => {
         cleanPillarMemberContent();
       };
-    }, []),
+    }, [isFocused]),
   );
+
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents);
+  }, [pillarMemberContents]);
+
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+    console.log(response);
+  };
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -159,7 +182,7 @@ const BestPractice = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: '#222B45',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6, color: '#030303'}}>
               Frost and Sullivan
@@ -168,9 +191,19 @@ const BestPractice = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+          {!memberConnection[index]?.connection && (
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
+            <Material
+              name="check-circle"
+              size={20}
+              color="#14A2E2"
+              style={{marginTop: 25}}
+            />
+          )}
         </View>
       </View>
     );
@@ -211,12 +244,7 @@ const BestPractice = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    return (
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
@@ -287,9 +315,9 @@ const BestPractice = props => {
             </View>
           </View>
           <Footer />
-        </View> 
+        </View>
       </ScrollView>
-	  <BottomNav {...props} navigation={navigation} />
+      <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -309,7 +337,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.PRIMARY_TEXT_COLOR,
     marginLeft: 15,
-	fontWeight: '700',
+    fontWeight: '700',
   },
 
   topWrapper: {

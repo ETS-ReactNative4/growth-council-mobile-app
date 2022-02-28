@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -12,6 +12,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
@@ -46,7 +47,11 @@ const HomeCommunity = props => {
   } = props;
 
   const pillarId = 117;
+  
   const isFocused = useIsFocused();
+
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useFocusEffect(
     useCallback(() => {
       const fetchAllPillarPOEAsync = async () => {
@@ -82,8 +87,29 @@ const HomeCommunity = props => {
       return () => {
         cleanPillarMemberContent();
       };
-    }, []),
+    }, [isFocused]),
   );
+
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents);
+  }, [pillarMemberContents]);
+
+//   const connectMemberByMemberID = async (memberID, index) => {
+//     const response = await connectMemberByIdentifier({member_id: memberID});
+//     if (response?.payload?.code === 200) {
+//       let items = [...memberConnection];
+//       let item = {...items[index]};
+//       item.connection = true;
+//       items[index] = item;
+//       setMemberConnection(items);
+//       ToastMessage.show('You have successfully connected.');
+//     } else {
+//       toast.closeAll();
+//       ToastMessage.show(response?.payload?.response);
+//     }
+//     console.log(response);
+//   };
+
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -104,7 +130,7 @@ const HomeCommunity = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: '#030303',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6, color: '#030303'}}>
               Frost and Sullivan
@@ -113,9 +139,19 @@ const HomeCommunity = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+          {!memberConnection[index]?.connection && (
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
+            <Material
+              name="check-circle"
+              size={20}
+              color="#14A2E2"
+              style={{marginTop: 25}}
+            />
+          )}
         </View>
       </View>
     );
