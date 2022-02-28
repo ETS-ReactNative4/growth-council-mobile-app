@@ -90,8 +90,9 @@ const HomeCommunity = props => {
   );
 
   useEffect(() => {
-    setMemberConnection(pillarMemberContents.members);
-  }, [pillarMemberContents.members]);
+    setMemberConnection(pillarMemberContents?.members);
+  }, [pillarMemberContents?.members]);
+// 
 
 
   const _renderItem = ({item, index}) => {
@@ -123,14 +124,14 @@ const HomeCommunity = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          {!memberConnection[index]?.connection && (
+          {/* {!memberConnection[index]?.connection && ( */}
             <TouchableOpacity onPress={() => navigation.navigate('People')}>
               <Ionicons name="add-circle" size={20} color="#B2B3B9" />
             </TouchableOpacity>
-          )}
-          {memberConnection[index]?.connection && (
+          {/* )} */}
+          {/* {memberConnection[index]?.connection && (
             <Material name="check-circle" size={20} color="#14A2E2" />
-          )}
+          )} */}
         </View>
       </View>
     );

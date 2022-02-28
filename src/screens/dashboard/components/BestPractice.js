@@ -91,8 +91,8 @@ const BestPractice = props => {
   );
 
   useEffect(() => {
-    setMemberConnection(pillarMemberContents.members);
-  }, [pillarMemberContents.members]);
+    setMemberConnection(pillarMemberContents?.members);
+  }, [pillarMemberContents?.members]);
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -146,6 +146,7 @@ const BestPractice = props => {
     );
   };
 
+
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -175,14 +176,14 @@ const BestPractice = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          {!memberConnection[index]?.connection && (
+          {/* {!memberConnection[index]?.connection && ( */}
             <TouchableOpacity onPress={() => navigation.navigate('People')}>
               <Ionicons name="add-circle" size={20} color="#B2B3B9" />
             </TouchableOpacity>
-          )}
-          {memberConnection[index]?.connection && (
+           {/* )} */}
+          {/* {memberConnection[index]?.connection && (
             <Material name="check-circle" size={20} color="#14A2E2" />
-          )}
+          )} */}
         </View>
       </View>
     );
