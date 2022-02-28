@@ -18,8 +18,8 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
-import {Thumbnail} from 'react-native-thumbnail-video';
-
+import {useIsFocused} from '@react-navigation/native';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
@@ -62,6 +62,9 @@ const Dashboard = props => {
     contentSlider,
   } = props;
 
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -74,7 +77,11 @@ const Dashboard = props => {
       await fetchAllCommunityMember();
     };
     fetchAllCommunityMemberAsync();
-  }, []);
+ 
+    return () => {
+		cleanCommunityMember();
+	  };
+	}, [isFocused]);
 
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
@@ -89,6 +96,10 @@ const Dashboard = props => {
     };
     fetchAllPOEAsync();
   }, []);
+
+  useEffect(() => {
+    setMemberConnection(communityMembers);
+  }, [communityMembers]);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -119,9 +130,18 @@ const Dashboard = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+		  {!memberConnection[index]?.connection && (
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
+            <Material
+              name="check-circle"
+              size={20}
+              color="#14A2E2"
+            />
+          )}
         </View>
       </View>
     );
