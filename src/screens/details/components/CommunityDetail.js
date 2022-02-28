@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -15,6 +15,8 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from '../../dashboard/components/Player';
+import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -44,6 +46,9 @@ const CommunityDetail = props => {
     cleanPillarMemberContent,
   } = props;
 
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useEffect(() => {
     const fetchEventDetailAsync = async () => {
       await fetchSessionDetailByIdentifier(route.params.id);
@@ -70,7 +75,27 @@ const CommunityDetail = props => {
       await fetchAllPillarMemberContent(route.params.pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
+
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents);
+  }, [pillarMemberContents]);
+
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+    console.log(response);
+  };
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -92,7 +117,7 @@ const CommunityDetail = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: Colors.TERTIARY_TEXT_COLOR,
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
@@ -178,16 +203,26 @@ const CommunityDetail = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
-    );
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
-
+  let backgroundColor = '';
+  const parent = poeDetails?.parent;
+  switch (parent) {
+    case 118:
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+    case 117:
+      backgroundColor = Colors.COMMUNITY_COLOR;
+      break;
+    case 119:
+      backgroundColor = Colors.COACHING_COLOR;
+  }
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView
+      style={{
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+      }}>
       <View style={styles.container}>
         <ImageBackground
           source={{uri: poeDetails?.pillar_detail_image}}
@@ -211,7 +246,8 @@ const CommunityDetail = props => {
           />
         </View>
 
-        <ScrollView style={styles.content}>
+        <ScrollView
+          style={[styles.content, {backgroundColor: backgroundColor}]}>
           <View style={styles.contentWrapper}>
             <Text
               style={{
@@ -234,26 +270,6 @@ const CommunityDetail = props => {
                   display: 'flex',
                   flexDirection: 'row',
                 }}>
-                {poeDetailLoading && (
-                  <>
-                    <View
-                      style={{
-                        top: 10,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        zIndex: 1011,
-                      }}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
                 <FlatList
                   horizontal
                   showsHorizontalScrollIndicator={false}
@@ -294,6 +310,19 @@ const CommunityDetail = props => {
           </View>
         </ScrollView>
       </View>
+      {poeDetailLoading && (
+        <View
+          style={{
+            height: Dimensions.get('window').height,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            left: 0,
+            right: 0,
+          }}>
+          <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -302,6 +331,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     alignItems: 'center',
+    position: 'relative',
   },
   arrow: {
     marginTop: 30,
@@ -325,8 +355,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   content: {
-    borderRadius: 18,
-    backgroundColor: 'skyblue',
+    // borderRadius: 18,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   contentWrapper: {
     backgroundColor: 'white',

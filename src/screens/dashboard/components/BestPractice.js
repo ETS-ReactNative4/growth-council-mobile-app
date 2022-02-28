@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,15 +9,19 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect,useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from './Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import BottomNav from '../../../layout/BottomLayout';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -46,6 +50,8 @@ const BestPractice = props => {
   const pillarId = 118;
   const isFocused = useIsFocused();
 
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useFocusEffect(
     useCallback(() => {
       const fetchAllPillarPOEAsync = async () => {
@@ -61,46 +67,50 @@ const BestPractice = props => {
 
   useFocusEffect(
     useCallback(() => {
-    const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(pillarId);
-    };
-    fetchAllPillarEventAsync();
+      const fetchAllPillarEventAsync = async () => {
+        await fetchAllPillarEvent(pillarId);
+      };
+      fetchAllPillarEventAsync();
 
-	return () =>{
-		cleanPillarEvent();
-	}
-	}, []),
-	);
+      return () => {
+        cleanPillarEvent();
+      };
+    }, []),
+  );
 
-	useFocusEffect(
-		useCallback(() => {
-		const fetchAllPillarMemberContentAsync = async () => {
-		  await fetchAllPillarMemberContent(pillarId);
-		};
-		fetchAllPillarMemberContentAsync();
-		return () => {
-			cleanPillarMemberContent();
-		  };
-		}, []),
-	  );
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarMemberContentAsync = async () => {
+        await fetchAllPillarMemberContent(pillarId);
+      };
+      fetchAllPillarMemberContentAsync();
+      return () => {
+        cleanPillarMemberContent();
+      };
+    }, [isFocused]),
+  );
+
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents?.members);
+  }, [pillarMemberContents?.members]);
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
 
-	let organizer = item?.organizer?.term_name;
+    let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
-    if (organizer === undefined){
-      organizer = ' '; 
+    if (organizer === undefined) {
+      organizer = ' ';
     } else {
       organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
     }
 
-	if (description === undefined){
-		description = ' '; 
-	  } else {
-		description = item?.organizer?.description;
-	  }
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
 
     return (
       <View key={index} style={styles.topWrapper}>
@@ -127,8 +137,8 @@ const BestPractice = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-			  {organizer} {description}
-			  </Text>
+                {organizer} {description}
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -136,7 +146,8 @@ const BestPractice = props => {
     );
   };
 
-  const _renderItem = ({item, index}, navigation) => {
+
+  const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
@@ -156,7 +167,7 @@ const BestPractice = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: '#222B45',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6, color: '#030303'}}>
               Frost and Sullivan
@@ -165,9 +176,14 @@ const BestPractice = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+          {/* {!memberConnection[index]?.connection && ( */}
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+           {/* )} */}
+          {/* {memberConnection[index]?.connection && (
+            <Material name="check-circle" size={20} color="#14A2E2" />
+          )} */}
         </View>
       </View>
     );
@@ -207,81 +223,83 @@ const BestPractice = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
-    );
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
-      <View style={styles.container}>
-        <View style={styles.top}>
-          <Text style={styles.title}>Best Practices Events</Text>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+        <View style={styles.container}>
+          <View style={styles.top}>
+            <Text style={styles.title}>Best Practices Events</Text>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarEvents}
-              // renderItem={_renderTopItem}
-              renderItem={item => _renderTopItem(item, navigation)}
-            />
-          </View>
-        </View>
-
-        <View style={styles.middle}>
-          <Text style={styles.title}>Points of Engagement</Text>
-          {pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarEvents}
+                // renderItem={_renderTopItem}
+                renderItem={item => _renderTopItem(item, navigation)}
+              />
             </View>
-          )}
-          <FlatList
-            numColumns={4}
-            showsHorizontalScrollIndicator={false}
-            data={pillarPOEs}
-			// renderItem={_renderMiddleItem}
-            renderItem={item => _renderMiddleItem(item, navigation)}
-          />
-        </View>
+          </View>
 
-        <View style={styles.bottom}>
-          <Text style={styles.title}>Best Practices Members</Text>
-          <View>
+          <View style={styles.middle}>
+            <Text style={styles.title}>Points of Engagement</Text>
+            {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
             <FlatList
-              horizontal
+              numColumns={4}
               showsHorizontalScrollIndicator={false}
-              data={pillarMemberContents?.members}
-              renderItem={item => _renderItem(item, navigation)}
+              data={pillarPOEs}
+              // renderItem={_renderMiddleItem}
+              renderItem={item => _renderMiddleItem(item, navigation)}
             />
           </View>
-        </View>
 
-        <View style={styles.content}>
-          <Text style={styles.title}>Best Practices Content</Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarMemberContents?.pillar_contents}
-              renderItem={_renderContentItem}
-            />
+          <View style={styles.bottom}>
+            <Text style={styles.title}>Best Practices Members</Text>
+            <View>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarMemberContents?.members}
+                renderItem={_renderItem}
+                // renderItem={item => _renderItem(item, navigation)}
+              />
+            </View>
           </View>
+
+          <View style={styles.content}>
+            <Text style={styles.title}>Best Practices Content</Text>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarMemberContents?.pillar_contents}
+                renderItem={_renderContentItem}
+              />
+            </View>
+          </View>
+          <Footer />
         </View>
-        <Footer />
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
+    </SafeAreaView>
   );
 };
 
@@ -296,10 +314,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontFamily: Typography.FONT_SF_BOLD,
     fontSize: 14,
     color: Colors.PRIMARY_TEXT_COLOR,
     marginLeft: 15,
+    fontWeight: '700',
   },
 
   topWrapper: {
@@ -369,7 +388,6 @@ const styles = StyleSheet.create({
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',

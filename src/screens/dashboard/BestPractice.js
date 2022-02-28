@@ -12,6 +12,11 @@ import {
 } from '../details/slice/pillarMembersContentsSlice';
 import {fetchAllPillarPOEs, resetPillarPOE} from './slice/pillarPOESlice';
 
+import {
+	connectMemberByID,
+	resetConnectMember,
+  } from './slice/memberConnectionSlice';
+
 const BestPracticeScreen = props => {
     const dispatch = useDispatch();
     const {pillarEvents, pillarEventLoading, pillarEventError} = useSelector(

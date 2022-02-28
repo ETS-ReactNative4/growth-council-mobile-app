@@ -4,29 +4,33 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 
 const CircleIcon = props => {
   const {videoId} = props;
+  const controlRef = useRef();
 
   const [playing, setPlaying] = useState(false);
 
-  const onStateChange = useCallback(state => {
+  const onStateChange = state => {
     if (state === 'ended') {
       setPlaying(false);
-      Alert.alert('video has finished playing!');
     }
-  }, []);
+    // if (state !== 'playing') {
+    //   setPlaying(false);
+    // }
+  };
 
-  const togglePlaying = useCallback(() => {
+  const togglePlaying = () => {
     setPlaying(prev => !prev);
-  }, []);
+  };
 
   return (
     <View>
       <YoutubePlayer
         height={210}
+        ref={controlRef}
         play={playing}
         videoId={videoId}
         onChangeState={onStateChange}
       />
-      <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} />
+      {/* <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} /> */}
     </View>
   );
 };

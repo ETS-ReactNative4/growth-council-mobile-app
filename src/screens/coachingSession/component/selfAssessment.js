@@ -93,7 +93,7 @@ const SelfAssessment = props => {
     ) {
       store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, score)
         .then(response => {
-          if (response?.payload?.code === 200) {
+          if (response?.data?.code === 200) {
             ToastMessage.show(
               'You score has submitted. Please complete all the session.',
             );
@@ -104,7 +104,7 @@ const SelfAssessment = props => {
               },
               yellowQuestions: [],
             });
-            // navigation.navigate('radar');
+            navigation.navigate('radar');
           } else {
             toast.closeAll();
             ToastMessage.show(response?.payload?.response);
@@ -226,7 +226,7 @@ const SelfAssessment = props => {
           <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
             {index.traitIndex === traitLength - 1 &&
             index.subTraitIndex === subTraitLength - 1
-              ? 'Submit'
+              ? 'Complete'
               : 'Next'}
           </Text>
         </Button>

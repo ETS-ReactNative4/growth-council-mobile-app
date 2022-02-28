@@ -35,6 +35,7 @@ const Profile = props => {
     const fetchProfileEventAsync = async () => {
       let token = await getAsyncStorage(JWT_TOKEN);
       let userID = decodeUserID(token);
+	  console.log({token})
       await fetchEventsByUserIdentifier(userID);
     };
     fetchProfileEventAsync();

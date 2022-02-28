@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -15,6 +15,8 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from '../../dashboard/components/Player';
+import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -51,6 +53,9 @@ const GrowthDetail = props => {
     cleanPoeSelfLearn,
   } = props;
 
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
       await fetchAllPOEDetail(route.params.poeId);
@@ -70,7 +75,7 @@ const GrowthDetail = props => {
       await fetchAllPillarMemberContent(route.params.pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     const fetchCoachingSessionAsync = async () => {
@@ -85,6 +90,26 @@ const GrowthDetail = props => {
     };
     fetchPoeSelfLearnAsync();
   }, []);
+
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents);
+  }, [pillarMemberContents]);
+
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+    console.log(response);
+  };
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -106,16 +131,26 @@ const GrowthDetail = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: Colors.TERTIARY_TEXT_COLOR,
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+		{!memberConnection[index]?.connection && (
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
+            <Material
+              name="check-circle"
+              size={20}
+              color="#14A2E2"
+              style={{marginTop: 25}}
+            />
+          )}
         </View>
       </View>
     );
@@ -208,11 +243,12 @@ const GrowthDetail = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
+    let videoLink = link[1].split('&', 2);
+    return(
+		<Player {...props}
+		item={item}
+		file={file}
+		videoLink={videoLink}/>
     );
   };
 
@@ -228,14 +264,13 @@ const GrowthDetail = props => {
           }>
           <View style={styles.learnWrapper}>
             <Image
-				source={{uri: item?.image}}
+              source={{uri: item?.image}}
               style={{
                 width: 72,
                 height: 102,
                 margin: 10,
                 borderRadius: 10,
               }}
-              
             />
             <View>
               <View>
@@ -255,9 +290,7 @@ const GrowthDetail = props => {
                     width: 100,
                     marginTop: 10,
                     fontSize: 8,
-                  }}>
-                
-                </Text>
+                  }}></Text>
               </View>
               {/* <View
 						style={{

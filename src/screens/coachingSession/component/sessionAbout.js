@@ -85,7 +85,9 @@ const sessionAbout = props => {
             />
           </View>
 
-          <Text style={{padding: 10, width: 100}}>{item?.title}</Text>
+          <Text style={{paddingLeft: 10, width: 100, fontSize: 12}}>
+            {item?.title}
+          </Text>
         </View>
       </View>
     );
@@ -97,11 +99,16 @@ const sessionAbout = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('Do MMMM, dddd, h:mm a');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+  const GobalDate = moment(timeToDisplay).format('D MMMM (dddd), h:mma - ');
 
-  const GobalDateEnd = moment(timeToEnd).format('Do MMMM, dddd, h:mm a');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
+  const GobalTime = moment(timeToDisplay).format('h:mm a');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (dddd)');
+  const GobalMonth = moment(timeToDisplay).format('D MMMM (dddd) - ');
+
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM (dddd), h:mm a ');
+  const GobalEndTime = moment(timeToEnd).format('h:mm a ');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM (dddd)');
+  console.log(GobalDateEnd.split(/(\s+)/)[8]);
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -147,12 +154,13 @@ const sessionAbout = props => {
               flex: 4,
               paddingLeft: 5,
             }}>
-            <Text style={styles.eventDetails}>{GobalDate} /</Text>
+            {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
               {GobalStartMonth === GobalEndMonth
-                ? GobalDateEnd.split(/(\s+)/)[6] +
+                ? GobalDate +
+                  GobalDateEnd.split(/(\s+)/)[6] +
                   GobalDateEnd.split(/(\s+)/)[8]
-                : GobalDateEnd}
+                : GobalMonth + GobalEndMonth}{' '}
               ({deviceTimeZone})
             </Text>
           </View>

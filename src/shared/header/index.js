@@ -9,32 +9,15 @@ const HeaderTitle = props => {
   const [username, setUsername] = useState(null);
   const isFocused = useIsFocused();
 
-  const {
-    profile,   
-    fetchProfileByIdentifier,
-	profileLoading
-    
-  } = props;
+  const {profile, fetchProfileByIdentifier, profileLoading} = props;
 
   useEffect(() => {
-       fetchProfileByIdentifier();
-	}, [isFocused]);
+    fetchProfileByIdentifier();
+  }, [isFocused]);
 
-//   useEffect(() => {
-//     async function myName() {
-//       const name = await getAsyncStorage(USER_NAME);
-//       setUsername(name);
-//     }
-
-//     myName();
-//   }, [isFocused]);
 
   return (
-    <View
-      style={{
-        marginLeft: Platform.OS === 'ios' ? 5 : 40,
-        marginTop: Platform.OS === 'ios' ? 10 : 10,
-      }}>
+    <View style={{marginLeft: 20}}>
       <Text
         style={{
           color: 'white',
@@ -50,7 +33,7 @@ const HeaderTitle = props => {
           fontSize: Platform.OS === 'ios' ? 16 : 18,
           fontWeight: 'normal',
         }}>
-        {profile.display_name}
+        {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
       </Text>
     </View>
   );

@@ -12,16 +12,21 @@ import {
   StatusBar,
   Dimensions,
   Button,
+  Modal,
+  Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
-
+import {useIsFocused} from '@react-navigation/native';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from './Player';
+import BottomNav from '../../../layout/BottomLayout';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -57,7 +62,8 @@ const Dashboard = props => {
     contentSlider,
   } = props;
 
-  const [playing, setPlaying] = useState(false);
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -71,7 +77,11 @@ const Dashboard = props => {
       await fetchAllCommunityMember();
     };
     fetchAllCommunityMemberAsync();
-  }, []);
+
+    return () => {
+      cleanCommunityMember();
+    };
+  }, [isFocused]);
 
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
@@ -86,6 +96,26 @@ const Dashboard = props => {
     };
     fetchAllPOEAsync();
   }, []);
+
+  useEffect(() => {
+    setMemberConnection(communityMembers);
+  }, [communityMembers]);
+
+    // const connectMemberByMemberID = async (memberID, index) => {
+    //   const response = await connectMemberByIdentifier({member_id: memberID});
+    //   if (response?.payload?.code === 200) {
+    //     let items = [...memberConnection];
+    //     let item = {...items[index]};
+    //     item.connection = true;
+    //     items[index] = item;
+    //     setMemberConnection(items);
+    //     ToastMessage.show('You have successfully connected.');
+    //   } else {
+    //     toast.closeAll();
+    //     ToastMessage.show(response?.payload?.response);
+    //   }
+    //   console.log(response);
+    // };
 
   const _renderItem = ({item, index}) => {
     return (
@@ -107,7 +137,7 @@ const Dashboard = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: '#030303',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6, color: '#030303'}}>
               Frost and Sullivan
@@ -116,9 +146,18 @@ const Dashboard = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+          {!memberConnection[index]?.connection && (
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
+            <Material
+              name="check-circle"
+              size={20}
+              color="#14A2E2"
+            />
+          )}
         </View>
       </View>
     );
@@ -169,13 +208,17 @@ const Dashboard = props => {
     const date = actualDate[0].split(' ', 3);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.slug) {
-      case 'community':
+    switch (item?.pillar_categories[0]?.parent) {
+      case 0:
+      case 117:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
-      case 'best-practices':
+
+      case 0:
+      case 118:
         backgroundImage = require('../../../assets/img/Rectangle1.png');
         break;
+
       default:
         backgroundImage = require('../../../assets/img/Rectangle.png');
     }
@@ -230,18 +273,11 @@ const Dashboard = props => {
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
+    console.log(file);
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
 
-    const togglePlaying = () => {
-      setPlaying(prev => !prev);
-    };
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer play={playing} videoId={videoLink[0]} />
-        <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} />
-      </View>
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
@@ -252,8 +288,8 @@ const Dashboard = props => {
         backgroundColor={require('../../../assets/img/appBG.png')}
         translucent={true}
       />
-      <ScrollView style={styles.container}>
-        <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <View>
           <ImageBackground
             style={{width: '100%', height: 180}}
             source={require('../../../assets/img/appBG.png')}>
@@ -317,7 +353,6 @@ const Dashboard = props => {
               marginRight: 15,
             }}>
             <Text style={styles.title}> Growth Community Members</Text>
-            {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
           </View>
           <View>
             <FlatList
@@ -347,6 +382,7 @@ const Dashboard = props => {
 
         <Footer />
       </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -356,6 +392,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+    paddingBottom: 100,
   },
   pillar: {
     display: 'flex',
@@ -443,7 +480,6 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   bottom: {
-    height: 172,
     margin: 5,
     marginTop: 25,
   },
@@ -459,7 +495,6 @@ const styles = StyleSheet.create({
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',
@@ -467,14 +502,12 @@ const styles = StyleSheet.create({
     bottom: 4,
   },
   content: {
-    height: 250,
     marginLeft: 5,
-    marginTop: 25,
+    marginTop: 15,
     justifyContent: 'center',
     borderRadius: 20,
   },
   ContentWrapper: {
-    height: 210,
     width: contentContainerWidth,
     marginTop: 20,
     marginBottom: 10,

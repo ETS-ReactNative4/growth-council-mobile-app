@@ -6,14 +6,15 @@ import {
   FlatList,
   TouchableOpacity,
   Modal,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
-
+import BottomNav from '../../../layout/BottomLayout';
 
 const EventCalendar = props => {
   const {
@@ -26,7 +27,7 @@ const EventCalendar = props => {
     cleanCalendarEvent,
   } = props;
 
-  const [currentMonth, setCurrentMonth] = useState(moment().format('MM'));
+  const [currentMonth, setCurrentMonth] = useState(moment().format('MMMM'));
   const [calendarMonth, setCalendarMonth] = useState(moment().format('MM'));
   const [calendarYear, setCalendarYear] = useState(moment().format('YYYY'));
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -113,23 +114,48 @@ const EventCalendar = props => {
       dt[1].split(':').map(Number),
     ];
 
-	let organizer = item?.organizer?.term_name;
+    let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
-	if (organizer === undefined){
-		organizer = ' '; 
-	  } else {
-		organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
-	  }
-  
-	  if (description === undefined){
-		  description = ' '; 
-		} else {
-		  description = item?.organizer?.description;
-		}
+    if (organizer === undefined) {
+      organizer = ' ';
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
+
+    let borderColor = '';
+    const pillarCategory = item?.pillar_categories
+      ? item?.pillar_categories[0]?.parent
+      : '';
+    switch (pillarCategory) {
+      case 0:
+      case 118:
+        borderColor = Colors.PRACTICE_COLOR;
+        break;
+      case 0:
+      case 117:
+        borderColor = Colors.COMMUNITY_COLOR;
+        break;
+      default:
+        borderColor = Colors.COACHING_COLOR;
+    }
+
+	let nav ='SessionDetail'
+	if (item?.pillar_categories[0].slug === 'growth-leadership-coaching') {
+        nav = 'SessionDetail';
+      } else {
+        nav = 'EventDetail';
+      }
+
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() => navigation.navigate(nav, {id: item.ID})}>
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <Text
               style={{
@@ -137,16 +163,16 @@ const EventCalendar = props => {
                 marginLeft: 10,
                 marginRight: 10,
                 fontSize: 17,
-				color: '#030303',
+                color: '#030303',
               }}>
               {time[0]}:{time[1]}
             </Text>
 
-            <View style={styles.eventDetails}>
+            <View style={[styles.eventDetails, {borderColor: borderColor}]}>
               <View style={styles.eventInfo}>
                 <Text style={styles.eventTitle}>{item?.title}</Text>
                 <Text style={styles.eventParagraph}>
-				{organizer} {description}
+                  {organizer} {description}
                 </Text>
               </View>
               <View style={styles.eventDate}>
@@ -164,7 +190,8 @@ const EventCalendar = props => {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+	<SafeAreaView style={{flex: 1}}>
+    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.iconWrapper}>
           <TouchableOpacity
@@ -178,8 +205,10 @@ const EventCalendar = props => {
               borderColor: 'gray',
               marginRight: 30,
             }}>
-            <Text style={{fontSize: 12, color: '#030303',}}>
-              {showAllEvents ?  'All Events':'My Events'}
+
+            <Text style={{fontSize: 12, color: '#030303'}}>
+              {showAllEvents ? 'All Events' : 'My Events'}
+
               {/* Select Events */}
             </Text>
           </TouchableOpacity>
@@ -251,38 +280,36 @@ const EventCalendar = props => {
                   Done
                 </Text>
               </TouchableOpacity>
+
               <View>
-			  <Picker
-                selectedValue={showAllEvents}
-                mode="dropdown"
-                itemTextStyle={{fontSize: 14}}
-                onValueChange={async (itemValue, itemIndex) => {
-                  setShowAllEvents(itemValue);
 
-                  await fetchAllCalendarEvent({
-					year: calendarYear,
-					month: calendarMonth,
-					all_events:itemValue,	
-					})
-
-					.then(response => {
-						if (response?.payload?.code === 200) {
-							setCurrentEvents(response?.payload?.data);
-						}
-
-					})
-                }}>
-                <Picker.Item label="All Events" value={true} />
-        		<Picker.Item label="My Events" value={false} />
-
-
-              </Picker>
+                <Picker
+                  selectedValue={showAllEvents}
+                  mode="dropdown"
+                  itemTextStyle={{fontSize: 14}}
+                  onValueChange={async (itemValue, itemIndex) => {
+                    setShowAllEvents(itemValue);
+                    await fetchAllCalendarEvent({
+                      year: calendarYear,
+                      month: calendarMonth,
+                      all_events: itemValue,
+                    }).then(response => {
+                      if (response?.payload?.code === 200) {
+                        setCurrentEvents(response?.payload?.data);
+                      }
+                    });
+                  }}>
+                  <Picker.Item label="All Events" value={true} />
+                  <Picker.Item label="My Events" value={false} />
+                </Picker>
               </View>
             </View>
           </View>
         </Modal>
       </View>
     </ScrollView>
+	<BottomNav {...props} navigation={navigation}/>
+	</SafeAreaView>
   );
 };
 
@@ -364,7 +391,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     borderLeftWidth: 10,
-    borderColor: '#80BA74',
+
   },
   eventInfo: {
     paddingRight: 5,
@@ -372,11 +399,11 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     fontSize: 14,
-	color: '#030303',
+    color: '#030303',
   },
   eventParagraph: {
     fontSize: 8,
-	color: '#030303',
+    color: '#030303',
   },
   eventDate: {
     flex: 1,
@@ -387,7 +414,7 @@ const styles = StyleSheet.create({
   },
   eventDateText: {
     textAlign: 'center',
-	color: '#030303',
+    color: '#030303',
   },
   buttonWrapper: {
     width: 350,

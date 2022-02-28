@@ -36,7 +36,7 @@ const PillarList = props => {
         navigationPath = 'Growth Coaching';
         borderColor = COACHING_COLOR;
     }
-
+	
     return (
       <View
         style={[styles.ImageWrapper, {borderColor: borderColor}]}
