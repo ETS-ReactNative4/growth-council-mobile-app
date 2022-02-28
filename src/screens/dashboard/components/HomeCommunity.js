@@ -19,6 +19,9 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import Player from './Player';
+import {getAsyncStorage} from '../../../utils/storageUtil';
+import {JWT_TOKEN} from '../../../constants';
+import {decodeUserID} from '../../../utils/jwtUtil';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -49,10 +52,10 @@ const HomeCommunity = props => {
   } = props;
 
   const pillarId = 117;
-  
+
   const isFocused = useIsFocused();
 
-  const [memberConnection, setMemberConnection] = useState([]);
+  const [memberConnection, setMemberConnection] = useState(pillarMemberContents.members);
 
   useFocusEffect(
     useCallback(() => {
@@ -83,6 +86,8 @@ const HomeCommunity = props => {
   useFocusEffect(
     useCallback(() => {
       const fetchAllPillarMemberContentAsync = async () => {
+        let token = await getAsyncStorage(JWT_TOKEN);
+        let userID = decodeUserID(token);
         await fetchAllPillarMemberContent(pillarId);
       };
       fetchAllPillarMemberContentAsync();
@@ -90,10 +95,8 @@ const HomeCommunity = props => {
   );
 
   useEffect(() => {
-    setMemberConnection(pillarMemberContents?.members);
-  }, [pillarMemberContents?.members]);
-// 
-
+    setMemberConnection(pillarMemberContents.members);
+  }, [pillarMemberContents]);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -124,14 +127,14 @@ const HomeCommunity = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          {/* {!memberConnection[index]?.connection && ( */}
+          {/* { !memberConnection[index]?.connection && (
             <TouchableOpacity onPress={() => navigation.navigate('People')}>
               <Ionicons name="add-circle" size={20} color="#B2B3B9" />
             </TouchableOpacity>
-          {/* )} */}
-          {/* {memberConnection[index]?.connection && (
-            <Material name="check-circle" size={20} color="#14A2E2" />
-          )} */}
+          )}
+          { memberConnection[index]?.connection && (
+              <Material name="check-circle" size={20} color="#14A2E2" />
+            )} */}
         </View>
       </View>
     );
@@ -281,7 +284,7 @@ const HomeCommunity = props => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 data={pillarMemberContents.members}
-				renderItem={_renderItem}
+                renderItem={_renderItem}
               />
             </View>
           </View>
