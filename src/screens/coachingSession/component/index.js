@@ -91,6 +91,11 @@ const CoachingSession = props => {
     });
   }, [answers]);
 
+  // score 
+  let num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(2);
+  if (isNaN(num)) num = 0.00;
+  console.log(num);
+
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -162,7 +167,7 @@ const CoachingSession = props => {
                                 style={{
                                   paddingLeft: 10,
                                   fontSize: 12,
-                                  width: '55%',
+                                  width: '53%',
                                 }}>
                                 {trait?.title}
                               </Text>
@@ -184,11 +189,7 @@ const CoachingSession = props => {
                                     alignItems: 'center',
                                   }}>
                                   <Text style={{fontSize: 12}}>
-                                    {(
-                                      (score.growthIndexScore +
-                                        score.innovativeIndexScore) /
-                                      2
-                                    ).toFixed(2) || 0}
+                                    {num}
                                   </Text>
                                 </View>
                               </View>
