@@ -84,6 +84,7 @@ const HomeCommunity = props => {
         await fetchAllPillarMemberContent(pillarId);
       };
       fetchAllPillarMemberContentAsync();
+
       return () => {
         cleanPillarMemberContent();
       };
@@ -94,21 +95,6 @@ const HomeCommunity = props => {
     setMemberConnection(pillarMemberContents);
   }, [pillarMemberContents]);
 
-//   const connectMemberByMemberID = async (memberID, index) => {
-//     const response = await connectMemberByIdentifier({member_id: memberID});
-//     if (response?.payload?.code === 200) {
-//       let items = [...memberConnection];
-//       let item = {...items[index]};
-//       item.connection = true;
-//       items[index] = item;
-//       setMemberConnection(items);
-//       ToastMessage.show('You have successfully connected.');
-//     } else {
-//       toast.closeAll();
-//       ToastMessage.show(response?.payload?.response);
-//     }
-//     console.log(response);
-//   };
 
   const _renderItem = ({item, index}) => {
     return (
@@ -149,7 +135,6 @@ const HomeCommunity = props => {
               name="check-circle"
               size={20}
               color="#14A2E2"
-              style={{marginTop: 25}}
             />
           )}
         </View>
@@ -411,7 +396,6 @@ const styles = StyleSheet.create({
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',

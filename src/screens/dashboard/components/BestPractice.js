@@ -201,7 +201,6 @@ const BestPractice = props => {
               name="check-circle"
               size={20}
               color="#14A2E2"
-              style={{marginTop: 25}}
             />
           )}
         </View>
@@ -407,7 +406,6 @@ const styles = StyleSheet.create({
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',
