@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -12,13 +12,14 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
-import BottomNav from '../../../layout/BottomLayout';;
+import BottomNav from '../../../layout/BottomLayout';
 import Player from './Player';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -48,7 +49,9 @@ const GrowthCoaching = props => {
   } = props;
 
   const pillarId = 119;
+
   const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
@@ -82,15 +85,22 @@ const GrowthCoaching = props => {
         await fetchAllPillarMemberContent(pillarId);
       };
       fetchAllPillarMemberContentAsync();
+
       return () => {
         cleanPillarMemberContent();
       };
-    }, []),
+    }, [isFocused]),
   );
 
-  const _renderItem = ({item, index}, navigation) => {
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents?.members);
+  }, [pillarMemberContents?.members]);
+
+  
+
+  const _renderItem = ({item, index}) => {
     return (
-      <View style={[styles.bottomWrapper, styles.shadowProp]}>
+      <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
@@ -108,7 +118,7 @@ const GrowthCoaching = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: '#030303',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6, color: '#030303'}}>
               Frost and Sullivan
@@ -117,9 +127,14 @@ const GrowthCoaching = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+          {/* {!memberConnection[index]?.connection && ( */}
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+           {/* )} */}
+          {/* {memberConnection[index]?.connection && (
+            <Material name="check-circle" size={20} color="#14A2E2" />
+          )} */}
         </View>
       </View>
     );
@@ -224,90 +239,83 @@ const GrowthCoaching = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    return (
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
-	<SafeAreaView style={{flex: 1}}>
-		<ScrollView
-		showsVerticalScrollIndicator={false}
-		style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
-		<View style={styles.container}>
-			<View style={styles.top}>
-			<Text style={styles.title}>Growth Coaching Events</Text>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+        <View style={styles.container}>
+          <View style={styles.top}>
+            <Text style={styles.title}>Growth Coaching Events</Text>
 
-			<View
-				style={{
-				display: 'flex',
-				flexDirection: 'row',
-				}}>
-				<FlatList
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={pillarEvents}
-				//renderItem={_renderTopItem}
-				renderItem={item => _renderTopItem(item, navigation)}
-				/>
-			</View>
-			</View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarEvents}
+                //renderItem={_renderTopItem}
+                renderItem={item => _renderTopItem(item, navigation)}
+              />
+            </View>
+          </View>
 
-			<View style={styles.middle}>
-			<Text style={styles.title}>Points of Engagement</Text>
+          <View style={styles.middle}>
+            <Text style={styles.title}>Points of Engagement</Text>
 
-			{pillarEventLoading && (
-				<View style={styles.loading1}>
-				<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-				</View>
-			)}
+            {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
 
-			<FlatList
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={pillarPOEs}
-				renderItem={_renderMiddleItem}
-				// renderItem={item => _renderMiddleItem(item, navigation)}
-			/>
-			</View>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={pillarPOEs}
+              renderItem={_renderMiddleItem}
+              // renderItem={item => _renderMiddleItem(item, navigation)}
+            />
+          </View>
 
-			<View style={styles.bottom}>
-			<Text style={styles.title}>Growth Coaching Members</Text>
-			<View>
-				<FlatList
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={pillarMemberContents.members}
-				// renderItem={_renderItem}
-				renderItem={item => _renderItem(item, navigation)}
-				/>
-			</View>
-			</View>
+          <View style={styles.bottom}>
+            <Text style={styles.title}>Growth Coaching Members</Text>
+            <View>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarMemberContents?.members}
+                renderItem={_renderItem}
+              />
+            </View>
+          </View>
 
-			<View style={styles.content}>
-			<Text style={styles.title}>Growth Coaching Content</Text>
-			<View
-				style={{
-				display: 'flex',
-				flexDirection: 'row',
-				}}>
-				<FlatList
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={pillarMemberContents?.pillar_contents}
-				renderItem={_renderContentItem}
-				/>
-			</View>
-			</View>
-			<Footer />
-		</View>
-		
-		</ScrollView>
-		<BottomNav {...props} navigation={navigation}/>
-	</SafeAreaView>
+          <View style={styles.content}>
+            <Text style={styles.title}>Growth Coaching Content</Text>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarMemberContents?.pillar_contents}
+                renderItem={_renderContentItem}
+              />
+            </View>
+          </View>
+          <Footer />
+        </View>
+      </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
+    </SafeAreaView>
   );
 };
 
@@ -326,7 +334,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.PRIMARY_TEXT_COLOR,
     marginLeft: 15,
-	fontWeight: '700',
+    fontWeight: '700',
   },
 
   topWrapper: {
@@ -391,7 +399,6 @@ const styles = StyleSheet.create({
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',
