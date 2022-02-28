@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Modal,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
@@ -107,12 +107,7 @@ const EventCalendar = props => {
     const date = actualDate[0].split(' ', 3);
 
     //time
-    let dt = item.event_start;
-    dt = dt.split(' ');
-    let [date1, time] = [
-      dt[0].split('-').map(Number),
-      dt[1].split(':').map(Number),
-    ];
+    let time = moment(item.event_start).format('h:mma');
 
     let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
@@ -145,12 +140,12 @@ const EventCalendar = props => {
         borderColor = Colors.COACHING_COLOR;
     }
 
-	let nav ='SessionDetail'
-	if (item?.pillar_categories[0].slug === 'growth-leadership-coaching') {
-        nav = 'SessionDetail';
-      } else {
-        nav = 'EventDetail';
-      }
+    let nav = 'SessionDetail';
+    if (item?.pillar_categories[0].slug === 'growth-leadership-coaching') {
+      nav = 'SessionDetail';
+    } else {
+      nav = 'EventDetail';
+    }
 
     return (
       <View>
@@ -162,10 +157,10 @@ const EventCalendar = props => {
                 marginTop: 30,
                 marginLeft: 10,
                 marginRight: 10,
-                fontSize: 17,
+                fontSize: 12,
                 color: '#030303',
               }}>
-              {time[0]}:{time[1]}
+              {time}
             </Text>
 
             <View style={[styles.eventDetails, {borderColor: borderColor}]}>
@@ -190,126 +185,124 @@ const EventCalendar = props => {
   };
 
   return (
-	<SafeAreaView style={{flex: 1}}>
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
-      <View style={styles.container}>
-        <View style={styles.iconWrapper}>
-          <TouchableOpacity
-            onPress={() => setPickerVisible(true)}
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              borderWidth: 1,
-              paddingVertical: 10,
-              borderRadius: 10,
-              borderColor: 'gray',
-              marginRight: 30,
-            }}>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+        <View style={styles.container}>
+          <View style={styles.iconWrapper}>
+            <TouchableOpacity
+              onPress={() => setPickerVisible(true)}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                borderWidth: 1,
+                paddingVertical: 10,
+                borderRadius: 10,
+                borderColor: 'gray',
+                marginRight: 30,
+              }}>
+              <Text style={{fontSize: 12, color: '#030303'}}>
+                {showAllEvents ? 'All Events' : 'My Events'}
 
-            <Text style={{fontSize: 12, color: '#030303'}}>
-              {showAllEvents ? 'All Events' : 'My Events'}
+                {/* Select Events */}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.calendar, styles.shadowProp]}>
+            <Calendar
+              markingType={'period'}
+              onMonthChange={async month => {
+                cleanCalendarEvent();
+                setCalendarMonth(moment(month?.dateString).format('MM'));
+                setCalendarYear(moment(month?.dateString).format('YYYY'));
+                setCurrentMonth(moment(month?.dateString).format('MMMM'));
 
-              {/* Select Events */}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.calendar, styles.shadowProp]}>
-          <Calendar
-            markingType={'period'}
-            onMonthChange={async month => {
-              cleanCalendarEvent();
-              setCalendarMonth(moment(month?.dateString).format('MM'));
-              setCalendarYear(moment(month?.dateString).format('YYYY'));
-              setCurrentMonth(moment(month?.dateString).format('MMMM'));
-
-              await fetchAllCalendarEvent({
-                year: moment(month?.dateString).format('YYYY'),
-                month: moment(month?.dateString).format('MM'),
-                all_events: showAllEvents,
-              }).then(response => {
-                if (response?.payload?.code === 200) {
-                  setCurrentEvents(response?.payload?.data);
-                }
-              });
-            }}
-            markedDates={markedDay}
-          />
-        </View>
-        <View style={styles.events}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            {currentMonth} Events
-          </Text>
-          {calendarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-            </View>
-          )}
-          {!calendarEventLoading && (
-            <FlatList
-              horizontal={false}
-              showsVerticalScrollIndicator={true}
-              data={currentEvents}
-              renderItem={renderItem}
+                await fetchAllCalendarEvent({
+                  year: moment(month?.dateString).format('YYYY'),
+                  month: moment(month?.dateString).format('MM'),
+                  all_events: showAllEvents,
+                }).then(response => {
+                  if (response?.payload?.code === 200) {
+                    setCurrentEvents(response?.payload?.data);
+                  }
+                });
+              }}
+              markedDates={markedDay}
             />
-          )}
-        </View>
-        <Modal transparent visible={pickerVisible}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: 'rgba(56,56,56,0.3)',
-              justifyContent: 'flex-end',
-            }}>
+          </View>
+          <View style={styles.events}>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+              {currentMonth} Events
+            </Text>
+            {calendarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+              </View>
+            )}
+            {!calendarEventLoading && (
+              <FlatList
+                horizontal={false}
+                showsVerticalScrollIndicator={true}
+                data={currentEvents}
+                renderItem={renderItem}
+              />
+            )}
+          </View>
+          <Modal transparent visible={pickerVisible}>
             <View
               style={{
-                height: 300,
-                backgroundColor: 'white',
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                padding: 20,
+                flex: 1,
+                backgroundColor: 'rgba(56,56,56,0.3)',
+                justifyContent: 'flex-end',
               }}>
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => setPickerVisible(false)}
-                style={{alignItems: 'flex-end'}}>
-                <Text
-                  style={{
-                    padding: 15,
-                    fontSize: 18,
-                  }}>
-                  Done
-                </Text>
-              </TouchableOpacity>
+              <View
+                style={{
+                  height: 300,
+                  backgroundColor: 'white',
+                  borderTopLeftRadius: 20,
+                  borderTopRightRadius: 20,
+                  padding: 20,
+                }}>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => setPickerVisible(false)}
+                  style={{alignItems: 'flex-end'}}>
+                  <Text
+                    style={{
+                      padding: 15,
+                      fontSize: 18,
+                    }}>
+                    Done
+                  </Text>
+                </TouchableOpacity>
 
-              <View>
-
-                <Picker
-                  selectedValue={showAllEvents}
-                  mode="dropdown"
-                  itemTextStyle={{fontSize: 14}}
-                  onValueChange={async (itemValue, itemIndex) => {
-                    setShowAllEvents(itemValue);
-                    await fetchAllCalendarEvent({
-                      year: calendarYear,
-                      month: calendarMonth,
-                      all_events: itemValue,
-                    }).then(response => {
-                      if (response?.payload?.code === 200) {
-                        setCurrentEvents(response?.payload?.data);
-                      }
-                    });
-                  }}>
-                  <Picker.Item label="All Events" value={true} />
-                  <Picker.Item label="My Events" value={false} />
-                </Picker>
+                <View>
+                  <Picker
+                    selectedValue={showAllEvents}
+                    mode="dropdown"
+                    itemTextStyle={{fontSize: 14}}
+                    onValueChange={async (itemValue, itemIndex) => {
+                      setShowAllEvents(itemValue);
+                      await fetchAllCalendarEvent({
+                        year: calendarYear,
+                        month: calendarMonth,
+                        all_events: itemValue,
+                      }).then(response => {
+                        if (response?.payload?.code === 200) {
+                          setCurrentEvents(response?.payload?.data);
+                        }
+                      });
+                    }}>
+                    <Picker.Item label="All Events" value={true} />
+                    <Picker.Item label="My Events" value={false} />
+                  </Picker>
+                </View>
               </View>
             </View>
-          </View>
-        </Modal>
-      </View>
-    </ScrollView>
-	<BottomNav {...props} navigation={navigation}/>
-	</SafeAreaView>
+          </Modal>
+        </View>
+      </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
+    </SafeAreaView>
   );
 };
 
@@ -391,14 +384,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     borderLeftWidth: 10,
-
   },
   eventInfo: {
     paddingRight: 5,
     flex: 5,
   },
   eventTitle: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#030303',
   },
   eventParagraph: {

@@ -471,6 +471,7 @@ const styles = StyleSheet.create({
   traitWrapper: {
     paddingTop: 5,
     paddingBottom: 5,
+	marginRight:5,
     flexDirection: 'row',
   },
   traitW: {

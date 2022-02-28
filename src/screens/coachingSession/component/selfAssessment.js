@@ -41,7 +41,9 @@ const SelfAssessment = props => {
     state => state.traitsAnswer,
   );
 
-  const [value, setValue] = useState(sub);
+  const [value, setValue] = useState();
+  const [sub, setSub] = useState('');
+
   const [index, setIndex] = useState({
     traitIndex: 0,
     subTraitIndex: 0,
@@ -77,6 +79,8 @@ const SelfAssessment = props => {
 
   useEffect(() => {
     if (traits?.length) {
+      setSub(traits[index.traitIndex].sub_traits[index.subTraitIndex].title);
+      setValue(traits[index.traitIndex].sub_traits[index.subTraitIndex].title);
       setTraitLength(traits.length);
     }
     if (subTraits?.sub_traits?.length) {
@@ -132,10 +136,6 @@ const SelfAssessment = props => {
     }
   };
 
-  let num = index.subTraitIndex;
-  console.log(traits[index.traitIndex].sub_traits[num].title);
-  const sub = traits[index.traitIndex].sub_traits[num].title;
-
   return (
     <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       {traits?.length > 0 ? (
@@ -153,9 +153,12 @@ const SelfAssessment = props => {
                 height: 30,
                 marginTop: 5,
                 width: '95%',
-                marginLeft: 10,
-                fontSize: 12,
+                marginLeft: 5,
                 borderRadius: 15,
+              }}
+              textStyle={{
+                fontSize: 10,
+                width: '99%',
               }}
             />
           </View>

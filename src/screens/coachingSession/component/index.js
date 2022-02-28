@@ -92,10 +92,8 @@ const CoachingSession = props => {
   }, [answers]);
 
   // score 
-  let num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(
-    2,
-  );
-  if (isNaN(num)) num = 0;
+  let num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(2);
+  if (isNaN(num)) num = 0.00;
   console.log(num);
 
   return traitsLoading && sessionLoading ? (
@@ -169,7 +167,7 @@ const CoachingSession = props => {
                                 style={{
                                   paddingLeft: 10,
                                   fontSize: 12,
-                                  width: '55%',
+                                  width: '53%',
                                 }}>
                                 {trait?.title}
                               </Text>
