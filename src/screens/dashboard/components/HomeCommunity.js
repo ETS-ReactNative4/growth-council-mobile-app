@@ -96,7 +96,7 @@ const HomeCommunity = props => {
 
   const _renderItem = ({item, index}) => {
     return (
-      <View style={[styles.bottomWrapper, styles.shadowProp]}>
+      <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
