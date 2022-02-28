@@ -41,7 +41,7 @@ const SelfAssessment = props => {
     state => state.traitsAnswer,
   );
 
-  const [value, setValue] = useState('Sub Trait');
+  const [value, setValue] = useState(sub);
   const [index, setIndex] = useState({
     traitIndex: 0,
     subTraitIndex: 0,
@@ -132,6 +132,10 @@ const SelfAssessment = props => {
     }
   };
 
+  let num = index.subTraitIndex;
+  console.log(traits[index.traitIndex].sub_traits[num].title);
+  const sub = traits[index.traitIndex].sub_traits[num].title;
+
   return (
     <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       {traits?.length > 0 ? (
@@ -142,7 +146,7 @@ const SelfAssessment = props => {
               highlightTextColor={'#0B0B45'}
               inactiveBackgroundColor={'transparent'}
               inactiveTextColor={'grey'}
-              values={['Sub Trait', 'Yellow Questions']}
+              values={[sub, 'Yellow Questions']}
               value={value}
               onSelect={val => setValue(val)}
               style={{
@@ -157,7 +161,7 @@ const SelfAssessment = props => {
           </View>
 
           <View>
-            {value === 'Sub Trait' && (
+            {value === sub && (
               <Trait
                 {...props}
                 subTraits={traits[index.traitIndex]}
