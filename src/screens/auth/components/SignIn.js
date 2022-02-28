@@ -28,7 +28,7 @@ import {API_URL} from '../../../constants';
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const signInSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required.'),
+  username: Yup.string().required('Email is required.'),
   password: Yup.string().required('Password is required.'),
 });
 
@@ -91,7 +91,7 @@ const SignInForm = props => {
               <View style={styles.header}>
                 <Text style={styles.headingText1}>Growth Innovation </Text>
                 <Text style={[styles.headingText1, {marginBottom: 10}]}>
-                  Leadership Portal
+					Leadership Council
                 </Text>
                 <Text>
                   Login to your account below. If you are having trouble logging

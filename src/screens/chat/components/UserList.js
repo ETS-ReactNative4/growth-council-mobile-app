@@ -120,7 +120,7 @@ const UserList = props => {
                         <Button
                             style={[styles.button, {backgroundColor: '#F26722'}]}
                             onPress={() => Linking.openURL('mailto:contact@frost.com')}>
-                            <Text style={styles.buttonText}>Contact US</Text>
+                            <Text style={styles.buttonText}>Contact us</Text>
                         </Button>
                     </TouchableOpacity>
                 </View>

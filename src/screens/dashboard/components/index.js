@@ -77,11 +77,11 @@ const Dashboard = props => {
       await fetchAllCommunityMember();
     };
     fetchAllCommunityMemberAsync();
- 
+
     return () => {
-		cleanCommunityMember();
-	  };
-	}, [isFocused]);
+      cleanCommunityMember();
+    };
+  }, [isFocused]);
 
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
@@ -100,6 +100,22 @@ const Dashboard = props => {
   useEffect(() => {
     setMemberConnection(communityMembers);
   }, [communityMembers]);
+
+  //   const connectMemberByMemberID = async (memberID, index) => {
+  //     const response = await connectMemberByIdentifier({member_id: memberID});
+  //     if (response?.payload?.code === 200) {
+  //       let items = [...memberConnection];
+  //       let item = {...items[index]};
+  //       item.connection = true;
+  //       items[index] = item;
+  //       setMemberConnection(items);
+  //       ToastMessage.show('You have successfully connected.');
+  //     } else {
+  //       toast.closeAll();
+  //       ToastMessage.show(response?.payload?.response);
+  //     }
+  //     console.log(response);
+  //   };
 
   const _renderItem = ({item, index}) => {
     return (
@@ -121,7 +137,7 @@ const Dashboard = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: '#030303',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6, color: '#030303'}}>
               Frost and Sullivan
@@ -130,7 +146,7 @@ const Dashboard = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-		  {!memberConnection[index]?.connection && (
+          {!memberConnection[index]?.connection && (
             <TouchableOpacity onPress={() => navigation.navigate('People')}>
               <Ionicons name="add-circle" size={20} color="#B2B3B9" />
             </TouchableOpacity>
@@ -257,6 +273,7 @@ const Dashboard = props => {
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
+    console.log(file);
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
 
@@ -336,7 +353,6 @@ const Dashboard = props => {
               marginRight: 15,
             }}>
             <Text style={styles.title}> Growth Community Members</Text>
-            {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
           </View>
           <View>
             <FlatList
@@ -464,7 +480,6 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   bottom: {
-    height: 172,
     margin: 5,
     marginTop: 25,
   },
@@ -480,7 +495,6 @@ const styles = StyleSheet.create({
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',
@@ -489,7 +503,7 @@ const styles = StyleSheet.create({
   },
   content: {
     marginLeft: 5,
-    marginTop: 25,
+    marginTop: 15,
     justifyContent: 'center',
     borderRadius: 20,
   },

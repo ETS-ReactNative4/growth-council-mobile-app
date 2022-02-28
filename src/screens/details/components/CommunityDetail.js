@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -16,6 +16,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
+import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -45,6 +46,9 @@ const CommunityDetail = props => {
     cleanPillarMemberContent,
   } = props;
 
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useEffect(() => {
     const fetchEventDetailAsync = async () => {
       await fetchSessionDetailByIdentifier(route.params.id);
@@ -71,7 +75,27 @@ const CommunityDetail = props => {
       await fetchAllPillarMemberContent(route.params.pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
+
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents);
+  }, [pillarMemberContents]);
+
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+    console.log(response);
+  };
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -93,7 +117,7 @@ const CommunityDetail = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: Colors.TERTIARY_TEXT_COLOR,
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
@@ -180,14 +204,20 @@ const CommunityDetail = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    return (
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
-
+  let backgroundColor = '';
+  const parent = poeDetails?.parent;
+  switch (parent) {
+    case 118:
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+    case 117:
+      backgroundColor = Colors.COMMUNITY_COLOR;
+      break;
+    case 119:
+      backgroundColor = Colors.COACHING_COLOR;
+  }
   return (
     <ScrollView
       style={{
@@ -216,7 +246,8 @@ const CommunityDetail = props => {
           />
         </View>
 
-        <ScrollView style={styles.content}>
+        <ScrollView
+          style={[styles.content, {backgroundColor: backgroundColor}]}>
           <View style={styles.contentWrapper}>
             <Text
               style={{
@@ -324,8 +355,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   content: {
-    borderRadius: 18,
-    backgroundColor: 'skyblue',
+    // borderRadius: 18,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   contentWrapper: {
     backgroundColor: 'white',

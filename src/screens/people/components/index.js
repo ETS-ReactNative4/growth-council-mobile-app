@@ -10,11 +10,11 @@ import {
   TouchableOpacity,
   Dimensions,
   Modal,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
@@ -116,7 +116,7 @@ const People = props => {
                 fontFamily: Typography.FONT_SF_REGULAR,
                 color: '#222B45',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 12, color: '#222B45'}}>
               {item?.user_email}
@@ -128,19 +128,19 @@ const People = props => {
           {!memberConnection[index]?.connection && (
             <TouchableOpacity
               onPress={() => connectMemberByMemberID(item.ID, index)}>
-              <Feather
-                name="plus-circle"
-                size={25}
-                color="skyblue"
+              <Ionicons
+                name="add-circle"
+                size={30}
+                color="#B2B3B9"
                 style={{marginTop: 25}}
               />
             </TouchableOpacity>
           )}
           {memberConnection[index]?.connection && (
-            <Feather
+            <Material
               name="check-circle"
-              size={25}
-              color="skyblue"
+              size={30}
+              color="#14A2E2"
               style={{marginTop: 25}}
             />
           )}
@@ -152,168 +152,166 @@ const People = props => {
   const [pickerVisible, setPickerVisible] = useState(false);
 
   return (
-	  
-	<SafeAreaView style={{flex: 1}}>
-		 <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-      }}>
-      <View style={styles.container}>
-        <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
-          <Searchbar
-            style={styles.input}
-            placeholder="Search"
-            keyboardType="default"
-            value={searchKey}
-            onChangeText={async text => {
-              setSearchKey(text);
-              await fetchAllUsers({
-                s: text,
-                sort: sorting,
-                expertise_areas: category,
-              });
-            }}
-          />
-        </View>
-        <View style={styles.iconWrapper}>
-          <TouchableOpacity
-            onPress={() => setPickerVisible(true)}
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              borderWidth: 1,
-              paddingVertical: 10,
-              borderRadius: 10,
-              borderColor: 'gray',
-              marginRight: 30,
-            }}>
-            <Text style={{fontSize: 14, color: '#222B45'}}>
-              {category ? category : 'Select Expertise Areas'}
-            </Text>
-          </TouchableOpacity>
-          <View style={styles.icon}>
-            <Ionicons
-              name="arrow-up"
-              size={20}
-              color="#7E7F84"
-              onPress={async () => {
-                setSorting('DESC');
-
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+        }}>
+        <View style={styles.container}>
+          <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
+            <Searchbar
+              style={styles.input}
+              placeholder="Search"
+              keyboardType="default"
+              value={searchKey}
+              onChangeText={async text => {
+                setSearchKey(text);
                 await fetchAllUsers({
-                  s: searchKey,
-                  sort: 'DESC',
+                  s: text,
+                  sort: sorting,
                   expertise_areas: category,
                 });
               }}
             />
-            <Ionicons
-              name="arrow-down"
-              size={20}
-              color="#7E7F84"
-              onPress={async () => {
-                setSorting('ASC');
-
-                await fetchAllUsers({
-                  s: searchKey,
-                  sort: 'ASC',
-                  expertise_areas: category,
-                });
-              }}
-            />
-            <Text style={styles.textWrapper}>Sort</Text>
           </View>
-        </View>
-        {userLoading && (
-          <View style={styles.loading1}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
-
-        <View style={{marginTop: 10}}>
-          {memberConnectionLoading && (
-            <View
-              style={{
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                justifyContent: 'center',
-                alignItems: 'center',
-                position: 'absolute',
-                zIndex: 1011,
-              }}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
-          <FlatList
-            vertical
-            showsVerticalScrollIndicator={false}
-            data={users}
-            renderItem={_renderItem}
-          />
-        </View>
-      </View>
-      <Footer />
-      <Modal transparent visible={pickerVisible}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(56,56,56,0.3)',
-            justifyContent: 'flex-end',
-          }}>
-          <View
-            style={{
-              height: 300,
-              backgroundColor: 'white',
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              padding: 20,
-            }}>
+          <View style={styles.iconWrapper}>
             <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => setPickerVisible(false)}
-              style={{alignItems: 'flex-end'}}>
-              <Text
-                style={{
-                  padding: 15,
-                  fontSize: 18,
-                }}>
-                Done
+              onPress={() => setPickerVisible(true)}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                borderWidth: 1,
+                paddingVertical: 10,
+                borderRadius: 10,
+                borderColor: 'gray',
+                marginRight: 30,
+              }}>
+              <Text style={{fontSize: 14, color: '#222B45'}}>
+                {category ? category : 'Select Expertise Areas'}
               </Text>
             </TouchableOpacity>
-            <View style={{marginBottom: 40}}>
-              <Picker
-                selectedValue={category}
-                mode="dropdown"
-                itemTextStyle={{fontSize: 12}}
-                onValueChange={async (itemValue, itemIndex) => {
-                  setCategory(itemValue);
+            <View style={styles.icon}>
+              <Ionicons
+                name="arrow-up"
+                size={20}
+                color="#7E7F84"
+                onPress={async () => {
+                  setSorting('DESC');
+
+                  await fetchAllUsers({
+                    s: searchKey,
+                    sort: 'DESC',
+                    expertise_areas: category,
+                  });
+                }}
+              />
+              <Ionicons
+                name="arrow-down"
+                size={20}
+                color="#7E7F84"
+                onPress={async () => {
+                  setSorting('ASC');
+
                   await fetchAllUsers({
                     s: searchKey,
                     sort: 'ASC',
                     expertise_areas: category,
                   });
-                }}>
-                {Object.keys(expertise).map(key => {
-                  return (
-                    <Picker.Item
-                      label={expertise[key]}
-                      value={key}
-                      key={key}
-                      style={{fontSize: 14}}
-                    />
-                  );
-                })}
-              </Picker>
+                }}
+              />
+              <Text style={styles.textWrapper}>Sort</Text>
             </View>
           </View>
+          {userLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
+
+          <View style={{marginTop: 10}}>
+            {memberConnectionLoading && (
+              <View
+                style={{
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  zIndex: 1011,
+                }}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
+            <FlatList
+              vertical
+              showsVerticalScrollIndicator={false}
+              data={users}
+              renderItem={_renderItem}
+            />
+          </View>
         </View>
-      </Modal>
-    </ScrollView>
-	<BottomNav {...props} navigation={navigation}/>
-	</SafeAreaView>
-   
+        <Footer />
+        <Modal transparent visible={pickerVisible}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'rgba(56,56,56,0.3)',
+              justifyContent: 'flex-end',
+            }}>
+            <View
+              style={{
+                height: 300,
+                backgroundColor: 'white',
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+                padding: 20,
+              }}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setPickerVisible(false)}
+                style={{alignItems: 'flex-end'}}>
+                <Text
+                  style={{
+                    padding: 15,
+                    fontSize: 18,
+                  }}>
+                  Done
+                </Text>
+              </TouchableOpacity>
+              <View style={{marginBottom: 40}}>
+                <Picker
+                  selectedValue={category}
+                  mode="dropdown"
+                  itemTextStyle={{fontSize: 12}}
+                  onValueChange={async (itemValue, itemIndex) => {
+                    setCategory(itemValue);
+                    await fetchAllUsers({
+                      s: searchKey,
+                      sort: 'ASC',
+                      expertise_areas: category,
+                    });
+                  }}>
+                  {Object.keys(expertise).map(key => {
+                    return (
+                      <Picker.Item
+                        label={expertise[key]}
+                        value={key}
+                        key={key}
+                        style={{fontSize: 14}}
+                      />
+                    );
+                  })}
+                </Picker>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
+    </SafeAreaView>
   );
 };
 

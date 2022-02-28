@@ -128,7 +128,7 @@ const ManageAccount = props => {
         await updateImage({attachment_id: response?.payload?.id})
 		.then(response => {
             if (response?.payload?.code === 200) {
-              navigation.navigate('Person');
+              navigation.navigate('Account');
               ToastMessage.show('Profile Image has been successfully updated.');
             }
           },
@@ -154,7 +154,7 @@ const ManageAccount = props => {
         await updateImage({attachment_id: response?.payload?.id})
 		.then(response => {
             if (response?.payload?.code === 200) {
-              navigation.navigate('Person');
+              navigation.navigate('Account');
               ToastMessage.show('Profile Image has been successfully updated.');
             }
           },

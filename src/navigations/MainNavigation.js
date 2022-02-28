@@ -58,10 +58,46 @@ export const DashboardStackScreen = () => {
         header: () => <MainHeader navigation={navigation} />,
       })}>
       <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
-      <DashboardStack.Screen name="Calendars" component={CalendarScreen} />
+      <DashboardStack.Screen
+        name="Calendars"
+        component={CalendarScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Calendar"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
-      <DashboardStack.Screen name="People" component={PeopleScreen} />
-      <DashboardStack.Screen name="Person" component={AccountScreen} />
+      <DashboardStack.Screen
+        name="People"
+        component={PeopleScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Member Connection"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <DashboardStack.Screen
+        name="Account"
+        component={AccountScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Profile"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
     </DashboardStack.Navigator>
   );
 };
