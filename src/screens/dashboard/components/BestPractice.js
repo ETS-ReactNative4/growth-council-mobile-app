@@ -91,24 +91,8 @@ const BestPractice = props => {
   );
 
   useEffect(() => {
-    setMemberConnection(pillarMemberContents);
-  }, [pillarMemberContents]);
-
-  const connectMemberByMemberID = async (memberID, index) => {
-    const response = await connectMemberByIdentifier({member_id: memberID});
-    if (response?.payload?.code === 200) {
-      let items = [...memberConnection];
-      let item = {...items[index]};
-      item.connection = true;
-      items[index] = item;
-      setMemberConnection(items);
-      ToastMessage.show('You have successfully connected.');
-    } else {
-      toast.closeAll();
-      ToastMessage.show(response?.payload?.response);
-    }
-    console.log(response);
-  };
+    setMemberConnection(pillarMemberContents.members);
+  }, [pillarMemberContents.members]);
 
   const _renderTopItem = ({item, index}, navigation) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -162,7 +146,7 @@ const BestPractice = props => {
     );
   };
 
-  const _renderItem = ({item, index}, navigation) => {
+  const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
@@ -197,11 +181,7 @@ const BestPractice = props => {
             </TouchableOpacity>
           )}
           {memberConnection[index]?.connection && (
-            <Material
-              name="check-circle"
-              size={20}
-              color="#14A2E2"
-            />
+            <Material name="check-circle" size={20} color="#14A2E2" />
           )}
         </View>
       </View>
@@ -293,7 +273,8 @@ const BestPractice = props => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 data={pillarMemberContents?.members}
-                renderItem={item => _renderItem(item, navigation)}
+                renderItem={_renderItem}
+                // renderItem={item => _renderItem(item, navigation)}
               />
             </View>
           </View>

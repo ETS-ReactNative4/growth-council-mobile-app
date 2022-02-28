@@ -34,11 +34,13 @@ const HomeCommunity = props => {
     pillarEventError,
     fetchAllPillarEvent,
     cleanPillarEvent,
+
     pillarMemberContents,
     pillarMemberContentLoading,
     pillarMemberContentError,
     fetchAllPillarMemberContent,
     cleanPillarMemberContent,
+
     pillarPOEs,
     pillarPOELoading,
     pillarPOEError,
@@ -84,21 +86,17 @@ const HomeCommunity = props => {
         await fetchAllPillarMemberContent(pillarId);
       };
       fetchAllPillarMemberContentAsync();
-
-      return () => {
-        cleanPillarMemberContent();
-      };
     }, [isFocused]),
   );
 
   useEffect(() => {
-    setMemberConnection(pillarMemberContents);
-  }, [pillarMemberContents]);
+    setMemberConnection(pillarMemberContents.members);
+  }, [pillarMemberContents.members]);
 
 
   const _renderItem = ({item, index}) => {
     return (
-      <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
+      <View style={[styles.bottomWrapper, styles.shadowProp]}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
@@ -131,11 +129,7 @@ const HomeCommunity = props => {
             </TouchableOpacity>
           )}
           {memberConnection[index]?.connection && (
-            <Material
-              name="check-circle"
-              size={20}
-              color="#14A2E2"
-            />
+            <Material name="check-circle" size={20} color="#14A2E2" />
           )}
         </View>
       </View>
@@ -285,8 +279,8 @@ const HomeCommunity = props => {
               <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents?.members}
-                renderItem={_renderItem}
+                data={pillarMemberContents.members}
+				renderItem={_renderItem}
               />
             </View>
           </View>

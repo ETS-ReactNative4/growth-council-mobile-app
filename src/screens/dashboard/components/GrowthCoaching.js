@@ -19,7 +19,7 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
-import BottomNav from '../../../layout/BottomLayout';;
+import BottomNav from '../../../layout/BottomLayout';
 import Player from './Player';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -49,8 +49,8 @@ const GrowthCoaching = props => {
   } = props;
 
   const pillarId = 119;
-  const isFocused = useIsFocused();
 
+  const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
   useFocusEffect(
@@ -85,6 +85,7 @@ const GrowthCoaching = props => {
         await fetchAllPillarMemberContent(pillarId);
       };
       fetchAllPillarMemberContentAsync();
+
       return () => {
         cleanPillarMemberContent();
       };
@@ -92,27 +93,10 @@ const GrowthCoaching = props => {
   );
 
   useEffect(() => {
-    setMemberConnection(pillarMemberContents);
-  }, [pillarMemberContents]);
+    setMemberConnection(pillarMemberContents.members);
+  }, [pillarMemberContents.members]);
 
-  const connectMemberByMemberID = async (memberID, index) => {
-    const response = await connectMemberByIdentifier({member_id: memberID});
-    if (response?.payload?.code === 200) {
-      let items = [...memberConnection];
-      let item = {...items[index]};
-      item.connection = true;
-      items[index] = item;
-      setMemberConnection(items);
-      ToastMessage.show('You have successfully connected.');
-    } else {
-      toast.closeAll();
-      ToastMessage.show(response?.payload?.response);
-    }
-    console.log(response);
-  };
-
-
-  const _renderItem = ({item, index}, navigation) => {
+  const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]}>
         <TouchableOpacity
@@ -141,17 +125,13 @@ const GrowthCoaching = props => {
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-		{!memberConnection[index]?.connection && (
+          {!memberConnection[index]?.connection && (
             <TouchableOpacity onPress={() => navigation.navigate('People')}>
               <Ionicons name="add-circle" size={20} color="#B2B3B9" />
             </TouchableOpacity>
           )}
           {memberConnection[index]?.connection && (
-            <Material
-              name="check-circle"
-              size={20}
-              color="#14A2E2"
-            />
+            <Material name="check-circle" size={20} color="#14A2E2" />
           )}
         </View>
       </View>
@@ -257,90 +237,84 @@ const GrowthCoaching = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    return (
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
-	<SafeAreaView style={{flex: 1}}>
-		<ScrollView
-		showsVerticalScrollIndicator={false}
-		style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
-		<View style={styles.container}>
-			<View style={styles.top}>
-			<Text style={styles.title}>Growth Coaching Events</Text>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+        <View style={styles.container}>
+          <View style={styles.top}>
+            <Text style={styles.title}>Growth Coaching Events</Text>
 
-			<View
-				style={{
-				display: 'flex',
-				flexDirection: 'row',
-				}}>
-				<FlatList
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={pillarEvents}
-				//renderItem={_renderTopItem}
-				renderItem={item => _renderTopItem(item, navigation)}
-				/>
-			</View>
-			</View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarEvents}
+                //renderItem={_renderTopItem}
+                renderItem={item => _renderTopItem(item, navigation)}
+              />
+            </View>
+          </View>
 
-			<View style={styles.middle}>
-			<Text style={styles.title}>Points of Engagement</Text>
+          <View style={styles.middle}>
+            <Text style={styles.title}>Points of Engagement</Text>
 
-			{pillarEventLoading && (
-				<View style={styles.loading1}>
-				<BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-				</View>
-			)}
+            {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
 
-			<FlatList
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={pillarPOEs}
-				renderItem={_renderMiddleItem}
-				// renderItem={item => _renderMiddleItem(item, navigation)}
-			/>
-			</View>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={pillarPOEs}
+              renderItem={_renderMiddleItem}
+              // renderItem={item => _renderMiddleItem(item, navigation)}
+            />
+          </View>
 
-			<View style={styles.bottom}>
-			<Text style={styles.title}>Growth Coaching Members</Text>
-			<View>
-				<FlatList
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={pillarMemberContents.members}
-				// renderItem={_renderItem}
-				renderItem={item => _renderItem(item, navigation)}
-				/>
-			</View>
-			</View>
+          <View style={styles.bottom}>
+            <Text style={styles.title}>Growth Coaching Members</Text>
+            <View>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarMemberContents.members}
+                renderItem={_renderItem}
+                // renderItem={item => _renderItem(item, navigation)}
+              />
+            </View>
+          </View>
 
-			<View style={styles.content}>
-			<Text style={styles.title}>Growth Coaching Content</Text>
-			<View
-				style={{
-				display: 'flex',
-				flexDirection: 'row',
-				}}>
-				<FlatList
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={pillarMemberContents?.pillar_contents}
-				renderItem={_renderContentItem}
-				/>
-			</View>
-			</View>
-			<Footer />
-		</View>
-		
-		</ScrollView>
-		<BottomNav {...props} navigation={navigation}/>
-	</SafeAreaView>
+          <View style={styles.content}>
+            <Text style={styles.title}>Growth Coaching Content</Text>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarMemberContents?.pillar_contents}
+                renderItem={_renderContentItem}
+              />
+            </View>
+          </View>
+          <Footer />
+        </View>
+      </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
+    </SafeAreaView>
   );
 };
 
@@ -359,7 +333,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.PRIMARY_TEXT_COLOR,
     marginLeft: 15,
-	fontWeight: '700',
+    fontWeight: '700',
   },
 
   topWrapper: {
