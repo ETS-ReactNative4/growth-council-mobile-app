@@ -137,7 +137,7 @@ const GrowthDetail = props => {
           </View>
         </TouchableOpacity>
 
-        <View style={styles.chatIcon}>
+        {/* <View style={styles.chatIcon}>
 		{!memberConnection[index]?.connection && (
             <TouchableOpacity onPress={() => navigation.navigate('People')}>
               <Ionicons name="add-circle" size={20} color="#B2B3B9" />
@@ -151,7 +151,7 @@ const GrowthDetail = props => {
               style={{marginTop: 25}}
             />
           )}
-        </View>
+        </View> */}
       </View>
     );
   };
