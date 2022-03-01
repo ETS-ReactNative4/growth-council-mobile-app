@@ -17,7 +17,6 @@ import {
 import {BubblesLoader} from 'react-native-indicator';
 import ToastMessage from '../../../shared/toast';
 import {store} from '../../../utils/httpUtil';
-import {useScrollToTop} from '@react-navigation/native';
 
 const SelfAssessment = props => {
   const {

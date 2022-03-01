@@ -224,16 +224,30 @@ const MainNavigation = props => {
         <Stack.Screen
           name="coachingSession"
           component={CoachingSessionDetailScreen}
-          options={{
-            headerTitle: 'Session',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Session"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="selfAssessment"
           component={SelfAssessment}
-          options={{
-            headerTitle: 'Session',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Session"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="selflearn"

@@ -2,7 +2,7 @@ import React,{useRef} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import HTMLView from 'react-native-htmlview';
 import {Typography} from '../../../theme';
-import {useScrollToTop} from '@react-navigation/native';
+
 import TraitsQuestion from './traitsQuestion';
 
 const Traits = props => {
@@ -29,17 +29,11 @@ const Traits = props => {
     UpdateTraitsAnswer,
   } = props;
 
-  const ref = useRef(null);
-
-  useScrollToTop(
-    useRef({
-      scrollToTop: () => ref.current?.scrollToOffset({offset: -100}),
-    }),
-  );
+  
 
  
   return (
-	<ScrollView style={styles.scrollBox} ref={ref} >
+	<ScrollView style={styles.scrollBox} >
     <View >
       {subTraits?.sub_traits[count]?.questions?.map((question, index) => (
         <TraitsQuestion

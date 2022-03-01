@@ -18,9 +18,7 @@ const TraitsQuestion = props => {
     }
   }, [count, answers]);
 
-  useEffect(() => {
-    scrollTo(0, 0);
-  });
+
 
   return (
     <View style={[styles.questionWrapper, styles.shadowProp]}>
