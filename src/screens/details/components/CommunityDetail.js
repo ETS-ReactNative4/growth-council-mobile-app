@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -16,6 +16,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
+import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -45,6 +46,9 @@ const CommunityDetail = props => {
     cleanPillarMemberContent,
   } = props;
 
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useEffect(() => {
     const fetchEventDetailAsync = async () => {
       await fetchSessionDetailByIdentifier(route.params.id);
@@ -71,7 +75,27 @@ const CommunityDetail = props => {
       await fetchAllPillarMemberContent(route.params.pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
+
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents);
+  }, [pillarMemberContents]);
+
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+    console.log(response);
+  };
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -93,17 +117,17 @@ const CommunityDetail = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: Colors.TERTIARY_TEXT_COLOR,
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
 
-        <View style={styles.chatIcon}>
+        {/* <View style={styles.chatIcon}>
           <TouchableOpacity onPress={() => navigation.navigate('People')}>
             <Ionicons name={'add'} size={15} color="#B1AFAF" />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     );
   };
