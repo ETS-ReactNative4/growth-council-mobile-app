@@ -219,19 +219,18 @@ const People = props => {
               <Text style={styles.textWrapper}>Sort</Text>
             </View>
           </View>
-          {userLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
         </View>
 
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
-
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
           }}>
+          {userLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
           <View style={{marginTop: 10}}>
             {memberConnectionLoading && (
               <View

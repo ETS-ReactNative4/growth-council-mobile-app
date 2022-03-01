@@ -58,19 +58,6 @@ export const DashboardStackScreen = () => {
         header: () => <MainHeader navigation={navigation} />,
       })}>
       <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
-      <DashboardStack.Screen
-        name="Calendars"
-        component={CalendarScreen}
-        options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Calendar"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen
         name="People"
