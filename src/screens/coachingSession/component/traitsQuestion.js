@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
+
 import {Typography} from '../../../theme';
+import {ScrollView} from 'native-base';
 
 const TraitsQuestion = props => {
   const {question, answers, count, setAnswers, questionIndex, traitIndex} =
@@ -15,6 +17,8 @@ const TraitsQuestion = props => {
       setStatus(answers?.questions?.innovativeIndex[count]);
     }
   }, [count, answers]);
+
+
 
   return (
     <View style={[styles.questionWrapper, styles.shadowProp]}>
