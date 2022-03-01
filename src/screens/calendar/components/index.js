@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
   eventDateText: {
     textAlign: 'center',
     color: '#030303',
-    fontSize: 14,
+    fontSize: 12,
   },
   buttonWrapper: {
     width: 350,
