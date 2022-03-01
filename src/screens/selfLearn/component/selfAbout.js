@@ -143,7 +143,7 @@ const selfAbout = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    margin: 15,
+    marginLeft: 15,
   },
   learnWrapper: {
     height: 252,

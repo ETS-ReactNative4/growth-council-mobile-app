@@ -238,9 +238,16 @@ const MainNavigation = props => {
         <Stack.Screen
           name="selflearn"
           component={SelfLearnDetailScreen}
-          options={{
-            headerTitle: 'Self Learn',
-          }}
+		  options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Self Learn"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="pdf"
