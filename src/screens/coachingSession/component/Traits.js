@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{useRef} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import HTMLView from 'react-native-htmlview';
-
 import {Typography} from '../../../theme';
+
 import TraitsQuestion from './traitsQuestion';
 
 const Traits = props => {
@@ -29,8 +29,12 @@ const Traits = props => {
     UpdateTraitsAnswer,
   } = props;
 
+  
+
+ 
   return (
-    <View>
+	<ScrollView style={styles.scrollBox} >
+    <View >
       {subTraits?.sub_traits[count]?.questions?.map((question, index) => (
         <TraitsQuestion
           {...props}
@@ -40,15 +44,18 @@ const Traits = props => {
           question={question}
           questionIndex={index}
           key={index}
+		  
+		  
         />
       ))}
 
-      <ScrollView style={styles.scrollBox}>
+      
         <View style={{marginTop: 25}}>
           <HTMLView value={subTraits?.sub_traits[count]?.content} />
         </View>
-      </ScrollView>
+     
     </View>
+	 </ScrollView>
   );
 };
 
