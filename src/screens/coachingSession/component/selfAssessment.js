@@ -150,15 +150,19 @@ const SelfAssessment = props => {
               value={value}
               onSelect={val => setValue(val)}
               style={{
+				  flex:0,
                 height: 30,
                 marginTop: 5,
-                width: '95%',
-                marginLeft: 5,
+                width: '98%',
+                marginLeft: 4,
                 borderRadius: 15,
               }}
               textStyle={{
+				
+				paddingHorizontal:0,
+				paddingLeft:5,
                 fontSize: 10,
-                width: '99%',
+                width: '100%',
               }}
             />
           </View>
