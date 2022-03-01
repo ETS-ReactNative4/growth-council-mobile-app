@@ -153,12 +153,8 @@ const People = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-        }}>
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <View style={{marginBottom: 10}}>
           <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
             <Searchbar
               style={styles.input}
@@ -228,7 +224,14 @@ const People = props => {
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
+        </View>
 
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+          }}>
           <View style={{marginTop: 10}}>
             {memberConnectionLoading && (
               <View
@@ -252,64 +255,65 @@ const People = props => {
               renderItem={_renderItem}
             />
           </View>
-        </View>
-        <Footer />
-        <Modal transparent visible={pickerVisible}>
+        </ScrollView>
+      </View>
+      <Footer />
+      <Modal transparent visible={pickerVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
           <View
             style={{
-              flex: 1,
-              backgroundColor: 'rgba(56,56,56,0.3)',
-              justifyContent: 'flex-end',
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
             }}>
-            <View
-              style={{
-                height: 300,
-                backgroundColor: 'white',
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                padding: 20,
-              }}>
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => setPickerVisible(false)}
-                style={{alignItems: 'flex-end'}}>
-                <Text
-                  style={{
-                    padding: 15,
-                    fontSize: 18,
-                  }}>
-                  Done
-                </Text>
-              </TouchableOpacity>
-              <View style={{marginBottom: 40}}>
-                <Picker
-                  selectedValue={category}
-                  mode="dropdown"
-                  itemTextStyle={{fontSize: 12}}
-                  onValueChange={async (itemValue, itemIndex) => {
-                    setCategory(itemValue);
-                    await fetchAllUsers({
-                      s: searchKey,
-                      sort: 'ASC',
-                      expertise_areas: category,
-                    });
-                  }}>
-                  {Object.keys(expertise).map(key => {
-                    return (
-                      <Picker.Item
-                        label={expertise[key]}
-                        value={key}
-                        key={key}
-                        style={{fontSize: 14}}
-                      />
-                    );
-                  })}
-                </Picker>
-              </View>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setPickerVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={category}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 12}}
+                onValueChange={async (itemValue, itemIndex) => {
+                  setCategory(itemValue);
+                  await fetchAllUsers({
+                    s: searchKey,
+                    sort: 'ASC',
+                    expertise_areas: category,
+                  });
+                }}>
+                {Object.keys(expertise).map(key => {
+                  return (
+                    <Picker.Item
+                      label={expertise[key]}
+                      value={key}
+                      key={key}
+                      style={{fontSize: 14}}
+                    />
+                  );
+                })}
+              </Picker>
             </View>
           </View>
-        </Modal>
-      </ScrollView>
+        </View>
+      </Modal>
+
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );

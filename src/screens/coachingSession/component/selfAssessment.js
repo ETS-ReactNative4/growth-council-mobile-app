@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button} from 'native-base';
@@ -17,6 +17,7 @@ import {
 import {BubblesLoader} from 'react-native-indicator';
 import ToastMessage from '../../../shared/toast';
 import {store} from '../../../utils/httpUtil';
+import {useScrollToTop} from '@react-navigation/native';
 
 const SelfAssessment = props => {
   const {
@@ -53,9 +54,12 @@ const SelfAssessment = props => {
 
   const [subTraits, setSubTraits] = useState(traits[index.traitIndex]);
 
+
   useEffect(() => {
     setSubTraits(traits[index.traitIndex]);
   }, [traits]);
+
+  
 
   const fetchAllSubTrait = identifier => {
     dispatch(fetchAllSubTraits(identifier));
@@ -150,7 +154,7 @@ const SelfAssessment = props => {
               value={value}
               onSelect={val => setValue(val)}
               style={{
-				  flex:0,
+                flex: 0,
                 height: 30,
                 marginTop: 5,
                 width: '98%',
@@ -158,9 +162,8 @@ const SelfAssessment = props => {
                 borderRadius: 15,
               }}
               textStyle={{
-				
-				paddingHorizontal:0,
-				paddingLeft:5,
+                paddingHorizontal: 0,
+                paddingLeft: 5,
                 fontSize: 10,
                 width: '100%',
               }}
@@ -207,6 +210,7 @@ const SelfAssessment = props => {
                 fetchTraitsAnswer={fetchTraitsAnswer}
                 updateTraitsAnswer={updateTraitsAnswer}
                 cleanTraitsAnswer={cleanTraitsAnswer}
+				
               />
             )}
           </View>
