@@ -106,9 +106,9 @@ const EventCalendar = props => {
     // const actualDate = moment(item.event_start).format('ll').split(',', 3);
     // const date = actualDate[0].split(' ', 3);
     const actualDate = moment(item.event_start).format('D MMMM ');
-    const eventStart = moment(item.event_start).format('D MMMM /');
+    const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
-
+	
     //time
     let time = moment(item.event_start).format('h:mma');
 
@@ -177,7 +177,9 @@ const EventCalendar = props => {
                 <Text style={styles.eventDateText}>
                   {actualDate === eventEnd
                     ? actualDate
-                    : actualDate + eventStart.split(/(\s+)/)[4] + eventEnd}
+                    : eventStart.split(/(\s+)/)[0] +
+                      eventStart.split(/(\s+)/)[4] +
+                      eventEnd}
                 </Text>
               </View>
             </View>
@@ -402,16 +404,15 @@ const styles = StyleSheet.create({
   },
   eventDate: {
     flex: 1,
-    padding: 5,
+    padding: 10,
     backgroundColor: 'rgba(245,245,245,1)',
     borderRadius: 10,
-	justifyContent:'center',
-	alignContent:'center'
+    fontSize: 18,
   },
   eventDateText: {
     textAlign: 'center',
     color: '#030303',
-    fontSize: 11,
+    fontSize: 14,
   },
   buttonWrapper: {
     width: 350,
