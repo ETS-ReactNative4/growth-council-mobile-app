@@ -425,7 +425,6 @@ const styles = StyleSheet.create({
   eventDate: {
     flex: 1,
     padding: 5,
-
     backgroundColor: 'rgba(245,245,245,1)',
     borderRadius: 10,
     justifyContent: 'center',
@@ -434,7 +433,7 @@ const styles = StyleSheet.create({
   eventDateText: {
     textAlign: 'center',
     color: '#030303',
-    fontSize: 11,
+    fontSize: 12,
   },
   buttonWrapper: {
     width: 350,
