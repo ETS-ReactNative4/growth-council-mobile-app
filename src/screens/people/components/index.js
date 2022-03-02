@@ -11,6 +11,7 @@ import {
   Dimensions,
   Modal,
   SafeAreaView,
+  RefreshControl,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -55,7 +56,7 @@ const People = props => {
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
-
+ 
   useEffect(() => {
     const fetchAllUsersAsync = async () => {
       await fetchAllUsers({
@@ -90,6 +91,11 @@ const People = props => {
       item.connection = true;
       items[index] = item;
       setMemberConnection(items);
+	  fetchAllUsers({
+        s: searchKey,
+        sort: sorting,
+        expertise_areas: category,
+      })
       ToastMessage.show('You have successfully connected.');
     } else {
       toast.closeAll();
@@ -161,7 +167,8 @@ const People = props => {
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-        }}>
+        }}
+	>
         <View style={styles.container}>
           <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
             <Searchbar
