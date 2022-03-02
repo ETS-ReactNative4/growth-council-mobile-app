@@ -55,63 +55,15 @@ const SelfLearn = props => {
 
         <View>
           <View style={[styles.content, {height: 'auto'}]}>
-            <View style={{display: 'flex', flexDirection: 'row', padding: 15}}>
-              <View style={styles.buttonWrapper}>
-                <ButtonToggleGroup
-                  highlightBackgroundColor={'white'}
-                  highlightTextColor={'#0B0B45'}
-                  inactiveBackgroundColor={'transparent'}
-                  inactiveTextColor={'grey'}
-                  values={['About', 'Self Assessment']}
-                  value={value}
-                  onSelect={val => setValue(val)}
-                  style={{
-                    height: 30,
-                    marginTop: 5,
-                    width: '90%',
-                    marginLeft: 10,
-                    fontSize: 12,
-                    borderRadius: 15,
-                  }}
-                />
-              </View>
-
-              <Ionicons
-                name={'menu'}
-                size={35}
-                color={'black'}
-                style={{marginLeft: 15}}
-              />
-            </View>
 
             <View style={{marginTop: 15}}>
-              {value === 'About' && <SelfAbout {...props} />}
-              {value === 'Self Assessment' && (
-                <View>
-                  <SelfAssessment 
-				   {...props}
-				   traits={traits}
-				   traitsLoading={traitsLoading}
-				   traitsError={traitsError}
-				   fetchAllTraitBySession={fetchAllTraitBySession}
-				   cleanTraits={cleanTraits}
-				   answers={answers}
-				   setAnswers={setAnswers}
-				   selectedId={selectedId}
-				   setSelectedId={setSelectedId}/>
-                </View>
-              )}
+              <SelfAbout {...props} />
+            
             </View>
           </View>
         </View>
       </View>
-      {/* <View style={{alignItems: 'center', width: '35%', marginLeft: 140, marginBottom: 10}}>
-                <Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-                <Image
-                    source={require('../../../assets/img/fristDigi.png')}
-                    style={{width: "100%", height: 20}}
-                />
-            </View> */}
+     
     </ScrollView>
   );
 };

@@ -3,25 +3,25 @@ import {Text, View} from 'react-native';
 import {getAsyncStorage} from '../../utils/storageUtil';
 import {USER_NAME} from '../../constants';
 import {Typography} from '../../theme';
+import {useIsFocused} from '@react-navigation/native';
 
-const HeaderTitle = () => {
+const HeaderTitle = props => {
   const [username, setUsername] = useState(null);
+  const isFocused = useIsFocused();
+
+  const {profile, fetchProfileByIdentifier, profileLoading} = props;
 
   useEffect(() => {
-    async function myName() {
-      const name = await getAsyncStorage(USER_NAME);
-      await setUsername(name);
-    }
+    fetchProfileByIdentifier();
+  }, [isFocused]);
 
-    myName();
-  }, []);
 
   return (
-    <View style={{marginLeft: Platform.OS === 'ios' ? 5 : 40, marginTop: Platform.OS === 'ios' ? 10 : 10}}>
+    <View style={{marginLeft: 20}}>
       <Text
         style={{
           color: 'white',
-          fontSize:  Platform.OS === 'ios' ? 8: 10,
+          fontSize: Platform.OS === 'ios' ? 8 : 10,
           fontFamily: Typography.FONT_SF_MEDIUM,
         }}>
         Hello,
@@ -33,7 +33,7 @@ const HeaderTitle = () => {
           fontSize: Platform.OS === 'ios' ? 16 : 18,
           fontWeight: 'normal',
         }}>
-        {username}
+        {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
       </Text>
     </View>
   );

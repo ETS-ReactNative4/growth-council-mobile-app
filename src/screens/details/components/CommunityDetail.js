@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,12 +8,15 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from '../../dashboard/components/Player';
+import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -43,18 +46,14 @@ const CommunityDetail = props => {
     cleanPillarMemberContent,
   } = props;
 
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useEffect(() => {
     const fetchEventDetailAsync = async () => {
       await fetchSessionDetailByIdentifier(route.params.id);
     };
     fetchEventDetailAsync();
-  }, []);
-
-  useEffect(() => {
-    const fetchAllbestPracticeMemberContentAsync = async () => {
-      await fetchAllbestPracticesMemberContent();
-    };
-    fetchAllbestPracticeMemberContentAsync();
   }, []);
 
   useEffect(() => {
@@ -76,18 +75,37 @@ const CommunityDetail = props => {
       await fetchAllPillarMemberContent(route.params.pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
 
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents);
+  }, [pillarMemberContents]);
+
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+    console.log(response);
+  };
 
   const _renderItem = ({item, index}, navigation) => {
     return (
-		<View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
+      <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
             source={{uri: item.avatar}}
             style={{
-              width: 83,
+              width: '100%',
               height: 83,
               borderRadius: 10,
             }}
@@ -99,17 +117,17 @@ const CommunityDetail = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: Colors.TERTIARY_TEXT_COLOR,
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
 
-        <View style={styles.chatIcon}>
+        {/* <View style={styles.chatIcon}>
           <TouchableOpacity onPress={() => navigation.navigate('People')}>
             <Ionicons name={'add'} size={15} color="#B1AFAF" />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     );
   };
@@ -118,6 +136,32 @@ const CommunityDetail = props => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
     console.log(date[1]);
+
+    let backgroundImage = '';
+    switch (item?.pillar_categories[0]?.parent) {
+      case 119:
+        backgroundImage = require('../../../assets/img/Rectangle.png');
+        break;
+      case 118:
+        backgroundImage = require('../../../assets/img/Rectangle1.png');
+        break;
+      default:
+        backgroundImage = require('../../../assets/img/Rectangle2.png');
+    }
+
+    let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined) {
+      organizer = ' ';
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
@@ -128,7 +172,7 @@ const CommunityDetail = props => {
               height: '100%',
               borderRadius: 20,
             }}
-            source={require('../../../assets/img/blank_event_design.png')}>
+            source={backgroundImage}>
             <View
               style={{
                 width: 40,
@@ -147,9 +191,7 @@ const CommunityDetail = props => {
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
-                {'  '}
-                {item?.organizer?.description}
+                {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -158,128 +200,129 @@ const CommunityDetail = props => {
     );
   };
 
-
-
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
-    );
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
-
+  let backgroundColor = '';
+  const parent = poeDetails?.parent;
+  switch (parent) {
+    case 118:
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+    case 117:
+      backgroundColor = Colors.COMMUNITY_COLOR;
+      break;
+    case 119:
+      backgroundColor = Colors.COACHING_COLOR;
+  }
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <ScrollView
+      style={{
+        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+      }}>
       <View style={styles.container}>
         <ImageBackground
           source={{uri: poeDetails?.pillar_detail_image}}
-          style={{height: 400}}>
+          style={{height: 240, width: '100%'}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
           </TouchableOpacity>
-
-          <View style={styles.icon}>	
-            <Image
-              source={{uri: poeDetails?.image}}
-              style={{
-                width: 30,
-                height: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            />
-			  
-          </View>
-		 
-          <View style={styles.content}>
-            <View style={styles.contentWrapper}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  color: '#1E2022',
-                  textAlign: 'center',
-                  marginTop: 50,
-                }}>
-                {poeDetails.name}
-              </Text>
-              
-              <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-              <View style={styles.top}>
-                <Text style={styles.title}> Events</Text>
-
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-				 {poeDetailLoading && (
-                <>
-                  <View
-                    style={{
-                      top: 10,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      position: 'absolute',
-                      zIndex: 1011,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )}
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={poeEvents}
-                    renderItem={_renderTopItem}
-                  />
-                </View>
-              </View>
-              <View style={styles.bottom}>
-                <Text style={styles.title}> Members</Text>
-                <View>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.members}
-					renderItem={item => _renderItem(item, navigation)}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.growthContent}>
-                <Text style={styles.title}> Growth Coaching Content</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.pillar_contents}
-                    renderItem={_renderContentItem}
-                  />
-                </View>
-              </View>
-
-              <Footer />
-            </View>
-          </View>
         </ImageBackground>
+
+        <View style={[styles.icon, styles.shadowProp]}>
+          <Image
+            source={{uri: poeDetails?.image}}
+            style={{
+              width: 35,
+              height: 35,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          />
+        </View>
+
+        <ScrollView
+          style={[styles.content, {backgroundColor: backgroundColor}]}>
+          <View style={styles.contentWrapper}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                color: '#1E2022',
+                textAlign: 'center',
+                marginTop: 50,
+              }}>
+              {poeDetails.name}
+            </Text>
+
+            <Text style={styles.paragraph}>{poeDetails.description}</Text>
+
+            <View style={styles.top}>
+              <Text style={styles.title}> Events</Text>
+
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={poeEvents}
+                  renderItem={_renderTopItem}
+                />
+              </View>
+            </View>
+            <View style={styles.bottom}>
+              <Text style={styles.title}> Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.members}
+                  renderItem={item => _renderItem(item, navigation)}
+                />
+              </View>
+            </View>
+
+            <View style={styles.growthContent}>
+              <Text style={styles.title}> Growth Coaching Content</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.pillar_contents}
+                  renderItem={_renderContentItem}
+                />
+              </View>
+            </View>
+
+            <Footer />
+          </View>
+        </ScrollView>
       </View>
+      {poeDetailLoading && (
+        <View
+          style={{
+            height: Dimensions.get('window').height,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            left: 0,
+            right: 0,
+          }}>
+          <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -287,7 +330,8 @@ const CommunityDetail = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1300,
+    alignItems: 'center',
+    position: 'relative',
   },
   arrow: {
     marginTop: 30,
@@ -304,23 +348,19 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-    marginLeft: Platform.OS === 'ios' ? 120 : 155,
-    marginTop: 190,
-    alignItems: 'center',
+    marginTop: 200,
     justifyContent: 'center',
     position: 'absolute',
+    alignItems: 'center',
     zIndex: 10,
-    borderWidth: 0.3,
   },
   content: {
-    backgroundColor: 'skyblue',
-    borderRadius: 18,
-    marginTop: 150,
+    // borderRadius: 18,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   contentWrapper: {
     backgroundColor: 'white',
-    borderRadius: 18,
-    height: 1300,
     overflow: 'scroll',
     marginTop: 10,
   },
@@ -333,7 +373,6 @@ const styles = StyleSheet.create({
     color: '#77838F',
   },
   top: {
-    height: 200,
     marginTop: 10,
     justifyContent: 'center',
   },
@@ -345,19 +384,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   bottom: {
-    height: 172,
     marginTop: 15,
   },
   bottomWrapper: {
-    width: 84,
+    width: Dimensions.get('window').width / 4,
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
     backgroundColor: 'white',
-    overflow: 'hidden',
-    // borderWidth:0.2,
   },
   chatIcon: {
     borderRadius: 50,
@@ -393,7 +429,6 @@ const styles = StyleSheet.create({
   },
 
   growthContent: {
-    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,

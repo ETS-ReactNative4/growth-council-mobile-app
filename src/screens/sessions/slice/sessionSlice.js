@@ -11,6 +11,7 @@ export const fetchSessionByID = createAsyncThunk(
   },
 );
 
+
 const sessionSlice = createSlice({
   name: 'session',
   initialState: {

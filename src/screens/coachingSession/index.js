@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-
+import {useIsFocused} from '@react-navigation/native';
 import CoachingSession from './component';
 import {fetchAllTraits, resetTraits} from './slice/sessionTraitsSlice';
 import {fetchSessionByID, resetSession} from '../sessions/slice/sessionSlice';
@@ -12,6 +12,7 @@ import {
 const CoachingSessionDetailScreen = props => {
   const dispatch = useDispatch();
   const {route} = props;
+  const isFocused = useIsFocused();
   const {traits, traitsLoading, traitsError} = useSelector(
     state => state.traits,
   );
@@ -26,7 +27,7 @@ const CoachingSessionDetailScreen = props => {
     return () => {
       cleanSession();
     };
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     fetchAllTraitBySessionId(sessions.ID);
@@ -58,10 +59,6 @@ const CoachingSessionDetailScreen = props => {
   const cleanSessionRegister = () => {
     dispatch(resetSessionRegister());
   };
-
-  if (traitsLoading && sessionLoading) {
-    return null;
-  }
 
   return (
     <CoachingSession

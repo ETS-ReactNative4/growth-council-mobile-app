@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -15,6 +15,8 @@ import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from '../../dashboard/components/Player';
+import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -51,6 +53,9 @@ const GrowthDetail = props => {
     cleanPoeSelfLearn,
   } = props;
 
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
       await fetchAllPOEDetail(route.params.poeId);
@@ -70,7 +75,7 @@ const GrowthDetail = props => {
       await fetchAllPillarMemberContent(route.params.pillarId);
     };
     fetchAllPillarMemberContentAsync();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     const fetchCoachingSessionAsync = async () => {
@@ -86,18 +91,35 @@ const GrowthDetail = props => {
     fetchPoeSelfLearnAsync();
   }, []);
 
-  console.log('Self Learn ====', poeSelfLearns);
-  console.log('session', route.params.poeId);
-  
+  useEffect(() => {
+    setMemberConnection(pillarMemberContents);
+  }, [pillarMemberContents]);
+
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+    console.log(response);
+  };
+
   const _renderItem = ({item, index}, navigation) => {
     return (
-		<View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
+      <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OthersAccount', {id: item.ID})}>
           <Image
             source={{uri: item.avatar}}
             style={{
-              width: 83,
+              width: '100%',
               height: 83,
               borderRadius: 10,
             }}
@@ -109,17 +131,27 @@ const GrowthDetail = props => {
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
                 color: Colors.TERTIARY_TEXT_COLOR,
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
 
-        <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
-        </View>
+        {/* <View style={styles.chatIcon}>
+		{!memberConnection[index]?.connection && (
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
+            <Material
+              name="check-circle"
+              size={20}
+              color="#14A2E2"
+              style={{marginTop: 25}}
+            />
+          )}
+        </View> */}
       </View>
     );
   };
@@ -165,7 +197,6 @@ const GrowthDetail = props => {
     );
   };
 
-
   const _renderMiddleItem = ({item, index}) => {
     const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
@@ -209,19 +240,17 @@ const GrowthDetail = props => {
     );
   };
 
-
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
+    let videoLink = link[1].split('&', 2);
+    return(
+		<Player {...props}
+		item={item}
+		file={file}
+		videoLink={videoLink}/>
     );
   };
-
-  
 
   const _renderLearnItem = ({item, index}) => {
     return (
@@ -235,13 +264,13 @@ const GrowthDetail = props => {
           }>
           <View style={styles.learnWrapper}>
             <Image
+              source={{uri: item?.image}}
               style={{
                 width: 72,
                 height: 102,
                 margin: 10,
                 borderRadius: 10,
               }}
-              source={require('../../../assets/img/best_practices_slider_image.png')}
             />
             <View>
               <View>
@@ -261,9 +290,7 @@ const GrowthDetail = props => {
                     width: 100,
                     marginTop: 10,
                     fontSize: 8,
-                  }}>
-                  Prime Yourself to become Insenely Great Leader
-                </Text>
+                  }}></Text>
               </View>
               {/* <View
 						style={{
@@ -292,40 +319,41 @@ const GrowthDetail = props => {
       <View style={styles.container}>
         <ImageBackground
           source={{uri: poeDetails?.pillar_detail_image}}
-          style={{height: 400}}>
+          style={{height: 240, width: '100%'}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
           </TouchableOpacity>
+        </ImageBackground>
 
-          <View style={styles.icon}>
-            <Image
-              source={{uri: poeDetails?.image}}
+        <View style={[styles.icon, styles.shadowProp]}>
+          <Image
+            source={{uri: poeDetails?.image}}
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          />
+        </View>
+
+        <ScrollView style={styles.content}>
+          <View style={styles.contentWrapper}>
+            <Text
               style={{
-                width: 30,
-                height: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            />
-          </View>
+                fontSize: 16,
+                fontWeight: '500',
+                color: '#1E2022',
+                textAlign: 'center',
+                marginTop: 50,
+              }}>
+              {poeDetails.name}
+            </Text>
+            <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
-          <View style={styles.content}>
-            <View style={styles.contentWrapper}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  color: '#1E2022',
-                  textAlign: 'center',
-                  marginTop: 50,
-                }}>
-                {poeDetails.name}
-              </Text>
-              <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-              {/* <View style={styles.top}>
+            {/* <View style={styles.top}>
                 <Text style={styles.title}> Growth Coaching Events</Text>
                 <View
                   style={{
@@ -341,87 +369,86 @@ const GrowthDetail = props => {
                 </View>
               </View> */}
 
-              <View style={styles.middle}>
-                <Text style={styles.title}>Sessions</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  {coachingSessionLoading && (
-                    <>
-                      <View
-                        style={{
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          position: 'absolute',
-                          zIndex: 1011,
-                        }}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    </>
-                  )}
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={coachingSession}
-                    renderItem={_renderMiddleItem}
-                  />
-                </View>
+            <View style={styles.middle}>
+              <Text style={styles.title}>Sessions</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                {coachingSessionLoading && (
+                  <>
+                    <View
+                      style={{
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        zIndex: 1011,
+                      }}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={coachingSession}
+                  renderItem={_renderMiddleItem}
+                />
               </View>
-              <View style={styles.learn}>
-                <Text style={styles.title}>Self Learn</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={poeSelfLearns}
-                    renderItem={_renderLearnItem}
-                  />
-                </View>
+            </View>
+            <View style={styles.learn}>
+              <Text style={styles.title}>Self Learn</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={poeSelfLearns}
+                  renderItem={_renderLearnItem}
+                />
               </View>
+            </View>
 
-              <View style={styles.bottom}>
-                <Text style={styles.title}> Members</Text>
-                <View>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents.members}
-					renderItem={item => _renderItem(item, navigation)}
-                  />
-                </View>
+            <View style={styles.bottom}>
+              <Text style={styles.title}> Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents.members}
+                  renderItem={item => _renderItem(item, navigation)}
+                />
               </View>
+            </View>
 
-              <View style={styles.growthContent}>
-                <Text style={styles.title}> Growth Coaching Content</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.pillar_contents}
-                    renderItem={_renderContentItem}
-                  />
-                </View>
+            <View style={styles.growthContent}>
+              <Text style={styles.title}> Growth Coaching Content</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.pillar_contents}
+                  renderItem={_renderContentItem}
+                />
               </View>
             </View>
           </View>
-        </ImageBackground>
+        </ScrollView>
       </View>
       <Footer />
     </ScrollView>
@@ -433,7 +460,7 @@ export default GrowthDetail;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-    height: 1350,
+    alignItems: 'center',
   },
   arrow: {
     marginTop: 30,
@@ -443,13 +470,11 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? 80 : 80,
     backgroundColor: 'white',
     borderRadius: 19,
-    marginLeft: Platform.OS === 'ios' ? 120 : 150,
-    marginTop: 190,
+    marginTop: 200,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
     zIndex: 10,
-    borderWidth: 0.3,
   },
   title: {
     fontFamily: Typography.FONT_SF_SEMIBOLD,
@@ -461,7 +486,6 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
     borderRadius: 18,
-    marginTop: 150,
     borderTopWidth: 10,
     borderColor: Colors.COACHING_COLOR,
   },
@@ -470,13 +494,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     overflow: 'scroll',
     marginTop: 10,
-    height: 1400,
   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
     lineHeight: 24,
-    margin: 10,
+    padding: 15,
     textAlign: 'left',
     color: '#77838F',
   },
@@ -493,7 +516,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   middle: {
-    height: 130,
     marginTop: 10,
     justifyContent: 'center',
   },
@@ -509,7 +531,7 @@ const styles = StyleSheet.create({
   },
   learn: {
     height: 140,
-    marginTop: 10,
+    marginTop: 30,
     justifyContent: 'center',
   },
   learnWrapper: {
@@ -528,17 +550,16 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   bottom: {
-    height: 172,
     marginTop: 25,
   },
   bottomWrapper: {
-    width: 84,
+    width: Dimensions.get('window').width / 4,
     position: 'relative',
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
     backgroundColor: 'white',
-    overflow: 'hidden',
+    marginBottom: 5,
   },
   chatIcon: {
     borderRadius: 50,
@@ -573,7 +594,6 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
   growthContent: {
-    height: 260,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,

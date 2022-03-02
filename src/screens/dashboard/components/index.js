@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,16 +11,22 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  Button,
+  Modal,
+  Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
-
+import {useIsFocused} from '@react-navigation/native';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
+import Player from './Player';
+import BottomNav from '../../../layout/BottomLayout';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -56,6 +62,9 @@ const Dashboard = props => {
     contentSlider,
   } = props;
 
+  const isFocused = useIsFocused();
+  const [memberConnection, setMemberConnection] = useState([]);
+
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -68,7 +77,11 @@ const Dashboard = props => {
       await fetchAllCommunityMember();
     };
     fetchAllCommunityMemberAsync();
-  }, []);
+
+    return () => {
+      cleanCommunityMember();
+    };
+  }, [isFocused]);
 
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
@@ -84,6 +97,26 @@ const Dashboard = props => {
     fetchAllPOEAsync();
   }, []);
 
+  useEffect(() => {
+    setMemberConnection(communityMembers);
+  }, [communityMembers]);
+
+    // const connectMemberByMemberID = async (memberID, index) => {
+    //   const response = await connectMemberByIdentifier({member_id: memberID});
+    //   if (response?.payload?.code === 200) {
+    //     let items = [...memberConnection];
+    //     let item = {...items[index]};
+    //     item.connection = true;
+    //     items[index] = item;
+    //     setMemberConnection(items);
+    //     ToastMessage.show('You have successfully connected.');
+    //   } else {
+    //     toast.closeAll();
+    //     ToastMessage.show(response?.payload?.response);
+    //   }
+    //   console.log(response);
+    // };
+
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -92,7 +125,7 @@ const Dashboard = props => {
           <Image
             source={{uri: item.avatar}}
             style={{
-              width: 83,
+              width: '100%',
               height: 83,
               borderRadius: 10,
             }}
@@ -102,18 +135,29 @@ const Dashboard = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+                color: '#030303',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303'}}>
+              Frost and Sullivan
+            </Text>
           </View>
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+          {!memberConnection[index]?.connection && (
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+          )}
+          {memberConnection[index]?.connection && (
+            <Material
+              name="check-circle"
+              size={20}
+              color="#14A2E2"
+            />
+          )}
         </View>
       </View>
     );
@@ -122,12 +166,12 @@ const Dashboard = props => {
   const _renderMiddleItem = ({item, index}) => {
     let poePage = 'CommunityDetail';
     if (item?.parent === 119) {
-    //   poePage = 'GrowthDetail';
-		if (item?.slug === 'growth-leadership-coaching') {
-			poePage = 'GrowthDetail';
-		}else{
-			poePage = 'CommunityDetail';	
-		}
+      //   poePage = 'GrowthDetail';
+      if (item?.slug === 'growth-leadership-coaching') {
+        poePage = 'GrowthDetail';
+      } else {
+        poePage = 'CommunityDetail';
+      }
     }
     return (
       <TouchableOpacity
@@ -150,6 +194,7 @@ const Dashboard = props => {
               fontSize: 10,
               marginHorizontal: 10,
               textAlign: 'center',
+              color: '#222B45',
             }}>
             {item?.name}
           </Text>
@@ -163,15 +208,33 @@ const Dashboard = props => {
     const date = actualDate[0].split(' ', 3);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.slug) {
-      case 'community':
+    switch (item?.pillar_categories[0]?.parent) {
+      case 0:
+      case 117:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
-      case 'best-practices':
+
+      case 0:
+      case 118:
         backgroundImage = require('../../../assets/img/Rectangle1.png');
         break;
+
       default:
         backgroundImage = require('../../../assets/img/Rectangle.png');
+    }
+
+    let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined) {
+      organizer = ' ';
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
     }
 
     return (
@@ -192,15 +255,14 @@ const Dashboard = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
+              <Text style={{color: '#030303'}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
-                {item?.organizer?.description}
+                {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -213,11 +275,8 @@ const Dashboard = props => {
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videoLink[0]} />
-      </View>
-    );
+
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
@@ -228,8 +287,8 @@ const Dashboard = props => {
         backgroundColor={require('../../../assets/img/appBG.png')}
         translucent={true}
       />
-      <ScrollView style={styles.container}>
-        <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <View>
           <ImageBackground
             style={{width: '100%', height: 180}}
             source={require('../../../assets/img/appBG.png')}>
@@ -293,7 +352,6 @@ const Dashboard = props => {
               marginRight: 15,
             }}>
             <Text style={styles.title}> Growth Community Members</Text>
-            {/* <Text style={{ fontSize: 12, marginTop:8,marginLeft:85}}>View all</Text> */}
           </View>
           <View>
             <FlatList
@@ -323,6 +381,7 @@ const Dashboard = props => {
 
         <Footer />
       </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -332,6 +391,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+    paddingBottom: 100,
   },
   pillar: {
     display: 'flex',
@@ -374,8 +434,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontFamily: Typography.FONT_SF_REGULAR,
     color: PRIMARY_TEXT_COLOR,
+	fontWeight: '700',
   },
   headingText1: {
     fontFamily: Typography.FONT_SF_MEDIUM,
@@ -394,13 +455,13 @@ const styles = StyleSheet.create({
   },
   middle: {
     marginTop: 10,
-	marginLeft:5,
+    marginLeft: 5,
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
     marginTop: 15,
-	
+
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -419,23 +480,21 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   bottom: {
-    height: 172,
     margin: 5,
     marginTop: 25,
   },
   bottomWrapper: {
-    width: Platform.OS === 'ios' ? 70 : 84,
     position: 'relative',
+    width: Dimensions.get('window').width / 4,
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
     marginBottom: 10,
+    marginRight: 2,
     backgroundColor: 'white',
-    overflow: 'hidden',
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',
@@ -443,14 +502,12 @@ const styles = StyleSheet.create({
     bottom: 4,
   },
   content: {
-    height: 250,
     marginLeft: 5,
-    marginTop: 25,
+    marginTop: 15,
     justifyContent: 'center',
     borderRadius: 20,
   },
   ContentWrapper: {
-    height: 210,
     width: contentContainerWidth,
     marginTop: 20,
     marginBottom: 10,

@@ -10,7 +10,6 @@ export const fetchAllPOEs = createAsyncThunk(
             .catch(error => rejectWithValue(error?.response?.data || error));
     },
 );
-
 const poeSlice = createSlice({
     name: 'poe',
     initialState: {

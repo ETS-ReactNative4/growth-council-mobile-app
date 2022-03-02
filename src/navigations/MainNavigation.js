@@ -1,11 +1,8 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Platform } from 'react-native';
-
+import {Platform} from 'react-native';
 import DrawerNavigation from '../navigations/DrawerNavigation';
-import BottomTabNavigation from '../navigations/BottomTabNavigation';
 
 import HomeScreen from '../screens/home';
 import HomeDetailScreen from '../screens/home/Detail';
@@ -25,11 +22,10 @@ import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
 
 import FrostRadarScreen from '../screens/radar';
-import SettingScreen from '../screens/setting/index';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
-import TermsConditionsScreen from '../screens/static/TermsConditions';
+import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
 import BestPracticeScreen from '../screens/dashboard/BestPractice';
@@ -43,16 +39,59 @@ import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
 
+import MainHeader from '../shared/header/MainHeader';
+import AccountScreen from '../screens/account';
+import CalendarScreen from '../screens/calendar';
+import UserListScreen from '../screens/chat/UserList';
+import PeopleScreen from '../screens/people';
+import SubHeader from '../shared/header/SubHeader';
+import DashboardScreen from '../screens/dashboard';
 
 const Stack = createStackNavigator();
 
-const MainNavigation = () => {
+const DashboardStack = createStackNavigator();
+
+export const DashboardStackScreen = () => {
   return (
-    <Stack.Navigator
-      detachInactiveScreens={false}
-      screenOptions={({route}) => ({
-        headerTitleAlign: 'center',
+    <DashboardStack.Navigator
+      screenOptions={({navigation}) => ({
+        header: () => <MainHeader navigation={navigation} />,
       })}>
+      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen name="UserList" component={UserListScreen} />
+      <DashboardStack.Screen
+        name="People"
+        component={PeopleScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Member Connection"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <DashboardStack.Screen
+        name="Account"
+        component={AccountScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Profile"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+    </DashboardStack.Navigator>
+  );
+};
+
+const MainNavigation = props => {
+  return (
+    <Stack.Navigator detachInactiveScreens={false} screenOptions={() => ({})}>
       <Stack.Group>
         <Stack.Screen
           name="Home"
@@ -75,7 +114,9 @@ const MainNavigation = () => {
               <Ionicons
                 name={'arrow-back'}
                 size={80}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 color={'white'}
                 onPress={() => navigation.navigate('Home')}
               />
@@ -96,7 +137,9 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={70}
                 color={'white'}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
@@ -116,7 +159,9 @@ const MainNavigation = () => {
                 name={'arrow-back'}
                 size={80}
                 color={'white'}
-                style={{position: Platform.OS === 'ios' ? 'absolute' : 'relative'}}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                }}
                 onPress={() => navigation.navigate('Home')}
               />
             ),
@@ -166,23 +211,44 @@ const MainNavigation = () => {
         <Stack.Screen
           name="coachingSession"
           component={CoachingSessionDetailScreen}
-          options={{
-            headerTitle: 'Session',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Session"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="selfAssessment"
           component={SelfAssessment}
-          options={{
-            headerTitle: 'Session',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Session"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="selflearn"
           component={SelfLearnDetailScreen}
-          options={{
-            headerTitle: 'Self Learn',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Self Learn"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="pdf"
@@ -192,30 +258,32 @@ const MainNavigation = () => {
           }}
         />
         <Stack.Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{
-            headerLeft: () => null,
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.RevealFromBottomAndroid,
-          }}
-        />
-        <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
-          options={{
-            headerTitle: 'Manage Account',
-            // headerTransparent: true,
-            // ...TransitionPresets.RevealFromBottomAndroid,
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="OthersAccount"
           component={OtherAccountScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             id: route?.params?.id,
-            headerTitle: 'Account Info',
+            header: () => (
+              <SubHeader
+                title="Others Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
           })}
         />
 
@@ -223,8 +291,7 @@ const MainNavigation = () => {
           name="Dashboard"
           component={DrawerNavigation}
           options={({navigation}) => ({
-            headerTitle: '',
-            headerTransparent: true,
+            headerShown: false,
             ...TransitionPresets.SlideFromRightIOS,
             gestureDirection: 'horizontal-inverted',
             headerLeft: () => null,
@@ -233,9 +300,16 @@ const MainNavigation = () => {
         <Stack.Screen
           name="ChangePassword"
           component={ChangePasswordScreen}
-          options={{
-            headerTitle: 'Change Password',
-          }}
+          options={({navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Account"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="ContactUs"
@@ -256,7 +330,7 @@ const MainNavigation = () => {
           component={EventDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: ' ',
+            headerShown: false,
           })}
         />
         <Stack.Screen
@@ -264,8 +338,13 @@ const MainNavigation = () => {
           component={SessionDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            headerTitle: ' ',
+            headerShown: false,
           })}
+        />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{headerShown: false}}
         />
 
         <Stack.Screen
@@ -276,24 +355,41 @@ const MainNavigation = () => {
             friendID: route?.params?.friendID,
             friendName: route?.params?.friendName,
             //headerTitle: route?.params?.friendName,
-            headerTitle: 'Chat',
+            headerShown: false,
           })}
         />
         <Stack.Screen
           name="Privacy"
           component={PrivacyScreen}
-          options={{
-            headerTitle: 'Privacy Policy',
-          }}
+          options={({navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Privacy Policy"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="Terms"
+          component={Terms}
+		  options={({navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Terms of use"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
       </Stack.Group>
 
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
-        {/* <Stack.Screen
-          name="PrivacyPolicy"
-          component={PrivacyPolicyScreen}
-          options={{headerShown: false}}
-        /> */}
+      <Stack.Group>
+        
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
@@ -304,41 +400,11 @@ const MainNavigation = () => {
           })}
         />
         <Stack.Screen
-          name="Terms"
-          component={TermsConditionsScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
           name="CouncilDetail"
           component={CouncilDetailScreen}
           options={{headerShown: false}}
         />
 
-        <Stack.Screen
-          name="Community"
-          component={HomeCommunityScreen}
-          options={({route}) => ({
-            pillarId: route?.params?.pillarId,
-            headerShown: false,
-          })}
-        />
-
-        <Stack.Screen
-          name="BestPractice"
-          component={BestPracticeScreen}
-          options={({route}) => ({
-            pillarId: route?.params?.pillarId,
-            headerShown: false,
-          })}
-        />
-        <Stack.Screen
-          name="GrowthCoaching"
-          component={GrowthCoachingScreen}
-          options={({route}) => ({
-            pillarId: route?.params?.pillarId,
-            headerShown: false,
-          })}
-        />
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}

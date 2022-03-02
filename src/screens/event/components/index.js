@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   Image,
+  Modal,
   TouchableOpacity,
 } from 'react-native';
 import {Button, useToast} from 'native-base';
@@ -15,6 +16,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
+
+import 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
+import {formatTimeByOffset} from './timezone';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -39,17 +44,18 @@ const Event = props => {
 
   const toast = useToast();
   const [eventStatus, setEventStatus] = useState(events?.register_status);
+  const [timeToDisplay, setTimeToDisplay] = useState('');
+  const [timeToEnd, setTimeToEnd] = useState('');
 
   useEffect(() => {
-     fetchEventByIdentifier(route.params.id); 
+    fetchEventByIdentifier(route.params.id);
   }, []);
 
-  useEffect(()=>{
-	setEventStatus(events?.register_status);
-  },[events])
+  useEffect(() => {
+    setEventStatus(events?.register_status);
+  }, [events]);
 
   const registerEventByEventID = async eventID => {
-    console.log('event_id ===', eventID);
     const response = await registerEventByIdentifier({event_id: eventID});
     if (response?.payload?.code === 200) {
       setEventStatus(true);
@@ -61,23 +67,21 @@ const Event = props => {
     }
   };
 
-  const isEventLoaded = Object.keys(events).length === 0;
-  const actualDate = moment(events?.event_start).format('LLLL').split(',', 6);
-  const date = actualDate[1].split(' ', 3);
-
-  let backgroundColor = Colors.COMMUNITY_COLOR;
+  let backgroundColor = '';
   const pillarCategory = events?.pillar_categories
-    ? events?.pillar_categories[0]?.slug
+    ? events?.pillar_categories[0]?.parent
     : '';
   switch (pillarCategory) {
-    case 'growth-coaching':
-      backgroundColor = Colors.COACHING_COLOR;
-      break;
-    case 'basic-practices':
+    case 0:
+    case 118:
       backgroundColor = Colors.PRACTICE_COLOR;
       break;
-    case 'growth-community':
+    case 0:
+    case 117:
       backgroundColor = Colors.COMMUNITY_COLOR;
+      break;
+    default:
+      backgroundColor = Colors.COACHING_COLOR;
   }
 
   let description = events?.descirption;
@@ -87,15 +91,52 @@ const Event = props => {
     description = '';
   }
 
-  console.log('event Id ==', route?.params?.id);
+  const isEventLoaded = Object.keys(events).length === 0;
+
+  const backStartTimeStamp = events?.event_start;
+  const backEndTimeStamp = events?.event_end;
+  const deviceTimeZone = RNLocalize.getTimeZone();
+
+  const today = moment().tz(deviceTimeZone);
+  const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const GobalEndTime = moment(timeToEnd).format('h:mma ');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
+
+  useEffect(() => {
+    const convertedToLocalTime = formatTimeByOffset(
+      backStartTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+    setTimeToDisplay(convertedToLocalTime);
+  }, [events]);
+
+  useEffect(() => {
+    const convertedToLocalTimeEnd = formatTimeByOffset(
+      backEndTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+    setTimeToEnd(convertedToLocalTimeEnd);
+  }, [events]);
 
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
         <ImageBackground
-          source={{uri: events?.image}}
+          source={{
+            uri: typeof events?.image === 'boolean' ? null : events?.image,
+          }}
           resizeMode="cover"
           style={{height: '55%'}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={styles.arrow}>
+              <Ionicons name={'arrow-back'} size={30} color="black" />
+            </View>
+          </TouchableOpacity>
           <View
             style={{
               alignItems: 'center',
@@ -125,30 +166,21 @@ const Event = props => {
                       styles.infoicon,
                       {backgroundColor: backgroundColor},
                     ]}>
-                    <MaterialIcons name={'event'} size={20} color={'white'} />
+                    <MaterialIcons name={'event'} size={25} color={'white'} />
                   </View>
 
                   <View
                     style={{
-                      flex: 4,
-                      paddingLeft: 10,
+                      flex: 5,
+                      paddingLeft: 5,
                     }}>
-                    {!isEventLoaded && (
-                      <Text style={styles.eventDetails}>
-                        {date[2]} {date[1]}, {actualDate[0]}
-                      </Text>
-                    )}
-
-                    {!isEventLoaded && (
-                      <Text>
-                        {events?.event_meta?._start_hour}:
-                        {events?.event_meta?._start_minute}
-                        {events?.event_meta?._start_ampm} /
-                        {events?.event_meta?._end_hour}:
-                        {events?.event_meta?._end_minute}
-                        {events?.event_meta?._end_ampm} (PDT)
-                      </Text>
-                    )}
+                    {/* <Text style={styles.eventDetails}>{GobalDate} /</Text> */}
+                    <Text style={styles.eventDetails}>
+                      {GobalStartMonth === GobalEndMonth
+                        ? GobalDate + GobalEndTime
+                        : GobalDate + GobalDateEnd}{' '}
+                      ({deviceTimeZone})
+                    </Text>
                   </View>
                   {!eventStatus && (
                     <View
@@ -163,7 +195,7 @@ const Event = props => {
                         }>
                         <Feather
                           name={'plus-circle'}
-                          size={30}
+                          size={25}
                           color={'rgba(54,147,172,1)'}
                         />
                       </TouchableOpacity>
@@ -178,7 +210,7 @@ const Event = props => {
                       }}>
                       <Feather
                         name={'check-circle'}
-                        size={35}
+                        size={25}
                         color={'rgba(54,147,172,1)'}
                       />
                     </View>
@@ -198,7 +230,7 @@ const Event = props => {
                     ]}>
                     <Ionicons
                       name={'location-outline'}
-                      size={20}
+                      size={25}
                       color={'white'}
                     />
                   </View>
@@ -209,7 +241,7 @@ const Event = props => {
                         flex: 5,
                         paddingLeft: 10,
                       }}>
-                      <Text style={styles.eventDetails}>
+                      <Text style={styles.eventLocationDetails}>
                         {events?.location?.location_city}{' '}
                         {events?.location?.location_state}{' '}
                         {events?.location?.location_country}
@@ -226,8 +258,6 @@ const Event = props => {
                       />
                     </View>
                   )}
-				   
-				  
                 </View>
               </View>
               <View style={styles.seperationline} />
@@ -235,7 +265,7 @@ const Event = props => {
                 <View>
                   <Text style={styles.contentHeading}>Hosted By</Text>
                 </View>
-				
+
                 <View style={styles.hostdetail}>
                   <View
                     style={[
@@ -243,7 +273,12 @@ const Event = props => {
                       {backgroundColor: backgroundColor},
                     ]}>
                     <Image
-                      source={{uri: events?.organizer_image}}
+                      source={{
+                        uri:
+                          typeof events?.organizer_image === 'boolean'
+                            ? null
+                            : events?.organizer_image,
+                      }}
                       style={{
                         width: '100%',
                         height: '100%',
@@ -255,35 +290,38 @@ const Event = props => {
                     style={{
                       flex: 3,
                       paddingLeft: 20,
+                      justifyContent: 'center',
                     }}>
-						{eventRegisterLoading && (
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  )}
-                    <Text style={styles.contentHeading}>
+                    <Text style={styles.contentTitle}>
                       {events?.organizer?.term_name}
                     </Text>
-                    <Text>{events?.organizer?.description}</Text>
+                    <Text style={{fontSize: 14}}>
+                      {events?.organizer?.description}
+                    </Text>
                   </View>
-                  <View style={styles.eventaddress}>
-               
-                  </View>
+                  <View style={styles.eventaddress}></View>
                 </View>
               </View>
               <View style={styles.seperationline} />
               <View>
-			 
                 <Text style={styles.contentHeading}>Event Info</Text>
                 {!isEventLoaded && (
-                  <HTMLView value={description} style={{fontSize: 14}} />
+                  <HTMLView
+                    value={description}
+                    style={{fontSize: 14, color: '#77838F'}}
+                  />
                 )}
               </View>
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                {eventRegisterLoading && (
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                )}
                 {!eventStatus && (
                   <Button
                     style={styles.acceptButton}
@@ -295,10 +333,13 @@ const Event = props => {
                 )}
                 {eventStatus && (
                   <TouchableOpacity style={styles.registeredButton}>
-                    <View style={{paddingLeft: 10}}>
+                    <View style={{position: 'absolute', left: 20}}>
                       <Image
                         source={require('../../../assets/img/tick-icon.png')}
-                        style={{width: 30, height: 30}}
+                        style={{
+                          width: 25,
+                          height: 25,
+                        }}
                       />
                     </View>
                     <Text style={styles.registeredButtonText}>Registered</Text>
@@ -324,6 +365,10 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
   },
+  arrow: {
+    marginTop: 30,
+    marginLeft: 10,
+  },
   headingTitle: {
     ...CommonStyles.headingTitle,
     textAlign: 'left',
@@ -343,20 +388,35 @@ const styles = StyleSheet.create({
     color: '#ffff',
   },
   eventDetails: {
-    ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
-    fontWeight: 'bold',
+    marginLeft: 5,
+    marginTop: 3,
     fontSize: 14,
-    marginBottom: 8,
+    color: '#1E2022',
+    fontWeight: 'bold',
+  },
+  eventLocationDetails: {
+    fontFamily: Typography.FONT_SF_MEDIUM,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontSize: 14,
+    marginBottom: 5,
+    fontWeight: 'bold',
   },
   contentHeading: {
     ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
+    fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
-    fontWeight: 'semi-bold',
     fontSize: 14,
     marginBottom: 15,
+    fontWeight: 'bold',
+  },
+  contentTitle: {
+    ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_SF_MEDIUM,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,
@@ -380,6 +440,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   registeredButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     width: '100%',
     height: 50,
@@ -387,8 +450,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     borderColor: '#F26722',
     borderWidth: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
+    position: 'relative',
   },
   acceptButtonText: {
     width: '100%',
@@ -397,11 +459,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   registeredButtonText: {
-    width: '100%',
-    height: 20,
-    fontSize: 14,
     color: '#F26722',
-    paddingLeft: Platform.OS === 'ios' ? 70 : 110,
   },
   topbanner: {
     backgroundColor: 'rgba(54,147,172,1)',
@@ -449,15 +507,14 @@ const styles = StyleSheet.create({
   },
   hostdetail: {
     flex: 1,
-    paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 5,
   },
   hostimage: {
     flex: 1,
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 64,
+    height: 62,
     width: 62,
     borderRadius: 14,
     justifyContent: 'center',
@@ -479,7 +536,7 @@ const styles = StyleSheet.create({
   },
   loading1: {
     top: 0,
-    left: 5,
+    left: 0,
     right: 0,
     bottom: 0,
     justifyContent: 'center',

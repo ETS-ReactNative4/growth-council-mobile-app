@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,15 +9,24 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect} from '@react-navigation/native';
-import YoutubePlayer from '../../../shared/youtube';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
+import BottomNav from '../../../layout/BottomLayout';
+import Player from './Player';
+import {getAsyncStorage} from '../../../utils/storageUtil';
+import {JWT_TOKEN} from '../../../constants';
+import {decodeUserID} from '../../../utils/jwtUtil';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
 
 const HomeCommunity = props => {
   const {
@@ -28,11 +37,13 @@ const HomeCommunity = props => {
     pillarEventError,
     fetchAllPillarEvent,
     cleanPillarEvent,
+
     pillarMemberContents,
     pillarMemberContentLoading,
     pillarMemberContentError,
     fetchAllPillarMemberContent,
     cleanPillarMemberContent,
+
     pillarPOEs,
     pillarPOELoading,
     pillarPOEError,
@@ -41,6 +52,10 @@ const HomeCommunity = props => {
   } = props;
 
   const pillarId = 117;
+
+  const isFocused = useIsFocused();
+
+  const [memberConnection, setMemberConnection] = useState(pillarMemberContents.members);
 
   useFocusEffect(
     useCallback(() => {
@@ -55,19 +70,33 @@ const HomeCommunity = props => {
     }, []),
   );
 
-  useEffect(() => {
-    const fetchAllPillarEventAsync = async () => {
-      await fetchAllPillarEvent(pillarId);
-    };
-    fetchAllPillarEventAsync();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarEventAsync = async () => {
+        await fetchAllPillarEvent(pillarId);
+      };
+      fetchAllPillarEventAsync();
+
+      return () => {
+        cleanPillarEvent();
+      };
+    }, []),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarMemberContentAsync = async () => {
+        let token = await getAsyncStorage(JWT_TOKEN);
+        let userID = decodeUserID(token);
+        await fetchAllPillarMemberContent(pillarId);
+      };
+      fetchAllPillarMemberContentAsync();
+    }, [isFocused]),
+  );
 
   useEffect(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
-  }, []);
+    setMemberConnection(pillarMemberContents.members);
+  }, [pillarMemberContents]);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -87,24 +116,31 @@ const HomeCommunity = props => {
               style={{
                 fontSize: 10,
                 fontFamily: Typography.FONT_SF_SEMIBOLD,
-                color: Colors.TERTIARY_TEXT_COLOR,
+                color: '#030303',
               }}>
-              {item?.display_name}
+              {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
-            <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
+            <Text style={{fontSize: 6, color: '#030303'}}>
+              Frost and Sullivan
+            </Text>
           </View>
         </TouchableOpacity>
 
         <View style={styles.chatIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('People')}>
-            <Ionicons name={'add'} size={15} color="#B1AFAF" />
-          </TouchableOpacity>
+          {/* { !memberConnection[index]?.connection && (
+            <TouchableOpacity onPress={() => navigation.navigate('People')}>
+              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
+            </TouchableOpacity>
+          )}
+          { memberConnection[index]?.connection && (
+              <Material name="check-circle" size={20} color="#14A2E2" />
+            )} */}
         </View>
       </View>
     );
   };
 
-  const _renderMiddleItem = ({item, index}) => {
+  const _renderMiddleItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
         onPress={() =>
@@ -112,16 +148,22 @@ const HomeCommunity = props => {
             poeId: item?.term_id,
             pillarId: item?.parent,
           })
-        }
-        key={index}>
+        }>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
+              style={{width: 30, height: 30}}
             />
           </View>
-          <Text style={{marginTop: 10, fontSize: 10, marginLeft: 5}}>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+              color: '#222B45',
+            }}>
             {item?.name}
           </Text>
         </View>
@@ -132,6 +174,20 @@ const HomeCommunity = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
+
+    let organizer = item?.organizer?.term_name;
+    let description = item?.organizer?.description;
+    if (organizer === undefined) {
+      organizer = ' ';
+    } else {
+      organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+    }
+
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
 
     return (
       <View style={styles.topWrapper} key={index}>
@@ -155,14 +211,14 @@ const HomeCommunity = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
+              <Text style={{color: '#030303'}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
               <Text style={styles.headingText1}>{item.title}</Text>
               <Text style={styles.headingText2}>
-                Hosted by {item?.organizer?.term_name}
+                {organizer} {description}
               </Text>
             </View>
           </ImageBackground>
@@ -174,82 +230,86 @@ const HomeCommunity = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videolink = link[1].split('&', 2);
-    return (
-      <View style={styles.ContentWrapper}>
-        <YoutubePlayer videoId={videolink[0]} />
-      </View>
-    );
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.top}>
-          <Text style={styles.title}> Growth Community Events</Text>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+        <View style={styles.container}>
+          <View style={styles.top}>
+            <Text style={styles.title}>Growth Community Events</Text>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarEvents}
-              renderItem={item => _renderTopItem(item, navigation)}
-            />
-          </View>
-        </View>
-
-        <View style={styles.middle}>
-          <Text style={styles.title}>Points of Engagement</Text>
-          {pillarEventLoading && pillarPOELoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarEvents}
+                renderItem={item => _renderTopItem(item, navigation)}
+              />
             </View>
-          )}
-          <FlatList
-            contentContainerStyle={{flex: 1}}
-            numColumns={4}
-            showsHorizontalScrollIndicator={false}
-            data={pillarPOEs}
-            renderItem={_renderMiddleItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
+          </View>
 
-        <View style={styles.bottom}>
-          <Text style={styles.title}>Growth Community Members</Text>
-          <View>
+          <View style={styles.middle}>
+            <Text style={styles.title}>Points of Engagement</Text>
+            {pillarEventLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
             <FlatList
-              horizontal
+              contentContainerStyle={{
+                flex: 1,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              }}
               showsHorizontalScrollIndicator={false}
-              data={pillarMemberContents?.members}
-              renderItem={_renderItem}
+              data={pillarPOEs}
+              // renderItem={_renderMiddleItem}
+              renderItem={item => _renderMiddleItem(item, navigation)}
             />
           </View>
-        </View>
 
-        <View style={styles.content}>
-          <Text style={styles.title}> Growth Community Content</Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarMemberContents?.pillar_contents}
-              renderItem={_renderContentItem}
-            />
+          <View style={styles.bottom}>
+            <Text style={styles.title}>Growth Community Members</Text>
+            <View>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarMemberContents.members}
+                renderItem={_renderItem}
+              />
+            </View>
           </View>
-        </View>
 
-        <Footer />
-      </View>
-    </ScrollView>
+          <View style={styles.content}>
+            <Text style={styles.title}>Growth Community Content</Text>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={pillarMemberContents?.pillar_contents}
+                renderItem={_renderContentItem}
+              />
+            </View>
+          </View>
+
+          <Footer />
+        </View>
+      </ScrollView>
+      <BottomNav {...props} navigation={navigation} />
+    </SafeAreaView>
   );
 };
 
@@ -260,15 +320,16 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   top: {
-    height: 200,
     marginTop: 25,
     justifyContent: 'center',
+    marginRight: 2,
   },
   title: {
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontFamily: Typography.FONT_SF_REGULAR,
     fontSize: 14,
     marginLeft: 15,
     color: Colors.PRIMARY_TEXT_COLOR,
+    fontWeight: '700',
   },
 
   topWrapper: {
@@ -296,8 +357,7 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
   middle: {
-    width: 400,
-    marginTop: 10,
+    marginTop: 20,
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
@@ -320,23 +380,20 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   bottom: {
-    height: 172,
     marginTop: 15,
   },
   bottomWrapper: {
-    width: Platform.OS === 'ios' ? 70 : 84,
     position: 'relative',
+    width: Dimensions.get('window').width / 4,
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 15,
+    marginRight: 2,
     marginBottom: 10,
     backgroundColor: 'white',
-    overflow: 'hidden',
-    // borderWidth:0.2,
   },
   chatIcon: {
     borderRadius: 50,
-    backgroundColor: '#F1F1F1',
     padding: 2,
     justifyContent: 'center',
     position: 'absolute',
@@ -349,14 +406,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   content: {
-    height: 250,
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
   },
   ContentWrapper: {
     height: 206,
-    width: Platform.OS === 'ios' ? 330 : 364,
+    width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,

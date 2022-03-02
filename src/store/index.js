@@ -146,7 +146,7 @@ const store = configureStore({
       immutableCheck: false,
     });
 
-    if (__DEV__ && !process.env.JEST_WORKER_ID) {
+    if (__DEV__) {
       const createDebugger = require('redux-flipper').default;
       middlewares.push(createDebugger());
     }

@@ -35,7 +35,7 @@ const DashboardScreen = props => {
     useSelector(state => state.communityMembers);
 
   useEffect(() => {
-    let content = pillarSliders.flatMap((value, key) => {
+    let content = pillarSliders?.flatMap((value, key) => {
       return value?.pillar_contents;
     });
     setContentSlider(content);
@@ -62,10 +62,7 @@ const DashboardScreen = props => {
     dispatch(fetchAllPillarSliders());
   };
 
-  /**
-   * Clear upcoming event data.
-   *
-   */
+
   const cleanUpcomingEvent = () => {
     dispatch(resetUpcomingEvent());
   };

@@ -37,6 +37,7 @@ const passwordSchema = Yup.object().shape({
 const ChangePasswordForm = props => {
   const {
     navigation,
+    password,
     loading,
     error,
     updateCustomerPassword,
@@ -68,15 +69,13 @@ const ChangePasswordForm = props => {
       confirmPassword: '',
     },
     onSubmit: async values => {
-    
       delete values.confirmPassword;
-      
       await updateCustomerPassword(values).then(response => {
         console.log({response});
         if (response?.payload?.code === 200) {
-          navigation.navigate('SignIn');
-          ToastMessage.show('Your password has been successfully changed.');
-		  console.log(values);
+          navigation.navigate('Dashboard');
+          ToastMessage.show(response?.payload?.message);
+          console.log(values);
         }
       });
     },
@@ -87,6 +86,7 @@ const ChangePasswordForm = props => {
       cleanCustomerPassword();
     };
   }, []);
+
   useEffect(() => {
     const fetchProfileAsync = async () => {
       await fetchProfileByIdentifier();
@@ -123,7 +123,9 @@ const ChangePasswordForm = props => {
               />
             </View>
             <View style={styles.header}>
-              <Text style={styles.headingText1}>{profile.display_name}</Text>
+              <Text style={styles.headingText1}>
+                {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
+              </Text>
               <Text>{profile.user_email}</Text>
             </View>
           </View>
@@ -160,98 +162,93 @@ const ChangePasswordForm = props => {
           )}
 
           <View style={styles.body}>
-			 	<View style={styles.bodyWrapper}>
-					<FlatTextInput
-					label="Old Password"
-					value={values.oldPassword}
-					secureTextEntry={hidePass}
-					onChangeText={handleChange('oldPassword')}
-					onFocus={handleBlur('oldPassword')}
-					error={errors.oldPassword}
-					touched={touched.oldPassword}
-					/>
-					{errors.oldPassword && (
-					<Text style={{fontSize: 10, color: 'red'}}>
-						{errors.oldPassword}
-					</Text>
-					)}
-					<Ionicons
-					name={hidePass ? 'eye-outline' : 'eye-off-outline'}
-					size={25}
-					color={Colors.PRIMARY_HEADING_COLOR}
-					onPress={() => setHidePass(!hidePass)}
-					style={{
-						
-						position: 'absolute',
-						top:20,
-						right: 10,
-					}}
-					/>
-			  	</View>
-           
-			<View style={styles.bodyWrapper}>
-				<FlatTextInput
-				label="New Password"
-				value={values.newPassword}
-				secureTextEntry={hidePass1}
-				onChangeText={handleChange('newPassword')}
-				onFocus={handleBlur('newPassword')}
-				error={errors.newPassword}
-				touched={touched.newPassword}
-				/>
-				{errors.newPassword && (
-				<Text style={{fontSize: 10, color: 'red'}}>
-					{errors.newPassword}
-				</Text>
-				)}
-				<Ionicons
-				name={hidePass1 ? 'eye-outline' : 'eye-off-outline'}
-				size={25}
-				color={Colors.PRIMARY_HEADING_COLOR}
-				onPress={() => setHidePass1(!hidePass1)}
-				style={{
-					position: 'absolute',
-					bottom: 20,
-					right: 10,
-				}}
-				/>
+            <View style={styles.bodyWrapper}>
+              <FlatTextInput
+                label="Old Password"
+                value={values.oldPassword}
+                secureTextEntry={hidePass}
+                onChangeText={handleChange('oldPassword')}
+                onFocus={handleBlur('oldPassword')}
+                error={errors.oldPassword}
+                touched={touched.oldPassword}
+              />
+              {errors.oldPassword && (
+                <Text style={{fontSize: 10, color: 'red', textAlign: 'left'}}>
+                  {errors.oldPassword}
+                </Text>
+              )}
+              <Ionicons
+                name={hidePass ? 'eye-outline' : 'eye-off-outline'}
+                size={25}
+                color={Colors.PRIMARY_HEADING_COLOR}
+                onPress={() => setHidePass(!hidePass)}
+                style={{
+                  position: 'absolute',
+                  top: 20,
+                  right: 10,
+                }}
+              />
+            </View>
 
-			</View>
-			<View style={styles.bodyWrapper}>
-				<FlatTextInput
-				label="Re New Password"
-				value={values.confirmPassword}
-				secureTextEntry={hidePass2}
-				onChangeText={handleChange('confirmPassword')}
-				onFocus={handleBlur('confirmPassword')}
-				error={errors.confirmPassword}
-				touched={touched.confirmPassword}
-				/>
-				{errors.confirmPassword && (
-				<Text style={{fontSize: 10, color: 'red'}}>
-					{errors.confirmPassword}
-				</Text>
-				)}
-				<Ionicons
-				name={hidePass2 ? 'eye-outline' : 'eye-off-outline'}
-				size={25}
-				color={Colors.PRIMARY_HEADING_COLOR}
-				onPress={() => setHidePass2(!hidePass2)}
-				style={{
-					position: 'absolute',
-					bottom: 25,
-					right: 10,
-				}}
-				/>
-				</View>
+            <View style={styles.bodyWrapper}>
+              <FlatTextInput
+                label="New Password"
+                value={values.newPassword}
+                secureTextEntry={hidePass1}
+                onChangeText={handleChange('newPassword')}
+                onFocus={handleBlur('newPassword')}
+                error={errors.newPassword}
+                touched={touched.newPassword}
+              />
+              {errors.newPassword && (
+                <Text style={{fontSize: 10, color: 'red', textAlign: 'left'}}>
+                  {errors.newPassword}
+                </Text>
+              )}
+              <Ionicons
+                name={hidePass1 ? 'eye-outline' : 'eye-off-outline'}
+                size={25}
+                color={Colors.PRIMARY_HEADING_COLOR}
+                onPress={() => setHidePass1(!hidePass1)}
+                style={{
+                  position: 'absolute',
+                  bottom: 20,
+                  right: 10,
+                }}
+              />
+            </View>
+            <View style={styles.bodyWrapper}>
+              <FlatTextInput
+                label="Confirm Password"
+                value={values.confirmPassword}
+                secureTextEntry={hidePass1}
+                onChangeText={handleChange('confirmPassword')}
+                onFocus={handleBlur('confirmPassword')}
+                error={errors.confirmPassword}
+                touched={touched.confirmPassword}
+              />
+              {errors.confirmPassword && (
+                <Text style={{fontSize: 10, color: 'red', textAlign: 'left'}}>
+                  {errors.confirmPassword}
+                </Text>
+              )}
+              <Ionicons
+                name={hidePass2 ? 'eye-outline' : 'eye-off-outline'}
+                size={25}
+                color={Colors.PRIMARY_HEADING_COLOR}
+                onPress={() => setHidePass2(!hidePass1)}
+                style={{
+                  position: 'absolute',
+                  bottom: 20,
+                  right: 10,
+                }}
+              />
+            </View>
           </View>
 
           <View style={styles.buttonWrapper}>
-            <Button
-              style={styles.button}
-              onPress={handleSubmit}
-              disabled={!isValid}>
-              <Text style={styles.buttonText}>Update | Change</Text>
+            <Button style={styles.button} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Update Password</Text>
             </Button>
           </View>
 
@@ -266,7 +263,7 @@ const ChangePasswordForm = props => {
           </View>
         </View>
       </View>
-      <Footer/>
+      <Footer />
     </ScrollView>
   );
 };
@@ -305,9 +302,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 20,
   },
-  bodyWrapper:{
-	width:'100%',  
-	alignItems: 'center',
+  bodyWrapper: {
+    width: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   buttonWrapper: {

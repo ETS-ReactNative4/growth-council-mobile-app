@@ -46,11 +46,6 @@ const Setting = props => {
     fetchProfileAsync();
   }, []);
 
-  const logout = () => {
-    clearAsyncStorage();
-    navigation.navigate('Home');
-    ToastMessage.show('Your have successfully logout');
-  };
 
   return (
     <ScrollView
@@ -58,7 +53,7 @@ const Setting = props => {
         flexGrow: 1,
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
       }}>
-      <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
+      <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, width: '100%'}}>
         <Image
           source={require('../../../assets/img/appBG.png')}
           style={{height: 160}}
@@ -91,8 +86,8 @@ const Setting = props => {
               />
             </View>
             <View style={styles.header}>
-              <Text style={styles.headingText1}>{profile.display_name}</Text>
-              <Text>{profile.user_email}</Text>
+              <Text style={styles.headingText1}>{profile?.user_meta?.first_name} {profile?.user_meta?.last_name}</Text>
+              <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
             </View>
           </View>
         </View>
@@ -101,49 +96,28 @@ const Setting = props => {
           <View>
             <View style={styles.middle}>
               <View style={styles.wrapper}>
-                
-				 <TouchableOpacity
+                <TouchableOpacity
                   onPress={() => navigation.navigate('ManageAccount')}>
                   <View style={styles.middleWrapper}>
                     <View style={styles.middleImage}>
-						<Ionicons name="person-outline" color="white" size={20} />
+                      <Ionicons name="person-outline" color="white" size={20} />
                     </View>
                     <Text style={styles.menuText}>Account</Text>
-					<View style={{right: 0,
-                      position: 'absolute',}}>
-					<Ionicons
-                      name="chevron-forward-outline"
-                      size={20}
-                      color="#d7d7d7"
-                    />
-					</View>
+                    <View style={{right: 0, position: 'absolute'}}>
+                      <Ionicons
+                        name="chevron-forward-outline"
+                        size={20}
+                        color="#d7d7d7"
+                      />
+                    </View>
                   </View>
                 </TouchableOpacity>
 
-                {/* <View style={styles.middleWrapper}>
-                                    <View style={styles.middleImage}>
-                                        <Material
-                                            name={'payment'}
-                                            size={20}
-                                            color="white"
-
-                                        />
-                                    </View>
-                                    <Text style={styles.menuText}>Payment Method</Text>
-                                    <Ionicons
-                                        name='chevron-forward-outline'
-                                        size={20}
-                                        color='#d7d7d7'
-                                        style={{right:0 ,  position:'absolute'}}
-                                    />
-
-                                </View> */}
                 <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
                   <View style={styles.middleImage}>
                     <Ionicons name={'notifications'} size={20} color="white" />
                   </View>
                   <Text style={styles.menuText}>Notifications</Text>
-
                   <Switch
                     trackColor={{false: '#767577', true: '#32a32e'}}
                     thumbColor={isEnabled ? 'white' : 'white'}
@@ -151,7 +125,7 @@ const Setting = props => {
                     onValueChange={toggleSwitch}
                     value={isEnabled}
                     style={{
-                      transform: [{scaleX: 1.4}, {scaleY: 1.5}],
+                      // transform: [{scaleX: 1.4}, {scaleY: 1.5}],
                       right: 0,
                       position: 'absolute',
                     }}
@@ -182,23 +156,12 @@ const Setting = props => {
                     <Text style={styles.menuText}>Privacy Policy</Text>
                   </View>
                 </TouchableOpacity>
-
-
-                {/* <TouchableOpacity onPress={logout}>
-                  <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
-                    <View style={styles.middleImage1}>
-                      <Material name={'logout'} size={20} color="white" />
-                    </View>
-                    <Text style={styles.menuText}>Log Out</Text>
-                  </View>
-                </TouchableOpacity> */}
-
               </View>
             </View>
           </View>
         </View>
       </View>
-     <Footer/>
+      <Footer />
     </ScrollView>
   );
 };
@@ -209,8 +172,8 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     backgroundColor: PRIMARY_BACKGROUND_COLOR,
-    paddingLeft: Platform.OS === 'ios' ? 40: 50,
-    paddingRight: Platform.OS === 'ios' ? 40: 50,
+    paddingLeft: Platform.OS === 'ios' ? 40 : 50,
+    paddingRight: Platform.OS === 'ios' ? 40 : 50,
   },
   header: {
     alignItems: 'center',
@@ -230,6 +193,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_NORMAL,
     fontSize: 22,
     fontWeight: '600',
+    color: '#222B45',
   },
   middle: {},
   wrapper: {
@@ -268,5 +232,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     margin: 15,
+    color: '#222B45',
   },
 });

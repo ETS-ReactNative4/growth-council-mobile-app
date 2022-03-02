@@ -30,10 +30,7 @@ const About = props => {
   };
 
   useEffect(() => {
-    const fetchAboutAsync = async () => {
-      await fetchAbout();
-    };
-    fetchAboutAsync();
+    fetchAbout();
   }, []);
 
   let heading1 = about?.heading1;
@@ -67,6 +64,7 @@ const About = props => {
   return (
     <>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={{
           height: Platform.OS === 'ios' ? 400 : 350,
         }}>
@@ -77,7 +75,7 @@ const About = props => {
                 value={heading1}
                 textComponentProps={{
                   style: {
-                    color: '#000',
+                    color: 'black',
                     fontSize: 24,
                     paddingBottom: 30,
                     fontWeight: '600',
@@ -91,7 +89,7 @@ const About = props => {
 
             <HTMLView
               value={content1}
-              textComponentProps={{style: {fontSize: 14}}}
+              textComponentProps={{style: {fontSize: 14, color: '#666767'}}}
             />
           </View>
           <View style={styles.aboutImage}>
@@ -101,6 +99,7 @@ const About = props => {
                 width: imageContainerWidth,
                 height: 220,
                 borderRadius: 16,
+                marginTop: 20,
               }}
               resizeMode={'contain'}
             />
@@ -118,24 +117,14 @@ const About = props => {
                   },
                 }}
               />
-              {/* <Text style={styles.backgroundTitleText}>
-                                {heading2}
-                            </Text> */}
 
               <View style={styles.backgroundTitleBorder}></View>
             </View>
-            {/* <RenderHtml
-              contentWidth={width}
-              source={{html: content2}}
-              tagsStyles={tagsStyles}
-            /> */}
+
             <HTMLView
               value={content2}
               textComponentProps={{style: {color: 'white', fontSize: 14}}}
             />
-            {/* <Text style={styles.backgroundParagraph}>
-                            
-                        </Text> */}
           </View>
           <View style={styles.cta}>
             <Button

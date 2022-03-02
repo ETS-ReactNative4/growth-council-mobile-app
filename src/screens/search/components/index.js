@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Font from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import SearchBox from '../../../shared/form/SearchBar';
 import {BubblesLoader} from 'react-native-indicator';
@@ -32,17 +33,34 @@ const Search = (props) => {
 	
 		const actualDate = moment(item.event_start).format('ll').split(',', 3);
 		const date = actualDate[0].split(' ', 3);
-
-		let backgroundColor = Colors.COMMUNITY_COLOR;
-		switch (item?.pillar_categories[0]?.slug) {
-		case 'growth-community':
+		let backgroundColor = '';
+		switch (item?.pillar_categories[0]?.parent) {
+			case 0:
+			case 117:
 			backgroundColor = Colors.COMMUNITY_COLOR;
 			break;
-		case 'basic-practices':
+
+			case 0:
+			case 118:
 			backgroundColor = Colors.PRACTICE_COLOR;
 			break;
-		case 'growth-coaching':
+		  
+			default:
 			backgroundColor =Colors.COACHING_COLOR ;
+		}
+
+		let organizer = item?.organizer?.term_name;
+		let description = item?.organizer?.description;
+		if (organizer === undefined){
+		organizer = ' '; 
+		} else {
+		organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
+		}
+
+		if (description === undefined){
+			description = ' '; 
+		} else {
+			description = item?.organizer?.description;
 		}
 		return (
 			<View>
@@ -53,7 +71,7 @@ const Search = (props) => {
 						<View style={styles.eventDetails}>
 							<View style={styles.eventInfo}>
 								<Text style={styles.evnetTitle}>{item?.title}</Text>
-								<Text style={styles.eventParagraph}>Hosted by {item?.organizer?.term_name}  {item?.organizer?.description}</Text>
+								<Text style={styles.eventParagraph}>{organizer} {description}</Text>
 							</View>
 							<View style={styles.eventDate}>
 								<Text style={styles.eventDateText}>
@@ -127,8 +145,13 @@ const Search = (props) => {
         <ScrollView style={{backgroundColor:Colors.PRIMARY_BACKGROUND_COLOR}}>
             <View style={styles.container}>
                 <ImageBackground
-                    style={{width: '100%', height: 100}}
+                    style={{width: '100%', height: 160}}
                     source={require('../../../assets/img/search_back_image.png')}>
+					<TouchableOpacity onPress={() => navigation.goBack()}>
+					<View style={{marginTop:10}}>
+					<Ionicons name={'arrow-back'} size={50} color="white" />
+					</View>
+         			 </TouchableOpacity>
                     <View style={{alignItems: 'center', justifyContent: 'center',}}>
                         <SearchBox searchEventsByIdentifier={searchEventsByIdentifier}/>
                     </View>
