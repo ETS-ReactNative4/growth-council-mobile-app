@@ -68,9 +68,27 @@ const EventCalendar = props => {
   currentEvents?.map(item => {
     const startDate = moment(item.event_start).format('YYYY-MM-DD');
     const endDate = moment(item.event_end).format('YYYY-MM-DD');
+
+    let backgroundColor = '';
+    const pillarCategory = item?.pillar_categories
+      ? item?.pillar_categories[0]?.parent
+      : '';
+    switch (pillarCategory) {
+      case 0:
+      case 118:
+        backgroundColor = Colors.PRACTICE_COLOR;
+        break;
+      case 0:
+      case 117:
+        backgroundColor = Colors.COMMUNITY_COLOR;
+        break;
+      default:
+        backgroundColor = Colors.COACHING_COLOR;
+    }
+
     if (moment(startDate).isSame(endDate)) {
       markedDay[startDate] = {
-        color: 'green',
+        color: backgroundColor,
         textColor: 'white',
       };
     } else {
@@ -82,18 +100,18 @@ const EventCalendar = props => {
         if (index === 0) {
           markedDay[moment(item).format('YYYY-MM-DD')] = {
             startingDay: true,
-            color: 'green',
+            color: backgroundColor,
             textColor: 'white',
           };
         } else if (dates?.length - 1 === index) {
           markedDay[moment(item).format('YYYY-MM-DD')] = {
             endingDay: true,
-            color: 'green',
+            color: backgroundColor,
             textColor: 'white',
           };
         } else {
           markedDay[moment(item).format('YYYY-MM-DD')] = {
-            color: 'green',
+            color: backgroundColor,
             textColor: 'white',
           };
         }
@@ -106,9 +124,10 @@ const EventCalendar = props => {
     // const actualDate = moment(item.event_start).format('ll').split(',', 3);
     // const date = actualDate[0].split(' ', 3);
     const actualDate = moment(item.event_start).format('D MMMM ');
+    const date = moment(item.event_start).format('D ');
     const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
-	
+  
     //time
     let time = moment(item.event_start).format('h:mma');
 
@@ -177,9 +196,10 @@ const EventCalendar = props => {
                 <Text style={styles.eventDateText}>
                   {actualDate === eventEnd
                     ? actualDate
-                    : eventStart.split(/(\s+)/)[0] +
-                      eventStart.split(/(\s+)/)[4] +
-                      eventEnd}
+                    : eventStart.split(/(\s+)/)[2] ===
+                      eventEnd.split(/(\s+)/)[2]
+                    ? date + eventStart.split(/(\s+)/)[4] + eventEnd
+                    : actualDate + eventStart.split(/(\s+)/)[4] + eventEnd}
                 </Text>
               </View>
             </View>
@@ -404,15 +424,16 @@ const styles = StyleSheet.create({
   },
   eventDate: {
     flex: 1,
-    padding: 10,
+    padding: 5,
     backgroundColor: 'rgba(245,245,245,1)',
     borderRadius: 10,
-    fontSize: 18,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   eventDateText: {
     textAlign: 'center',
     color: '#030303',
-    fontSize: 14,
+    fontSize: 12,
   },
   buttonWrapper: {
     width: 350,

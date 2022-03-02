@@ -58,19 +58,6 @@ export const DashboardStackScreen = () => {
         header: () => <MainHeader navigation={navigation} />,
       })}>
       <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
-      <DashboardStack.Screen
-        name="Calendars"
-        component={CalendarScreen}
-        options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Calendar"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen
         name="People"
@@ -224,23 +211,44 @@ const MainNavigation = props => {
         <Stack.Screen
           name="coachingSession"
           component={CoachingSessionDetailScreen}
-          options={{
-            headerTitle: 'Session',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Session"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="selfAssessment"
           component={SelfAssessment}
-          options={{
-            headerTitle: 'Session',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Session"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="selflearn"
           component={SelfLearnDetailScreen}
-          options={{
-            headerTitle: 'Self Learn',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Self Learn"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="pdf"
@@ -367,18 +375,21 @@ const MainNavigation = props => {
         <Stack.Screen
           name="Terms"
           component={Terms}
-          options={{
-            headerTitle: 'Terms of Use',
-          }}
+		  options={({navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Terms of use"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
       </Stack.Group>
 
       <Stack.Group>
-        {/* <Stack.Screen
-          name="PrivacyPolicy"
-          component={PrivacyPolicyScreen}
-          options={{headerShown: false}}
-        /> */}
+        
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
@@ -394,38 +405,6 @@ const MainNavigation = props => {
           options={{headerShown: false}}
         />
 
-        <Stack.Screen
-          name="Community"
-          component={HomeCommunityScreen}
-          options={({navigation}) => ({
-            pillarId: route?.params?.pillarId,
-            header: () => (
-              <SubHeader
-                title="Community"
-                image={require('../assets/img/Rectangle2.png')}
-                navigation={navigation}
-                noDrawer
-              />
-            ),
-          })}
-        />
-
-        <Stack.Screen
-          name="BestPractice"
-          component={BestPracticeScreen}
-          options={({route}) => ({
-            pillarId: route?.params?.pillarId,
-            headerShown: false,
-          })}
-        />
-        <Stack.Screen
-          name="GrowthCoaching"
-          component={GrowthCoachingScreen}
-          options={({route}) => ({
-            pillarId: route?.params?.pillarId,
-            headerShown: false,
-          })}
-        />
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}
