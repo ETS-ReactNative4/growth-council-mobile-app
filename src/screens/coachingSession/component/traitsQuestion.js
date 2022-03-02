@@ -19,7 +19,6 @@ const TraitsQuestion = props => {
   }, [count, answers]);
 
 
-
   return (
     <View style={[styles.questionWrapper, styles.shadowProp]}>
       <View style={{alignItems: 'center'}}>
