@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -21,7 +21,6 @@ import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {Dialog} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
 import {Searchbar} from 'react-native-paper';
 import BottomNav from '../../../layout/BottomLayout';
@@ -52,17 +51,10 @@ const People = props => {
   } = props;
 
   const toast = useToast();
-  const isFocused = useIsFocused();
   const [category, setCategory] = useState();
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
 
   useEffect(() => {
     const fetchAllUsersAsync = async () => {
@@ -73,15 +65,11 @@ const People = props => {
       });
     };
     fetchAllUsersAsync();
-
-    return () => {
-      cleanUser();
-    };
-  }, [isFocused]);
+  }, []);
 
   useEffect(() => {
     setMemberConnection(users);
-  }, [users, isFocused]);
+  }, [users]);
 
   useEffect(() => {
     const fetchAllExpertisesAsync = async () => {
@@ -90,7 +78,7 @@ const People = props => {
     fetchAllExpertisesAsync();
   }, []);
 
-  const connectMemberByMemberID = useCallback(async (memberID, index) => {
+  const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
       let items = [...memberConnection];
@@ -104,11 +92,7 @@ const People = props => {
       ToastMessage.show(response?.payload?.response);
     }
     console.log(response);
-  });
-
-  //   const reloadPage =() =>{
-  // 	  window.location.reload(false)
-  //   }
+  };
 
   const _renderItem = ({item, index}) => {
     return (
@@ -268,10 +252,6 @@ const People = props => {
               showsVerticalScrollIndicator={false}
               data={users}
               renderItem={_renderItem}
-            //   onRefresh={() => {
-            //     onRefresh={onRefresh};
-            //     refreshing = {refreshing}
-            //   }}
             />
           </View>
         </ScrollView>
