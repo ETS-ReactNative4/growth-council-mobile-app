@@ -27,13 +27,13 @@ const Traits = props => {
     traitsAnswerError,
     fetchTraitsAnswer,
     UpdateTraitsAnswer,
+	
   } = props;
 
-  
-
+ 
  
   return (
-	<ScrollView style={styles.scrollBox} >
+	<ScrollView style={styles.scrollBox}>
     <View >
       {subTraits?.sub_traits[count]?.questions?.map((question, index) => (
         <TraitsQuestion
