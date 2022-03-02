@@ -123,11 +123,11 @@ const CommunityDetail = props => {
           </View>
         </TouchableOpacity>
 
-        <View style={styles.chatIcon}>
+        {/* <View style={styles.chatIcon}>
           <TouchableOpacity onPress={() => navigation.navigate('People')}>
             <Ionicons name={'add'} size={15} color="#B1AFAF" />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     );
   };

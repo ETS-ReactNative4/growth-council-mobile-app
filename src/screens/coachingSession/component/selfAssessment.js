@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button} from 'native-base';
@@ -41,7 +41,9 @@ const SelfAssessment = props => {
     state => state.traitsAnswer,
   );
 
-  const [value, setValue] = useState('Sub Trait');
+  const [value, setValue] = useState();
+  const [sub, setSub] = useState('');
+
   const [index, setIndex] = useState({
     traitIndex: 0,
     subTraitIndex: 0,
@@ -50,6 +52,15 @@ const SelfAssessment = props => {
   const [subTraitLength, setSubTraitLength] = useState(0);
 
   const [subTraits, setSubTraits] = useState(traits[index.traitIndex]);
+
+  const scrollRef = useRef(null);
+
+  const onFabPress = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
 
   useEffect(() => {
     setSubTraits(traits[index.traitIndex]);
@@ -77,6 +88,8 @@ const SelfAssessment = props => {
 
   useEffect(() => {
     if (traits?.length) {
+      setSub(traits[index.traitIndex].sub_traits[index.subTraitIndex].title);
+      setValue(traits[index.traitIndex].sub_traits[index.subTraitIndex].title);
       setTraitLength(traits.length);
     }
     if (subTraits?.sub_traits?.length) {
@@ -116,6 +129,7 @@ const SelfAssessment = props => {
         });
     } else if (index.subTraitIndex === subTraitLength - 1) {
       setIndex({...index, subTraitIndex: 0, traitIndex: index.traitIndex + 1});
+      onFabPress();
     } else {
       setIndex({...index, subTraitIndex: index.subTraitIndex + 1});
     }
@@ -131,6 +145,7 @@ const SelfAssessment = props => {
       setIndex({...index, subTraitIndex: index.subTraitIndex - 1});
     }
   };
+ 
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -142,22 +157,28 @@ const SelfAssessment = props => {
               highlightTextColor={'#0B0B45'}
               inactiveBackgroundColor={'transparent'}
               inactiveTextColor={'grey'}
-              values={['Sub Trait', 'Yellow Questions']}
+              values={[sub, 'Yellow Questions']}
               value={value}
               onSelect={val => setValue(val)}
               style={{
+                flex: 0,
                 height: 30,
                 marginTop: 5,
-                width: '95%',
-                marginLeft: 10,
-                fontSize: 12,
+                width: '98%',
+                marginLeft: 4,
                 borderRadius: 15,
+              }}
+              textStyle={{
+                paddingHorizontal: 0,
+                paddingLeft: 5,
+                fontSize: 10,
+                width: '100%',
               }}
             />
           </View>
 
           <View>
-            {value === 'Sub Trait' && (
+            {value === sub && (
               <Trait
                 {...props}
                 subTraits={traits[index.traitIndex]}

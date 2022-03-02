@@ -100,16 +100,12 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM (dddd), h:mma - ');
+  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
 
-  const GobalTime = moment(timeToDisplay).format('h:mm a');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (dddd)');
-  const GobalMonth = moment(timeToDisplay).format('D MMMM (dddd) - ');
-
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM (dddd), h:mm a ');
-  const GobalEndTime = moment(timeToEnd).format('h:mm a ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM (dddd)');
-  console.log(GobalDateEnd.split(/(\s+)/)[8]);
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const GobalEndTime = moment(timeToEnd).format('h:mma ');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -175,16 +171,14 @@ const Event = props => {
 
                   <View
                     style={{
-                      flex: 4,
+                      flex: 5,
                       paddingLeft: 5,
                     }}>
                     {/* <Text style={styles.eventDetails}>{GobalDate} /</Text> */}
                     <Text style={styles.eventDetails}>
                       {GobalStartMonth === GobalEndMonth
-                        ? GobalDate +
-                          GobalDateEnd.split(/(\s+)/)[6] +
-                          GobalDateEnd.split(/(\s+)/)[8]
-                        : GobalMonth + GobalEndMonth}{' '}
+                        ? GobalDate + GobalEndTime
+                        : GobalDate + GobalDateEnd}{' '}
                       ({deviceTimeZone})
                     </Text>
                   </View>

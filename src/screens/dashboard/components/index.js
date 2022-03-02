@@ -273,7 +273,6 @@ const Dashboard = props => {
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
-    console.log(file);
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
 
@@ -435,8 +434,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    fontFamily: Typography.FONT_SF_REGULAR,
     color: PRIMARY_TEXT_COLOR,
+	fontWeight: '700',
   },
   headingText1: {
     fontFamily: Typography.FONT_SF_MEDIUM,
