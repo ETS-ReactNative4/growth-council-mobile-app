@@ -239,7 +239,7 @@ const MainNavigation = props => {
         <Stack.Screen
           name="selflearn"
           component={SelfLearnDetailScreen}
-		  options={() => ({
+          options={() => ({
             header: ({navigation}) => (
               <SubHeader
                 title="Self Learn"
@@ -375,18 +375,21 @@ const MainNavigation = props => {
         <Stack.Screen
           name="Terms"
           component={Terms}
-          options={{
-            headerTitle: 'Terms of Use',
-          }}
+		  options={({navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Terms of use"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
       </Stack.Group>
 
       <Stack.Group>
-        {/* <Stack.Screen
-          name="PrivacyPolicy"
-          component={PrivacyPolicyScreen}
-          options={{headerShown: false}}
-        /> */}
+        
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
@@ -402,38 +405,6 @@ const MainNavigation = props => {
           options={{headerShown: false}}
         />
 
-        <Stack.Screen
-          name="Community"
-          component={HomeCommunityScreen}
-          options={({navigation}) => ({
-            pillarId: route?.params?.pillarId,
-            header: () => (
-              <SubHeader
-                title="Community"
-                image={require('../assets/img/Rectangle2.png')}
-                navigation={navigation}
-                noDrawer
-              />
-            ),
-          })}
-        />
-
-        <Stack.Screen
-          name="BestPractice"
-          component={BestPracticeScreen}
-          options={({route}) => ({
-            pillarId: route?.params?.pillarId,
-            headerShown: false,
-          })}
-        />
-        <Stack.Screen
-          name="GrowthCoaching"
-          component={GrowthCoachingScreen}
-          options={({route}) => ({
-            pillarId: route?.params?.pillarId,
-            headerShown: false,
-          })}
-        />
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}

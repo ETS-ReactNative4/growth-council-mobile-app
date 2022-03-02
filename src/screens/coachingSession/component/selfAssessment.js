@@ -53,12 +53,18 @@ const SelfAssessment = props => {
 
   const [subTraits, setSubTraits] = useState(traits[index.traitIndex]);
 
+  const scrollRef = useRef(null);
+
+  const onFabPress = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
 
   useEffect(() => {
     setSubTraits(traits[index.traitIndex]);
   }, [traits]);
-
-  
 
   const fetchAllSubTrait = identifier => {
     dispatch(fetchAllSubTraits(identifier));
@@ -123,6 +129,7 @@ const SelfAssessment = props => {
         });
     } else if (index.subTraitIndex === subTraitLength - 1) {
       setIndex({...index, subTraitIndex: 0, traitIndex: index.traitIndex + 1});
+      onFabPress();
     } else {
       setIndex({...index, subTraitIndex: index.subTraitIndex + 1});
     }
@@ -138,6 +145,7 @@ const SelfAssessment = props => {
       setIndex({...index, subTraitIndex: index.subTraitIndex - 1});
     }
   };
+ 
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -209,7 +217,6 @@ const SelfAssessment = props => {
                 fetchTraitsAnswer={fetchTraitsAnswer}
                 updateTraitsAnswer={updateTraitsAnswer}
                 cleanTraitsAnswer={cleanTraitsAnswer}
-				
               />
             )}
           </View>
