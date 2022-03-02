@@ -20,6 +20,7 @@ import {useToast} from 'native-base';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {Dialog} from 'react-native-paper';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import Footer from '../../../shared/footer';
 import {Searchbar} from 'react-native-paper';
@@ -51,6 +52,7 @@ const People = props => {
   } = props;
 
   const toast = useToast();
+  const isFocused = useIsFocused();
   const [category, setCategory] = useState();
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
@@ -65,7 +67,10 @@ const People = props => {
       });
     };
     fetchAllUsersAsync();
-  }, []);
+    return () => {
+      cleanUser();
+    };
+  }, [isFocused]);
 
   useEffect(() => {
     setMemberConnection(users);
