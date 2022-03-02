@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Image,
     ScrollView,
-	SafeAreaView
+    SafeAreaView,
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
@@ -20,11 +20,11 @@ import {decodeUserID} from '../../../utils/jwtUtil';
 import {useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
+import ChatCount from '../../../shared/chatCount';
 
 const UserList = props => {
     const {
         navigation,
-        route,
         connection,
         connectionLoading,
         connectionError,
@@ -35,6 +35,7 @@ const UserList = props => {
     const [userID, setUserID] = useState(null);
     const [avatarImg, setAvatarImg] = useState(null);
     const [userName, setUserName] = useState(null);
+    const [changedCount, setChangedCount] = useState(false);
     const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -90,8 +91,11 @@ const UserList = props => {
                                 {item?.display_name}
                             </Text>
                             <Text style={{fontSize: 12, marginTop: 10}}>
-                                {item.user_email}
+                                {item?.user_email}
                             </Text>
+
+                            <ChatCount item={item} userID={userID}/>
+
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -100,47 +104,47 @@ const UserList = props => {
     };
 
     return (
-		
-	<SafeAreaView style={{flex: 1}}>
-        <ScrollView
-            contentContainerStyle={{
-                flexGrow: 1,
-                backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-            }}>
-            <View style={styles.container}>
-                <View style={styles.buttonWrapper}>
-                    <TouchableOpacity>
-                        <Button style={[styles.button, styles.shadowProp]}>
-                            <Text style={[styles.buttonText, {color: '#4835BE'}]}>
-                                Message
-                            </Text>
-                        </Button>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Button
-                            style={[styles.button, {backgroundColor: '#F26722'}]}
-                            onPress={() => Linking.openURL('mailto:contact@frost.com')}>
-                            <Text style={styles.buttonText}>Contact us</Text>
-                        </Button>
-                    </TouchableOpacity>
-                </View>
-                {connectionLoading && (
-                    <View style={styles.loading1}>
-                        <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
-                    </View>
-                )}
-                <FlatList
-                    Vertical
-                    showsVerticalScrollIndicator={false}
-                    data={connection}
-                    renderItem={_renderItems}
-                />
-            </View>
 
-            <Footer/>
-        </ScrollView>
-		<BottomNav {...props} navigation={navigation}/>
-		</SafeAreaView>
+        <SafeAreaView style={{flex: 1}}>
+            <ScrollView
+                contentContainerStyle={{
+                    flexGrow: 1,
+                    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+                }}>
+                <View style={styles.container}>
+                    <View style={styles.buttonWrapper}>
+                        <TouchableOpacity>
+                            <Button style={[styles.button, styles.shadowProp]}>
+                                <Text style={[styles.buttonText, {color: '#4835BE'}]}>
+                                    Message
+                                </Text>
+                            </Button>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Button
+                                style={[styles.button, {backgroundColor: '#F26722'}]}
+                                onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+                                <Text style={styles.buttonText}>Contact us</Text>
+                            </Button>
+                        </TouchableOpacity>
+                    </View>
+                    {connectionLoading && (
+                        <View style={styles.loading1}>
+                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
+                        </View>
+                    )}
+                    <FlatList
+                        Vertical
+                        showsVerticalScrollIndicator={false}
+                        data={connection}
+                        renderItem={_renderItems}
+                    />
+                </View>
+
+                <Footer/>
+            </ScrollView>
+            <BottomNav {...props} navigation={navigation}/>
+        </SafeAreaView>
     );
 };
 
