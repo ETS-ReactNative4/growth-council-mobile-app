@@ -35,7 +35,6 @@ const UserList = props => {
     const [userID, setUserID] = useState(null);
     const [avatarImg, setAvatarImg] = useState(null);
     const [userName, setUserName] = useState(null);
-    const [changedCount, setChangedCount] = useState(false);
     const isFocused = useIsFocused();
 
     useEffect(() => {
