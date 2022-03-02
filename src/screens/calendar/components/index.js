@@ -127,7 +127,7 @@ const EventCalendar = props => {
     const date = moment(item.event_start).format('D ');
     const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
-    console.log('a', eventStart.split(/(\s+)/)[2]);
+  
     //time
     let time = moment(item.event_start).format('h:mma');
 
