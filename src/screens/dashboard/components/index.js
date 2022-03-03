@@ -11,9 +11,7 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
-  Button,
-  Modal,
-  Pressable,
+
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
