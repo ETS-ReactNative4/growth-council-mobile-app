@@ -96,8 +96,7 @@ const SignInForm = props => {
                 </Text>
                 <Text>
 				{'\n'}
-                  Login to your account below. If you are having trouble logging
-                  into your account contact us.
+                  Login to your account below. 
                 </Text>
               </View>
 
@@ -175,7 +174,7 @@ const SignInForm = props => {
                 </TouchableOpacity>
               </View>
               <View style={styles.signuptext}>
-                <Text>Not a member ?</Text>
+                <Text>Join Growth Council</Text>
                 <Text
                   style={{color: '#31ade5', fontWeight:"700"}}
                   onPress={() => navigation.navigate('SignUp')}>

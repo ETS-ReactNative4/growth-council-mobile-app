@@ -341,9 +341,7 @@ const SignUpForm = props => {
                 <View style={styles.content}>
                     <View style={styles.header}>
                         <Text style={styles.headingText1}>
-                            Let's Create
-                            {'\n'}
-                            Your Account!
+                            Join Growth Council
                         </Text>
                     </View>
 
@@ -463,14 +461,14 @@ const SignUpForm = props => {
                                     />
                                     <View>
                                         <Text style={{marginTop: 7, width: '55%'}}>
-                                            By Clicking submit, I agree to Frost & Sullivan
+                                            By clicking submit, I agree to Frost & Sullivan
                                             <Text style={{paddingTop: 5, color: 'blue'}}
                                                   onPress={() => navigation.navigate('Terms')}> Terms of Use&nbsp;
                                             </Text>
                                             and
 
                                             <Text style={{paddingTop: 5, color: 'blue'}}
-                                                  onPress={() => navigation.navigate('Privacy')}> Privacy Policy
+                                                  onPress={() => navigation.navigate('Privacy')}> Privacy Policy*
                                             </Text>
 
                                         </Text>
@@ -499,7 +497,7 @@ const SignUpForm = props => {
 
                         <View style={styles.signUpLinkWrapper}>
                             <Text style={{color: Colors.NONARY_TEXT_COLOR}}>
-                                Do you have already an account?
+                                Already a Growth Council Member?
                             </Text>
                             <TouchableOpacity>
                                 <Text
