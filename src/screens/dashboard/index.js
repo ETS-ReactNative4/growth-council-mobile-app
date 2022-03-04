@@ -41,10 +41,7 @@ const DashboardScreen = props => {
     setContentSlider(content);
   }, [pillarSliders]);
 
-  /**
-   * Fetch all upcoming events data.
-   *
-   */
+
 
   const fetchAllUpcomingEvent = () => {
     dispatch(fetchAllUpcomingEvents());

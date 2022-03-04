@@ -121,7 +121,7 @@ const CouncilDetail = props => {
             <Button
               style={styles.moreButton}
               onPress={() => setLoadMore(!loadMore)}>
-              <Text style={styles.moreButtonText}>Load More</Text>
+              <Text style={styles.moreButtonText}>Learn More</Text>
             </Button>
           </View>
         )}

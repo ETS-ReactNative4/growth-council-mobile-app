@@ -27,10 +27,8 @@ const Detail = props => {
   } = props;
 
   useEffect(() => {
-    const fetchDetailAsync = async () => {
-      await fetchAllDetail();
-    };
-    fetchDetailAsync();
+    fetchAllDetail();
+   
   }, []);
 
   let description = details?.content1;
