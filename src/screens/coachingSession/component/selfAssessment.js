@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {Button} from 'native-base';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 
@@ -18,6 +18,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import ToastMessage from '../../../shared/toast';
 import {store} from '../../../utils/httpUtil';
 
+const win = Dimensions.get('window');
 const SelfAssessment = props => {
   const {
     navigation,
@@ -57,7 +58,7 @@ const SelfAssessment = props => {
 
   const onFabPress = () => {
     scrollRef.current?.scrollTo({
-      y: 0,
+      y: -50,
       animated: true,
     });
   };
@@ -98,6 +99,7 @@ const SelfAssessment = props => {
   }, [traits, index]);
 
   useEffect(() => {}, [traitLength, subTraitLength]);
+
 
   const handleNextButtonClick = async () => {
     if (

@@ -48,8 +48,6 @@ const CouncilAllDetail = props => {
     };
   }, []);
 
-  // console.log('Pillar Upcoming Events:::::::::::::::::', pillarPOEs, pillar_id);
-  // console.log({pillarPOEs});
 
   const _renderItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);

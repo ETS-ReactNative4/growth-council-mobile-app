@@ -89,11 +89,13 @@ const SignInForm = props => {
           <View>
             <View style={styles.content}>
               <View style={styles.header}>
-                <Text style={styles.headingText1}>Growth Innovation </Text>
-                <Text style={[styles.headingText1, {marginBottom: 10}]}>
+                <Text style={styles.headingText1}>
+					Growth Innovation 
+                   {'\n'}
 					Leadership Council
                 </Text>
                 <Text>
+				{'\n'}
                   Login to your account below. If you are having trouble logging
                   into your account contact us.
                 </Text>
@@ -175,7 +177,7 @@ const SignInForm = props => {
               <View style={styles.signuptext}>
                 <Text>Not a member ?</Text>
                 <Text
-                  style={{color: '#31ade5'}}
+                  style={{color: '#31ade5', fontWeight:"700"}}
                   onPress={() => navigation.navigate('SignUp')}>
                   {' '}
                   Sign Up{' '}
@@ -184,12 +186,12 @@ const SignInForm = props => {
               <View
                 style={[
                   styles.signuptext,
-                  {marginTop: Platform.OS === 'ios' ? 60 : 110},
+                  {marginTop: Platform.OS === 'ios' ? 60 : 110}, 
                 ]}>
                 {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                 <Text>Need Help? </Text>
                 <Text
-                  style={{color: '#31ade5'}}
+                  style={{color: '#31ade5', fontWeight:"700",}}
                   onPress={() => Linking.openURL('mailto:contact@frost.com')}>
                   {' '}
                   Contact Us{' '}
@@ -231,8 +233,9 @@ const styles = StyleSheet.create({
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    fontWeight: 'bold',
+    fontWeight: '700',
     fontSize: 20,
+	color:'black'
   },
   headingText2: {
     ...CommonStyles.headingText2,
