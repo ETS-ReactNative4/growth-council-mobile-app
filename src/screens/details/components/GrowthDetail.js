@@ -432,6 +432,13 @@ const GrowthDetail = props => {
               </View>
             </View>
 
+            <WebView
+        source={{ uri: 'https://beta.gilcouncil.com/frost-radar/' }}
+        style={{ marginTop: 20 }}
+      />
+
+
+
             <View style={styles.growthContent}>
               <Text style={styles.title}> Growth Coaching Content</Text>
               <View
