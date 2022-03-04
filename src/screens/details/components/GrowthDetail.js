@@ -19,6 +19,7 @@ import Player from '../../dashboard/components/Player';
 import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import { WebView } from 'react-native-webview';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -432,6 +433,7 @@ const GrowthDetail = props => {
               </View>
             </View>
 
+            <Text style={styles.title}> Radar</Text> 
             <WebView
         source={{ uri: 'https://beta.gilcouncil.com/frost-radar/' }}
         style={{ marginTop: 20 }}
