@@ -58,7 +58,7 @@ const SelfAssessment = props => {
 
   const onFabPress = () => {
     scrollRef.current?.scrollTo({
-      y: 0,
+      y: -50,
       animated: true,
     });
   };
