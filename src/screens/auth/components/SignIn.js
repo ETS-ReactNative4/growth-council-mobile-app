@@ -122,8 +122,8 @@ const SignInForm = props => {
                   onFocus={handleBlur('username')}
                   error={errors.username}
                   touched={touched.username}
+				  autoCapitalize='none'
 
-                  //keyboardType={'email-address'}
                 />
                 {errors.username && (
                   <Text style={{fontSize: 10, color: 'red'}}>
@@ -139,6 +139,7 @@ const SignInForm = props => {
                   onFocus={handleBlur('password')}
                   error={errors.password}
                   touched={touched.password}
+				  autoCapitalize='none'
                 />
                 {errors.password && (
                   <Text style={{fontSize: 10, color: 'red'}}>

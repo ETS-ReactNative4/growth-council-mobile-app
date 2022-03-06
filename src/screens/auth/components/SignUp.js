@@ -421,6 +421,7 @@ const SignUpForm = props => {
                                 onFocus={handleBlur('email')}
                                 error={errors.email}
                                 touched={touched.email}
+								autoCapitalize='none'
                             />
                             {errors.email && (
                                 <Text style={styles.errorMessage}>{errors.email}</Text>
@@ -491,7 +492,7 @@ const SignUpForm = props => {
                                 style={styles.loginButton}
                                 onPress={handleSubmit}
                                 disabled={!isValid}>
-                                <Text style={styles.loginButtonText}>Sign Up</Text>
+                                <Text style={styles.loginButtonText}>Join Now</Text>
                             </Button>
                         </View>
 

@@ -164,16 +164,17 @@ const Home = props => {
       </View>
 
       <View style={styles.footer}>
-        <Image
+        {/* <Image
           style={styles.footerlogo}
           source={require('../../../assets/img/frost-sullivan.png')}
-        />
+        /> */}
         <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>
           Powered By
         </Text>
         <Image
-          source={require('../../../assets/img/frost_digital_logo_1.png')}
+          source={require('../../../assets/img/splashFooter.png')}
           style={styles.footerlogo1}
+		  resizeMode="cover"
         />
       </View>
     </View>
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginTop: 40,
+    marginTop: 30,
   },
   signupbutton: {
     ...CommonStyles.button,
@@ -289,7 +290,7 @@ const styles = StyleSheet.create({
 
   footer: {
     marginBottom: 10,
-    marginTop: 20,
+    marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -300,10 +301,10 @@ const styles = StyleSheet.create({
 	opacity: 2,
   },
   footerlogo1: {
-    width: 120,
-    height: 15,
-    resizeMode: 'contain',
+    width: 60,
+    height: 25,
     opacity: 0.75,
+	marginBottom:10,
   },
   sliderView: {
     position: 'relative',
