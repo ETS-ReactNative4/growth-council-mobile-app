@@ -350,7 +350,11 @@ const SignUpForm = props => {
             </View>
           )}
 
-          <ScrollView style={styles.scrollBox}>
+          <ScrollView
+            style={styles.scrollBox}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}>
+				
             <View style={styles.body}>
               <FlatTextInput
                 label="First Name *"
@@ -400,7 +404,7 @@ const SignUpForm = props => {
               {errors.company && (
                 <Text style={styles.errorMessage}>{errors.company}</Text>
               )}
-			  
+
               <FlatTextInput
                 label="Business Email *"
                 value={values.email}
@@ -414,7 +418,7 @@ const SignUpForm = props => {
                 <Text style={styles.errorMessage}>{errors.email}</Text>
               )}
 
-			  {/* <FlatTextInput
+              {/* <FlatTextInput
                                 label="Business Phone *"
                                 value={values.phone}
                                 onChangeText={handleChange('phone')}

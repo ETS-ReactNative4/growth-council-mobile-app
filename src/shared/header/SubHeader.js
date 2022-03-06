@@ -50,7 +50,7 @@ const SubHeader = props => {
             </TouchableOpacity>
           )}
           <Image
-            source={require('../../assets/img/dashboard_logo.png')}
+            source={require('../../assets/img/GILCouncillog.png')}
             style={{
               height: 35,
               width: 35,
