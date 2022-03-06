@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
-    Platform,
-    StyleSheet,
-    Text,
-    View,
-    ScrollView,
-    TouchableOpacity,
-    ImageBackground,
-    Modal,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  ImageBackground,
+  Modal,
 } from 'react-native';
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
@@ -16,7 +16,7 @@ import {Picker} from '@react-native-picker/picker';
 import {BubblesLoader} from 'react-native-indicator';
 import uuid from 'react-native-uuid';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
-
+import PhoneInput from 'react-native-phone-number-input';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 import CheckBox from '../../../shared/form/Checkbox';
@@ -24,644 +24,670 @@ import ToastMessage from '../../../shared/toast';
 import {auth} from '../../../utils/firebaseUtil';
 
 const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const signUpSchema = Yup.object().shape({
-    first_name: Yup.string().required('First Name is required.'),
-    last_name: Yup.string().required('Last Name is required.'),
-    email: Yup.string()
-        .email('Please enter valid email.')
-        .trim()
-        .required('Email Address is Required.'),
-    phone: Yup.string()
-        .matches(phoneRegExp, 'Phone number is not valid.')
-        .required('Phone Number is required.'),
-    title: Yup.string().required('Title is required.'),
-    company: Yup.string().required('Company is required.'),
-    country: Yup.string().required('Country is required.'),
-    checked: Yup.boolean()
-        .required('Please agree to terms and condition for signup.')
-        .oneOf([true], 'Please agree to terms and condition for signup.'),
+  first_name: Yup.string().required('First Name is required.'),
+  last_name: Yup.string().required('Last Name is required.'),
+  email: Yup.string()
+    .email('Please enter valid email.')
+    .trim()
+    .required('Email Address is Required.'),
+  phone: Yup.string()
+    .matches(phoneRegExp, 'Phone number is not valid.')
+    .required('Phone Number is required.'),
+  title: Yup.string().required('Title is required.'),
+  company: Yup.string().required('Company is required.'),
+  country: Yup.string().required('Country is required.'),
+  checked: Yup.boolean()
+    .required('Please agree to terms and condition for signup.')
+    .oneOf([true], 'Please agree to terms and condition for signup.'),
 });
 
 const SignUpForm = props => {
-    const {navigation, loading, error, registerCustomer, cleanCustomer} = props;
+  const {navigation, loading, error, registerCustomer, cleanCustomer} = props;
+  const phoneInput = useRef(null);
 
-    const min = 1;
-    const max = 100;
-    const rand = min + Math.random() * (max - min);
+  const min = 1;
+  const max = 100;
+  const rand = min + Math.random() * (max - min);
 
-    const {
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        errors,
-        setErrors,
-        touched,
-        isValid,
-        setFieldValue,
-    } = useFormik({
-        validationSchema: signUpSchema,
-        initialValues: {
-            name: '',
-            first_name: '',
-            last_name: '',
-            username: ``,
-            password: 'admin21',
-            title: '',
-            company: '',
-            phone: '',
-            email: '',
-            country: '',
-            checked: false,
-            firebase_password: uuid.v4(),
-        },
-        onSubmit: async values => {
-            values.name = values.first_name + ' ' + values.last_name;
-            values.username = values.email.substring(
-                0,
-                values.email.lastIndexOf('@'),
-            );
-            try {
-                const response = await createUserWithEmailAndPassword(
-                    auth,
-                    values?.email?.trim(),
-                    values?.firebase_password,
-                );
-                const token = await response.user.getIdToken();
-                if (token) {
-                    await registerCustomer(values).then(response => {
-                        if (response?.payload?.code === 200) {
-                            navigation.navigate('SignIn');
-                            ToastMessage.show(
-                                'You have successfully registered. Please wait for admin approval.',
-                            );
-                        } else {
-                            ToastMessage.show(response?.payload?.response);
-                        }
-                    });
-                }
-            } catch (error) {
-                switch (error.code) {
-                    case 'auth/email-already-in-use':
-                        ToastMessage.show(
-                            'The email address is already in use by another account.',
-                        );
-                        break;
-                    case 'auth/argument-error':
-                        ToastMessage.show('Authentication error. Please try again.');
-                        break;
-                    case 'auth/invalid-email':
-                        ToastMessage.show('Please enter valid email.');
-                        break;
-                    case 'auth/user-not-found':
-                        ToastMessage.show('User not found.');
-                        break;
-                    case 'auth/wrong-password':
-                        ToastMessage.show('Invalid password.');
-                        break;
-                }
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    setErrors,
+    touched,
+    isValid,
+    setFieldValue,
+  } = useFormik({
+    validationSchema: signUpSchema,
+    initialValues: {
+      name: '',
+      first_name: '',
+      last_name: '',
+      username: ``,
+      password: 'admin21',
+      title: '',
+      company: '',
+      phone: '',
+      email: '',
+      country: '',
+      checked: false,
+      firebase_password: uuid.v4(),
+    },
+    onSubmit: async values => {
+      values.name = values.first_name + ' ' + values.last_name;
+      values.username = values.email.substring(
+        0,
+        values.email.lastIndexOf('@'),
+      );
+      try {
+        const response = await createUserWithEmailAndPassword(
+          auth,
+          values?.email?.trim(),
+          values?.firebase_password,
+        );
+        const token = await response.user.getIdToken();
+        if (token) {
+          await registerCustomer(values).then(response => {
+            if (response?.payload?.code === 200) {
+              navigation.navigate('SignIn');
+              ToastMessage.show(
+                'You have successfully registered. Please wait for admin approval.',
+              );
+            } else {
+              ToastMessage.show(response?.payload?.response);
             }
-        },
-    });
+          });
+        }
+      } catch (error) {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            ToastMessage.show(
+              'The email address is already in use by another account.',
+            );
+            break;
+          case 'auth/argument-error':
+            ToastMessage.show('Authentication error. Please try again.');
+            break;
+          case 'auth/invalid-email':
+            ToastMessage.show('Please enter valid email.');
+            break;
+          case 'auth/user-not-found':
+            ToastMessage.show('User not found.');
+            break;
+          case 'auth/wrong-password':
+            ToastMessage.show('Invalid password.');
+            break;
+        }
+      }
+    },
+  });
 
-    const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
 
-    const [country, setCountry] = useState('United States');
+  const [country, setCountry] = useState('United States');
 
-    const countries = [
-        'Afghanistan',
-        'Albania',
-        'Algeria',
-        'Andorra',
-        'Angola',
-        'Antigua & Deps',
-        'Argentina',
-        'Armenia',
-        'Australia',
-        'Austria',
-        'Azerbaijan',
-        'Bahamas',
-        'Bahrain',
-        'Bangladesh',
-        'Barbados',
-        'Belarus',
-        'Belgium',
-        'Belize',
-        'Benin',
-        'Bhutan',
-        'Bolivia',
-        'Bosnia Herzegovina',
-        'Botswana',
-        'Brazil',
-        'Brunei',
-        'Bulgaria',
-        'Burkina',
-        'Burundi',
-        'Cambodia',
-        'Cameroon',
-        'Canada',
-        'Cape Verde',
-        'Central African Rep',
-        'Chad',
-        'Chile',
-        'China',
-        'Colombia',
-        'Comoros',
-        'Congo',
-        'Congo {Democratic Rep}',
-        'Costa Rica',
-        'Croatia',
-        'Cuba',
-        'Cyprus',
-        'Czech Republic',
-        'Denmark',
-        'Djibouti',
-        'Dominica',
-        'Dominican Republic',
-        'East Timor',
-        'Ecuador',
-        'Egypt',
-        'El Salvador',
-        'Equatorial Guinea',
-        'Eritrea',
-        'Estonia',
-        'Ethiopia',
-        'Fiji',
-        'Finland',
-        'France',
-        'Gabon',
-        'Gambia',
-        'Georgia',
-        'Germany',
-        'Ghana',
-        'Greece',
-        'Grenada',
-        'Guatemala',
-        'Guinea',
-        'Guinea-Bissau',
-        'Guyana',
-        'Haiti',
-        'Honduras',
-        'Hungary',
-        'Iceland',
-        'India',
-        'Indonesia',
-        'Iran',
-        'Iraq',
-        'Ireland {Republic}',
-        'Israel',
-        'Italy',
-        'Ivory Coast',
-        'Jamaica',
-        'Japan',
-        'Jordan',
-        'Kazakhstan',
-        'Kenya',
-        'Kiribati',
-        'Korea North',
-        'Korea South',
-        'Kosovo',
-        'Kuwait',
-        'Kyrgyzstan',
-        'Laos',
-        'Latvia',
-        'Lebanon',
-        'Lesotho',
-        'Liberia',
-        'Libya',
-        'Liechtenstein',
-        'Lithuania',
-        'Luxembourg',
-        'Macedonia',
-        'Madagascar',
-        'Malawi',
-        'Malaysia',
-        'Maldives',
-        'Mali',
-        'Malta',
-        'Marshall Islands',
-        'Mauritania',
-        'Mauritius',
-        'Mexico',
-        'Micronesia',
-        'Moldova',
-        'Monaco',
-        'Mongolia',
-        'Montenegro',
-        'Morocco',
-        'Mozambique',
-        'Myanmar, {Burma}',
-        'Namibia',
-        'Nauru',
-        'Nepal',
-        'Netherlands',
-        'New Zealand',
-        'Nicaragua',
-        'Niger',
-        'Nigeria',
-        'Norway',
-        'Oman',
-        'Pakistan',
-        'Palau',
-        'Panama',
-        'Papua New Guinea',
-        'Paraguay',
-        'Peru',
-        'Philippines',
-        'Poland',
-        'Portugal',
-        'Qatar',
-        'Romania',
-        'Russian Federation',
-        'Rwanda',
-        'St Kitts & Nevis',
-        'St Lucia',
-        'Saint Vincent & the Grenadines',
-        'Samoa',
-        'San Marino',
-        'Sao Tome & Principe',
-        'Saudi Arabia',
-        'Senegal',
-        'Serbia',
-        'Seychelles',
-        'Sierra Leone',
-        'Singapore',
-        'Slovakia',
-        'Slovenia',
-        'Solomon Islands',
-        'Somalia',
-        'South Africa',
-        'South Sudan',
-        'Spain',
-        'Sri Lanka',
-        'Sudan',
-        'Suriname',
-        'Swaziland',
-        'Sweden',
-        'Switzerland',
-        'Syria',
-        'Taiwan',
-        'Tajikistan',
-        'Tanzania',
-        'Thailand',
-        'Togo',
-        'Tonga',
-        'Trinidad & Tobago',
-        'Tunisia',
-        'Turkey',
-        'Turkmenistan',
-        'Tuvalu',
-        'Uganda',
-        'Ukraine',
-        'United Arab Emirates',
-        'United Kingdom',
-        'United States',
-        'Uruguay',
-        'Uzbekistan',
-        'Vanuatu',
-        'Vatican City',
-        'Venezuela',
-        'Vietnam',
-        'Yemen',
-        'Zambia',
-        'Zimbabwe',
-    ];
+  const countries = [
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'Andorra',
+    'Angola',
+    'Antigua & Deps',
+    'Argentina',
+    'Armenia',
+    'Australia',
+    'Austria',
+    'Azerbaijan',
+    'Bahamas',
+    'Bahrain',
+    'Bangladesh',
+    'Barbados',
+    'Belarus',
+    'Belgium',
+    'Belize',
+    'Benin',
+    'Bhutan',
+    'Bolivia',
+    'Bosnia Herzegovina',
+    'Botswana',
+    'Brazil',
+    'Brunei',
+    'Bulgaria',
+    'Burkina',
+    'Burundi',
+    'Cambodia',
+    'Cameroon',
+    'Canada',
+    'Cape Verde',
+    'Central African Rep',
+    'Chad',
+    'Chile',
+    'China',
+    'Colombia',
+    'Comoros',
+    'Congo',
+    'Congo {Democratic Rep}',
+    'Costa Rica',
+    'Croatia',
+    'Cuba',
+    'Cyprus',
+    'Czech Republic',
+    'Denmark',
+    'Djibouti',
+    'Dominica',
+    'Dominican Republic',
+    'East Timor',
+    'Ecuador',
+    'Egypt',
+    'El Salvador',
+    'Equatorial Guinea',
+    'Eritrea',
+    'Estonia',
+    'Ethiopia',
+    'Fiji',
+    'Finland',
+    'France',
+    'Gabon',
+    'Gambia',
+    'Georgia',
+    'Germany',
+    'Ghana',
+    'Greece',
+    'Grenada',
+    'Guatemala',
+    'Guinea',
+    'Guinea-Bissau',
+    'Guyana',
+    'Haiti',
+    'Honduras',
+    'Hungary',
+    'Iceland',
+    'India',
+    'Indonesia',
+    'Iran',
+    'Iraq',
+    'Ireland {Republic}',
+    'Israel',
+    'Italy',
+    'Ivory Coast',
+    'Jamaica',
+    'Japan',
+    'Jordan',
+    'Kazakhstan',
+    'Kenya',
+    'Kiribati',
+    'Korea North',
+    'Korea South',
+    'Kosovo',
+    'Kuwait',
+    'Kyrgyzstan',
+    'Laos',
+    'Latvia',
+    'Lebanon',
+    'Lesotho',
+    'Liberia',
+    'Libya',
+    'Liechtenstein',
+    'Lithuania',
+    'Luxembourg',
+    'Macedonia',
+    'Madagascar',
+    'Malawi',
+    'Malaysia',
+    'Maldives',
+    'Mali',
+    'Malta',
+    'Marshall Islands',
+    'Mauritania',
+    'Mauritius',
+    'Mexico',
+    'Micronesia',
+    'Moldova',
+    'Monaco',
+    'Mongolia',
+    'Montenegro',
+    'Morocco',
+    'Mozambique',
+    'Myanmar, {Burma}',
+    'Namibia',
+    'Nauru',
+    'Nepal',
+    'Netherlands',
+    'New Zealand',
+    'Nicaragua',
+    'Niger',
+    'Nigeria',
+    'Norway',
+    'Oman',
+    'Pakistan',
+    'Palau',
+    'Panama',
+    'Papua New Guinea',
+    'Paraguay',
+    'Peru',
+    'Philippines',
+    'Poland',
+    'Portugal',
+    'Qatar',
+    'Romania',
+    'Russian Federation',
+    'Rwanda',
+    'St Kitts & Nevis',
+    'St Lucia',
+    'Saint Vincent & the Grenadines',
+    'Samoa',
+    'San Marino',
+    'Sao Tome & Principe',
+    'Saudi Arabia',
+    'Senegal',
+    'Serbia',
+    'Seychelles',
+    'Sierra Leone',
+    'Singapore',
+    'Slovakia',
+    'Slovenia',
+    'Solomon Islands',
+    'Somalia',
+    'South Africa',
+    'South Sudan',
+    'Spain',
+    'Sri Lanka',
+    'Sudan',
+    'Suriname',
+    'Swaziland',
+    'Sweden',
+    'Switzerland',
+    'Syria',
+    'Taiwan',
+    'Tajikistan',
+    'Tanzania',
+    'Thailand',
+    'Togo',
+    'Tonga',
+    'Trinidad & Tobago',
+    'Tunisia',
+    'Turkey',
+    'Turkmenistan',
+    'Tuvalu',
+    'Uganda',
+    'Ukraine',
+    'United Arab Emirates',
+    'United Kingdom',
+    'United States',
+    'Uruguay',
+    'Uzbekistan',
+    'Vanuatu',
+    'Vatican City',
+    'Venezuela',
+    'Vietnam',
+    'Yemen',
+    'Zambia',
+    'Zimbabwe',
+  ];
 
-    const [isPickerVisible, setIsPickerVisible] = useState(false);
+  const [isPickerVisible, setIsPickerVisible] = useState(false);
 
-    return (
-        <View style={styles.container}>
-            <ImageBackground
-                source={require('../../../assets/img/splash-screen.png')}
-                resizeMode="cover">
-                <View style={{height: '15%'}}/>
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        source={require('../../../assets/img/splash-screen.png')}
+        resizeMode="cover">
+        <View style={{height: '15%'}} />
 
-                <View style={styles.content}>
-                    <View style={styles.header}>
-                        <Text style={styles.headingText1}>
-                            Join Growth Council
-                        </Text>
-                    </View>
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Text style={styles.headingText1}>Join Growth Council</Text>
+          </View>
 
-                    {loading && (
-                        <View style={styles.loading1}>
-                            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60}/>
-                        </View>
-                    )}
+          {loading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+            </View>
+          )}
 
-                    <ScrollView style={styles.scrollBox}>
-                        <View style={styles.body}>
-                            <FlatTextInput
-                                label="First Name *"
-                                value={values.first_name}
-                                onChangeText={handleChange('first_name')}
-                                onFocus={handleBlur('first_name')}
-                                error={errors.first_name}
-                                touched={touched.first_name}
-                            />
-                            {errors.first_name && (
-                                <Text style={styles.errorMessage}>{errors.first_name}</Text>
-                            )}
+          <ScrollView style={styles.scrollBox}>
+            <View style={styles.body}>
+              <FlatTextInput
+                label="First Name *"
+                value={values.first_name}
+                onChangeText={handleChange('first_name')}
+                onFocus={handleBlur('first_name')}
+                error={errors.first_name}
+                touched={touched.first_name}
+              />
+              {errors.first_name && (
+                <Text style={styles.errorMessage}>{errors.first_name}</Text>
+              )}
 
-                            <FlatTextInput
-                                label="Last Name *"
-                                value={values.last_name}
-                                onChangeText={handleChange('last_name')}
-                                onFocus={handleBlur('last_name')}
-                                error={errors.last_name}
-                                touched={touched.last_name}
-                            />
+              <FlatTextInput
+                label="Last Name *"
+                value={values.last_name}
+                onChangeText={handleChange('last_name')}
+                onFocus={handleBlur('last_name')}
+                error={errors.last_name}
+                touched={touched.last_name}
+              />
 
-                            {errors.last_name && (
-                                <Text style={styles.errorMessage}>{errors.last_name}</Text>
-                            )}
+              {errors.last_name && (
+                <Text style={styles.errorMessage}>{errors.last_name}</Text>
+              )}
 
-                            <FlatTextInput
-                                label="Title *"
-                                value={values.title}
-                                onChangeText={handleChange('title')}
-                                onFocus={handleBlur('title')}
-                                error={errors.title}
-                                touched={touched.title}
-                            />
-                            {errors.title && (
-                                <Text style={styles.errorMessage}>{errors.title}</Text>
-                            )}
+              <FlatTextInput
+                label="Title *"
+                value={values.title}
+                onChangeText={handleChange('title')}
+                onFocus={handleBlur('title')}
+                error={errors.title}
+                touched={touched.title}
+              />
+              {errors.title && (
+                <Text style={styles.errorMessage}>{errors.title}</Text>
+              )}
 
-                            <FlatTextInput
-                                label="Company *"
-                                value={values.company}
-                                onChangeText={handleChange('company')}
-                                onFocus={handleBlur('company')}
-                                error={errors.company}
-                                touched={touched.company}
-                            />
-                            {errors.company && (
-                                <Text style={styles.errorMessage}>{errors.company}</Text>
-                            )}
+              <FlatTextInput
+                label="Company *"
+                value={values.company}
+                onChangeText={handleChange('company')}
+                onFocus={handleBlur('company')}
+                error={errors.company}
+                touched={touched.company}
+              />
+              {errors.company && (
+                <Text style={styles.errorMessage}>{errors.company}</Text>
+              )}
+			  
+              <FlatTextInput
+                label="Business Email *"
+                value={values.email}
+                onChangeText={handleChange('email')}
+                onFocus={handleBlur('email')}
+                error={errors.email}
+                touched={touched.email}
+                autoCapitalize="none"
+              />
+              {errors.email && (
+                <Text style={styles.errorMessage}>{errors.email}</Text>
+              )}
 
-                            <FlatTextInput
+			  {/* <FlatTextInput
                                 label="Business Phone *"
                                 value={values.phone}
                                 onChangeText={handleChange('phone')}
                                 onFocus={handleBlur('phone')}
                                 error={errors.phone}
                                 touched={touched.phone}
-                            />
-                            {errors.phone && (
-                                <Text style={styles.errorMessage}>{errors.phone}</Text>
-                            )}
+                            /> */}
 
-                            <FlatTextInput
-                                label="Business Email *"
-                                value={values.email}
-                                onChangeText={handleChange('email')}
-                                onFocus={handleBlur('email')}
-                                error={errors.email}
-                                touched={touched.email}
-								autoCapitalize='none'
-                            />
-                            {errors.email && (
-                                <Text style={styles.errorMessage}>{errors.email}</Text>
-                            )}
+              <Text style={{marginTop: 20, color: 'black'}}>
+                Phone Number *
+              </Text>
 
-                            <Text style={{marginTop: 20, color: 'black'}}>Country *</Text>
-                            <TouchableOpacity
-                                onPress={() => setIsPickerVisible(true)}
-                                style={{
-                                    borderRadius: 5,
-                                    borderWidth: 0.5,
-                                    overflow: 'hidden',
-                                    height: 50,
-                                    marginTop: 10,
-                                    marginBottom: 10,
-                                    justifyContent: 'center',
-                                    paddingLeft: 20,
-                                }}>
-                                <Text style={{fontWeight: 'bold', color: 'gray'}}>
-                                    {values.country ? values.country : 'Select a Country'}
-                                </Text>
-                            </TouchableOpacity>
-                            {errors.country && (
-                                <Text style={{fontSize: 10, color: 'red'}}>
-                                    {errors.country}
-                                </Text>
-                            )}
+              <PhoneInput
+                ref={phoneInput}
+                defaultCode="IN"
+                layout="first"
+                withShadow
+                autoFocus
+                containerStyle={styles.phoneNumberView}
+                textContainerStyle={{paddingVertical: 0}}
+                // onChangeFormattedText={text => {
+                // setPhoneNumber(text);
+                // }}
+                value={values.phone}
+                onChangeText={handleChange('phone')}
+                onFocus={handleBlur('phone')}
+                error={errors.phone}
+                touched={touched.phone}
+              />
+              {errors.phone && (
+                <Text style={styles.errorMessage}>{errors.phone}</Text>
+              )}
 
-                            <View>
-                                <View style={{flexDirection: 'row'}}>
-                                    <CheckBox
+              <Text style={{marginTop: 20, color: 'black'}}>Country *</Text>
+              <TouchableOpacity
+                onPress={() => setIsPickerVisible(true)}
+                style={{
+                  borderRadius: 5,
+                  borderWidth: 0.5,
+                  overflow: 'hidden',
+                  height: 50,
+                  marginTop: 10,
+                  marginBottom: 10,
+                  justifyContent: 'center',
+                  paddingLeft: 20,
+                }}>
+                <Text style={{fontWeight: 'bold', color: 'gray'}}>
+                  {values.country ? values.country : 'Select a Country'}
+                </Text>
+              </TouchableOpacity>
+              {errors.country && (
+                <Text style={{fontSize: 10, color: 'red'}}>
+                  {errors.country}
+                </Text>
+              )}
 
-                                        status={checked ? 'checked' : 'unchecked'}
-                                        onPress={() => {
-                                            setFieldValue('checked', !checked);
-                                            setChecked(!checked);
-                                        }}
-                                    />
-                                    <View>
-                                        <Text style={{marginTop: 7, width: '55%'}}>
-                                            By clicking submit, I agree to Frost & Sullivan
-                                            <Text style={{paddingTop: 5, color: 'blue'}}
-                                                  onPress={() => navigation.navigate('Terms')}> Terms of Use&nbsp;
-                                            </Text>
-                                            and
-
-                                            <Text style={{paddingTop: 5, color: 'blue'}}
-                                                  onPress={() => navigation.navigate('Privacy')}> Privacy Policy*
-                                            </Text>
-
-                                        </Text>
-
-
-                                    </View>
-
-                                </View>
-
-                                {errors.checked && (
-                                    <Text style={{fontSize: 10, color: 'red'}}>
-                                        {errors.checked}
-                                    </Text>
-                                )}
-                            </View>
-                        </View>
-
-                        <View style={styles.loginButtonWrapper}>
-                            <Button
-                                style={styles.loginButton}
-                                onPress={handleSubmit}
-                                disabled={!isValid}>
-                                <Text style={styles.loginButtonText}>Join Now</Text>
-                            </Button>
-                        </View>
-
-                        <View style={styles.signUpLinkWrapper}>
-                            <Text style={{color: Colors.NONARY_TEXT_COLOR}}>
-                                Already a Growth Council Member?
-                            </Text>
-                            <TouchableOpacity>
-                                <Text
-                                    style={styles.signUpButtonText}
-                                    onPress={() => navigation.navigate('SignIn')}>
-                                    Click Here
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
+              <View>
+                <View style={{flexDirection: 'row'}}>
+                  <CheckBox
+                    status={checked ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                      setFieldValue('checked', !checked);
+                      setChecked(!checked);
+                    }}
+                  />
+                  <View>
+                    <Text style={{marginTop: 7, width: '55%'}}>
+                      By clicking submit, I agree to Frost & Sullivan
+                      <Text
+                        style={{paddingTop: 5, color: 'blue'}}
+                        onPress={() => navigation.navigate('Terms')}>
+                        {' '}
+                        Terms of Use&nbsp;
+                      </Text>
+                      and
+                      <Text
+                        style={{paddingTop: 5, color: 'blue'}}
+                        onPress={() => navigation.navigate('Privacy')}>
+                        {' '}
+                        Privacy Policy*
+                      </Text>
+                    </Text>
+                  </View>
                 </View>
-            </ImageBackground>
-            <Modal transparent visible={isPickerVisible}>
-                <View
-                    style={{
-                        flex: 1,
-                        backgroundColor: 'rgba(56,56,56,0.3)',
-                        justifyContent: 'flex-end',
-                    }}>
-                    <View
-                        style={{
-                            height: 300,
-                            backgroundColor: 'white',
-                            borderTopLeftRadius: 20,
-                            borderTopRightRadius: 20,
-                            padding: 20,
-                        }}>
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={() => setIsPickerVisible(false)}
-                            style={{alignItems: 'flex-end'}}>
-                            <Text
-                                style={{
-                                    padding: 15,
-                                    fontSize: 18,
-                                }}>
-                                Done
-                            </Text>
-                        </TouchableOpacity>
-                        <View style={{marginBottom: 40}}>
-                            <Picker
-                                selectedValue={country}
-                                mode={'dropdown'}
-                                // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
-                                onValueChange={(itemValue, itemIndex) => {
-                                    if (itemValue !== null) {
-                                        setFieldValue('country', itemValue);
-                                        setCountry(itemValue);
-                                        setErrors({});
-                                    }
-                                }}>
-                                {countries.map((value, index) => {
-                                    return (
-                                        <Picker.Item
-                                            label={value}
-                                            value={value}
-                                            style={{fontSize: 12}}
-                                        />
-                                    );
-                                })}
-                            </Picker>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+
+                {errors.checked && (
+                  <Text style={{fontSize: 10, color: 'red'}}>
+                    {errors.checked}
+                  </Text>
+                )}
+              </View>
+            </View>
+
+            <View style={styles.loginButtonWrapper}>
+              <Button
+                style={styles.loginButton}
+                onPress={handleSubmit}
+                disabled={!isValid}>
+                <Text style={styles.loginButtonText}>Join Now</Text>
+              </Button>
+            </View>
+
+            <View style={styles.signUpLinkWrapper}>
+              <Text style={{color: Colors.NONARY_TEXT_COLOR}}>
+                Already a Growth Council Member?
+              </Text>
+              <TouchableOpacity>
+                <Text
+                  style={styles.signUpButtonText}
+                  onPress={() => navigation.navigate('SignIn')}>
+                  Click Here
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
-    );
+      </ImageBackground>
+      <Modal transparent visible={isPickerVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setIsPickerVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={country}
+                mode={'dropdown'}
+                // onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
+                onValueChange={(itemValue, itemIndex) => {
+                  if (itemValue !== null) {
+                    setFieldValue('country', itemValue);
+                    setCountry(itemValue);
+                    setErrors({});
+                  }
+                }}>
+                {countries.map((value, index) => {
+                  return (
+                    <Picker.Item
+                      label={value}
+                      value={value}
+                      style={{fontSize: 12}}
+                    />
+                  );
+                })}
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        ...CommonStyles.container,
-    },
-    header: {
-        height: 70,
-        marginTop: Platform.OS === 'ios' ? 30 : 20,
-        marginBottom: 30,
-    },
-    scrollBox: {
-        height: '65%',
-        width: '100%',
-        marginBottom: 0,
-
-    },
-    body: {
-        width: '98%',
-        // alignItems: 'center',
-        justifyContent: 'center',
-
-    },
-    content: {
-        height: '86%',
-        backgroundColor: 'white',
-        borderRadius: 18,
-        padding: 30,
-    },
-    message: {
-        ...CommonStyles.message,
-    },
-    profileImage: {
-        marginBottom: 10,
-        height: 50,
-        width: 50,
-    },
-    headingText1: {
-        ...CommonStyles.headingText1,
-        fontFamily: Typography.FONT_SF_SEMIBOLD,
-        color: Colors.NONARY_TEXT_COLOR,
-        fontSize: 24,
-    },
-    headingText2: {
-        ...CommonStyles.headingText2,
-        fontFamily: Typography.FONT_NORMAL,
-        width: 210,
-        textAlign: 'center',
-    },
-    loginButtonWrapper: {
-        ...CommonStyles.buttonWrapper,
-        width: '100%',
-        marginTop: 10,
-    },
-    loginButton: {
-        width: '50%',
-        borderRadius: 25,
-        height: 56,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
-        marginLeft: 5,
-    },
-    loginButtonText: {
-        color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-        fontFamily: Typography.FONT_BOLD,
-    },
-    signUpLinkWrapper: {
-        ...CommonStyles.linkWrapper,
-        marginTop: 10,
-        alignItems: 'center',
-        marginBottom: 30,
-    },
-    signUpButtonText: {
-        color: Colors.PRIMARY_BUTTON_COLOR,
-        fontFamily: Typography.FONT_NORMAL,
-        paddingLeft: 5,
-    },
-    errorText: {
-        ...CommonStyles.errorText,
-        textAlign: 'left',
-    },
-    loading1: {
-        top: 10,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        zIndex: 1011,
-    },
-    errorMessage: {
-        fontSize: 10,
-        color: 'red',
-    },
+  container: {
+    ...CommonStyles.container,
+  },
+  header: {
+    height: 70,
+    marginTop: Platform.OS === 'ios' ? 30 : 20,
+    marginBottom: 30,
+  },
+  scrollBox: {
+    height: '65%',
+    width: '100%',
+    marginBottom: 0,
+  },
+  body: {
+    width: '98%',
+    // alignItems: 'center',
+    justifyContent: 'center',
+  },
+  content: {
+    height: '86%',
+    backgroundColor: 'white',
+    borderRadius: 18,
+    padding: 30,
+  },
+  message: {
+    ...CommonStyles.message,
+  },
+  profileImage: {
+    marginBottom: 10,
+    height: 50,
+    width: 50,
+  },
+  headingText1: {
+    ...CommonStyles.headingText1,
+    fontFamily: Typography.FONT_SF_SEMIBOLD,
+    color: Colors.NONARY_TEXT_COLOR,
+    fontSize: 24,
+  },
+  headingText2: {
+    ...CommonStyles.headingText2,
+    fontFamily: Typography.FONT_NORMAL,
+    width: 210,
+    textAlign: 'center',
+  },
+  loginButtonWrapper: {
+    ...CommonStyles.buttonWrapper,
+    width: '100%',
+    marginTop: 10,
+  },
+  loginButton: {
+    width: '50%',
+    borderRadius: 25,
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
+    marginLeft: 5,
+  },
+  loginButtonText: {
+    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
+    fontFamily: Typography.FONT_BOLD,
+  },
+  signUpLinkWrapper: {
+    ...CommonStyles.linkWrapper,
+    marginTop: 10,
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  signUpButtonText: {
+    color: Colors.PRIMARY_BUTTON_COLOR,
+    fontFamily: Typography.FONT_NORMAL,
+    paddingLeft: 5,
+  },
+  errorText: {
+    ...CommonStyles.errorText,
+    textAlign: 'left',
+  },
+  loading1: {
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
+  },
+  errorMessage: {
+    fontSize: 10,
+    color: 'red',
+  },
+  phoneNumberView: {
+    width: '100%',
+    height: 50,
+    marginTop: 10,
+    backgroundColor: 'white',
+    borderWidth: 0.3,
+  },
 });
 
 export default SignUpForm;

@@ -123,7 +123,6 @@ const SignInForm = props => {
                   error={errors.username}
                   touched={touched.username}
 				  autoCapitalize='none'
-
                 />
                 {errors.username && (
                   <Text style={{fontSize: 10, color: 'red'}}>
