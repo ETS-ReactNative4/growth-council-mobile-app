@@ -173,10 +173,8 @@ const MainNavigation = props => {
           name="Forgot"
           component={ForgotScreen}
           options={{
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureDirection: 'horizontal-inverted',
+			headerTitle: 'Forget',
+			
           }}
         />
         <Stack.Screen
