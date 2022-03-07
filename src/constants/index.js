@@ -4,11 +4,10 @@ export const JWT_TOKEN = 'growth-council-token';
 export const USER_NAME = 'user-name';
 export const USER_AVATAR = 'user-avatar';
 
-export const FIREBASE_API_KEY = 'AIzaSyC3jlrr6heMtEdVALh2uoWgZtwXFxtExrg';
+export const FIREBASE_API_KEY = 'AIzaSyCXZMG9L-wJ2sStEZ3KleU2H3T63QC4RpY';
 export const FIREBASE_AUTH_DOMAIN =
-  '98653816763-iqfs729oiv0ebdh7it2lvdk5as4jbtb6.apps.googleusercontent.com';
-export const FIREBASE_DATABASE_URL = 'https://growth-council-default-rtdb.firebaseio.com';
-export const FIREBASE_PROJECT_ID = 'growth-council';
-export const FIREBASE_STORAGE_BUCKET = 'growth-council.appspot.com';
-export const FIREBASE_MESSAGING_SENDER_ID = '98653816763';
-export const FIREBASE_APP_ID = '1:98653816763:android:9d71b31b05a40b313a669e';
+    '377923277535-nl27jjuj76ve5b30ecaj9gmnbq55n254.apps.googleusercontent.com';
+export const FIREBASE_PROJECT_ID = 'growth-council-69a81';
+export const FIREBASE_STORAGE_BUCKET = 'growth-council-69a81.appspot.com';
+export const FIREBASE_MESSAGING_SENDER_ID = '377923277535';
+export const FIREBASE_APP_ID = '1:377923277535:android:d100b41f6342692a9f4f6a';
