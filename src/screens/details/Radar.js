@@ -1,4 +1,5 @@
 import React from 'react';
+import Radar from './components/Radar';
 import {useDispatch, useSelector} from 'react-redux';
 
 const RadarScreen = props => {
@@ -6,8 +7,7 @@ const RadarScreen = props => {
 
   return (
     <Radar
-      {...props}
-     
+      {...props}     
     />
   );
 };
