@@ -43,7 +43,6 @@ export default StyleSheet.create({
   errorText: {
     fontSize: Typography.FONT_SIZE_MEDIUM,
     color: Colors.PRIMARY_ERROR_COLOR,
-    marginLeft: 15,
     marginBottom: 15,
   },
   successText: {
