@@ -20,11 +20,11 @@ import {decodeUserID} from '../../../utils/jwtUtil';
 import {useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
-import ChatCount from '../../../shared/chatCount';
 
 const UserList = props => {
     const {
         navigation,
+        route,
         connection,
         connectionLoading,
         connectionError,
@@ -90,11 +90,8 @@ const UserList = props => {
                                 {item?.display_name}
                             </Text>
                             <Text style={{fontSize: 12, marginTop: 10}}>
-                                {item?.user_email}
+                                {item.user_email}
                             </Text>
-
-                            <ChatCount item={item} userID={userID}/>
-
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -103,7 +100,6 @@ const UserList = props => {
     };
 
     return (
-
         <SafeAreaView style={{flex: 1}}>
             <ScrollView
                 contentContainerStyle={{
@@ -163,12 +159,14 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         display: 'flex',
         flexDirection: 'row',
-        padding: 10,
-        paddingRight: 10,
+        paddingLeft: 25,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingRight: 35,
         justifyContent: 'space-between',
     },
     button: {
-        width: Platform.OS === 'ios' ? 140 : 160,
+        width: '85%',
         borderRadius: 10,
         height: 38,
         marginTop: 8,

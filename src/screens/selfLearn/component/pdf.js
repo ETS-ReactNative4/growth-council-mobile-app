@@ -126,8 +126,8 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
   },
   buttonWrapper: {
-    width: '60%',
-    padding: 10,
+    width: '50%',
+    padding: 5,
     margin: 10,
     borderRadius: 20,
     backgroundColor: '#F26722',

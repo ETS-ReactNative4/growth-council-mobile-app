@@ -58,7 +58,7 @@ export default StyleSheet.create({
   forgotButtonText: {
     height: 30,
     marginBottom: 0,
-    color: Colors.TERTIARY_TEXT_COLOR,
+    // color: Colors.TERTIARY_TEXT_COLOR,
   },
   hideShowWrapper: {
     position: 'absolute',

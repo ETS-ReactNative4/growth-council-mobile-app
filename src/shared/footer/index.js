@@ -11,8 +11,8 @@ const Footer = props => {
       }}>
       <Text style={{fontSize: 8, marginTop: 10, marginBottom:5}}>Powered By</Text>
       <Image
-        source={require('../../assets/img/fristDigi.png')}
-        style={{width: '35%', height: 20}}
+        source={require('../../assets/img/splashFooter.png')}
+        style={{width: 90, height: 35}}
       />
     </View>
   );
