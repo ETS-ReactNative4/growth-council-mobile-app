@@ -53,7 +53,8 @@ const SplashScreen = () => {
         style={styles.content}
         source={require('../../assets/img/appBG.png')}
         resizeMode="cover">
-        <Text style={styles.heading}>Growth Council</Text>
+        <Text style={styles.heading}>Growth</Text>
+        <Text style={styles.heading}>Council App</Text>
         <Image
           style={styles.mainLogo}
           source={require('../../assets/img/GILCouncillog.png')}
@@ -66,7 +67,8 @@ const SplashScreen = () => {
           <Text style={styles.poweredBy}>Powered by</Text>
           <Image
             style={styles.footerLogo1}
-            source={require('../../assets/img/footer_logo_1.png')}
+            source={require('../../assets/img/splashFooter.png')}
+            resizeMode="cover"
           />
         </View>
       </ImageBackground>
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     lineHeight: 41,
     color: QUATERNARY_TEXT_COLOR,
+    alignItems: 'center',
   },
   footerContent: {
     position: 'absolute',
@@ -108,11 +111,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   footerLogo: {},
+
   footerLogo1: {
     width: 150,
-    height: 20,
-    resizeMode: 'contain',
-    marginTop: 15,
+    height: 60,
+    marginTop: 10,
   },
   text: {
     fontSize: 25,

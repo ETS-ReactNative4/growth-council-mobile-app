@@ -89,21 +89,25 @@ const SignInForm = props => {
           <View>
             <View style={styles.content}>
               <View style={styles.header}>
-                <Text style={styles.headingText1}>Growth Innovation </Text>
-                <Text style={[styles.headingText1, {marginBottom: 10}]}>
-					Leadership Council
+                <Text style={styles.headingText1}>
+                  Growth Innovation
+                  {'\n'}
+                  Leadership Council
                 </Text>
                 <Text>
-                  Login to your account below. If you are having trouble logging
-                  into your account contact us.
+                  {'\n'}
+                  Login to your account below.
                 </Text>
               </View>
 
-              {!message?.success && (
-                <View style={styles.message}>
-                  <Text style={styles.errorText}>{message?.message}</Text>
-                </View>
-              )}
+				
+				{!message?.success && (
+					<View style={styles.message}>
+					<Text style={styles.errorText}>{message?.message}</Text>
+					</View>
+				)}
+			
+             
 
               <View style={styles.body}>
                 {loading && (
@@ -121,8 +125,7 @@ const SignInForm = props => {
                   onFocus={handleBlur('username')}
                   error={errors.username}
                   touched={touched.username}
-
-                  //keyboardType={'email-address'}
+                  autoCapitalize="none"
                 />
                 {errors.username && (
                   <Text style={{fontSize: 10, color: 'red'}}>
@@ -138,6 +141,7 @@ const SignInForm = props => {
                   onFocus={handleBlur('password')}
                   error={errors.password}
                   touched={touched.password}
+                  autoCapitalize="none"
                 />
                 {errors.password && (
                   <Text style={{fontSize: 10, color: 'red'}}>
@@ -173,9 +177,9 @@ const SignInForm = props => {
                 </TouchableOpacity>
               </View>
               <View style={styles.signuptext}>
-                <Text>Not a member ?</Text>
+                <Text>Join Growth Council</Text>
                 <Text
-                  style={{color: '#31ade5'}}
+                  style={{color: '#31ade5', fontWeight: '700'}}
                   onPress={() => navigation.navigate('SignUp')}>
                   {' '}
                   Sign Up{' '}
@@ -189,7 +193,7 @@ const SignInForm = props => {
                 {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                 <Text>Need Help? </Text>
                 <Text
-                  style={{color: '#31ade5'}}
+                  style={{color: '#31ade5', fontWeight: '700'}}
                   onPress={() => Linking.openURL('mailto:contact@frost.com')}>
                   {' '}
                   Contact Us{' '}
@@ -225,14 +229,18 @@ const styles = StyleSheet.create({
   },
   message: {
     ...CommonStyles.message,
-    width: '86%',
     paddingTop: 29,
+  },
+  errorText: {
+    ...CommonStyles.errorText,
+    alignContent: 'center',
   },
   headingText1: {
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
-    fontWeight: 'bold',
+    fontWeight: '700',
     fontSize: 20,
+    color: 'black',
   },
   headingText2: {
     ...CommonStyles.headingText2,
@@ -270,10 +278,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_MEDIUM,
     paddingLeft: 8,
   },
-  errorText: {
-    ...CommonStyles.errorText,
-    textAlign: 'left',
-  },
+  
   signuptext: {
     flexDirection: 'row',
   },

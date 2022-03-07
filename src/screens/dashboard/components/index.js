@@ -11,9 +11,7 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
-  Button,
-  Modal,
-  Pressable,
+
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
@@ -351,7 +349,7 @@ const Dashboard = props => {
               marginLeft: 15,
               marginRight: 15,
             }}>
-            <Text style={styles.title}> Growth Community Members</Text>
+            <Text style={styles.title}> Growth Council Members</Text>
           </View>
           <View>
             <FlatList

@@ -15,6 +15,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
+import Footer from '../../../shared/footer';
 
 const EventCalendar = props => {
   const {
@@ -325,6 +326,7 @@ const EventCalendar = props => {
             </View>
           </Modal>
         </View>
+		<Footer/>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
