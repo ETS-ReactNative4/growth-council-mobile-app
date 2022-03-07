@@ -83,11 +83,10 @@ const ForgotForm = props => {
             style={styles.submitButton}
             onPress={handleSubmit}
             disabled={!isValid}>
-            <Text style={styles.submitButtonText}>SUBMIT</Text>
+            <Text style={styles.submitButtonText}>Reset Password</Text>
           </Button>
         </View>
       </View>
-	 
     </ScrollView>
   );
 };

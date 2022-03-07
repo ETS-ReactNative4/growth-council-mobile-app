@@ -27,10 +27,7 @@ const Detail = props => {
   } = props;
 
   useEffect(() => {
-    const fetchDetailAsync = async () => {
-      await fetchAllDetail();
-    };
-    fetchDetailAsync();
+    fetchAllDetail();
   }, []);
 
   let description = details?.content1;
@@ -58,7 +55,7 @@ const Detail = props => {
               <Button
                 style={styles.acceptButton}
                 onPress={() => navigation.navigate('SignUp')}>
-                <Text style={styles.acceptButtonText}>Create Your Account</Text>
+                <Text style={styles.acceptButtonText}>Join Growth Council</Text>
               </Button>
             </View>
 

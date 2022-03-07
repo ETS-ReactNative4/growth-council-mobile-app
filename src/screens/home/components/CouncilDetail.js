@@ -37,8 +37,6 @@ const CouncilDetail = props => {
     fetchPillarDetailAsync();
   }, []);
 
-
-
   return (
     <ScrollView>
       <View style={styles.meta}>
@@ -114,14 +112,17 @@ const CouncilDetail = props => {
             </View>
           )}
           <Text style={styles.headingTitle}>{pillars?.name}</Text>
-          <HTMLView value={pillars?.description ? pillars.description : ""} style={styles.paragraph} />
+          <HTMLView
+            value={pillars?.description ? pillars.description : ''}
+            style={styles.paragraph}
+          />
         </View>
         {!loadMore && (
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <Button
               style={styles.moreButton}
               onPress={() => setLoadMore(!loadMore)}>
-              <Text style={styles.moreButtonText}>Load More</Text>
+              <Text style={styles.moreButtonText}>Explore More</Text>
             </Button>
           </View>
         )}

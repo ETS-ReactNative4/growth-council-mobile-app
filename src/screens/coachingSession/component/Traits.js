@@ -1,4 +1,4 @@
-import React,{useRef} from 'react';
+import React,{useEffect} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import HTMLView from 'react-native-htmlview';
 import {Typography} from '../../../theme';
@@ -30,7 +30,7 @@ const Traits = props => {
 	
   } = props;
 
- 
+  useEffect(() => {}, [count, answers]);
  
   return (
 	<ScrollView style={styles.scrollBox}>

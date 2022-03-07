@@ -8,8 +8,10 @@ import {
   Dimensions,
   FlatList,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
+import ToastMessage from '../../../shared/toast';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -48,9 +50,6 @@ const CouncilAllDetail = props => {
     };
   }, []);
 
-  // console.log('Pillar Upcoming Events:::::::::::::::::', pillarPOEs, pillar_id);
-  // console.log({pillarPOEs});
-
   const _renderItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
@@ -71,45 +70,55 @@ const CouncilAllDetail = props => {
         backgroundColor = Colors.COACHING_COLOR;
     }
     return (
-      <View style={styles.eventCard} key={index}>
-        <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
-        <View style={styles.eventDetails}>
-          <View style={styles.eventInfo}>
-            <Text style={styles.eventTitle}>{item.title}</Text>
-            <Text style={styles.eventParagraph}>
-              Hosted by {item?.organizer?.term_name}{' '}
-              {item?.organizer?.description}
-            </Text>
+      <View>
+        <TouchableOpacity
+          onPress={() => ToastMessage.show('Please first join growth council')}>
+          <View style={styles.eventCard} key={index}>
+            <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
+            <View style={styles.eventDetails}>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventTitle}>{item.title}</Text>
+                <Text style={styles.eventParagraph}>
+                  Hosted by {item?.organizer?.term_name}{' '}
+                  {item?.organizer?.description}
+                </Text>
+              </View>
+              <View style={styles.eventDate}>
+                <Text style={styles.eventDateText}>
+                  {date[1]}
+                  {'\n'}
+                  {date[0]}
+                </Text>
+              </View>
+            </View>
           </View>
-          <View style={styles.eventDate}>
-            <Text style={styles.eventDateText}>
-              {date[1]}
-              {'\n'}
-              {date[0]}
-            </Text>
-          </View>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   };
 
   const _renderPOE = ({item, index}) => {
     return (
-      <View style={styles.poeCard} key={index}>
-        <View style={[styles.poeTheme, styles.shadowProp]}>
-          <Image
-            source={{uri: item.image}}
-            style={{
-              width: 30,
-              height: 30,
-            }}
-          />
-        </View>
-        <View style={styles.eventDetails}>
-          <View style={styles.eventInfo}>
-            <Text style={styles.eventTitle}>{item.name}</Text>
+      <View>
+        <TouchableOpacity
+          onPress={() => ToastMessage.show('Please first join growth council')}>
+          <View style={styles.poeCard} key={index}>
+            <View style={[styles.poeTheme, styles.shadowProp]}>
+              <Image
+                source={{uri: item.image}}
+                style={{
+                  width: 30,
+                  height: 30,
+                }}
+              />
+            </View>
+            <View style={styles.eventDetails}>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventTitle}>{item.name}</Text>
+              </View>
+            </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   };

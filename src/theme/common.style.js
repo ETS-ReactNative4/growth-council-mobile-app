@@ -43,7 +43,6 @@ export default StyleSheet.create({
   errorText: {
     fontSize: Typography.FONT_SIZE_MEDIUM,
     color: Colors.PRIMARY_ERROR_COLOR,
-    marginLeft: 15,
     marginBottom: 15,
   },
   successText: {
@@ -58,7 +57,7 @@ export default StyleSheet.create({
   forgotButtonText: {
     height: 30,
     marginBottom: 0,
-    color: Colors.TERTIARY_TEXT_COLOR,
+    // color: Colors.TERTIARY_TEXT_COLOR,
   },
   hideShowWrapper: {
     position: 'absolute',

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,6 +11,7 @@ import {
   Dimensions,
   Modal,
   SafeAreaView,
+  RefreshControl,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -21,7 +22,6 @@ import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {Dialog} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
 import {Searchbar} from 'react-native-paper';
 import BottomNav from '../../../layout/BottomLayout';
@@ -52,18 +52,11 @@ const People = props => {
   } = props;
 
   const toast = useToast();
-  const isFocused = useIsFocused();
   const [category, setCategory] = useState();
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
-
+ 
   useEffect(() => {
     const fetchAllUsersAsync = async () => {
       await fetchAllUsers({
@@ -73,15 +66,15 @@ const People = props => {
       });
     };
     fetchAllUsersAsync();
-
-    return () => {
-      cleanUser();
-    };
-  }, [isFocused]);
+	
+	return () => {
+		cleanUser();
+	  };
+  }, []);
 
   useEffect(() => {
     setMemberConnection(users);
-  }, [users, isFocused]);
+  }, [users]);
 
   useEffect(() => {
     const fetchAllExpertisesAsync = async () => {
@@ -90,7 +83,7 @@ const People = props => {
     fetchAllExpertisesAsync();
   }, []);
 
-  const connectMemberByMemberID = useCallback(async (memberID, index) => {
+  const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
       let items = [...memberConnection];
@@ -98,17 +91,18 @@ const People = props => {
       item.connection = true;
       items[index] = item;
       setMemberConnection(items);
+	  fetchAllUsers({
+        s: searchKey,
+        sort: sorting,
+        expertise_areas: category,
+      })
       ToastMessage.show('You have successfully connected.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
     console.log(response);
-  });
-
-  //   const reloadPage =() =>{
-  // 	  window.location.reload(false)
-  //   }
+  };
 
   const _renderItem = ({item, index}) => {
     return (
@@ -169,8 +163,13 @@ const People = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        <View style={{marginBottom: 10}}>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+        }}
+	>
+        <View style={styles.container}>
           <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
             <Searchbar
               style={styles.input}
@@ -235,18 +234,12 @@ const People = props => {
               <Text style={styles.textWrapper}>Sort</Text>
             </View>
           </View>
-        </View>
-
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-          }}>
           {userLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
+
           <View style={{marginTop: 10}}>
             {memberConnectionLoading && (
               <View
@@ -268,71 +261,66 @@ const People = props => {
               showsVerticalScrollIndicator={false}
               data={users}
               renderItem={_renderItem}
-            //   onRefresh={() => {
-            //     onRefresh={onRefresh};
-            //     refreshing = {refreshing}
-            //   }}
             />
           </View>
-        </ScrollView>
-      </View>
-      <Footer />
-      <Modal transparent visible={pickerVisible}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(56,56,56,0.3)',
-            justifyContent: 'flex-end',
-          }}>
+        </View>
+        <Footer />
+        <Modal transparent visible={pickerVisible}>
           <View
             style={{
-              height: 300,
-              backgroundColor: 'white',
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              padding: 20,
+              flex: 1,
+              backgroundColor: 'rgba(56,56,56,0.3)',
+              justifyContent: 'flex-end',
             }}>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => setPickerVisible(false)}
-              style={{alignItems: 'flex-end'}}>
-              <Text
-                style={{
-                  padding: 15,
-                  fontSize: 18,
-                }}>
-                Done
-              </Text>
-            </TouchableOpacity>
-            <View style={{marginBottom: 40}}>
-              <Picker
-                selectedValue={category}
-                mode="dropdown"
-                itemTextStyle={{fontSize: 12}}
-                onValueChange={async (itemValue, itemIndex) => {
-                  setCategory(itemValue);
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'ASC',
-                    expertise_areas: category,
-                  });
-                }}>
-                {Object.keys(expertise).map(key => {
-                  return (
-                    <Picker.Item
-                      label={expertise[key]}
-                      value={key}
-                      key={key}
-                      style={{fontSize: 14}}
-                    />
-                  );
-                })}
-              </Picker>
+            <View
+              style={{
+                height: 300,
+                backgroundColor: 'white',
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+                padding: 20,
+              }}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setPickerVisible(false)}
+                style={{alignItems: 'flex-end'}}>
+                <Text
+                  style={{
+                    padding: 15,
+                    fontSize: 18,
+                  }}>
+                  Done
+                </Text>
+              </TouchableOpacity>
+              <View style={{marginBottom: 40}}>
+                <Picker
+                  selectedValue={category}
+                  mode="dropdown"
+                  itemTextStyle={{fontSize: 12}}
+                  onValueChange={async (itemValue, itemIndex) => {
+                    setCategory(itemValue);
+                    await fetchAllUsers({
+                      s: searchKey,
+                      sort: 'ASC',
+                      expertise_areas: category,
+                    });
+                  }}>
+                  {Object.keys(expertise).map(key => {
+                    return (
+                      <Picker.Item
+                        label={expertise[key]}
+                        value={key}
+                        key={key}
+                        style={{fontSize: 14}}
+                      />
+                    );
+                  })}
+                </Picker>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
-
+        </Modal>
+      </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );

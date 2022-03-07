@@ -173,10 +173,8 @@ const MainNavigation = props => {
           name="Forgot"
           component={ForgotScreen}
           options={{
-            headerTitle: '',
-            headerTransparent: true,
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureDirection: 'horizontal-inverted',
+			headerTitle: 'Forget',
+			
           }}
         />
         <Stack.Screen
@@ -215,7 +213,7 @@ const MainNavigation = props => {
             header: ({navigation}) => (
               <SubHeader
                 title="Session"
-                image={require('../assets/img/appBG.png')}
+                image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
               />
@@ -229,7 +227,7 @@ const MainNavigation = props => {
             header: ({navigation}) => (
               <SubHeader
                 title="Session"
-                image={require('../assets/img/appBG.png')}
+                image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
               />
@@ -243,7 +241,7 @@ const MainNavigation = props => {
             header: ({navigation}) => (
               <SubHeader
                 title="Self Learn"
-                image={require('../assets/img/appBG.png')}
+                image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
               />

@@ -157,7 +157,7 @@ const Profile = props => {
             </View>
           </View>
         </View>
-        <Footer />
+        {/* <Footer /> */}
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
