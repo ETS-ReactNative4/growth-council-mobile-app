@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -20,7 +20,7 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux';
-
+import {useIsFocused} from '@react-navigation/native';
 import DashboardScreen from '../screens/dashboard';
 import {useAuthentication} from '../context/auth';
 
@@ -36,6 +36,7 @@ import SettingScreen from '../screens/setting/index';
 import BottomNav from '../layout/BottomLayout';
 import {Colors} from '../theme';
 
+import {fetchProfileByID} from '../screens/account/slice/profileSlice';
 import MainHeader from '../shared/header/MainHeader';
 import SubHeader from '../shared/header/SubHeader';
 import {DashboardStackScreen} from './MainNavigation';
@@ -43,8 +44,24 @@ import {DashboardStackScreen} from './MainNavigation';
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = props => {
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+
   const {loading, setLoading, message, setMessage, signOut} =
     useAuthentication();
+
+  const {profile, profileLoading, profileError} = useSelector(
+    state => state.profile,
+  );
+
+  const fetchProfileByIdentifier = () => {
+    dispatch(fetchProfileByID());
+  };
+
+  useEffect(() => {
+    fetchProfileByIdentifier();
+  }, [isFocused]);
+
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
@@ -59,10 +76,48 @@ const CustomDrawerContent = props => {
         style={{
           flexDirection: 'row',
           paddingHorizontal: 10,
+          marginTop: 10,
+          justifyContent: 'space-between',
         }}>
         <TouchableOpacity onPress={toggleDrawer}>
           <Ionicons name="close-outline" color={'#000'} size={30} />
         </TouchableOpacity>
+        <Image
+          source={require('../../src/assets/img/GILCouncillog.png')}
+          style={{
+            height: 45,
+            width: 45,
+          }}
+        />
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: 10,
+          marginBottom: 10,
+          marginLeft: 10,
+        }}>
+        <Image
+          source={{
+            uri: profile?.avatar,
+          }}
+          style={{
+            height: 45,
+            width: 45,
+            borderRadius: 20,
+          }}
+        />
+        <Text
+          style={{
+            color: 'black',
+            fontSize: Platform.OS === 'ios' ? 16 : 18,
+            fontWeight: 'normal',
+            marginTop: 10,
+            marginLeft: 20,
+          }}>
+          {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
+        </Text>
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
@@ -74,17 +129,13 @@ const CustomDrawerContent = props => {
         />
 
         <View style={styles.footer}>
-          <Image
-            source={require('../../src/assets/img/footer_logo.png')}
-            style={{width: 195, height: 30}}
-          />
           <Text style={styles.footerText}>Powered By</Text>
-          <View style={{width: 175}}>
-            <Image
-              source={require('../../src/assets/img/fristDigi.png')}
-              style={{width: '100%'}}
-            />
-          </View>
+
+          <Image
+            source={require('../../src/assets/img/splashFooter.png')}
+            style={{width: 100, height: 40, opacity: 0.75, marginTop: 10}}
+            resizeMode="cover"
+          />
         </View>
       </DrawerContentScrollView>
     </SafeAreaView>
@@ -264,7 +315,6 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 75,
   },
   footerText: {
     margin: 3,
