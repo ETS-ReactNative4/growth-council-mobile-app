@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ImageBackground,
+  Image,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {Button} from 'native-base';
@@ -89,25 +90,28 @@ const SignInForm = props => {
           <View>
             <View style={styles.content}>
               <View style={styles.header}>
-                <Text style={styles.headingText1}>
-                  Growth Innovation
-                  {'\n'}
-                  Leadership Council
-                </Text>
-                <Text>
-                  {'\n'}
-                  Login to your account below.
-                </Text>
+                <View>
+                  <Text style={styles.headingText1}>
+                    Growth Innovation
+                    {'\n'}
+                    Leadership Council
+                  </Text>
+                  <Text>
+                    {'\n'}
+                    Login to your account below.
+                  </Text>
+                </View>
+                <Image
+				style={{marginRight:20}}
+                  source={require('../../../assets/img/GILCouncillog.png')}
+                />
               </View>
 
-				
-				{!message?.success && (
-					<View style={styles.message}>
-					<Text style={styles.errorText}>{message?.message}</Text>
-					</View>
-				)}
-			
-             
+              {!message?.success && (
+                <View style={styles.message}>
+                  <Text style={styles.errorText}>{message?.message}</Text>
+                </View>
+              )}
 
               <View style={styles.body}>
                 {loading && (
@@ -215,6 +219,8 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: Platform.OS === 'ios' ? 20 : 50,
     marginBottom: Platform.OS === 'ios' ? 10 : 30,
+    flexDirection: 'row',
+	justifyContent:'space-between'
     //width: '80%',
   },
   body: {
@@ -278,7 +284,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_MEDIUM,
     paddingLeft: 8,
   },
-  
+
   signuptext: {
     flexDirection: 'row',
   },

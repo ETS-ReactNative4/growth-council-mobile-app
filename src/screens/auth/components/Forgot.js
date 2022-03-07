@@ -6,6 +6,7 @@ import {
   ScrollView,
   StatusBar,
   Dimensions,
+  Image,
 } from 'react-native';
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
@@ -53,9 +54,14 @@ const ForgotForm = props => {
   });
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
+    <ScrollView contentContainerStyle={{flexGrow: 1,}}>
       <View style={styles.container}>
+	 	 <Image
+            style={{marginBottom:30}}
+            source={require('../../../assets/img/GILCouncillog.png')}
+          />
         <View style={styles.header}>
+        
           <Text style={styles.headingText1}>Reset Password</Text>
           <Text style={styles.headingText2}>
             To reset your password, please provide your email.
