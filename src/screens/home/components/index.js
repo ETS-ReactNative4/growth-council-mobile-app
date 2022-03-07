@@ -46,10 +46,9 @@ const Home = props => {
   const itemHorizontalMargin = wp(2);
   const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-	useEffect(() => {
-		fetchAllPillarSlider();  
-		
-	}, []);
+  useEffect(() => {
+    fetchAllPillarSlider();
+  }, []);
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -82,8 +81,12 @@ const Home = props => {
     <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.header}>
+          <Image
+            style={styles.mainLogo}
+            source={require('../../../assets/img/GILCouncillog.png')}
+          />
           <Text style={styles.headingText1}>Welcome</Text>
-          <Text style={styles.headingText2}>To The Growth Council</Text>
+          <Text style={styles.headingText2}>The Growth Council</Text>
         </View>
         <View styyle={styles.sliderView}>
           {!pillarSliderLoading ? (
@@ -116,11 +119,11 @@ const Home = props => {
                 firstItem={1}
                 containerCustomStyle={styles.slider}
                 contentContainerCustomStyle={styles.sliderContent}
-                loop={false}
+                loop={true}
                 loopClonesPerSide={3}
                 autoplay={true}
                 autoplayDelay={500}
-                autoplayInterval={5000}
+                autoplayInterval={3000}
                 hasParallaxImages={true}
                 inactiveSlideScale={0.9}
                 inactiveSlideOpacity={0.5}
@@ -164,16 +167,17 @@ const Home = props => {
       </View>
 
       <View style={styles.footer}>
-        <Image
+        {/* <Image
           style={styles.footerlogo}
           source={require('../../../assets/img/frost-sullivan.png')}
-        />
+        /> */}
         <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>
           Powered By
         </Text>
         <Image
-          source={require('../../../assets/img/frost_digital_logo_1.png')}
+          source={require('../../../assets/img/splashFooter.png')}
           style={styles.footerlogo1}
+          resizeMode="cover"
         />
       </View>
     </View>
@@ -221,7 +225,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginTop: 40,
+    marginTop: 30,
   },
   signupbutton: {
     ...CommonStyles.button,
@@ -265,7 +269,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
+    marginTop: 10,
   },
   headingText1: {
     // ...CommonStyles.headingText1,
@@ -275,6 +279,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#183863',
     textAlign: 'center',
+    marginTop: 10,
   },
   headingText2: {
     // ...CommonStyles.headingText2,
@@ -284,26 +289,26 @@ const styles = StyleSheet.create({
     color: '#6F8BA4',
     textAlign: 'center',
     fontWeight: '500',
-    marginTop: Platform.OS === 'ios' ? 15 : 30,
+    marginTop: Platform.OS === 'ios' ? 15 : 10,
   },
 
   footer: {
     marginBottom: 10,
-    marginTop: 20,
+    marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   footerlogo: {
-	// width:150,
-	height: 22,
-	resizeMode: 'contain',
-	opacity: 2,
+    // width:150,
+    height: 22,
+    resizeMode: 'contain',
+    opacity: 2,
   },
   footerlogo1: {
-    width: 120,
-    height: 15,
-    resizeMode: 'contain',
+    width: 60,
+    height: 25,
     opacity: 0.75,
+    marginBottom: 10,
   },
   sliderView: {
     position: 'relative',
