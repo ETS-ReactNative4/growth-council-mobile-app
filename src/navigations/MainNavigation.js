@@ -32,6 +32,7 @@ import BestPracticeScreen from '../screens/dashboard/BestPractice';
 import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
 import CoachingSessionDetailScreen from '../screens/coachingSession';
@@ -199,7 +200,7 @@ const MainNavigation = props => {
           }}
         />
         <Stack.Screen
-          name="radar"
+          name="FrostRadar"
           component={FrostRadarScreen}
           options={{
             headerLeft: () => null,
@@ -408,6 +409,12 @@ const MainNavigation = props => {
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Radar"
+          component={RadarScreen}
           options={{headerShown: false}}
         />
       </Stack.Group>
