@@ -215,7 +215,7 @@ const MainNavigation = props => {
             header: ({navigation}) => (
               <SubHeader
                 title="Session"
-                image={require('../assets/img/appBG.png')}
+                image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
               />
@@ -229,7 +229,7 @@ const MainNavigation = props => {
             header: ({navigation}) => (
               <SubHeader
                 title="Session"
-                image={require('../assets/img/appBG.png')}
+                image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
               />
@@ -243,7 +243,7 @@ const MainNavigation = props => {
             header: ({navigation}) => (
               <SubHeader
                 title="Self Learn"
-                image={require('../assets/img/appBG.png')}
+                image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
               />

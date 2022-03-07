@@ -527,7 +527,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 15,
     borderRadius: 14,
-    borderWidth: 0.5,
+    borderWidth: 1.3,
+	borderColor:"#9EBD6D"
   },
   learn: {
     height: 140,
@@ -540,9 +541,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 10,
-    borderWidth: 0.5,
+    borderWidth: 1.3,
     display: 'flex',
     flexDirection: 'row',
+	borderColor:"#9EBD6D"
   },
   radar: {
     height: 350,
