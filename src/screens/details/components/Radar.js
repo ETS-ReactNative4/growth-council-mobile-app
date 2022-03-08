@@ -9,6 +9,7 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Footer from '../../../shared/footer';
@@ -22,32 +23,54 @@ const Radar = props => {
     navigation,   
   } = props;
 
+  const webviewRef = React.useRef(null);
+
+  function LoadingIndicatorView() {
+    return (
+      <ActivityIndicator
+        color="#009b88"
+        size="large"
+        style={styles.ActivityIndicatorStyle}
+      />
+    );
+  }
+
   return (
-    <ScrollView>
-      <View style={styles.container}> 
-        <ScrollView style={styles.content}>
-          <View style={styles.contentWrapper}>      
-            <Text style={styles.title}> Radar</Text> 
-            <WebView
-                source={{ uri: 'https://beta.gilcouncil.com/frost-radar/' }}
-                style={{ marginTop: 20 }}
-                originWhitelist={['*']}
-                allowFileAccess={true}
-                domStorageEnabled={true}
-                allowUniversalAccessFromFileURLs={true}
-                allowFileAccessFromFileURLs={true}
-            />
-          </View>
-        </ScrollView>
-      </View>
-      <Footer />
-    </ScrollView>
+    // <ScrollView>
+    //   <View style={styles.container}> 
+    //     <ScrollView style={styles.content}>
+    //       <View style={styles.contentWrapper}>      
+    //         <Text style={styles.title}> Radar</Text> 
+    //         <WebView
+    //             source={{ uri: 'https://beta.gilcouncil.com/frost-radar/' }}
+    //             style={{ marginTop: 20 }}
+    //             originWhitelist={['*']}
+    //             allowFileAccess={true}
+    //             domStorageEnabled={true}
+    //             allowUniversalAccessFromFileURLs={true}
+    //             allowFileAccessFromFileURLs={true}
+    //         />
+    //       </View>
+    //     </ScrollView>
+    //   </View>
+    //   <Footer />
+    // </ScrollView>
+        <WebView
+          source={{ uri: "https://beta.gilcouncil.com/frost-radar/" }}
+          renderLoading={LoadingIndicatorView}
+          startInLoadingState={true}
+          ref={webviewRef}
+        />
   );
 };
 
 export default Radar;
 
 const styles = StyleSheet.create({
+  ActivityIndicatorStyle: {
+    flex: 1,
+    justifyContent: "center",
+  },
   container: {
     alignItems: 'center',
     height: 500,
