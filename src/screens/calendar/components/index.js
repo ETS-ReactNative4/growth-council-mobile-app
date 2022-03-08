@@ -12,10 +12,12 @@ import {
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import * as RNLocalize from 'react-native-localize';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
 import Footer from '../../../shared/footer';
+import {formatTimeByOffset} from '../../event/components/timezone';
 
 const EventCalendar = props => {
   const {
@@ -120,17 +122,28 @@ const EventCalendar = props => {
     }
   });
 
+
   const renderItem = ({item, index}) => {
-    //date
-    // const actualDate = moment(item.event_start).format('ll').split(',', 3);
-    // const date = actualDate[0].split(' ', 3);
-    const actualDate = moment(item.event_start).format('D MMMM ');
-    const date = moment(item.event_start).format('D ');
+
+	const actualDate = moment(item.event_start).format('D MMMM ');
     const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
+
+
+
+	const backStartTimeStamp = item?.event_start;
+	const deviceTimeZone = RNLocalize.getTimeZone();
   
-    //time
-    let time = moment(item.event_start).format('h:mma');
+	const today = moment().tz(deviceTimeZone);
+	const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+
+	let convertedToLocalTime = formatTimeByOffset(
+		backStartTimeStamp,
+		currentTimeZoneOffsetInHours,
+	  );
+	  
+    const time = moment(convertedToLocalTime).format('h:mma');
 
     let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
@@ -199,7 +212,7 @@ const EventCalendar = props => {
                     ? actualDate
                     : eventStart.split(/(\s+)/)[2] ===
                       eventEnd.split(/(\s+)/)[2]
-                    ? date + eventStart.split(/(\s+)/)[4] + eventEnd
+                    ? eventStart.split(/(\s+)/)[0] + eventStart.split(/(\s+)/)[4] + eventEnd
                     : actualDate + eventStart.split(/(\s+)/)[4] + eventEnd}
                 </Text>
               </View>
@@ -326,7 +339,7 @@ const EventCalendar = props => {
             </View>
           </Modal>
         </View>
-		<Footer/>
+        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>

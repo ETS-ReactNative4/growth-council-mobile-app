@@ -28,10 +28,9 @@ const privacy = props => {
   const win = Dimensions.get('window');
 
   useEffect(() => {
-    const fetchPolicyAsync = async () => {
-      await fetchPrivacyPolicy();
-    };
-    fetchPolicyAsync();
+  
+      fetchPrivacyPolicy();
+    
   }, []);
 
   let description = privacy.content1;
