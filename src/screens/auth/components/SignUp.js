@@ -505,7 +505,7 @@ const SignUpForm = props => {
                       <Text>and</Text>
                       <Text
                         style={{color: '#31ade5', fontWeight: '700'}}
-                        onPress={() => navigation.navigate('Privacy')}>
+                        onPress={() => navigation.navigate('Privacys')}>
                         {' '}
                         Privacy Policy*{' '}
                       </Text>

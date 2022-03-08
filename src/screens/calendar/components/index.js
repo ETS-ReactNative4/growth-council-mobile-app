@@ -36,8 +36,6 @@ const EventCalendar = props => {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
-  const [timeToDisplay, setTimeToDisplay] = useState('');
-  const [timeToEnd, setTimeToEnd] = useState('');
 
   useEffect(() => {
     const fetchCalendarEventAsync = async () => {
@@ -124,54 +122,28 @@ const EventCalendar = props => {
     }
   });
 
-//   const backStartTimeStamp = currentEvents?.event_start;
-//   const backEndTimeStamp = currentEvents?.event_end;
-//   const deviceTimeZone = RNLocalize.getTimeZone();
-
-//   const today = moment().tz(deviceTimeZone);
-//   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
-
-//   useEffect(() => {
-//     const convertedToLocalTime = formatTimeByOffset(
-//       backStartTimeStamp,
-//       currentTimeZoneOffsetInHours,
-//     );
-//     setTimeToDisplay(convertedToLocalTime);
-//   }, []);
-
-//   useEffect(() => {
-//     const convertedToLocalTimeEnd = formatTimeByOffset(
-//       backEndTimeStamp,
-//       currentTimeZoneOffsetInHours,
-//     );
-//     setTimeToEnd(convertedToLocalTimeEnd);
-//   }, []);
-
-
 
   const renderItem = ({item, index}) => {
 
-	let backStartTimeStamp = item?.event_start;
-	const backEndTimeStamp = item?.event_end;
-	let deviceTimeZone = RNLocalize.getTimeZone();
-  
-	let today = moment().tz(deviceTimeZone);
-	let currentTimeZoneOffsetInHours = today.utcOffset() / 60;
-
-    const actualDate = moment(item.event_start).format('D MMMM ');
-    const date = moment(item.event_start).format('D ');
+	const actualDate = moment(item.event_start).format('D MMMM ');
     const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
+
+
+
+	const backStartTimeStamp = item?.event_start;
+	const deviceTimeZone = RNLocalize.getTimeZone();
+  
+	const today = moment().tz(deviceTimeZone);
+	const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
 
 	let convertedToLocalTime = formatTimeByOffset(
 		backStartTimeStamp,
 		currentTimeZoneOffsetInHours,
 	  );
-
-	setTimeToDisplay(convertedToLocalTime);
-
-    //time
-    let time = moment(timeToDisplay).format('h:mma');
+	  
+    const time = moment(convertedToLocalTime).format('h:mma');
 
     let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
@@ -240,7 +212,7 @@ const EventCalendar = props => {
                     ? actualDate
                     : eventStart.split(/(\s+)/)[2] ===
                       eventEnd.split(/(\s+)/)[2]
-                    ? date + eventStart.split(/(\s+)/)[4] + eventEnd
+                    ? eventStart.split(/(\s+)/)[0] + eventStart.split(/(\s+)/)[4] + eventEnd
                     : actualDate + eventStart.split(/(\s+)/)[4] + eventEnd}
                 </Text>
               </View>

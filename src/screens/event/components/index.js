@@ -106,7 +106,7 @@ const Event = props => {
   const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
   const GobalEndMonth = moment(timeToEnd).format('D MMMM dddd');
-  console.log(GobalDate.split(/(\s+)/)[8]);
+  
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
       backStartTimeStamp,

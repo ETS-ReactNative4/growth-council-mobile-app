@@ -1,7 +1,13 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {ImageBackground, Platform} from 'react-native';
+import {
+  ImageBackground,
+  Platform,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import DrawerNavigation from '../navigations/DrawerNavigation';
 
 import HomeScreen from '../screens/home';
@@ -369,16 +375,88 @@ const MainNavigation = props => {
             ),
           })}
         />
+		<Stack.Screen
+          name="Privacys"
+          component={PrivacyScreen}
+          options={({navigation}) => ({
+			headerLeft: () => (
+				<View>
+				  <View>
+					<TouchableOpacity onPress={() => navigation.goBack()}>
+					  <Ionicons
+						name={'arrow-back'}
+						size={30}
+						color="white"
+						style={{marginLeft: 10, top: 5}}
+					  />
+					</TouchableOpacity>
+				  </View>
+				</View>
+			  ),
+			  headerTitle: () => (
+				<View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+				  <Text
+					style={{
+					  color: 'white',
+					  fontSize: 22,
+					  marginTop: 10,
+					}}>
+					Privacy Policy
+				  </Text>
+				</View>
+			  ),
+  
+			  headerBackground: () => (
+				<View>
+				  <ImageBackground
+					source={require('../../src/assets/img/appBG.png')}
+					style={{width: '100%', height: 60}}
+				  />
+				</View>
+			  ),
+			})}
+          
+        />
         <Stack.Screen
           name="Terms"
           component={Terms}
-          options={({navigation}) => ({
-        
-           headerBackground:props =>(
-			   <ImageBackground
-			   source={require('../assets/img/appBG.png')}/>
+          options={({ navigation}) => ({
+           
+            headerLeft: () => (
+              <View>
+                <View>
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Ionicons
+                      name={'arrow-back'}
+                      size={30}
+                      color="white"
+                      style={{marginLeft: 10, top: 5}}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ),
+            headerTitle: () => (
+              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 22,
+                    marginTop: 10,
+                  }}>
+                  Terms of Use
+                </Text>
+              </View>
+            ),
 
-		   )
+            headerBackground: () => (
+              <View>
+                <ImageBackground
+                  source={require('../../src/assets/img/appBG.png')}
+                  style={{width: '100%', height: 60}}
+                />
+              </View>
+            ),
           })}
         />
       </Stack.Group>
