@@ -488,23 +488,28 @@ const SignUpForm = props => {
                       setChecked(!checked);
                     }}
                   />
+
                   <View>
-                    <Text style={{marginTop: 7, width: '55%'}}>
-                      By clicking submit, I agree to Frost & Sullivan
+                    <View>
+                      <Text style={{marginTop: 7}}>
+                        By clicking submit, I agree to Frost & Sullivan
+                      </Text>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
                       <Text
-                        style={{paddingTop: 5, color: 'blue'}}
+                        style={{color: '#31ade5', fontWeight: '700'}}
                         onPress={() => navigation.navigate('Terms')}>
                         {' '}
-                        Terms of Use&nbsp;
+                        Terms and Use{' '}
                       </Text>
-                      and
+                      <Text>and</Text>
                       <Text
-                        style={{paddingTop: 5, color: 'blue'}}
+                        style={{color: '#31ade5', fontWeight: '700'}}
                         onPress={() => navigation.navigate('Privacy')}>
                         {' '}
-                        Privacy Policy*
+                        Privacy Policy*{' '}
                       </Text>
-                    </Text>
+                    </View>
                   </View>
                 </View>
 
@@ -651,7 +656,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.buttonWrapper,
     width: '100%',
     marginTop: 30,
-	marginBottom:30,
+    marginBottom: 30,
   },
   loginButton: {
     width: '50%',

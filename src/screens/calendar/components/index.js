@@ -12,10 +12,12 @@ import {
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import * as RNLocalize from 'react-native-localize';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
 import Footer from '../../../shared/footer';
+import {formatTimeByOffset} from '../../event/components/timezone';
 
 const EventCalendar = props => {
   const {
@@ -34,6 +36,8 @@ const EventCalendar = props => {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [timeToDisplay, setTimeToDisplay] = useState('');
+  const [timeToEnd, setTimeToEnd] = useState('');
 
   useEffect(() => {
     const fetchCalendarEventAsync = async () => {
@@ -120,17 +124,54 @@ const EventCalendar = props => {
     }
   });
 
+//   const backStartTimeStamp = currentEvents?.event_start;
+//   const backEndTimeStamp = currentEvents?.event_end;
+//   const deviceTimeZone = RNLocalize.getTimeZone();
+
+//   const today = moment().tz(deviceTimeZone);
+//   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+//   useEffect(() => {
+//     const convertedToLocalTime = formatTimeByOffset(
+//       backStartTimeStamp,
+//       currentTimeZoneOffsetInHours,
+//     );
+//     setTimeToDisplay(convertedToLocalTime);
+//   }, []);
+
+//   useEffect(() => {
+//     const convertedToLocalTimeEnd = formatTimeByOffset(
+//       backEndTimeStamp,
+//       currentTimeZoneOffsetInHours,
+//     );
+//     setTimeToEnd(convertedToLocalTimeEnd);
+//   }, []);
+
+
+
   const renderItem = ({item, index}) => {
-    //date
-    // const actualDate = moment(item.event_start).format('ll').split(',', 3);
-    // const date = actualDate[0].split(' ', 3);
+
+	let backStartTimeStamp = item?.event_start;
+	const backEndTimeStamp = item?.event_end;
+	let deviceTimeZone = RNLocalize.getTimeZone();
+  
+	let today = moment().tz(deviceTimeZone);
+	let currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
     const actualDate = moment(item.event_start).format('D MMMM ');
     const date = moment(item.event_start).format('D ');
     const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
-  
+
+	let convertedToLocalTime = formatTimeByOffset(
+		backStartTimeStamp,
+		currentTimeZoneOffsetInHours,
+	  );
+
+	setTimeToDisplay(convertedToLocalTime);
+
     //time
-    let time = moment(item.event_start).format('h:mma');
+    let time = moment(timeToDisplay).format('h:mma');
 
     let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
@@ -326,7 +367,7 @@ const EventCalendar = props => {
             </View>
           </Modal>
         </View>
-		<Footer/>
+        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>

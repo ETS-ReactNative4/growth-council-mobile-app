@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Platform} from 'react-native';
+import {ImageBackground, Platform} from 'react-native';
 import DrawerNavigation from '../navigations/DrawerNavigation';
 
 import HomeScreen from '../screens/home';
@@ -118,7 +118,7 @@ const MainNavigation = props => {
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                 }}
                 color={'white'}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.goBack()}
               />
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
@@ -140,7 +140,7 @@ const MainNavigation = props => {
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                 }}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.goBack()}
               />
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
@@ -162,7 +162,7 @@ const MainNavigation = props => {
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                 }}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.goBack()}
               />
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
@@ -173,8 +173,7 @@ const MainNavigation = props => {
           name="Forgot"
           component={ForgotScreen}
           options={{
-			headerTitle: 'Forget',
-			
+            headerTitle: 'Forget',
           }}
         />
         <Stack.Screen
@@ -373,21 +372,18 @@ const MainNavigation = props => {
         <Stack.Screen
           name="Terms"
           component={Terms}
-		  options={({navigation}) => ({
-            header: () => (
-              <SubHeader
-                title="Terms of use"
-                image={require('../assets/img/appBG.png')}
-                navigation={navigation}
-                noDrawer
-              />
-            ),
+          options={({navigation}) => ({
+        
+           headerBackground:props =>(
+			   <ImageBackground
+			   source={require('../assets/img/appBG.png')}/>
+
+		   )
           })}
         />
       </Stack.Group>
 
       <Stack.Group>
-        
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}

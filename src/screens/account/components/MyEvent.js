@@ -71,29 +71,30 @@ const Profile = props => {
             <View style={[styles.wrapper]}>
               <Text style={styles.text}>{item.title}</Text>
 
-              <Text
+              {/* <Text
                 style={{
                   fontSize: 6,
                   fontFamily: Typography.FONT_SF_REGULAR,
                   color: '#222B45',
                 }}>
                 {organizer} {description}
-              </Text>
+              </Text> */}
               <View style={styles.iconWrapper}>
-                <Ionicon name={'person'} size={15} color="#0B0B45" />
-                <Text style={styles.text} />
+                <Ionicon name={'person'} size={20} color="#0B0B45" />
+                <Text style={[styles.text,{fontSize:10, width:100,}]} >
+				{organizer} {description}</Text>
                 <Ionicon
                   name={'calendar'}
-                  size={15}
+                  size={20}
                   color="#0B0B45"
-                  style={{marginLeft: 20}}
+                  style={{marginLeft: 5}}
                 />
                 <Text style={styles.text}>
                   {date[2]} {date[1]}
                 </Text>
               </View>
               <View style={styles.iconWrapper}>
-                <Ionicon name={'time'} size={15} color="#0B0B45" />
+                <Ionicon name={'time'} size={20} color="#0B0B45" />
                 <Text style={styles.text}>
                   {item?.event_meta._start_hour[0]}:
                   {item?.event_meta._start_minute[0]}
@@ -101,7 +102,7 @@ const Profile = props => {
                 </Text>
                 <Ionicon
                   name={'location'}
-                  size={15}
+                  size={20}
                   color="#0B0B45"
                   style={{marginLeft: 20}}
                 />
