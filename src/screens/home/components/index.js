@@ -82,8 +82,9 @@ const Home = props => {
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
-            style={styles.mainLogo}
-            source={require('../../../assets/img/GILCouncillog.png')}
+            style={{width: '80%', marginTop: 30}}
+            source={require('../../../assets/img/GILCouncil.jpg')}
+            resizeMode="contain"
           />
           {/* <Text style={styles.headingText1}>Welcome</Text>
           <Text style={styles.headingText2}>The Growth Council</Text> */}
