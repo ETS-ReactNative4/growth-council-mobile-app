@@ -79,22 +79,23 @@ const CustomDrawerContent = props => {
           marginTop: 10,
           justifyContent: 'space-between',
         }}>
+		<Image
+          source={require('../../src/assets/img/GILCouncil.jpg')}
+          style={{      
+            width: "75%"
+          }}
+		  resizeMode="contain"
+        />
         <TouchableOpacity onPress={toggleDrawer}>
           <Ionicons name="close-outline" color={'#000'} size={30} />
         </TouchableOpacity>
-        <Image
-          source={require('../../src/assets/img/GILCouncillog.png')}
-          style={{
-            height: 45,
-            width: 45,
-          }}
-        />
+       
       </View>
 
       <View
         style={{
           flexDirection: 'row',
-          marginTop: 10,
+          marginTop: 20,
           marginBottom: 10,
           marginLeft: 10,
         }}>
@@ -152,7 +153,7 @@ const DrawerNavigation = props => {
       initialRouteName="Dashboard"
       screenOptions={() => ({
         activeTintColor: '#e91e63',
-        itemStyle: {marginVertical: 5},
+        itemStyle: {marginVertical: 2},
       })}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen

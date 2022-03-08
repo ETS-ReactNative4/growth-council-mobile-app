@@ -90,7 +90,12 @@ const SignInForm = props => {
           <View>
             <View style={styles.content}>
               <View style={styles.header}>
-                <View>
+                <Image
+                   style={{width: '80%'}}
+				   source={require('../../../assets/img/GILCouncil.jpg')}
+				   resizeMode="contain"
+                />
+                <View style={{marginTop:10}}>
                   <Text style={styles.headingText1}>
                     Growth Innovation
                     {'\n'}
@@ -101,10 +106,6 @@ const SignInForm = props => {
                     Login to your account below.
                   </Text>
                 </View>
-                <Image
-				style={{marginRight:20}}
-                  source={require('../../../assets/img/GILCouncillog.png')}
-                />
               </View>
 
               {!message?.success && (
@@ -192,7 +193,7 @@ const SignInForm = props => {
               <View
                 style={[
                   styles.signuptext,
-                  {marginTop: Platform.OS === 'ios' ? 60 : 110},
+                  {marginTop: Platform.OS === 'ios' ? 40 : 80},
                 ]}>
                 {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                 <Text>Need Help? </Text>
@@ -216,12 +217,9 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
   },
   header: {
-    height: 50,
-    marginTop: Platform.OS === 'ios' ? 20 : 50,
+	height:100,
+    marginTop: Platform.OS === 'ios' ? 20 : 20,
     marginBottom: Platform.OS === 'ios' ? 10 : 30,
-    flexDirection: 'row',
-	justifyContent:'space-between'
-    //width: '80%',
   },
   body: {
     width: '90%',

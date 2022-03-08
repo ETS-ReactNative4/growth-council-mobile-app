@@ -146,7 +146,7 @@ const MainNavigation = props => {
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                 }}
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate('Home')}
               />
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
@@ -375,53 +375,51 @@ const MainNavigation = props => {
             ),
           })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="Privacys"
           component={PrivacyScreen}
           options={({navigation}) => ({
-			headerLeft: () => (
-				<View>
-				  <View>
-					<TouchableOpacity onPress={() => navigation.goBack()}>
-					  <Ionicons
-						name={'arrow-back'}
-						size={30}
-						color="white"
-						style={{marginLeft: 10, top: 5}}
-					  />
-					</TouchableOpacity>
-				  </View>
-				</View>
-			  ),
-			  headerTitle: () => (
-				<View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-				  <Text
-					style={{
-					  color: 'white',
-					  fontSize: 22,
-					  marginTop: 10,
-					}}>
-					Privacy Policy
-				  </Text>
-				</View>
-			  ),
-  
-			  headerBackground: () => (
-				<View>
-				  <ImageBackground
-					source={require('../../src/assets/img/appBG.png')}
-					style={{width: '100%', height: 60}}
-				  />
-				</View>
-			  ),
-			})}
-          
+            headerLeft: () => (
+              <View>
+                <View>
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Ionicons
+                      name={'arrow-back'}
+                      size={30}
+                      color="white"
+                      style={{marginLeft: 10, top: 5}}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ),
+            headerTitle: () => (
+              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 22,
+                    marginTop: 10,
+                  }}>
+                  Privacy Policy
+                </Text>
+              </View>
+            ),
+
+            headerBackground: () => (
+              <View>
+                <ImageBackground
+                  source={require('../../src/assets/img/appBG.png')}
+                  style={{width: '100%', height: 60}}
+                />
+              </View>
+            ),
+          })}
         />
         <Stack.Screen
           name="Terms"
           component={Terms}
-          options={({ navigation}) => ({
-           
+          options={({navigation}) => ({
             headerLeft: () => (
               <View>
                 <View>
