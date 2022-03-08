@@ -343,8 +343,9 @@ const SignUpForm = props => {
         <View style={styles.content}>
           <View style={styles.header}>
             <Image
-              style={{width: 70, height: 70}}
-              source={require('../../../assets/img/GILCouncillog.png')}
+              style={{width: '80%'}}
+              source={require('../../../assets/img/GILCouncil.jpg')}
+              resizeMode="contain"
             />
             <Text style={styles.headingText1}>Join Growth Council</Text>
           </View>
@@ -608,9 +609,8 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 70,
-    marginTop: Platform.OS === 'ios' ? 30 : 20,
-    marginBottom: 30,
-    flexDirection: 'row',
+    marginTop: Platform.OS === 'ios' ? 20 : 20,
+    marginBottom: 60,
   },
   scrollBox: {
     height: '65%',
@@ -642,9 +642,8 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
     color: Colors.NONARY_TEXT_COLOR,
-    fontSize: 24,
-    marginTop: 15,
-    marginLeft: 10,
+    fontSize: 22,
+    marginTop: 10,
   },
   headingText2: {
     ...CommonStyles.headingText2,
