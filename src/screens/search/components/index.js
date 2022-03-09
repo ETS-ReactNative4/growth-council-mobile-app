@@ -143,7 +143,7 @@ const Search = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+
       <View style={styles.container}>
         <ImageBackground
           style={{width: '100%', height: 160}}
@@ -153,50 +153,65 @@ const Search = props => {
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
           </TouchableOpacity>
-          <View style={{alignItems: 'center', justifyContent: 'center',width:"95%",marginLeft:5}}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '95%',
+            }}>
             <SearchBox searchEventsByIdentifier={searchEventsByIdentifier} />
           </View>
         </ImageBackground>
+        <ScrollView
+		 contentContainerStyle={{
+            flexGrow: 1,
 
-        <View style={{marginTop: 20}}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={searches.pillars}
-            renderItem={searchTag}
-          />
-        </View>
-
-        <View style={styles.middle}>
-          <Text style={{fontFamily: Typography.FONT_SF_SEMIBOLD, fontSize: 11}}>
-            Suggestions
-          </Text>
-
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            {searchLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
-
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+          }}>
+          <View style={{marginTop: 20}}>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={searches.poes}
-              renderItem={_renderMiddleItem}
+              data={searches.pillars}
+              renderItem={searchTag}
             />
           </View>
-        </View>
 
-        <View style={styles.events}>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            data={searches.events_sessions}
-            renderItem={eventItems}
-          />
-        </View>
+          <View style={styles.middle}>
+            <Text
+              style={{fontFamily: Typography.FONT_SF_SEMIBOLD, fontSize: 11}}>
+              Suggestions
+            </Text>
+
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              {searchLoading && (
+                <View style={styles.loading1}>
+                  <BubblesLoader
+                    color={Colors.SECONDARY_TEXT_COLOR}
+                    size={80}
+                  />
+                </View>
+              )}
+
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={searches.poes}
+                renderItem={_renderMiddleItem}
+              />
+            </View>
+          </View>
+
+          <View style={styles.events}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              data={searches.events_sessions}
+              renderItem={eventItems}
+            />
+          </View>
+        </ScrollView>
       </View>
-    </ScrollView>
+
   );
 };
 

@@ -77,12 +77,10 @@ const EventCalendar = props => {
       ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
       : '';
     switch (pillarCategory) {
-      case 0:
-      case 117:
+      case 0: case 117:
         backgroundColor = Colors.COMMUNITY_COLOR;
         break;
-      case 0:
-      case 118:
+      case 0: case 118:
         backgroundColor = Colors.PRACTICE_COLOR;
         break;
       default:
@@ -129,8 +127,6 @@ const EventCalendar = props => {
     const startdate = eventStart.split(' ', 3)[1].split('', 3);
     const enddate = eventEnd.split(' ', 3)[1].split('', 3);
 
-    console.log(enddate);
-
     const backStartTimeStamp = item?.event_start;
     const deviceTimeZone = RNLocalize.getTimeZone();
 
@@ -176,12 +172,12 @@ const EventCalendar = props => {
     }
 
     let nav = 'SessionDetail';
-    if (pillarCategory === 'growth-leadership-coaching') {
-      nav = 'SessionDetail';
+    if (item?.pillar_categories[0]?.slug === 'growth-leadership-coaching') {
+		nav = 'SessionDetail';
     } else {
-      nav = 'EventDetail';
+		nav = 'EventDetail';   
     }
-
+	
     return (
       <View>
         <TouchableOpacity
