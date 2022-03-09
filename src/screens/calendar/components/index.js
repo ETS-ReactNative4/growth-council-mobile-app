@@ -124,8 +124,10 @@ const EventCalendar = props => {
     const actualDate = moment(item.event_start).format('D MMMM ');
     const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
-    const startdate = eventStart.split(' ', 3)[1].split('', 3);
-    const enddate = eventEnd.split(' ', 3)[1].split('', 3);
+    const startdate = moment(item.event_start).format('ll').split(',', 3);
+    const enddate = moment(item.event_end).format('ll').split(',', 3);
+	const date = startdate[0].split(' ', 3);
+	const end = enddate[0].split(' ', 3);
 
     const backStartTimeStamp = item?.event_start;
     const deviceTimeZone = RNLocalize.getTimeZone();
@@ -206,18 +208,14 @@ const EventCalendar = props => {
                   {actualDate === eventEnd
                     ? actualDate.split(' ', 3)[0] +
                       actualDate.split(/(\s+)/)[1] +
-                      startdate[0] +
-                      startdate[1] +
-                      startdate[2]
+                      date[0]
                     : eventStart.split(/(\s+)/)[2] ===
                       eventEnd.split(/(\s+)/)[2]
                     ? eventStart.split(/(\s+)/)[0] +
                       eventStart.split(/(\s+)/)[4] +
                       eventEnd.split(' ', 3)[0] +
 					  eventEnd.split(/(\s+)/)[1] +
-                      enddate[0] +
-                      enddate[1] +
-                      enddate[2]
+                      end[0]
                     : actualDate + eventStart.split(/(\s+)/)[4] + eventEnd}
                 </Text>
               </View>
