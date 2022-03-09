@@ -11,7 +11,6 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
-
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BubblesLoader} from 'react-native-indicator';
@@ -99,22 +98,6 @@ const Dashboard = props => {
     setMemberConnection(communityMembers);
   }, [communityMembers]);
 
-    // const connectMemberByMemberID = async (memberID, index) => {
-    //   const response = await connectMemberByIdentifier({member_id: memberID});
-    //   if (response?.payload?.code === 200) {
-    //     let items = [...memberConnection];
-    //     let item = {...items[index]};
-    //     item.connection = true;
-    //     items[index] = item;
-    //     setMemberConnection(items);
-    //     ToastMessage.show('You have successfully connected.');
-    //   } else {
-    //     toast.closeAll();
-    //     ToastMessage.show(response?.payload?.response);
-    //   }
-    //   console.log(response);
-    // };
-
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -150,11 +133,7 @@ const Dashboard = props => {
             </TouchableOpacity>
           )}
           {memberConnection[index]?.connection && (
-            <Material
-              name="check-circle"
-              size={20}
-              color="#14A2E2"
-            />
+            <Material name="check-circle" size={20} color="#14A2E2" />
           )}
         </View>
       </View>
@@ -206,14 +185,13 @@ const Dashboard = props => {
     const date = actualDate[0].split(' ', 3);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.parent) {
-      case 0:
+    switch (item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent) {
       case 117:
+      case 0:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
-
-      case 0:
       case 118:
+      case 0:
         backgroundImage = require('../../../assets/img/Rectangle1.png');
         break;
 
@@ -434,7 +412,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Typography.FONT_SF_REGULAR,
     color: PRIMARY_TEXT_COLOR,
-	fontWeight: '700',
+    fontWeight: '700',
   },
   headingText1: {
     fontFamily: Typography.FONT_SF_MEDIUM,

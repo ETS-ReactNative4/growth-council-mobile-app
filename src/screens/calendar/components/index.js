@@ -74,16 +74,16 @@ const EventCalendar = props => {
 
     let backgroundColor = '';
     const pillarCategory = item?.pillar_categories
-      ? item?.pillar_categories[0]?.parent
+      ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
       : '';
     switch (pillarCategory) {
       case 0:
-      case 118:
-        backgroundColor = Colors.PRACTICE_COLOR;
-        break;
-      case 0:
       case 117:
         backgroundColor = Colors.COMMUNITY_COLOR;
+        break;
+      case 0:
+      case 118:
+        backgroundColor = Colors.PRACTICE_COLOR;
         break;
       default:
         backgroundColor = Colors.COACHING_COLOR;
@@ -122,27 +122,26 @@ const EventCalendar = props => {
     }
   });
 
-
   const renderItem = ({item, index}) => {
-
-	const actualDate = moment(item.event_start).format('D MMMM ');
+    const actualDate = moment(item.event_start).format('D MMMM ');
     const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
+    const startdate = eventStart.split(' ', 3)[1].split('', 3);
+    const enddate = eventEnd.split(' ', 3)[1].split('', 3);
 
+    console.log(enddate);
 
+    const backStartTimeStamp = item?.event_start;
+    const deviceTimeZone = RNLocalize.getTimeZone();
 
-	const backStartTimeStamp = item?.event_start;
-	const deviceTimeZone = RNLocalize.getTimeZone();
-  
-	const today = moment().tz(deviceTimeZone);
-	const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+    const today = moment().tz(deviceTimeZone);
+    const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
+    let convertedToLocalTime = formatTimeByOffset(
+      backStartTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
 
-	let convertedToLocalTime = formatTimeByOffset(
-		backStartTimeStamp,
-		currentTimeZoneOffsetInHours,
-	  );
-	  
     const time = moment(convertedToLocalTime).format('h:mma');
 
     let organizer = item?.organizer?.term_name;
@@ -161,16 +160,16 @@ const EventCalendar = props => {
 
     let borderColor = '';
     const pillarCategory = item?.pillar_categories
-      ? item?.pillar_categories[0]?.parent
+      ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
       : '';
     switch (pillarCategory) {
       case 0:
-      case 118:
-        borderColor = Colors.PRACTICE_COLOR;
-        break;
-      case 0:
       case 117:
         borderColor = Colors.COMMUNITY_COLOR;
+        break;
+      case 0:
+      case 118:
+        borderColor = Colors.PRACTICE_COLOR;
         break;
       default:
         borderColor = Colors.COACHING_COLOR;
@@ -209,10 +208,20 @@ const EventCalendar = props => {
               <View style={styles.eventDate}>
                 <Text style={styles.eventDateText}>
                   {actualDate === eventEnd
-                    ? actualDate
+                    ? actualDate.split(' ', 3)[0] +
+                      actualDate.split(/(\s+)/)[1] +
+                      startdate[0] +
+                      startdate[1] +
+                      startdate[2]
                     : eventStart.split(/(\s+)/)[2] ===
                       eventEnd.split(/(\s+)/)[2]
-                    ? eventStart.split(/(\s+)/)[0] + eventStart.split(/(\s+)/)[4] + eventEnd
+                    ? eventStart.split(/(\s+)/)[0] +
+                      eventStart.split(/(\s+)/)[4] +
+                      eventEnd.split(' ', 3)[0] +
+					  eventEnd.split(/(\s+)/)[1] +
+                      enddate[0] +
+                      enddate[1] +
+                      enddate[2]
                     : actualDate + eventStart.split(/(\s+)/)[4] + eventEnd}
                 </Text>
               </View>
@@ -399,7 +408,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.1,
   },
   eventCard: {
-    height: 82,
+    // height: 82,
     marginTop: 15,
     marginLeft: 2,
     marginRight: 2,
@@ -430,7 +439,7 @@ const styles = StyleSheet.create({
     flex: 5,
   },
   eventTitle: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#030303',
   },
   eventParagraph: {
