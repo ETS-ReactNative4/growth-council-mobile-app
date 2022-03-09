@@ -138,15 +138,19 @@ const CommunityDetail = props => {
     console.log(date[1]);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.parent) {
-      case 119:
-        backgroundImage = require('../../../assets/img/Rectangle.png');
+    switch (item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent) {
+      case 0:
+      case 117:
+        backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
+
+      case 0:
       case 118:
         backgroundImage = require('../../../assets/img/Rectangle1.png');
         break;
+
       default:
-        backgroundImage = require('../../../assets/img/Rectangle2.png');
+        backgroundImage = require('../../../assets/img/Rectangle.png');
     }
 
     let organizer = item?.organizer?.term_name;
@@ -291,7 +295,7 @@ const CommunityDetail = props => {
             </View>
 
             <View style={styles.growthContent}>
-              <Text style={styles.title}> Growth Coaching Content</Text>
+              <Text style={styles.title}> Content Library</Text>
               <View
                 style={{
                   display: 'flex',
@@ -416,7 +420,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_SF_REGULAR,
     marginTop: 5,
-    fontWeight: '800',
+    fontWeight: '600',
     color: 'white',
     fontSize: 12,
   },

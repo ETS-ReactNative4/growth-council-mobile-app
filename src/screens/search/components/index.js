@@ -153,7 +153,7 @@ const Search = props => {
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
           </TouchableOpacity>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <View style={{alignItems: 'center', justifyContent: 'center',width:"95%",marginLeft:5}}>
             <SearchBox searchEventsByIdentifier={searchEventsByIdentifier} />
           </View>
         </ImageBackground>

@@ -55,7 +55,7 @@ const MainHeader = props => {
             style={{
               height: 35,
               width: 35,
-              marginLeft: 15,
+              marginLeft: 5,
             }}
           />
           <HeaderTitle
