@@ -69,17 +69,18 @@ const Event = props => {
 
   let backgroundColor = '';
   const pillarCategory = events?.pillar_categories
-    ? events?.pillar_categories[0]?.parent
+    ? events?.pillar_categories[0]?.parent || events?.pillar_categories[1]?.parent
     : '';
   switch (pillarCategory) {
-    case 0:
-    case 118:
-      backgroundColor = Colors.PRACTICE_COLOR;
-      break;
     case 0:
     case 117:
       backgroundColor = Colors.COMMUNITY_COLOR;
       break;
+    case 0:
+    case 118:
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+
     default:
       backgroundColor = Colors.COACHING_COLOR;
   }
@@ -106,7 +107,7 @@ const Event = props => {
   const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
   const GobalEndMonth = moment(timeToEnd).format('D MMMM dddd');
-  
+
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
       backStartTimeStamp,
@@ -489,7 +490,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
-	borderWidth:0.2,
+    borderWidth: 0.2,
   },
   infoicon: {
     flex: 1,
