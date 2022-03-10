@@ -75,7 +75,7 @@
     "react-native-screens": "^3.10.1",
     "react-native-select-dropdown": "^1.7.0",
     "react-native-snap-carousel": "^3.9.1",
-    "react-native-svg": "^12.1.1",
+    "react-native-svg": "^12.3.0",
     "react-native-swiper": "^1.6.0",
     "react-native-switch-toggles": "0.0.1",
     "react-native-thumbnail-video": "^0.1.2",
@@ -89,7 +89,6 @@
     "redux": "^4.1.2",
     "redux-flipper": "^2.0.1",
     "redux-persist": "^6.0.0",
-    "rn-fetch-blob": "^0.12.0",
     "rn-round-checkbox": "^1.0.0",
     "toggle-switch-react-native": "^3.3.0",
     "yup": "^0.32.11"
