@@ -8,8 +8,8 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import Pdf from 'react-native-pdf';
-import RNFetchBlob from 'rn-fetch-blob';
 import ToastMessage from '../../../shared/toast';
+import ReactNativeBlobUtil from 'react-native-blob-util'
 
 const pdf = props => {
   const {navigation, route} = props;
@@ -19,8 +19,6 @@ const pdf = props => {
   const fileUrl = route.params.paramsFile;
 
   const checkPermission = async () => {
-    // Function to check the platform
-    // If Platform is Android then check for permissions.
 
     if (Platform.OS === 'ios') {
       downloadFile();
@@ -48,7 +46,7 @@ const pdf = props => {
   };
 
   const downloadFile = () => {
-    // Get today's date to add the time suffix in filename
+   
     let date = new Date();
 
     let FILE_URL = fileUrl;
@@ -57,7 +55,7 @@ const pdf = props => {
 
     file_ext = '.' + file_ext[0];
 
-    const {config, fs} = RNFetchBlob;
+    const {config, fs} = ReactNativeBlobUtil;
     let RootDir = fs.dirs.PictureDir;
     let options = {
       fileCache: true,

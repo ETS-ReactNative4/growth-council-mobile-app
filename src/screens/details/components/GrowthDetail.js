@@ -159,7 +159,7 @@ const GrowthDetail = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+   
     return (
       <View style={styles.topWrapper}>
         <ImageBackground
@@ -200,7 +200,7 @@ const GrowthDetail = props => {
   const _renderMiddleItem = ({item, index}) => {
     const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+
     return (
       <View>
         <TouchableOpacity
