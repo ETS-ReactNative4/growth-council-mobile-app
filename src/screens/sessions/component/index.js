@@ -22,6 +22,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
+import { COACHING_COLOR } from '../../../theme/colors';
 
 const Session = props => {
   const {
@@ -67,20 +68,6 @@ const Session = props => {
   const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
   const date = actualDate[1].split(' ', 3);
 
-  let backgroundColor = Colors.COMMUNITY_COLOR;
-  const pillarCategory = sessions?.pillar_categories
-    ? sessions?.pillar_categories[0]?.slug
-    : '';
-  switch (pillarCategory) {
-    case 'growth-coaching':
-      backgroundColor = Colors.COACHING_COLOR;
-      break;
-    case 'basic-practices':
-      backgroundColor = Colors.PRACTICE_COLOR;
-      break;
-    case 'growth-community':
-      backgroundColor = Colors.COMMUNITY_COLOR;
-  }
 
   let description = sessions?.descirption;
   if (description !== undefined) {
@@ -139,7 +126,7 @@ const Session = props => {
               alignItems: 'center',
             }}>
             <View
-              style={[styles.topbanner, {backgroundColor: backgroundColor}]}>
+              style={[styles.topbanner, {backgroundColor: COACHING_COLOR}]}>
               {!isSessionLoaded && (
                 <Text style={styles.headingText1}>{sessions?.title}</Text>
               )}
@@ -160,7 +147,7 @@ const Session = props => {
                   <View
                     style={[
                       styles.infoicon,
-                      {backgroundColor: backgroundColor},
+                      {backgroundColor: COACHING_COLOR},
                     ]}>
                     <MaterialIcons name={'event'} size={25} color={'white'} />
                   </View>
@@ -224,7 +211,7 @@ const Session = props => {
                   <View
                     style={[
                       styles.infoicon,
-                      {backgroundColor: backgroundColor},
+                      {backgroundColor: COACHING_COLOR},
                     ]}>
                     <Ionicons
                       name={'location-outline'}
@@ -266,7 +253,7 @@ const Session = props => {
                   <View
                     style={[
                       styles.hostimage,
-                      {backgroundColor: backgroundColor},
+                      {backgroundColor: COACHING_COLOR},
                     ]}>
                     <Image
                       source={{uri: sessions?.organizer_image}}

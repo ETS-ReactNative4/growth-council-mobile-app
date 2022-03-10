@@ -69,18 +69,20 @@ const EventCalendar = props => {
 
   let markedDay = {};
   currentEvents?.map(item => {
-    const startDate = moment(item.event_start).format('YYYY-MM-DD');
-    const endDate = moment(item.event_end).format('YYYY-MM-DD');
+    const startDate = moment(item?.event_start).format('YYYY-MM-DD');
+    const endDate = moment(item?.event_end).format('YYYY-MM-DD');
 
     let backgroundColor = '';
     const pillarCategory = item?.pillar_categories
       ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
       : '';
     switch (pillarCategory) {
-      case 0: case 117:
+      case 0:
+      case 117:
         backgroundColor = Colors.COMMUNITY_COLOR;
         break;
-      case 0: case 118:
+      case 0:
+      case 118:
         backgroundColor = Colors.PRACTICE_COLOR;
         break;
       default:
@@ -121,13 +123,14 @@ const EventCalendar = props => {
   });
 
   const renderItem = ({item, index}) => {
-    const actualDate = moment(item.event_start).format('D MMMM ');
-    const eventStart = moment(item.event_start).format('D MMMM -');
-    const eventEnd = moment(item.event_end).format('D MMMM ');
-    const startdate = moment(item.event_start).format('ll').split(',', 3);
-    const enddate = moment(item.event_end).format('ll').split(',', 3);
-	const date = startdate[0].split(' ', 3);
-	const end = enddate[0].split(' ', 3);
+    const actualDate = moment(item?.event_start).format('D MMMM ');
+    const eventStart = moment(item?.event_start).format('D MMMM -');
+    const eventEnd = moment(item?.event_end).format('D MMMM ');
+
+    const startdate = moment(item?.event_start).format('ll').split(',', 3);
+    const enddate = moment(item?.event_end).format('ll').split(',', 3);
+    const date = startdate[0].split(' ', 3);
+    const end = enddate[0].split(' ', 3);
 
     const backStartTimeStamp = item?.event_start;
     const deviceTimeZone = RNLocalize.getTimeZone();
@@ -175,11 +178,11 @@ const EventCalendar = props => {
 
     let nav = 'SessionDetail';
     if (item?.pillar_categories[0]?.slug === 'growth-leadership-coaching') {
-		nav = 'SessionDetail';
+      nav = 'SessionDetail';
     } else {
-		nav = 'EventDetail';   
+      nav = 'EventDetail';
     }
-	
+
     return (
       <View>
         <TouchableOpacity
@@ -214,7 +217,7 @@ const EventCalendar = props => {
                     ? eventStart.split(/(\s+)/)[0] +
                       eventStart.split(/(\s+)/)[4] +
                       eventEnd.split(' ', 3)[0] +
-					  eventEnd.split(/(\s+)/)[1] +
+                      eventEnd.split(/(\s+)/)[1] +
                       end[0]
                     : actualDate + eventStart.split(/(\s+)/)[4] + eventEnd}
                 </Text>
