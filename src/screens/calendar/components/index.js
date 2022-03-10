@@ -17,6 +17,7 @@ import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
 import Footer from '../../../shared/footer';
+import ToastMessage from '../../../shared/toast';
 import {formatTimeByOffset} from '../../event/components/timezone';
 
 const EventCalendar = props => {
@@ -36,6 +37,7 @@ const EventCalendar = props => {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [markedDay, setMarkedDay] = useState([]);
 
   useEffect(() => {
     const fetchCalendarEventAsync = async () => {
@@ -43,14 +45,84 @@ const EventCalendar = props => {
         year: moment().format('YYYY'),
         month: moment().format('MM'),
         all_events: showAllEvents,
-      }).then(response => {
-        if (response?.payload?.code === 200) {
-          setCurrentEvents(response?.payload?.data);
-        }
-      });
+      })
+        .then(response => {
+          console.log(response);
+          if (response?.payload?.code === 200) {
+            setCurrentEvents(response?.payload?.data);
+          } else {
+            setMarkedDay([]);
+            setCurrentEvents([]);
+          }
+        })
+        .catch(e => {
+          //   ToastMessage.show(e?.response?.payload?.response);
+          console.log(e);
+          setMarkedDay([]);
+          setCurrentEvents([]);
+        });
     };
     fetchCalendarEventAsync();
   }, []);
+
+  useEffect(() => {
+    let monthDays = [];
+    currentEvents?.map(item => {
+      const startDate = moment(item.event_start).format('YYYY-MM-DD');
+      const endDate = moment(item.event_end).format('YYYY-MM-DD');
+
+      let backgroundColor = '';
+      const pillarCategory = item?.pillar_categories
+        ? item?.pillar_categories[0]?.parent ||
+          item?.pillar_categories[1]?.parent
+        : '';
+      switch (pillarCategory) {
+        case 0:
+        case 117:
+          backgroundColor = Colors.COMMUNITY_COLOR;
+          break;
+        case 0:
+        case 118:
+          backgroundColor = Colors.PRACTICE_COLOR;
+          break;
+        default:
+          backgroundColor = Colors.COACHING_COLOR;
+      }
+
+      if (moment(startDate).isSame(endDate)) {
+        monthDays[startDate] = {
+          color: backgroundColor,
+          textColor: 'white',
+        };
+      } else {
+        const dates = getDates(
+          new Date(moment(startDate).format('YYYY-MM-DD')),
+          new Date(moment(endDate).format('YYYY-MM-DD')),
+        );
+        dates.map((item, index) => {
+          if (index === 0) {
+            monthDays[moment(item).format('YYYY-MM-DD')] = {
+              startingDay: true,
+              color: backgroundColor,
+              textColor: 'white',
+            };
+          } else if (dates?.length - 1 === index) {
+            monthDays[moment(item).format('YYYY-MM-DD')] = {
+              endingDay: true,
+              color: backgroundColor,
+              textColor: 'white',
+            };
+          } else {
+            monthDays[moment(item).format('YYYY-MM-DD')] = {
+              color: backgroundColor,
+              textColor: 'white',
+            };
+          }
+        });
+      }
+      setMarkedDay(monthDays);
+    });
+  }, [currentEvents]);
 
   const getDates = (startDate, endDate) => {
     const dates = [];
@@ -67,58 +139,6 @@ const EventCalendar = props => {
     return dates;
   };
 
-  let markedDay = {};
-  currentEvents?.map(item => {
-    const startDate = moment(item.event_start).format('YYYY-MM-DD');
-    const endDate = moment(item.event_end).format('YYYY-MM-DD');
-
-    let backgroundColor = '';
-    const pillarCategory = item?.pillar_categories
-      ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
-      : '';
-    switch (pillarCategory) {
-      case 0: case 117:
-        backgroundColor = Colors.COMMUNITY_COLOR;
-        break;
-      case 0: case 118:
-        backgroundColor = Colors.PRACTICE_COLOR;
-        break;
-      default:
-        backgroundColor = Colors.COACHING_COLOR;
-    }
-
-    if (moment(startDate).isSame(endDate)) {
-      markedDay[startDate] = {
-        color: backgroundColor,
-        textColor: 'white',
-      };
-    } else {
-      const dates = getDates(
-        new Date(moment(startDate).format('YYYY-MM-DD')),
-        new Date(moment(endDate).format('YYYY-MM-DD')),
-      );
-      dates.map((item, index) => {
-        if (index === 0) {
-          markedDay[moment(item).format('YYYY-MM-DD')] = {
-            startingDay: true,
-            color: backgroundColor,
-            textColor: 'white',
-          };
-        } else if (dates?.length - 1 === index) {
-          markedDay[moment(item).format('YYYY-MM-DD')] = {
-            endingDay: true,
-            color: backgroundColor,
-            textColor: 'white',
-          };
-        } else {
-          markedDay[moment(item).format('YYYY-MM-DD')] = {
-            color: backgroundColor,
-            textColor: 'white',
-          };
-        }
-      });
-    }
-  });
 
   const renderItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('D MMMM ');
@@ -173,11 +193,11 @@ const EventCalendar = props => {
 
     let nav = 'SessionDetail';
     if (item?.pillar_categories[0]?.slug === 'growth-leadership-coaching') {
-		nav = 'SessionDetail';
+      nav = 'SessionDetail';
     } else {
-		nav = 'EventDetail';   
+      nav = 'EventDetail';
     }
-	
+
     return (
       <View>
         <TouchableOpacity
@@ -214,7 +234,7 @@ const EventCalendar = props => {
                     ? eventStart.split(/(\s+)/)[0] +
                       eventStart.split(/(\s+)/)[4] +
                       eventEnd.split(' ', 3)[0] +
-					  eventEnd.split(/(\s+)/)[1] +
+                      eventEnd.split(/(\s+)/)[1] +
                       enddate[0] +
                       enddate[1] +
                       enddate[2]
@@ -264,11 +284,22 @@ const EventCalendar = props => {
                   year: moment(month?.dateString).format('YYYY'),
                   month: moment(month?.dateString).format('MM'),
                   all_events: showAllEvents,
-                }).then(response => {
-                  if (response?.payload?.code === 200) {
-                    setCurrentEvents(response?.payload?.data);
-                  }
-                });
+                })
+                  .then(response => {
+                    console.log(response);
+                    if (response?.payload?.code === 200) {
+                      setCurrentEvents(response?.payload?.data);
+                    } else {
+                      setMarkedDay([]);
+                      setCurrentEvents([]);
+                    }
+                  })
+                  .catch(e => {
+                    //   ToastMessage.show(e?.response?.payload?.response);
+                    console.log(e);
+                    setMarkedDay([]);
+                    setCurrentEvents([]);
+                  });
               }}
               markedDates={markedDay}
             />
@@ -330,11 +361,21 @@ const EventCalendar = props => {
                         year: calendarYear,
                         month: calendarMonth,
                         all_events: itemValue,
-                      }).then(response => {
-                        if (response?.payload?.code === 200) {
-                          setCurrentEvents(response?.payload?.data);
-                        }
-                      });
+                      })
+                        .then(response => {
+                          if (response?.payload?.code === 200) {
+                            setCurrentEvents(response?.payload?.data);
+                          } else {
+                            setMarkedDay([]);
+                            setCurrentEvents([]);
+                          }
+                        })
+                        .catch(e => {
+                          //   ToastMessage.show(e?.response?.payload?.response);
+                          console.log(e);
+                          setMarkedDay([]);
+                          setCurrentEvents([]);
+                        });
                     }}>
                     <Picker.Item label="All Events" value={true} />
                     <Picker.Item label="My Events" value={false} />
