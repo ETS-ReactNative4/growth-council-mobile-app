@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useLayoutEffect} from 'react';
+import React, {useState, useCallback, useLayoutEffect, useEffect} from 'react';
 import {
     StyleSheet,
     View,
@@ -6,7 +6,7 @@ import {
     Image,
 } from 'react-native';
 import {GiftedChat, Send} from 'react-native-gifted-chat';
-import {collection, addDoc, query, orderBy, onSnapshot} from 'firebase/firestore';
+import {collection, addDoc, query, orderBy, onSnapshot, getDocs, where, updateDoc, doc} from 'firebase/firestore';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -15,7 +15,7 @@ import {database} from '../../../utils/firebaseUtil';
 
 const Chat = (props) => {
 
-    const {navigation, route} = props;
+    const {navigation, route, notifications, notificationLoading, notificationError, sendNotificationByIdentifier, cleanNotification} = props;
 
     const friendID = route.params.friendID;
     const friendName = route.params.friendName;
@@ -42,7 +42,6 @@ const Chat = (props) => {
         const fetchMessageAsync = async () => {
             const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
             const q = await query(chatsCol, orderBy('createdAt', 'desc'));
-            let messageList = [];
             unsubscribe = onSnapshot(q, (querySnapshot) => {
                 const messageList = querySnapshot?.docs?.map(doc => ({
                     _id: doc.data()._id,
@@ -59,14 +58,33 @@ const Chat = (props) => {
 
     }, []);
 
+    useEffect(() => {
+        const fetchMessage2Async = async () => {
+            let docIds = [];
+            const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
+            const chatSnapshot = await getDocs(query(chatsCol, where('status', '==', 'unread'), where('user._id', '==', friendID)));
+            chatSnapshot.docs.map(async (record) => {
+                if (record.exists) {
+                    console.log('Document ID::::::::::: ', record.id, record.data()._id);
+                    const taskDocRef = doc(database, 'rooms', chatID(), 'messages', record.id);
+                    console.log('Document ID::::::::::: ', docIds);
+                    await updateDoc(taskDocRef, {status: 'read'});
+                }
+            });
+        };
+
+        fetchMessage2Async();
+
+    }, []);
+
     const onSend = useCallback(async (messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
-        console.log('Message ID::::::::::: ', messages[0]);
         const {_id, createdAt, text, user} = messages[0];
         const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
-        console.log('chatsCol ID::::::::::: ', chatsCol);
-        const newDoc = await addDoc(chatsCol, {_id, createdAt, text, user});
+        const newDoc = await addDoc(chatsCol, {_id, createdAt, text, user, status: 'unread'});
         console.log('Document ID::::::::::: ', newDoc);
+        const response = await sendNotificationByIdentifier({user_id:friendID, title:`Message From ${userName}`, message: text});
+        console.log('Notification response::::::::::: ', response);
     }, []);
 
     return (
@@ -97,15 +115,7 @@ const Chat = (props) => {
                 <View style={{marginLeft: 10, width: '50%'}}>
                     <Text style={{color: '#323232', fontSize: 16}}>{friendName}</Text>
                     <Text style={{color: '#969696', fontSize: 14}}>Last seen recently</Text>
-                </View>
-
-                {/* <Ionicons
-                    name='ellipsis-horizontal-sharp'
-                    size={30}
-                    color='#969696'
-                    style={{marginTop: 10, marginLeft: 30}}
-                /> */}
-
+                </View>{/**/}
             </View>
             <GiftedChat
                 messages={messages}

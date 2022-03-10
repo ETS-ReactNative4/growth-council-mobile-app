@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Modal,
+  Image,
 } from 'react-native';
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
@@ -341,6 +342,11 @@ const SignUpForm = props => {
 
         <View style={styles.content}>
           <View style={styles.header}>
+            <Image
+              style={{width: '80%'}}
+              source={require('../../../assets/img/GILCouncil.jpg')}
+              resizeMode="contain"
+            />
             <Text style={styles.headingText1}>Join Growth Council</Text>
           </View>
 
@@ -354,7 +360,6 @@ const SignUpForm = props => {
             style={styles.scrollBox}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}>
-				
             <View style={styles.body}>
               <FlatTextInput
                 label="First Name *"
@@ -484,23 +489,28 @@ const SignUpForm = props => {
                       setChecked(!checked);
                     }}
                   />
+
                   <View>
-                    <Text style={{marginTop: 7, width: '55%'}}>
-                      By clicking submit, I agree to Frost & Sullivan
+                    <View>
+                      <Text style={{marginTop: 7}}>
+                        By clicking submit, I agree to Frost & Sullivan
+                      </Text>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
                       <Text
-                        style={{paddingTop: 5, color: 'blue'}}
+                        style={{color: '#31ade5', fontWeight: '700'}}
                         onPress={() => navigation.navigate('Terms')}>
                         {' '}
-                        Terms of Use&nbsp;
+                        Terms and Use{' '}
                       </Text>
-                      and
+                      <Text>and</Text>
                       <Text
-                        style={{paddingTop: 5, color: 'blue'}}
-                        onPress={() => navigation.navigate('Privacy')}>
+                        style={{color: '#31ade5', fontWeight: '700'}}
+                        onPress={() => navigation.navigate('Privacys')}>
                         {' '}
-                        Privacy Policy*
+                        Privacy Policy*{' '}
                       </Text>
-                    </Text>
+                    </View>
                   </View>
                 </View>
 
@@ -599,8 +609,8 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 70,
-    marginTop: Platform.OS === 'ios' ? 30 : 20,
-    marginBottom: 30,
+    marginTop: Platform.OS === 'ios' ? 20 : 20,
+    marginBottom: 60,
   },
   scrollBox: {
     height: '65%',
@@ -616,7 +626,9 @@ const styles = StyleSheet.create({
     height: '86%',
     backgroundColor: 'white',
     borderRadius: 18,
-    padding: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 30,
   },
   message: {
     ...CommonStyles.message,
@@ -630,7 +642,8 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
     color: Colors.NONARY_TEXT_COLOR,
-    fontSize: 24,
+    fontSize: 22,
+    marginTop: 10,
   },
   headingText2: {
     ...CommonStyles.headingText2,
@@ -641,7 +654,8 @@ const styles = StyleSheet.create({
   loginButtonWrapper: {
     ...CommonStyles.buttonWrapper,
     width: '100%',
-    marginTop: 10,
+    marginTop: 30,
+    marginBottom: 30,
   },
   loginButton: {
     width: '50%',
