@@ -19,8 +19,6 @@ const pdf = props => {
   const fileUrl = route.params.paramsFile;
 
   const checkPermission = async () => {
-    // Function to check the platform
-    // If Platform is Android then check for permissions.
 
     if (Platform.OS === 'ios') {
       downloadFile();
@@ -48,7 +46,7 @@ const pdf = props => {
   };
 
   const downloadFile = () => {
-    // Get today's date to add the time suffix in filename
+   
     let date = new Date();
 
     let FILE_URL = fileUrl;
