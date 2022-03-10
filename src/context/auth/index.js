@@ -2,6 +2,7 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth';
 import uuid from 'react-native-uuid';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 import {setAsyncStorage, clearAsyncStorage, getAsyncStorage} from '../../utils/storageUtil';
 import {JWT_TOKEN, API_URL, USER_NAME, USER_AVATAR} from '../../constants';
@@ -74,7 +75,12 @@ export const AuthProvider = ({children}) => {
                             );
                             const token = await firebaseResponse.user;
                             const password = await firebaseResponse.firebase_password;
-                            console.log("token", password);
+                            await Promise.all([
+                                crashlytics().setUserId(response?.data?.user_email),
+                                crashlytics().setAttributes({
+                                    email: response?.data?.user_email,
+                                }),
+                            ]);
                             if (token) navigate('Dashboard');
                         } else {
                             setLoading(false);
