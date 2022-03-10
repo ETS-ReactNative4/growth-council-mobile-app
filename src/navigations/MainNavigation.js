@@ -353,7 +353,6 @@ const MainNavigation = () => {
                         userID: route?.params?.userID,
                         friendID: route?.params?.friendID,
                         friendName: route?.params?.friendName,
-                        //headerTitle: route?.params?.friendName,
                         headerShown: false,
                     })}
                 />

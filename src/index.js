@@ -41,8 +41,8 @@ const App = () => {
     const showNotification = notification => {
         PushNotification.localNotification({
             channelId: 'growth-council-reminder',
-            title: notification?.data?.title || notification?.title,
-            message: notification?.data?.message || notification?.body,
+            title: notification?.data?.title || notification?.notification?.title,
+            message: notification?.data?.message || notification?.notification?.body,
             priority: 'high',
             messageId: notification?.messageId,
         });
@@ -98,15 +98,11 @@ const App = () => {
         messaging()
             .getInitialNotification()
             .then(async remoteMessage => {
-                console.log("YYYYYY::::::::::", remoteMessage);
+                console.log("InitialNotification::::::::::", remoteMessage);
                 if (remoteMessage) {
                     console.log(
                         'getInitialNotification:' +
                         'Notification caused app to open from quit state',
-                    );
-                    alert(
-                        'getInitialNotification: Notification caused app to' +
-                        ' open from quit state',
                     );
                     const notificationType = remoteMessage?.data?.notification_type;
                     switch (notificationType) {
@@ -134,15 +130,11 @@ const App = () => {
          * a quit state.
          */
         messaging().onNotificationOpenedApp(async remoteMessage => {
-            console.log("HHHHHH::::::::::", remoteMessage);
+            console.log("NotificationOpenedApp::::::::::", remoteMessage);
             if (remoteMessage) {
                 console.log(
                     'onNotificationOpenedApp: ' +
                     'Notification caused app to open from background state',
-                );
-                alert(
-                    'onNotificationOpenedApp: Notification caused app to' +
-                    ' open from background state',
                 );
                 const notificationType = remoteMessage?.data?.notification_type;
                 switch (notificationType) {
@@ -187,7 +179,7 @@ const App = () => {
         return () => {
             unsubscribe;
         };
-    },[]);
+    }, []);
 
     return (
         <Provider store={store}>
