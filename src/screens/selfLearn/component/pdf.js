@@ -8,8 +8,8 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import Pdf from 'react-native-pdf';
-import RNFetchBlob from 'rn-fetch-blob';
 import ToastMessage from '../../../shared/toast';
+import ReactNativeBlobUtil from 'react-native-blob-util'
 
 const pdf = props => {
   const {navigation, route} = props;
@@ -57,7 +57,7 @@ const pdf = props => {
 
     file_ext = '.' + file_ext[0];
 
-    const {config, fs} = RNFetchBlob;
+    const {config, fs} = ReactNativeBlobUtil;
     let RootDir = fs.dirs.PictureDir;
     let options = {
       fileCache: true,
