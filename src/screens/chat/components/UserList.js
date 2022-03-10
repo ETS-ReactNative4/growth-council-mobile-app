@@ -20,6 +20,7 @@ import {decodeUserID} from '../../../utils/jwtUtil';
 import {useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
+import ChatCount from '../../../shared/chatCount';
 
 const UserList = props => {
     const {
@@ -92,6 +93,7 @@ const UserList = props => {
                             <Text style={{fontSize: 12, marginTop: 10}}>
                                 {item.user_email}
                             </Text>
+                            <ChatCount item={item} userID={userID}/>
                         </View>
                     </View>
                 </TouchableOpacity>

@@ -83,7 +83,7 @@ const Chat = (props) => {
         const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
         const newDoc = await addDoc(chatsCol, {_id, createdAt, text, user, status: 'unread'});
         console.log('Document ID::::::::::: ', newDoc);
-        const response = await sendNotificationByIdentifier({user_id:friendID, title:`Message From ${userName}`, message: text});
+        const response = await sendNotificationByIdentifier({user_id:friendID, title:`Message From ${userName}`, message: text, notification_type:'chat'});
         console.log('Notification response::::::::::: ', response);
     }, []);
 
