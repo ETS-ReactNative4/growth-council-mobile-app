@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
@@ -8,6 +8,7 @@ import RNBootSplash from 'react-native-bootsplash';
 import {Provider as PaperProvider} from 'react-native-paper';
 
 import messaging from '@react-native-firebase/messaging';
+import analytics from '@react-native-firebase/analytics';
 import PushNotification, {Importance} from 'react-native-push-notification';
 
 import {store, persistor} from './store';
@@ -181,6 +182,8 @@ const App = () => {
         };
     }, []);
 
+    const routeNameRef = useRef();
+
     return (
         <Provider store={store}>
             {/**
@@ -197,7 +200,24 @@ const App = () => {
                 <NativeBaseProvider>
                     <PaperProvider>
                         <AuthProvider>
-                            <NavigationContainer ref={navigationRef}>
+                            <NavigationContainer
+                                ref={navigationRef}
+                                onReady={() => {
+                                    routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+                                }}
+                                onStateChange={async () => {
+                                    const previousRouteName = routeNameRef.current;
+                                    const currentRouteName = navigationRef.current.getCurrentRoute().name;
+                                    console.log("RouteName", previousRouteName, currentRouteName);
+                                    if (previousRouteName !== currentRouteName) {
+                                        await analytics().logScreenView({
+                                            screen_name: currentRouteName,
+                                            screen_class: currentRouteName,
+                                        });
+                                    }
+                                    routeNameRef.current = currentRouteName;
+                                }}
+                            >
                                 <MainNavigation/>
                             </NavigationContainer>
                         </AuthProvider>
