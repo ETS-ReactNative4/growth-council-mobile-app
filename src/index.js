@@ -42,7 +42,7 @@ const App = () => {
         PushNotification.localNotification({
             channelId: 'growth-council-reminder',
             title: notification?.data?.title || notification?.title,
-            message: notification?.data?.message || notification?.message,
+            message: notification?.data?.message || notification?.body,
             priority: 'high',
             messageId: notification?.messageId,
         });
@@ -108,6 +108,21 @@ const App = () => {
                         'getInitialNotification: Notification caused app to' +
                         ' open from quit state',
                     );
+                    const notificationType = remoteMessage?.data?.notification_type;
+                    switch (notificationType) {
+                        case 'event':
+                            navigate('EventDetail', {id: remoteMessage.data.post_id});
+                            break;
+                        case 'session':
+                            navigate('EventDetail', {id: remoteMessage.data.post_id});
+                            break;
+                        case 'connection':
+                            navigate('People', {id: remoteMessage.data.user_id});
+                            break;
+                        case 'chat':
+                            navigate('UserList');
+                            break;
+                    }
                 }
             });
 
@@ -129,7 +144,7 @@ const App = () => {
                     'onNotificationOpenedApp: Notification caused app to' +
                     ' open from background state',
                 );
-                const notificationType = remoteMessage.data.notification_type;
+                const notificationType = remoteMessage?.data?.notification_type;
                 switch (notificationType) {
                     case 'event':
                         navigate('EventDetail', {id: remoteMessage.data.post_id});
@@ -172,7 +187,7 @@ const App = () => {
         return () => {
             unsubscribe;
         };
-    });
+    },[]);
 
     return (
         <Provider store={store}>

@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
-  return <NavigationContainer>{/* <Tabs/> */}</NavigationContainer>;
+    return <NavigationContainer/>;
 };
 
 export default App;

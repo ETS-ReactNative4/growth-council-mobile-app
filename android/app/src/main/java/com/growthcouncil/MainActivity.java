@@ -1,6 +1,7 @@
 package com.growthcouncil;
 
 import com.facebook.react.ReactActivity;
+import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
 
@@ -12,4 +13,11 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "GrowthCouncil";
   }
+
+  @Override
+  public void onNewIntent(Intent intent) {
+      setIntent(intent);
+      super.onNewIntent(intent);
+  }
+
 }
