@@ -51,6 +51,17 @@ const Home = props => {
   }, []);
 
   const _renderItem = ({item, index}, navigation) => {
+    let borderColor = Colors.PRIMARY_BACKGROUND_COLOR;
+    switch (item?.slug) {
+      case 'community':
+        borderColor = Colors.COMMUNITY_COLOR;
+        break;
+      case 'best-practices':
+        borderColor = Colors.PRACTICE_COLOR;
+        break;
+      case 'growth-coaching':
+        borderColor = Colors.COACHING_COLOR;
+    }
     return (
       <TouchableOpacity
         key={index}
@@ -58,15 +69,10 @@ const Home = props => {
           navigation.navigate('CouncilDetail', {id: item?.term_id})
         }>
         <View
-          style={{
-            backgroundColor: 'floralwhite',
-            height: viewportWidth - 120,
-            marginLeft: 20,
-            marginRight: 20,
-            position: 'relative',
-            borderRadius: 10,
-            overflow: 'hidden',
-          }}>
+          style={[
+			  styles.ImageWrapper,
+			{borderColor:borderColor}
+			]}>
           <Image
             source={{uri: item?.image}}
             style={{width: '100%', height: '100%', resizeMode: 'cover'}}
@@ -193,6 +199,16 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+  },
+  ImageWrapper:{
+	backgroundColor: 'floralwhite',
+	height: viewportWidth - 120,
+	marginLeft: 20,
+	marginRight: 20,
+	position: 'relative',
+	borderRadius: 10,
+	borderWidth: 4,
+	overflow: 'hidden',
   },
   wrapper: {
     top: '20%',

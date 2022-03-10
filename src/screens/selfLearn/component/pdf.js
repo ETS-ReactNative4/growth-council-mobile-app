@@ -8,13 +8,15 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import Pdf from 'react-native-pdf';
+
 import RNFetchBlob from 'rn-fetch-blob';
 import ToastMessage from '../../../shared/toast';
 
 const pdf = props => {
   const {navigation, route} = props;
 
-  const source = {uri: route.params.paramsFile, cache: true};
+    const source = {uri: route.params.paramsFile, cache: true};
+ 
 
   const fileUrl = route.params.paramsFile;
 
@@ -81,7 +83,6 @@ const pdf = props => {
   };
 
   const getFileExtention = fileUrl => {
-
     return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
   };
 
@@ -103,6 +104,8 @@ const pdf = props => {
         }}
         style={styles.pdf}
       />
+
+     
 
       <TouchableOpacity style={styles.buttonWrapper} onPress={checkPermission}>
         <Text style={styles.text}>Download File</Text>
