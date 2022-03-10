@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ImageBackground,
+  Image,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {Button} from 'native-base';
@@ -89,25 +90,29 @@ const SignInForm = props => {
           <View>
             <View style={styles.content}>
               <View style={styles.header}>
-                <Text style={styles.headingText1}>
-                  Growth Innovation
-                  {'\n'}
-                  Leadership Council
-                </Text>
-                <Text>
-                  {'\n'}
-                  Login to your account below.
-                </Text>
+                <Image
+                   style={{width: '80%'}}
+				   source={require('../../../assets/img/GILCouncil.jpg')}
+				   resizeMode="contain"
+                />
+                <View style={{marginTop:10}}>
+                  <Text style={styles.headingText1}>
+                    Growth Innovation
+                    {'\n'}
+                    Leadership Council
+                  </Text>
+                  <Text>
+                    {'\n'}
+                    Login to your account below.
+                  </Text>
+                </View>
               </View>
 
-				
-				{!message?.success && (
-					<View style={styles.message}>
-					<Text style={styles.errorText}>{message?.message}</Text>
-					</View>
-				)}
-			
-             
+              {!message?.success && (
+                <View style={styles.message}>
+                  <Text style={styles.errorText}>{message?.message}</Text>
+                </View>
+              )}
 
               <View style={styles.body}>
                 {loading && (
@@ -188,7 +193,7 @@ const SignInForm = props => {
               <View
                 style={[
                   styles.signuptext,
-                  {marginTop: Platform.OS === 'ios' ? 60 : 110},
+                  {marginTop: Platform.OS === 'ios' ? 40 : 80},
                 ]}>
                 {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                 <Text>Need Help? </Text>
@@ -212,10 +217,9 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
   },
   header: {
-    height: 50,
-    marginTop: Platform.OS === 'ios' ? 20 : 50,
+	height:100,
+    marginTop: Platform.OS === 'ios' ? 20 : 20,
     marginBottom: Platform.OS === 'ios' ? 10 : 30,
-    //width: '80%',
   },
   body: {
     width: '90%',
@@ -278,7 +282,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_MEDIUM,
     paddingLeft: 8,
   },
-  
+
   signuptext: {
     flexDirection: 'row',
   },

@@ -82,11 +82,12 @@ const Home = props => {
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
-            style={styles.mainLogo}
-            source={require('../../../assets/img/GILCouncillog.png')}
+            style={{width: '80%', marginTop: 30}}
+            source={require('../../../assets/img/GILCouncil.jpg')}
+            resizeMode="contain"
           />
-          <Text style={styles.headingText1}>Welcome</Text>
-          <Text style={styles.headingText2}>The Growth Council</Text>
+          {/* <Text style={styles.headingText1}>Welcome</Text>
+          <Text style={styles.headingText2}>The Growth Council</Text> */}
         </View>
         <View styyle={styles.sliderView}>
           {!pillarSliderLoading ? (
@@ -305,8 +306,8 @@ const styles = StyleSheet.create({
     opacity: 2,
   },
   footerlogo1: {
-    width: 60,
-    height: 25,
+    width: 80,
+    height: 35,
     opacity: 0.75,
     marginBottom: 10,
   },

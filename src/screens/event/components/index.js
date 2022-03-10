@@ -69,17 +69,18 @@ const Event = props => {
 
   let backgroundColor = '';
   const pillarCategory = events?.pillar_categories
-    ? events?.pillar_categories[0]?.parent
+    ? events?.pillar_categories[0]?.parent || events?.pillar_categories[1]?.parent
     : '';
   switch (pillarCategory) {
-    case 0:
-    case 118:
-      backgroundColor = Colors.PRACTICE_COLOR;
-      break;
     case 0:
     case 117:
       backgroundColor = Colors.COMMUNITY_COLOR;
       break;
+    case 0:
+    case 118:
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+
     default:
       backgroundColor = Colors.COACHING_COLOR;
   }
@@ -106,7 +107,7 @@ const Event = props => {
   const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
   const GobalEndMonth = moment(timeToEnd).format('D MMMM dddd');
-  console.log( GobalDate.split(/(\s+)/)[8])
+
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
       backStartTimeStamp,
@@ -178,7 +179,11 @@ const Event = props => {
                     <Text style={styles.eventDetails}>
                       {GobalStartMonth === GobalEndMonth
                         ? GobalDate + GobalEndTime
-                        : GobalStartMonth +GobalDate.split(/(\s+)/)[7]+  GobalDate.split(/(\s+)/)[8] +GobalDate.split(/(\s+)/)[7]+ GobalEndMonth}{' '}
+                        : GobalStartMonth +
+                          GobalDate.split(/(\s+)/)[7] +
+                          GobalDate.split(/(\s+)/)[8] +
+                          GobalDate.split(/(\s+)/)[7] +
+                          GobalEndMonth}{' '}
                       ({deviceTimeZone})
                     </Text>
                   </View>
@@ -384,7 +389,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
     color: '#ffff',
   },
   eventDetails: {
@@ -463,7 +468,7 @@ const styles = StyleSheet.create({
   },
   topbanner: {
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 90,
+    height: 100,
     width: 318,
     justifyContent: 'center',
     alignItems: 'center',
@@ -485,6 +490,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
+    borderWidth: 0.2,
   },
   infoicon: {
     flex: 1,

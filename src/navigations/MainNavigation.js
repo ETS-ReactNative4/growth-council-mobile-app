@@ -1,7 +1,13 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Platform} from 'react-native';
+import {
+    ImageBackground,
+    Platform,
+    View,
+    Text,
+    TouchableOpacity,
+} from 'react-native';
 import DrawerNavigation from '../navigations/DrawerNavigation';
 
 import HomeScreen from '../screens/home';
@@ -114,7 +120,7 @@ const MainNavigation = () => {
                                     position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                                 }}
                                 color={'white'}
-                                onPress={() => navigation.navigate('Home')}
+                                onPress={() => navigation.goBack()}
                             />
                         ),
                         ...TransitionPresets.RevealFromBottomAndroid,
@@ -158,7 +164,7 @@ const MainNavigation = () => {
                                 style={{
                                     position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                                 }}
-                                onPress={() => navigation.navigate('Home')}
+                                onPress={() => navigation.goBack()}
                             />
                         ),
                         ...TransitionPresets.RevealFromBottomAndroid,
@@ -170,7 +176,6 @@ const MainNavigation = () => {
                     component={ForgotScreen}
                     options={{
                         headerTitle: 'Forget',
-
                     }}
                 />
                 <Stack.Screen
@@ -367,23 +372,90 @@ const MainNavigation = () => {
                     })}
                 />
                 <Stack.Screen
+                    name="Privacys"
+                    component={PrivacyScreen}
+                    options={({navigation}) => ({
+                        headerLeft: () => (
+                            <View>
+                                <View>
+                                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                                        <Ionicons
+                                            name={'arrow-back'}
+                                            size={30}
+                                            color="white"
+                                            style={{marginLeft: 10, top: 5}}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        ),
+                        headerTitle: () => (
+                            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+                                <Text
+                                    style={{
+                                        color: 'white',
+                                        fontSize: 22,
+                                        marginTop: 10,
+                                    }}>
+                                    Privacy Policy
+                                </Text>
+                            </View>
+                        ),
+
+                        headerBackground: () => (
+                            <View>
+                                <ImageBackground
+                                    source={require('../../src/assets/img/appBG.png')}
+                                    style={{width: '100%', height: 60}}
+                                />
+                            </View>
+                        ),
+                    })}
+                />
+                <Stack.Screen
                     name="Terms"
                     component={Terms}
                     options={({navigation}) => ({
-                        header: () => (
-                            <SubHeader
-                                title="Terms of use"
-                                image={require('../assets/img/appBG.png')}
-                                navigation={navigation}
-                                noDrawer
-                            />
+                        headerLeft: () => (
+                            <View>
+                                <View>
+                                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                                        <Ionicons
+                                            name={'arrow-back'}
+                                            size={30}
+                                            color="white"
+                                            style={{marginLeft: 10, top: 5}}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        ),
+                        headerTitle: () => (
+                            <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+                                <Text
+                                    style={{
+                                        color: 'white',
+                                        fontSize: 22,
+                                        marginTop: 10,
+                                    }}>
+                                    Terms of Use
+                                </Text>
+                            </View>
+                        ),
+
+                        headerBackground: () => (
+                            <View>
+                                <ImageBackground
+                                    source={require('../../src/assets/img/appBG.png')}
+                                    style={{width: '100%', height: 60}}
+                                />
+                            </View>
                         ),
                     })}
                 />
             </Stack.Group>
 
             <Stack.Group>
-
                 <Stack.Screen
                     name="CommunityDetail"
                     component={CommunityDetailScreen}

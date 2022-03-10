@@ -25,10 +25,7 @@ const Terms = props => {
   const win = Dimensions.get('window');
   return (
     <>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
-      />
+     
       <ScrollView
        >
         <View style={styles.container}>
