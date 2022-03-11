@@ -15,10 +15,10 @@ export const QUADENARY_BACKGROUND_COLOR = '#0D0D0F';
 export const QUIDENARY_BACKGROUND_COLOR = '#313234';
 export const SENDENARY_BACKGROUND_COLOR = '#1E1E1E';
 export const OCTODENARY_BACKGROUND_COLOR = '#F7F8F9';
-export const COMMUNITY_COLOR='#02B0F0';
-export const PRACTICE_COLOR='#f26722';
-export const COACHING_COLOR='#80BA74';
-export const COMMUNITY_EVENT_COLOR='rgba(54,147,172,1)';
+export const COMMUNITY_COLOR = '#00b0f0';
+export const PRACTICE_COLOR = '#f26722';
+export const COACHING_COLOR = '#80BA74';
+export const COMMUNITY_EVENT_COLOR = 'rgba(54,147,172,1)';
 
 export const PRIMARY_TEXT_COLOR = '#1E2022';
 export const SECONDARY_TEXT_COLOR = '#77838F';
