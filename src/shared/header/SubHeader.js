@@ -61,7 +61,7 @@ const SubHeader = props => {
             style={{
               marginLeft: 10,
               fontFamily: 'SFProText-Medium',
-              fontSize: 20,
+              fontSize: 16,
               color: 'white',
             }}>
             {props.title}
