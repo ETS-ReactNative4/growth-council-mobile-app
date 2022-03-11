@@ -289,7 +289,7 @@ const HomeCommunity = props => {
             </View>
           </View>
 
-          <View style={styles.content}>
+          {/* <View style={styles.content}>
             <Text style={styles.title}>Growth Community Content</Text>
             <View
               style={{
@@ -303,7 +303,7 @@ const HomeCommunity = props => {
                 renderItem={_renderContentItem}
               />
             </View>
-          </View>
+          </View> */}
 
           <Footer />
         </View>

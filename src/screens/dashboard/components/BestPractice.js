@@ -279,7 +279,7 @@ const BestPractice = props => {
             </View>
           </View>
 
-          <View style={styles.content}>
+          {/* <View style={styles.content}>
             <Text style={styles.title}>Best Practices Content</Text>
             <View
               style={{
@@ -293,7 +293,7 @@ const BestPractice = props => {
                 renderItem={_renderContentItem}
               />
             </View>
-          </View>
+          </View> */}
           <Footer />
         </View>
       </ScrollView>

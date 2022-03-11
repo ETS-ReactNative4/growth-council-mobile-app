@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   title: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: Typography.FONT_SF_REGULAR,
     color: PRIMARY_TEXT_COLOR,
     fontWeight: '700',
