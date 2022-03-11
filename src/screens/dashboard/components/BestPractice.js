@@ -117,8 +117,8 @@ const BestPractice = props => {
         <TouchableOpacity
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
           <ImageBackground
-            style={{width: '100%', height: '100%', borderRadius: 20}}
-            source={require('../../../assets/img/Rectangle1.png')}>
+            style={{width: '100%', height: 150, borderRadius: 20}}
+            source={require('../../../assets/img/best-practice-bg.png')}>
             <View
               style={{
                 width: 40,
@@ -145,7 +145,6 @@ const BestPractice = props => {
       </View>
     );
   };
-
 
   const _renderItem = ({item, index}) => {
     return (
@@ -312,6 +311,7 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 20,
     justifyContent: 'center',
+	marginRight:5,
   },
   title: {
     fontFamily: Typography.FONT_SF_BOLD,
@@ -322,11 +322,13 @@ const styles = StyleSheet.create({
   },
 
   topWrapper: {
-    height: 144,
+	height: 144,
     width: 256,
-    marginTop: 20,
     marginLeft: 15,
-    borderRadius: 20,
+    borderRadius: 16,
+    overflow: 'hidden',
+	marginTop:20,
+
   },
   header: {
     margin: 10,

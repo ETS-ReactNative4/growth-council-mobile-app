@@ -56,8 +56,6 @@ const EventCalendar = props => {
           }
         })
         .catch(e => {
-          //   ToastMessage.show(e?.response?.payload?.response);
-          console.log(e);
           setMarkedDay([]);
           setCurrentEvents([]);
         });

@@ -192,7 +192,7 @@ const Dashboard = props => {
         break;
       case 118:
       case 0:
-        backgroundImage = require('../../../assets/img/Rectangle1.png');
+        backgroundImage = require('../../../assets/img/best-practice-bg.png');
         break;
 
       default:
