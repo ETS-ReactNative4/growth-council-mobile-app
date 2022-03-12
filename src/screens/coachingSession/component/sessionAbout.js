@@ -116,9 +116,6 @@ const sessionAbout = props => {
       currentTimeZoneOffsetInHours,
     );
     setTimeToDisplay(convertedToLocalTime);
-  }, [sessions]);
-
-  useEffect(() => {
     const convertedToLocalTimeEnd = formatTimeByOffset(
       backEndTimeStamp,
       currentTimeZoneOffsetInHours,

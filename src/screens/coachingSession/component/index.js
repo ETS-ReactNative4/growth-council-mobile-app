@@ -17,6 +17,8 @@ import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {BubblesLoader} from 'react-native-indicator';
+import moment from 'moment';
+import ToastMessage from '../../../shared/toast';
 
 const CoachingSession = props => {
   const {
@@ -117,7 +119,13 @@ const CoachingSession = props => {
                   inactiveTextColor={'grey'}
                   values={['About', 'Self-Assessment']}
                   value={value}
-                  onSelect={val => setValue(val)}
+                  onSelect={val => {
+                    if( moment(sessions?.event_end).isBefore() ){
+                      return setValue(val)
+                    }else{
+                      ToastMessage.show('Session has not ended');
+                    }
+                  }}
                   style={{
                     height: 30,
                     marginTop: 5,
