@@ -29,6 +29,7 @@ const TraitsQuestion = props => {
           <View style={{display: 'flex', flexDirection: 'row'}}>
             <RadioButton
               value={option1?.score}
+              styles={{borderWidth: 1, borderColor: 'red', borderStyle:'solid'}}
               status={status === option1.score ? 'checked' : 'unchecked'}
               onPress={() => {
                 let newAnswers = answers;
