@@ -34,6 +34,8 @@ const SelfAssessment = props => {
     setAnswers,
     selectedId,
     setSelectedId,
+
+    scrollRef
   } = props;
 
   const dispatch = useDispatch();
@@ -53,15 +55,6 @@ const SelfAssessment = props => {
   const [subTraitLength, setSubTraitLength] = useState(0);
 
   const [subTraits, setSubTraits] = useState(traits[index.traitIndex]);
-
-  const scrollRef = useRef(null);
-
-  const onFabPress = () => {
-    scrollRef.current?.scrollTo({
-      y: -50,
-      animated: true,
-    });
-  };
 
   useEffect(() => {
     setSubTraits(traits[index.traitIndex]);
@@ -102,6 +95,10 @@ const SelfAssessment = props => {
 
 
   const handleNextButtonClick = async () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
     if (
       index.traitIndex === traitLength - 1 &&
       index.subTraitIndex === subTraitLength - 1
@@ -119,7 +116,7 @@ const SelfAssessment = props => {
               },
               yellowQuestions: [],
             });
-            navigation.navigate('radar');
+            navigation.goBack();
           } else {
             toast.closeAll();
             ToastMessage.show(response?.payload?.response);
@@ -137,6 +134,10 @@ const SelfAssessment = props => {
     }
   };
   const handlePreviousButtonClick = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
     if (index.subTraitIndex === 0 && index.traitIndex > 0) {
       setIndex({
         ...index,

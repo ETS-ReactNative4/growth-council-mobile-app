@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   View,
@@ -17,7 +17,6 @@ import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {BubblesLoader} from 'react-native-indicator';
-import {set} from 'immer/dist/internal';
 
 const CoachingSession = props => {
   const {
@@ -41,6 +40,7 @@ const CoachingSession = props => {
     cleanSessionRegister,
   } = props;
 
+  const scrollRef = useRef();
   const [value, setValue] = useState('About');
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -94,14 +94,13 @@ const CoachingSession = props => {
   // score 
   let num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(2);
   if (isNaN(num)) num = 0.00;
-  console.log(num);
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
     </View>
   ) : (
-    <ScrollView style={styles.scrollBox}>
+    <ScrollView style={styles.scrollBox} ref={scrollRef} >
       <View style={styles.container}>
         <StatusBar
           barStyle="dark-content"
@@ -262,6 +261,7 @@ const CoachingSession = props => {
                   setAnswers={setAnswers}
                   selectedId={selectedId}
                   setSelectedId={setSelectedId}
+                  scrollRef={scrollRef}
                 />
               )}
             </View>
