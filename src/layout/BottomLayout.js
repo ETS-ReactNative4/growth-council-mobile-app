@@ -24,7 +24,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="home-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -41,7 +41,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="calendar-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -58,7 +58,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="chatbox-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -75,7 +75,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="people-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -92,7 +92,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="person-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -106,10 +106,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 1,
     width: '100%',
-
-    // backgroundColor: 'rgba(215,233,245, 0.88)',
-	backgroundColor:'rgb(0,0,139)',
-    // borderRadius: 15,
+	backgroundColor:'#0C336C',
     height: 60,
     alignContent: 'center',
   },

@@ -49,7 +49,7 @@ const MainHeader = props => {
           <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
             <IonIcon name="menu-outline" color={'white'} size={30} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.navigation.navigate('About')}>
+          {/* <TouchableOpacity onPress={() => props.navigation.navigate('About')}>
             <Image
               source={require('../../assets/img/GILCouncillog.png')}
               style={{
@@ -58,7 +58,7 @@ const MainHeader = props => {
                 marginLeft: 5,
               }}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <HeaderTitle
             {...props}
             profile={profile}
