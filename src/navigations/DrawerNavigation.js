@@ -181,7 +181,7 @@ const DrawerNavigation = () => {
                     header: () => (
                         <SubHeader
                             title="Best Practices"
-                            image={require('../assets/img/Rectangle1.png')}
+                            image={require('../assets/img/best-practice-bg.png')}
                             navigation={navigation}
                         />
                     ),

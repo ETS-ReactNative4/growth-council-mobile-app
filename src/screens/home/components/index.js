@@ -39,84 +39,119 @@ const Home = props => {
         fetchAllPillarSlider();
     }, []);
 
-    const _renderItem = ({item, index}, navigation) => {
-        return (
-            <TouchableOpacity
-                key={index}
-                onPress={() =>
-                    navigation.navigate('CouncilDetail', {id: item?.term_id})
-                }>
-                <View
-                    style={{
-                        backgroundColor: 'floralwhite',
-                        height: viewportWidth - 120,
-                        marginLeft: 20,
-                        marginRight: 20,
-                        position: 'relative',
-                        borderRadius: 10,
-                        overflow: 'hidden',
-                    }}>
-                    <Image
-                        source={{uri: item?.image}}
-                        style={{width: '100%', height: '100%', resizeMode: 'cover'}}
-                    />
-                    <Text style={styles.sliderText}>{item.name}</Text>
-                </View>
-            </TouchableOpacity>
-        );
-    };
+    // const _renderItem = ({item, index}, navigation) => {
+    //     return (
+    //         <TouchableOpacity
+    //             key={index}
+    //             onPress={() =>
+    //                 navigation.navigate('CouncilDetail', {id: item?.term_id})
+    //             }>
+    //             <View
+    //                 style={{
+    //                     backgroundColor: 'floralwhite',
+    //                     height: viewportWidth - 120,
+    //                     marginLeft: 20,
+    //                     marginRight: 20,
+    //                     position: 'relative',
+    //                     borderRadius: 10,
+    //                     overflow: 'hidden',
+    //                 }}>
+    //                 <Image
+    //                     source={{uri: item?.image}}
+    //                     style={{width: '100%', height: '100%', resizeMode: 'cover'}}
+    //                 />
+    //                 <Text style={styles.sliderText}>{item.name}</Text>
+    //             </View>
+    //         </TouchableOpacity>
+    //     );
+    // };
 
+  const _renderItem = ({item, index}, navigation) => {
+	let borderColor = Colors.PRIMARY_BACKGROUND_COLOR;
+    switch (item?.slug) {
+      case 'community':
+        borderColor = Colors.COMMUNITY_COLOR;
+        break;
+      case 'best-practices':
+        borderColor = Colors.PRACTICE_COLOR;
+        break;
+      case 'growth-coaching':
+        borderColor = Colors.COACHING_COLOR;
+    }
     return (
-        <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Image
-                        style={{width: '80%', marginTop: 30}}
-                        source={require('../../../assets/img/GILCouncil.jpg')}
-                        resizeMode="contain"
-                    />
-                </View>
-                <View styyle={styles.sliderView}>
-                    {!pillarSliderLoading ? (
-                        <View>
-                            <FeatherIcon
-                                name={'chevron-right'}
-                                style={styles.carouselRight}
-                                size={36}
-                                color={'#00000099'}
-                                onPress={() => {
-                                    sliderRef.current.snapToNext();
-                                }}
-                            />
-                            <FeatherIcon
-                                name={'chevron-left'}
-                                style={styles.carouselLeft}
-                                size={36}
-                                color={'#00000099'}
-                                onPress={() => {
-                                    sliderRef.current.snapToPrev();
-                                }}
-                            />
-                            <Carousel
-                                ref={sliderRef}
-                                layout={'default'}
-                                data={pillarSliders}
-                                sliderWidth={sliderWidth}
-                                itemWidth={viewportWidth - 150}
-                                renderItem={item => _renderItem(item, navigation)}
-                                firstItem={1}
-                                containerCustomStyle={styles.slider}
-                                contentContainerCustomStyle={styles.sliderContent}
-                                loop={true}
-                                loopClonesPerSide={3}
-                                autoplay={true}
-                                autoplayDelay={500}
-                                autoplayInterval={3000}
-                                hasParallaxImages={true}
-                                inactiveSlideScale={0.9}
-                                inactiveSlideOpacity={0.5}
-                                onSnapToItem={index => setActiveSlider(index)}
-                            />
+      <TouchableOpacity
+        key={index}
+        onPress={() =>
+          navigation.navigate('CouncilDetail', {id: item?.term_id})
+        }>
+        <View
+          style={[
+			styles.ImageWrapper,
+		  {borderColor:borderColor}
+		  ]}>
+          <Image
+            source={{uri: item?.image}}
+            style={{width: '100%', height: '100%', resizeMode: 'cover'}}
+          />
+          <Text style={styles.sliderText}>{item.name}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  return (
+    <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            style={{width: '80%', marginTop: 30}}
+            source={require('../../../assets/img/GILCouncil.jpg')}
+            resizeMode="contain"
+          />
+          {/* <Text style={styles.headingText1}>Welcome</Text>
+          <Text style={styles.headingText2}>The Growth Council</Text> */}
+        </View>
+        <View styyle={styles.sliderView}>
+          {!pillarSliderLoading ? (
+            <View>
+              <FeatherIcon
+                name={'chevron-right'}
+                style={styles.carouselRight}
+                size={36}
+                color={'#00000099'}
+                onPress={() => {
+                  sliderRef.current.snapToNext();
+                }}
+              />
+              <FeatherIcon
+                name={'chevron-left'}
+                style={styles.carouselLeft}
+                size={36}
+                color={'#00000099'}
+                onPress={() => {
+                  sliderRef.current.snapToPrev();
+                }}
+              />
+              <Carousel
+                ref={sliderRef}
+                layout={'default'}
+                data={pillarSliders}
+                sliderWidth={sliderWidth}
+                itemWidth={viewportWidth - 150}
+                renderItem={item => _renderItem(item, navigation)}
+                firstItem={1}
+                containerCustomStyle={styles.slider}
+                contentContainerCustomStyle={styles.sliderContent}
+                loop={true}
+                loopClonesPerSide={3}
+                autoplay={true}
+                autoplayDelay={500}
+                autoplayInterval={3000}
+                hasParallaxImages={true}
+                inactiveSlideScale={0.9}
+                inactiveSlideOpacity={0.5}
+                onSnapToItem={index => setActiveSlider(index)}
+              />
 
                             <Pagination
                                 dotsLength={pillarSliders?.length}
@@ -169,17 +204,27 @@ const Home = props => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        ...CommonStyles.container,
-    },
-    background: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-    },
-    wrapper: {
-        top: '20%',
-    },
+  container: {
+    ...CommonStyles.container,
+  },
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
+  ImageWrapper:{
+	backgroundColor: 'floralwhite',
+	height: viewportWidth - 120,
+	marginLeft: 20,
+	marginRight: 20,
+	position: 'relative',
+	borderRadius: 10,
+	borderWidth: 4,
+	overflow: 'hidden',
+  },
+  wrapper: {
+    top: '20%',
+  },
 
     slider: {
         marginTop: 30,
