@@ -132,25 +132,20 @@ const CommunityDetail = props => {
     );
   };
 
-  const  data = [
+  const data = [
     {
-     
       title: 'First Item',
     },
     {
-     
       title: 'First Item',
     },
     {
-     
       title: 'First Item',
     },
     {
-     
       title: 'First Item',
     },
     {
-     
       title: 'First Item',
     },
   ];
@@ -164,28 +159,27 @@ const CommunityDetail = props => {
       //       pillarId: item?.parent,
       //     })
       //   }>
-        <View style={styles.middleWrapper}>
-          <View style={[styles.middleW, styles.shadowProp]}>
-            <Image
-               source={require('../../../assets/img/img.png')}
-              style={{width: 30, height: 30}}
-            />
-          </View>
-          <Text
-            style={{
-              marginTop: 10,
-              fontSize: 10,
-              marginHorizontal: 10,
-              textAlign: 'center',
-              color: '#030303',
-            }}>
-            {item?.title}
-          </Text>
+      <View style={styles.middleWrapper}>
+        <View style={[styles.middleW, styles.shadowProp]}>
+          <Image
+            source={require('../../../assets/img/img.png')}
+            style={{width: 30, height: 30}}
+          />
         </View>
+        <Text
+          style={{
+            marginTop: 10,
+            fontSize: 10,
+            marginHorizontal: 10,
+            textAlign: 'center',
+            color: '#030303',
+          }}>
+          {item?.title}
+        </Text>
+      </View>
       //</TouchableOpacity>
     );
   };
-
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
@@ -324,7 +318,7 @@ const CommunityDetail = props => {
 
             <Text style={styles.paragraph}>{poeDetails.description}</Text>
 
-            { poeDetails.slug === '10-growth-processes' &&
+            {poeDetails.slug === '10-growth-processes' && (
               <View style={styles.top}>
                 <Text style={styles.title}> Sub Points of Engagement</Text>
                 <FlatList
@@ -335,7 +329,7 @@ const CommunityDetail = props => {
                   renderItem={item => _renderMiddleItem(item, navigation)}
                 />
               </View>
-            }
+            )}
 
             <View style={styles.top}>
               <Text style={styles.title}> Events</Text>
@@ -459,6 +453,31 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginRight: 5,
     marginTop: 15,
+  },
+  middleWrapper: {
+    width: (Dimensions.get('window').width - 10) / 4,
+    borderRadius: 20,
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  middleW: {
+    backgroundColor: 'white',
+    width: 64,
+    height: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   bottom: {
     marginTop: 15,
