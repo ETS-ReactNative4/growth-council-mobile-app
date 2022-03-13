@@ -134,40 +134,40 @@ const CommunityDetail = props => {
 
   const  data = [
     {
-      image : require('../../../assets/img/img.png'),
+     
       title: 'First Item',
     },
     {
-      image : require('../../../assets/img/img.png'),
+     
       title: 'First Item',
     },
     {
-      image : require('../../../assets/img/img.png'),
+     
       title: 'First Item',
     },
     {
-      image : require('../../../assets/img/img.png'),
+     
       title: 'First Item',
     },
     {
-      image : require('../../../assets/img/img.png'),
+     
       title: 'First Item',
     },
   ];
 
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('CommunityDetail', {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-          })
-        }>
+      // <TouchableOpacity
+      //   onPress={() =>
+      //     navigation.navigate('CommunityDetail', {
+      //       poeId: item?.term_id,
+      //       pillarId: item?.parent,
+      //     })
+      //   }>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
-              source={{uri: item?.image}}
+               source={require('../../../assets/img/img.png')}
               style={{width: 30, height: 30}}
             />
           </View>
@@ -179,10 +179,10 @@ const CommunityDetail = props => {
               textAlign: 'center',
               color: '#030303',
             }}>
-            {item?.name}
+            {item?.title}
           </Text>
         </View>
-      </TouchableOpacity>
+      //</TouchableOpacity>
     );
   };
 
