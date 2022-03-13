@@ -294,7 +294,7 @@ const BestPractice = props => {
               />
             </View>
           </View> */}
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />

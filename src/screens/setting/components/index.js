@@ -161,7 +161,7 @@ const Setting = props => {
           </View>
         </View>
       </View>
-      <Footer />
+      {/* <Footer /> */}
     </ScrollView>
   );
 };

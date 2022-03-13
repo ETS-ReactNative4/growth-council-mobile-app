@@ -355,7 +355,7 @@ const Dashboard = props => {
           </View>
         </View>
 
-        <Footer />
+        {/* <Footer /> */}
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>

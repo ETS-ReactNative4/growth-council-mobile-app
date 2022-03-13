@@ -263,7 +263,7 @@ const ChangePasswordForm = props => {
           </View>
         </View>
       </View>
-      <Footer />
+      {/* <Footer /> */}
     </ScrollView>
   );
 };

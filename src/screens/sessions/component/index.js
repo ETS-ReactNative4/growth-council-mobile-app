@@ -343,7 +343,7 @@ const Session = props => {
           </View>
         </ImageBackground>
       </View>
-      <Footer />
+      {/* <Footer /> */}
     </ScrollView>
   );
 };

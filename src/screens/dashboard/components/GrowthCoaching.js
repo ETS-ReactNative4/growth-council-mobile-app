@@ -311,7 +311,7 @@ const GrowthCoaching = props => {
               />
             </View>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />

@@ -313,7 +313,7 @@ const CommunityDetail = props => {
               </View>
             </View>
 
-            <Footer />
+            {/* <Footer /> */}
           </View>
         </ScrollView>
       </View>
