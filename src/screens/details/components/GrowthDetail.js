@@ -477,9 +477,10 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   title: {
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
-    fontSize: 14,
+	fontSize: 16,
+    fontFamily: Typography.FONT_SF_REGULAR,
     color: Colors.PRIMARY_TEXT_COLOR,
+    fontWeight: '650',
     marginLeft: 15,
   },
 

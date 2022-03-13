@@ -71,13 +71,13 @@ const CustomDrawerContent = props => {
                     marginTop: 10,
                     justifyContent: 'space-between',
                 }}>
-                <Image
+                {/* <Image
                     source={require('../../src/assets/img/GILCouncil.jpg')}
                     style={{
                         width: "75%"
                     }}
                     resizeMode="contain"
-                />
+                /> */}
                 <TouchableOpacity onPress={toggleDrawer}>
                     <Ionicons name="close-outline" color={'#000'} size={30}/>
                 </TouchableOpacity>
@@ -87,7 +87,7 @@ const CustomDrawerContent = props => {
             <View
                 style={{
                     flexDirection: 'row',
-                    marginTop: 20,
+                    marginTop: 10,
                     marginBottom: 10,
                     marginLeft: 10,
                 }}>
@@ -96,17 +96,18 @@ const CustomDrawerContent = props => {
                         uri: profile?.avatar,
                     }}
                     style={{
-                        height: 45,
-                        width: 45,
+                        height: 35,
+                        width: 35,
                         borderRadius: 20,
+						marginLeft:10,
                     }}
                 />
                 <Text
                     style={{
                         color: 'black',
-                        fontSize: Platform.OS === 'ios' ? 16 : 18,
+                        fontSize: Platform.OS === 'ios' ? 14 : 16,
                         fontWeight: 'normal',
-                        marginTop: 10,
+                        marginTop: 5,
                         marginLeft: 20,
                     }}>
                     {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
@@ -213,6 +214,22 @@ const DrawerNavigation = () => {
                     header: () => (
                         <SubHeader
                             title="Calendar"
+                            image={require('../assets/img/appBG.png')}
+                            navigation={navigation}
+                        />
+                    ),
+                })}
+            />
+			 <Drawer.Screen
+                name="Content Library"
+                component={CalendarScreen}
+                options={({navigation}) => ({
+                    drawerIcon: ({focused, size}) => (
+                        <Material name="content-copy" color={'#00008B'} size={size}/>
+                    ),
+                    header: () => (
+                        <SubHeader
+                            title="Content Library"
                             image={require('../assets/img/appBG.png')}
                             navigation={navigation}
                         />

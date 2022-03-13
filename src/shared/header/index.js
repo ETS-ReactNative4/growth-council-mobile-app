@@ -16,7 +16,7 @@ const HeaderTitle = props => {
   }, [isFocused]);
 
   return (
-    <View style={{marginLeft: 20}}>
+    <View style={{marginLeft: 10}}>
       <Text
         style={{
           color: 'white',
@@ -29,7 +29,7 @@ const HeaderTitle = props => {
         style={{
           fontFamily: Typography.FONT_SF_MEDIUM,
           color: 'white',
-          fontSize: Platform.OS === 'ios' ? 16 : 16,
+          fontSize: Platform.OS === 'ios' ? 16 : 18,
           fontWeight: 'normal',
         }}>
         {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
