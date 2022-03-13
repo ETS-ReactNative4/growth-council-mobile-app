@@ -132,6 +132,61 @@ const CommunityDetail = props => {
     );
   };
 
+  const  data = [
+    {
+      image : require('../../../assets/img/img.png'),
+      title: 'First Item',
+    },
+    {
+      image : require('../../../assets/img/img.png'),
+      title: 'First Item',
+    },
+    {
+      image : require('../../../assets/img/img.png'),
+      title: 'First Item',
+    },
+    {
+      image : require('../../../assets/img/img.png'),
+      title: 'First Item',
+    },
+    {
+      image : require('../../../assets/img/img.png'),
+      title: 'First Item',
+    },
+  ];
+
+  const _renderMiddleItem = ({item, index}, navigation) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('CommunityDetail', {
+            poeId: item?.term_id,
+            pillarId: item?.parent,
+          })
+        }>
+        <View style={styles.middleWrapper}>
+          <View style={[styles.middleW, styles.shadowProp]}>
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
+          </View>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+              color: '#030303',
+            }}>
+            {item?.name}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
@@ -268,6 +323,19 @@ const CommunityDetail = props => {
             </Text>
 
             <Text style={styles.paragraph}>{poeDetails.description}</Text>
+
+            { poeDetails.slug === '10-growth-processes' &&
+              <View style={styles.top}>
+                <Text style={styles.title}> Sub Points of Engagement</Text>
+                <FlatList
+                  numColumns={4}
+                  showsHorizontalScrollIndicator={false}
+                  data={data}
+                  // renderItem={_renderMiddleItem}
+                  renderItem={item => _renderMiddleItem(item, navigation)}
+                />
+              </View>
+            }
 
             <View style={styles.top}>
               <Text style={styles.title}> Events</Text>
