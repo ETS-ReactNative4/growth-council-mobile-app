@@ -4,7 +4,6 @@ import {
   Text,
   View,
   ScrollView,
-  StatusBar,
   TouchableOpacity,
   Dimensions,
   ImageBackground,
@@ -95,7 +94,8 @@ const SignInForm = props => {
 				   source={require('../../../assets/img/GILCouncil.jpg')}
 				   resizeMode="contain"
                 />
-                <View style={{marginTop:10}}>
+              </View>
+              <View style={{marginTop:10}}>
                   <Text style={styles.headingText1}>
                     Growth Innovation
                     {'\n'}
@@ -106,13 +106,8 @@ const SignInForm = props => {
                     Login to your account below.
                   </Text>
                 </View>
-              </View>
 
-              {!message?.success && (
-                <View style={styles.message}>
-                  <Text style={styles.errorText}>{message?.message}</Text>
-                </View>
-              )}
+              
 
               <View style={styles.body}>
                 {loading && (
@@ -155,17 +150,22 @@ const SignInForm = props => {
                 )}
 
                 <Ionicons
-                  name={hidePass ? 'eye-outline' : 'eye-off-outline'}
-                  size={25}
-                  color={Colors.PRIMARY_HEADING_COLOR}
+                  name={!hidePass ? 'eye-outline' : 'eye-off-outline'}
+                  size={22}
+                  color={!hidePass ? Colors.PRIMARY_BACKGROUND_ICON_COLOR: Colors.PRIMARY_HEADING_COLOR}
                   onPress={() => setHidePass(!hidePass)}
                   style={{
                     position: 'absolute',
-                    bottom: 25,
+                    bottom: 10,
                     right: 15,
                   }}
                 />
               </View>
+              {!message?.success && (
+                <View style={styles.message}>
+                  <Text style={styles.errorText}>{message?.message}</Text>
+                </View>
+              )}
 
               <View style={styles.loginButtonWrapper}>
                 <Button style={styles.loginButton} onPress={handleSubmit}>
@@ -217,9 +217,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
   },
   header: {
-	height:100,
-    marginTop: Platform.OS === 'ios' ? 20 : 20,
-    marginBottom: Platform.OS === 'ios' ? 10 : 30,
+    marginTop: Platform.OS === 'ios' ? 20 : 20
   },
   body: {
     width: '90%',
@@ -233,7 +231,7 @@ const styles = StyleSheet.create({
   },
   message: {
     ...CommonStyles.message,
-    paddingTop: 29,
+    paddingTop: 0,
   },
   errorText: {
     ...CommonStyles.errorText,

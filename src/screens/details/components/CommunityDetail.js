@@ -138,7 +138,10 @@ const CommunityDetail = props => {
     console.log(date[1]);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent) {
+    switch (
+      item?.pillar_categories[0]?.parent ||
+      item?.pillar_categories[1]?.parent
+    ) {
       case 0:
       case 117:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
@@ -146,7 +149,7 @@ const CommunityDetail = props => {
 
       case 0:
       case 118:
-        backgroundImage = require('../../../assets/img/Rectangle1.png');
+        backgroundImage = require('../../../assets/img/best-practice-bg.png');
         break;
 
       default:
@@ -173,7 +176,7 @@ const CommunityDetail = props => {
           <ImageBackground
             style={{
               width: '100%',
-              height: '100%',
+              height: 150,
               borderRadius: 20,
             }}
             source={backgroundImage}>
@@ -383,9 +386,11 @@ const styles = StyleSheet.create({
   topWrapper: {
     height: 144,
     width: 256,
-    marginTop: 20,
     marginLeft: 15,
-    borderRadius: 20,
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginRight: 5,
+    marginTop: 15,
   },
   bottom: {
     marginTop: 15,

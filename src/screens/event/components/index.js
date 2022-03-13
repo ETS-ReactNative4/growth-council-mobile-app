@@ -47,9 +47,11 @@ const Event = props => {
   const [timeToDisplay, setTimeToDisplay] = useState('');
   const [timeToEnd, setTimeToEnd] = useState('');
 
+  const eventID = route?.params?.id;
+
   useEffect(() => {
-    fetchEventByIdentifier(route.params.id);
-  }, []);
+    fetchEventByIdentifier(eventID);
+  }, [eventID]);
 
   useEffect(() => {
     setEventStatus(events?.register_status);
@@ -61,7 +63,6 @@ const Event = props => {
       setEventStatus(true);
       ToastMessage.show('You have successfully registered this event.');
     } else {
-      console.log('Error Toast');
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
