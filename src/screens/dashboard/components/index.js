@@ -330,7 +330,7 @@ const Dashboard = props => {
               marginLeft: 15,
               marginRight: 15,
             }}>
-            <Text style={styles.title}> Growth Council Members</Text>
+            <Text style={styles.title}>Welcome New Members</Text>
           </View>
           <View>
             <FlatList
