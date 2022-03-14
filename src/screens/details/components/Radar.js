@@ -3,12 +3,15 @@ import {
   StyleSheet,
   Dimensions,
   ActivityIndicator,
+  View,
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import { WebView } from 'react-native-webview';
 import { getAsyncStorage } from '../../../utils/storageUtil';
 import { decodeUserID } from '../../../utils/jwtUtil';
 import { JWT_TOKEN } from '../../../constants';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -63,12 +66,22 @@ const Radar = props => {
     //   </View>
     //   <Footer />
     // </ScrollView>
+      <SafeAreaView style={{flex:1}}>
+        <View style={styles.arrow}>
+          <Ionicons
+            name={'arrow-back'}
+            size={50}
+            color="#4287C3"
+            onPress={() => navigation.goBack()}
+          />
+        </View>
         <WebView
-          source={{ uri: `https://beta.gilcouncil.com/frost-radar?user_id=${userId}` }}
-          renderLoading={LoadingIndicatorView}
-          startInLoadingState={true}
-          ref={webviewRef}
-        />
+            source={{ uri: `https://beta.gilcouncil.com/frost-radar?user_id=${userId}` }}
+            renderLoading={LoadingIndicatorView}
+            startInLoadingState={true}
+            ref={webviewRef}
+          />
+      </SafeAreaView>
   );
 };
 
@@ -83,9 +96,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 500,
     width: '100%',
-  },
-  arrow: {
-    marginTop: 30,
   },
   title: {
     fontFamily: Typography.FONT_SF_SEMIBOLD,

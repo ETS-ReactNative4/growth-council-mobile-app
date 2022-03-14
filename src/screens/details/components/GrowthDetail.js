@@ -21,6 +21,7 @@ import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import { WebView } from 'react-native-webview';
+import { Button } from 'native-base';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -57,6 +58,7 @@ const GrowthDetail = props => {
 
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
+  const [showChartButton, setShowChartButton] = useState(true);
 
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
@@ -96,6 +98,15 @@ const GrowthDetail = props => {
   useEffect(() => {
     setMemberConnection(pillarMemberContents);
   }, [pillarMemberContents]);
+
+  // useEffect(()=>{
+  //   for(let value of coachingSession){
+  //     if(!value?.completed_status){
+  //       setShowChartButton(false);
+  //       break;
+  //     }
+  //   };
+  // },[coachingSession]);
 
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
@@ -436,13 +447,19 @@ const GrowthDetail = props => {
                 </View>
               </View>
             }
+
+            {
+              showChartButton && <View style={styles.bottom}>
+                <Text style={styles.title}>Radar</Text>
+                <View style={styles.buttonWrapper}>
+                  <Button style={[styles.button,{marginLeft:15}]} onPress={()=>{navigation.navigate('Radar')}}>
+                    <Text style={styles.buttonText}>View chart</Text>
+                  </Button>
+                </View>
+              </View>
+            }
             
-            {/* <View>
-              <Text style={styles.title}>Radar</Text> 
-              <Pressable onPress={() => navigation.navigate('Radar')}>
-                <Text>View Radar</Text>
-              </Pressable>
-            </View> */}
+            
 
             <View style={styles.growthContent}>
               <Text style={styles.title}>Growth Coaching Content</Text>
@@ -630,5 +647,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  buttonWrapper: {
+    ...CommonStyles.buttonWrapper,
+    alignItems: 'flex-start',
+    marginTop: 10,
+  },
+  button: {
+    ...CommonStyles.button,
+    height: 40,
+    marginBottom: 15,
+    borderRadius: 10,
+    width: '50%',
+  },
+  buttonText: {
+    ...CommonStyles.buttonText,
   },
 });
