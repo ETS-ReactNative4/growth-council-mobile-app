@@ -20,7 +20,8 @@ import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
-
+import ContentLibraryScreen from '../screens/contentLibrary/contentLibrary';
+import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
@@ -41,6 +42,7 @@ import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
+import ContentScreen from '../screens/contentLibrary';
 
 import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
@@ -249,6 +251,20 @@ const MainNavigation = () => {
             ),
           })}
         />
+        {/* <Stack.Screen
+          name="contentLibrary"
+          component={ContentScreen}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="content Library"
+                image={require('../assets/img/Rectangle.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        /> */}
         <Stack.Screen
           name="pdf"
           component={PDFDetailScreen}
@@ -309,6 +325,34 @@ const MainNavigation = () => {
               />
             ),
           })}
+        />
+        <Stack.Screen
+          name="ContentDetail"
+          component={ContentLibraryScreen}
+       	 options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Content Library"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+			  noDrawer
+            />
+          ),
+        })}
+        />
+		<Stack.Screen
+          name="LibraryDetail"
+          component={LibraryDetailScreen}
+       	 options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Content Library"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+			  noDrawer
+            />
+          ),
+        })}
         />
         <Stack.Screen
           name="ContactUs"

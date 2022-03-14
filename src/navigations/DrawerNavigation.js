@@ -21,7 +21,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 
 import {useAuthentication} from '../context/auth';
-
+import ContentScreen from '../screens/contentLibrary';
 import CalendarScreen from '../screens/calendar';
 import AboutScreen from '../screens/about';
 import FeedbackScreen from '../screens/feedback';
@@ -222,7 +222,7 @@ const DrawerNavigation = () => {
             />
 			 <Drawer.Screen
                 name="Content Library"
-                component={CalendarScreen}
+                component={ContentScreen}
                 options={({navigation}) => ({
                     drawerIcon: ({focused, size}) => (
                         <Material name="content-copy" color={'#00008B'} size={size}/>

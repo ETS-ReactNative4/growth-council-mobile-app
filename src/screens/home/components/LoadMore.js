@@ -56,7 +56,7 @@ const CouncilAllDetail = props => {
     // console.log(date[1]);
 
     let backgroundColor = '';
-    const pillarCategory = item?.pillar_categories[0]?.parent;
+    const pillarCategory = item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent 
     switch (pillarCategory) {
       case 0:
       case 117:
