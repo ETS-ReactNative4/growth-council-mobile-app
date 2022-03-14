@@ -23,7 +23,7 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="home-outline"
                 color={'#000'}
-                size={30}
+                size={24}
                 style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
@@ -40,7 +40,7 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="calendar-outline"
                 color={'#000'}
-                size={30}
+                size={24}
                 style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
@@ -57,7 +57,7 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="chatbox-outline"
                 color={'#000'}
-                size={30}
+                size={24}
                 style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
@@ -74,7 +74,7 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="people-outline"
                 color={'#000'}
-                size={30}
+                size={24}
                 style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
@@ -91,7 +91,7 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="person-outline"
                 color={'#000'}
-                size={30}
+                size={24}
                 style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>

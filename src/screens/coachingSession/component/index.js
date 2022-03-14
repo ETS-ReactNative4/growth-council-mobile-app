@@ -94,8 +94,14 @@ const CoachingSession = props => {
   }, [answers]);
 
   // score 
-  let num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(2);
-  if (isNaN(num)) num = 0.00;
+  let num = 0.00;
+  if(sessions?.session_score){
+    num = sessions.session_score.toFixed(2);
+  }else{
+    num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(2);
+    if (isNaN(num)) num = 0.00;
+  }
+  
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
@@ -121,7 +127,11 @@ const CoachingSession = props => {
                   value={value}
                   onSelect={val => {
                     if( moment(sessions?.event_end).isBefore() ){
-                      return setValue(val)
+                      if( sessions?.completed_status){
+                        ToastMessage.show('You have completed this assessment');
+                      }else{
+                        return setValue(val)
+                      }
                     }else{
                       ToastMessage.show('Session has not ended');
                     }
@@ -210,7 +220,7 @@ const CoachingSession = props => {
                                 <Text style={{fontSize: 12}}>
                                   {subTrait?.title}
                                 </Text>
-                                {checkMark(index1, index2) && (
+                                {(checkMark(index1, index2) || sessions?.completed_status) && (
                                   <Ionicons
                                     name={'checkmark-outline'}
                                     size={20}
