@@ -9,6 +9,7 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -420,29 +421,31 @@ const GrowthDetail = props => {
                 />
               </View>
             </View>
-
-            <View style={styles.bottom}>
-              <Text style={styles.title}> Members</Text>
-              <View>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents.members}
-                  renderItem={item => _renderItem(item, navigation)}
-                />
+            
+            {
+              pillarMemberContents.members &&
+              <View style={styles.bottom}>
+                <Text style={styles.title}>Members</Text>
+                <View>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents.members}
+                    renderItem={item => _renderItem(item, navigation)}
+                  />
+                </View>
               </View>
-            </View>
-
-            <Text style={styles.title}> Radar</Text> 
-            <WebView
-        source={{ uri: 'https://beta.gilcouncil.com/frost-radar/' }}
-        style={{ marginTop: 20 }}
-      />
-
-
+            }
+            
+            {/* <View>
+              <Text style={styles.title}>Radar</Text> 
+              <Pressable onPress={() => navigation.navigate('Radar')}>
+                <Text>View Radar</Text>
+              </Pressable>
+            </View> */}
 
             <View style={styles.growthContent}>
-              <Text style={styles.title}> Growth Coaching Content</Text>
+              <Text style={styles.title}>Growth Coaching Content</Text>
               <View
                 style={{
                   display: 'flex',

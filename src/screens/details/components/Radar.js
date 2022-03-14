@@ -1,19 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  ScrollView,
   StyleSheet,
-  Text,
-  View,
   Dimensions,
-  Image,
-  ImageBackground,
-  FlatList,
-  TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import Footer from '../../../shared/footer';
 import { WebView } from 'react-native-webview';
+import { getAsyncStorage } from '../../../utils/storageUtil';
+import { decodeUserID } from '../../../utils/jwtUtil';
+import { JWT_TOKEN } from '../../../constants';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -25,6 +20,17 @@ const Radar = props => {
 
   const webviewRef = React.useRef(null);
 
+  const [userId, setUserId] = useState(0);
+
+  useEffect(() => {
+    let token = getAsyncStorage(JWT_TOKEN);
+    let ID = decodeUserID(token);
+    if(ID){
+      setUserId(ID);
+    }
+    console.log(token);
+  }, []);
+
   function LoadingIndicatorView() {
     return (
       <ActivityIndicator
@@ -34,6 +40,8 @@ const Radar = props => {
       />
     );
   }
+
+  console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`)
 
   return (
     // <ScrollView>
@@ -56,7 +64,7 @@ const Radar = props => {
     //   <Footer />
     // </ScrollView>
         <WebView
-          source={{ uri: "https://beta.gilcouncil.com/frost-radar/" }}
+          source={{ uri: `https://beta.gilcouncil.com/frost-radar?user_id=${userId}` }}
           renderLoading={LoadingIndicatorView}
           startInLoadingState={true}
           ref={webviewRef}
