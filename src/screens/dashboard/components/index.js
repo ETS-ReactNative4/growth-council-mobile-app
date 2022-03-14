@@ -13,6 +13,7 @@ import {
   Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
 import {useIsFocused} from '@react-navigation/native';
@@ -140,43 +141,83 @@ const Dashboard = props => {
     );
   };
 
-  const _renderMiddleItem = ({item, index}) => {
-    let poePage = 'CommunityDetail';
-    if (item?.parent === 119) {
-      //   poePage = 'GrowthDetail';
-      if (item?.slug === 'growth-leadership-coaching') {
-        poePage = 'GrowthDetail';
-      } else {
-        poePage = 'CommunityDetail';
-      }
-    }
+  //   const _renderMiddleItem = ({item, index}) => {
+  //     let poePage = 'CommunityDetail';
+  //     if (item?.parent === 119) {
+  //       //   poePage = 'GrowthDetail';
+  //       if (item?.slug === 'growth-leadership-coaching') {
+  //         poePage = 'GrowthDetail';
+  //       } else {
+  //         poePage = 'CommunityDetail';
+  //       }
+  //     }
+  //     return (
+  //       <TouchableOpacity
+  //         onPress={() =>
+  //           navigation.navigate(poePage, {
+  //             poeId: item?.term_id,
+  //             pillarId: item?.parent,
+  //           })
+  //         }>
+  //         <View style={styles.middleWrapper}>
+  //           <View style={[styles.middleW, styles.shadowProp]}>
+  //             <Image
+  //               source={{uri: item?.image}}
+  //               style={{width: 30, height: 30}}
+  //             />
+  //           </View>
+  //           <Text
+  //             style={{
+  //               marginTop: 10,
+  //               fontSize: 10,
+  //               marginHorizontal: 10,
+  //               textAlign: 'center',
+  //               color: '#222B45',
+  //             }}>
+  //             {item?.name}
+  //           </Text>
+  //         </View>
+  //       </TouchableOpacity>
+  //     );
+  //   };
+  const Data = [
+    {
+      id: 1,
+      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
+      text1:
+        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
+      date: '12/09/2022',
+    },
+    {
+      id: 2,
+      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
+      text1:
+        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
+      date: '12/09/2022',
+    },
+  ];
+
+  const _renderContent = ({item, index}) => {
     return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate(poePage, {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-          })
-        }>
-        <View style={styles.middleWrapper}>
-          <View style={[styles.middleW, styles.shadowProp]}>
-            <Image
-              source={{uri: item?.image}}
-              style={{width: 30, height: 30}}
-            />
+      <View style={styles.middleWrapper}>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{width: '70%', margin: 10}}>
+            <Text style={{fontSize: 12, color: '#041C3E'}}>{item.text}</Text>
+            <Text style={{fontSize: 8, marginTop: 5}}>{item.text1}</Text>
           </View>
-          <Text
-            style={{
-              marginTop: 10,
-              fontSize: 10,
-              marginHorizontal: 10,
-              textAlign: 'center',
-              color: '#222B45',
-            }}>
-            {item?.name}
-          </Text>
+          <View style={styles.middleW}>
+            <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+            <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+          </View>
         </View>
-      </TouchableOpacity>
+        <View style={styles.middleWrap}>
+          <Text style={{color: 'white', fontSize: 10}}>View</Text>
+        </View>
+
+        <View style={styles.contentTime}>
+          <Text style={{fontSize: 7}}>Published on: {item.date}</Text>
+        </View>
+      </View>
     );
   };
 
@@ -250,14 +291,71 @@ const Dashboard = props => {
     );
   };
 
-  const _renderContentItem = ({item, index}) => {
-    const file = item?.file;
-    const link = file.split('=', 2);
-    let videoLink = link[1].split('&', 2);
+  //   const _renderContentItem = ({item, index}) => {
+  //     const file = item?.file;
+  //     const link = file.split('=', 2);
+  //     let videoLink = link[1].split('&', 2);
 
-    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
+  //     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
+  //   };
+
+  const issue = [
+    {
+      image: require('../../../assets/img/geographi.png'),
+      text: 'Strategic Planning for 2030 and Beyond',
+    },
+    {
+      image: require('../../../assets/img/Sel-Serve-Icon.png'),
+      text: 'The War for Talent',
+    },
+    {
+      image: require('../../../assets/img/business-process-outsourcing.png'),
+      text: 'Integrating New Disruptive Technologies into Your Innovation Portfolio',
+    },
+    {
+      image: require('../../../assets/img/Research-frost.png'),
+      text: 'Go-To-Market Strategy',
+    },
+    {
+      image: require('../../../assets/img/discussion-guides.png'),
+      text: 'Integrating New Disruptive Technologies into Your Innovation Portfolio',
+    },
+    {
+      image: require('../../../assets/img/data-insights.png'),
+      text: 'Go-To-Market Strategy',
+    },
+  ];
+
+  const _renderCritical = ({item, index}) => {
+    return (
+      <View
+        style={{
+          width: 170,
+          marginLeft: 15,
+          marginTop: 20,
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View style={[styles.criticalW, styles.shadowCritical]}>
+            <Image source={item?.image} style={{width: 38, height: 38}} />
+          </View>
+          <Text
+            style={{
+              fontSize: 10,
+              width: '70%',
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}>
+            {item.text}
+          </Text>
+        </View>
+      </View>
+    );
   };
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar
@@ -307,19 +405,14 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.middle}>
-          <Text style={[styles.title, {marginLeft: 15}]}>
-            Points of Engagement
-          </Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <FlatList
-              scrollEnabled={false}
-              style={{flexDirection: 'row'}}
-              numColumns={10}
-              showsHorizontalScrollIndicator={false}
-              data={poes}
-              renderItem={_renderMiddleItem}
-            />
-          </ScrollView>
+          <Text style={[styles.title, {marginLeft: 15}]}>Latest Content</Text>
+
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={Data}
+            renderItem={_renderContent}
+          />
         </View>
 
         <View style={styles.bottom}>
@@ -343,17 +436,17 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={[styles.title, {marginLeft: 15}]}> Content Library</Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
+          <Text style={styles.title}>Critical Issue</Text>
+          <View>
             <FlatList
-              horizontal
+              contentContainerStyle={{
+                flex: 1,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              }}
               showsHorizontalScrollIndicator={false}
-              data={contentSlider}
-              renderItem={_renderContentItem}
+              data={issue}
+              renderItem={_renderCritical}
             />
           </View>
         </View>
@@ -437,21 +530,37 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   middleWrapper: {
-    width: (Dimensions.get('window').width - 10) / 4,
-    borderRadius: 20,
-    marginTop: 15,
-
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 144,
+    width: 256,
+    marginLeft: 15,
+    marginTop: 20,
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginRight: 5,
+    borderWidth: 0.3,
   },
   middleW: {
-    backgroundColor: 'white',
-    width: 64,
-    height: 64,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 40,
+    height: 50,
+    marginTop: 10,
+    backgroundColor: '#EBECF0',
     borderRadius: 10,
-    // borderWidth: 0.2,
+    padding: 5,
+    alignItems: 'center',
+  },
+  middleWrap: {
+    width: 70,
+    padding: 5,
+    alignItems: 'center',
+    borderRadius: 12,
+    marginLeft: 20,
+    backgroundColor: '#183863',
+  },
+  contentTime: {
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 15,
+    bottom: 10,
   },
   headingText3: {
     ...CommonStyles.headingText3,
@@ -481,10 +590,11 @@ const styles = StyleSheet.create({
     bottom: 4,
   },
   content: {
-    marginLeft: 5,
+    marginLeft: 20,
     marginTop: 15,
     justifyContent: 'center',
     borderRadius: 20,
+    marginBottom: 20,
   },
   ContentWrapper: {
     width: contentContainerWidth,
@@ -504,6 +614,25 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  shadowCritical: {
+    shadowColor: '#183863',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  shadowContent:{
+	shadowColor: '#000',
+	shadowOffset: {
+		width: 0,
+		height: 2,
+	  },
+	  shadowOpacity: 0.1,
+	  shadowRadius: 2
+  },
   loading1: {
     top: 10,
     left: 0,
@@ -513,6 +642,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     zIndex: 1011,
+  },
+  criticalW: {
+    backgroundColor: 'white',
+    width: 64,
+    height: 66,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
   },
 });
 
