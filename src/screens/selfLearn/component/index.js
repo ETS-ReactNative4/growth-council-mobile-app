@@ -29,8 +29,7 @@ const SelfLearn = props => {
     fetchAllTraitBySession,
     cleanTraits,} = props;
 
-  // const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
-  // const date = actualDate[1].split(' ', 3);
+
 
   const [value, setValue] = useState('About');
   const [modalVisible, setModalVisible] = useState(false);

@@ -24,7 +24,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="home-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
           </View>
@@ -41,7 +41,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="calendar-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
           </View>
@@ -58,7 +58,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="chatbox-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
           </View>
@@ -75,7 +75,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="people-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
           </View>
@@ -92,7 +92,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="person-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : 'white'}}
               />
             </View>
           </View>
@@ -104,13 +104,12 @@ const BottomLayout = ({focused, navigation}) => {
 const styles = StyleSheet.create({
   NavContainer: {
     position: 'absolute',
-    bottom: 10,
-    left: 10,
-    right: 10,
-    marginBottom: 3,
-    elevation: 0,
-    backgroundColor: 'rgba(245, 245, 245, 1.33)',
-    borderRadius: 15,
+    bottom: 1,
+    width: '100%',
+
+    // backgroundColor: 'rgba(215,233,245, 0.88)',
+	backgroundColor:'rgb(0,0,139)',
+    // borderRadius: 15,
     height: 60,
     alignContent: 'center',
   },

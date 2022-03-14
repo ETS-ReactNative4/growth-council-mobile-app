@@ -10,8 +10,8 @@ function CheckBox({label, status, onPress}) {
       <View style={styles.checkbox}>
         <View
           style={{
-            borderWidth: 0.2,
-            borderRadius: 4,
+            borderWidth: 0.8,
+            borderRadius: 6,
             marginRight: 10,
           }}>
           <Checkbox status={status} />
