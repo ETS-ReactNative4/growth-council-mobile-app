@@ -28,7 +28,7 @@ const ContentLibrary = props => {
       number: '1',
     },
     {
-      image: require('../../../assets/img/blank_event_design.png'),
+      image: require('../../../assets/img/library.png'),
       text: 'Growth Innovation Leadership',
       number: '13',
     },

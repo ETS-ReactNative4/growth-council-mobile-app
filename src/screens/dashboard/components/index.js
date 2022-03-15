@@ -328,32 +328,34 @@ const Dashboard = props => {
 
   const _renderCritical = ({item, index}) => {
     return (
-      <View
-        style={{
-          width: 170,
-          marginLeft: 10,
-          marginTop: 20,
-        }}>
+      <TouchableOpacity onPress={() => navigation.navigate('CriticalIssue')}>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
+            width: 170,
+            marginLeft: 10,
+            marginTop: 20,
           }}>
-          <View style={[styles.criticalW, styles.shadowCritical]}>
-            <Image source={item?.image} style={{width: 38, height: 38}} />
-          </View>
-          <Text
+          <View
             style={{
-              fontSize: 10,
-              width: '70%',
-              paddingLeft: 10,
-              paddingRight: 10,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            {item.text}
-          </Text>
+            <View style={[styles.criticalW, styles.shadowCritical]}>
+              <Image source={item?.image} style={{width: 38, height: 38}} />
+            </View>
+            <Text
+              style={{
+                fontSize: 10,
+                width: '70%',
+                paddingLeft: 10,
+                paddingRight: 10,
+              }}>
+              {item.text}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
@@ -624,14 +626,14 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  shadowContent:{
-	shadowColor: '#000',
-	shadowOffset: {
-		width: 0,
-		height: 2,
-	  },
-	  shadowOpacity: 0.1,
-	  shadowRadius: 2
+  shadowContent: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   loading1: {
     top: 10,
