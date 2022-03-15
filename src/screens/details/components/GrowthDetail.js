@@ -9,6 +9,7 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -19,6 +20,8 @@ import Player from '../../dashboard/components/Player';
 import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import { WebView } from 'react-native-webview';
+import { Button } from 'native-base';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -55,6 +58,7 @@ const GrowthDetail = props => {
 
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
+  const [showChartButton, setShowChartButton] = useState(true);
 
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
@@ -94,6 +98,15 @@ const GrowthDetail = props => {
   useEffect(() => {
     setMemberConnection(pillarMemberContents);
   }, [pillarMemberContents]);
+
+  // useEffect(()=>{
+  //   for(let value of coachingSession){
+  //     if(!value?.completed_status){
+  //       setShowChartButton(false);
+  //       break;
+  //     }
+  //   };
+  // },[coachingSession]);
 
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
@@ -419,21 +432,37 @@ const GrowthDetail = props => {
                 />
               </View>
             </View>
-
-            <View style={styles.bottom}>
-              <Text style={styles.title}> Members</Text>
-              <View>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents.members}
-                  renderItem={item => _renderItem(item, navigation)}
-                />
+            
+            {
+              pillarMemberContents.members &&
+              <View style={styles.bottom}>
+                <Text style={styles.title}>Members</Text>
+                <View>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents.members}
+                    renderItem={item => _renderItem(item, navigation)}
+                  />
+                </View>
               </View>
-            </View>
+            }
+
+            {
+              showChartButton && <View style={styles.bottom}>
+                <Text style={styles.title}>Radar</Text>
+                <View style={styles.buttonWrapper}>
+                  <Button style={[styles.button,{marginLeft:15}]} onPress={()=>{navigation.navigate('Radar')}}>
+                    <Text style={styles.buttonText}>View chart</Text>
+                  </Button>
+                </View>
+              </View>
+            }
+            
+            
 
             <View style={styles.growthContent}>
-              <Text style={styles.title}> Growth Coaching Content</Text>
+              <Text style={styles.title}>Growth Coaching Content</Text>
               <View
                 style={{
                   display: 'flex',
@@ -619,5 +648,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  buttonWrapper: {
+    ...CommonStyles.buttonWrapper,
+    alignItems: 'flex-start',
+    marginTop: 10,
+  },
+  button: {
+    ...CommonStyles.button,
+    height: 40,
+    marginBottom: 15,
+    borderRadius: 10,
+    width: '50%',
+  },
+  buttonText: {
+    ...CommonStyles.buttonText,
   },
 });

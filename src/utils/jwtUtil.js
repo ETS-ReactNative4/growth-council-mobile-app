@@ -6,7 +6,6 @@ import {JWT_TOKEN} from '../constants';
 export const isTokenExpired = token => {
   try {
     const decoded = jwt_decode(token);
-    console.log({decoded});
     if (decoded.exp < Date.now() / 1000) {
       // Checking if token is expired.
       return true;
