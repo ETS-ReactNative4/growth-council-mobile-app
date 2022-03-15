@@ -8,7 +8,6 @@ const TraitsQuestion = props => {
   const {question, answers, count, setAnswers, questionIndex, traitIndex} =
     props;
   const [status, setStatus] = useState(0);
-  const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (traitIndex.traitIndex === 0) {
