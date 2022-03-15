@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -10,14 +10,13 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
-import {useIsFocused} from '@react-navigation/native';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
 const CommunityDetail = props => {
@@ -44,6 +43,11 @@ const CommunityDetail = props => {
     pillarMemberContentError,
     fetchAllPillarMemberContent,
     cleanPillarMemberContent,
+    pillarPOEs,
+    pillarPOELoading,
+    pillarPOEError,
+    fetchAllPillarPOE,
+    cleanPillarPOE,
   } = props;
 
   const isFocused = useIsFocused();
@@ -81,6 +85,19 @@ const CommunityDetail = props => {
     setMemberConnection(pillarMemberContents);
   }, [pillarMemberContents]);
 
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarPOEAsync = async () => {
+        await fetchAllPillarPOE(route.params.poeId);
+      };
+      fetchAllPillarPOEAsync();
+
+      return () => {
+        cleanPillarPOE();
+      };
+    }, []),
+  );
+
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
@@ -94,7 +111,7 @@ const CommunityDetail = props => {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
-    console.log(response);
+    // console.log(response);
   };
 
   const _renderItem = ({item, index}, navigation) => {
@@ -152,39 +169,39 @@ const CommunityDetail = props => {
 
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
-      // <TouchableOpacity
-      //   onPress={() =>
-      //     navigation.navigate('CommunityDetail', {
-      //       poeId: item?.term_id,
-      //       pillarId: item?.parent,
-      //     })
-      //   }>
-      <View style={styles.middleWrapper}>
-        <View style={[styles.middleW, styles.shadowProp]}>
-          <Image
-            source={require('../../../assets/img/img.png')}
-            style={{width: 30, height: 30}}
-          />
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('CommunityDetail', {
+            poeId: item?.term_id,
+            pillarId: item?.parent,
+          })
+        }>
+        <View style={styles.middleWrapper}>
+          <View style={[styles.middleW, styles.shadowProp]}>
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+            />
+          </View>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+              color: '#030303',
+            }}>
+            {item?.name}
+          </Text>
         </View>
-        <Text
-          style={{
-            marginTop: 10,
-            fontSize: 10,
-            marginHorizontal: 10,
-            textAlign: 'center',
-            color: '#030303',
-          }}>
-          {item?.title}
-        </Text>
-      </View>
-      //</TouchableOpacity>
+      </TouchableOpacity>
     );
   };
 
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
+    //console.log(date[1]);
 
     let backgroundImage = '';
     switch (
@@ -274,6 +291,7 @@ const CommunityDetail = props => {
     case 119:
       backgroundColor = Colors.COACHING_COLOR;
   }
+  console.log({pillarPOEs});
   return (
     <ScrollView
       style={{
@@ -324,7 +342,7 @@ const CommunityDetail = props => {
                 <FlatList
                   numColumns={4}
                   showsHorizontalScrollIndicator={false}
-                  data={data}
+                  data={pillarPOEs}
                   // renderItem={_renderMiddleItem}
                   renderItem={item => _renderMiddleItem(item, navigation)}
                 />

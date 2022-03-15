@@ -356,15 +356,14 @@ const styles = StyleSheet.create({
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
-    borderRadius: 20,
     marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
   middleW: {
     backgroundColor: 'white',
-    width: 64,
-    height: 64,
+    width: 70,
+    height: 70,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
