@@ -6,6 +6,7 @@ import {
     Image,
     TouchableOpacity,
     Dimensions,
+    SafeAreaView,
 } from 'react-native';
 import {Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -100,7 +101,7 @@ const Home = props => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
@@ -199,7 +200,7 @@ const Home = props => {
                     resizeMode="cover"
                 />
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

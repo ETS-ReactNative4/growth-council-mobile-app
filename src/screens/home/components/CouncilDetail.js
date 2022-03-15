@@ -8,6 +8,7 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -38,97 +39,99 @@ const CouncilDetail = props => {
   }, []);
 
   return (
-    <ScrollView>
-      <View style={styles.meta}>
-        {!loadMore && (
-          <View style={{padding: 20, backgroundColor: '#ffffff'}}>
-            <Image
-              style={{
-                width: '100%',
-                height: 236,
-                alignItems: 'center',
-                borderRadius: 13,
-                position: 'relative',
-              }}
-              source={{uri: pillars?.pillar_detail_image}}
-            />
-            <View
-              style={{
-                position: 'absolute',
-                right: 30,
-                top: 30,
-              }}>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Image
-                  style={{
-                    width: 25,
-                    height: 25,
-                  }}
-                  source={require('../../../assets/img/close_icon.png')}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-        {loadMore && (
-          <View style={{backgroundColor: '#ffffff'}}>
-            <Image
-              style={{
-                width: '100%',
-                height: 236,
-                alignItems: 'center',
-              }}
-              source={{uri: pillars?.pillar_detail_image}}
-            />
-            <View
-              style={{
-                position: 'absolute',
-                right: 20,
-                top: 20,
-              }}>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Image
-                  style={{
-                    width: 25,
-                    height: 25,
-                  }}
-                  source={require('../../../assets/img/close_icon.png')}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-      </View>
-      <View style={styles.container}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
-        />
-
-        <View style={{marginLeft: 20, marginRight: 20}}>
-          {pillarLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+    <SafeAreaView style={{flex:1}}>
+      <ScrollView>
+        <View style={styles.meta}>
+          {!loadMore && (
+            <View style={{padding: 20, backgroundColor: '#ffffff'}}>
+              <Image
+                style={{
+                  width: '100%',
+                  height: 236,
+                  alignItems: 'center',
+                  borderRadius: 13,
+                  position: 'relative',
+                }}
+                source={{uri: pillars?.pillar_detail_image}}
+              />
+              <View
+                style={{
+                  position: 'absolute',
+                  right: 30,
+                  top: 30,
+                }}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Image
+                    style={{
+                      width: 25,
+                      height: 25,
+                    }}
+                    source={require('../../../assets/img/close_icon.png')}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           )}
-          <Text style={styles.headingTitle}>{pillars?.name}</Text>
-          <HTMLView
-            value={pillars?.description ? pillars.description : ''}
-            style={styles.paragraph}
-          />
+          {loadMore && (
+            <View style={{backgroundColor: '#ffffff'}}>
+              <Image
+                style={{
+                  width: '100%',
+                  height: 236,
+                  alignItems: 'center',
+                }}
+                source={{uri: pillars?.pillar_detail_image}}
+              />
+              <View
+                style={{
+                  position: 'absolute',
+                  right: 20,
+                  top: 20,
+                }}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Image
+                    style={{
+                      width: 25,
+                      height: 25,
+                    }}
+                    source={require('../../../assets/img/close_icon.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
         </View>
-        {!loadMore && (
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Button
-              style={styles.moreButton}
-              onPress={() => setLoadMore(!loadMore)}>
-              <Text style={styles.moreButtonText}>Explore More</Text>
-            </Button>
+        <View style={styles.container}>
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
+          />
+
+          <View style={{marginLeft: 20, marginRight: 20}}>
+            {pillarLoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
+              </View>
+            )}
+            <Text style={styles.headingTitle}>{pillars?.name}</Text>
+            <HTMLView
+              value={pillars?.description ? pillars.description : ''}
+              style={styles.paragraph}
+            />
           </View>
-        )}
-        {loadMore && <LoadMore {...props} pillar_id={route?.params?.id} />}
-      </View>
-    </ScrollView>
+          {!loadMore && (
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Button
+                style={styles.moreButton}
+                onPress={() => setLoadMore(!loadMore)}>
+                <Text style={styles.moreButtonText}>Explore More</Text>
+              </Button>
+            </View>
+          )}
+          {loadMore && <LoadMore {...props} pillar_id={route?.params?.id} />}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
