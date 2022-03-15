@@ -10,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  Dimensions,
 } from 'react-native';
 import {Searchbar} from 'react-native-paper';
 import {Colors, Typography} from '../../../theme';
@@ -58,14 +59,17 @@ const CriticalIssue = props => {
 
   const _renderContent = ({item, index}) => {
     return (
-      <View style={[styles.content, styles.shadowProp]}>
+      <View style={styles.content}>
         <Image
-          style={{width: '100%', height: 100, borderRadius: 16}}
+          style={{
+            width: Dimensions.get('window').width - 40,
+            height: 100,
+            borderRadius: 8,
+          }}
           source={item?.image}
         />
         <View style={styles.contentWrapper}>
           <Text style={{color: 'black', fontSize: 14}}>{item.title}</Text>
-          {/* <Text style={{color: 'black', fontSize: 10, padding:10}}>{item.description}</Text> */}
           <HTMLView
             value={item.description}
             textComponentProps={{
@@ -96,7 +100,7 @@ const CriticalIssue = props => {
             2022 Critical Issue
           </Text>
 
-          <View style={styles.titleBorder}></View>
+          <View style={styles.titleBorder} />
 
           <Text style={styles.titleText}>
             Council members vote each year to determine which industry
@@ -104,21 +108,14 @@ const CriticalIssue = props => {
             year ahead.
           </Text>
         </View>
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-          }}>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            data={Data}
-            renderItem={_renderContent}
-          />
-          <View style={{marginTop: 10}}>
-            <Footer />
-          </View>
-        </ScrollView>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={Data}
+          renderItem={_renderContent}
+        />
+        <View style={{marginTop: 10}}>
+          <Footer />
+        </View>
       </View>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
@@ -126,10 +123,9 @@ const CriticalIssue = props => {
 };
 const styles = StyleSheet.create({
   container: {
-    // ...CommonStyles.container,
-    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
-    padding: 20,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    // padding: 20,
   },
   input: {
     height: 45,
@@ -140,22 +136,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   content: {
-    width: '100%',
-    borderRadius: 6,
-    marginTop: 15,
-    marginBottom: 10,
-    marginRight: 2,
-    position: 'relative',
-    borderWidth: 0.1,
+    marginVertical: 15,
+    marginHorizontal: 20,
+    borderRadius: 8,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    shadowColor: '#000000',
+    shadowOpacity: 0.3,
+    shadowOffset: {width: 1.5, height: 2},
+    shadowRadius: 5,
+    elevation: 5,
   },
   contentWrapper: {
-    width: '100%',
-    borderRadius: 10,
     padding: 10,
   },
 
   title: {
-    marginBottom: 20,
+    margin: 20,
   },
   titleText: {
     color: '#666767',
@@ -166,16 +162,6 @@ const styles = StyleSheet.create({
     height: 5,
     width: 50,
     backgroundColor: 'rgba(24,56,99,1)',
-  },
-  shadowProp: {
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    // elevation: 5,
   },
 });
 export default CriticalIssue;
