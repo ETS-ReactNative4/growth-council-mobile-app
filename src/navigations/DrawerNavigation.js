@@ -68,18 +68,17 @@ const CustomDrawerContent = props => {
                 style={{
                     flexDirection: 'row',
                     paddingHorizontal: 10,
-                    marginTop: 10,
                     justifyContent: 'space-between',
                 }}>
                 <Image
                     source={require('../../src/assets/img/GILCouncil.jpg')}
                     style={{
-                        width: "75%"
+                        width: "70%"
                     }}
                     resizeMode="contain"
                 />
                 <TouchableOpacity onPress={toggleDrawer}>
-                    <Ionicons name="close-outline" color={'#000'} size={30}/>
+                    <Ionicons name="close-outline" color={'#000'} size={35}/>
                 </TouchableOpacity>
 
             </View>
@@ -87,9 +86,7 @@ const CustomDrawerContent = props => {
             <View
                 style={{
                     flexDirection: 'row',
-                    marginTop: 20,
-                    marginBottom: 10,
-                    marginLeft: 10,
+                    margin: 10
                 }}>
                 <Image
                     source={{

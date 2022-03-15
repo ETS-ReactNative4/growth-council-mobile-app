@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   ImageBackground,
+  SafeAreaView,
 } from 'react-native';
 import {Button} from 'native-base';
 import HTMLView from 'react-native-htmlview';
@@ -40,7 +41,7 @@ const Detail = props => {
   // console.log('Details ====== ', details?.heading1);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView>
         <ImageBackground
           source={require('../../../assets/img/splash-screen.png')}
@@ -63,7 +64,7 @@ const Detail = props => {
           </View>
         </ImageBackground>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
