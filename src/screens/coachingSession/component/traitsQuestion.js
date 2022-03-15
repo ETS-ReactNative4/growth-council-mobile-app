@@ -83,11 +83,11 @@ const TraitsQuestion = props => {
                 }}>
                 {status === option1.score && <View style={styles.selected} />}
               </TouchableOpacity>
+              <Text style={{fontSize: 12, marginTop: 10}}>
+                {' '}
+                {option1?.option}
+              </Text>
             </View>
-            <Text style={{fontSize: 11, marginTop: 10}}>
-              {' '}
-              {option1?.option}
-            </Text>
           </View>
         </View>
       ))}
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     margin: 5,
     marginTop: 25,
     padding: 18,
-    backgroundColor: 'white',
+    backgroundColor: '#f9fff0',
     overflow: 'hidden',
   },
   title: {
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     width: 16,
     height: 16,
     borderRadius: 55,
-    backgroundColor: '#808080',
+    backgroundColor: '#9FBC6C',
   },
   result: {
     marginTop: 22,

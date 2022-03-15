@@ -85,26 +85,23 @@ const YellowQuestion = props => {
                 }}>
                 {status[questionIndex] === option.value  && <View style={styles.selected} />}
               </TouchableOpacity>
+              <Text style={{fontSize: 14, marginTop: 10, marginLeft: 10}} key={option.name}>
+                {option.name}
+              </Text>
             </View>
-            <Text style={{marginTop: 5, marginLeft:5}} key={option.name}>
-              {option.name}
-            </Text>
           </View>
         </View>
       ))}
-
-      <View></View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   questionWrapper: {
-    height: 154,
     borderRadius: 22,
     margin: 5,
     marginTop: 25,
     padding: 12,
-    backgroundColor: 'white',
+    backgroundColor: '#f9fff0',
     overflow: 'hidden',
   },
   title: {
@@ -125,7 +122,7 @@ const styles = StyleSheet.create({
   wrapper: {
     display: 'flex',
     flexDirection: 'row',
-    marginLeft: 20,
+    marginLeft: 20
   },
   rbWrapper: {
     alignItems: 'center',
@@ -152,7 +149,7 @@ const styles = StyleSheet.create({
     width: 16,
     height: 16,
     borderRadius: 55,
-    backgroundColor: '#808080',
+    backgroundColor: '#9FBC6C',
   },
   result: {
     marginTop: 22,
