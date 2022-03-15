@@ -58,7 +58,7 @@ const CriticalIssue = props => {
 
   const _renderContent = ({item, index}) => {
     return (
-      <View style={styles.content}>
+      <View style={[styles.content, styles.shadowProp]}>
         <Image
           style={{width: '100%', height: 100, borderRadius: 16}}
           source={item?.image}
@@ -74,7 +74,6 @@ const CriticalIssue = props => {
                 color: 'black',
                 marginLeft: 10,
                 marginTop: 10,
-                
               },
             }}
           />
@@ -142,11 +141,12 @@ const styles = StyleSheet.create({
   },
   content: {
     width: '100%',
-    height: 235,
-    borderRadius: 16,
-    overflow: 'hidden',
-    marginTop: 20,
-    borderWidth: 0.3,
+    borderRadius: 6,
+    marginTop: 15,
+    marginBottom: 10,
+    marginRight: 2,
+    position: 'relative',
+    borderWidth: 0.1,
   },
   contentWrapper: {
     width: '100%',
@@ -166,6 +166,16 @@ const styles = StyleSheet.create({
     height: 5,
     width: 50,
     backgroundColor: 'rgba(24,56,99,1)',
+  },
+  shadowProp: {
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    // elevation: 5,
   },
 });
 export default CriticalIssue;

@@ -536,10 +536,10 @@ const styles = StyleSheet.create({
     width: 256,
     marginLeft: 15,
     marginTop: 20,
-    borderRadius: 16,
+    borderRadius: 6,
     overflow: 'hidden',
     marginRight: 5,
-    borderWidth: 0.3,
+    borderWidth: 0.1,
   },
   middleW: {
     width: 40,
