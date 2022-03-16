@@ -256,7 +256,7 @@ const Dashboard = props => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
       <StatusBar
         barStyle="light-content"
         hidden={true}
@@ -358,7 +358,7 @@ const Dashboard = props => {
         <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
-    </SafeAreaView>
+    </View>
   );
 };
 

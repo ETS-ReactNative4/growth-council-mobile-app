@@ -41,7 +41,7 @@ const Detail = props => {
   // console.log('Details ====== ', details?.heading1);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <ImageBackground
           source={require('../../../assets/img/splash-screen.png')}
@@ -64,7 +64,7 @@ const Detail = props => {
           </View>
         </ImageBackground>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -103,8 +103,6 @@ const styles = StyleSheet.create({
   },
   acceptButton: {
     borderRadius: 10,
-    marginTop: 5,
-    width: '45%',
     height: 50,
     backgroundColor: '#183863',
     marginTop: 10,
