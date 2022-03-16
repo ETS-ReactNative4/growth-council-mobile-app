@@ -148,14 +148,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 20,
     backgroundColor: '#F5F5F5',
+	
   },
   content: {
     width: '100%',
     height: 190,
-    borderRadius: 16,
+    borderRadius: 20,
     overflow: 'hidden',
     marginTop: 20,
-    borderWidth: 0.3,
+	shadowColor: '#000000',
+    shadowOpacity: 0.3,
+    shadowOffset: {width: 1, height: 2},
+    shadowRadius: 5,
+    elevation: 5,
   },
   contentWrapper: {
     width: 50,
