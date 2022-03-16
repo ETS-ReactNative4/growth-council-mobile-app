@@ -107,7 +107,7 @@ const ContentLibrary = props => {
           </View>
           <View style={{paddingLeft: 20, paddingRight: 20}}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
+              <Text style={{fontSize: 9, marginBottom: 10}}>
                 Content Library
               </Text>
               <Ionicons
