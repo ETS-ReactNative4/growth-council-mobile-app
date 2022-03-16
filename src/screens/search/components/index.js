@@ -146,9 +146,9 @@ const Search = props => {
 
       <View style={styles.container}>
         <ImageBackground
-          style={{width: '100%', height: 160}}
+          style={{width: '100%'}}
           source={require('../../../assets/img/search_back_image.png')}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{marginTop: 30}}>
             <View style={{marginTop: 10}}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
