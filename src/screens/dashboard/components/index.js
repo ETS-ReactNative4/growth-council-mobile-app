@@ -199,7 +199,7 @@ const Dashboard = props => {
 
   const _renderContent = ({item, index}) => {
     return (
-      <View style={styles.middleWrapper}>
+      <View style={[styles.middleWrapper, styles.shadowContent]}>
         <View style={{flexDirection: 'row'}}>
           <View style={{width: '70%', margin: 10}}>
             <Text style={{fontSize: 12, color: '#041C3E'}}>{item.text}</Text>
@@ -536,10 +536,12 @@ const styles = StyleSheet.create({
     width: 256,
     marginLeft: 15,
     marginTop: 20,
-    borderRadius: 6,
+	marginBottom:10,
+    borderRadius: 16,
     overflow: 'hidden',
+	backgroundColor: 'white',
     marginRight: 5,
-    borderWidth: 0.1,
+    // borderWidth: 0.3,
   },
   middleW: {
     width: 40,
@@ -571,7 +573,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     margin: 5,
-    marginTop: 25,
+    marginTop: 15,
   },
   bottomWrapper: {
     position: 'relative',
@@ -626,14 +628,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  shadowContent: {
-    shadowColor: '#000',
+  shadowContent:{
+	shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   loading1: {
     top: 10,

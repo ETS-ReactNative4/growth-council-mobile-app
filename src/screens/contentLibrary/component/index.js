@@ -53,7 +53,7 @@ const Content = props => {
   const _renderContent = ({item, index}) => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('ContentDetail')}>
-        <View style={styles.content}>
+        <View style={[styles.content, styles.shadowProp]}>
           <ImageBackground
             style={{width: '100%', height: 190, borderRadius: 16}}
             source={item?.image}>
@@ -131,7 +131,7 @@ const Content = props => {
           </View>
         </ScrollView>
       </View>
-	  <BottomNav {...props} navigation={navigation} />
+      <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -151,7 +151,8 @@ const styles = StyleSheet.create({
 	
   },
   content: {
-    width: '100%',
+    width: '98%',
+	marginLeft:5,
     height: 190,
     borderRadius: 20,
     overflow: 'hidden',
@@ -179,12 +180,23 @@ const styles = StyleSheet.create({
     padding: 10,
     zIndex: 30,
     height: 40,
-    bottom: 1,
+    bottom: 0.3,
     width: '100%',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
     backgroundColor: 'white',
     position: 'absolute',
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
 });
 export default Content;

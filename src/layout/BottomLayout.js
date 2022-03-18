@@ -104,7 +104,7 @@ const BottomLayout = ({focused, navigation}) => {
 const styles = StyleSheet.create({
   NavContainer: {
     position: 'absolute',
-    bottom: 1,
+    bottom: 0,
     width: '100%',
 	backgroundColor:'#0C336C',
     height: 60,
@@ -123,10 +123,9 @@ const styles = StyleSheet.create({
   NavBar: {
     flexDirection: 'row',
     width: '100%',
-    padding: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    justifyContent: 'space-between',
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    justifyContent: 'space-around',
     borderRadius: 40,
   },
   IconBehave: {

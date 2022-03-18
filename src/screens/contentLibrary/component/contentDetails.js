@@ -52,8 +52,8 @@ const ContentLibrary = props => {
 
   const _renderContent = ({item, index}) => {
     return (
-		<TouchableOpacity onPress={() => navigation.navigate('LibraryDetail')}>
-      <View style={styles.content}>
+      <TouchableOpacity onPress={() => navigation.navigate('LibraryDetail')}>
+        <View style={[styles.content, styles.shadowProp]}>
           <ImageBackground
             style={{width: '100%', height: 190, borderRadius: 16}}
             source={item?.image}>
@@ -64,9 +64,8 @@ const ContentLibrary = props => {
               <Text style={{color: 'black', fontSize: 14}}>{item.text}</Text>
             </View>
           </ImageBackground>
-        
-      </View>
-	  </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -108,7 +107,7 @@ const ContentLibrary = props => {
           </View>
           <View style={{paddingLeft: 20, paddingRight: 20}}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
+              <Text style={{fontSize: 9, marginBottom: 10}}>
                 Content Library
               </Text>
               <Ionicons
@@ -143,7 +142,7 @@ const ContentLibrary = props => {
           </View>
         </ScrollView>
       </View>
-	  <BottomNav {...props} navigation={navigation} />
+      <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -162,12 +161,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   content: {
-    width: '100%',
+    width: '98%',
     height: 190,
+    marginLeft: 5,
     borderRadius: 16,
     overflow: 'hidden',
     marginTop: 20,
-    borderWidth: 0.3,
+    // borderWidth: 0.3,
     // backgroundColor: 'red',
   },
   contentWrapper: {
@@ -189,10 +189,21 @@ const styles = StyleSheet.create({
     height: 40,
     bottom: 1,
     width: '100%',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
     backgroundColor: 'white',
     position: 'absolute',
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
 });
 export default ContentLibrary;

@@ -42,7 +42,7 @@ const LibraryDetail = props => {
   const _renderContent = ({item, index}) => {
     return (
       <View>
-        <View style={styles.eventCard} key={index}>
+        <View style={[styles.eventCard, styles.shadowProp]} key={index}>
           <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
           <View style={styles.eventDetails}>
             <View style={styles.eventInfo}>
@@ -190,14 +190,15 @@ const styles = StyleSheet.create({
   },
 
   eventCard: {
-    width: '100%',
+    width: '99%',
     marginTop: 5,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 14,
-    borderWidth: 0.3,
+	
+    // borderWidth: 0.3,
   },
   eventTheme: {
     width: 10,
@@ -241,6 +242,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     fontWeight: 'normal',
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
 });
 export default LibraryDetail;
