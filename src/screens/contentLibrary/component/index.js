@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Platform,
   Text,
@@ -18,8 +18,23 @@ import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 
 const Content = props => {
-  const {navigation} = props;
+  const {
+    navigation,
+    content,
+    contentLoading,
+    contentError,
+    fetchContent,
+    cleanContent,
+  } = props;
   const [searchKey, setSearchKey] = useState('');
+
+
+  useEffect(()=>{
+	  const fetchContentAsync = async() =>{
+		await fetchContent();
+	  }
+	  fetchContentAsync();
+  },[]);
 
   const Data = [
     {
@@ -151,7 +166,7 @@ const styles = StyleSheet.create({
   },
   content: {
     width: '98%',
-	marginLeft:5,
+    marginLeft: 5,
     height: 190,
     borderRadius: 16,
     overflow: 'hidden',
