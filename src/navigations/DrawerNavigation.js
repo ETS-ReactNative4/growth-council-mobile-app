@@ -255,7 +255,7 @@ const DrawerNavigation = () => {
                     ),
                 })}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
                 name="Feedback"
                 component={FeedbackScreen}
                 options={({navigation}) => ({
@@ -270,7 +270,7 @@ const DrawerNavigation = () => {
                         />
                     ),
                 })}
-            />
+            /> */}
             <Drawer.Screen
                 name="Contribute Ideas"
                 component={ContributeIdeasScreen}
