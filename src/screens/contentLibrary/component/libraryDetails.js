@@ -19,8 +19,22 @@ import BottomNav from '../../../layout/BottomLayout';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const LibraryDetail = props => {
-  const {navigation} = props;
+  const {
+    navigation,
+    libraryDetails,
+    libraryDetailsLoading,
+    libraryDetailsError,
+    fetchLibraryDetail,
+    cleanLibraryDetail,
+  } = props;
   const [searchKey, setSearchKey] = useState('');
+
+  useEffect(() => {
+    const fetchLibraryDetailAsync = async () => {
+      await fetchLibraryDetail();
+    };
+    fetchLibraryDetailAsync();
+  }, []);
 
   const Data = [
     {
@@ -197,7 +211,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 14,
-	
+
     // borderWidth: 0.3,
   },
   eventTheme: {

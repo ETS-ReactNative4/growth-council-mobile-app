@@ -77,6 +77,10 @@ import poeSelfLearnReducer from '../screens/selfLearn/slice/poeSelfLearnSlice';
 import selfLearnTraitReducer from '../screens/selfLearn/slice/selfLearnTraitsSlice';
 import selfLearnReducer from '../screens/selfLearn/slice/selfLearnByIdSlice';
 
+import contentReducer from '../screens/contentLibrary/slice/contentSlice';
+import contentLibraryReducer from '../screens/contentLibrary/slice/contentLibrarySlice';
+import libraryDetailReducer from '../screens/contentLibrary/slice/libraryDetailSlice';
+
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
@@ -136,6 +140,9 @@ const reducers = combineReducers({
     poeSelfLearns: poeSelfLearnReducer,
     selfLearnTraits: selfLearnTraitReducer,
     selfLearns: selfLearnReducer,
+	content :contentReducer,
+	contentLibrary: contentLibraryReducer,
+	libraryDetails: libraryDetailReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
