@@ -35,6 +35,7 @@ import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
 import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
@@ -481,6 +482,10 @@ const MainNavigation = () => {
           name="Radar"
           component={RadarScreen}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

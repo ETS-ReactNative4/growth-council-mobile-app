@@ -185,7 +185,10 @@ const Dashboard = props => {
     const date = actualDate[0].split(' ', 3);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent) {
+    switch (
+      item?.pillar_categories[0]?.parent ||
+      item?.pillar_categories[1]?.parent
+    ) {
       case 117:
       case 0:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
