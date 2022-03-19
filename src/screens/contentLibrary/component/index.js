@@ -36,6 +36,7 @@ const Content = props => {
 	  fetchContentAsync();
   },[]);
 
+  console.log({content})
   const Data = [
     {
       image: require('../../../assets/img/contentLibrary.png'),
@@ -71,12 +72,12 @@ const Content = props => {
         <View style={[styles.content, styles.shadowProp]}>
           <ImageBackground
             style={{width: '100%', height: 190, borderRadius: 16}}
-            source={item?.image}>
+            source={{uri : item?.image}}>
             <View style={styles.contentWrapper}>
-              <Text>{item.number}</Text>
+              <Text>{item.post_author}</Text>
             </View>
             <View style={styles.wrapper}>
-              <Text style={{color: 'black', fontSize: 14}}>{item.text}</Text>
+              <Text style={{color: 'black', fontSize: 14}}>{item.post_name}</Text>
             </View>
           </ImageBackground>
         </View>
@@ -138,7 +139,7 @@ const Content = props => {
           }}>
           <FlatList
             showsHorizontalScrollIndicator={false}
-            data={Data}
+            data={content}
             renderItem={_renderContent}
           />
           <View style={{marginTop: 10}}>
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
   wrapper: {
     padding: 10,
     zIndex: 30,
-    height: 40,
+
     bottom: 0.3,
     width: '100%',
     borderBottomLeftRadius: 16,

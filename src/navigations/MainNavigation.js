@@ -22,6 +22,8 @@ import JourneyScreen from '../screens/auth/Journey';
 import ContactUsScreen from '../screens/static/ContactUs';
 import ContentLibraryScreen from '../screens/contentLibrary/contentLibrary';
 import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
+import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
+
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
@@ -355,6 +357,20 @@ const MainNavigation = () => {
           ),
         })}
         />
+		<Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
+		  options={() => ({
+			header: ({navigation}) => (
+			  <SubHeader
+				title="Content Library"
+				image={require('../assets/img/appBG.png')}
+				navigation={navigation}
+				noDrawer
+			  />
+			),
+		  })}
+        />
         <Stack.Screen
           name="ContactUs"
           component={ContactUsScreen}
@@ -526,6 +542,7 @@ const MainNavigation = () => {
           component={RadarScreen}
           options={{headerShown: false}}
         />
+        
       </Stack.Group>
     </Stack.Navigator>
   );

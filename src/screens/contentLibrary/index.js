@@ -8,7 +8,7 @@ const ContentScreen = props => {
   const dispatch = useDispatch();
 
   const {content, contentLoading, contentError} = useSelector(
-    state => state.content,
+    state => state.content
   );
 
   const fetchContent = () => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Platform,
   Text,
@@ -55,6 +55,8 @@ const LibraryDetail = props => {
 
   const _renderContent = ({item, index}) => {
     return (
+		<TouchableOpacity onPress={() => navigation.navigate('ContentLibraryDetail')}>
+
       <View>
         <View style={[styles.eventCard, styles.shadowProp]} key={index}>
           <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
@@ -78,6 +80,7 @@ const LibraryDetail = props => {
           </View>
         </View>
       </View>
+	  </TouchableOpacity>
     );
   };
 
