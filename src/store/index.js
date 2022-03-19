@@ -81,6 +81,8 @@ import contentReducer from '../screens/contentLibrary/slice/contentSlice';
 import contentLibraryReducer from '../screens/contentLibrary/slice/contentLibrarySlice';
 import libraryDetailReducer from '../screens/contentLibrary/slice/libraryDetailSlice';
 
+import criticalIssueReducer from '../screens/criticalIssue/slice/criticalIssueSlice';
+
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
@@ -142,7 +144,8 @@ const reducers = combineReducers({
     selfLearns: selfLearnReducer,
 	content :contentReducer,
 	contentLibrary: contentLibraryReducer,
-	libraryDetails: libraryDetailReducer
+	libraryDetails: libraryDetailReducer,
+	criticalIssue:criticalIssueReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
