@@ -80,6 +80,7 @@ import selfLearnReducer from '../screens/selfLearn/slice/selfLearnByIdSlice';
 import contentReducer from '../screens/contentLibrary/slice/contentSlice';
 import contentLibraryReducer from '../screens/contentLibrary/slice/contentLibrarySlice';
 import libraryDetailReducer from '../screens/contentLibrary/slice/libraryDetailSlice';
+import contentLibraryDetailsReducer from '../screens/details/slice/contentLibraryDetailSlice';
 
 const persistConfig = {
     key: 'root',
@@ -142,7 +143,8 @@ const reducers = combineReducers({
     selfLearns: selfLearnReducer,
 	content :contentReducer,
 	contentLibrary: contentLibraryReducer,
-	libraryDetails: libraryDetailReducer
+	libraryDetails: libraryDetailReducer,
+	contentLibraryDetails:contentLibraryDetailsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

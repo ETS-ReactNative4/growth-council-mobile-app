@@ -332,44 +332,45 @@ const MainNavigation = () => {
         <Stack.Screen
           name="ContentDetail"
           component={ContentLibraryScreen}
-       	 options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-			  noDrawer
-            />
-          ),
-        })}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="LibraryDetail"
           component={LibraryDetailScreen}
-       	 options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-			  noDrawer
-            />
-          ),
-        })}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="ContentLibraryDetail"
           component={ContentLibraryDetailScreen}
-		  options={() => ({
-			header: ({navigation}) => (
-			  <SubHeader
-				title="Content Library"
-				image={require('../assets/img/appBG.png')}
-				navigation={navigation}
-				noDrawer
-			  />
-			),
-		  })}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="ContactUs"
@@ -542,7 +543,6 @@ const MainNavigation = () => {
           component={RadarScreen}
           options={{headerShown: false}}
         />
-        
       </Stack.Group>
     </Stack.Navigator>
   );

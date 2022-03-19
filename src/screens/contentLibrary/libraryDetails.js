@@ -5,7 +5,7 @@ import LibraryDetail from './component/libraryDetails';
 
 import {
   fetchAllLibraryDetails,
-  reserLibraryDetails,
+  resetLibraryDetails,
 } from './slice/libraryDetailSlice';
 
 const LibraryDetailScreen = props => {
@@ -19,7 +19,7 @@ const LibraryDetailScreen = props => {
   };
 
   const cleanLibraryDetail = () => {
-    dispatch(reserLibraryDetails());
+    dispatch(resetLibraryDetails());
   };
 
   return (

@@ -36,7 +36,7 @@ const Content = props => {
 	  fetchContentAsync();
   },[]);
 
-  console.log({content})
+//   console.log({content})
   const Data = [
     {
       image: require('../../../assets/img/contentLibrary.png'),
@@ -74,10 +74,10 @@ const Content = props => {
             style={{width: '100%', height: 190, borderRadius: 16}}
             source={{uri : item?.image}}>
             <View style={styles.contentWrapper}>
-              <Text>{item.post_author}</Text>
+              <Text>{item.count}</Text>
             </View>
             <View style={styles.wrapper}>
-              <Text style={{color: 'black', fontSize: 14}}>{item.post_name}</Text>
+              <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text>
             </View>
           </ImageBackground>
         </View>

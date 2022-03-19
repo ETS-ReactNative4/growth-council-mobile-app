@@ -25,6 +25,7 @@ import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
+import HTMLView from 'react-native-htmlview';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -58,6 +59,12 @@ const Dashboard = props => {
     fetchAllPillarEvent,
     cleanPillarEvent,
     contentSlider,
+
+    libraryDetails,
+    libraryDetailsLoading,
+    libraryDetailsError,
+    fetchLibraryDetail,
+    cleanLibraryDetail,
   } = props;
 
   const isFocused = useIsFocused();
@@ -98,6 +105,15 @@ const Dashboard = props => {
   useEffect(() => {
     setMemberConnection(communityMembers);
   }, [communityMembers]);
+
+  useEffect(() => {
+    const fetchLibraryDetailAsync = async () => {
+      await fetchLibraryDetail();
+    };
+    fetchLibraryDetailAsync();
+  }, []);
+
+  console.log({libraryDetails});
 
   const _renderItem = ({item, index}) => {
     return (
@@ -180,44 +196,40 @@ const Dashboard = props => {
   //       </TouchableOpacity>
   //     );
   //   };
-  const Data = [
-    {
-      id: 1,
-      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
-      text1:
-        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
-      date: '12/09/2022',
-    },
-    {
-      id: 2,
-      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
-      text1:
-        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
-      date: '12/09/2022',
-    },
-  ];
 
   const _renderContent = ({item, index}) => {
     return (
-      <View style={[styles.middleWrapper, styles.shadowContent]}>
-        <View style={{flexDirection: 'row'}}>
-          <View style={{width: '70%', margin: 10}}>
-            <Text style={{fontSize: 12, color: '#041C3E'}}>{item.text}</Text>
-            <Text style={{fontSize: 8, marginTop: 5}}>{item.text1}</Text>
+      
+        <View style={[styles.middleWrapper, styles.shadowContent]}>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{width: '70%', margin: 10}}>
+              <Text style={{fontSize: 12, color: '#041C3E'}}>
+                {item.post_name}
+              </Text>
+              {/* <HTMLView
+            //   value={item.post_content}
+            //   style={{fontSize:8}}
+            // /> */}
+            </View>
+            <View style={styles.middleW}>
+              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+              <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+            </View>
           </View>
-          <View style={styles.middleW}>
-            <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-            <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+		  <TouchableOpacity
+        onPress={() => navigation.navigate('ContentLibraryDetail')}>
+			<View style={styles.middleWrap}>
+            <Text style={{color: 'white', fontSize: 10}}>View</Text>
           </View>
-        </View>
-        <View style={styles.middleWrap}>
-          <Text style={{color: 'white', fontSize: 10}}>View</Text>
-        </View>
+		</TouchableOpacity>
+          
 
-        <View style={styles.contentTime}>
-          <Text style={{fontSize: 7}}>Published on: {item.date}</Text>
+          <View style={styles.contentTime}>
+            <Text style={{fontSize: 7}}>
+              Published on: {item.post_modified}
+            </Text>
+          </View>
         </View>
-      </View>
     );
   };
 
@@ -410,7 +422,7 @@ const Dashboard = props => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={Data}
+            data={libraryDetails}
             renderItem={_renderContent}
           />
         </View>
@@ -534,10 +546,10 @@ const styles = StyleSheet.create({
     width: 256,
     marginLeft: 15,
     marginTop: 20,
-	marginBottom:10,
+    marginBottom: 10,
     borderRadius: 16,
     overflow: 'hidden',
-	backgroundColor: 'white',
+    backgroundColor: 'white',
     marginRight: 5,
     // borderWidth: 0.3,
   },
@@ -626,8 +638,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  shadowContent:{
-	shadowColor: '#000',
+  shadowContent: {
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,

@@ -20,6 +20,7 @@ import BottomNav from '../../../layout/BottomLayout';
 const ContentLibrary = props => {
   const {
     navigation,
+    route,
     contentLibrary,
     contentLibraryLoading,
     contentLibraryError,
@@ -28,13 +29,14 @@ const ContentLibrary = props => {
   } = props;
   const [searchKey, setSearchKey] = useState('');
 
-  useEffect(()=>{
-	  const fetchContentLibraryAsync = async()=>{
-		  await fetchContentLibrary();
-	  };
-	  fetchContentLibraryAsync()
-  },[]);
+  useEffect(() => {
+    const fetchContentLibraryAsync = async () => {
+      await fetchContentLibrary(route.params.resourceId);
+    };
+    fetchContentLibraryAsync();
+  }, []);
 
+//   console.log(route.params.resourceId);
   const Data = [
     {
       image: require('../../../assets/img/library.png'),
@@ -72,10 +74,10 @@ const ContentLibrary = props => {
             style={{width: '100%', height: 190, borderRadius: 16}}
             source={item?.image}>
             <View style={styles.contentWrapper}>
-              <Text>{item.number}</Text>
+              <Text>{item.count}</Text>
             </View>
             <View style={styles.wrapper}>
-              <Text style={{color: 'black', fontSize: 14}}>{item.text}</Text>
+              <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text>
             </View>
           </ImageBackground>
         </View>
@@ -148,7 +150,7 @@ const ContentLibrary = props => {
           }}>
           <FlatList
             showsHorizontalScrollIndicator={false}
-            data={Data}
+            data={contentLibrary}
             renderItem={_renderContent}
           />
           <View style={{marginTop: 10}}>

@@ -19,6 +19,8 @@ import {
   resetCommunityMember,
 } from './slice/communityMemberSlice';
 
+import { fetchAllLibraryDetails,resetLibraryDetails } from '../contentLibrary/slice/libraryDetailSlice';
+
 const DashboardScreen = props => {
   const dispatch = useDispatch();
   const [contentSlider, setContentSlider] = useState([]);
@@ -33,6 +35,9 @@ const DashboardScreen = props => {
 
   const {communityMembers, communityMemberLoading, communityMemberError} =
     useSelector(state => state.communityMembers);
+
+	const {libraryDetails, libraryDetailsLoading, libraryDetailsError} =
+    useSelector(state => state.libraryDetails);
 
   useEffect(() => {
     let content = pillarSliders?.flatMap((value, key) => {
@@ -74,6 +79,13 @@ const DashboardScreen = props => {
   const cleanPillarSlider = () => {
     dispatch(resetPillarSlider());
   };
+  const fetchLibraryDetail = () => {
+    dispatch(fetchAllLibraryDetails());
+  };
+
+  const cleanLibraryDetail = () => {
+    dispatch(resetLibraryDetails());
+  };
 
   return (
     <Dashboard
@@ -99,6 +111,12 @@ const DashboardScreen = props => {
       fetchAllPillarSlider={fetchAllPillarSlider}
       cleanPillarSlider={cleanPillarSlider}
       contentSlider={contentSlider}
+
+	  libraryDetails={libraryDetails}
+      libraryDetailsLoading={libraryDetailsLoading}
+      libraryDetailsError={libraryDetailsError}
+      fetchLibraryDetail={fetchLibraryDetail}
+      cleanLibraryDetail={cleanLibraryDetail}
     />
   );
 };
