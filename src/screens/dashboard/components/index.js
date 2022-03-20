@@ -21,7 +21,6 @@ import Material from 'react-native-vector-icons/MaterialIcons';
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
-import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
@@ -60,11 +59,11 @@ const Dashboard = props => {
     cleanPillarEvent,
     contentSlider,
 
-    libraryDetails,
-    libraryDetailsLoading,
-    libraryDetailsError,
-    fetchLibraryDetail,
-    cleanLibraryDetail,
+    latestContent,
+    latestContentLoading,
+    latestContentError,
+    fetchLatestContent,
+    cleanLatestContent,
   } = props;
 
   const isFocused = useIsFocused();
@@ -107,13 +106,13 @@ const Dashboard = props => {
   }, [communityMembers]);
 
   useEffect(() => {
-    const fetchLibraryDetailAsync = async () => {
-      await fetchLibraryDetail();
+    const fetchLatestContentAsync = async () => {
+      await fetchLatestContent();
     };
-    fetchLibraryDetailAsync();
+    fetchLatestContentAsync();
   }, []);
 
-  console.log({libraryDetails});
+  console.log({latestContent});
 
   const _renderItem = ({item, index}) => {
     return (
@@ -198,6 +197,7 @@ const Dashboard = props => {
   //   };
 
   const _renderContent = ({item, index}) => {
+	  const date = moment(item?.post_modified).format('D/MM/yyyy');
     return (
       
         <View style={[styles.middleWrapper, styles.shadowContent]}>
@@ -206,10 +206,6 @@ const Dashboard = props => {
               <Text style={{fontSize: 12, color: '#041C3E'}}>
                 {item.post_name}
               </Text>
-              {/* <HTMLView
-            //   value={item.post_content}
-            //   style={{fontSize:8}}
-            // /> */}
             </View>
             <View style={styles.middleW}>
               <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
@@ -217,7 +213,7 @@ const Dashboard = props => {
             </View>
           </View>
 		  <TouchableOpacity
-        onPress={() => navigation.navigate('ContentLibraryDetail')}>
+        onPress={() => navigation.navigate('ContentLibraryDetail',{id:item?.ID})}>
 			<View style={styles.middleWrap}>
             <Text style={{color: 'white', fontSize: 10}}>View</Text>
           </View>
@@ -226,7 +222,7 @@ const Dashboard = props => {
 
           <View style={styles.contentTime}>
             <Text style={{fontSize: 7}}>
-              Published on: {item.post_modified}
+              Published on: {date}
             </Text>
           </View>
         </View>
@@ -422,7 +418,7 @@ const Dashboard = props => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={libraryDetails}
+            data={latestContent}
             renderItem={_renderContent}
           />
         </View>

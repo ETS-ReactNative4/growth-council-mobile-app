@@ -4,8 +4,8 @@ import {fetch} from '../../../utils/httpUtil';
 
 export const fetchAllContentLibraryDetails = createAsyncThunk(
   'contentLibraryDetails/fetchAll',
-  (_, {rejectWithValue}) => {
-    return fetch(``)
+  (id, {rejectWithValue}) => {
+    return fetch(`/jwt-auth/v1/content-library/${id}`)
       .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },

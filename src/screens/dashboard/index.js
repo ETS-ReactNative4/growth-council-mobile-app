@@ -19,7 +19,7 @@ import {
   resetCommunityMember,
 } from './slice/communityMemberSlice';
 
-import { fetchAllLibraryDetails,resetLibraryDetails } from '../contentLibrary/slice/libraryDetailSlice';
+import { fetchAllLatestContent, resetLatestContent } from './slice/latestContentSlice';
 
 const DashboardScreen = props => {
   const dispatch = useDispatch();
@@ -36,8 +36,8 @@ const DashboardScreen = props => {
   const {communityMembers, communityMemberLoading, communityMemberError} =
     useSelector(state => state.communityMembers);
 
-	const {libraryDetails, libraryDetailsLoading, libraryDetailsError} =
-    useSelector(state => state.libraryDetails);
+	const {latestContent, latestContentLoading, latestContentError} =
+    useSelector(state => state.latestContent);
 
   useEffect(() => {
     let content = pillarSliders?.flatMap((value, key) => {
@@ -79,12 +79,12 @@ const DashboardScreen = props => {
   const cleanPillarSlider = () => {
     dispatch(resetPillarSlider());
   };
-  const fetchLibraryDetail = () => {
-    dispatch(fetchAllLibraryDetails());
+  const fetchLatestContent = () => {
+    dispatch(fetchAllLatestContent());
   };
 
-  const cleanLibraryDetail = () => {
-    dispatch(resetLibraryDetails());
+  const cleanLatestContent = () => {
+    dispatch(resetLatestContent());
   };
 
   return (
@@ -112,11 +112,11 @@ const DashboardScreen = props => {
       cleanPillarSlider={cleanPillarSlider}
       contentSlider={contentSlider}
 
-	  libraryDetails={libraryDetails}
-      libraryDetailsLoading={libraryDetailsLoading}
-      libraryDetailsError={libraryDetailsError}
-      fetchLibraryDetail={fetchLibraryDetail}
-      cleanLibraryDetail={cleanLibraryDetail}
+	  latestContent={latestContent}
+      latestContentLoading={latestContentLoading}
+      latestContentError={latestContentError}
+      fetchLatestContent={fetchLatestContent}
+      cleanLatestContent={cleanLatestContent}
     />
   );
 };

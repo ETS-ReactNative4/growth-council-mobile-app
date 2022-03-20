@@ -16,11 +16,14 @@ import {Colors, Typography} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
+import HTMLView from 'react-native-htmlview';
+import {BubblesLoader} from 'react-native-indicator';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const LibraryDetail = props => {
   const {
     navigation,
+    route,
     libraryDetails,
     libraryDetailsLoading,
     libraryDetailsError,
@@ -31,10 +34,14 @@ const LibraryDetail = props => {
 
   useEffect(() => {
     const fetchLibraryDetailAsync = async () => {
-      await fetchLibraryDetail();
+      await fetchLibraryDetail(route.params.resources);
     };
     fetchLibraryDetailAsync();
   }, []);
+
+  console.log(route.params.resources);
+  console.log(route.params.breadcrumbName);
+  console.log(route.params.itemname);
 
   const Data = [
     {
@@ -55,32 +62,36 @@ const LibraryDetail = props => {
 
   const _renderContent = ({item, index}) => {
     return (
-		<TouchableOpacity onPress={() => navigation.navigate('ContentLibraryDetail')}>
-
-      <View>
-        <View style={[styles.eventCard, styles.shadowProp]} key={index}>
-          <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
-          <View style={styles.eventDetails}>
-            <View style={styles.eventInfo}>
-              <Text style={styles.eventTitle}>{item.text}</Text>
-              <Text style={styles.eventParagraph}>{item.text1}</Text>
-            </View>
-            <View
-              style={{
-                width: 50,
-                height: 60,
-                backgroundColor: '#EBECF0',
-                borderRadius: 10,
-                padding: 10,
-                alignItems: 'center',
-              }}>
-              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-              <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ContentLibraryDetail',{id:item?.ID})}>
+        <View>
+          <View style={[styles.eventCard, styles.shadowProp]} key={index}>
+            <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
+            <View style={styles.eventDetails}>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventTitle}>{item?.post_name}</Text>
+				{/* <HTMLView
+                value={item?.post_excerpt}
+                style={styles.eventParagraph}
+              /> */}
+                {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
+              </View>
+              <View
+                style={{
+                  width: 50,
+                  height: 60,
+                  backgroundColor: '#EBECF0',
+                  borderRadius: 10,
+                  padding: 10,
+                  alignItems: 'center',
+                }}>
+                <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+                <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-	  </TouchableOpacity>
+      </TouchableOpacity>
     );
   };
 
@@ -131,7 +142,7 @@ const LibraryDetail = props => {
                 color="#B2B3B9"
               />
               <Text style={{fontSize: 9, marginBottom: 10}}>
-                Executive MindXChange Events
+                {route.params.breadcrumbName}
               </Text>
               <Ionicons
                 name="chevron-forward-outline"
@@ -139,7 +150,7 @@ const LibraryDetail = props => {
                 color="#B2B3B9"
               />
               <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
-                Customer Experience Ecosystem
+                {route.params.itemname}
               </Text>
             </View>
 
@@ -155,9 +166,14 @@ const LibraryDetail = props => {
             paddingRight: 20,
             paddingBottom: 20,
           }}>
+			   {libraryDetailsLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
           <FlatList
             showsHorizontalScrollIndicator={false}
-            data={Data}
+            data={libraryDetails}
             renderItem={_renderContent}
           />
           <View style={{marginTop: 10}}>
@@ -270,6 +286,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  loading1: {
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 export default LibraryDetail;

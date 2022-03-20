@@ -347,8 +347,9 @@ const MainNavigation = () => {
         <Stack.Screen
           name="LibraryDetail"
           component={LibraryDetailScreen}
-          options={() => ({
-            header: ({navigation}) => (
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
               <SubHeader
                 title="Content Library"
                 image={require('../assets/img/appBG.png')}
@@ -361,8 +362,9 @@ const MainNavigation = () => {
         <Stack.Screen
           name="ContentLibraryDetail"
           component={ContentLibraryDetailScreen}
-          options={() => ({
-            header: ({navigation}) => (
+          options={({route, navigation}) => ({
+            id: route?.params?.id,
+            header: () => (
               <SubHeader
                 title="Content Library"
                 image={require('../assets/img/appBG.png')}

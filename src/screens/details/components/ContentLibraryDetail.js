@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,24 @@ import SearchHeader from '../../../shared/header/SearchHeader';
 import {Colors, CommonStyles} from '../../../theme';
 
 const ContentLibraryDetail = props => {
-  const {navigation} = props;
+  const {
+    navigation,
+    route,
+    contentLibraryDetails,
+    contentLibraryDetailsLoading,
+    contentLibraryDetailsError,
+    fetchContentLibraryDetail,
+    cleanContentLibraryDetail,
+  } = props;
+
+  useEffect(() => {
+    const fetchContentLibraryDetailAsync = async () => {
+      await fetchContentLibraryDetail(route.params.id);
+    };
+    fetchContentLibraryDetailAsync();
+  }, []);
+
+  console.log(route.params.id);
 
   const callToAction = [
     {id: 1, text: 'Create a realistic company vision for change'},

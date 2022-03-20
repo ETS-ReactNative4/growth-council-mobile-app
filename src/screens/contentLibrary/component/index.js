@@ -16,6 +16,8 @@ import {Colors, Typography} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
+import HTMLView from 'react-native-htmlview';
+import {BubblesLoader} from 'react-native-indicator';
 
 const Content = props => {
   const {
@@ -28,56 +30,34 @@ const Content = props => {
   } = props;
   const [searchKey, setSearchKey] = useState('');
 
+  useEffect(() => {
+    const fetchContentAsync = async () => {
+      await fetchContent();
+    };
+    fetchContentAsync();
+  }, []);
 
-  useEffect(()=>{
-	  const fetchContentAsync = async() =>{
-		await fetchContent();
-	  }
-	  fetchContentAsync();
-  },[]);
 
-//   console.log({content})
-  const Data = [
-    {
-      image: require('../../../assets/img/contentLibrary.png'),
-      text: 'Critical Issues',
-      number: '1',
-    },
-    {
-      image: require('../../../assets/img/blank_event_design.png'),
-      text: 'Executive MindXChange Events',
-      number: '11',
-    },
-    {
-      image: require('../../../assets/img/contentLibrary.png'),
-      text: 'Virtual Events On-Demand',
-      number: '51',
-    },
-    {
-      image: require('../../../assets/img/contentLibrary.png'),
-      text: 'Newsletters',
-      number: '100',
-    },
-
-    {
-      image: require('../../../assets/img/blank_event_design.png'),
-      text: 'Transformational Think Tanks',
-      number: '145',
-    },
-  ];
 
   const _renderContent = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('ContentDetail')}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('ContentDetail', {resourceId: item?.term_id, resourcesName:item?.name})
+        }>
         <View style={[styles.content, styles.shadowProp]}>
           <ImageBackground
             style={{width: '100%', height: 190, borderRadius: 16}}
-            source={{uri : item?.image}}>
+            source={{uri: item?.image}}>
             <View style={styles.contentWrapper}>
-              <Text>{item.count}</Text>
+              <Text>{item?.count}</Text>
             </View>
             <View style={styles.wrapper}>
-              <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text>
+			<HTMLView
+                    value={item?.name}
+                    style={{fontSize:14, color: 'black'}}
+                  />
+              {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
             </View>
           </ImageBackground>
         </View>
@@ -137,6 +117,11 @@ const Content = props => {
             paddingRight: 20,
             paddingBottom: 20,
           }}>
+			  {contentLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
           <FlatList
             showsHorizontalScrollIndicator={false}
             data={content}
@@ -209,6 +194,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  loading1: {
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 export default Content;

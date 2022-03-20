@@ -10,8 +10,8 @@ const ContentLibraryDetailScreen = props => {
 	const {contentLibraryDetails, contentLibraryDetailsLoading, contentLibraryDetailsError} =
 	  useSelector(state => state.contentLibraryDetails);
   
-	const fetchContentLibraryDetail = () => {
-	  dispatch(fetchAllContentLibraryDetails());
+	const fetchContentLibraryDetail = id => {
+	  dispatch(fetchAllContentLibraryDetails(id));
 	};
   
 	const cleanContentLibraryDetail = () => {

@@ -14,8 +14,8 @@ const LibraryDetailScreen = props => {
   const {libraryDetails, libraryDetailsLoading, libraryDetailsError} =
     useSelector(state => state.libraryDetails);
 
-  const fetchLibraryDetail = () => {
-    dispatch(fetchAllLibraryDetails());
+  const fetchLibraryDetail = resourceId => {
+    dispatch(fetchAllLibraryDetails(resourceId));
   };
 
   const cleanLibraryDetail = () => {

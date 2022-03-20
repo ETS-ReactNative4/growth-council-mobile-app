@@ -81,6 +81,7 @@ import contentReducer from '../screens/contentLibrary/slice/contentSlice';
 import contentLibraryReducer from '../screens/contentLibrary/slice/contentLibrarySlice';
 import libraryDetailReducer from '../screens/contentLibrary/slice/libraryDetailSlice';
 import contentLibraryDetailsReducer from '../screens/details/slice/contentLibraryDetailSlice';
+import latestContentReducer from '../screens/dashboard/slice/latestContentSlice';
 
 const persistConfig = {
     key: 'root',
@@ -145,6 +146,7 @@ const reducers = combineReducers({
 	contentLibrary: contentLibraryReducer,
 	libraryDetails: libraryDetailReducer,
 	contentLibraryDetails:contentLibraryDetailsReducer,
+	latestContent: latestContentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

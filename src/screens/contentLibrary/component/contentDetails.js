@@ -16,6 +16,8 @@ import {Colors, Typography} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
+import HTMLView from 'react-native-htmlview';
+import {BubblesLoader} from 'react-native-indicator';
 
 const ContentLibrary = props => {
   const {
@@ -36,48 +38,31 @@ const ContentLibrary = props => {
     fetchContentLibraryAsync();
   }, []);
 
-//   console.log(route.params.resourceId);
-  const Data = [
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'Customer Experience Ecosystem',
-      number: '1',
-    },
-    {
-      image: require('../../../assets/img/blank_event_design.png'),
-      text: 'Growth Innovation Leadership',
-      number: '13',
-    },
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'Product Innovation & Development',
-      number: '20',
-    },
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'The Future of Innovation',
-      number: '17',
-    },
+  console.log(route.params.resourceId);
 
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'Transformational Think Tanks',
-      number: '14',
-    },
-  ];
 
+  const breadcrumbName = route.params.resourcesName;
+  const resources = route.params.resourceId;
   const _renderContent = ({item, index}) => {
+	  const itemname = item?.name
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('LibraryDetail')}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('LibraryDetail', {breadcrumbName, resources, itemname})
+        }>
         <View style={[styles.content, styles.shadowProp]}>
           <ImageBackground
             style={{width: '100%', height: 190, borderRadius: 16}}
             source={item?.image}>
             <View style={styles.contentWrapper}>
-              <Text>{item.count}</Text>
+              <Text>{item?.count}</Text>
             </View>
             <View style={styles.wrapper}>
-              <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text>
+              <HTMLView
+                value={item?.name}
+                style={{fontSize: 14, color: 'black'}}
+              />
+              {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
             </View>
           </ImageBackground>
         </View>
@@ -132,7 +117,7 @@ const ContentLibrary = props => {
                 color="#B2B3B9"
               />
               <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
-                Executive MindXChange Events
+                {breadcrumbName}
               </Text>
             </View>
 
@@ -148,6 +133,11 @@ const ContentLibrary = props => {
             paddingRight: 20,
             paddingBottom: 20,
           }}>
+			   {contentLibraryLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
           <FlatList
             showsHorizontalScrollIndicator={false}
             data={contentLibrary}
@@ -183,8 +173,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     marginTop: 20,
-    // borderWidth: 0.3,
-    // backgroundColor: 'red',
+    backgroundColor: 'white',
   },
   contentWrapper: {
     width: 50,
@@ -220,6 +209,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  loading1: {
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 export default ContentLibrary;
