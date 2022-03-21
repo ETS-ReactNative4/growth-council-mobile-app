@@ -43,8 +43,6 @@ const ContentLibraryDetail = props => {
     fetchContentLibraryDetailAsync();
   }, []);
 
-  console.log(contentLibraryDetails.video_url);
-
   const [isTrue, setIsTrue] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [searchKey, setSearchKey] = useState('');
@@ -134,11 +132,10 @@ const ContentLibraryDetail = props => {
       </View>
     );
   };
-  console.log(contentLibraryDetails?.video_url);
   return (
     <View style={styles.container}>
       {/* Header Section */}
-      <View
+      {/* <View
         style={{
           display: 'flex',
           flexDirection: 'row',
@@ -169,7 +166,7 @@ const ContentLibraryDetail = props => {
             //   });
           }}
         />
-      </View>
+      </View> */}
 
       <View style={styles.bodyContainer}>
         {/* Breadcrumb Section */}
@@ -214,7 +211,7 @@ const ContentLibraryDetail = props => {
             />
           </View>
 
-          <View style={styles.sectionContainerBorder}>
+          {/* <View style={styles.sectionContainerBorder}>
             <Text style={styles.bodyTitleText}>Presented By:</Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Image
@@ -228,7 +225,7 @@ const ContentLibraryDetail = props => {
                 </Text>
               </View>
             </View>
-          </View>
+          </View> */}
           {contentLibraryDetailsLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />

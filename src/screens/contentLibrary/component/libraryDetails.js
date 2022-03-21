@@ -49,7 +49,9 @@ const LibraryDetail = props => {
       // Filter the masterDataSource
       // Update FilteredDataSource
       const newData = libraryDetails.filter(function (item) {
-        const itemData = item?.post_title ? item?.post_title.toLowerCase() : ''.toLowerCase();
+        const itemData = item?.post_title
+          ? item?.post_title.toLowerCase()
+          : ''.toLowerCase();
         const textData = text.toLowerCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -140,26 +142,34 @@ const LibraryDetail = props => {
             />
           </View>
           <View style={{paddingLeft: 20, paddingRight: 20}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 9, marginBottom: 10}}>
-                Content Library
-              </Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={15}
-                color="#B2B3B9"
-              />
-              <Text style={{fontSize: 9, marginBottom: 10}}>
-                {route.params.breadcrumbName}
-              </Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={15}
-                color="#B2B3B9"
-              />
-              <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
-                {route.params.itemname}
-              </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 9}}>Content Library</Text>
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={15}
+                  color="#B2B3B9"
+                />
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={15}
+                  color="#B2B3B9"
+                />
+              </View>
+              <View
+                style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                <Text
+                  style={{
+                    marginTop: 9,
+                    fontSize: 9,
+                    color: '#14A2E2',
+                  }}>
+                  {route.params.itemname}
+                </Text>
+              </View>
             </View>
 
             <View style={{borderWidth: 0.2}} />
