@@ -19,6 +19,8 @@ import ArticleFeedbackCard from '../../../shared/card/ArticleFeedbackCard';
 import Footer from '../../../shared/footer';
 import SearchHeader from '../../../shared/header/SearchHeader';
 import {Colors, CommonStyles} from '../../../theme';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Searchbar} from 'react-native-paper';
 // import VideoPLayer from 'react-native-video-player';
 
 const ContentLibraryDetail = props => {
@@ -43,6 +45,7 @@ const ContentLibraryDetail = props => {
 
   const [isTrue, setIsTrue] = useState(true);
   const [searchText, setSearchText] = useState('');
+  const [searchKey, setSearchKey] = useState('');
 
   const handleFeedbackChange = value => {
     setIsTrue(value);
@@ -133,11 +136,38 @@ const ContentLibraryDetail = props => {
   return (
     <View style={styles.container}>
       {/* Header Section */}
-      <SearchHeader
-        navigation={navigation}
-        value={searchText}
-        onChangeText={text => setSearchText(text)}
-      />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          marginTop: 20,
+          alignContent: 'center',
+          marginLeft: 10,
+        }}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="chevron-back-outline"
+            size={30}
+            color="#B2B3B9"
+            style={{marginTop: 5}}
+          />
+        </TouchableOpacity>
+
+        <Searchbar
+          style={styles.input}
+          placeholder="Search"
+          keyboardType="default"
+          value={searchKey}
+          onChangeText={async text => {
+            setSearchKey(text);
+            //   await fetchAllUsers({
+            // 	s: text,
+            // 	sort: sorting,
+            // 	expertise_areas: category,
+            //   });
+          }}
+        />
+      </View>
 
       <View style={styles.bodyContainer}>
         {/* Breadcrumb Section */}
@@ -398,6 +428,13 @@ const styles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 15,
     color: Colors.SECONDARY_TEXT_COLOR,
+  },
+  input: {
+    height: 45,
+    width: '85%',
+    marginLeft: 10,
+    borderRadius: 20,
+    backgroundColor: '#F5F5F5',
   },
 });
 
