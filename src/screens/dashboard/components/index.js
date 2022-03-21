@@ -197,35 +197,44 @@ const Dashboard = props => {
   //   };
 
   const _renderContent = ({item, index}) => {
-	  const date = moment(item?.post_modified).format('D/MM/yyyy');
+    const date = moment(item?.post_modified).format('D/MM/yyyy');
     return (
-      
-        <View style={[styles.middleWrapper, styles.shadowContent]}>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{width: '70%', margin: 10}}>
-              <Text style={{fontSize: 12, color: '#041C3E'}}>
-                {item.post_name}
-              </Text>
-            </View>
-            <View style={styles.middleW}>
-              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-              <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
-            </View>
-          </View>
-		  <TouchableOpacity
-        onPress={() => navigation.navigate('ContentLibraryDetail',{id:item?.ID})}>
-			<View style={styles.middleWrap}>
-            <Text style={{color: 'white', fontSize: 10}}>View</Text>
-          </View>
-		</TouchableOpacity>
-          
-
-          <View style={styles.contentTime}>
-            <Text style={{fontSize: 7}}>
-              Published on: {date}
+      <View style={[styles.middleWrapper, styles.shadowContent]}>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{width: '70%', margin: 10}}>
+            <Text style={{fontSize: 12, color: '#041C3E'}}>
+              {item.post_title}
+            </Text>
+            <Text style={{fontSize: 8, color: '#041C3E'}}>
+              {item.post_excerpt}
             </Text>
           </View>
+          <View style={styles.middleW}>
+            {item?.video_url === null && (
+              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+            )}
+            {item?.video_url !== null && (
+              <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+            )}
+            <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+          </View>
         </View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ContentLibraryDetail', {
+              id: item?.ID,
+              title: item?.post_title,
+            })
+          }>
+          <View style={styles.middleWrap}>
+            <Text style={{color: 'white', fontSize: 10}}>View</Text>
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.contentTime}>
+          <Text style={{fontSize: 7}}>Published on: {date}</Text>
+        </View>
+      </View>
     );
   };
 

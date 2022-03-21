@@ -82,6 +82,7 @@ import contentLibraryReducer from '../screens/contentLibrary/slice/contentLibrar
 import libraryDetailReducer from '../screens/contentLibrary/slice/libraryDetailSlice';
 import contentLibraryDetailsReducer from '../screens/details/slice/contentLibraryDetailSlice';
 import latestContentReducer from '../screens/dashboard/slice/latestContentSlice';
+import searchContentReducer from '../screens/contentLibrary/slice/searchContentSlice';
 
 const persistConfig = {
     key: 'root',
@@ -147,6 +148,7 @@ const reducers = combineReducers({
 	libraryDetails: libraryDetailReducer,
 	contentLibraryDetails:contentLibraryDetailsReducer,
 	latestContent: latestContentReducer,
+	searchContent: searchContentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -6,16 +6,20 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  FlatList,
+  PermissionsAndroid,
 } from 'react-native';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-
+import ToastMessage from '../../../shared/toast';
+import ReactNativeBlobUtil from 'react-native-blob-util';
 import BottomNav from '../../../layout/BottomLayout';
 import ArticleFeedbackCard from '../../../shared/card/ArticleFeedbackCard';
 import Footer from '../../../shared/footer';
 import SearchHeader from '../../../shared/header/SearchHeader';
 import {Colors, CommonStyles} from '../../../theme';
+// import VideoPLayer from 'react-native-video-player';
 
 const ContentLibraryDetail = props => {
   const {
@@ -30,34 +34,100 @@ const ContentLibraryDetail = props => {
 
   useEffect(() => {
     const fetchContentLibraryDetailAsync = async () => {
-      await fetchContentLibraryDetail(route.params.id);
+      await fetchContentLibraryDetail(route?.params?.id);
     };
     fetchContentLibraryDetailAsync();
   }, []);
 
   console.log(route.params.id);
 
-  const callToAction = [
-    {id: 1, text: 'Create a realistic company vision for change'},
-    {
-      id: 2,
-      text: 'Build a framework for leading with compassion in times of change',
-    },
-  ];
-
-  const tags = [
-    {id: 1, title: 'Business and Corporate Development'},
-    {id: 2, title: 'Customer Experience'},
-    {id: 3, title: 'Growth Leadership'},
-    {id: 4, title: 'Strategy'},
-    {id: 5, title: 'Talent'},
-  ];
-
   const [isTrue, setIsTrue] = useState(true);
   const [searchText, setSearchText] = useState('');
 
   const handleFeedbackChange = value => {
     setIsTrue(value);
+  };
+
+  const _renderItem = ({item, index}) => {
+    const source = {uri: item?.file?.url, cache: true};
+
+    const fileUrl = item?.file?.url;
+
+    const checkPermission = async () => {
+      if (Platform.OS === 'ios') {
+        downloadFile();
+      } else {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+              title: 'Storage Permission Required',
+              message:
+                'Application needs access to your storage to download File',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            downloadFile();
+
+            console.log('Storage Permission Granted.');
+          } else {
+            Alert.alert('Error', 'Storage Permission Not Granted');
+          }
+        } catch (err) {
+          console.log('++++' + err);
+        }
+      }
+    };
+
+    const downloadFile = () => {
+      let date = new Date();
+
+      let FILE_URL = fileUrl;
+
+      let file_ext = getFileExtention(FILE_URL);
+
+      file_ext = '.' + file_ext[0];
+
+      const {config, fs} = ReactNativeBlobUtil;
+      let RootDir = fs.dirs.PictureDir;
+      let options = {
+        fileCache: true,
+        addAndroidDownloads: {
+          path:
+            RootDir +
+            '/file_' +
+            Math.floor(date.getTime() + date.getSeconds() / 2) +
+            file_ext,
+          description: 'downloading file...',
+          notification: true,
+          useDownloadManager: true,
+        },
+      };
+      config(options)
+        .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
+        .then(res => {
+          console.log('res -> ', JSON.stringify(res));
+          ToastMessage.show('PDF File Downloaded Successfully.');
+        });
+    };
+
+    const getFileExtention = fileUrl => {
+      return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
+    };
+    return (
+      <View style={styles.attachmentContainer}>
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
+          <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+        </View>
+
+        <TouchableOpacity
+          style={styles.attachmentDownloadButton}
+          onPress={checkPermission}>
+          <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
+        </TouchableOpacity>
+      </View>
+    );
   };
 
   return (
@@ -80,7 +150,7 @@ const ContentLibraryDetail = props => {
           </View>
           <View style={{...styles.singleBreadcrumb, flex: 1}}>
             <Text style={styles.activeBreadcrumbText}>
-              2021: Effective Change Management Across the CX Ecosystem
+              {route.params.title}
             </Text>
           </View>
         </View>
@@ -91,10 +161,18 @@ const ContentLibraryDetail = props => {
           style={{padding: 25}}
           contentContainerStyle={{paddingBottom: 90}}>
           <View style={{marginBottom: 30}}>
-            <Image
+            {/* <Image
               source={require('../../../assets/img/image.png')}
               style={styles.contentImage}
-            />
+            /> */}
+            {/* <VideoPLayer
+              video={{uri: contentLibraryDetails?.video_url}}
+              autoplay={false}
+              defaultMuted={true}
+              videoWidth={300}
+              videoHeight={200}
+			  thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+            /> */}
           </View>
 
           <View style={styles.sectionContainerBorder}>
@@ -117,32 +195,25 @@ const ContentLibraryDetail = props => {
           <View style={styles.sectionContainer}>
             <Text style={styles.bodyTitleText}>Abstract:</Text>
             <Text style={styles.abstractDescriptionText}>
-              Employee experience is the foundation of a truly customer centric
-              organization and with any organization, there will be change —
-              expect constant change — especially in today’s climate. Managing
-              change with a top down approach from leadership to individuals is
-              a crucial part of the process to become customer centric. Whether
-              it is political events, diversity and inclusion, or a changing
-              business model, the employee is the one who translates emotions
-              and therefore impacts the customer experience.
+              {contentLibraryDetails?.abstract}
             </Text>
           </View>
 
           {/* Call To Action Section */}
           <View style={styles.sectionContainer}>
             <Text style={styles.bodyTitleText}>Call to Action:</Text>
-            {callToAction.map(item => (
+            {contentLibraryDetails?.call_to_action?.map(item => (
               <View style={{marginBottom: 10, flexDirection: 'row'}}>
-                <Text
+                {/* <Text
                   style={{marginRight: 5, color: Colors.SECONDARY_TEXT_COLOR}}>
                   {item.id.toString()})
-                </Text>
+                </Text> */}
                 <Text
                   style={{
                     fontFamily: 'SFProText-Regular',
                     color: Colors.SECONDARY_TEXT_COLOR,
                   }}>
-                  {item.text}
+                  {item.list}
                 </Text>
               </View>
             ))}
@@ -151,25 +222,19 @@ const ContentLibraryDetail = props => {
           {/* Attachments Section */}
           <View style={styles.sectionContainer}>
             <Text style={styles.bodyTitleText}>Attachments:</Text>
-            <View style={styles.attachmentContainer}>
-              <View style={{flex: 1, flexDirection: 'row'}}>
-                <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
-                <Text style={styles.attachmentTitle}>Presentation</Text>
-              </View>
-
-              <TouchableOpacity
-                style={styles.attachmentDownloadButton}
-                onPress={() => console.warn('Download Pdf !!!')}>
-                <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-              </TouchableOpacity>
-            </View>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              data={contentLibraryDetails?.attachment}
+              renderItem={_renderItem}
+            />
           </View>
 
           {/* Tags Section */}
           <View style={styles.sectionContainerBorder}>
             <Text style={styles.bodyTitleText}>Tags:</Text>
             <View style={styles.tagsContainer}>
-              {tags.map(item => (
+              {contentLibraryDetails?.tags?.map(item => (
                 <View style={styles.singleTagContainer}>
                   <FeatherIcon
                     name="tag"
@@ -178,7 +243,7 @@ const ContentLibraryDetail = props => {
                     style={{marginTop: 5}}
                   />
                   <Text style={styles.tagTitleText} numberOfLines={2}>
-                    {item.title}
+                    {item?.name}
                   </Text>
                 </View>
               ))}
@@ -289,8 +354,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
   },
   attachmentTitle: {
-    marginLeft: 25,
-    marginTop: 5,
+    marginLeft: 10,
+    fontSize: 14,
+    width: '80%',
     fontFamily: 'SFProText-Regular',
     color: Colors.SECONDARY_TEXT_COLOR,
   },

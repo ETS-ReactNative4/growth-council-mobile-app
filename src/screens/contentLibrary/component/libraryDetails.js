@@ -63,14 +63,22 @@ const LibraryDetail = props => {
   const _renderContent = ({item, index}) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('ContentLibraryDetail',{id:item?.ID})}>
+        onPress={() =>
+          navigation.navigate('ContentLibraryDetail', {
+            id: item?.ID,
+            title: item?.post_title,
+          })
+        }>
         <View>
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
             <View style={styles.eventDetails}>
               <View style={styles.eventInfo}>
-                <Text style={styles.eventTitle}>{item?.post_name}</Text>
-				{/* <HTMLView
+                <Text style={styles.eventTitle}>{item?.post_title}</Text>
+                <Text style={{fontSize: 8, color: '#041C3E'}}>
+                  {item.post_excerpt}
+                </Text>
+                {/* <HTMLView
                 value={item?.post_excerpt}
                 style={styles.eventParagraph}
               /> */}
@@ -85,7 +93,12 @@ const LibraryDetail = props => {
                   padding: 10,
                   alignItems: 'center',
                 }}>
-                <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+                {item?.video_url === null && (
+                  <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+                )}
+                {item?.video_url !== null && (
+                  <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+                )}
                 <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
               </View>
             </View>
@@ -166,7 +179,7 @@ const LibraryDetail = props => {
             paddingRight: 20,
             paddingBottom: 20,
           }}>
-			   {libraryDetailsLoading && (
+          {libraryDetailsLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>

@@ -18,6 +18,7 @@ import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import {BubblesLoader} from 'react-native-indicator';
+import SearchBox from '../../../shared/header/SearchHeader';
 
 const Content = props => {
   const {
@@ -27,23 +28,40 @@ const Content = props => {
     contentError,
     fetchContent,
     cleanContent,
+
+    searchContent,
+    searchContentLoading,
+    searchContentError,
+    searchContentByIdentifier,
+    cleanContentSearch,
   } = props;
   const [searchKey, setSearchKey] = useState('');
 
   useEffect(() => {
     const fetchContentAsync = async () => {
-      await fetchContent();
+      await fetchContent({
+        s: searchKey,
+      });
     };
     fetchContentAsync();
   }, []);
 
-
+  const onChangeSearch = text => {
+    setSearchKey(text);
+    searchContentByIdentifier({s: text});
+  };
+  const onCleanSearch = () => {
+    searchContentByIdentifier({s: ''});
+  };
 
   const _renderContent = ({item, index}) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('ContentDetail', {resourceId: item?.term_id, resourcesName:item?.name})
+          navigation.navigate('ContentDetail', {
+            resourceId: item?.term_id,
+            resourcesName: item?.name,
+          })
         }>
         <View style={[styles.content, styles.shadowProp]}>
           <ImageBackground
@@ -53,10 +71,10 @@ const Content = props => {
               <Text>{item?.count}</Text>
             </View>
             <View style={styles.wrapper}>
-			<HTMLView
-                    value={item?.name}
-                    style={{fontSize:14, color: 'black'}}
-                  />
+              <HTMLView
+                value={item?.name}
+                style={{fontSize: 14, color: 'black'}}
+              />
               {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
             </View>
           </ImageBackground>
@@ -85,21 +103,34 @@ const Content = props => {
                 style={{marginTop: 5}}
               />
             </TouchableOpacity>
+            <View
+              style={{
+                marginLeft: 10,
+                width: '90%',
+                borderRadius: 10,
+              }}>
+              {/* <Searchbar
+			  style={styles.input}
+                placeholder="Search"
+                keyboardType="default"
+                value={searchKey}
+                onChangeText={onChangeSearch}
 
-            <Searchbar
-              style={styles.input}
-              placeholder="Search"
-              keyboardType="default"
-              value={searchKey}
-              onChangeText={async text => {
-                setSearchKey(text);
-                //   await fetchAllUsers({
-                // 	s: text,
-                // 	sort: sorting,
-                // 	expertise_areas: category,
-                //   });
-              }}
-            />
+              /> */}
+			  {/* <SearchBox searchContentByIdentifier={searchContentByIdentifier}/> */}
+              <Searchbar
+                style={styles.input}
+                placeholder="Search"
+                keyboardType="default"
+                value={searchKey}
+                onChangeText={async text => {
+                  setSearchKey(text);
+                  await fetchContent({
+                    s: text,
+                  });
+                }}
+              />
+            </View>
           </View>
           <View style={{paddingLeft: 20, paddingRight: 20}}>
             <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
@@ -117,7 +148,7 @@ const Content = props => {
             paddingRight: 20,
             paddingBottom: 20,
           }}>
-			  {contentLoading && (
+          {contentLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
@@ -144,7 +175,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 45,
-    width: '85%',
+    width: '70%',
     marginLeft: 10,
     marginBottom: 20,
     borderRadius: 20,
