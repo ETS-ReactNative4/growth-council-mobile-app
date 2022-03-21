@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import ToastMessage from '../../../shared/toast';
 import ReactNativeBlobUtil from 'react-native-blob-util';
@@ -22,6 +23,7 @@ import {Colors, CommonStyles} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Searchbar} from 'react-native-paper';
 // import VideoPLayer from 'react-native-video-player';
+import Video from 'react-native-video';
 
 const ContentLibraryDetail = props => {
   const {
@@ -195,13 +197,10 @@ const ContentLibraryDetail = props => {
               source={require('../../../assets/img/image.png')}
               style={styles.contentImage}
             /> */}
-            {/* <VideoPLayer
-              video={{uri: contentLibraryDetails?.video_url}}
-              autoplay={false}
-              defaultMuted={true}
-              videoWidth={300}
-              videoHeight={200}
-			  thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+            {/* <Video
+              source={{uri: contentLibraryDetails?.video_url}}
+              style={{width: 300, height: 300}}
+              controls={true}
             /> */}
           </View>
 
@@ -234,10 +233,13 @@ const ContentLibraryDetail = props => {
             <Text style={styles.bodyTitleText}>Call to Action:</Text>
             {contentLibraryDetails?.call_to_action?.map(item => (
               <View style={{marginBottom: 10, flexDirection: 'row'}}>
-                {/* <Text
-                  style={{marginRight: 5, color: Colors.SECONDARY_TEXT_COLOR}}>
-                  {item.id.toString()})
-                </Text> */}
+                <Entypo
+                  name="dot-single"
+                  size={20}
+                  color="black"
+                
+                />
+				
                 <Text
                   style={{
                     fontFamily: 'SFProText-Regular',

@@ -400,7 +400,7 @@ const Dashboard = props => {
             <Text style={styles.title}>Upcoming Events</Text>
           </View>
 
-          {upcomingEventLoading && (
+          {latestContentLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
