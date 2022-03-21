@@ -64,6 +64,9 @@ const Content = props => {
   };
 
   const _renderContent = ({item, index}) => {
+    const image = {
+      uri: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fnature%2F&psig=AOvVaw3ILwJCfxWwyIok-Hm2376h&ust=1647968487042000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiI4ZTX1_YCFQAAAAAdAAAAABAD',
+    };
     return (
       <TouchableOpacity
         onPress={() =>
@@ -73,20 +76,38 @@ const Content = props => {
           })
         }>
         <View style={[styles.content, styles.shadowProp]}>
-          <ImageBackground
-            style={{width: '100%', height: 190, borderRadius: 16}}
-            source={{uri: item?.image}}>
-            <View style={styles.contentWrapper}>
-              <Text>{item?.count}</Text>
-            </View>
-            <View style={styles.wrapper}>
-              <HTMLView
-                value={item?.name}
-                style={{fontSize: 14, color: 'black'}}
-              />
-              {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
-            </View>
-          </ImageBackground>
+          {item?.image === null && (
+            <ImageBackground
+              style={{width: '100%', height: 190, borderRadius: 16}}
+              source={require('../../../assets/img/image.png')}>
+              <View style={styles.contentWrapper}>
+                <Text>{item?.count}</Text>
+              </View>
+              <View style={styles.wrapper}>
+                <HTMLView
+                  value={item?.name}
+                  style={{fontSize: 14, color: 'black'}}
+                />
+                {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
+              </View>
+            </ImageBackground>
+          )}
+          {item?.image !== null && (
+            <ImageBackground
+              style={{width: '100%', height: 190, borderRadius: 16}}
+              source={{uri: item?.image}}>
+              <View style={styles.contentWrapper}>
+                <Text>{item?.count}</Text>
+              </View>
+              <View style={styles.wrapper}>
+                <HTMLView
+                  value={item?.name}
+                  style={{fontSize: 14, color: 'black'}}
+                />
+                {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
+              </View>
+            </ImageBackground>
+          )}
         </View>
       </TouchableOpacity>
     );

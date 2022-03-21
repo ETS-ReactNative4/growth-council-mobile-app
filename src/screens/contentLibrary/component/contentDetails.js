@@ -76,19 +76,36 @@ const ContentLibrary = props => {
           })
         }>
         <View style={[styles.content, styles.shadowProp]}>
-          <ImageBackground
-            style={{width: '100%', height: 190, borderRadius: 16}}
-            source={item?.image}>
-            <View style={styles.contentWrapper}>
-              <Text>{item?.count}</Text>
-            </View>
-            <View style={styles.wrapper}>
-              <HTMLView
-                value={item?.name}
-                style={{fontSize: 14, color: 'black'}}
-              />
-            </View>
-          </ImageBackground>
+          {item?.image === null && (
+            <ImageBackground
+              style={{width: '100%', height: 190, borderRadius: 16}}
+              source={require('../../../assets/img/library.png')}>
+              <View style={styles.contentWrapper}>
+                <Text>{item?.count}</Text>
+              </View>
+              <View style={styles.wrapper}>
+                <HTMLView
+                  value={item?.name}
+                  style={{fontSize: 14, color: 'black'}}
+                />
+              </View>
+            </ImageBackground>
+          )}
+          {item?.image !== null && (
+            <ImageBackground
+              style={{width: '100%', height: 190, borderRadius: 16}}
+              source={item?.image}>
+              <View style={styles.contentWrapper}>
+                <Text>{item?.count}</Text>
+              </View>
+              <View style={styles.wrapper}>
+                <HTMLView
+                  value={item?.name}
+                  style={{fontSize: 14, color: 'black'}}
+                />
+              </View>
+            </ImageBackground>
+          )}
         </View>
       </TouchableOpacity>
     );
