@@ -205,9 +205,10 @@ const Dashboard = props => {
             <Text style={{fontSize: 12, color: '#041C3E'}}>
               {item.post_title}
             </Text>
-            <Text style={{fontSize: 8, color: '#041C3E'}}>
-              {item.post_excerpt}
-            </Text>
+            <HTMLView
+              value={'<p>' + item?.post_excerpt + '</p>'}
+              stylesheet={webViewStyle}
+            />
           </View>
           <View style={styles.middleW}>
             {item?.video_url === null && (
@@ -673,5 +674,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-
+const webViewStyle = StyleSheet.create({
+  p: {fontSize: 8, color: 'black', marginTop: 5},
+});
 export default Dashboard;

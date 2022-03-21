@@ -75,13 +75,13 @@ const LibraryDetail = props => {
             <View style={styles.eventDetails}>
               <View style={styles.eventInfo}>
                 <Text style={styles.eventTitle}>{item?.post_title}</Text>
-                <Text style={{fontSize: 8, color: '#041C3E'}}>
+                {/* <Text style={{fontSize: 8, color: '#041C3E'}}>
                   {item.post_excerpt}
-                </Text>
-                {/* <HTMLView
-                value={item?.post_excerpt}
-                style={styles.eventParagraph}
-              /> */}
+                </Text> */}
+                <HTMLView
+                  value={'<p>' + item?.post_excerpt + '</p>'}
+                  stylesheet={webViewStyle}
+                />
                 {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
               </View>
               <View
@@ -311,4 +311,5 @@ const styles = StyleSheet.create({
     zIndex: 1011,
   },
 });
+const webViewStyle = StyleSheet.create({p: {fontSize: 10}});
 export default LibraryDetail;
