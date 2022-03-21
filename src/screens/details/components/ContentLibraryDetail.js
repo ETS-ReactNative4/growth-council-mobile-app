@@ -22,6 +22,7 @@ import SearchHeader from '../../../shared/header/SearchHeader';
 import {Colors, CommonStyles} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Searchbar} from 'react-native-paper';
+import {BubblesLoader} from 'react-native-indicator';
 // import VideoPLayer from 'react-native-video-player';
 import Video from 'react-native-video';
 
@@ -203,7 +204,7 @@ const ContentLibraryDetail = props => {
               controls={true}
             /> */}
           </View>
-
+          
           <View style={styles.sectionContainerBorder}>
             <Text style={styles.bodyTitleText}>Presented By:</Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -219,7 +220,11 @@ const ContentLibraryDetail = props => {
               </View>
             </View>
           </View>
-
+		  {contentLibraryDetailsLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
           {/* Abstract Section */}
           <View style={styles.sectionContainer}>
             <Text style={styles.bodyTitleText}>Abstract:</Text>
@@ -233,13 +238,8 @@ const ContentLibraryDetail = props => {
             <Text style={styles.bodyTitleText}>Call to Action:</Text>
             {contentLibraryDetails?.call_to_action?.map(item => (
               <View style={{marginBottom: 10, flexDirection: 'row'}}>
-                <Entypo
-                  name="dot-single"
-                  size={20}
-                  color="black"
-                
-                />
-				
+                <Entypo name="dot-single" size={20} color="black" />
+
                 <Text
                   style={{
                     fontFamily: 'SFProText-Regular',
@@ -437,6 +437,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderRadius: 20,
     backgroundColor: '#F5F5F5',
+  },
+  loading1: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 
