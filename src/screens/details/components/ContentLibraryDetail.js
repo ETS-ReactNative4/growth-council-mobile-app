@@ -23,7 +23,7 @@ import {Colors, CommonStyles} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Searchbar} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
-// import VideoPLayer from 'react-native-video-player';
+import VideoPLayer from 'react-native-video-player';
 import Video from 'react-native-video';
 
 const ContentLibraryDetail = props => {
@@ -135,7 +135,7 @@ const ContentLibraryDetail = props => {
       </View>
     );
   };
-
+  console.log(contentLibraryDetails?.video_url);
   return (
     <View style={styles.container}>
       {/* Header Section */}
@@ -198,13 +198,21 @@ const ContentLibraryDetail = props => {
               source={require('../../../assets/img/image.png')}
               style={styles.contentImage}
             /> */}
-            {/* <Video
-              source={{uri: contentLibraryDetails?.video_url}}
-              style={{width: 300, height: 300}}
+            {contentLibraryDetails?.video_url !== null && (
+              <VideoPLayer
+                video={{uri: contentLibraryDetails?.video_url}}
+                videoWidth={1600}
+                videoHeight={900}
+                styles={{borderBottomWidth: 2}}
+              />
+            )}
+            {/* <VideoPLayer
+              video={contentLibraryDetails?.video_url}
+              style={{width: '100%', height: 200}}
               controls={true}
             /> */}
           </View>
-          
+
           <View style={styles.sectionContainerBorder}>
             <Text style={styles.bodyTitleText}>Presented By:</Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -220,7 +228,7 @@ const ContentLibraryDetail = props => {
               </View>
             </View>
           </View>
-		  {contentLibraryDetailsLoading && (
+          {contentLibraryDetailsLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>

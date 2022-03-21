@@ -26,7 +26,7 @@ const Content = props => {
     content,
     contentLoading,
     contentError,
-    fetchContent,
+
     cleanContent,
 
     searchContent,
@@ -35,23 +35,32 @@ const Content = props => {
     searchContentByIdentifier,
     cleanContentSearch,
   } = props;
-  const [searchKey, setSearchKey] = useState('');
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState(content);
 
   useEffect(() => {
-    const fetchContentAsync = async () => {
-      await fetchContent({
-        s: searchKey,
-      });
-    };
-    fetchContentAsync();
-  }, []);
+    setFilteredDataSource(content);
+  }, [content]);
 
-  const onChangeSearch = text => {
-    setSearchKey(text);
-    searchContentByIdentifier({s: text});
-  };
-  const onCleanSearch = () => {
-    searchContentByIdentifier({s: ''});
+  const searchFilterFunction = text => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = content?.filter(function (item) {
+        const itemData = item.name ? item.name.toLowerCase() : ''.toLowerCase();
+        const textData = text.toLowerCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(content);
+      setSearch(text);
+    }
   };
 
   const _renderContent = ({item, index}) => {
@@ -103,34 +112,13 @@ const Content = props => {
                 style={{marginTop: 5}}
               />
             </TouchableOpacity>
-            <View
-              style={{
-                marginLeft: 10,
-                width: '90%',
-                borderRadius: 10,
-              }}>
-              {/* <Searchbar
-			  style={styles.input}
-                placeholder="Search"
-                keyboardType="default"
-                value={searchKey}
-                onChangeText={onChangeSearch}
 
-              /> */}
-			  {/* <SearchBox searchContentByIdentifier={searchContentByIdentifier}/> */}
-              <Searchbar
-                style={styles.input}
-                placeholder="Search"
-                keyboardType="default"
-                value={searchKey}
-                onChangeText={async text => {
-                  setSearchKey(text);
-                  await fetchContent({
-                    s: text,
-                  });
-                }}
-              />
-            </View>
+            <Searchbar
+              style={styles.input}
+              placeholder="Search"
+              value={search}
+              onChangeText={text => searchFilterFunction(text)}
+            />
           </View>
           <View style={{paddingLeft: 20, paddingRight: 20}}>
             <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
@@ -153,11 +141,17 @@ const Content = props => {
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            data={content}
-            renderItem={_renderContent}
-          />
+          <ScrollView
+            horizontal
+            scrollEnabled={false}
+            contentContainerStyle={{flex: 1}}>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={filteredDataSource}
+              renderItem={_renderContent}
+            />
+          </ScrollView>
+
           <View style={{marginTop: 10}}>
             <Footer />
           </View>
@@ -175,7 +169,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 45,
-    width: '70%',
+    width: '85%',
     marginLeft: 10,
     marginBottom: 20,
     borderRadius: 20,
@@ -188,6 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     marginTop: 20,
+    marginBottom: 5,
     // borderWidth: 0.3,
     backgroundColor: 'white',
   },

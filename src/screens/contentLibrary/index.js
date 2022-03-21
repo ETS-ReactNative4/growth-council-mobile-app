@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Content from './component';
@@ -12,16 +12,16 @@ const ContentScreen = props => {
   const dispatch = useDispatch();
 
   const {content, contentLoading, contentError} = useSelector(
-    state => state.content
+    state => state.content,
   );
 
   const {searchContent, searchContentLoading, searchContentError} = useSelector(
-    state => state.searchContent
+    state => state.searchContent,
   );
 
-  const fetchContent = () => {
+  useEffect(() => {
     dispatch(fetchAllContent());
-  };
+  }, []);
 
   const cleanContent = () => {
     dispatch(resetContent());
@@ -31,8 +31,8 @@ const ContentScreen = props => {
     return dispatch(searchContentByKey(formData));
   };
 
-  const cleanContentSearch =()=>{
-	  dispatch(resetSearchContent());
+  const cleanContentSearch = () => {
+    dispatch(resetSearchContent());
   };
 
   return (
@@ -41,14 +41,13 @@ const ContentScreen = props => {
       content={content}
       contentLoading={contentLoading}
       contentError={contentError}
-      fetchContent={fetchContent}
+    //   fetchContent={fetchContent}
       cleanContent={cleanContent}
-
-	  searchContent={searchContent}
-	  searchContentLoading={searchContentLoading}
-	  searchContentError={searchContentError}
-	  searchContentByIdentifier={searchContentByIdentifier}
-	  cleanContentSearch={cleanContentSearch}
+      searchContent={searchContent}
+      searchContentLoading={searchContentLoading}
+      searchContentError={searchContentError}
+      searchContentByIdentifier={searchContentByIdentifier}
+      cleanContentSearch={cleanContentSearch}
     />
   );
 };

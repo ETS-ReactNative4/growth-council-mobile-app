@@ -112,7 +112,6 @@ const Dashboard = props => {
     fetchLatestContentAsync();
   }, []);
 
-  console.log({latestContent});
 
   const _renderItem = ({item, index}) => {
     return (

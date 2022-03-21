@@ -29,26 +29,51 @@ const ContentLibrary = props => {
     fetchContentLibrary,
     cleanContentLibrary,
   } = props;
-  const [searchKey, setSearchKey] = useState('');
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState(contentLibrary);
 
   useEffect(() => {
-    const fetchContentLibraryAsync = async () => {
-      await fetchContentLibrary(route.params.resourceId);
-    };
-    fetchContentLibraryAsync();
+    fetchContentLibrary(route.params.resourceId);
   }, []);
 
-  console.log(route.params.resourceId);
-
+  useEffect(() => {
+    setFilteredDataSource(contentLibrary);
+  }, [contentLibrary]);
 
   const breadcrumbName = route.params.resourcesName;
   const resources = route.params.resourceId;
+
+  const searchFilterFunction = text => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = contentLibrary.filter(function (item) {
+        const itemData = item.name ? item.name.toLowerCase() : ''.toLowerCase();
+        const textData = text.toLowerCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(contentLibrary);
+      setSearch(text);
+    }
+  };
+
   const _renderContent = ({item, index}) => {
-	  const itemname = item?.name
+    const itemname = item?.name;
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('LibraryDetail', {breadcrumbName, resources, itemname})
+          navigation.navigate('LibraryDetail', {
+            breadcrumbName,
+            resources,
+            itemname,
+          })
         }>
         <View style={[styles.content, styles.shadowProp]}>
           <ImageBackground
@@ -62,7 +87,6 @@ const ContentLibrary = props => {
                 value={item?.name}
                 style={{fontSize: 14, color: 'black'}}
               />
-              {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
             </View>
           </ImageBackground>
         </View>
@@ -90,20 +114,11 @@ const ContentLibrary = props => {
                 style={{marginTop: 5}}
               />
             </TouchableOpacity>
-
             <Searchbar
               style={styles.input}
               placeholder="Search"
-              keyboardType="default"
-              value={searchKey}
-              onChangeText={async text => {
-                setSearchKey(text);
-                //   await fetchAllUsers({
-                // 	s: text,
-                // 	sort: sorting,
-                // 	expertise_areas: category,
-                //   });
-              }}
+              value={search}
+              onChangeText={text => searchFilterFunction(text)}
             />
           </View>
           <View style={{paddingLeft: 20, paddingRight: 20}}>
@@ -133,14 +148,14 @@ const ContentLibrary = props => {
             paddingRight: 20,
             paddingBottom: 20,
           }}>
-			   {contentLibraryLoading && (
+          {contentLibraryLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
           <FlatList
             showsHorizontalScrollIndicator={false}
-            data={contentLibrary}
+            data={filteredDataSource}
             renderItem={_renderContent}
           />
           <View style={{marginTop: 10}}>

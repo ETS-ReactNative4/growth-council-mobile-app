@@ -30,35 +30,38 @@ const LibraryDetail = props => {
     fetchLibraryDetail,
     cleanLibraryDetail,
   } = props;
-  const [searchKey, setSearchKey] = useState('');
+
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState(libraryDetails);
 
   useEffect(() => {
-    const fetchLibraryDetailAsync = async () => {
-      await fetchLibraryDetail(route.params.resources);
-    };
-    fetchLibraryDetailAsync();
+    fetchLibraryDetail(route.params.resources);
   }, []);
 
-  console.log(route.params.resources);
-  console.log(route.params.breadcrumbName);
-  console.log(route.params.itemname);
+  useEffect(() => {
+    setFilteredDataSource(libraryDetails);
+  }, [libraryDetails]);
 
-  const Data = [
-    {
-      id: 1,
-      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
-      text1:
-        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
-      date: '12/09/2022',
-    },
-    {
-      id: 2,
-      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
-      text1:
-        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
-      date: '12/09/2022',
-    },
-  ];
+  const searchFilterFunction = text => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = libraryDetails.filter(function (item) {
+        const itemData = item?.post_title ? item?.post_title.toLowerCase() : ''.toLowerCase();
+        const textData = text.toLowerCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(libraryDetails);
+      setSearch(text);
+    }
+  };
 
   const _renderContent = ({item, index}) => {
     return (
@@ -132,16 +135,8 @@ const LibraryDetail = props => {
             <Searchbar
               style={styles.input}
               placeholder="Search"
-              keyboardType="default"
-              value={searchKey}
-              onChangeText={async text => {
-                setSearchKey(text);
-                //   await fetchAllUsers({
-                // 	s: text,
-                // 	sort: sorting,
-                // 	expertise_areas: category,
-                //   });
-              }}
+              value={search}
+              onChangeText={text => searchFilterFunction(text)}
             />
           </View>
           <View style={{paddingLeft: 20, paddingRight: 20}}>
@@ -186,7 +181,7 @@ const LibraryDetail = props => {
           )}
           <FlatList
             showsHorizontalScrollIndicator={false}
-            data={libraryDetails}
+            data={filteredDataSource}
             renderItem={_renderContent}
           />
           <View style={{marginTop: 10}}>
