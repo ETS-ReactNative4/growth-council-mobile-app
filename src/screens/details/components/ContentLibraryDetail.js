@@ -23,8 +23,7 @@ import {Colors, CommonStyles} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Searchbar} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
-import VideoPLayer from 'react-native-video-player';
-import Video from 'react-native-video';
+import WebView from 'react-native-autoheight-webview';
 
 const ContentLibraryDetail = props => {
   const {
@@ -44,7 +43,7 @@ const ContentLibraryDetail = props => {
     fetchContentLibraryDetailAsync();
   }, []);
 
-  console.log(route.params.id);
+  console.log(contentLibraryDetails.video_url);
 
   const [isTrue, setIsTrue] = useState(true);
   const [searchText, setSearchText] = useState('');
@@ -198,19 +197,21 @@ const ContentLibraryDetail = props => {
               source={require('../../../assets/img/image.png')}
               style={styles.contentImage}
             /> */}
-            {contentLibraryDetails?.video_url !== null && (
-              <VideoPLayer
-                video={{uri: contentLibraryDetails?.video_url}}
-                videoWidth={1600}
-                videoHeight={900}
-                styles={{borderBottomWidth: 2}}
-              />
-            )}
-            {/* <VideoPLayer
-              video={contentLibraryDetails?.video_url}
-              style={{width: '100%', height: 200}}
-              controls={true}
-            /> */}
+            <WebView
+              style={{width: '100%', height: 205, borderRadius: 10}}
+              allowsFullscreenVideo
+              scrollEnabled={false}
+              automaticallyAdjustContentInsets
+              source={{
+                html: `
+          <html>
+            <body>
+              ${contentLibraryDetails?.video_url}
+            </body>
+          </html>
+        `,
+              }}
+            />
           </View>
 
           <View style={styles.sectionContainerBorder}>
