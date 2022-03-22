@@ -19,7 +19,14 @@ import {
   resetCommunityMember,
 } from './slice/communityMemberSlice';
 
-import { fetchAllLatestContent, resetLatestContent } from './slice/latestContentSlice';
+import {
+  fetchAllLatestContent,
+  resetLatestContent,
+} from './slice/latestContentSlice';
+import {
+  fetchAllCriticalIssue,
+  resetCriticalIssue,
+} from '../criticalIssue/slice/criticalIssueSlice';
 
 const DashboardScreen = props => {
   const dispatch = useDispatch();
@@ -36,8 +43,12 @@ const DashboardScreen = props => {
   const {communityMembers, communityMemberLoading, communityMemberError} =
     useSelector(state => state.communityMembers);
 
-	const {latestContent, latestContentLoading, latestContentError} =
-    useSelector(state => state.latestContent);
+  const {latestContent, latestContentLoading, latestContentError} = useSelector(
+    state => state.latestContent,
+  );
+  const {criticalIssue, criticalIssueLoading, criticalIssueError} = useSelector(
+    state => state.criticalIssue,
+  );
 
   useEffect(() => {
     let content = pillarSliders?.flatMap((value, key) => {
@@ -45,8 +56,6 @@ const DashboardScreen = props => {
     });
     setContentSlider(content);
   }, [pillarSliders]);
-
-
 
   const fetchAllUpcomingEvent = () => {
     dispatch(fetchAllUpcomingEvents());
@@ -63,7 +72,6 @@ const DashboardScreen = props => {
   const fetchAllPillarSlider = () => {
     dispatch(fetchAllPillarSliders());
   };
-
 
   const cleanUpcomingEvent = () => {
     dispatch(resetUpcomingEvent());
@@ -87,6 +95,15 @@ const DashboardScreen = props => {
     dispatch(resetLatestContent());
   };
 
+  const fetchCritcalIssue = () => {
+    dispatch(fetchAllCriticalIssue());
+  };
+
+  const cleanCriticalIssue = () => {
+    dispatch(resetCriticalIssue());
+  };
+
+
   return (
     <Dashboard
       {...props}
@@ -95,16 +112,19 @@ const DashboardScreen = props => {
       upcomingEventError={upcomingEventError}
       fetchAllUpcomingEvent={fetchAllUpcomingEvent}
       cleanUpcomingEvent={cleanUpcomingEvent}
+	  
       poes={poes}
       poeLoading={poeLoading}
       poeError={poeError}
       fetchAllPOE={fetchAllPOE}
       cleanPOE={cleanPOE}
+
       communityMembers={communityMembers}
       communityMemberLoading={communityMemberLoading}
       communityMemberError={communityMemberError}
       fetchAllCommunityMember={fetchAllCommunityMember}
       cleanCommunityMember={cleanCommunityMember}
+
       pillarSliders={pillarSliders}
       pillarSliderLoading={pillarSliderLoading}
       pillarSliderError={pillarSliderError}
@@ -112,11 +132,17 @@ const DashboardScreen = props => {
       cleanPillarSlider={cleanPillarSlider}
       contentSlider={contentSlider}
 
-	  latestContent={latestContent}
+      latestContent={latestContent}
       latestContentLoading={latestContentLoading}
       latestContentError={latestContentError}
       fetchLatestContent={fetchLatestContent}
       cleanLatestContent={cleanLatestContent}
+
+	  criticalIssue={criticalIssue}
+      criticalIssueLoading={criticalIssueLoading}
+      criticalIssueError={criticalIssueError}
+      fetchCritcalIssue={fetchCritcalIssue}
+      cleanCriticalIssue={cleanCriticalIssue}
     />
   );
 };

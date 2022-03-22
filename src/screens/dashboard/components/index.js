@@ -64,6 +64,11 @@ const Dashboard = props => {
     latestContentError,
     fetchLatestContent,
     cleanLatestContent,
+	criticalIssue,
+    criticalIssueLoading,
+    criticalIssueError,
+    fetchCritcalIssue,
+    cleanCriticalIssue,
   } = props;
 
   const isFocused = useIsFocused();
@@ -112,6 +117,9 @@ const Dashboard = props => {
     fetchLatestContentAsync();
   }, []);
 
+  useEffect(() => {
+    fetchCritcalIssue();
+  }, []);
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -314,33 +322,7 @@ const Dashboard = props => {
   //     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   //   };
 
-  const issue = [
-    {
-      image: require('../../../assets/img/geographi.png'),
-      text: 'Strategic Planning for 2030 and Beyond',
-    },
-    {
-      image: require('../../../assets/img/Sel-Serve-Icon.png'),
-      text: 'The War for Talent',
-    },
-    {
-      image: require('../../../assets/img/business-process-outsourcing.png'),
-      text: 'Integrating New Disruptive Technologies into Your Innovation Portfolio',
-    },
-    {
-      image: require('../../../assets/img/Research-frost.png'),
-      text: 'Go-To-Market Strategy',
-    },
-    {
-      image: require('../../../assets/img/discussion-guides.png'),
-      text: 'Integrating New Disruptive Technologies into Your Innovation Portfolio',
-    },
-    {
-      image: require('../../../assets/img/data-insights.png'),
-      text: 'Go-To-Market Strategy',
-    },
-  ];
-
+  
   const _renderCritical = ({item, index}) => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('CriticalIssue')}>
@@ -357,7 +339,7 @@ const Dashboard = props => {
               alignItems: 'center',
             }}>
             <View style={[styles.criticalW, styles.shadowCritical]}>
-              <Image source={item?.image} style={{width: 38, height: 38}} />
+              <Image source={{uri: item?.icon}} style={{width: 38, height: 38}} />
             </View>
             <Text
               style={{
@@ -366,7 +348,7 @@ const Dashboard = props => {
                 paddingLeft: 10,
                 paddingRight: 10,
               }}>
-              {item.text}
+              {item?.heading}
             </Text>
           </View>
         </View>
@@ -462,7 +444,7 @@ const Dashboard = props => {
                 flexWrap: 'wrap',
               }}
               showsHorizontalScrollIndicator={false}
-              data={issue}
+              data={criticalIssue?.critical_issue_mobile_lists}
               renderItem={_renderCritical}
             />
           </View>

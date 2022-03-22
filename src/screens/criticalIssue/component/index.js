@@ -12,12 +12,12 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-import {Searchbar} from 'react-native-paper';
 import {Colors, Typography} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
+import {BubblesLoader} from 'react-native-indicator';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 const CriticalIssue = props => {
@@ -35,7 +35,7 @@ const CriticalIssue = props => {
   }, []);
 
   console.log({criticalIssue});
-  const _renderContent = ({item, index}) => {
+  const _renderCritical = ({item, index}) => {
     return (
       <View style={styles.content}>
         <Image
@@ -48,13 +48,13 @@ const CriticalIssue = props => {
         />
         <View style={styles.contentWrapper}>
           <Text style={{color: 'black', fontSize: 14, marginBottom: 10}}>
-            {item.heading}
+            {item?.heading}
           </Text>
           {item?.areas_of_focus?.map(items => (
             <View
               style={{
                 marginBottom: 10,
-
+                paddingRight: 20,
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
@@ -96,10 +96,15 @@ const CriticalIssue = props => {
             {criticalIssue?.critical_issue_mobile_description}
           </Text>
         </View>
+		{criticalIssueLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
         <FlatList
           showsVerticalScrollIndicator={false}
           data={criticalIssue?.critical_issue_mobile_lists}
-          renderItem={_renderContent}
+          renderItem={_renderCritical}
         />
         <View style={{marginTop: 10}}>
           <Footer />
@@ -151,6 +156,16 @@ const styles = StyleSheet.create({
     height: 5,
     width: 50,
     backgroundColor: 'rgba(24,56,99,1)',
+  },
+  loading1: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 export default CriticalIssue;
