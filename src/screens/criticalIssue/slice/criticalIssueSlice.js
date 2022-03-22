@@ -5,7 +5,7 @@ import {fetch} from '../../../utils/httpUtil';
 export const fetchAllCriticalIssue = createAsyncThunk(
   'criticalIssue/fetchAll',
   (_, {rejectWithValue}) => {
-    return fetch(``)
+    return fetch(`jwt-auth/v1/page/critical_issues`)
       .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },

@@ -50,7 +50,6 @@ const ContentLibraryDetail = props => {
   const handleFeedbackChange = value => {
     setIsTrue(value);
   };
-
   const _renderItem = ({item, index}) => {
     const source = {uri: item?.file?.url, cache: true};
 
@@ -304,7 +303,6 @@ const ContentLibraryDetail = props => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
@@ -455,5 +453,4 @@ const styles = StyleSheet.create({
     zIndex: 1011,
   },
 });
-
 export default ContentLibraryDetail;

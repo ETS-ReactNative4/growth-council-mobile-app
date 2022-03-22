@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Platform,
   Text,
@@ -18,69 +18,59 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const CriticalIssue = props => {
-  const {navigation} = props;
+  const {
+    navigation,
+    criticalIssue,
+    criticalIssueLoading,
+    criticalIssueError,
+    fetchCritcalIssue,
+    cleanCriticalIssue,
+  } = props;
 
-  const Data = [
-    {
-      image: require('../../../assets/img/Critical.png'),
-      title: 'Strategic Planning for 2030 and Beyond',
-      description:
-        'Curating the strategic roadmap \n \n Pivoting in response to changing external factors \n \n Aligning the organization for your top competitive priorities',
-    },
-    {
-      image: require('../../../assets/img/Critical.png'),
-      title: 'The War for Talent',
-      description:
-        'Curating the strategic roadmap \n \n Pivoting in response to changing external factors \n \n Aligning the organization for your top competitive priorities',
-    },
-    {
-      image: require('../../../assets/img/Critical.png'),
-      title:
-        'Integrating New Disruptive Technologies into Your Innovation Portfolio',
-      description:
-        'Curating the strategic roadmap \n \n Pivoting in response to changing external factors \n \n Aligning the organization for your top competitive priorities',
-    },
-    {
-      image: require('../../../assets/img/Critical.png'),
-      title: 'Go-To-Market Strategy',
-      description:
-        'Curating the strategic roadmap \n \n Pivoting in response to changing external factors \n \n Aligning the organization for your top competitive priorities',
-    },
+  useEffect(() => {
+    fetchCritcalIssue();
+  }, []);
 
-    {
-      image: require('../../../assets/img/Critical.png'),
-      title: 'Go-To-Market Strategy',
-      description:
-        'Curating the strategic roadmap.\n \n Pivoting in response to changing external factors.\n \n Aligning the organization for your top competitive priorities',
-    },
-  ];
-
+  console.log({criticalIssue});
   const _renderContent = ({item, index}) => {
     return (
       <View style={styles.content}>
         <Image
           style={{
             width: Dimensions.get('window').width - 40,
-            height: 100,
+            height: 120,
             borderRadius: 8,
           }}
-          source={item?.image}
+          source={{uri: item?.image}}
         />
         <View style={styles.contentWrapper}>
-          <Text style={{color: 'black', fontSize: 14}}>{item.title}</Text>
-          <HTMLView
-            value={item.description}
-            textComponentProps={{
-              style: {
-                fontSize: 10,
-                color: 'black',
-                marginLeft: 10,
-                marginTop: 10,
-              },
-            }}
-          />
+          <Text style={{color: 'black', fontSize: 14, marginBottom: 10}}>
+            {item.heading}
+          </Text>
+          {item?.areas_of_focus?.map(items => (
+            <View
+              style={{
+                marginBottom: 10,
+
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Entypo name="dot-single" size={20} color="black" />
+
+              <HTMLView
+                value={items.point}
+                textComponentProps={{
+                  style: {
+                    fontSize: 10,
+                    color: 'black',
+                  },
+                }}
+              />
+            </View>
+          ))}
         </View>
       </View>
     );
@@ -97,20 +87,18 @@ const CriticalIssue = props => {
               paddingBottom: 30,
               fontWeight: '600',
             }}>
-            2022 Critical Issue
+            {criticalIssue?.critical_issue_mobile_title}
           </Text>
 
           <View style={styles.titleBorder} />
 
           <Text style={styles.titleText}>
-            Council members vote each year to determine which industry
-            challenges, or critical issues, will be the Council’s focus for the
-            year ahead.
+            {criticalIssue?.critical_issue_mobile_description}
           </Text>
         </View>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={Data}
+          data={criticalIssue?.critical_issue_mobile_lists}
           renderItem={_renderContent}
         />
         <View style={{marginTop: 10}}>
