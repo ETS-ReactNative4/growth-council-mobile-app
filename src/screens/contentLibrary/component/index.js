@@ -64,9 +64,6 @@ const Content = props => {
   };
 
   const _renderContent = ({item, index}) => {
-    const image = {
-      uri: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fnature%2F&psig=AOvVaw3ILwJCfxWwyIok-Hm2376h&ust=1647968487042000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiI4ZTX1_YCFQAAAAAdAAAAABAD',
-    };
     return (
       <TouchableOpacity
         onPress={() =>
@@ -141,11 +138,13 @@ const Content = props => {
               onChangeText={text => searchFilterFunction(text)}
             />
           </View>
-          <View style={{paddingLeft: 20, paddingRight: 20}}>
-            <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
-              Content Library
-            </Text>
-            <View style={{borderWidth: 0.2}} />
+          <View
+            style={{
+              borderBottomWidth: 0.3,
+              marginHorizontal: 20,
+              paddingBottom: 10,
+            }}>
+            <Text style={{fontSize: 9, color: '#14A2E2'}}>Content Library</Text>
           </View>
         </View>
 
@@ -153,8 +152,7 @@ const Content = props => {
           contentContainerStyle={{
             flexGrow: 1,
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-            paddingLeft: 20,
-            paddingRight: 20,
+            marginHorizontal: 20,
             paddingBottom: 20,
           }}>
           {contentLoading && (

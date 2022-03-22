@@ -98,10 +98,9 @@ const LibraryDetail = props => {
                   padding: 10,
                   alignItems: 'center',
                 }}>
-                {item?.video_url === null && (
+                {item?.video_url === null ? (
                   <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-                )}
-                {item?.video_url !== null && (
+                ) : (
                   <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
                 )}
                 <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
@@ -141,38 +140,40 @@ const LibraryDetail = props => {
               onChangeText={text => searchFilterFunction(text)}
             />
           </View>
-          <View style={{paddingLeft: 20, paddingRight: 20}}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{fontSize: 9}}>Content Library</Text>
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={15}
-                  color="#B2B3B9"
-                />
-              </View>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={15}
-                  color="#B2B3B9"
-                />
-              </View>
-              <View
-                style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <Text
-                  style={{
-                    marginTop: 9,
-                    fontSize: 9,
-                    color: '#14A2E2',
-                  }}>
-                  {route.params.itemname}
-                </Text>
-              </View>
-            </View>
 
-            <View style={{borderWidth: 0.2}} />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderBottomWidth: 0.3,
+              marginHorizontal: 20,
+              paddingBottom: 10,
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{fontSize: 9}}>Content Library</Text>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={15}
+                color="#B2B3B9"
+              />
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={15}
+                color="#B2B3B9"
+              />
+            </View>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <Text
+                style={{
+                  fontSize: 9,
+                  color: '#14A2E2',
+                }}>
+                {route.params.itemname}
+              </Text>
+            </View>
           </View>
         </View>
 

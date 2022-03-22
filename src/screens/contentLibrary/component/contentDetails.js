@@ -138,22 +138,26 @@ const ContentLibrary = props => {
               onChangeText={text => searchFilterFunction(text)}
             />
           </View>
-          <View style={{paddingLeft: 20, paddingRight: 20}}>
+          <View style={{borderBottomWidth: 0.3,marginHorizontal: 20,
+    paddingBottom: 10,}}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 9, marginBottom: 10}}>
-                Content Library
-              </Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={15}
-                color="#B2B3B9"
-              />
-              <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
-                {breadcrumbName}
-              </Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 9,}}>
+                  Content Library
+                </Text>
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={15}
+                  color="#B2B3B9"
+                />
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 9, color: '#14A2E2'}}>
+                  {breadcrumbName}
+                </Text>
+              </View>
             </View>
-
-            <View style={{borderWidth: 0.2}} />
+            
           </View>
         </View>
 

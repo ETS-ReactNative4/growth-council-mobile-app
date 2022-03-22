@@ -112,7 +112,6 @@ const Dashboard = props => {
     fetchLatestContentAsync();
   }, []);
 
-
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -210,10 +209,9 @@ const Dashboard = props => {
             />
           </View>
           <View style={styles.middleW}>
-            {item?.video_url === null && (
+            {item?.video_url === null ? (
               <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-            )}
-            {item?.video_url !== null && (
+            ) : (
               <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
             )}
             <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
