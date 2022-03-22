@@ -223,49 +223,50 @@ const Event = props => {
                     </View>
                   )}
                 </View>
-                {events?.location?.location_city !== undefined && (
-                  <View
-                    style={{
-                      flex: 1,
-                      paddingTop: 20,
-                      flexDirection: 'row',
-                    }}>
+                {events?.location?.location_city !== undefined &&
+                  events?.location?.location_address !== '' && (
                     <View
-                      style={[
-                        styles.infoicon,
-                        {backgroundColor: backgroundColor},
-                      ]}>
-                      <Ionicons
-                        name={'location-outline'}
-                        size={25}
-                        color={'white'}
-                      />
-                    </View>
-
-                    {!isEventLoaded && (
+                      style={{
+                        flex: 1,
+                        paddingTop: 20,
+                        flexDirection: 'row',
+                      }}>
                       <View
-                        style={{
-                          flex: 5,
-                          paddingLeft: 10,
-                        }}>
-                        <Text style={styles.eventLocationDetails}>
-                          {events?.location?.location_city}{' '}
-                          {events?.location?.location_country}
-                        </Text>
-                        <Text>{events?.location?.location_address}</Text>
-                      </View>
-                    )}
-
-                    {eventLoading && (
-                      <View style={styles.loading1}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
+                        style={[
+                          styles.infoicon,
+                          {backgroundColor: backgroundColor},
+                        ]}>
+                        <Ionicons
+                          name={'location-outline'}
+                          size={25}
+                          color={'white'}
                         />
                       </View>
-                    )}
-                  </View>
-                )}
+
+                      {!isEventLoaded && (
+                        <View
+                          style={{
+                            flex: 5,
+                            paddingLeft: 10,
+                          }}>
+                          <Text style={styles.eventLocationDetails}>
+                            {events?.location?.location_city}{' '}
+                            {events?.location?.location_country}
+                          </Text>
+                          <Text>{events?.location?.location_address}</Text>
+                        </View>
+                      )}
+
+                      {eventLoading && (
+                        <View style={styles.loading1}>
+                          <BubblesLoader
+                            color={Colors.SECONDARY_TEXT_COLOR}
+                            size={80}
+                          />
+                        </View>
+                      )}
+                    </View>
+                  )}
               </View>
               <View style={styles.seperationline} />
 

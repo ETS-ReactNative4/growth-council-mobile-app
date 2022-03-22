@@ -26,7 +26,6 @@ const Content = props => {
     content,
     contentLoading,
     contentError,
-
     cleanContent,
 
     searchContent,
@@ -43,11 +42,7 @@ const Content = props => {
   }, [content]);
 
   const searchFilterFunction = text => {
-    // Check if searched text is not blank
     if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
       const newData = content?.filter(function (item) {
         const itemData = item.name ? item.name.toLowerCase() : ''.toLowerCase();
         const textData = text.toLowerCase();
@@ -56,8 +51,6 @@ const Content = props => {
       setFilteredDataSource(newData);
       setSearch(text);
     } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
       setFilteredDataSource(content);
       setSearch(text);
     }
@@ -193,7 +186,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 20,
     backgroundColor: '#F5F5F5',
-	
   },
   content: {
     width: '98%',
