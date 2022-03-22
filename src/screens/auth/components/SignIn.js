@@ -90,24 +90,22 @@ const SignInForm = props => {
             <View style={styles.content}>
               <View style={styles.header}>
                 <Image
-                   style={{width: '80%'}}
-				   source={require('../../../assets/img/GILCouncil.jpg')}
-				   resizeMode="contain"
+                  style={{width: '80%'}}
+                  source={require('../../../assets/img/GILCouncil.jpg')}
+                  resizeMode="contain"
                 />
               </View>
-              <View style={{marginTop:10}}>
-                  <Text style={styles.headingText1}>
-                    Growth Innovation
-                    {'\n'}
-                    Leadership Council
-                  </Text>
-                  <Text>
-                    {'\n'}
-                    Login to your account below.
-                  </Text>
-                </View>
-
-              
+              <View style={{marginTop: 10}}>
+                <Text style={styles.headingText1}>
+                  Growth Innovation
+                  {'\n'}
+                  Leadership Council
+                </Text>
+                <Text>
+                  {'\n'}
+                  Login to your account below.
+                </Text>
+              </View>
 
               <View style={styles.body}>
                 {loading && (
@@ -152,7 +150,11 @@ const SignInForm = props => {
                 <Ionicons
                   name={!hidePass ? 'eye-outline' : 'eye-off-outline'}
                   size={22}
-                  color={!hidePass ? Colors.PRIMARY_BACKGROUND_ICON_COLOR: Colors.PRIMARY_HEADING_COLOR}
+                  color={
+                    !hidePass
+                      ? Colors.PRIMARY_BACKGROUND_ICON_COLOR
+                      : Colors.PRIMARY_HEADING_COLOR
+                  }
                   onPress={() => setHidePass(!hidePass)}
                   style={{
                     position: 'absolute',
@@ -217,7 +219,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
   },
   header: {
-    marginTop: Platform.OS === 'ios' ? 20 : 20
+    marginTop: Platform.OS === 'ios' ? 20 : 20,
   },
   body: {
     width: '90%',

@@ -49,7 +49,7 @@ const SubHeader = props => {
               <IonIcon name="menu-outline" color={'white'} size={30} />
             </TouchableOpacity>
           )}
-          <TouchableOpacity onPress={() => props.navigation.navigate('About')}>
+          {/* <TouchableOpacity onPress={() => props.navigation.navigate('About')}>
             <Image
               source={require('../../assets/img/GILCouncillog.png')}
               style={{
@@ -58,12 +58,12 @@ const SubHeader = props => {
                 marginLeft: 5,
               }}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Text
             style={{
               marginLeft: 10,
               fontFamily: 'SFProText-Medium',
-              fontSize: 16,
+              fontSize: 21,
               color: 'white',
             }}>
             {props.title}

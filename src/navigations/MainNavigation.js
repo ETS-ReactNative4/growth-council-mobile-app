@@ -20,6 +20,10 @@ import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
+import ContentLibraryScreen from '../screens/contentLibrary/contentLibrary';
+import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
+import CriticalIssueScreen from '../screens/criticalIssue/index';
+import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
 
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
@@ -35,12 +39,14 @@ import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
 import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
+import ContentScreen from '../screens/contentLibrary';
 
 import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
@@ -198,7 +204,7 @@ const MainNavigation = () => {
           }}
         />
         <Stack.Screen
-          name="radar"
+          name="FrostRadar"
           component={FrostRadarScreen}
           options={{
             headerLeft: () => null,
@@ -249,6 +255,20 @@ const MainNavigation = () => {
             ),
           })}
         />
+        {/* <Stack.Screen
+          name="contentLibrary"
+          component={ContentScreen}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="content Library"
+                image={require('../assets/img/Rectangle.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        /> */}
         <Stack.Screen
           name="pdf"
           component={PDFDetailScreen}
@@ -309,6 +329,65 @@ const MainNavigation = () => {
               />
             ),
           })}
+        />
+        <Stack.Screen
+          name="ContentDetail"
+          component={ContentLibraryScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="LibraryDetail"
+          component={LibraryDetailScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
+          options={({route, navigation}) => ({
+            id: route?.params?.id,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+		<Stack.Screen
+          name="CriticalIssue"
+          component={CriticalIssueScreen}
+       	 options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Critical Issue"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+			  noDrawer
+            />
+          ),
+        })}
         />
         <Stack.Screen
           name="ContactUs"
@@ -473,6 +552,12 @@ const MainNavigation = () => {
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Radar"
+          component={RadarScreen}
           options={{headerShown: false}}
         />
       </Stack.Group>

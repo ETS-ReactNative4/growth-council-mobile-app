@@ -445,7 +445,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   registeredButton: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

@@ -99,11 +99,12 @@ const SelfAssessment = props => {
       y: 0,
       animated: true,
     });
+    
     if (
       index.traitIndex === traitLength - 1 &&
       index.subTraitIndex === subTraitLength - 1
     ) {
-      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, score)
+      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, {score, completedStatus: true})
         .then(response => {
           if (response?.data?.code === 200) {
             ToastMessage.show(
@@ -129,9 +130,28 @@ const SelfAssessment = props => {
     } else if (index.subTraitIndex === subTraitLength - 1) {
       setIndex({...index, subTraitIndex: 0, traitIndex: index.traitIndex + 1});
       onFabPress();
+      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, {score, completedStatus: false})
+        .then(response => {
+          toast.closeAll();
+          ToastMessage.show(response?.payload?.response);
+        })
+        .catch(error => {
+          toast.closeAll();
+          ToastMessage.show('Something is wrong, please contact admin.');
+        });
     } else {
       setIndex({...index, subTraitIndex: index.subTraitIndex + 1});
+      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, {score, completedStatus: false})
+        .then(response => {
+          toast.closeAll();
+          ToastMessage.show(response?.payload?.response);
+        })
+        .catch(error => {
+          toast.closeAll();
+          ToastMessage.show('Something is wrong, please contact admin.');
+        });
     }
+    
   };
   const handlePreviousButtonClick = () => {
     scrollRef.current?.scrollTo({

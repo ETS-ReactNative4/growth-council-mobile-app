@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   ImageBackground,
+  SafeAreaView,
 } from 'react-native';
 import {Button} from 'native-base';
 import HTMLView from 'react-native-htmlview';
@@ -102,8 +103,6 @@ const styles = StyleSheet.create({
   },
   acceptButton: {
     borderRadius: 10,
-    marginTop: 5,
-    width: '45%',
     height: 50,
     backgroundColor: '#183863',
     marginTop: 10,

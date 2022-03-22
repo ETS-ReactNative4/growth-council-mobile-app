@@ -34,7 +34,7 @@ const Profile = props => {
 
   const win = Dimensions.get('window');
 
-  const [value, setValue] = useState('My Sessions');
+  const [value, setValue] = useState('About Us');
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -74,21 +74,11 @@ const Profile = props => {
                 marginTop: 10,
                 marginRight: 10,
               }}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('ManageAccount')}>
-                <Font
-                  name={'edit'}
-                  size={20}
-                  color="#C4C8CC"
-                  style={{marginTop: 5, marginLeft: 5}}
-                />
-              </TouchableOpacity>
-
               <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                 <Ionicon
                   name={'settings-outline'}
                   size={24}
-                  color="#C4C8CC"
+                  color="#A0A8B0"
                   style={{marginTop: 10, marginLeft: 5}}
                 />
               </TouchableOpacity>
@@ -120,14 +110,26 @@ const Profile = props => {
                     highlightTextColor={'#0B0B45'}
                     inactiveBackgroundColor={'transparent'}
                     inactiveTextColor={'grey'}
-                    values={['My Sessions', 'My Events']}
+                    values={['About Us', 'My Point of Engagement']}
                     value={value}
                     onSelect={val => setValue(val)}
                     style={{
+                      flex: 0,
                       height: 40,
                       marginTop: 5,
-                      width: '90%',
-                      marginLeft: 10,
+                      width: '96%',
+                      marginLeft: 4,
+                      borderRadius: 20,
+
+                      alignContent: 'center',
+                    }}
+                    textStyle={{
+                      paddingHorizontal: 0,
+                      paddingLeft: 5,
+                      fontSize: 13,
+                      width: '100%',
+
+                      alignContent: 'center',
                     }}
                   />
                 </View>
@@ -150,9 +152,9 @@ const Profile = props => {
                     </View>
                   </>
                 )}
-                {value === 'My Events' && <MyEvent {...props} />}
+                {value === 'My Point of Engagement' && <MyEvent {...props} />}
 
-                {value === 'My Sessions' && <MySession {...props} />}
+                {value === 'About Us' && <MySession {...props} />}
               </View>
             </View>
           </View>

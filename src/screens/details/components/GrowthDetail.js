@@ -9,6 +9,7 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -19,6 +20,8 @@ import Player from '../../dashboard/components/Player';
 import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import {WebView} from 'react-native-webview';
+import {Button} from 'native-base';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -55,6 +58,7 @@ const GrowthDetail = props => {
 
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
+  const [showChartButton, setShowChartButton] = useState(true);
 
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
@@ -95,21 +99,14 @@ const GrowthDetail = props => {
     setMemberConnection(pillarMemberContents);
   }, [pillarMemberContents]);
 
-  const connectMemberByMemberID = async (memberID, index) => {
-    const response = await connectMemberByIdentifier({member_id: memberID});
-    if (response?.payload?.code === 200) {
-      let items = [...memberConnection];
-      let item = {...items[index]};
-      item.connection = true;
-      items[index] = item;
-      setMemberConnection(items);
-      ToastMessage.show('You have successfully connected.');
-    } else {
-      toast.closeAll();
-      ToastMessage.show(response?.payload?.response);
-    }
-    console.log(response);
-  };
+  // useEffect(()=>{
+  //   for(let value of coachingSession){
+  //     if(!value?.completed_status){
+  //       setShowChartButton(false);
+  //       break;
+  //     }
+  //   };
+  // },[coachingSession]);
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -159,7 +156,7 @@ const GrowthDetail = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-   
+
     return (
       <View style={styles.topWrapper}>
         <ImageBackground
@@ -241,15 +238,11 @@ const GrowthDetail = props => {
   };
 
   const _renderContentItem = ({item, index}) => {
+    console.log(item?.file);
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    return(
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   const _renderLearnItem = ({item, index}) => {
@@ -420,20 +413,37 @@ const GrowthDetail = props => {
               </View>
             </View>
 
-            <View style={styles.bottom}>
-              <Text style={styles.title}> Members</Text>
-              <View>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents.members}
-                  renderItem={item => _renderItem(item, navigation)}
-                />
+            {pillarMemberContents.members && (
+              <View style={styles.bottom}>
+                <Text style={styles.title}>Members</Text>
+                <View>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents.members}
+                    renderItem={item => _renderItem(item, navigation)}
+                  />
+                </View>
               </View>
-            </View>
+            )}
+
+            {showChartButton && (
+              <View style={styles.bottom}>
+                <Text style={styles.title}>Radar</Text>
+                <View style={styles.buttonWrapper}>
+                  <Button
+                    style={[styles.button, {marginLeft: 15}]}
+                    onPress={() => {
+                      navigation.navigate('Radar');
+                    }}>
+                    <Text style={styles.buttonText}>View chart</Text>
+                  </Button>
+                </View>
+              </View>
+            )}
 
             <View style={styles.growthContent}>
-              <Text style={styles.title}> Growth Coaching Content</Text>
+              <Text style={styles.title}>Growth Coaching Content</Text>
               <View
                 style={{
                   display: 'flex',
@@ -477,9 +487,10 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   title: {
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily: Typography.FONT_SF_REGULAR,
     color: Colors.PRIMARY_TEXT_COLOR,
+    fontWeight: '650',
     marginLeft: 15,
   },
 
@@ -528,7 +539,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     borderRadius: 14,
     borderWidth: 1.3,
-	borderColor:"#9EBD6D"
+    borderColor: '#9EBD6D',
   },
   learn: {
     height: 140,
@@ -544,7 +555,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.3,
     display: 'flex',
     flexDirection: 'row',
-	borderColor:"#9EBD6D"
+    borderColor: '#9EBD6D',
   },
   radar: {
     height: 350,
@@ -618,5 +629,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  buttonWrapper: {
+    ...CommonStyles.buttonWrapper,
+    alignItems: 'flex-start',
+    marginTop: 10,
+  },
+  button: {
+    ...CommonStyles.button,
+    height: 40,
+    marginBottom: 15,
+    borderRadius: 10,
+    width: '50%',
+  },
+  buttonText: {
+    ...CommonStyles.buttonText,
   },
 });

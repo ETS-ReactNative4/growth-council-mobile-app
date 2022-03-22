@@ -77,6 +77,15 @@ import poeSelfLearnReducer from '../screens/selfLearn/slice/poeSelfLearnSlice';
 import selfLearnTraitReducer from '../screens/selfLearn/slice/selfLearnTraitsSlice';
 import selfLearnReducer from '../screens/selfLearn/slice/selfLearnByIdSlice';
 
+import contentReducer from '../screens/contentLibrary/slice/contentSlice';
+import contentLibraryReducer from '../screens/contentLibrary/slice/contentLibrarySlice';
+import libraryDetailReducer from '../screens/contentLibrary/slice/libraryDetailSlice';
+import contentLibraryDetailsReducer from '../screens/details/slice/contentLibraryDetailSlice';
+import latestContentReducer from '../screens/dashboard/slice/latestContentSlice';
+import searchContentReducer from '../screens/contentLibrary/slice/searchContentSlice';
+
+import criticalIssueReducer from '../screens/criticalIssue/slice/criticalIssueSlice';
+
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
@@ -136,6 +145,13 @@ const reducers = combineReducers({
     poeSelfLearns: poeSelfLearnReducer,
     selfLearnTraits: selfLearnTraitReducer,
     selfLearns: selfLearnReducer,
+	content :contentReducer,
+	contentLibrary: contentLibraryReducer,
+	libraryDetails: libraryDetailReducer,
+	criticalIssue:criticalIssueReducer,
+	contentLibraryDetails:contentLibraryDetailsReducer,
+	latestContent: latestContentReducer,
+	searchContent: searchContentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
