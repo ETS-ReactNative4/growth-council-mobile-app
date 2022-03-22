@@ -146,7 +146,7 @@ const ContentLibraryDetail = props => {
         <View style={styles.breadcrumbContainer}>
           <View style={styles.singleBreadcrumb}>
             <Text style={styles.inactiveBreadcrumbText}>
-              Customer Experience Ecosystem
+              {route.params.itemname}
             </Text>
             <FeatherIcon name="chevron-right" size={10} color="#B2B3B9" />
           </View>
@@ -162,33 +162,35 @@ const ContentLibraryDetail = props => {
           showsVerticalScrollIndicator={false}
           style={{padding: 25}}
           contentContainerStyle={{paddingBottom: 90}}>
-          <View style={{marginBottom: 30}}>
-            {/* <Image
+          {contentLibraryDetails?.video_url !== null && (
+            <View style={{marginBottom: 30}}>
+              {/* <Image
               source={require('../../../assets/img/image.png')}
               style={styles.contentImage}
             /> */}
-            <WebView
-              style={{width: '100%', height: 205, borderRadius: 10}}
-              allowsFullscreenVideo
-              scrollEnabled={false}
-              ref={controlRef}
-              play={playing}
-              automaticallyAdjustContentInsets
-              source={{
-                html: `
+              <WebView
+                style={{width: '100%', height: 205, borderRadius: 10}}
+                allowsFullscreenVideo
+                scrollEnabled={false}
+                ref={controlRef}
+                play={playing}
+                automaticallyAdjustContentInsets
+                source={{
+                  html: `
           <html>
             <body>
               ${contentLibraryDetails?.video_url}
             </body>
           </html>
         `,
-              }}
-            />
-            {/* <Button
+                }}
+              />
+              {/* <Button
               title={playing ? 'pause' : 'play'}
               onPress={togglePlaying}
             /> */}
-          </View>
+            </View>
+          )}
 
           {/* <View style={styles.sectionContainerBorder}>
             <Text style={styles.bodyTitleText}>Presented By:</Text>

@@ -138,13 +138,15 @@ const ContentLibrary = props => {
               onChangeText={text => searchFilterFunction(text)}
             />
           </View>
-          <View style={{borderBottomWidth: 0.3,marginHorizontal: 20,
-    paddingBottom: 10,}}>
+          <View
+            style={{
+              borderBottomWidth: 0.3,
+              marginHorizontal: 20,
+              paddingBottom: 10,
+            }}>
             <View style={{flexDirection: 'row'}}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{fontSize: 9,}}>
-                  Content Library
-                </Text>
+                <Text style={{fontSize: 9}}>Content Library</Text>
                 <Ionicons
                   name="chevron-forward-outline"
                   size={15}
@@ -157,7 +159,6 @@ const ContentLibrary = props => {
                 </Text>
               </View>
             </View>
-            
           </View>
         </View>
 
@@ -209,6 +210,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     marginTop: 20,
+    marginBottom: 5,
     backgroundColor: 'white',
   },
   contentWrapper: {
