@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   StyleSheet,
   FlatList,
   PermissionsAndroid,
+  Button,
 } from 'react-native';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -44,8 +45,8 @@ const ContentLibraryDetail = props => {
   }, []);
 
   const [isTrue, setIsTrue] = useState(true);
-  const [searchText, setSearchText] = useState('');
-  const [searchKey, setSearchKey] = useState('');
+  const controlRef = useRef();
+  const [playing, setPlaying] = useState(false);
 
   const handleFeedbackChange = value => {
     setIsTrue(value);
@@ -131,41 +132,14 @@ const ContentLibraryDetail = props => {
       </View>
     );
   };
+
+  const togglePlaying = () => {
+    setPlaying(prev => !prev);
+  };
+
   return (
     <View style={styles.container}>
       {/* Header Section */}
-      {/* <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          marginTop: 20,
-          alignContent: 'center',
-          marginLeft: 10,
-        }}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="chevron-back-outline"
-            size={30}
-            color="#B2B3B9"
-            style={{marginTop: 5}}
-          />
-        </TouchableOpacity>
-
-        <Searchbar
-          style={styles.input}
-          placeholder="Search"
-          keyboardType="default"
-          value={searchKey}
-          onChangeText={async text => {
-            setSearchKey(text);
-            //   await fetchAllUsers({
-            // 	s: text,
-            // 	sort: sorting,
-            // 	expertise_areas: category,
-            //   });
-          }}
-        />
-      </View> */}
 
       <View style={styles.bodyContainer}>
         {/* Breadcrumb Section */}
@@ -197,6 +171,8 @@ const ContentLibraryDetail = props => {
               style={{width: '100%', height: 205, borderRadius: 10}}
               allowsFullscreenVideo
               scrollEnabled={false}
+              ref={controlRef}
+              play={playing}
               automaticallyAdjustContentInsets
               source={{
                 html: `
@@ -207,6 +183,10 @@ const ContentLibraryDetail = props => {
           </html>
         `,
               }}
+            />
+            <Button
+              title={playing ? 'pause' : 'play'}
+              onPress={togglePlaying}
             />
           </View>
 
