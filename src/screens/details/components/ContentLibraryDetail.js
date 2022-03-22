@@ -184,10 +184,10 @@ const ContentLibraryDetail = props => {
         `,
               }}
             />
-            <Button
+            {/* <Button
               title={playing ? 'pause' : 'play'}
               onPress={togglePlaying}
-            />
+            /> */}
           </View>
 
           {/* <View style={styles.sectionContainerBorder}>
