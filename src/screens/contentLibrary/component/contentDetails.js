@@ -16,68 +16,96 @@ import {Colors, Typography} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
+import HTMLView from 'react-native-htmlview';
+import {BubblesLoader} from 'react-native-indicator';
 
 const ContentLibrary = props => {
   const {
     navigation,
+    route,
     contentLibrary,
     contentLibraryLoading,
     contentLibraryError,
     fetchContentLibrary,
     cleanContentLibrary,
   } = props;
-  const [searchKey, setSearchKey] = useState('');
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState(contentLibrary);
 
-  useEffect(()=>{
-	  const fetchContentLibraryAsync = async()=>{
-		  await fetchContentLibrary();
-	  };
-	  fetchContentLibraryAsync()
-  },[]);
+  useEffect(() => {
+    fetchContentLibrary(route.params.resourceId);
+  }, []);
 
-  const Data = [
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'Customer Experience Ecosystem',
-      number: '1',
-    },
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'Growth Innovation Leadership',
-      number: '13',
-    },
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'Product Innovation & Development',
-      number: '20',
-    },
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'The Future of Innovation',
-      number: '17',
-    },
+  useEffect(() => {
+    setFilteredDataSource(contentLibrary);
+  }, [contentLibrary]);
 
-    {
-      image: require('../../../assets/img/library.png'),
-      text: 'Transformational Think Tanks',
-      number: '14',
-    },
-  ];
+  const breadcrumbName = route.params.resourcesName;
+  const resources = route.params.resourceId;
+
+  const searchFilterFunction = text => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = contentLibrary.filter(function (item) {
+        const itemData = item.name ? item.name.toLowerCase() : ''.toLowerCase();
+        const textData = text.toLowerCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(contentLibrary);
+      setSearch(text);
+    }
+  };
 
   const _renderContent = ({item, index}) => {
+    const itemname = item?.name;
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('LibraryDetail')}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('LibraryDetail', {
+            breadcrumbName,
+            resources,
+            itemname,
+          })
+        }>
         <View style={[styles.content, styles.shadowProp]}>
-          <ImageBackground
-            style={{width: '100%', height: 190, borderRadius: 16}}
-            source={item?.image}>
-            <View style={styles.contentWrapper}>
-              <Text>{item.number}</Text>
-            </View>
-            <View style={styles.wrapper}>
-              <Text style={{color: 'black', fontSize: 14}}>{item.text}</Text>
-            </View>
-          </ImageBackground>
+          {item?.image === null && (
+            <ImageBackground
+              style={{width: '100%', height: 190, borderRadius: 16}}
+              source={require('../../../assets/img/library.png')}>
+              <View style={styles.contentWrapper}>
+                <Text>{item?.count}</Text>
+              </View>
+              <View style={styles.wrapper}>
+                <HTMLView
+                  value={item?.name}
+                  style={{fontSize: 14, color: 'black'}}
+                />
+              </View>
+            </ImageBackground>
+          )}
+          {item?.image !== null && (
+            <ImageBackground
+              style={{width: '100%', height: 190, borderRadius: 16}}
+              source={item?.image}>
+              <View style={styles.contentWrapper}>
+                <Text>{item?.count}</Text>
+              </View>
+              <View style={styles.wrapper}>
+                <HTMLView
+                  value={item?.name}
+                  style={{fontSize: 14, color: 'black'}}
+                />
+              </View>
+            </ImageBackground>
+          )}
         </View>
       </TouchableOpacity>
     );
@@ -103,38 +131,33 @@ const ContentLibrary = props => {
                 style={{marginTop: 5}}
               />
             </TouchableOpacity>
-
             <Searchbar
               style={styles.input}
               placeholder="Search"
-              keyboardType="default"
-              value={searchKey}
-              onChangeText={async text => {
-                setSearchKey(text);
-                //   await fetchAllUsers({
-                // 	s: text,
-                // 	sort: sorting,
-                // 	expertise_areas: category,
-                //   });
-              }}
+              value={search}
+              onChangeText={text => searchFilterFunction(text)}
             />
           </View>
-          <View style={{paddingLeft: 20, paddingRight: 20}}>
+          <View style={{borderBottomWidth: 0.3,marginHorizontal: 20,
+    paddingBottom: 10,}}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 9, marginBottom: 10}}>
-                Content Library
-              </Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={15}
-                color="#B2B3B9"
-              />
-              <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
-                Executive MindXChange Events
-              </Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 9,}}>
+                  Content Library
+                </Text>
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={15}
+                  color="#B2B3B9"
+                />
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 9, color: '#14A2E2'}}>
+                  {breadcrumbName}
+                </Text>
+              </View>
             </View>
-
-            <View style={{borderWidth: 0.2}} />
+            
           </View>
         </View>
 
@@ -146,9 +169,14 @@ const ContentLibrary = props => {
             paddingRight: 20,
             paddingBottom: 20,
           }}>
+          {contentLibraryLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
           <FlatList
             showsHorizontalScrollIndicator={false}
-            data={Data}
+            data={filteredDataSource}
             renderItem={_renderContent}
           />
           <View style={{marginTop: 10}}>
@@ -181,8 +209,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     marginTop: 20,
-    // borderWidth: 0.3,
-    // backgroundColor: 'red',
+    backgroundColor: 'white',
   },
   contentWrapper: {
     width: 50,
@@ -218,6 +245,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  loading1: {
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
   },
 });
 export default ContentLibrary;

@@ -439,9 +439,7 @@ const SignUpForm = props => {
               <PhoneInput
                 ref={phoneInput}
                 defaultCode="IN"
-                layout="first"
-                withShadow
-                autoFocus
+                // layout="first"
                 containerStyle={styles.phoneNumberView}
                 textContainerStyle={{paddingVertical: 0}}
                 // onChangeFormattedText={text => {
@@ -704,7 +702,9 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 10,
     backgroundColor: 'white',
-    borderWidth: 0.3,
+    borderWidth: 0.4,
+    borderRadius: 4,
+    overflow: 'hidden'
   },
 });
 

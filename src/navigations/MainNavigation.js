@@ -23,6 +23,8 @@ import ContactUsScreen from '../screens/static/ContactUs';
 import ContentLibraryScreen from '../screens/contentLibrary/contentLibrary';
 import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
 import CriticalIssueScreen from '../screens/criticalIssue/index';
+import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
+
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
@@ -331,30 +333,47 @@ const MainNavigation = () => {
         <Stack.Screen
           name="ContentDetail"
           component={ContentLibraryScreen}
-       	 options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-			  noDrawer
-            />
-          ),
-        })}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
-		<Stack.Screen
+        <Stack.Screen
           name="LibraryDetail"
           component={LibraryDetailScreen}
-       	 options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-			  noDrawer
-            />
-          ),
-        })}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
+          options={({route, navigation}) => ({
+            id: route?.params?.id,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
 		<Stack.Screen
           name="CriticalIssue"

@@ -21,10 +21,10 @@ import Material from 'react-native-vector-icons/MaterialIcons';
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
-import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
+import HTMLView from 'react-native-htmlview';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -58,6 +58,12 @@ const Dashboard = props => {
     fetchAllPillarEvent,
     cleanPillarEvent,
     contentSlider,
+
+    latestContent,
+    latestContentLoading,
+    latestContentError,
+    fetchLatestContent,
+    cleanLatestContent,
   } = props;
 
   const isFocused = useIsFocused();
@@ -98,6 +104,13 @@ const Dashboard = props => {
   useEffect(() => {
     setMemberConnection(communityMembers);
   }, [communityMembers]);
+
+  useEffect(() => {
+    const fetchLatestContentAsync = async () => {
+      await fetchLatestContent();
+    };
+    fetchLatestContentAsync();
+  }, []);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -180,42 +193,44 @@ const Dashboard = props => {
   //       </TouchableOpacity>
   //     );
   //   };
-  const Data = [
-    {
-      id: 1,
-      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
-      text1:
-        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
-      date: '12/09/2022',
-    },
-    {
-      id: 2,
-      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
-      text1:
-        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
-      date: '12/09/2022',
-    },
-  ];
 
   const _renderContent = ({item, index}) => {
+    const date = moment(item?.post_modified).format('D/MM/yyyy');
     return (
       <View style={[styles.middleWrapper, styles.shadowContent]}>
         <View style={{flexDirection: 'row'}}>
           <View style={{width: '70%', margin: 10}}>
-            <Text style={{fontSize: 12, color: '#041C3E'}}>{item.text}</Text>
-            <Text style={{fontSize: 8, marginTop: 5}}>{item.text1}</Text>
+            <Text style={{fontSize: 12, color: '#041C3E'}}>
+              {item.post_title}
+            </Text>
+            <HTMLView
+              value={'<p>' + item?.post_excerpt + '</p>'}
+              stylesheet={webViewStyle}
+            />
           </View>
           <View style={styles.middleW}>
-            <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+            {item?.video_url === null ? (
+              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+            ) : (
+              <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+            )}
             <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
           </View>
         </View>
-        <View style={styles.middleWrap}>
-          <Text style={{color: 'white', fontSize: 10}}>View</Text>
-        </View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ContentLibraryDetail', {
+              id: item?.ID,
+              title: item?.post_title,
+            })
+          }>
+          <View style={styles.middleWrap}>
+            <Text style={{color: 'white', fontSize: 10}}>View</Text>
+          </View>
+        </TouchableOpacity>
 
         <View style={styles.contentTime}>
-          <Text style={{fontSize: 7}}>Published on: {item.date}</Text>
+          <Text style={{fontSize: 7}}>Published on: {date}</Text>
         </View>
       </View>
     );
@@ -359,7 +374,7 @@ const Dashboard = props => {
     );
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
       <StatusBar
         barStyle="light-content"
         hidden={true}
@@ -385,7 +400,7 @@ const Dashboard = props => {
             <Text style={styles.title}>Upcoming Events</Text>
           </View>
 
-          {upcomingEventLoading && (
+          {latestContentLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
@@ -412,7 +427,7 @@ const Dashboard = props => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={Data}
+            data={latestContent}
             renderItem={_renderContent}
           />
         </View>
@@ -456,7 +471,7 @@ const Dashboard = props => {
         <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -536,10 +551,10 @@ const styles = StyleSheet.create({
     width: 256,
     marginLeft: 15,
     marginTop: 20,
-	marginBottom:10,
+    marginBottom: 10,
     borderRadius: 16,
     overflow: 'hidden',
-	backgroundColor: 'white',
+    backgroundColor: 'white',
     marginRight: 5,
     // borderWidth: 0.3,
   },
@@ -628,8 +643,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  shadowContent:{
-	shadowColor: '#000',
+  shadowContent: {
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -658,5 +673,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-
+const webViewStyle = StyleSheet.create({
+  p: {fontSize: 8, color: 'black', marginTop: 5},
+});
 export default Dashboard;

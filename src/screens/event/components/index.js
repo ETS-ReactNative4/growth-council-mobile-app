@@ -314,7 +314,7 @@ const Event = props => {
                 {!isEventLoaded && (
                   <HTMLView
                     value={description}
-                    style={{fontSize: 14, color: '#77838F'}}
+                    style={{fontSize:14, color: '#77838F'}}
                   />
                 )}
               </View>

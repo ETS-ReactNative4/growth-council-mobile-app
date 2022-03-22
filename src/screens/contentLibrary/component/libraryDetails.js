@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Platform,
   Text,
@@ -16,68 +16,99 @@ import {Colors, Typography} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
+import HTMLView from 'react-native-htmlview';
+import {BubblesLoader} from 'react-native-indicator';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const LibraryDetail = props => {
   const {
     navigation,
+    route,
     libraryDetails,
     libraryDetailsLoading,
     libraryDetailsError,
     fetchLibraryDetail,
     cleanLibraryDetail,
   } = props;
-  const [searchKey, setSearchKey] = useState('');
+
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState(libraryDetails);
 
   useEffect(() => {
-    const fetchLibraryDetailAsync = async () => {
-      await fetchLibraryDetail();
-    };
-    fetchLibraryDetailAsync();
+    fetchLibraryDetail(route.params.resources);
   }, []);
 
-  const Data = [
-    {
-      id: 1,
-      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
-      text1:
-        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
-      date: '12/09/2022',
-    },
-    {
-      id: 2,
-      text: '2021: The Executive MindXchange Summary: Five Timely Take-Aways',
-      text1:
-        'An Executive MindXchange Summary of the 2021 Customer Experience Ecosystem: A Frost & Sullivan VIRTUAL Executive MindXchange',
-      date: '12/09/2022',
-    },
-  ];
+  useEffect(() => {
+    setFilteredDataSource(libraryDetails);
+  }, [libraryDetails]);
+
+  const searchFilterFunction = text => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = libraryDetails.filter(function (item) {
+        const itemData = item?.post_title
+          ? item?.post_title.toLowerCase()
+          : ''.toLowerCase();
+        const textData = text.toLowerCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(libraryDetails);
+      setSearch(text);
+    }
+  };
 
   const _renderContent = ({item, index}) => {
     return (
-      <View>
-        <View style={[styles.eventCard, styles.shadowProp]} key={index}>
-          <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
-          <View style={styles.eventDetails}>
-            <View style={styles.eventInfo}>
-              <Text style={styles.eventTitle}>{item.text}</Text>
-              <Text style={styles.eventParagraph}>{item.text1}</Text>
-            </View>
-            <View
-              style={{
-                width: 50,
-                height: 60,
-                backgroundColor: '#EBECF0',
-                borderRadius: 10,
-                padding: 10,
-                alignItems: 'center',
-              }}>
-              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-              <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('ContentLibraryDetail', {
+            id: item?.ID,
+            title: item?.post_title,
+          })
+        }>
+        <View>
+          <View style={[styles.eventCard, styles.shadowProp]} key={index}>
+            <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
+            <View style={styles.eventDetails}>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventTitle}>{item?.post_title}</Text>
+                {/* <Text style={{fontSize: 8, color: '#041C3E'}}>
+                  {item.post_excerpt}
+                </Text> */}
+                <HTMLView
+                  value={'<p>' + item?.post_excerpt + '</p>'}
+                  stylesheet={webViewStyle}
+                />
+                {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
+              </View>
+              <View
+                style={{
+                  width: 50,
+                  height: 60,
+                  backgroundColor: '#EBECF0',
+                  borderRadius: 10,
+                  padding: 10,
+                  alignItems: 'center',
+                }}>
+                {item?.video_url === null ? (
+                  <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+                ) : (
+                  <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+                )}
+                <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -105,42 +136,44 @@ const LibraryDetail = props => {
             <Searchbar
               style={styles.input}
               placeholder="Search"
-              keyboardType="default"
-              value={searchKey}
-              onChangeText={async text => {
-                setSearchKey(text);
-                //   await fetchAllUsers({
-                // 	s: text,
-                // 	sort: sorting,
-                // 	expertise_areas: category,
-                //   });
-              }}
+              value={search}
+              onChangeText={text => searchFilterFunction(text)}
             />
           </View>
-          <View style={{paddingLeft: 20, paddingRight: 20}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 9, marginBottom: 10}}>
-                Content Library
-              </Text>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderBottomWidth: 0.3,
+              marginHorizontal: 20,
+              paddingBottom: 10,
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{fontSize: 9}}>Content Library</Text>
               <Ionicons
                 name="chevron-forward-outline"
                 size={15}
                 color="#B2B3B9"
               />
-              <Text style={{fontSize: 9, marginBottom: 10}}>
-                Executive MindXChange Events
-              </Text>
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
               <Ionicons
                 name="chevron-forward-outline"
                 size={15}
                 color="#B2B3B9"
               />
-              <Text style={{fontSize: 9, color: '#14A2E2', marginBottom: 10}}>
-                Customer Experience Ecosystem
+            </View>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <Text
+                style={{
+                  fontSize: 9,
+                  color: '#14A2E2',
+                }}>
+                {route.params.itemname}
               </Text>
             </View>
-
-            <View style={{borderWidth: 0.2}} />
           </View>
         </View>
 
@@ -152,9 +185,14 @@ const LibraryDetail = props => {
             paddingRight: 20,
             paddingBottom: 20,
           }}>
+          {libraryDetailsLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
           <FlatList
             showsHorizontalScrollIndicator={false}
-            data={Data}
+            data={filteredDataSource}
             renderItem={_renderContent}
           />
           <View style={{marginTop: 10}}>
@@ -268,5 +306,16 @@ const styles = StyleSheet.create({
 
     elevation: 5,
   },
+  loading1: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
+  },
 });
+const webViewStyle = StyleSheet.create({p: {fontSize: 10}});
 export default LibraryDetail;

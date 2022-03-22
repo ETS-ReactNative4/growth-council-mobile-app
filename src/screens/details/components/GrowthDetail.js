@@ -20,8 +20,8 @@ import Player from '../../dashboard/components/Player';
 import {useIsFocused} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import { WebView } from 'react-native-webview';
-import { Button } from 'native-base';
+import {WebView} from 'react-native-webview';
+import {Button} from 'native-base';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -108,22 +108,6 @@ const GrowthDetail = props => {
   //   };
   // },[coachingSession]);
 
-  const connectMemberByMemberID = async (memberID, index) => {
-    const response = await connectMemberByIdentifier({member_id: memberID});
-    if (response?.payload?.code === 200) {
-      let items = [...memberConnection];
-      let item = {...items[index]};
-      item.connection = true;
-      items[index] = item;
-      setMemberConnection(items);
-      ToastMessage.show('You have successfully connected.');
-    } else {
-      toast.closeAll();
-      ToastMessage.show(response?.payload?.response);
-    }
-    console.log(response);
-  };
-
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -172,7 +156,7 @@ const GrowthDetail = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-   
+
     return (
       <View style={styles.topWrapper}>
         <ImageBackground
@@ -254,15 +238,11 @@ const GrowthDetail = props => {
   };
 
   const _renderContentItem = ({item, index}) => {
+    console.log(item?.file);
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
-    return(
-		<Player {...props}
-		item={item}
-		file={file}
-		videoLink={videoLink}/>
-    );
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   const _renderLearnItem = ({item, index}) => {
@@ -432,9 +412,8 @@ const GrowthDetail = props => {
                 />
               </View>
             </View>
-            
-            {
-              pillarMemberContents.members &&
+
+            {pillarMemberContents.members && (
               <View style={styles.bottom}>
                 <Text style={styles.title}>Members</Text>
                 <View>
@@ -446,20 +425,22 @@ const GrowthDetail = props => {
                   />
                 </View>
               </View>
-            }
+            )}
 
-            {
-              showChartButton && <View style={styles.bottom}>
+            {showChartButton && (
+              <View style={styles.bottom}>
                 <Text style={styles.title}>Radar</Text>
                 <View style={styles.buttonWrapper}>
-                  <Button style={[styles.button,{marginLeft:15}]} onPress={()=>{navigation.navigate('Radar')}}>
+                  <Button
+                    style={[styles.button, {marginLeft: 15}]}
+                    onPress={() => {
+                      navigation.navigate('Radar');
+                    }}>
                     <Text style={styles.buttonText}>View chart</Text>
                   </Button>
                 </View>
               </View>
-            }
-            
-            
+            )}
 
             <View style={styles.growthContent}>
               <Text style={styles.title}>Growth Coaching Content</Text>
@@ -506,7 +487,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   title: {
-	fontSize: 16,
+    fontSize: 16,
     fontFamily: Typography.FONT_SF_REGULAR,
     color: Colors.PRIMARY_TEXT_COLOR,
     fontWeight: '650',
@@ -558,7 +539,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     borderRadius: 14,
     borderWidth: 1.3,
-	borderColor:"#9EBD6D"
+    borderColor: '#9EBD6D',
   },
   learn: {
     height: 140,
@@ -574,7 +555,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.3,
     display: 'flex',
     flexDirection: 'row',
-	borderColor:"#9EBD6D"
+    borderColor: '#9EBD6D',
   },
   radar: {
     height: 350,

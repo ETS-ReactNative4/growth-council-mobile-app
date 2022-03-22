@@ -5,21 +5,21 @@ import LibraryDetail from './component/libraryDetails';
 
 import {
   fetchAllLibraryDetails,
-  reserLibraryDetails,
+  resetLibraryDetails,
 } from './slice/libraryDetailSlice';
 
 const LibraryDetailScreen = props => {
   const dispatch = useDispatch();
 
   const {libraryDetails, libraryDetailsLoading, libraryDetailsError} =
-    useSelector((state = state.libraryDetails));
+    useSelector(state => state.libraryDetails);
 
-  const fetchLibraryDetail = () => {
-    dispatch(fetchAllLibraryDetails());
+  const fetchLibraryDetail = resourceId => {
+    dispatch(fetchAllLibraryDetails(resourceId));
   };
 
   const cleanLibraryDetail = () => {
-    dispatch(reserLibraryDetails());
+    dispatch(resetLibraryDetails());
   };
 
   return (

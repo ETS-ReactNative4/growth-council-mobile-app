@@ -105,7 +105,7 @@ const Home = props => {
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
-            style={{width: '80%', marginTop: 30}}
+            style={{width: '70%'}}
             source={require('../../../assets/img/GILCouncil.jpg')}
             resizeMode="contain"
           />
@@ -299,7 +299,6 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 10,
     },
     headingText1: {
         fontFamily: Typography.FONT_SF_BOLD,

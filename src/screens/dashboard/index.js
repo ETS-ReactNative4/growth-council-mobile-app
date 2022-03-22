@@ -19,6 +19,8 @@ import {
   resetCommunityMember,
 } from './slice/communityMemberSlice';
 
+import { fetchAllLatestContent, resetLatestContent } from './slice/latestContentSlice';
+
 const DashboardScreen = props => {
   const dispatch = useDispatch();
   const [contentSlider, setContentSlider] = useState([]);
@@ -33,6 +35,9 @@ const DashboardScreen = props => {
 
   const {communityMembers, communityMemberLoading, communityMemberError} =
     useSelector(state => state.communityMembers);
+
+	const {latestContent, latestContentLoading, latestContentError} =
+    useSelector(state => state.latestContent);
 
   useEffect(() => {
     let content = pillarSliders?.flatMap((value, key) => {
@@ -74,6 +79,13 @@ const DashboardScreen = props => {
   const cleanPillarSlider = () => {
     dispatch(resetPillarSlider());
   };
+  const fetchLatestContent = () => {
+    dispatch(fetchAllLatestContent());
+  };
+
+  const cleanLatestContent = () => {
+    dispatch(resetLatestContent());
+  };
 
   return (
     <Dashboard
@@ -99,6 +111,12 @@ const DashboardScreen = props => {
       fetchAllPillarSlider={fetchAllPillarSlider}
       cleanPillarSlider={cleanPillarSlider}
       contentSlider={contentSlider}
+
+	  latestContent={latestContent}
+      latestContentLoading={latestContentLoading}
+      latestContentError={latestContentError}
+      fetchLatestContent={fetchLatestContent}
+      cleanLatestContent={cleanLatestContent}
     />
   );
 };
