@@ -64,7 +64,7 @@ const Dashboard = props => {
     latestContentError,
     fetchLatestContent,
     cleanLatestContent,
-	criticalIssue,
+    criticalIssue,
     criticalIssueLoading,
     criticalIssueError,
     fetchCritcalIssue,
@@ -322,16 +322,10 @@ const Dashboard = props => {
   //     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   //   };
 
-  
   const _renderCritical = ({item, index}) => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('CriticalIssue')}>
-        <View
-          style={{
-            width: 170,
-            marginLeft: 10,
-            marginTop: 20,
-          }}>
+        <View style={styles.ContentWrapper}>
           <View
             style={{
               flexDirection: 'row',
@@ -339,12 +333,15 @@ const Dashboard = props => {
               alignItems: 'center',
             }}>
             <View style={[styles.criticalW, styles.shadowCritical]}>
-              <Image source={{uri: item?.icon}} style={{width: 38, height: 38}} />
+              <Image
+                source={{uri: item?.icon}}
+                style={{width: 38, height: 38}}
+              />
             </View>
             <Text
               style={{
                 fontSize: 10,
-                width: '70%',
+                width: '65%',
                 paddingLeft: 10,
                 paddingRight: 10,
               }}>
@@ -438,11 +435,7 @@ const Dashboard = props => {
           <Text style={styles.title}>Critical Issue</Text>
           <View>
             <FlatList
-              contentContainerStyle={{
-                flex: 1,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-              }}
+              numColumns={2}
               showsHorizontalScrollIndicator={false}
               data={criticalIssue?.critical_issue_mobile_lists}
               renderItem={_renderCritical}
@@ -596,14 +589,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
     marginBottom: 20,
+    paddingBottom: 5,
   },
   ContentWrapper: {
-    width: contentContainerWidth,
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: 170,
     marginTop: 20,
-    marginBottom: 10,
-    marginLeft: 15,
-    borderRadius: 20,
-    overflow: 'hidden',
+    marginLeft: 2,
+    marginRight: 10,
   },
   shadowProp: {
     shadowColor: '#000',
@@ -653,6 +648,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
+    marginLeft: 10,
   },
 });
 const webViewStyle = StyleSheet.create({

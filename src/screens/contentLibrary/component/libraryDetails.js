@@ -72,6 +72,7 @@ const LibraryDetail = props => {
           navigation.navigate('ContentLibraryDetail', {
             id: item?.ID,
             title: item?.post_title,
+			itemname:route.params.itemname
           })
         }>
         <View>
