@@ -89,23 +89,25 @@ const CriticalIssue = props => {
             }}>
             {criticalIssue?.critical_issue_mobile_title}
           </Text>
-
           <View style={styles.titleBorder} />
 
           <Text style={styles.titleText}>
             {criticalIssue?.critical_issue_mobile_description}
           </Text>
         </View>
+
 		{criticalIssueLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
+
         <FlatList
           showsVerticalScrollIndicator={false}
           data={criticalIssue?.critical_issue_mobile_lists}
           renderItem={_renderCritical}
         />
+		
         <View style={{marginTop: 10}}>
           <Footer />
         </View>
