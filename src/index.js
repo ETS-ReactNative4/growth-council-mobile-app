@@ -143,7 +143,7 @@ const App = () => {
                         navigate('EventDetail', {id: remoteMessage.data.post_id});
                         break;
                     case 'session':
-                        navigate('EventDetail', {id: remoteMessage.data.post_id});
+                        navigate('SessionDetail', {id: remoteMessage.data.post_id});
                         break;
                     case 'connection':
                         navigate('People', {id: remoteMessage.data.user_id});

@@ -15,13 +15,12 @@ const HeaderTitle = props => {
     fetchProfileByIdentifier();
   }, [isFocused]);
 
-
   return (
-    <View style={{marginLeft: 20}}>
+    <View style={{marginLeft: 10}}>
       <Text
         style={{
           color: 'white',
-          fontSize: Platform.OS === 'ios' ? 8 : 10,
+          fontSize: Platform.OS === 'ios' ? 10 : 12,
           fontFamily: Typography.FONT_SF_MEDIUM,
         }}>
         Hello,

@@ -68,17 +68,8 @@ const Profile = props => {
         <TouchableOpacity
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
           <View style={styles.middleWrapper}>
-            <View style={[styles.wrapper]}>
+            <View style={styles.wrapper}>
               <Text style={styles.text}>{item.title}</Text>
-
-              {/* <Text
-                style={{
-                  fontSize: 6,
-                  fontFamily: Typography.FONT_SF_REGULAR,
-                  color: '#222B45',
-                }}>
-                {organizer} {description}
-              </Text> */}
               <View style={styles.iconWrapper}>
                 <Ionicon name={'person'} size={20} color="#0B0B45" />
                 <Text style={[styles.text,{fontSize:10, width:100,}]} >
@@ -166,45 +157,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
   },
-  header: {
-    alignItems: 'center',
-  },
-  icon: {
-    width: 110,
-    height: 110,
-    borderColor: PRIMARY_BACKGROUND_COLOR,
-    borderRadius: 16,
-    borderWidth: 3,
-    overflow: 'hidden',
-    position: 'absolute',
-    top: -35,
-  },
+
   text: {
     color: '#343537',
     marginLeft: 5,
     fontFamily: Typography.FONT_SF_REGULAR,
   },
-  headingText1: {
-    ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_NORMAL,
-    fontSize: 22,
-    fontWeight: '600',
-  },
-  profileWrapper: {
-    padding: 20,
-    alignItems: 'center',
-    width: 328,
-    backgroundColor: PRIMARY_BACKGROUND_COLOR,
-    borderRadius: 12,
-    position: 'relative',
-    paddingTop: 100,
-    borderWidth: 1,
-    borderColor: '#707070',
-  },
-  middle: {
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
+ 
   wrapper: {
     width: Platform.OS === 'ios' ? '65%' : '70%',
     marginLeft: 10,
@@ -216,8 +175,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     display: 'flex',
     flexDirection: 'row',
-    borderWidth: 0.5,
     marginTop: 20,
+	borderWidth:0.3
   },
   middleImage: {
     width: 40,

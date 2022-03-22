@@ -23,8 +23,8 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="home-outline"
                 color={'#000'}
-                size={24}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                size={30}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -40,8 +40,8 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="calendar-outline"
                 color={'#000'}
-                size={24}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                size={30}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -57,8 +57,8 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="chatbox-outline"
                 color={'#000'}
-                size={24}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                size={30}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -74,8 +74,8 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="people-outline"
                 color={'#000'}
-                size={24}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                size={30}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -91,8 +91,8 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="person-outline"
                 color={'#000'}
-                size={24}
-                style={{color: focused ? '#e32f45' : 'white'}}
+                size={30}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -106,10 +106,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-
-    // backgroundColor: 'rgba(215,233,245, 0.88)',
-	backgroundColor:'rgb(0,0,139)',
-    // borderRadius: 15,
+	backgroundColor:'#0C336C',
     height: 60,
     alignContent: 'center',
   },
@@ -127,7 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingHorizontal: 5,
     justifyContent: 'space-around',
     borderRadius: 40,
   },
