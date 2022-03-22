@@ -305,7 +305,7 @@ const HomeCommunity = props => {
             </View>
           </View> */}
 
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />

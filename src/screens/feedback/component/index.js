@@ -72,7 +72,7 @@ const Feedback = props => {
               </Text>
             </Button>
           </View>
-		  <Footer />
+		  {/* <Footer /> */}
         </View>
 	
       </ScrollView>

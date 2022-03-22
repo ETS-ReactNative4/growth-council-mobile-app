@@ -364,7 +364,7 @@ const Event = props => {
           </View>
         </ImageBackground>
       </View>
-      <Footer />
+      {/* <Footer /> */}
     </ScrollView>
   );
 };

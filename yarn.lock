@@ -12294,7 +12294,11 @@ react-native-reanimated@^2.3.1:
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
+<<<<<<< HEAD
+"react-native-webview@^11.17.0", "react-native-webview@>=7.0.0":
+=======
 "react-native-webview@^11.17.2", "react-native-webview@>=7.0.0":
+>>>>>>> dev
   "integrity" "sha512-7Sac02xq11qFACJmSUuCnH0aUFtSWUvSRC09EZ2qwNXq4IvT05xlX6978nlKUXf2ljw/0qZIzqbKzuXnu6Wq8Q=="
   "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.17.2.tgz"
   "version" "11.17.2"
@@ -12583,6 +12587,9 @@ react-transition-group@^4.3.0, react-transition-group@^4.4.0, react-transition-g
     prop-types "^15.6.2"
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> dev
 "react@*", "react@^16 || ^17", "react@^16.0.0 || ^17.0.0", "react@^16.3.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.0", "react@^18 || ^17.0.1 || ^16", "react@> 15.0.0", "react@>= 15.2.1", "react@>=15.0.0", "react@>=16.0", "react@>=16.3.0", "react@>=16.6.0", "react@>=16.6.3", "react@>=16.8", "react@>=16.8.0", "react@>=16.8.6", "react@>16.8.3", "react@16 || 17", "react@16.x.x", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"

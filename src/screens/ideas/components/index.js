@@ -65,7 +65,7 @@ const Ideas = props => {
               </Text>
             </Button>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
     </>
