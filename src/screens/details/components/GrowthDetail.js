@@ -460,7 +460,7 @@ const GrowthDetail = props => {
           </View>
         </ScrollView>
       </View>
-      <Footer />
+      {/* <Footer /> */}
     </ScrollView>
   );
 };
