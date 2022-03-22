@@ -206,7 +206,7 @@ const DrawerNavigation = () => {
         component={ContentScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Material name="content-copy" color={'#00008B'} size={24}/>
+            <Material name="content-copy" color={'#00008B'} size={24} />
           ),
           header: () => (
             <SubHeader
@@ -266,37 +266,21 @@ const DrawerNavigation = () => {
               image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />
-            {/* <Drawer.Screen
-                name="Feedback"
-                component={FeedbackScreen}
-                options={({navigation}) => ({
-                    drawerIcon: ({focused, size}) => (
-                        <Font name="edit" color={'#00008B'} size={20}/>
-                    ),
-                    header: () => (
-                        <SubHeader
-                            title="Feedback"
-                            image={require('../assets/img/appBG.png')}
-                            navigation={navigation}
-                        />
-                    ),
-                })}
-            /> */}
-            <Drawer.Screen
-                name="Contribute Ideas"
-                component={ContributeIdeasScreen}
-                options={({navigation}) => ({
-                    drawerIcon: ({focused, size}) => (
-                        <Ionicons name="bulb-outline" color={'#00008B'} size={24}/>
-                    ),
-                    header: () => (
-                        <SubHeader
-                            title="Contribute Ideas"
-                            image={require('../assets/img/appBG.png')}
-                            navigation={navigation}
-                        />
-                    ),
-                })}
+          ),
+        })}
+      />
+      <Drawer.Screen
+        name="Contribute Ideas"
+        component={ContributeIdeasScreen}
+        options={({navigation}) => ({
+          drawerIcon: ({focused, size}) => (
+            <Ionicons name="bulb-outline" color={'#00008B'} size={24} />
+          ),
+          header: () => (
+            <SubHeader
+              title="Contribute Ideas"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
             />
           ),
         })}
