@@ -163,7 +163,7 @@ const ContentLibraryDetail = props => {
           style={{padding: 25}}
           contentContainerStyle={{paddingBottom: 90}}>
           {contentLibraryDetails?.video_url !== null && (
-            <View style={{marginBottom: 30}}>
+            <View>
               {/* <Image
               source={require('../../../assets/img/image.png')}
               style={styles.contentImage}
