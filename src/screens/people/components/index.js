@@ -293,7 +293,7 @@ const People = props => {
           </View>
         </ScrollView>
       </View>
-      <Footer />
+      {/* <Footer /> */}
       <Modal transparent visible={pickerVisible}>
         <View
           style={{

@@ -285,7 +285,7 @@ const GrowthCoaching = props => {
           </View>
 
           <View style={styles.bottom}>
-            <Text style={styles.title}>Growth Coaching Members</Text>
+            <Text style={styles.title}>Growth Coaching Coaches</Text>
             <View>
               <FlatList
                 horizontal
@@ -311,7 +311,7 @@ const GrowthCoaching = props => {
               />
             </View>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />

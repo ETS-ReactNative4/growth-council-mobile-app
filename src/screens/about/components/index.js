@@ -147,7 +147,7 @@ const About = props => {
 					/>
 					
 				</View> */}
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
     </>

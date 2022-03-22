@@ -294,7 +294,7 @@ const BestPractice = props => {
               />
             </View>
           </View> */}
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 20,
     justifyContent: 'center',
-	marginRight:5,
+    marginRight: 5,
   },
   title: {
     fontFamily: Typography.FONT_SF_BOLD,
@@ -322,13 +322,12 @@ const styles = StyleSheet.create({
   },
 
   topWrapper: {
-	height: 144,
+    height: 144,
     width: 256,
     marginLeft: 15,
     borderRadius: 16,
     overflow: 'hidden',
-	marginTop:20,
-
+    marginTop: 20,
   },
   header: {
     margin: 10,
@@ -357,16 +356,14 @@ const styles = StyleSheet.create({
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
-    borderRadius: 20,
     marginTop: 15,
-
     justifyContent: 'center',
     alignItems: 'center',
   },
   middleW: {
     backgroundColor: 'white',
-    width: 64,
-    height: 64,
+    width: 70,
+    height: 70,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -415,7 +412,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
   },
-
   shadowProp: {
     shadowColor: '#000',
     shadowOffset: {

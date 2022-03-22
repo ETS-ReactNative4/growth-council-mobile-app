@@ -69,7 +69,7 @@ const privacy = props => {
               </Text>
             </Button>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
     </>
