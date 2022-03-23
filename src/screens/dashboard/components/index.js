@@ -599,7 +599,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: (Dimensions.get('window').width - 40) / 2,
+    width: (Dimensions.get('window').width - 50) / 2,
     marginTop: 20,
     marginLeft: 1,
     marginRight: 5,

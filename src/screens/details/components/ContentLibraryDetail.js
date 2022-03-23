@@ -146,13 +146,13 @@ const ContentLibraryDetail = props => {
         <View style={styles.breadcrumbContainer}>
           <View style={styles.singleBreadcrumb}>
             <Text style={styles.inactiveBreadcrumbText}>
-              {route.params.itemname}
+              {route?.params?.itemname}
             </Text>
             <FeatherIcon name="chevron-right" size={10} color="#B2B3B9" />
           </View>
           <View style={{...styles.singleBreadcrumb, flex: 1}}>
             <Text style={styles.activeBreadcrumbText}>
-              {route.params.title}
+              {route?.params?.title}
             </Text>
           </View>
         </View>
@@ -185,10 +185,7 @@ const ContentLibraryDetail = props => {
         `,
                 }}
               />
-              {/* <Button
-              title={playing ? 'pause' : 'play'}
-              onPress={togglePlaying}
-            /> */}
+              
             </View>
           )}
 
@@ -232,7 +229,7 @@ const ContentLibraryDetail = props => {
                     fontFamily: 'SFProText-Regular',
                     color: Colors.SECONDARY_TEXT_COLOR,
                   }}>
-                  {item.list}
+                  {item?.list}
                 </Text>
               </View>
             ))}
