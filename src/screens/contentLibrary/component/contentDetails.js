@@ -88,6 +88,7 @@ const ContentLibrary = props => {
               source={require('../../../assets/img/library.png')}>
               <View style={styles.contentWrapper}>
                 <Text>{item?.count}</Text>
+				<Text style={{fontSize:10, color:"black"}}>Article</Text>
               </View>
               <View style={styles.wrapper}>
                 <HTMLView
@@ -103,6 +104,7 @@ const ContentLibrary = props => {
               source={item?.image}>
               <View style={styles.contentWrapper}>
                 <Text>{item?.count}</Text>
+				<Text style={{fontSize:10, color:"black"}}>Article</Text>
               </View>
               <View style={styles.wrapper}>
                 <HTMLView

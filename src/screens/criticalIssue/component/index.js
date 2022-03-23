@@ -34,7 +34,6 @@ const CriticalIssue = props => {
     fetchCritcalIssue();
   }, []);
 
-  console.log({criticalIssue});
   const _renderCritical = ({item, index}) => {
     return (
       <View style={styles.content}>
@@ -78,40 +77,47 @@ const CriticalIssue = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        <View style={styles.title}>
-          <Text
-            style={{
-              color: 'black',
-              fontSize: 24,
-              paddingBottom: 30,
-              fontWeight: '600',
-            }}>
-            {criticalIssue?.critical_issue_mobile_title}
-          </Text>
-          <View style={styles.titleBorder} />
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+        }}>
+        <View style={styles.container}>
+          <View style={styles.title}>
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 24,
+                paddingBottom: 30,
+                fontWeight: '600',
+              }}>
+              {criticalIssue?.critical_issue_mobile_title}
+            </Text>
+            <View style={styles.titleBorder} />
 
-          <Text style={styles.titleText}>
-            {criticalIssue?.critical_issue_mobile_description}
-          </Text>
-        </View>
+            <Text style={styles.titleText}>
+              {criticalIssue?.critical_issue_mobile_description}
+            </Text>
+          </View>
 
-		{criticalIssueLoading && (
+          {criticalIssueLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
 
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={criticalIssue?.critical_issue_mobile_lists}
-          renderItem={_renderCritical}
-        />
-		
-        <View style={{marginTop: 10}}>
-          <Footer />
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={criticalIssue?.critical_issue_mobile_lists}
+            renderItem={_renderCritical}
+          />
+
+          <View style={{marginTop: 10}}>
+            <Footer />
+          </View>
         </View>
-      </View>
+      </ScrollView>
+
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
