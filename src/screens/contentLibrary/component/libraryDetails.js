@@ -188,25 +188,82 @@ const LibraryDetail = props => {
             </View>
           </View>
         </View>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+            paddingBottom: 20,
+          }}>
+          {libraryDetailsLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
 
-        {libraryDetailsLoading && (
-          <View style={styles.loading1}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          {filteredDataSource.map((item, key) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ContentLibraryDetail', {
+                    id: item?.ID,
+                    title: item?.post_title,
+                    itemname: route.params.itemname,
+                  })
+                }>
+                <View>
+                  <View style={[styles.eventCard, styles.shadowProp]} key={key}>
+                    <View
+                      style={[styles.eventTheme, {borderColor: '#19325A'}]}
+                    />
+                    <View style={styles.eventDetails}>
+                      <View style={styles.eventInfo}>
+                        <Text style={styles.eventTitle}>
+                          {item?.post_title}
+                        </Text>
+                        {/* <Text style={{fontSize: 8, color: '#041C3E'}}>
+								{item.post_excerpt}
+							  </Text> */}
+                        <HTMLView
+                          value={'<p>' + item?.post_excerpt + '</p>'}
+                          stylesheet={webViewStyle}
+                        />
+                        {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
+                      </View>
+                      <View
+                        style={{
+                          width: 50,
+                          height: 60,
+                          backgroundColor: '#EBECF0',
+                          borderRadius: 10,
+                          padding: 10,
+                          alignItems: 'center',
+                        }}>
+                        {item?.video_url === null ? (
+                          <FontAwesome5
+                            name="file-pdf"
+                            size={20}
+                            color="#9B9CA0"
+                          />
+                        ) : (
+                          <Image
+                            source={require('../../../assets/img/file-play.png')}
+                            style={{width: 20, height: 20, color: '#9B9CA0'}}
+                            resizeMode="contain"
+                          />
+                        )}
+                        <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+
+          <View style={{marginTop: 10}}>
+            <Footer />
           </View>
-        )}
-        {filteredDataSource !== null ? (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={filteredDataSource}
-            renderItem={_renderContent}
-          />
-        ) : (
-          <Text> Post not found</Text>
-        )}
-
-        <View style={{marginTop: 10}}>
-          <Footer />
-        </View>
+        </ScrollView>
       </View>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
