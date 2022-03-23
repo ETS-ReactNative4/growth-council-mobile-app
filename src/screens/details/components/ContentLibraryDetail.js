@@ -9,6 +9,7 @@ import {
   FlatList,
   PermissionsAndroid,
   Button,
+  StatusBar,
 } from 'react-native';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -139,7 +140,12 @@ const ContentLibraryDetail = props => {
 
   return (
     <View style={styles.container}>
-      {/* Header Section */}
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
 
       <View style={styles.bodyContainer}>
         {/* Breadcrumb Section */}
@@ -185,7 +191,6 @@ const ContentLibraryDetail = props => {
         `,
                 }}
               />
-              
             </View>
           )}
 

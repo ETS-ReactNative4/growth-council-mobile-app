@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -95,8 +96,6 @@ const GrowthCoaching = props => {
   useEffect(() => {
     setMemberConnection(pillarMemberContents?.members);
   }, [pillarMemberContents?.members]);
-
-  
 
   const _renderItem = ({item, index}) => {
     return (
@@ -244,6 +243,12 @@ const GrowthCoaching = props => {
 
   return (
     <View style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>

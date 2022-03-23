@@ -10,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  StatusBar,
 } from 'react-native';
 import {Searchbar} from 'react-native-paper';
 import {Colors, Typography} from '../../../theme';
@@ -67,10 +68,14 @@ const ContentLibrary = props => {
     }
   };
 
-
-
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <View style={{marginBottom: 20}}>
           <View

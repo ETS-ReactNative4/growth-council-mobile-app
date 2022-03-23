@@ -360,9 +360,9 @@ const Dashboard = props => {
     <View style={{flex: 1}}>
       <StatusBar
         barStyle="light-content"
-        hidden={true}
-        backgroundColor={require('../../../assets/img/appBG.png')}
-        translucent={true}
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
       />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <View>

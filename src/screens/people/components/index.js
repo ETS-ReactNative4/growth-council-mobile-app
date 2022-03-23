@@ -12,6 +12,7 @@ import {
   Modal,
   SafeAreaView,
   RefreshControl,
+  StatusBar,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -103,7 +104,6 @@ const People = props => {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
-    
   };
 
   const _renderItem = ({item, index}) => {
@@ -167,6 +167,12 @@ const People = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <View style={{marginBottom: 20}}>
           <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
@@ -384,11 +390,11 @@ const People = props => {
                 itemTextStyle={{fontSize: 12}}
                 onValueChange={async (itemValue, itemIndex) => {
                   setAccount(itemValue);
-                //   await fetchAllUsers({
-                //     s: searchKey,
-                //     sort: 'ASC',
-                //     expertise_areas: category,
-                //   });
+                  //   await fetchAllUsers({
+                  //     s: searchKey,
+                  //     sort: 'ASC',
+                  //     expertise_areas: category,
+                  //   });
                 }}>
                 {/* {Object.keys(expertise).map(key => {
                   return (
@@ -440,11 +446,11 @@ const People = props => {
                 itemTextStyle={{fontSize: 12}}
                 onValueChange={async (itemValue, itemIndex) => {
                   setRegion(itemValue);
-                //   await fetchAllUsers({
-                //     s: searchKey,
-                //     sort: 'ASC',
-                //     expertise_areas: category,
-                //   });
+                  //   await fetchAllUsers({
+                  //     s: searchKey,
+                  //     sort: 'ASC',
+                  //     expertise_areas: category,
+                  //   });
                 }}>
                 {/* {Object.keys(expertise).map(key => {
                   return (

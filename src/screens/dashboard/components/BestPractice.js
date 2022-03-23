@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
+  StatusBar,
   SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -219,15 +220,14 @@ const BestPractice = props => {
     );
   };
 
-  const _renderContentItem = ({item, index}) => {
-    const file = item?.file;
-    const link = file.split('=', 2);
-    let videoLink = link[1].split('&', 2);
-    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
-  };
-
   return (
     <View style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
