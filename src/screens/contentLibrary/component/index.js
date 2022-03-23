@@ -59,19 +59,26 @@ const Content = props => {
   const _renderContent = ({item, index}) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ContentDetail', {
-            resourceId: item?.term_id,
-            resourcesName: item?.name,
-          })
-        }>
+        onPress={() => {
+          if (item.children_count === 0 ) {
+            navigation.navigate('LibraryDetail', {
+              resources: item?.term_id,
+              itemname: item?.name,
+            });
+          } else {
+            navigation.navigate('ContentDetail', {
+              resourceId: item?.term_id,
+              resourcesName: item?.name,
+            });
+          }
+        }}>
         <View style={[styles.content, styles.shadowProp]}>
           {item?.image === null && (
             <ImageBackground
               style={{width: '100%', height: 190, borderRadius: 16}}
               source={require('../../../assets/img/image.png')}>
               <View style={styles.contentWrapper}>
-                <Text>{item?.count}</Text>
+                <Text>{item?.children_count}</Text>
                 <Text style={{fontSize: 10, color: 'black'}}>Article</Text>
               </View>
               <View style={styles.wrapper}>
@@ -88,8 +95,8 @@ const Content = props => {
               style={{width: '100%', height: 190, borderRadius: 16}}
               source={{uri: item?.image}}>
               <View style={styles.contentWrapper}>
-                <Text>{item?.count}</Text>
-				<Text style={{fontSize: 10, color: 'black'}}>Article</Text>
+                <Text>{item?.children_count}</Text>
+                <Text style={{fontSize: 10, color: 'black'}}>Article</Text>
               </View>
               <View style={styles.wrapper}>
                 <HTMLView
