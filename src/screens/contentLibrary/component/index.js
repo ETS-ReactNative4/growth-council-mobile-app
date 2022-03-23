@@ -72,6 +72,7 @@ const Content = props => {
               source={require('../../../assets/img/image.png')}>
               <View style={styles.contentWrapper}>
                 <Text>{item?.count}</Text>
+                <Text style={{fontSize: 10, color: 'black'}}>Article</Text>
               </View>
               <View style={styles.wrapper}>
                 <HTMLView
@@ -88,6 +89,7 @@ const Content = props => {
               source={{uri: item?.image}}>
               <View style={styles.contentWrapper}>
                 <Text>{item?.count}</Text>
+				<Text style={{fontSize: 10, color: 'black'}}>Article</Text>
               </View>
               <View style={styles.wrapper}>
                 <HTMLView
@@ -153,16 +155,12 @@ const Content = props => {
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-          <ScrollView
-            horizontal
-            scrollEnabled={false}
-            contentContainerStyle={{flex: 1}}>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={filteredDataSource}
-              renderItem={_renderContent}
-            />
-          </ScrollView>
+
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={filteredDataSource}
+            renderItem={_renderContent}
+          />
 
           <View style={{marginTop: 10}}>
             <Footer />

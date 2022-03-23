@@ -109,7 +109,11 @@ const LibraryDetail = props => {
                 {item?.video_url === null ? (
                   <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
                 ) : (
-                  <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+                  <Image
+                    source={require('../../../assets/img/file-play.png')}
+                    style={{width: 20, height: 20, color: '#9B9CA0'}}
+                    resizeMode="contain"
+                  />
                 )}
                 <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
               </View>

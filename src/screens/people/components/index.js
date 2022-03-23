@@ -103,7 +103,7 @@ const People = props => {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
-    console.log(response);
+    
   };
 
   const _renderItem = ({item, index}) => {

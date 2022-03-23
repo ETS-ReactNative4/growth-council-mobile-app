@@ -47,16 +47,16 @@ const EventCalendar = props => {
         all_events: showAllEvents,
       })
         .then(response => {
-          console.log(response);
+          
           if (response?.payload?.code === 200) {
             setCurrentEvents(response?.payload?.data);
           } else {
-            // setMarkedDay([]);
+            
             setCurrentEvents([]);
           }
         })
         .catch(e => {
-        //   setMarkedDay([]);
+
           setCurrentEvents([]);
         });
     };

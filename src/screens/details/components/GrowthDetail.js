@@ -238,7 +238,7 @@ const GrowthDetail = props => {
   };
 
   const _renderContentItem = ({item, index}) => {
-    console.log(item?.file);
+
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
