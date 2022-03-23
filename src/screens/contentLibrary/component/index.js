@@ -10,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  StatusBar,
 } from 'react-native';
 import {Searchbar} from 'react-native-paper';
 import {Colors, Typography} from '../../../theme';
@@ -60,7 +61,7 @@ const Content = props => {
     return (
       <TouchableOpacity
         onPress={() => {
-          if (item.children_count === 0 ) {
+          if (item.children_count === 0) {
             navigation.navigate('LibraryDetail', {
               resources: item?.term_id,
               itemname: item?.name,
@@ -114,6 +115,12 @@ const Content = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <View style={{marginBottom: 20}}>
           <View

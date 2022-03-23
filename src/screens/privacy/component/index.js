@@ -43,8 +43,10 @@ const privacy = props => {
   return (
     <>
       <StatusBar
-        barStyle="dark-content"
-        backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
       />
       <ScrollView
        >

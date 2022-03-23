@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  StatusBar,
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Font from 'react-native-vector-icons/FontAwesome5';
@@ -143,12 +144,20 @@ const Search = props => {
   };
 
   return (
-
+    <>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <ImageBackground
           style={{width: '100%'}}
           source={require('../../../assets/img/search_back_image.png')}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{marginTop: 30}}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{marginTop: 30}}>
             <View style={{marginTop: 10}}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
@@ -163,7 +172,7 @@ const Search = props => {
           </View>
         </ImageBackground>
         <ScrollView
-		 contentContainerStyle={{
+          contentContainerStyle={{
             flexGrow: 1,
 
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
@@ -211,7 +220,7 @@ const Search = props => {
           </View>
         </ScrollView>
       </View>
-
+    </>
   );
 };
 

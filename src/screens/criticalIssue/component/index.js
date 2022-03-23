@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 import {Colors, Typography} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -77,6 +78,12 @@ const CriticalIssue = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
