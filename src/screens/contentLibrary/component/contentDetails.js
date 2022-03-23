@@ -52,9 +52,6 @@ const ContentLibrary = props => {
   const searchFilterFunction = text => {
     // Check if searched text is not blank
     if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
       const newData = contentLibrary.filter(function (item) {
         const itemData = item.name ? item.name.toLowerCase() : ''.toLowerCase();
         const textData = text.toLowerCase();
@@ -70,54 +67,7 @@ const ContentLibrary = props => {
     }
   };
 
-  const _renderContent = ({item, index}) => {
-    const itemname = item?.name;
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('LibraryDetail', {
-            breadcrumbName,
-            resources,
-            itemname,
-          })
-        }>
-        <View style={[styles.content, styles.shadowProp]}>
-          {item?.image === null && (
-            <ImageBackground
-              style={{width: '100%', height: 190, borderRadius: 16}}
-              source={require('../../../assets/img/library.png')}>
-              <View style={styles.contentWrapper}>
-                <Text>{item?.count}</Text>
-				<Text style={{fontSize:10, color:"black"}}>Article</Text>
-              </View>
-              <View style={styles.wrapper}>
-                <HTMLView
-                  value={item?.name}
-                  style={{fontSize: 14, color: 'black'}}
-                />
-              </View>
-            </ImageBackground>
-          )}
-          {item?.image !== null && (
-            <ImageBackground
-              style={{width: '100%', height: 190, borderRadius: 16}}
-              source={item?.image}>
-              <View style={styles.contentWrapper}>
-                <Text>{item?.count}</Text>
-				<Text style={{fontSize:10, color:"black"}}>Article</Text>
-              </View>
-              <View style={styles.wrapper}>
-                <HTMLView
-                  value={item?.name}
-                  style={{fontSize: 14, color: 'black'}}
-                />
-              </View>
-            </ImageBackground>
-          )}
-        </View>
-      </TouchableOpacity>
-    );
-  };
+
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -183,11 +133,64 @@ const ContentLibrary = props => {
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-          <FlatList
+          {/* <FlatList
             showsHorizontalScrollIndicator={false}
             data={filteredDataSource}
             renderItem={_renderContent}
-          />
+          /> */}
+          {filteredDataSource.map((item, key) => {
+            const itemname = item?.name;
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('LibraryDetail', {
+                    breadcrumbName,
+                    resources,
+                    itemname,
+                  })
+                }
+                key={key}>
+                <View style={[styles.content, styles.shadowProp]}>
+                  {item?.image === null && (
+                    <ImageBackground
+                      style={{width: '100%', height: 190, borderRadius: 16}}
+                      source={require('../../../assets/img/library.png')}>
+                      <View style={styles.contentWrapper}>
+                        <Text>{item?.count}</Text>
+                        <Text style={{fontSize: 10, color: 'black'}}>
+                          Article
+                        </Text>
+                      </View>
+                      <View style={styles.wrapper}>
+                        <HTMLView
+                          value={item?.name}
+                          style={{fontSize: 14, color: 'black'}}
+                        />
+                      </View>
+                    </ImageBackground>
+                  )}
+                  {item?.image !== null && (
+                    <ImageBackground
+                      style={{width: '100%', height: 190, borderRadius: 16}}
+                      source={item?.image}>
+                      <View style={styles.contentWrapper}>
+                        <Text>{item?.count}</Text>
+                        <Text style={{fontSize: 10, color: 'black'}}>
+                          Article
+                        </Text>
+                      </View>
+                      <View style={styles.wrapper}>
+                        <HTMLView
+                          value={item?.name}
+                          style={{fontSize: 14, color: 'black'}}
+                        />
+                      </View>
+                    </ImageBackground>
+                  )}
+                </View>
+              </TouchableOpacity>
+            );
+          })}
           <View style={{marginTop: 10}}>
             <Footer />
           </View>

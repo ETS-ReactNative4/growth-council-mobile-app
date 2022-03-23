@@ -132,9 +132,7 @@ const LibraryDetail = props => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              marginTop: 20,
               alignContent: 'center',
-              marginLeft: 10,
             }}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Ionicons
@@ -158,7 +156,6 @@ const LibraryDetail = props => {
               flexDirection: 'row',
               alignItems: 'center',
               borderBottomWidth: 0.3,
-              marginHorizontal: 20,
               paddingBottom: 10,
             }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -169,14 +166,17 @@ const LibraryDetail = props => {
                 color="#B2B3B9"
               />
             </View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={15}
-                color="#B2B3B9"
-              />
-            </View>
+            {route.params.breadcrumbName !== undefined && (
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={15}
+                  color="#B2B3B9"
+                />
+              </View>
+            )}
+
             <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
               <Text
                 style={{
@@ -189,28 +189,24 @@ const LibraryDetail = props => {
           </View>
         </View>
 
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingBottom: 20,
-          }}>
-          {libraryDetailsLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+        {libraryDetailsLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
+        {filteredDataSource !== null ? (
           <FlatList
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             data={filteredDataSource}
             renderItem={_renderContent}
           />
-          <View style={{marginTop: 10}}>
-            <Footer />
-          </View>
-        </ScrollView>
+        ) : (
+          <Text> Post not found</Text>
+        )}
+
+        <View style={{marginTop: 10}}>
+          <Footer />
+        </View>
       </View>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
@@ -221,14 +217,15 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+    padding: 15,
   },
   input: {
     height: 45,
-    width: '85%',
-    marginLeft: 10,
+    width: '88%',
     marginBottom: 20,
     borderRadius: 20,
     backgroundColor: '#F5F5F5',
+    marginLeft: 10,
   },
   content: {
     width: '100%',
@@ -329,5 +326,8 @@ const styles = StyleSheet.create({
     zIndex: 1011,
   },
 });
-const webViewStyle = StyleSheet.create({p: {fontSize: 10}});
+const webViewStyle = StyleSheet.create(
+  {p: {fontSize: 10}},
+  {h3: {fontSize: 9, color: '#14A2E2'}},
+);
 export default LibraryDetail;

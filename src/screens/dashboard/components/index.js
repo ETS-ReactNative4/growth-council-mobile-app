@@ -26,8 +26,8 @@ import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 
-const win = Dimensions.get('window');
-const contentContainerWidth = win.width - 30;
+const win = Dimensions.get('window').width;
+const contentContainerWidth = win / 2;
 
 const Dashboard = props => {
   const {
@@ -220,11 +220,11 @@ const Dashboard = props => {
             {item?.video_url === null ? (
               <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
             ) : (
-                <Image
-                    source={require('../../../assets/img/file-play.png')}
-                    style={{width: 20, height: 20, color: '#9B9CA0'}}
-                    resizeMode="contain"
-                  />
+              <Image
+                source={require('../../../assets/img/file-play.png')}
+                style={{width: 20, height: 20, color: '#9B9CA0'}}
+                resizeMode="contain"
+              />
             )}
             <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
           </View>
@@ -339,14 +339,14 @@ const Dashboard = props => {
             <View style={[styles.criticalW, styles.shadowCritical]}>
               <Image
                 source={{uri: item?.icon}}
-                style={{width: 38, height: 38}}
+                style={{width: 36, height: 36}}
               />
             </View>
             <Text
               style={{
                 fontSize: 10,
                 width: '60%',
-                paddingLeft: 10,
+                paddingLeft: 5,
                 // paddingRight: 10,
               }}>
               {item?.heading}
@@ -599,7 +599,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: 170,
+    width: (Dimensions.get('window').width - 40) / 2,
     marginTop: 20,
     marginLeft: 1,
     marginRight: 5,
@@ -649,11 +649,10 @@ const styles = StyleSheet.create({
   criticalW: {
     backgroundColor: 'white',
     width: 64,
-    height: 66,
+    height: 68,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    marginLeft: 10,
   },
 });
 const webViewStyle = StyleSheet.create({
