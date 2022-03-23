@@ -220,7 +220,11 @@ const Dashboard = props => {
             {item?.video_url === null ? (
               <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
             ) : (
-              <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+                <Image
+                    source={require('../../../assets/img/file-play.png')}
+                    style={{width: 20, height: 20, color: '#9B9CA0'}}
+                    resizeMode="contain"
+                  />
             )}
             <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
           </View>
@@ -341,9 +345,9 @@ const Dashboard = props => {
             <Text
               style={{
                 fontSize: 10,
-                width: '65%',
+                width: '60%',
                 paddingLeft: 10,
-                paddingRight: 10,
+                // paddingRight: 10,
               }}>
               {item?.heading}
             </Text>
@@ -443,7 +447,7 @@ const Dashboard = props => {
           </View>
         </View>
 
-        {/* <Footer /> */}
+        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </View>
@@ -597,8 +601,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: 170,
     marginTop: 20,
-    marginLeft: 2,
-    marginRight: 10,
+    marginLeft: 1,
+    marginRight: 5,
+    paddingBottom: 10,
   },
   shadowProp: {
     shadowColor: '#000',

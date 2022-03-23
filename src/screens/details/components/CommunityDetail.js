@@ -98,21 +98,6 @@ const CommunityDetail = props => {
     }, []),
   );
 
-  const connectMemberByMemberID = async (memberID, index) => {
-    const response = await connectMemberByIdentifier({member_id: memberID});
-    if (response?.payload?.code === 200) {
-      let items = [...memberConnection];
-      let item = {...items[index]};
-      item.connection = true;
-      items[index] = item;
-      setMemberConnection(items);
-      ToastMessage.show('You have successfully connected.');
-    } else {
-      toast.closeAll();
-      ToastMessage.show(response?.payload?.response);
-    }
-    // console.log(response);
-  };
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -291,7 +276,7 @@ const CommunityDetail = props => {
     case 119:
       backgroundColor = Colors.COACHING_COLOR;
   }
-  console.log({pillarPOEs});
+
   return (
     <ScrollView
       style={{
