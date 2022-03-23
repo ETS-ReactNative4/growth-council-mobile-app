@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   Platform,
   Text,
@@ -18,6 +18,7 @@ import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import {BubblesLoader} from 'react-native-indicator';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
 const ContentLibrary = props => {
   const {
@@ -32,9 +33,14 @@ const ContentLibrary = props => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(contentLibrary);
 
-  useEffect(() => {
-    fetchContentLibrary(route.params.resourceId);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchContentLibrary(route.params.resourceId);
+      return () => {
+        cleanContentLibrary();
+      };
+    }, []),
+  );
 
   useEffect(() => {
     setFilteredDataSource(contentLibrary);

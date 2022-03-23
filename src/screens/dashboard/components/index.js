@@ -341,9 +341,9 @@ const Dashboard = props => {
             <Text
               style={{
                 fontSize: 10,
-                width: '65%',
+                width: '60%',
                 paddingLeft: 10,
-                paddingRight: 10,
+                // paddingRight: 10,
               }}>
               {item?.heading}
             </Text>
@@ -443,7 +443,7 @@ const Dashboard = props => {
           </View>
         </View>
 
-        {/* <Footer /> */}
+        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </View>
@@ -597,8 +597,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: 170,
     marginTop: 20,
-    marginLeft: 2,
-    marginRight: 10,
+    marginLeft: 1,
+    marginRight: 5,
+    paddingBottom: 10,
   },
   shadowProp: {
     shadowColor: '#000',

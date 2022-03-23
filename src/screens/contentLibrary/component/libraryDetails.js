@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   Platform,
   Text,
@@ -17,6 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -34,9 +35,15 @@ const LibraryDetail = props => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(libraryDetails);
 
-  useEffect(() => {
-    fetchLibraryDetail(route.params.resources);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchLibraryDetail(route.params.resources);
+
+      return () => {
+        cleanLibraryDetail();
+      };
+    }, []),
+  );
 
   useEffect(() => {
     setFilteredDataSource(libraryDetails);
@@ -72,7 +79,7 @@ const LibraryDetail = props => {
           navigation.navigate('ContentLibraryDetail', {
             id: item?.ID,
             title: item?.post_title,
-			itemname:route.params.itemname
+            itemname: route.params.itemname,
           })
         }>
         <View>
