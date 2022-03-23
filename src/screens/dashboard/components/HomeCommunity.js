@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -55,7 +56,9 @@ const HomeCommunity = props => {
 
   const isFocused = useIsFocused();
 
-  const [memberConnection, setMemberConnection] = useState(pillarMemberContents.members);
+  const [memberConnection, setMemberConnection] = useState(
+    pillarMemberContents.members,
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -236,6 +239,12 @@ const HomeCommunity = props => {
 
   return (
     <View style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>

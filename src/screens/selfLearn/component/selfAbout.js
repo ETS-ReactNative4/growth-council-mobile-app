@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  
 } from 'react-native';
 import {Button} from 'native-base';
 import HTMLView from 'react-native-htmlview';
@@ -45,6 +46,12 @@ const selfAbout = props => {
 
   return (
     <ScrollView>
+		<StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <View style={styles.learnWrapper}>
           <Image

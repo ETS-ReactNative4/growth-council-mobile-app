@@ -10,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  StatusBar,
 } from 'react-native';
 import {Searchbar} from 'react-native-paper';
 import {Colors, Typography} from '../../../theme';
@@ -72,60 +73,16 @@ const LibraryDetail = props => {
     }
   };
 
-  const _renderContent = ({item, index}) => {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ContentLibraryDetail', {
-            id: item?.ID,
-            title: item?.post_title,
-            itemname: route.params.itemname,
-          })
-        }>
-        <View>
-          <View style={[styles.eventCard, styles.shadowProp]} key={index}>
-            <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
-            <View style={styles.eventDetails}>
-              <View style={styles.eventInfo}>
-                <Text style={styles.eventTitle}>{item?.post_title}</Text>
-                {/* <Text style={{fontSize: 8, color: '#041C3E'}}>
-                  {item.post_excerpt}
-                </Text> */}
-                <HTMLView
-                  value={'<p>' + item?.post_excerpt + '</p>'}
-                  stylesheet={webViewStyle}
-                />
-                {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
-              </View>
-              <View
-                style={{
-                  width: 50,
-                  height: 60,
-                  backgroundColor: '#EBECF0',
-                  borderRadius: 10,
-                  padding: 10,
-                  alignItems: 'center',
-                }}>
-                {item?.video_url === null ? (
-                  <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-                ) : (
-                  <Image
-                    source={require('../../../assets/img/file-play.png')}
-                    style={{width: 20, height: 20, color: '#9B9CA0'}}
-                    resizeMode="contain"
-                  />
-                )}
-                <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
+ 
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <View style={{marginBottom: 20}}>
           <View

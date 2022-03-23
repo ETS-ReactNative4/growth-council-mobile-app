@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -98,7 +99,6 @@ const CommunityDetail = props => {
     }, []),
   );
 
-
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -133,24 +133,6 @@ const CommunityDetail = props => {
       </View>
     );
   };
-
-  const data = [
-    {
-      title: 'First Item',
-    },
-    {
-      title: 'First Item',
-    },
-    {
-      title: 'First Item',
-    },
-    {
-      title: 'First Item',
-    },
-    {
-      title: 'First Item',
-    },
-  ];
 
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
@@ -278,124 +260,132 @@ const CommunityDetail = props => {
   }
 
   return (
-    <ScrollView
-      style={{
-        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-      }}>
-      <View style={styles.container}>
-        <ImageBackground
-          source={{uri: poeDetails?.pillar_detail_image}}
-          style={{height: 240, width: '100%'}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <View style={styles.arrow}>
-              <Ionicons name={'arrow-back'} size={50} color="white" />
-            </View>
-          </TouchableOpacity>
-        </ImageBackground>
+    <>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
+      <ScrollView
+        style={{
+          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+        }}>
+        <View style={styles.container}>
+          <ImageBackground
+            source={{uri: poeDetails?.pillar_detail_image}}
+            style={{height: 240, width: '100%'}}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <View style={styles.arrow}>
+                <Ionicons name={'arrow-back'} size={50} color="white" />
+              </View>
+            </TouchableOpacity>
+          </ImageBackground>
 
-        <View style={[styles.icon, styles.shadowProp]}>
-          <Image
-            source={{uri: poeDetails?.image}}
-            style={{
-              width: 35,
-              height: 35,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          />
-        </View>
-
-        <ScrollView
-          style={[styles.content, {backgroundColor: backgroundColor}]}>
-          <View style={styles.contentWrapper}>
-            <Text
+          <View style={[styles.icon, styles.shadowProp]}>
+            <Image
+              source={{uri: poeDetails?.image}}
               style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: '#1E2022',
-                textAlign: 'center',
-                marginTop: 50,
-              }}>
-              {poeDetails.name}
-            </Text>
-
-            <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-            {poeDetails.slug === '10-growth-processes' && (
-              <View style={styles.top}>
-                <Text style={styles.title}> Sub Points of Engagement</Text>
-                <FlatList
-                  numColumns={4}
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarPOEs}
-                  // renderItem={_renderMiddleItem}
-                  renderItem={item => _renderMiddleItem(item, navigation)}
-                />
-              </View>
-            )}
-
-            <View style={styles.top}>
-              <Text style={styles.title}> Events</Text>
-
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={poeEvents}
-                  renderItem={_renderTopItem}
-                />
-              </View>
-            </View>
-            <View style={styles.bottom}>
-              <Text style={styles.title}> Members</Text>
-              <View>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.members}
-                  renderItem={item => _renderItem(item, navigation)}
-                />
-              </View>
-            </View>
-
-            <View style={styles.growthContent}>
-              <Text style={styles.title}> Content Library</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.pillar_contents}
-                  renderItem={_renderContentItem}
-                />
-              </View>
-            </View>
-
-            {/* <Footer /> */}
+                width: 35,
+                height: 35,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            />
           </View>
-        </ScrollView>
-      </View>
-      {poeDetailLoading && (
-        <View
-          style={{
-            height: Dimensions.get('window').height,
-            position: 'absolute',
-            justifyContent: 'center',
-            alignItems: 'center',
-            left: 0,
-            right: 0,
-          }}>
-          <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+
+          <ScrollView
+            style={[styles.content, {backgroundColor: backgroundColor}]}>
+            <View style={styles.contentWrapper}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '500',
+                  color: '#1E2022',
+                  textAlign: 'center',
+                  marginTop: 50,
+                }}>
+                {poeDetails.name}
+              </Text>
+
+              <Text style={styles.paragraph}>{poeDetails.description}</Text>
+
+              {poeDetails.slug === '10-growth-processes' && (
+                <View style={styles.top}>
+                  <Text style={styles.title}> Sub Points of Engagement</Text>
+                  <FlatList
+                    numColumns={4}
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarPOEs}
+                    // renderItem={_renderMiddleItem}
+                    renderItem={item => _renderMiddleItem(item, navigation)}
+                  />
+                </View>
+              )}
+
+              <View style={styles.top}>
+                <Text style={styles.title}> Events</Text>
+
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={poeEvents}
+                    renderItem={_renderTopItem}
+                  />
+                </View>
+              </View>
+              <View style={styles.bottom}>
+                <Text style={styles.title}> Members</Text>
+                <View>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.members}
+                    renderItem={item => _renderItem(item, navigation)}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.growthContent}>
+                <Text style={styles.title}> Content Library</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.pillar_contents}
+                    renderItem={_renderContentItem}
+                  />
+                </View>
+              </View>
+
+              {/* <Footer /> */}
+            </View>
+          </ScrollView>
         </View>
-      )}
-    </ScrollView>
+        {poeDetailLoading && (
+          <View
+            style={{
+              height: Dimensions.get('window').height,
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+              left: 0,
+              right: 0,
+            }}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
+      </ScrollView>
+    </>
   );
 };
 
