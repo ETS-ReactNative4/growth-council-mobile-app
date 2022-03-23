@@ -194,7 +194,7 @@ const LibraryDetail = props => {
             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
           </View>
         )}
-        {filteredDataSource !== undefined ? (
+        {filteredDataSource !== null ? (
           <FlatList
             showsVerticalScrollIndicator={false}
             data={filteredDataSource}
