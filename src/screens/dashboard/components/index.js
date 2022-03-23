@@ -601,7 +601,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: (Dimensions.get('window').width - 50) / 2,
     marginTop: 20,
-    marginLeft: 1,
+    marginLeft: 5,
     marginRight: 5,
     paddingBottom: 10,
   },
