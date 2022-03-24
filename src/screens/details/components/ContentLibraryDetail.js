@@ -144,6 +144,7 @@ const ContentLibraryDetail = props => {
             'ContentTags',
             {
               itemname: item?.name,
+              title: route?.params?.title,
               id: item?.term_id,
             },
             (navigationOptions = {animationEnabled: false}),

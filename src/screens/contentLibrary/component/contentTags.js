@@ -38,15 +38,14 @@ const ContactTags = props => {
 
   useFocusEffect(
     useCallback(() => {
-		
-    fetchContentTags(route?.params?.id);
+      fetchContentTags(route?.params?.id);
 
-    return () => {
-      cleanContentTags();
-    };
-  }, []),
+      return () => {
+        cleanContentTags();
+      };
+    }, []),
   );
-    console.log(route.params.id);
+  console.log(route.params.id);
   console.log({contentTags});
 
   useEffect(() => {
@@ -112,6 +111,14 @@ const ContactTags = props => {
             }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style={{fontSize: 9}}>Content Library Tags</Text>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={15}
+                color="#B2B3B9"
+              />
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
+              <Text style={{fontSize: 9}}>{route?.params?.title}</Text>
               <Ionicons
                 name="chevron-forward-outline"
                 size={15}
