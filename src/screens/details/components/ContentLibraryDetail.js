@@ -134,8 +134,31 @@ const ContentLibraryDetail = props => {
     );
   };
 
-  const togglePlaying = () => {
-    setPlaying(prev => !prev);
+  const _renderTagItem = ({item, key}) => {
+    const itemname = item?.name;
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('LibraryDetail', {
+            itemname,
+          })
+        }
+        key={key}>
+        <View style={styles.tagsContainer}>
+          <View style={styles.singleTagContainer}>
+            <FeatherIcon
+              name="tag"
+              size={20}
+              color="#9B9CA0"
+              style={{marginTop: 5}}
+            />
+            <Text style={styles.tagTitleText} numberOfLines={2}>
+              {item?.name}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -243,32 +266,23 @@ const ContentLibraryDetail = props => {
           {/* Attachments Section */}
           <View style={styles.sectionContainer}>
             <Text style={styles.bodyTitleText}>Attachments:</Text>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              data={contentLibraryDetails?.attachment}
-              renderItem={_renderItem}
-            />
           </View>
 
           {/* Tags Section */}
           <View style={styles.sectionContainerBorder}>
             <Text style={styles.bodyTitleText}>Tags:</Text>
-            <View style={styles.tagsContainer}>
-              {contentLibraryDetails?.tags?.map(item => (
-                <View style={styles.singleTagContainer}>
-                  <FeatherIcon
-                    name="tag"
-                    size={20}
-                    color="#9B9CA0"
-                    style={{marginTop: 5}}
-                  />
-                  <Text style={styles.tagTitleText} numberOfLines={2}>
-                    {item?.name}
-                  </Text>
-                </View>
-              ))}
-            </View>
+
+            <FlatList
+              contentContainerStyle={{
+                flex: 1,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              }}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              data={contentLibraryDetails?.tags}
+              renderItem={_renderTagItem}
+            />
           </View>
 
           {/* Article Feedback Section */}
@@ -396,11 +410,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   singleTagContainer: {
-    width: '49%',
+    width: 155,
     height: 47,
     marginBottom: 10,
-    paddingHorizontal: 15,
+    marginLeft: 5,
+    marginRight: 5,
+    paddingHorizontal: 5,
     flexDirection: 'row',
+    justifyContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
