@@ -36,14 +36,18 @@ const ContactTags = props => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(contentTags);
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
+		
     fetchContentTags(route?.params?.id);
 
     return () => {
       cleanContentTags();
     };
   }, []),
+  );
     console.log(route.params.id);
+  console.log({contentTags});
 
   useEffect(() => {
     setFilteredDataSource(contentTags);
@@ -196,6 +200,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
     padding: 15,
+    marginBottom: 40,
   },
   input: {
     height: 45,

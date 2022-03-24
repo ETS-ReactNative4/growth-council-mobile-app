@@ -447,7 +447,6 @@ const Dashboard = props => {
           </View>
         </View>
 
-        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </View>
@@ -459,7 +458,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
-    paddingBottom: 100,
+   
   },
   pillar: {
     display: 'flex',

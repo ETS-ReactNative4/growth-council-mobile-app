@@ -365,6 +365,7 @@ const MainNavigation = () => {
           name="ContentTags"
           component={ContentTagsScreen}
           options={({route, navigation}) => ({
+            animationEnabled: false,
             id: route?.params?.id,
             header: () => (
               <SubHeader
@@ -381,6 +382,7 @@ const MainNavigation = () => {
           component={ContentLibraryDetailScreen}
           options={({route, navigation}) => ({
             id: route?.params?.id,
+            animationEnabled: false,
             header: () => (
               <SubHeader
                 title="Content Library"

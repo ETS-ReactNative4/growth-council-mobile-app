@@ -53,7 +53,7 @@ const ContentLibraryDetail = props => {
     setIsTrue(value);
   };
 
-  console.log(route.params.resourceId);
+  console.log(route.params.id);
   const _renderItem = ({item, index}) => {
     const source = {uri: item?.file?.url, cache: true};
 
@@ -140,10 +140,14 @@ const ContentLibraryDetail = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('ContentTags', {
-            itemname: item?.name,
-            id: item?.term_id,
-          })
+          navigation.navigate(
+            'ContentTags',
+            {
+              itemname: item?.name,
+              id: item?.term_id,
+            },
+            (navigationOptions = {animationEnabled: false}),
+          )
         }>
         <View style={styles.tagsContainer}>
           <View style={styles.singleTagContainer}>
@@ -202,16 +206,15 @@ const ContentLibraryDetail = props => {
                 style={{width: '100%', height: 205, borderRadius: 10}}
                 allowsFullscreenVideo
                 scrollEnabled={false}
-                ref={controlRef}
-                play={playing}
+                webViewStyle={{opacity: 0.99}}
                 automaticallyAdjustContentInsets
                 source={{
                   html: `
-          <html>
+          <Html>
             <body>
               ${contentLibraryDetails?.video_url}
             </body>
-          </html>
+          </Html>
         `,
                 }}
               />
@@ -285,7 +288,6 @@ const ContentLibraryDetail = props => {
                 flexDirection: 'row',
                 flexWrap: 'wrap',
               }}
-              showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
               data={contentLibraryDetails?.tags}
               renderItem={_renderTagItem}
@@ -461,4 +463,5 @@ const styles = StyleSheet.create({
     zIndex: 1011,
   },
 });
+
 export default ContentLibraryDetail;

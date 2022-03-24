@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+    marginBottom: 40,
   },
   input: {
     height: 45,
