@@ -142,45 +142,59 @@ const ContactTags = props => {
 
           {filteredDataSource?.map((item, index) => {
             return (
-              <View>
-                <View style={[styles.eventCard, styles.shadowProp]}>
-                  <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
-                  <View style={styles.eventDetails}>
-                    <View style={styles.eventInfo}>
-                      <Text style={styles.eventTitle}>{item?.post_title}</Text>
-
-                      <HTMLView
-                        value={'<p>' + item?.post_excerpt + '</p>'}
-                        stylesheet={webViewStyle}
-                      />
-                    </View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ContentLibraryDetail', {
+                    id: item?.ID,
+                    title: item?.post_title,
+                    itemname: route?.params?.itemname,
+                    resourceId: route?.params?.resources,
+                  })
+                }>
+                <View>
+                  <View style={[styles.eventCard, styles.shadowProp]}>
                     <View
-                      style={{
-                        width: 50,
-                        height: 60,
-                        backgroundColor: '#EBECF0',
-                        borderRadius: 10,
-                        padding: 10,
-                        alignItems: 'center',
-                      }}>
-                      {item?.video_url === null ? (
-                        <FontAwesome5
-                          name="file-pdf"
-                          size={20}
-                          color="#9B9CA0"
+                      style={[styles.eventTheme, {borderColor: '#19325A'}]}
+                    />
+                    <View style={styles.eventDetails}>
+                      <View style={styles.eventInfo}>
+                        <Text style={styles.eventTitle}>
+                          {item?.post_title}
+                        </Text>
+
+                        <HTMLView
+                          value={'<p>' + item?.post_excerpt + '</p>'}
+                          stylesheet={webViewStyle}
                         />
-                      ) : (
-                        <Image
-                          source={require('../../../assets/img/file-play.png')}
-                          style={{width: 20, height: 20, color: '#9B9CA0'}}
-                          resizeMode="contain"
-                        />
-                      )}
-                      <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+                      </View>
+                      <View
+                        style={{
+                          width: 50,
+                          height: 60,
+                          backgroundColor: '#EBECF0',
+                          borderRadius: 10,
+                          padding: 10,
+                          alignItems: 'center',
+                        }}>
+                        {item?.video_url === null ? (
+                          <FontAwesome5
+                            name="file-pdf"
+                            size={20}
+                            color="#9B9CA0"
+                          />
+                        ) : (
+                          <Image
+                            source={require('../../../assets/img/file-play.png')}
+                            style={{width: 20, height: 20, color: '#9B9CA0'}}
+                            resizeMode="contain"
+                          />
+                        )}
+                        <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
 

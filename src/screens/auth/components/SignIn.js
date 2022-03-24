@@ -158,7 +158,7 @@ const SignInForm = props => {
                   onPress={() => setHidePass(!hidePass)}
                   style={{
                     position: 'absolute',
-                    bottom: 10,
+                    bottom: 20,
                     right: 15,
                   }}
                 />
