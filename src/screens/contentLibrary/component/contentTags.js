@@ -22,42 +22,39 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const LibraryDetail = props => {
+const ContactTags = props => {
   const {
     navigation,
     route,
-    libraryDetails,
-    libraryDetailsLoading,
-    libraryDetailsError,
-    fetchLibraryDetail,
-    cleanLibraryDetail,
+    contentTags,
+    contentTagsLoading,
+    contentTagsError,
+    fetchContentTags,
+    cleanContentTags,
   } = props;
 
   const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState(libraryDetails);
+  const [filteredDataSource, setFilteredDataSource] = useState(contentTags);
 
   useFocusEffect(
     useCallback(() => {
-      fetchLibraryDetail(route.params.resources);
+      fetchContentTags(route?.params?.id);
 
       return () => {
-        cleanLibraryDetail();
+        cleanContentTags();
       };
     }, []),
   );
-  console.log(route.params.resources);
+  console.log(route.params.id);
+  console.log({contentTags});
 
   useEffect(() => {
-    setFilteredDataSource(libraryDetails);
-  }, [libraryDetails]);
+    setFilteredDataSource(contentTags);
+  }, [contentTags]);
 
   const searchFilterFunction = text => {
-    // Check if searched text is not blank
     if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = libraryDetails.filter(function (item) {
+      const newData = contentTags.filter(function (item) {
         const itemData = item?.post_title
           ? item?.post_title.toLowerCase()
           : ''.toLowerCase();
@@ -67,9 +64,7 @@ const LibraryDetail = props => {
       setFilteredDataSource(newData);
       setSearch(text);
     } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredDataSource(libraryDetails);
+      setFilteredDataSource(contentTags);
       setSearch(text);
     }
   };
@@ -115,31 +110,28 @@ const LibraryDetail = props => {
               paddingBottom: 10,
             }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{fontSize: 9}}>Content Library</Text>
+              <Text style={{fontSize: 9}}>Content Library Tags</Text>
               <Ionicons
                 name="chevron-forward-outline"
                 size={15}
                 color="#B2B3B9"
               />
             </View>
-            {route.params.breadcrumbName !== undefined && (
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={15}
-                  color="#B2B3B9"
-                />
-              </View>
-            )}
-
+            <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
+              <Text style={{fontSize: 9}}>{route?.params?.title}</Text>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={15}
+                color="#B2B3B9"
+              />
+            </View>
             <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
               <Text
                 style={{
                   fontSize: 9,
                   color: '#14A2E2',
                 }}>
-                {route.params.itemname}
+                {route?.params?.itemname}
               </Text>
             </View>
           </View>
@@ -150,70 +142,53 @@ const LibraryDetail = props => {
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
             paddingBottom: 20,
           }}>
-          {libraryDetailsLoading && (
+          {contentTagsLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
 
-          {filteredDataSource.map(item => {
+          {filteredDataSource?.map((item, index) => {
             return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('ContentLibraryDetail', {
-                    id: item?.ID,
-                    title: item?.post_title,
-                    itemname: route?.params?.itemname,
-                    resourceId: route?.params?.resources,
-                  })
-                }>
-                <View>
-                  <View style={[styles.eventCard, styles.shadowProp]}>
+              <View>
+                <View style={[styles.eventCard, styles.shadowProp]}>
+                  <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
+                  <View style={styles.eventDetails}>
+                    <View style={styles.eventInfo}>
+                      <Text style={styles.eventTitle}>{item?.post_title}</Text>
+
+                      <HTMLView
+                        value={'<p>' + item?.post_excerpt + '</p>'}
+                        stylesheet={webViewStyle}
+                      />
+                    </View>
                     <View
-                      style={[styles.eventTheme, {borderColor: '#19325A'}]}
-                    />
-                    <View style={styles.eventDetails}>
-                      <View style={styles.eventInfo}>
-                        <Text style={styles.eventTitle}>
-                          {item?.post_title}
-                        </Text>
-                        {/* <Text style={{fontSize: 8, color: '#041C3E'}}>
-								{item.post_excerpt}
-							  </Text> */}
-                        <HTMLView
-                          value={'<p>' + item?.post_excerpt + '</p>'}
-                          stylesheet={webViewStyle}
+                      style={{
+                        width: 50,
+                        height: 60,
+                        backgroundColor: '#EBECF0',
+                        borderRadius: 10,
+                        padding: 10,
+                        alignItems: 'center',
+                      }}>
+                      {item?.video_url === null ? (
+                        <FontAwesome5
+                          name="file-pdf"
+                          size={20}
+                          color="#9B9CA0"
                         />
-                        {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
-                      </View>
-                      <View
-                        style={{
-                          width: 50,
-                          height: 60,
-                          backgroundColor: '#EBECF0',
-                          borderRadius: 10,
-                          padding: 10,
-                          alignItems: 'center',
-                        }}>
-                        {item?.video_url === null ? (
-                          <FontAwesome5
-                            name="file-pdf"
-                            size={20}
-                            color="#9B9CA0"
-                          />
-                        ) : (
-                          <Image
-                            source={require('../../../assets/img/file-play.png')}
-                            style={{width: 20, height: 20, color: '#9B9CA0'}}
-                            resizeMode="contain"
-                          />
-                        )}
-                        <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
-                      </View>
+                      ) : (
+                        <Image
+                          source={require('../../../assets/img/file-play.png')}
+                          style={{width: 20, height: 20, color: '#9B9CA0'}}
+                          resizeMode="contain"
+                        />
+                      )}
+                      <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
                     </View>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </View>
             );
           })}
 
@@ -232,7 +207,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
     padding: 15,
-    marginBottom: 25,
+    marginBottom: 40,
   },
   input: {
     height: 45,
@@ -345,4 +320,4 @@ const webViewStyle = StyleSheet.create(
   {p: {fontSize: 10}},
   {h3: {fontSize: 9, color: '#14A2E2'}},
 );
-export default LibraryDetail;
+export default ContactTags;

@@ -52,6 +52,8 @@ const ContentLibraryDetail = props => {
   const handleFeedbackChange = value => {
     setIsTrue(value);
   };
+
+  console.log(route.params.id);
   const _renderItem = ({item, index}) => {
     const source = {uri: item?.file?.url, cache: true};
 
@@ -134,8 +136,35 @@ const ContentLibraryDetail = props => {
     );
   };
 
-  const togglePlaying = () => {
-    setPlaying(prev => !prev);
+  const _renderTagItem = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(
+            'ContentTags',
+            {
+              itemname: item?.name,
+              title: route?.params?.title,
+              id: item?.term_id,
+            },
+            (navigationOptions = {animationEnabled: false}),
+          )
+        }>
+        <View style={styles.tagsContainer}>
+          <View style={styles.singleTagContainer}>
+            <FeatherIcon
+              name="tag"
+              size={20}
+              color="#9B9CA0"
+              style={{marginTop: 5}}
+            />
+            <Text style={styles.tagTitleText} numberOfLines={2}>
+              {item?.name}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -178,16 +207,15 @@ const ContentLibraryDetail = props => {
                 style={{width: '100%', height: 205, borderRadius: 10}}
                 allowsFullscreenVideo
                 scrollEnabled={false}
-                ref={controlRef}
-                play={playing}
+                webViewStyle={{opacity: 0.99}}
                 automaticallyAdjustContentInsets
                 source={{
                   html: `
-          <html>
+          <Html>
             <body>
               ${contentLibraryDetails?.video_url}
             </body>
-          </html>
+          </Html>
         `,
                 }}
               />
@@ -254,21 +282,17 @@ const ContentLibraryDetail = props => {
           {/* Tags Section */}
           <View style={styles.sectionContainerBorder}>
             <Text style={styles.bodyTitleText}>Tags:</Text>
-            <View style={styles.tagsContainer}>
-              {contentLibraryDetails?.tags?.map(item => (
-                <View style={styles.singleTagContainer}>
-                  <FeatherIcon
-                    name="tag"
-                    size={20}
-                    color="#9B9CA0"
-                    style={{marginTop: 5}}
-                  />
-                  <Text style={styles.tagTitleText} numberOfLines={2}>
-                    {item?.name}
-                  </Text>
-                </View>
-              ))}
-            </View>
+
+            <FlatList
+              contentContainerStyle={{
+                flex: 1,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              }}
+              showsVerticalScrollIndicator={false}
+              data={contentLibraryDetails?.tags}
+              renderItem={_renderTagItem}
+            />
           </View>
 
           {/* Article Feedback Section */}
@@ -396,11 +420,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   singleTagContainer: {
-    width: '49%',
+    width: 155,
     height: 47,
     marginBottom: 10,
-    paddingHorizontal: 15,
+    marginLeft: 5,
+    marginRight: 5,
+    paddingHorizontal: 5,
     flexDirection: 'row',
+    justifyContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -437,4 +464,5 @@ const styles = StyleSheet.create({
     zIndex: 1011,
   },
 });
+
 export default ContentLibraryDetail;
