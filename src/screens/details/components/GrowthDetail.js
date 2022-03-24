@@ -10,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   Pressable,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -134,21 +135,7 @@ const GrowthDetail = props => {
           </View>
         </TouchableOpacity>
 
-        {/* <View style={styles.chatIcon}>
-		{!memberConnection[index]?.connection && (
-            <TouchableOpacity onPress={() => navigation.navigate('People')}>
-              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
-            </TouchableOpacity>
-          )}
-          {memberConnection[index]?.connection && (
-            <Material
-              name="check-circle"
-              size={20}
-              color="#14A2E2"
-              style={{marginTop: 25}}
-            />
-          )}
-        </View> */}
+      
       </View>
     );
   };
@@ -308,7 +295,7 @@ const GrowthDetail = props => {
 
   return (
     <>
-      {' '}
+    
       <StatusBar
         barStyle="light-content"
         hidden={false}
