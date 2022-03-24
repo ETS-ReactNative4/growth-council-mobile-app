@@ -52,6 +52,8 @@ const ContentLibraryDetail = props => {
   const handleFeedbackChange = value => {
     setIsTrue(value);
   };
+
+  console.log(route.params.resourceId);
   const _renderItem = ({item, index}) => {
     const source = {uri: item?.file?.url, cache: true};
 
@@ -134,16 +136,15 @@ const ContentLibraryDetail = props => {
     );
   };
 
-  const _renderTagItem = ({item, key}) => {
-    const itemname = item?.name;
+  const _renderTagItem = ({item, index}) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('LibraryDetail', {
-            itemname,
+          navigation.navigate('ContentTags', {
+            itemname: item?.name,
+            id: item?.term_id,
           })
-        }
-        key={key}>
+        }>
         <View style={styles.tagsContainer}>
           <View style={styles.singleTagContainer}>
             <FeatherIcon
@@ -266,6 +267,12 @@ const ContentLibraryDetail = props => {
           {/* Attachments Section */}
           <View style={styles.sectionContainer}>
             <Text style={styles.bodyTitleText}>Attachments:</Text>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              data={contentLibraryDetails?.attachment}
+              renderItem={_renderItem}
+            />
           </View>
 
           {/* Tags Section */}

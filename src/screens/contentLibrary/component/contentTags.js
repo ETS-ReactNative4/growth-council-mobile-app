@@ -22,7 +22,7 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const LibraryDetail = props => {
+const ContactTags = props => {
   const {
     navigation,
     route,
@@ -36,15 +36,14 @@ const LibraryDetail = props => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(contentTags);
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchContentTags(route.params.resources);
+  useEffect(() => {
+    fetchContentTags(route?.params?.id);
 
-      return () => {
-        cleanContentTags();
-      };
-    }, []),
-  );
+    return () => {
+      cleanContentTags();
+    };
+  }, []),
+    console.log(route.params.id);
 
   useEffect(() => {
     setFilteredDataSource(contentTags);
@@ -121,7 +120,7 @@ const LibraryDetail = props => {
                   fontSize: 9,
                   color: '#14A2E2',
                 }}>
-                {route.params.itemname}
+                {route?.params?.itemname}
               </Text>
             </View>
           </View>
@@ -138,63 +137,47 @@ const LibraryDetail = props => {
             </View>
           )}
 
-          {filteredDataSource.map((item, key) => {
+          {filteredDataSource?.map((item, index) => {
             return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('ContentLibraryDetail', {
-                    id: item?.ID,
-                    title: item?.post_title,
-                    itemname: route.params.itemname,
-                  })
-                }>
-                <View>
-                  <View style={[styles.eventCard, styles.shadowProp]} key={key}>
+              <View>
+                <View style={[styles.eventCard, styles.shadowProp]}>
+                  <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
+                  <View style={styles.eventDetails}>
+                    <View style={styles.eventInfo}>
+                      <Text style={styles.eventTitle}>{item?.post_title}</Text>
+
+                      <HTMLView
+                        value={'<p>' + item?.post_excerpt + '</p>'}
+                        stylesheet={webViewStyle}
+                      />
+                    </View>
                     <View
-                      style={[styles.eventTheme, {borderColor: '#19325A'}]}
-                    />
-                    <View style={styles.eventDetails}>
-                      <View style={styles.eventInfo}>
-                        <Text style={styles.eventTitle}>
-                          {item?.post_title}
-                        </Text>
-                        {/* <Text style={{fontSize: 8, color: '#041C3E'}}>
-								{item.post_excerpt}
-							  </Text> */}
-                        <HTMLView
-                          value={'<p>' + item?.post_excerpt + '</p>'}
-                          stylesheet={webViewStyle}
+                      style={{
+                        width: 50,
+                        height: 60,
+                        backgroundColor: '#EBECF0',
+                        borderRadius: 10,
+                        padding: 10,
+                        alignItems: 'center',
+                      }}>
+                      {item?.video_url === null ? (
+                        <FontAwesome5
+                          name="file-pdf"
+                          size={20}
+                          color="#9B9CA0"
                         />
-                        {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
-                      </View>
-                      <View
-                        style={{
-                          width: 50,
-                          height: 60,
-                          backgroundColor: '#EBECF0',
-                          borderRadius: 10,
-                          padding: 10,
-                          alignItems: 'center',
-                        }}>
-                        {item?.video_url === null ? (
-                          <FontAwesome5
-                            name="file-pdf"
-                            size={20}
-                            color="#9B9CA0"
-                          />
-                        ) : (
-                          <Image
-                            source={require('../../../assets/img/file-play.png')}
-                            style={{width: 20, height: 20, color: '#9B9CA0'}}
-                            resizeMode="contain"
-                          />
-                        )}
-                        <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
-                      </View>
+                      ) : (
+                        <Image
+                          source={require('../../../assets/img/file-play.png')}
+                          style={{width: 20, height: 20, color: '#9B9CA0'}}
+                          resizeMode="contain"
+                        />
+                      )}
+                      <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
                     </View>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </View>
             );
           })}
 
@@ -325,4 +308,4 @@ const webViewStyle = StyleSheet.create(
   {p: {fontSize: 10}},
   {h3: {fontSize: 9, color: '#14A2E2'}},
 );
-export default LibraryDetail;
+export default ContactTags;

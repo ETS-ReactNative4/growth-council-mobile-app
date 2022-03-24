@@ -45,6 +45,7 @@ const LibraryDetail = props => {
       };
     }, []),
   );
+  console.log(route.params.resources);
 
   useEffect(() => {
     setFilteredDataSource(libraryDetails);
@@ -72,8 +73,6 @@ const LibraryDetail = props => {
       setSearch(text);
     }
   };
-
- 
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -157,18 +156,19 @@ const LibraryDetail = props => {
             </View>
           )}
 
-          {filteredDataSource.map((item, key) => {
+          {filteredDataSource.map(item => {
             return (
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('ContentLibraryDetail', {
                     id: item?.ID,
                     title: item?.post_title,
-                    itemname: route.params.itemname,
+                    itemname: route?.params?.itemname,
+                    resourceId: route?.params?.resources,
                   })
                 }>
                 <View>
-                  <View style={[styles.eventCard, styles.shadowProp]} key={key}>
+                  <View style={[styles.eventCard, styles.shadowProp]}>
                     <View
                       style={[styles.eventTheme, {borderColor: '#19325A'}]}
                     />

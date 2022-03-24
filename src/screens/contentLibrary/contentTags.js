@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import LibraryDetail from './component/libraryDetails';
+import ContactTags from './component/contentTags';
 
 import {
 	fetchAllContentTags,
@@ -14,8 +14,8 @@ const ContentTagsScreen = props => {
   const {contentTags, contentTagsLoading, contentTagsError} =
     useSelector(state => state.contentTags);
 
-  const fetchContentTags = resourceId => {
-    dispatch(fetchAllContentTags(resourceId));
+  const fetchContentTags = id => {
+    dispatch(fetchAllContentTags(id));
   };
 
   const cleanContentTags = () => {
@@ -23,7 +23,7 @@ const ContentTagsScreen = props => {
   };
 
   return (
-    <LibraryDetail
+    <ContactTags
       {...props}
       contentTags={contentTags}
       contentTagsLoading={contentTagsLoading}
