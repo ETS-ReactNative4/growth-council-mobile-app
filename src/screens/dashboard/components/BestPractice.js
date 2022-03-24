@@ -307,6 +307,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+	marginBottom: 60,
   },
   top: {
     marginTop: 20,

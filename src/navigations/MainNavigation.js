@@ -22,6 +22,7 @@ import JourneyScreen from '../screens/auth/Journey';
 import ContactUsScreen from '../screens/static/ContactUs';
 import ContentLibraryScreen from '../screens/contentLibrary/contentLibrary';
 import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
+import ContentTagsScreen from '../screens/contentLibrary/contentTags';
 import CriticalIssueScreen from '../screens/criticalIssue/index';
 import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
 
@@ -361,9 +362,10 @@ const MainNavigation = () => {
           })}
         />
         <Stack.Screen
-          name="ContentLibraryDetail"
-          component={ContentLibraryDetailScreen}
+          name="ContentTags"
+          component={ContentTagsScreen}
           options={({route, navigation}) => ({
+            animationEnabled: false,
             id: route?.params?.id,
             header: () => (
               <SubHeader
@@ -375,19 +377,35 @@ const MainNavigation = () => {
             ),
           })}
         />
-		<Stack.Screen
+        <Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
+          options={({route, navigation}) => ({
+            id: route?.params?.id,
+            animationEnabled: false,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
           name="CriticalIssue"
           component={CriticalIssueScreen}
-       	 options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Critical Issue"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-			  noDrawer
-            />
-          ),
-        })}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Critical Issue"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="ContactUs"

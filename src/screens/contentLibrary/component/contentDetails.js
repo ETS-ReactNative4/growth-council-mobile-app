@@ -143,7 +143,7 @@ const ContentLibrary = props => {
             data={filteredDataSource}
             renderItem={_renderContent}
           /> */}
-          {filteredDataSource.map((item, key) => {
+          {filteredDataSource.map((item) => {
             const itemname = item?.name;
             return (
               <TouchableOpacity
@@ -154,7 +154,7 @@ const ContentLibrary = props => {
                     itemname,
                   })
                 }
-                key={key}>
+                >
                 <View style={[styles.content, styles.shadowProp]}>
                   {item?.image === null && (
                     <ImageBackground
@@ -210,6 +210,7 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+	marginBottom: 40,
   },
   input: {
     height: 45,

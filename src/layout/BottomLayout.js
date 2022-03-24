@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
 	backgroundColor:'#0C336C',
     height: 60,
     alignContent: 'center',
+	
   },
   shadow: {
     shadowColor: 'rgba(200, 200, 200, 0.33)',
