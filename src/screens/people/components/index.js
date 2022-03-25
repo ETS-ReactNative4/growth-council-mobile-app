@@ -297,6 +297,7 @@ const People = props => {
               renderItem={_renderItem}
             />
           </View>
+          <Footer />
         </ScrollView>
       </View>
       {/* <Footer /> */}
@@ -478,6 +479,7 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+    marginBottom: 20,
   },
   input: {
     height: 45,

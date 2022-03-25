@@ -61,7 +61,6 @@ const EventCalendar = props => {
     fetchCalendarEventAsync();
   }, []);
 
-
   const getDates = (startDate, endDate) => {
     const dates = [];
     let currentDate = startDate;
@@ -382,8 +381,8 @@ const EventCalendar = props => {
               </View>
             </View>
           </Modal>
+          <Footer />
         </View>
-        {/* <Footer /> */}
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
@@ -394,6 +393,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    marginBottom: 20,
   },
   yearTab: {
     width: '90%',
@@ -452,6 +452,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 10,
+    paddingBottom: 10,
   },
   eventTheme: {
     height: '100%',
