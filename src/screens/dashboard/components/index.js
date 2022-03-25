@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -224,12 +225,12 @@ const Dashboard = props => {
                 resizeMode="contain"
               />
             )}
-            { item?.video_url==='' && (
+            {item?.video_url === '' && (
               <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-			)}
-			{item?.video_url === null && (
+            )}
+            {item?.video_url === null && (
               <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-			)}
+            )}
             <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
           </View>
         </View>
@@ -534,7 +535,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
     borderRadius: 16,
-    overflow: 'hidden',
+    overflow: Platform.OS === 'ios' ? 'visible' : 'hidden',
     backgroundColor: 'white',
     marginRight: 5,
     // borderWidth: 0.3,
