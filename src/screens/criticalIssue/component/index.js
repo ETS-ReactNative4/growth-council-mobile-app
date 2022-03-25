@@ -118,10 +118,6 @@ const CriticalIssue = props => {
             data={criticalIssue?.critical_issue_mobile_lists}
             renderItem={_renderCritical}
           />
-
-          <View style={{marginTop: 10}}>
-            <Footer />
-          </View>
         </View>
       </ScrollView>
 

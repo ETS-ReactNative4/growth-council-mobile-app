@@ -7,7 +7,7 @@ const Footer = props => {
       style={{
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 40,
+        marginBottom: 50,
       }}>
       {/* <Text style={{fontSize: 8, marginTop: 10, marginBottom:5}}>Powered By</Text> */}
       <Image
