@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
     padding: 15,
-    marginBottom: 40,
+
   },
   input: {
     height: 45,

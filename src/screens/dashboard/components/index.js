@@ -436,7 +436,7 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>Critical Issue</Text>
+          <Text style={styles.title}>Critical Issues</Text>
           <View>
             <FlatList
               numColumns={2}
@@ -457,7 +457,6 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
-    marginBottom: 40,
   },
   pillar: {
     display: 'flex',
@@ -590,7 +589,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     justifyContent: 'center',
     borderRadius: 20,
-    marginBottom: 20,
+    marginBottom: 50,
     paddingBottom: 5,
   },
   ContentWrapper: {
