@@ -10,6 +10,7 @@ import {
   PermissionsAndroid,
   Button,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -140,15 +141,11 @@ const ContentLibraryDetail = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate(
-            'ContentTags',
-            {
-              itemname: item?.name,
-              title: route?.params?.title,
-              id: item?.term_id,
-            },
-            (navigationOptions = {animationEnabled: false}),
-          )
+          navigation.navigate('ContentTags', {
+            itemname: item?.name,
+            title: route?.params?.title,
+            id: item?.term_id,
+          })
         }>
         <View style={styles.tagsContainer}>
           <View style={styles.singleTagContainer}>
@@ -420,8 +417,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   singleTagContainer: {
-    width: 155,
-    height: 47,
+    width: (Dimensions.get('window').width - 90) / 2,
+    height: 50,
     marginBottom: 10,
     marginLeft: 5,
     marginRight: 5,
@@ -442,7 +439,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 8,
     fontFamily: 'SFProText-Regular',
-    fontSize: 10,
+    fontSize: 9,
     lineHeight: 15,
     color: Colors.SECONDARY_TEXT_COLOR,
   },

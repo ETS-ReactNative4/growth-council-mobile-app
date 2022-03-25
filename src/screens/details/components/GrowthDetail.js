@@ -134,8 +134,6 @@ const GrowthDetail = props => {
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
-
-      
       </View>
     );
   };
@@ -295,7 +293,6 @@ const GrowthDetail = props => {
 
   return (
     <>
-    
       <StatusBar
         barStyle="light-content"
         hidden={false}
@@ -454,7 +451,7 @@ const GrowthDetail = props => {
             </View>
           </ScrollView>
         </View>
-        {/* <Footer /> */}
+        <Footer />
       </ScrollView>
     </>
   );
@@ -605,6 +602,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
+    marginBottom: 10,
   },
   ContentWrapper: {
     height: 206,
