@@ -35,7 +35,7 @@ const Profile = props => {
     const fetchProfileEventAsync = async () => {
       let token = await getAsyncStorage(JWT_TOKEN);
       let userID = decodeUserID(token);
-	  console.log({token})
+      console.log({token});
       await fetchEventsByUserIdentifier(userID);
     };
     fetchProfileEventAsync();
@@ -49,19 +49,19 @@ const Profile = props => {
     const actualDate = moment(item?.event_start).format('LLLL').split(',', 6);
     const date = actualDate[1].split(' ', 3);
 
-	let organizer = item?.organizer?.term_name;
+    let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
-    if (organizer === undefined){
-      organizer = ' '; 
+    if (organizer === undefined) {
+      organizer = ' ';
     } else {
       organizer = <Text>Hosted By {item?.organizer?.term_name}</Text>;
     }
 
-	if (description === undefined){
-		description = ' '; 
-	  } else {
-		description = item?.organizer?.description;
-	  }
+    if (description === undefined) {
+      description = ' ';
+    } else {
+      description = item?.organizer?.description;
+    }
 
     return (
       <View key={index}>
@@ -72,34 +72,28 @@ const Profile = props => {
               <Text style={styles.text}>{item.title}</Text>
               <View style={styles.iconWrapper}>
                 <Ionicon name={'person'} size={20} color="#0B0B45" />
-                <Text style={[styles.text,{fontSize:10, width:100,}]} >
-				{organizer} {description}</Text>
-                <Ionicon
-                  name={'calendar'}
-                  size={20}
-                  color="#0B0B45"
-                  style={{marginLeft: 5}}
-                />
-                <Text style={styles.text}>
-                  {date[2]} {date[1]}
+                <Text style={[styles.text, {fontSize: 10, width: 100}]}>
+                  {organizer} {description}
                 </Text>
-              </View>
-              <View style={styles.iconWrapper}>
+
                 <Ionicon name={'time'} size={20} color="#0B0B45" />
-                <Text style={styles.text}>
+                <Text style={[styles.text, {fontSize: 12}]}>
                   {item?.event_meta._start_hour[0]}:
                   {item?.event_meta._start_minute[0]}
                   {item.event_meta._start_ampm[0]}
                 </Text>
-                <Ionicon
-                  name={'location'}
-                  size={20}
-                  color="#0B0B45"
-                  style={{marginLeft: 20}}
-                />
-                <Text style={styles.text}>
-                  {item.location?.location_address}
+              </View>
+              <View style={styles.iconWrapper}>
+                <Ionicon name={'calendar'} size={20} color="#0B0B45" />
+                <Text style={[styles.text, {fontSize: 12, width: 100}]}>
+                  {date[2]} {date[1]}
                 </Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Ionicon name={'location'} size={20} color="#0B0B45" />
+                  <Text style={[styles.text, {fontSize: 12}]}>
+                    {item.location?.location_address}
+                  </Text>
+                </View>
               </View>
             </View>
             <Button
@@ -163,7 +157,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontFamily: Typography.FONT_SF_REGULAR,
   },
- 
+
   wrapper: {
     width: Platform.OS === 'ios' ? '65%' : '70%',
     marginLeft: 10,
@@ -176,7 +170,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginTop: 20,
-	borderWidth:0.3
+    borderWidth: 0.3,
   },
   middleImage: {
     width: 40,
