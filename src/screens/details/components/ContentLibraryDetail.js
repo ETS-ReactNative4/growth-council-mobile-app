@@ -40,24 +40,18 @@ const ContentLibraryDetail = props => {
   } = props;
 
   useEffect(() => {
-    const fetchContentLibraryDetailAsync = async () => {
-      await fetchContentLibraryDetail(route?.params?.id);
-    };
-    fetchContentLibraryDetailAsync();
+    fetchContentLibraryDetail(route?.params?.id);
   }, []);
 
   const [isTrue, setIsTrue] = useState(true);
-  const controlRef = useRef();
-  const [playing, setPlaying] = useState(false);
 
   const handleFeedbackChange = value => {
     setIsTrue(value);
   };
 
   console.log(route.params.id);
-  const _renderItem = ({item, index}) => {
-    const source = {uri: item?.file?.url, cache: true};
 
+  const _renderItem = ({item, index}) => {
     const fileUrl = item?.file?.url;
 
     const checkPermission = async () => {
@@ -163,6 +157,21 @@ const ContentLibraryDetail = props => {
       </TouchableOpacity>
     );
   };
+  const _renderActionItem = ({item, index}) => {
+    return (
+      <View style={{marginBottom: 10, flexDirection: 'row'}}>
+        <Entypo name="dot-single" size={20} color="black" />
+
+        <Text
+          style={{
+            fontFamily: 'SFProText-Regular',
+            color: Colors.SECONDARY_TEXT_COLOR,
+          }}>
+          {item?.list}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -193,15 +202,12 @@ const ContentLibraryDetail = props => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{padding: 25}}
-          contentContainerStyle={{paddingBottom: 90}}>
-          {contentLibraryDetails?.video_url !== null && (
-            <View>
-              {/* <Image
-              source={require('../../../assets/img/image.png')}
-              style={styles.contentImage}
-            /> */}
+          contentContainerStyle={{paddingBottom: 60}}>
+          {contentLibraryDetails?.video_url !== null || contentLibraryDetails?.video_url !== ""  && (
+            <View
+              style={{backgroundColor: 'red', height: 180, borderRadius: 10}}>
               <WebView
-                style={{width: '100%', height: 205, borderRadius: 10}}
+                style={{width: '100%', height: 205, marginTop: 10}}
                 allowsFullscreenVideo
                 scrollEnabled={false}
                 webViewStyle={{opacity: 0.99}}
@@ -250,19 +256,12 @@ const ContentLibraryDetail = props => {
           {/* Call To Action Section */}
           <View style={styles.sectionContainer}>
             <Text style={styles.bodyTitleText}>Call to Action:</Text>
-            {contentLibraryDetails?.call_to_action?.map(item => (
-              <View style={{marginBottom: 10, flexDirection: 'row'}}>
-                <Entypo name="dot-single" size={20} color="black" />
-
-                <Text
-                  style={{
-                    fontFamily: 'SFProText-Regular',
-                    color: Colors.SECONDARY_TEXT_COLOR,
-                  }}>
-                  {item?.list}
-                </Text>
-              </View>
-            ))}
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              data={contentLibraryDetails?.call_to_action}
+              renderItem={_renderActionItem}
+            />
           </View>
 
           {/* Attachments Section */}

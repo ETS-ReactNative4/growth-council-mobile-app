@@ -60,6 +60,7 @@ const Profile = props => {
             backgroundColor: PRIMARY_BACKGROUND_COLOR,
             justifyContent: 'center',
             alignContent: 'center',
+            marginBottom: 20,
           }}>
           <Image
             source={require('../../../assets/img/appBG.png')}
@@ -165,8 +166,8 @@ const Profile = props => {
               </View>
             </View>
           </View>
+          <Footer />
         </View>
-        {/* <Footer /> */}
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
@@ -181,6 +182,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     justifyContent: 'center',
     alignContent: 'center',
+    marginBottom: 20,
   },
   header: {
     alignItems: 'center',

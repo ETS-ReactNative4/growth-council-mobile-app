@@ -234,7 +234,7 @@ const People = props => {
                 {category ? category : 'Expertise Areas'}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setAccountVisible(true)}
               style={{
                 flex: 1,
@@ -246,8 +246,8 @@ const People = props => {
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {account ? account : 'Account Type'}
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+            </TouchableOpacity> */}
+            {/* <TouchableOpacity
               onPress={() => setRegionVisible(true)}
               style={{
                 flex: 1,
@@ -259,7 +259,7 @@ const People = props => {
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {region ? region : 'Region'}
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
 
@@ -297,6 +297,7 @@ const People = props => {
               renderItem={_renderItem}
             />
           </View>
+          <Footer />
         </ScrollView>
       </View>
       {/* <Footer /> */}
@@ -478,6 +479,7 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+    marginBottom: 20,
   },
   input: {
     height: 45,

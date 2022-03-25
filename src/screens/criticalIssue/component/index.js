@@ -88,7 +88,8 @@ const CriticalIssue = props => {
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-        }}>
+        }}
+        >
         <View style={styles.container}>
           <View style={styles.title}>
             <Text
@@ -118,10 +119,6 @@ const CriticalIssue = props => {
             data={criticalIssue?.critical_issue_mobile_lists}
             renderItem={_renderCritical}
           />
-
-          <View style={{marginTop: 10}}>
-            <Footer />
-          </View>
         </View>
       </ScrollView>
 
@@ -134,6 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     // padding: 20,
+    marginBottom: 60,
   },
   input: {
     height: 45,
@@ -153,7 +151,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 1.5, height: 2},
     shadowRadius: 5,
     elevation: 5,
-    paddingBottom: 10,
   },
   contentWrapper: {
     padding: 10,
