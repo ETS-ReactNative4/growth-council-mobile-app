@@ -195,17 +195,25 @@ const LibraryDetail = props => {
                           padding: 10,
                           alignItems: 'center',
                         }}>
-                        {item?.video_url === null ? (
+                        {item?.video_url !== null && item?.video_url !== '' && (
+                          <Image
+                            source={require('../../../assets/img/file-play.png')}
+                            style={{width: 20, height: 20, color: '#9B9CA0'}}
+                            resizeMode="contain"
+                          />
+                        )}
+                        {item?.video_url === '' && (
                           <FontAwesome5
                             name="file-pdf"
                             size={20}
                             color="#9B9CA0"
                           />
-                        ) : (
-                          <Image
-                            source={require('../../../assets/img/file-play.png')}
-                            style={{width: 20, height: 20, color: '#9B9CA0'}}
-                            resizeMode="contain"
+                        )}
+                        {item?.video_url === null && (
+                          <FontAwesome5
+                            name="file-pdf"
+                            size={20}
+                            color="#9B9CA0"
                           />
                         )}
                         <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
@@ -232,7 +240,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
     padding: 15,
-
   },
   input: {
     height: 45,

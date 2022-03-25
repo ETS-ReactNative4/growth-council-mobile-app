@@ -217,15 +217,19 @@ const Dashboard = props => {
             />
           </View>
           <View style={styles.middleW}>
-            {item?.video_url === null ? (
-              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-            ) : (
+            {item?.video_url !== null && item?.video_url !== '' && (
               <Image
                 source={require('../../../assets/img/file-play.png')}
                 style={{width: 20, height: 20, color: '#9B9CA0'}}
                 resizeMode="contain"
               />
             )}
+            { item?.video_url==='' && (
+              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+			)}
+			{item?.video_url === null && (
+              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+			)}
             <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
           </View>
         </View>
