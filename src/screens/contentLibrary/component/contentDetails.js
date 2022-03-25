@@ -48,7 +48,6 @@ const ContentLibrary = props => {
   }, [contentLibrary]);
 
   const breadcrumbName = route.params.resourcesName;
-  const resources = route.params.resourceId;
 
   const searchFilterFunction = text => {
     // Check if searched text is not blank
@@ -143,18 +142,17 @@ const ContentLibrary = props => {
             data={filteredDataSource}
             renderItem={_renderContent}
           /> */}
-          {filteredDataSource.map((item) => {
+          {filteredDataSource.map(item => {
             const itemname = item?.name;
             return (
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('LibraryDetail', {
                     breadcrumbName,
-                    resources,
+                    resources: item?.term_id,
                     itemname,
                   })
-                }
-                >
+                }>
                 <View style={[styles.content, styles.shadowProp]}>
                   {item?.image === null && (
                     <ImageBackground
@@ -210,7 +208,6 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
-	marginBottom: 40,
   },
   input: {
     height: 45,

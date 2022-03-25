@@ -66,7 +66,13 @@ export const DashboardStackScreen = () => {
       screenOptions={({navigation}) => ({
         header: () => <MainHeader navigation={navigation} />,
       })}>
-      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={({route, navigation}) => ({
+          animationEnabled: false,
+        })}
+      />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen
         name="People"

@@ -35,7 +35,6 @@ import SubHeader from '../shared/header/SubHeader';
 import {DashboardStackScreen} from './MainNavigation';
 
 import {fetchProfileByID} from '../screens/account/slice/profileSlice';
-import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
 
 const Drawer = createDrawerNavigator();
 

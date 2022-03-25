@@ -436,7 +436,7 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>Critical Issue</Text>
+          <Text style={styles.title}>Critical Issues</Text>
           <View>
             <FlatList
               numColumns={2}
@@ -516,7 +516,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_MEDIUM,
     fontWeight: '700',
     color: 'white',
-    fontSize: 10,
+    fontSize: 8,
     lineHeight: 12,
   },
   middle: {
@@ -590,7 +590,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     justifyContent: 'center',
     borderRadius: 20,
-    marginBottom: 20,
+    marginBottom: 30,
     paddingBottom: 5,
   },
   ContentWrapper: {
@@ -601,7 +601,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 5,
     marginRight: 5,
-    paddingBottom: 10,
+    paddingBottom: 5,
   },
   shadowProp: {
     shadowColor: '#000',
