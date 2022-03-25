@@ -203,8 +203,9 @@ const ContentLibraryDetail = props => {
           showsVerticalScrollIndicator={false}
           style={{padding: 25}}
           contentContainerStyle={{paddingBottom: 60}}>
-          {contentLibraryDetails?.video_url !== null && (
-            <View style={{height: 180, borderRadius: 10}}>
+          {contentLibraryDetails?.video_url !== null || contentLibraryDetails?.video_url !== ""  && (
+            <View
+              style={{backgroundColor: 'red', height: 180, borderRadius: 10}}>
               <WebView
                 style={{width: '100%', height: 205, marginTop: 10}}
                 allowsFullscreenVideo
@@ -369,7 +370,6 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     marginBottom: 20,
-    marginTop: 20,
   },
   abstractDescriptionText: {
     flex: 1,
