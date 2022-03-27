@@ -434,7 +434,7 @@ const GrowthDetail = props => {
               )}
 
               <View style={styles.growthContent}>
-                <Text style={styles.title}>Growth Coaching Content</Text>
+                <Text style={styles.title}>Growth Leadership Coaching Content Library</Text>
                 <View
                   style={{
                     display: 'flex',
