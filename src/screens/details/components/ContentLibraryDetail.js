@@ -27,6 +27,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Searchbar} from 'react-native-paper';
 import {BubblesLoader} from 'react-native-indicator';
 import WebView from 'react-native-autoheight-webview';
+import HTMLView from 'react-native-htmlview';
 
 const ContentLibraryDetail = props => {
   const {
@@ -172,7 +173,7 @@ const ContentLibraryDetail = props => {
       </View>
     );
   };
-
+  console.log(contentLibraryDetails?.presenter);
   return (
     <View style={styles.container}>
       <StatusBar
@@ -186,9 +187,20 @@ const ContentLibraryDetail = props => {
         {/* Breadcrumb Section */}
         <View style={styles.breadcrumbContainer}>
           <View style={styles.singleBreadcrumb}>
-            <Text style={styles.inactiveBreadcrumbText}>
-              {route?.params?.itemname}
-            </Text>
+            {route.params.itemname !== undefined && (
+              <HTMLView
+                value={route.params.itemname}
+                textComponentProps={{
+                  style: {
+                    marginRight: 10,
+                    fontFamily: 'SFProText-Medium',
+                    fontSize: 8,
+                    color: '#B2B3B9',
+                  },
+                }}
+              />
+            )}
+
             <FeatherIcon name="chevron-right" size={10} color="#B2B3B9" />
           </View>
           <View style={{...styles.singleBreadcrumb, flex: 1}}>
@@ -203,43 +215,44 @@ const ContentLibraryDetail = props => {
           showsVerticalScrollIndicator={false}
           style={{padding: 25}}
           contentContainerStyle={{paddingBottom: 60}}>
-          {contentLibraryDetails?.video_url !== null && contentLibraryDetails?.video_url !== ""  && (
-            <View
-              style={{ height: 180, borderRadius: 10}}>
-              <WebView
-                style={{width: '100%', height: 205, marginTop: 10}}
-                allowsFullscreenVideo
-                scrollEnabled={false}
-                webViewStyle={{opacity: 0.99}}
-                automaticallyAdjustContentInsets
-                source={{
-                  html: `
+          {contentLibraryDetails?.video_url !== null &&
+            contentLibraryDetails?.video_url !== '' && (
+              <View style={{height: 180, borderRadius: 10}}>
+                <WebView
+                  style={{width: '100%', height: 205, marginTop: 10}}
+                  allowsFullscreenVideo
+                  scrollEnabled={false}
+                  webViewStyle={{opacity: 0.99}}
+                  automaticallyAdjustContentInsets
+                  source={{
+                    html: `
           <Html>
             <body>
               ${contentLibraryDetails?.video_url}
             </body>
           </Html>
         `,
-                }}
-              />
+                  }}
+                />
+              </View>
+            )}
+          {contentLibraryDetails?.presenter !== null && (
+            <View style={styles.sectionContainerBorder}>
+              <Text style={styles.bodyTitleText}>Presented By:</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Image
+                  source={{uri: contentLibraryDetails?.presenter_image}}
+                  style={styles.userImage}
+                />
+                <View style={{marginLeft: 20}}>
+                  <Text style={styles.userNameText}>
+                    {contentLibraryDetails?.presenter}
+                  </Text>
+                </View>
+              </View>
             </View>
           )}
 
-          {/* <View style={styles.sectionContainerBorder}>
-            <Text style={styles.bodyTitleText}>Presented By:</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image
-                source={require('../../../assets/img/connection-image.png')}
-                style={styles.userImage}
-              />
-              <View style={{marginLeft: 20}}>
-                <Text style={styles.userNameText}>Michael "Coop" Cooper</Text>
-                <Text style={styles.userInfoText}>
-                  Founder, Innovators + Influencers
-                </Text>
-              </View>
-            </View>
-          </View> */}
           {contentLibraryDetailsLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -347,6 +360,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     borderBottomWidth: 1,
     borderColor: 'rgba(112, 112, 112, 0.13)',
+    marginTop: 10,
   },
   bodyTitleText: {
     marginBottom: 20,

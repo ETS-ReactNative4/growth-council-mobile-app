@@ -134,13 +134,15 @@ const LibraryDetail = props => {
             )}
 
             <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-              <Text
-                style={{
-                  fontSize: 9,
-                  color: '#14A2E2',
-                }}>
-                {route.params.itemname}
-              </Text>
+              <HTMLView
+                value={route.params.itemname}
+                textComponentProps={{
+                  style: {
+                    fontSize: 9,
+                    color: '#14A2E2',
+                  },
+                }}
+              />
             </View>
           </View>
         </View>

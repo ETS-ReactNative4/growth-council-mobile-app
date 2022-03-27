@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   },
   content: {
     width: '98%',
-    marginLeft: 5,
+    marginLeft: 1,
     height: 190,
     borderRadius: 20,
     overflow: 'hidden',

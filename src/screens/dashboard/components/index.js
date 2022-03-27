@@ -209,7 +209,7 @@ const Dashboard = props => {
       <View style={[styles.middleWrapper, styles.shadowContent]}>
         <View style={{flexDirection: 'row'}}>
           <View style={{width: '70%', margin: 10}}>
-            <Text style={{fontSize: 12, color: '#041C3E'}}>
+            <Text style={{fontSize: 12, color: '#041C3E', fontWeight: '600'}}>
               {item.post_title}
             </Text>
             <HTMLView
@@ -529,7 +529,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   middleWrapper: {
-    height: 144,
+    height: 150,
     width: 256,
     marginLeft: 15,
     marginTop: 20,
