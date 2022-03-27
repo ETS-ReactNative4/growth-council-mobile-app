@@ -60,7 +60,7 @@ const Profile = props => {
             backgroundColor: PRIMARY_BACKGROUND_COLOR,
             justifyContent: 'center',
             alignContent: 'center',
-            marginBottom: 20,
+            marginBottom: 30,
           }}>
           <Image
             source={require('../../../assets/img/appBG.png')}
@@ -162,7 +162,7 @@ const Profile = props => {
                 )}
                 {value === 'My Point of Engagement' && <MyEvent {...props} />}
 
-                {value === 'About Us' && <MySession {...props} />}
+                {/* {value === 'About Us' && <MySession {...props} />} */}
               </View>
             </View>
           </View>

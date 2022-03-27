@@ -11,7 +11,6 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import {Button} from 'native-base';
 import moment from 'moment';
 import {useIsFocused} from '@react-navigation/native';
-
 import {CommonStyles, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
@@ -19,6 +18,8 @@ import {decodeUserID} from '../../../utils/jwtUtil';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import {BubblesLoader} from 'react-native-indicator';
 import * as Colors from '../../../theme/colors';
+import * as RNLocalize from 'react-native-localize';
+import {formatTimeByOffset} from '../../event/components/timezone';
 
 const Profile = props => {
   const isFocused = useIsFocused();
@@ -33,10 +34,12 @@ const Profile = props => {
 
   useEffect(() => {
     const fetchProfileEventAsync = async () => {
-      let token = await getAsyncStorage(JWT_TOKEN);
-      let userID = decodeUserID(token);
-      console.log({token});
-      await fetchEventsByUserIdentifier(userID);
+      //   let token = await getAsyncStorage(JWT_TOKEN);
+      //   let userID = decodeUserID(token);
+      //   console.log({token});
+      await fetchEventsByUserIdentifier({
+        all_events: true,
+      });
     };
     fetchProfileEventAsync();
 
@@ -63,13 +66,26 @@ const Profile = props => {
       description = item?.organizer?.description;
     }
 
+    const backStartTimeStamp = item?.event_start;
+    const deviceTimeZone = RNLocalize.getTimeZone();
+
+    const today = moment().tz(deviceTimeZone);
+    const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+    let convertedToLocalTime = formatTimeByOffset(
+      backStartTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+
+    const time = moment(convertedToLocalTime).format('h:mma');
+
     return (
-      <View key={index}>
+      <View key={index} style={{paddingBottom: 10}}>
         <TouchableOpacity
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-          <View style={styles.middleWrapper}>
+          <View style={[styles.middleWrapper, styles.shadowProp]}>
             <View style={styles.wrapper}>
-              <Text style={styles.text}>{item.title}</Text>
+              <Text style={styles.text}>{item?.title}</Text>
               <View style={styles.iconWrapper}>
                 <Ionicon name={'person'} size={20} color="#0B0B45" />
                 <Text style={[styles.text, {fontSize: 10, width: 100}]}>
@@ -77,11 +93,7 @@ const Profile = props => {
                 </Text>
 
                 <Ionicon name={'time'} size={20} color="#0B0B45" />
-                <Text style={[styles.text, {fontSize: 12}]}>
-                  {item?.event_meta._start_hour[0]}:
-                  {item?.event_meta._start_minute[0]}
-                  {item.event_meta._start_ampm[0]}
-                </Text>
+                <Text style={[styles.text, {fontSize: 12}]}>{time}</Text>
               </View>
               <View style={styles.iconWrapper}>
                 <Ionicon name={'calendar'} size={20} color="#0B0B45" />
@@ -90,7 +102,7 @@ const Profile = props => {
                 </Text>
                 <View style={{flexDirection: 'row'}}>
                   <Ionicon name={'location'} size={20} color="#0B0B45" />
-                  <Text style={[styles.text, {fontSize: 12}]}>
+                  <Text style={[styles.text, {fontSize: 12, width: 120}]}>
                     {item.location?.location_address}
                   </Text>
                 </View>
@@ -132,6 +144,7 @@ const Profile = props => {
           </View>
         </>
       )}
+
       <FlatList
         Vertical
         showsVerticalScrollIndicator={false}
@@ -165,12 +178,16 @@ const styles = StyleSheet.create({
   },
   middleWrapper: {
     paddingBottom: 20,
-    width: '100%',
+    width: '98%',
     borderRadius: 15,
     display: 'flex',
     flexDirection: 'row',
     marginTop: 20,
-    borderWidth: 0.3,
+    left: 2,
+    right: 5,
+
+    backgroundColor: 'white',
+    // borderWidth: 0.3,
   },
   middleImage: {
     width: 40,
@@ -218,6 +235,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+
     elevation: 5,
   },
 });

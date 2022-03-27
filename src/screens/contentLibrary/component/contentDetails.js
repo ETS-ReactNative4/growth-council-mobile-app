@@ -159,15 +159,21 @@ const ContentLibrary = props => {
                       style={{width: '100%', height: 190, borderRadius: 16}}
                       source={require('../../../assets/img/library.png')}>
                       <View style={styles.contentWrapper}>
-                        <Text>{item?.count}</Text>
-                        <Text style={{fontSize: 10, color: 'black'}}>
+                        <Text style={{color: 'black'}}>{item?.count}</Text>
+                        <Text style={{ fontSize: 12,color: 'black'}}>
                           Article
                         </Text>
                       </View>
                       <View style={styles.wrapper}>
                         <HTMLView
                           value={item?.name}
-                          style={{fontSize: 14, color: 'black'}}
+                          textComponentProps={{
+							style: {
+							  color: 'black',
+							  fontSize: 14,
+							  fontWeight: '600',
+							},
+						  }}
                         />
                       </View>
                     </ImageBackground>
@@ -177,15 +183,21 @@ const ContentLibrary = props => {
                       style={{width: '100%', height: 190, borderRadius: 16}}
                       source={item?.image}>
                       <View style={styles.contentWrapper}>
-                        <Text>{item?.count}</Text>
-                        <Text style={{fontSize: 10, color: 'black'}}>
+                        <Text style={{color: 'black'}}>{item?.count}</Text>
+                        <Text style={{fontSize: 12, color: 'black'}}>
                           Article
                         </Text>
                       </View>
                       <View style={styles.wrapper}>
                         <HTMLView
                           value={item?.name}
-                          style={{fontSize: 14, color: 'black'}}
+                          textComponentProps={{
+							style: {
+							  color: 'black',
+							  fontSize: 14,
+							  fontWeight: '600',
+							},
+						  }}
                         />
                       </View>
                     </ImageBackground>

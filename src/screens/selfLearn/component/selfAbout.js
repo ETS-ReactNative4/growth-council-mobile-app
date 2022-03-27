@@ -107,25 +107,27 @@ const selfAbout = props => {
             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
           </View>
         )}
-        <View style={{marginTop: 10}}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Typography.FONT_SF_SEMIBOLD,
-              color: 'black',
-            }}>
-            Book Summary
-          </Text>
-
-          <Text
+        <View >
+         
+		  <HTMLView
+                value={selfLearns?.description}
+                textComponentProps={{
+                  style: {
+					
+					fontSize: 14,
+					fontFamily: Typography.FONT_SF_REGULAR,
+                  },
+                }}
+              />
+          {/* <Text
             style={{
               marginTop: 10,
               fontSize: 14,
               fontFamily: Typography.FONT_SF_REGULAR,
-            }}></Text>
+            }}></Text> */}
         </View>
 
-        <View style={{marginTop: 20}}>
+        {/* <View style={{marginTop: 20}}>
           <Text
             style={{
               fontSize: 14,
@@ -141,7 +143,7 @@ const selfAbout = props => {
               fontSize: 14,
               fontFamily: Typography.FONT_SF_REGULAR,
             }}></Text>
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   );

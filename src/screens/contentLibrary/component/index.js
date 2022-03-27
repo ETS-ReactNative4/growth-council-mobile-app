@@ -79,13 +79,19 @@ const Content = props => {
               style={{width: '100%', height: 190, borderRadius: 16}}
               source={require('../../../assets/img/image.png')}>
               <View style={styles.contentWrapper}>
-                <Text>{item?.children_count}</Text>
+                <Text style={{color: 'black'}}>{item?.children_count}</Text>
                 <Text style={{fontSize: 10, color: 'black'}}>Article</Text>
               </View>
               <View style={styles.wrapper}>
                 <HTMLView
                   value={item?.name}
-                  style={{fontSize: 14, color: 'black'}}
+                  textComponentProps={{
+                    style: {
+                      color: 'black',
+                      fontSize: 14,
+                      fontWeight: '600',
+                    },
+                  }}
                 />
                 {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
               </View>
@@ -96,13 +102,19 @@ const Content = props => {
               style={{width: '100%', height: 190, borderRadius: 16}}
               source={{uri: item?.image}}>
               <View style={styles.contentWrapper}>
-                <Text>{item?.children_count}</Text>
+                <Text style={{color: 'black'}}>{item?.children_count}</Text>
                 <Text style={{fontSize: 10, color: 'black'}}>Article</Text>
               </View>
               <View style={styles.wrapper}>
                 <HTMLView
                   value={item?.name}
-                  style={{fontSize: 14, color: 'black'}}
+                  textComponentProps={{
+                    style: {
+                      color: 'black',
+                      fontSize: 14,
+                      fontWeight: '600',
+                    },
+                  }}
                 />
                 {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
               </View>
@@ -190,7 +202,6 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
-
   },
   input: {
     height: 45,
@@ -202,7 +213,7 @@ const styles = StyleSheet.create({
   },
   content: {
     width: '98%',
-    marginLeft: 5,
+    marginLeft: 1,
     height: 190,
     borderRadius: 20,
     overflow: 'hidden',
