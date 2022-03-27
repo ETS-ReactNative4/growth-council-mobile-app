@@ -190,6 +190,7 @@ const GrowthDetail = props => {
             navigation.navigate('coachingSession', {
               id: item.ID,
               sessionId: item?.ID,
+              title: item?.title,
             })
           }>
           <View style={styles.middleWrapper}>
