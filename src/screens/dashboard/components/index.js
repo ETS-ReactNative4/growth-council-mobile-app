@@ -163,45 +163,6 @@ const Dashboard = props => {
     );
   };
 
-  //   const _renderMiddleItem = ({item, index}) => {
-  //     let poePage = 'CommunityDetail';
-  //     if (item?.parent === 119) {
-  //       //   poePage = 'GrowthDetail';
-  //       if (item?.slug === 'growth-leadership-coaching') {
-  //         poePage = 'GrowthDetail';
-  //       } else {
-  //         poePage = 'CommunityDetail';
-  //       }
-  //     }
-  //     return (
-  //       <TouchableOpacity
-  //         onPress={() =>
-  //           navigation.navigate(poePage, {
-  //             poeId: item?.term_id,
-  //             pillarId: item?.parent,
-  //           })
-  //         }>
-  //         <View style={styles.middleWrapper}>
-  //           <View style={[styles.middleW, styles.shadowProp]}>
-  //             <Image
-  //               source={{uri: item?.image}}
-  //               style={{width: 30, height: 30}}
-  //             />
-  //           </View>
-  //           <Text
-  //             style={{
-  //               marginTop: 10,
-  //               fontSize: 10,
-  //               marginHorizontal: 10,
-  //               textAlign: 'center',
-  //               color: '#222B45',
-  //             }}>
-  //             {item?.name}
-  //           </Text>
-  //         </View>
-  //       </TouchableOpacity>
-  //     );
-  //   };
 
   const _renderContent = ({item, index}) => {
     const date = moment(item?.post_modified).format('D/MM/yyyy');
