@@ -25,13 +25,12 @@ const Radar = props => {
 
   const [userId, setUserId] = useState(0);
 
-  useEffect(() => {
-    let token = getAsyncStorage(JWT_TOKEN);
+  useEffect(async () => {
+    let token =  await getAsyncStorage(JWT_TOKEN);
     let ID = decodeUserID(token);
     if(ID){
       setUserId(ID);
     }
-    console.log(token);
   }, []);
 
   function LoadingIndicatorView() {
