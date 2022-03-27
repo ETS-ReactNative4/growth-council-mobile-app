@@ -65,7 +65,7 @@ const Profile = props => {
     } else {
       description = item?.organizer?.description;
     }
-	
+
     const backStartTimeStamp = item?.event_start;
     const deviceTimeZone = RNLocalize.getTimeZone();
 
@@ -76,14 +76,14 @@ const Profile = props => {
       backStartTimeStamp,
       currentTimeZoneOffsetInHours,
     );
-   
+
     const time = moment(convertedToLocalTime).format('h:mma');
 
     return (
-      <View key={index}>
+      <View key={index} style={{paddingBottom: 10}}>
         <TouchableOpacity
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
-          <View style={styles.middleWrapper}>
+          <View style={[styles.middleWrapper, styles.shadowProp]}>
             <View style={styles.wrapper}>
               <Text style={styles.text}>{item?.title}</Text>
               <View style={styles.iconWrapper}>
@@ -93,9 +93,7 @@ const Profile = props => {
                 </Text>
 
                 <Ionicon name={'time'} size={20} color="#0B0B45" />
-                <Text style={[styles.text, {fontSize: 12}]}>
-                  {time}
-                </Text>
+                <Text style={[styles.text, {fontSize: 12}]}>{time}</Text>
               </View>
               <View style={styles.iconWrapper}>
                 <Ionicon name={'calendar'} size={20} color="#0B0B45" />
@@ -146,6 +144,7 @@ const Profile = props => {
           </View>
         </>
       )}
+
       <FlatList
         Vertical
         showsVerticalScrollIndicator={false}
@@ -179,12 +178,16 @@ const styles = StyleSheet.create({
   },
   middleWrapper: {
     paddingBottom: 20,
-    width: '100%',
+    width: '98%',
     borderRadius: 15,
     display: 'flex',
     flexDirection: 'row',
     marginTop: 20,
-    borderWidth: 0.3,
+    left: 2,
+    right: 5,
+
+    backgroundColor: 'white',
+    // borderWidth: 0.3,
   },
   middleImage: {
     width: 40,
@@ -232,6 +235,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+
     elevation: 5,
   },
 });
