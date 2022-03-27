@@ -105,6 +105,10 @@ const LibraryDetail = props => {
 
           <Searchbar
             style={styles.input}
+            inputStyle={{
+              height: 38,
+              paddingVertical: 0,
+            }}
             placeholder="Search"
             placeholderTextColor="#B2B3B9"
             iconColor="#B2B3B9"
