@@ -182,9 +182,9 @@ const EventCalendar = props => {
         borderColor = Colors.COACHING_COLOR;
     }
 
-    let nav = 'SessionDetail';
+    let nav = 'coachingSession';
     if (item?.pillar_categories[0]?.slug === 'growth-leadership-coaching') {
-      nav = 'SessionDetail';
+      nav = 'coachingSession';
     } else {
       nav = 'EventDetail';
     }

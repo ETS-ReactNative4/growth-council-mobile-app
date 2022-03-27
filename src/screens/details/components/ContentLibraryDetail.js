@@ -59,7 +59,7 @@ const ContentLibraryDetail = props => {
   };
 
   console.log(route.params.id);
-  console.log({contentLibraryDetails})
+  console.log({contentLibraryDetails});
 
   const _renderItem = ({item, index}) => {
     const fileUrl = item?.file?.url;
@@ -183,6 +183,12 @@ const ContentLibraryDetail = props => {
     );
   };
   console.log(contentLibraryDetails?.presenter);
+  let video = contentLibraryDetails?.video_url;
+  if (video !== undefined) {
+    video = contentLibraryDetails?.video_url;
+  } else {
+    video = '';
+  }
   return (
     <View style={styles.container}>
       <StatusBar
@@ -237,7 +243,7 @@ const ContentLibraryDetail = props => {
                     html: `
           <Html>
             <body>
-              ${contentLibraryDetails?.video_url}
+              ${video}
             </body>
           </Html>
         `,
