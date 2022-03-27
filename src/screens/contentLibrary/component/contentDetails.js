@@ -195,7 +195,7 @@ const ContentLibrary = props => {
                           borderTopLeftRadius: 14,
                           borderTopRightRadius: 14,
                         }}
-                        source={item?.image}
+                        source={{uri: item?.image}}
                         resizeMode="stretch"
                       />
                       <View style={styles.contentWrapper}>

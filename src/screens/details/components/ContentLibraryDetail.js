@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {
   View,
   Text,
@@ -25,6 +25,8 @@ import SearchHeader from '../../../shared/header/SearchHeader';
 import {Colors, CommonStyles} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Searchbar} from 'react-native-paper';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+
 import {BubblesLoader} from 'react-native-indicator';
 import WebView from 'react-native-autoheight-webview';
 import HTMLView from 'react-native-htmlview';
@@ -40,9 +42,15 @@ const ContentLibraryDetail = props => {
     cleanContentLibraryDetail,
   } = props;
 
-  useEffect(() => {
-    fetchContentLibraryDetail(route?.params?.id);
-  }, []);
+  const isFocused = useIsFocused();
+  useFocusEffect(
+    useCallback(() => {
+      fetchContentLibraryDetail(route?.params?.id);
+      return () => {
+        cleanContentLibraryDetail();
+      };
+    }, [isFocused]),
+  );
 
   const [isTrue, setIsTrue] = useState(true);
 
@@ -51,6 +59,7 @@ const ContentLibraryDetail = props => {
   };
 
   console.log(route.params.id);
+  console.log({contentLibraryDetails});
 
   const _renderItem = ({item, index}) => {
     const fileUrl = item?.file?.url;
@@ -174,6 +183,12 @@ const ContentLibraryDetail = props => {
     );
   };
   console.log(contentLibraryDetails?.presenter);
+  let video = contentLibraryDetails?.video_url;
+  if (video !== undefined) {
+    video = contentLibraryDetails?.video_url;
+  } else {
+    video = '';
+  }
   return (
     <View style={styles.container}>
       <StatusBar
@@ -228,7 +243,7 @@ const ContentLibraryDetail = props => {
                     html: `
           <Html>
             <body>
-              ${contentLibraryDetails?.video_url}
+              ${video}
             </body>
           </Html>
         `,

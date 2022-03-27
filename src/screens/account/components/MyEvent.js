@@ -38,7 +38,7 @@ const Profile = props => {
       //   let userID = decodeUserID(token);
       //   console.log({token});
       await fetchEventsByUserIdentifier({
-        all_events: true,
+        all_events: false,
       });
     };
     fetchProfileEventAsync();
@@ -78,11 +78,19 @@ const Profile = props => {
     );
 
     const time = moment(convertedToLocalTime).format('h:mma');
+    let nav = 'coachingSession';
+    if (item?.pillar_categories[0]?.slug === 'growth-leadership-coaching') {
+      nav = 'coachingSession';
+    } else {
+      nav = 'EventDetail';
+    }
 
     return (
       <View key={index} style={{paddingBottom: 10}}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate(nav, {id: item?.ID, title: item?.title})
+          }>
           <View style={[styles.middleWrapper, styles.shadowProp]}>
             <View style={styles.wrapper}>
               <Text style={styles.text}>{item?.title}</Text>
@@ -131,14 +139,14 @@ const Profile = props => {
         <>
           <View
             style={{
-              flex: 1,
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 50,
+              justifyContent: 'center',
               alignItems: 'center',
-              flexDirection: 'column',
-              justifyContent: 'space-around',
               position: 'absolute',
               zIndex: 1011,
-              top: 120,
-              left: 120,
             }}>
             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
           </View>
