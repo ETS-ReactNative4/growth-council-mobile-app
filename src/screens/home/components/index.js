@@ -334,10 +334,10 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
   loading1: {
-    top: 0,
+    top: 180,
     left: 0,
     right: 0,
-    bottom: 50,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
