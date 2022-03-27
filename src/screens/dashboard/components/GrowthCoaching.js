@@ -290,7 +290,7 @@ const GrowthCoaching = props => {
           </View>
 
           <View style={styles.bottom}>
-            <Text style={styles.title}>Growth Coaching Coaches</Text>
+            <Text style={styles.title}>Growth Coaching Members</Text>
             <View>
               <FlatList
                 horizontal
