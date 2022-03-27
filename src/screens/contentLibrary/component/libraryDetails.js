@@ -87,7 +87,7 @@ const LibraryDetail = props => {
         {/* Search Header */}
         <View
           style={{
-            height: 70,
+            height: 80,
             paddingLeft: 4,
             paddingRight: 20,
             flexDirection: 'row',
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 38,
+    height: 45,
     marginLeft: 10,
     borderRadius: 19,
     backgroundColor: '#F5F5F5',
@@ -320,6 +320,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 14,
     fontWeight: 'normal',
+    fontWeight: '600',
+    color: 'black',
   },
   eventParagraph: {
     fontSize: 8,

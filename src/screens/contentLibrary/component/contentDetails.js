@@ -80,7 +80,7 @@ const ContentLibrary = props => {
         {/* Search Header */}
         <View
           style={{
-            height: 70,
+            height: 80,
             paddingLeft: 4,
             paddingRight: 20,
             flexDirection: 'row',
@@ -162,9 +162,8 @@ const ContentLibrary = props => {
                         style={{
                           width: '100%',
                           height: 170,
-                          borderTopLeftRadius: 14,
-                          borderTopRightRadius: 14,
                         }}
+                        resizeMode="stretch"
                         source={require('../../../assets/img/library.png')}
                       />
                       <View style={styles.contentWrapper}>
@@ -200,7 +199,8 @@ const ContentLibrary = props => {
                           borderTopLeftRadius: 14,
                           borderTopRightRadius: 14,
                         }}
-                        source={item?.image}
+                        source={{uri: item?.image}}
+                        resizeMode="stretch"
                       />
                       <View style={styles.contentWrapper}>
                         <Text style={{color: 'black'}}>{item?.count}</Text>
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 38,
+    height: 45,
     marginLeft: 10,
     borderRadius: 19,
     color: 'black',

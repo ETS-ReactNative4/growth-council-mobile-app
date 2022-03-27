@@ -160,7 +160,7 @@ const Content = props => {
         {/* Search Header */}
         <View
           style={{
-            height: 70,
+            height: 80,
             paddingLeft: 4,
             paddingRight: 20,
             flexDirection: 'row',
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
+    height: 45,
     marginLeft: 10,
     borderRadius: 19,
     backgroundColor: '#F5F5F5',
