@@ -406,7 +406,7 @@ const GrowthDetail = props => {
 
               {pillarMemberContents.members && (
                 <View style={styles.bottom}>
-                  <Text style={styles.title}>Members</Text>
+                  <Text style={styles.title}>Coaches</Text>
                   <View>
                     <FlatList
                       horizontal
