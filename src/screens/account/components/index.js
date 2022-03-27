@@ -162,7 +162,7 @@ const Profile = props => {
                 )}
                 {value === 'My Point of Engagement' && <MyEvent {...props} />}
 
-                {value === 'About Us' && <MySession {...props} />}
+                {/* {value === 'About Us' && <MySession {...props} />} */}
               </View>
             </View>
           </View>

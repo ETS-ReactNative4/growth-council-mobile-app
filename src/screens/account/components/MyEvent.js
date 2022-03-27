@@ -33,10 +33,12 @@ const Profile = props => {
 
   useEffect(() => {
     const fetchProfileEventAsync = async () => {
-      let token = await getAsyncStorage(JWT_TOKEN);
-      let userID = decodeUserID(token);
-      console.log({token});
-      await fetchEventsByUserIdentifier(userID);
+      //   let token = await getAsyncStorage(JWT_TOKEN);
+      //   let userID = decodeUserID(token);
+      //   console.log({token});
+      await fetchEventsByUserIdentifier({
+        all_events: true,
+      });
     };
     fetchProfileEventAsync();
 
@@ -69,7 +71,7 @@ const Profile = props => {
           onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
           <View style={styles.middleWrapper}>
             <View style={styles.wrapper}>
-              <Text style={styles.text}>{item.title}</Text>
+              <Text style={styles.text}>{item?.title}</Text>
               <View style={styles.iconWrapper}>
                 <Ionicon name={'person'} size={20} color="#0B0B45" />
                 <Text style={[styles.text, {fontSize: 10, width: 100}]}>
@@ -78,9 +80,9 @@ const Profile = props => {
 
                 <Ionicon name={'time'} size={20} color="#0B0B45" />
                 <Text style={[styles.text, {fontSize: 12}]}>
-                  {item?.event_meta._start_hour[0]}:
-                  {item?.event_meta._start_minute[0]}
-                  {item.event_meta._start_ampm[0]}
+                  {item?.event_meta?._start_hour[0]}:
+                  {item?.event_meta?._start_minute[0]}
+                  {item?.event_meta?._start_ampm[0]}
                 </Text>
               </View>
               <View style={styles.iconWrapper}>
@@ -90,7 +92,7 @@ const Profile = props => {
                 </Text>
                 <View style={{flexDirection: 'row'}}>
                   <Ionicon name={'location'} size={20} color="#0B0B45" />
-                  <Text style={[styles.text, {fontSize: 12}]}>
+                  <Text style={[styles.text, {fontSize: 12, width: 120}]}>
                     {item.location?.location_address}
                   </Text>
                 </View>
