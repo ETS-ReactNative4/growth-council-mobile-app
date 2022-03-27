@@ -177,6 +177,10 @@ const Content = props => {
           </TouchableOpacity>
           <Searchbar
             style={styles.input}
+            inputStyle={{
+              height: 38,
+              paddingVertical: 0,
+            }}
             placeholder="Search"
             placeholderTextColor="#B2B3B9"
             iconColor="#B2B3B9"
@@ -229,7 +233,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 38,
+    height: 40,
     marginLeft: 10,
     borderRadius: 19,
     backgroundColor: '#F5F5F5',
