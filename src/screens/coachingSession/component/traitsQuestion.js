@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {RadioButton} from 'react-native-paper';
-
 import {Typography} from '../../../theme';
 import {ScrollView} from 'native-base';
 
@@ -18,7 +17,6 @@ const TraitsQuestion = props => {
     }
   }, [count, answers]);
 
-
   return (
     <View style={[styles.questionWrapper, styles.shadowProp]}>
       <View style={{alignItems: 'center'}}>
@@ -27,8 +25,9 @@ const TraitsQuestion = props => {
       {question?.options?.map((option1, index) => (
         <View style={styles.wrapper} key={index}>
           <View style={{display: 'flex', flexDirection: 'row'}}>
-            <RadioButton
+            {/* <RadioButton
               value={option1?.score}
+              styles={{borderWidth: 1, borderColor: 'red', borderStyle:'solid'}}
               status={status === option1.score ? 'checked' : 'unchecked'}
               onPress={() => {
                 let newAnswers = answers;
@@ -54,11 +53,41 @@ const TraitsQuestion = props => {
                   });
                 }
               }}
-            />
-            <Text style={{fontSize: 11, marginTop: 10}}>
-              {' '}
-              {option1?.option}
-            </Text>
+            /> */}
+            <View style={styles.rbWrapper}>
+              <TouchableOpacity
+                style={styles.rbStyle}
+                onPress={() => {
+                  let newAnswers = answers;
+                  if (traitIndex.traitIndex === 0) {
+                    let newGrowthIndex = answers.questions.growthIndex;
+                    newGrowthIndex[count] = option1.score;
+                    setAnswers({
+                      ...newAnswers,
+                      questions: {
+                        ...newAnswers.questions,
+                        growthIndex: newGrowthIndex,
+                      },
+                    });
+                  } else {
+                    let newInnovativeIndex = answers.questions.innovativeIndex;
+                    newInnovativeIndex[count] = option1.score;
+                    setAnswers({
+                      ...newAnswers,
+                      questions: {
+                        ...newAnswers.questions,
+                        innovativeIndex: newInnovativeIndex,
+                      },
+                    });
+                  }
+                }}>
+                {status === option1.score && <View style={styles.selected} />}
+              </TouchableOpacity>
+              <Text style={{fontSize: 12, marginTop: 10}}>
+                {' '}
+                {option1?.option}
+              </Text>
+            </View>
           </View>
         </View>
       ))}
@@ -71,7 +100,7 @@ const styles = StyleSheet.create({
     margin: 5,
     marginTop: 25,
     padding: 18,
-    backgroundColor: 'white',
+    backgroundColor: '#f9fff0',
     overflow: 'hidden',
   },
   title: {
@@ -96,6 +125,39 @@ const styles = StyleSheet.create({
   wrapper: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  rbWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textStyle: {
+    marginRight: 36,
+    fontSize: 22,
+    color: '#444',
+    fontWeight: '700',
+  },
+  rbStyle: {
+    height: 20,
+    width: 20,
+    borderRadius: 110,
+    borderWidth: 2,
+    marginTop: 10,
+    borderColor: '#808080',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  selected: {
+    width: 16,
+    height: 16,
+    borderRadius: 55,
+    backgroundColor: '#9FBC6C',
+  },
+  result: {
+    marginTop: 22,
+    color: 'white',
+    fontWeight: '600',
+    backgroundColor: 'blue',
   },
 });
 

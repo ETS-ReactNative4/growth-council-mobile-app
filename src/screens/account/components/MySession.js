@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     display: 'flex',
     flexDirection: 'row',
-    borderWidth: 0.5,
+    borderWidth: 0.3,
     marginTop: 20,
   },
   middleImage: {

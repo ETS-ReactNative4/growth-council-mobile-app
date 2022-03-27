@@ -8,6 +8,7 @@ import {
   Modal,
   ScrollView,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
@@ -17,6 +18,7 @@ import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
 import Footer from '../../../shared/footer';
+import ToastMessage from '../../../shared/toast';
 import {formatTimeByOffset} from '../../event/components/timezone';
 
 const EventCalendar = props => {
@@ -36,6 +38,7 @@ const EventCalendar = props => {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
+  //   const [markedDay, setMarkedDay] = useState([]);
 
   useEffect(() => {
     const fetchCalendarEventAsync = async () => {
@@ -43,11 +46,17 @@ const EventCalendar = props => {
         year: moment().format('YYYY'),
         month: moment().format('MM'),
         all_events: showAllEvents,
-      }).then(response => {
-        if (response?.payload?.code === 200) {
-          setCurrentEvents(response?.payload?.data);
-        }
-      });
+      })
+        .then(response => {
+          if (response?.payload?.code === 200) {
+            setCurrentEvents(response?.payload?.data);
+          } else {
+            setCurrentEvents([]);
+          }
+        })
+        .catch(e => {
+          setCurrentEvents([]);
+        });
     };
     fetchCalendarEventAsync();
   }, []);
@@ -69,18 +78,20 @@ const EventCalendar = props => {
 
   let markedDay = {};
   currentEvents?.map(item => {
-    const startDate = moment(item.event_start).format('YYYY-MM-DD');
-    const endDate = moment(item.event_end).format('YYYY-MM-DD');
+    const startDate = moment(item?.event_start).format('YYYY-MM-DD');
+    const endDate = moment(item?.event_end).format('YYYY-MM-DD');
 
     let backgroundColor = '';
     const pillarCategory = item?.pillar_categories
       ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
       : '';
     switch (pillarCategory) {
-      case 0: case 117:
+      case 0:
+      case 117:
         backgroundColor = Colors.COMMUNITY_COLOR;
         break;
-      case 0: case 118:
+      case 0:
+      case 118:
         backgroundColor = Colors.PRACTICE_COLOR;
         break;
       default:
@@ -171,13 +182,13 @@ const EventCalendar = props => {
         borderColor = Colors.COACHING_COLOR;
     }
 
-    let nav = 'SessionDetail';
+    let nav = 'coachingSession';
     if (item?.pillar_categories[0]?.slug === 'growth-leadership-coaching') {
-		nav = 'SessionDetail';
+      nav = 'coachingSession';
     } else {
-		nav = 'EventDetail';   
+      nav = 'EventDetail';
     }
-	
+
     return (
       <View>
         <TouchableOpacity
@@ -214,7 +225,7 @@ const EventCalendar = props => {
                     ? eventStart.split(/(\s+)/)[0] +
                       eventStart.split(/(\s+)/)[4] +
                       eventEnd.split(' ', 3)[0] +
-					  eventEnd.split(/(\s+)/)[1] +
+                      eventEnd.split(/(\s+)/)[1] +
                       enddate[0] +
                       enddate[1] +
                       enddate[2]
@@ -230,6 +241,12 @@ const EventCalendar = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
           <View style={styles.iconWrapper}>
@@ -264,11 +281,22 @@ const EventCalendar = props => {
                   year: moment(month?.dateString).format('YYYY'),
                   month: moment(month?.dateString).format('MM'),
                   all_events: showAllEvents,
-                }).then(response => {
-                  if (response?.payload?.code === 200) {
-                    setCurrentEvents(response?.payload?.data);
-                  }
-                });
+                })
+                  .then(response => {
+                    console.log(response);
+                    if (response?.payload?.code === 200) {
+                      setCurrentEvents(response?.payload?.data);
+                    } else {
+                      //   setMarkedDay([]);
+                      setCurrentEvents([]);
+                    }
+                  })
+                  .catch(e => {
+                    //   ToastMessage.show(e?.response?.payload?.response);
+                    console.log(e);
+                    // setMarkedDay([]);
+                    setCurrentEvents([]);
+                  });
               }}
               markedDates={markedDay}
             />
@@ -330,11 +358,21 @@ const EventCalendar = props => {
                         year: calendarYear,
                         month: calendarMonth,
                         all_events: itemValue,
-                      }).then(response => {
-                        if (response?.payload?.code === 200) {
-                          setCurrentEvents(response?.payload?.data);
-                        }
-                      });
+                      })
+                        .then(response => {
+                          if (response?.payload?.code === 200) {
+                            setCurrentEvents(response?.payload?.data);
+                          } else {
+                            // setMarkedDay([]);
+                            setCurrentEvents([]);
+                          }
+                        })
+                        .catch(e => {
+                          //   ToastMessage.show(e?.response?.payload?.response);
+                          console.log(e);
+                          //   setMarkedDay([]);
+                          setCurrentEvents([]);
+                        });
                     }}>
                     <Picker.Item label="All Events" value={true} />
                     <Picker.Item label="My Events" value={false} />
@@ -343,8 +381,8 @@ const EventCalendar = props => {
               </View>
             </View>
           </Modal>
+          <Footer />
         </View>
-        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
@@ -355,6 +393,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    marginBottom: 20,
   },
   yearTab: {
     width: '90%',
@@ -413,6 +452,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 10,
+    paddingBottom: 10,
   },
   eventTheme: {
     height: '100%',

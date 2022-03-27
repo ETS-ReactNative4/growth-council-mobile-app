@@ -1,6 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {
-  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -35,38 +34,31 @@ const Home = props => {
   const [activeSlider, setActiveSlider] = useState(1);
   const sliderRef = useRef(null);
 
-  const wp = percentage => {
-    const value = (percentage * viewportWidth) / 100;
-    return Math.round(value);
-  };
-
-  const slideHeight = viewportHeight * 0.36;
-  const slideWidth = wp(50);
   const sliderWidth = viewportWidth;
-  const itemHorizontalMargin = wp(2);
-  const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
   useEffect(() => {
     fetchAllPillarSlider();
   }, []);
 
   const _renderItem = ({item, index}, navigation) => {
+    let borderColor = Colors.PRIMARY_BACKGROUND_COLOR;
+    switch (item?.slug) {
+      case 'community':
+        borderColor = Colors.COMMUNITY_COLOR;
+        break;
+      case 'best-practices':
+        borderColor = Colors.PRACTICE_COLOR;
+        break;
+      case 'growth-coaching':
+        borderColor = Colors.COACHING_COLOR;
+    }
     return (
       <TouchableOpacity
         key={index}
         onPress={() =>
           navigation.navigate('CouncilDetail', {id: item?.term_id})
         }>
-        <View
-          style={{
-            backgroundColor: 'floralwhite',
-            height: viewportWidth - 120,
-            marginLeft: 20,
-            marginRight: 20,
-            position: 'relative',
-            borderRadius: 10,
-            overflow: 'hidden',
-          }}>
+        <View style={[styles.ImageWrapper, {borderColor: borderColor}]}>
           <Image
             source={{uri: item?.image}}
             style={{width: '100%', height: '100%', resizeMode: 'cover'}}
@@ -78,11 +70,12 @@ const Home = props => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
-            style={{width: '80%', marginTop: 30}}
+            style={{width: '70%'}}
             source={require('../../../assets/img/GILCouncil.jpg')}
             resizeMode="contain"
           />
@@ -168,10 +161,6 @@ const Home = props => {
       </View>
 
       <View style={styles.footer}>
-        {/* <Image
-          style={styles.footerlogo}
-          source={require('../../../assets/img/frost-sullivan.png')}
-        /> */}
         <Text style={{fontSize: 6, marginTop: 10, marginBottom: 10}}>
           Powered By
         </Text>
@@ -181,7 +170,7 @@ const Home = props => {
           resizeMode="cover"
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -193,6 +182,16 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+  },
+  ImageWrapper: {
+    backgroundColor: 'floralwhite',
+    height: viewportWidth - 120,
+    marginLeft: 20,
+    marginRight: 20,
+    position: 'relative',
+    borderRadius: 10,
+    borderWidth: 4,
+    overflow: 'hidden',
   },
   wrapper: {
     top: '20%',
@@ -270,10 +269,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 30,
   },
   headingText1: {
-    // ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_SF_BOLD,
     fontSize: 30,
     lineHeight: 30,
@@ -283,7 +281,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   headingText2: {
-    // ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_SEMI_BOLD,
     fontSize: 18,
     lineHeight: 18,
@@ -300,7 +297,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footerlogo: {
-    // width:150,
     height: 22,
     resizeMode: 'contain',
     opacity: 2,
@@ -313,7 +309,7 @@ const styles = StyleSheet.create({
   },
   sliderView: {
     position: 'relative',
-    marginTop: 30,
+    marginTop: 10,
   },
   sliderText: {
     position: 'absolute',
@@ -338,10 +334,12 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
   loading1: {
-    marginLeft: 150,
-    marginTop: 150,
-    flex: 1,
-    flexDirection: 'column',
+    top: 180,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     zIndex: 1011,
   },

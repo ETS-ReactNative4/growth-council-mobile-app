@@ -19,7 +19,6 @@ const AboutScreen = props => {
     dispatch(resetAbout());
   };
 
-  console.log({about});
   return (
     <About
       {...props}

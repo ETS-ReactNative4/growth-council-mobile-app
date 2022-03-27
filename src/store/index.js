@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers} from 'redux';
 import {
-    persistReducer,
-    persistStore,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
 } from 'redux-persist';
 import {configureStore} from '@reduxjs/toolkit';
 
@@ -32,7 +32,6 @@ import eventRegisterReducer from '../screens/event/slice/eventRegisterSlice';
 
 import connectionReducer from '../screens/chat/slice/connetionSlice';
 import notificationReducer from '../screens/chat/slice/notificationSlice';
-
 
 import memberConnectionReducer from '../screens/people/slice/memberConnectionSlice';
 
@@ -77,86 +76,104 @@ import poeSelfLearnReducer from '../screens/selfLearn/slice/poeSelfLearnSlice';
 import selfLearnTraitReducer from '../screens/selfLearn/slice/selfLearnTraitsSlice';
 import selfLearnReducer from '../screens/selfLearn/slice/selfLearnByIdSlice';
 
+import contentReducer from '../screens/contentLibrary/slice/contentSlice';
+import contentLibraryReducer from '../screens/contentLibrary/slice/contentLibrarySlice';
+import libraryDetailReducer from '../screens/contentLibrary/slice/libraryDetailSlice';
+import contentLibraryDetailsReducer from '../screens/details/slice/contentLibraryDetailSlice';
+import latestContentReducer from '../screens/dashboard/slice/latestContentSlice';
+import searchContentReducer from '../screens/contentLibrary/slice/searchContentSlice';
+
+import criticalIssueReducer from '../screens/criticalIssue/slice/criticalIssueSlice';
+import contentTagsReducer from '../screens/contentLibrary/slice/contentTagsSlice';
+
 const persistConfig = {
-    key: 'root',
-    storage: AsyncStorage,
-    whitelist: [],
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: [],
 };
 
 const reducers = combineReducers({
-    auth: authReducer,
-    users: userReducer,
-    password: passwordReducer,
-    upcomingEvents: upcomingEventReducer,
-    poes: pointOfEngagementReducer,
-    pillarPOEs: pillarPOEReducer,
-    communityMembers: communityMemberReducer,
-    events: eventReducer,
-    about: aboutReducer,
-    details: detailReducer,
-    feedback: feedbackReducer,
-    privacy: privacyReducer,
-    idea: ideaReducer,
-    pillars: pillarReducer,
-    pillarSliders: pillarSliderReducer,
-    pillarEvents: pillarEventsReducer,
-    poeDetails: poeDetailReducer,
-    poeEvents: poeEventListReducer,
-    pillarMemberContents: pillarMembersContentsReducer,
+  auth: authReducer,
+  users: userReducer,
+  password: passwordReducer,
+  upcomingEvents: upcomingEventReducer,
+  poes: pointOfEngagementReducer,
+  pillarPOEs: pillarPOEReducer,
+  communityMembers: communityMemberReducer,
+  events: eventReducer,
+  about: aboutReducer,
+  details: detailReducer,
+  feedback: feedbackReducer,
+  privacy: privacyReducer,
+  idea: ideaReducer,
+  pillars: pillarReducer,
+  pillarSliders: pillarSliderReducer,
+  pillarEvents: pillarEventsReducer,
+  poeDetails: poeDetailReducer,
+  poeEvents: poeEventListReducer,
+  pillarMemberContents: pillarMembersContentsReducer,
 
-    connection: connectionReducer,
-    notifications: notificationReducer,
+  connection: connectionReducer,
+  notifications: notificationReducer,
 
-    communities: communityReducer,
-    communityMemberContents: communityMemberContentReducer,
-    sessionDetails: sessionDetailReducer,
-    profile: profileReducer,
-    otherProfiles: otherProfileReducer,
-    profileEvent: profileEventReducer,
-    bestPractices: bestPracticesReducer,
-    growthCoachings: growthCoachingsReducer,
-    bestPracticesMemberContents: bestPracticesMemberContentReducer,
-    growthCoachingMemberContents: growthCoachingMemberContentReducer,
-    profileSession: profileSessionReducer,
-    memberConnections: memberConnectionReducer,
-    eventRegisters: eventRegisterReducer,
-    sessions: sessionReducer,
-    sessionRegisters: sessionRegisterReducer,
+  communities: communityReducer,
+  communityMemberContents: communityMemberContentReducer,
+  sessionDetails: sessionDetailReducer,
+  profile: profileReducer,
+  otherProfiles: otherProfileReducer,
+  profileEvent: profileEventReducer,
+  bestPractices: bestPracticesReducer,
+  growthCoachings: growthCoachingsReducer,
+  bestPracticesMemberContents: bestPracticesMemberContentReducer,
+  growthCoachingMemberContents: growthCoachingMemberContentReducer,
+  profileSession: profileSessionReducer,
+  memberConnections: memberConnectionReducer,
+  eventRegisters: eventRegisterReducer,
+  sessions: sessionReducer,
+  sessionRegisters: sessionRegisterReducer,
 
-    calendarEvents: calendarEventReducer,
-    searches: searchReducer,
-    expertise: expertiseReducer,
-    uploadProfileImages: uploadProfileImageReducer,
-    updateEntities: updateReducer,
-    coachingSession: coachingSessionReducer,
-    traits: traitsReducer,
-    subTraits: subTraitReducer,
-    traitsAnswer: traitAnswerReducer,
+  calendarEvents: calendarEventReducer,
+  searches: searchReducer,
+  expertise: expertiseReducer,
+  uploadProfileImages: uploadProfileImageReducer,
+  updateEntities: updateReducer,
+  coachingSession: coachingSessionReducer,
+  traits: traitsReducer,
+  subTraits: subTraitReducer,
+  traitsAnswer: traitAnswerReducer,
 
-    poeSelfLearns: poeSelfLearnReducer,
-    selfLearnTraits: selfLearnTraitReducer,
-    selfLearns: selfLearnReducer,
+  poeSelfLearns: poeSelfLearnReducer,
+  selfLearnTraits: selfLearnTraitReducer,
+  selfLearns: selfLearnReducer,
+  content: contentReducer,
+  contentLibrary: contentLibraryReducer,
+  libraryDetails: libraryDetailReducer,
+  criticalIssue: criticalIssueReducer,
+  contentLibraryDetails: contentLibraryDetailsReducer,
+  latestContent: latestContentReducer,
+  searchContent: searchContentReducer,
+  contentTags: contentTagsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
-    reducer: persistedReducer,
-    middleware: getDefaultMiddleware => {
-        let middlewares = getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-            immutableCheck: false,
-        });
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware => {
+    let middlewares = getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+      immutableCheck: false,
+    });
 
-        if (__DEV__) {
-            const createDebugger = require('redux-flipper').default;
-            middlewares.push(createDebugger());
-        }
+    if (__DEV__) {
+      const createDebugger = require('redux-flipper').default;
+      middlewares.push(createDebugger());
+    }
 
-        return middlewares;
-    },
+    return middlewares;
+  },
 });
 
 const persistor = persistStore(store);

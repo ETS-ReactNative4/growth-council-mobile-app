@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -55,7 +56,9 @@ const HomeCommunity = props => {
 
   const isFocused = useIsFocused();
 
-  const [memberConnection, setMemberConnection] = useState(pillarMemberContents.members);
+  const [memberConnection, setMemberConnection] = useState(
+    pillarMemberContents.members,
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -235,7 +238,13 @@ const HomeCommunity = props => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -289,7 +298,7 @@ const HomeCommunity = props => {
             </View>
           </View>
 
-          <View style={styles.content}>
+          {/* <View style={styles.content}>
             <Text style={styles.title}>Growth Community Content</Text>
             <View
               style={{
@@ -303,13 +312,13 @@ const HomeCommunity = props => {
                 renderItem={_renderContentItem}
               />
             </View>
-          </View>
+          </View> */}
 
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -318,6 +327,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+	marginBottom: 60,
   },
   top: {
     marginTop: 25,

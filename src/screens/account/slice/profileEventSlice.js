@@ -1,11 +1,11 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {fetch} from '../../../utils/httpUtil';
+import {fetch, store} from '../../../utils/httpUtil';
 
 export const fetchEventsByUserID = createAsyncThunk(
   'profileEvent/fetchAllByID',
-  (identifier, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/users/${identifier}/events`)
+  (formData, {rejectWithValue}) => {
+    return store(`jwt-auth/v1/calendar`, formData)
       .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },

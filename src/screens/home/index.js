@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Home from './components';
@@ -11,8 +11,6 @@ const HomeScreen = (props) => {
 
     const {pillarSliders, pillarSliderLoading, pillarSliderError} = useSelector((state) => state.pillarSliders);
 
-	
-
     /**
      * Fetch all pillar slider data.
      *
@@ -22,7 +20,6 @@ const HomeScreen = (props) => {
 
     };
 
-
     /**
      * Clear pillar slider data.
      *
@@ -31,7 +28,6 @@ const HomeScreen = (props) => {
         dispatch(resetPillarSlider());
     };
 
-	
     return (
         <Home
             {...props}

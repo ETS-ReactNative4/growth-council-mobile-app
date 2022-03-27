@@ -20,6 +20,11 @@ import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
+import ContentLibraryScreen from '../screens/contentLibrary/contentLibrary';
+import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
+import ContentTagsScreen from '../screens/contentLibrary/contentTags';
+import CriticalIssueScreen from '../screens/criticalIssue/index';
+import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
 
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
@@ -33,21 +38,19 @@ import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
 import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
-import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
-import BestPracticeScreen from '../screens/dashboard/BestPractice';
-import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
 import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
+import ContentScreen from '../screens/contentLibrary';
 
 import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
-import CalendarScreen from '../screens/calendar';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
 import SubHeader from '../shared/header/SubHeader';
@@ -63,7 +66,13 @@ export const DashboardStackScreen = () => {
       screenOptions={({navigation}) => ({
         header: () => <MainHeader navigation={navigation} />,
       })}>
-      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={({route, navigation}) => ({
+          animationEnabled: false,
+        })}
+      />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen
         name="People"
@@ -95,7 +104,7 @@ export const DashboardStackScreen = () => {
   );
 };
 
-const MainNavigation = props => {
+const MainNavigation = () => {
   return (
     <Stack.Navigator detachInactiveScreens={false} screenOptions={() => ({})}>
       <Stack.Group>
@@ -202,7 +211,7 @@ const MainNavigation = props => {
           }}
         />
         <Stack.Screen
-          name="radar"
+          name="FrostRadar"
           component={FrostRadarScreen}
           options={{
             headerLeft: () => null,
@@ -214,10 +223,10 @@ const MainNavigation = props => {
         <Stack.Screen
           name="coachingSession"
           component={CoachingSessionDetailScreen}
-          options={() => ({
-            header: ({navigation}) => (
+          options={({route,navigation}) => ({
+            header: () => (
               <SubHeader
-                title="Session"
+                title={route?.params?.title}
                 image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
@@ -253,6 +262,20 @@ const MainNavigation = props => {
             ),
           })}
         />
+        {/* <Stack.Screen
+          name="contentLibrary"
+          component={ContentScreen}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="content Library"
+                image={require('../assets/img/Rectangle.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        /> */}
         <Stack.Screen
           name="pdf"
           component={PDFDetailScreen}
@@ -315,6 +338,82 @@ const MainNavigation = props => {
           })}
         />
         <Stack.Screen
+          name="ContentDetail"
+          component={ContentLibraryScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="LibraryDetail"
+          component={LibraryDetailScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentTags"
+          component={ContentTagsScreen}
+          options={({route, navigation}) => ({
+            animationEnabled: false,
+            id: route?.params?.id,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
+          options={({route, navigation}) => ({
+            id: route?.params?.id,
+            animationEnabled: false,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="CriticalIssue"
+          component={CriticalIssueScreen}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Critical Issue"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
           name="ContactUs"
           component={ContactUsScreen}
           options={{
@@ -357,7 +456,6 @@ const MainNavigation = props => {
             userID: route?.params?.userID,
             friendID: route?.params?.friendID,
             friendName: route?.params?.friendName,
-            //headerTitle: route?.params?.friendName,
             headerShown: false,
           })}
         />
@@ -478,6 +576,12 @@ const MainNavigation = props => {
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Radar"
+          component={RadarScreen}
           options={{headerShown: false}}
         />
       </Stack.Group>

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Platform,
   ImageBackground,
+  StatusBar,
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -125,8 +126,8 @@ const ManageAccount = props => {
       console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
         console.log('Upload response:::::::::::', response?.payload?.id);
-        await updateImage({attachment_id: response?.payload?.id})
-		.then(response => {
+        await updateImage({attachment_id: response?.payload?.id}).then(
+          response => {
             if (response?.payload?.code === 200) {
               navigation.navigate('Account');
               ToastMessage.show('Profile Image has been successfully updated.');
@@ -151,8 +152,8 @@ const ManageAccount = props => {
       console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
         console.log('Upload response:::::::::::', response?.payload?.id);
-        await updateImage({attachment_id: response?.payload?.id})
-		.then(response => {
+        await updateImage({attachment_id: response?.payload?.id}).then(
+          response => {
             if (response?.payload?.code === 200) {
               navigation.navigate('Account');
               ToastMessage.show('Profile Image has been successfully updated.');
@@ -216,320 +217,327 @@ const ManageAccount = props => {
   }, [expertise]);
 
   return (
-		<ScrollView
-		contentContainerStyle={{
-			flexGrow: 1,
-			backgroundColor: PRIMARY_BACKGROUND_COLOR,
-		}}>
-		<View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
-			<ImageBackground
-			source={require('../../../assets/img/appBG.png')}
-			style={{height: 180}}></ImageBackground>
-			<View
-			style={{
-				display: 'flex',
-				marginTop: -90,
-				alignContent: 'center',
-				marginLeft: 'auto',
-				marginRight: 'auto',
-			}}>
-			<View
-				style={{
-				zIndex: 30,
-				position: 'absolute',
-				right: 5,
-				marginTop: 10,
-				marginRight: 10,
-				}}>
-				<TouchableOpacity onPress={takePhotoFromCamera}>
-				<Ionicons
-					name={'camera'}
-					size={20}
-					color="#C4C8CC"
-					style={{marginTop: 5, marginLeft: 30}}
-				/>
-				</TouchableOpacity>
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+        backgroundColor: PRIMARY_BACKGROUND_COLOR,
+      }}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
+      <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
+        <ImageBackground
+          source={require('../../../assets/img/appBG.png')}
+          style={{height: 180}}></ImageBackground>
+        <View
+          style={{
+            display: 'flex',
+            marginTop: -90,
+            alignContent: 'center',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}>
+          <View
+            style={{
+              zIndex: 30,
+              position: 'absolute',
+              right: 5,
+              marginTop: 10,
+              marginRight: 10,
+            }}>
+            <TouchableOpacity onPress={takePhotoFromCamera}>
+              <Ionicons
+                name={'camera'}
+                size={20}
+                color="#C4C8CC"
+                style={{marginTop: 5, marginLeft: 30}}
+              />
+            </TouchableOpacity>
 
-				<TouchableOpacity onPress={choosePhotoFromLibrary}>
-				<AntDesign
-					name={'upload'}
-					size={20}
-					color="#C4C8CC"
-					style={{marginTop: 10, marginLeft: 30}}
-				/>
-				</TouchableOpacity>
-			</View>
-			<View style={styles.profileWrapper}>
-				<View style={styles.icon}>
-				<Image
-					source={{uri: image}}
-					style={{width: '100%', height: '100%'}}
-					resizeMode="cover"
-				/>
-				</View>
-				<View style={styles.header}>
-				{uploadProfileImageLoading && (
-					<>
-					<View style={styles.loading1}>
-						<BubblesLoader
-						color={Colors.SECONDARY_TEXT_COLOR}
-						size={80}
-						/>
-					</View>
-					</>
-				)}
-				{updateLoading && (
-					<>
-					<View style={styles.loading1}>
-						<BubblesLoader
-						color={Colors.SECONDARY_TEXT_COLOR}
-						size={80}
-						/>
-					</View>
-					</>
-				)}
-				<Text style={styles.headingText1}>{profile?.user_meta?.first_name} {profile?.user_meta?.last_name}</Text>
-				<Text style={{color: '#222B45'}}>{profile.user_email}</Text>
-				</View>
-			</View>
-			</View>
+            <TouchableOpacity onPress={choosePhotoFromLibrary}>
+              <AntDesign
+                name={'upload'}
+                size={20}
+                color="#C4C8CC"
+                style={{marginTop: 10, marginLeft: 30}}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.profileWrapper}>
+            <View style={styles.icon}>
+              <Image
+                source={{uri: image}}
+                style={{width: '100%', height: '100%'}}
+                resizeMode="cover"
+              />
+            </View>
+            <View style={styles.header}>
+              {uploadProfileImageLoading && (
+                <>
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
+              {updateLoading && (
+                <>
+                  <View style={styles.loading1}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
+              <Text style={styles.headingText1}>
+                {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
+              </Text>
+              <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
+            </View>
+          </View>
+        </View>
 
-			<View style={styles.container}>
-			<View>
-				<View style={styles.middle}>
-				<View style={styles.wrapper}>
-					{profileError && (
-					<View style={styles.message}>
-						<Text style={styles.errorText}>{profileError.message}</Text>
-					</View>
-					)}
-					{profileLoading && (
-					<>
-						<View style={styles.loading1}>
-						<BubblesLoader
-							color={Colors.SECONDARY_TEXT_COLOR}
-							size={80}
-						/>
-						</View>
-					</>
-					)}
+        <View style={styles.container}>
+          <View>
+            <View style={styles.middle}>
+              <View style={styles.wrapper}>
+                {profileError && (
+                  <View style={styles.message}>
+                    <Text style={styles.errorText}>{profileError.message}</Text>
+                  </View>
+                )}
+                {profileLoading && (
+                  <>
+                    <View style={styles.loading1}>
+                      <BubblesLoader
+                        color={Colors.SECONDARY_TEXT_COLOR}
+                        size={80}
+                      />
+                    </View>
+                  </>
+                )}
 
-					<View style={styles.middleWrapper}>
-					<View style={styles.middleImage}>
-						<Ionicons name="person-outline" color="white" size={20} />
-					</View>
-					<Text style={styles.menuText}>Account</Text>
-					<Ionicons
-						name="chevron-down-outline"
-						size={20}
-						color="#d7d7d7"
-						style={{right: 0, position: 'absolute'}}
-					/>
-					</View>
+                <View style={styles.middleWrapper}>
+                  <View style={styles.middleImage}>
+                    <Ionicons name="person-outline" color="white" size={20} />
+                  </View>
+                  <Text style={styles.menuText}>Account</Text>
+                  <Ionicons
+                    name="chevron-down-outline"
+                    size={20}
+                    color="#d7d7d7"
+                    style={{right: 0, position: 'absolute'}}
+                  />
+                </View>
 
-					<View style={styles.TextWrapper}>
-					<Text
-						style={{
-						size: 7,
-						marginLeft: 10,
-						fontSize: 10,
-						color: '#8F9BB3',
-						}}>
-						Username
-					</Text>
-					<TextInput
-						style={[styles.input, {color: '#808080'}]}
-						value={values.display_name}
-						onChangeText={handleChange('display_name')}
-						onBlur={handleBlur('display_name')}
-						error={errors.display_name}
-						touched={touched.display_name}
-						editable={false}
-					/>
+                <View style={styles.TextWrapper}>
+                  <Text
+                    style={{
+                      size: 7,
+                      marginLeft: 10,
+                      fontSize: 10,
+                      color: '#8F9BB3',
+                    }}>
+                    Username
+                  </Text>
+                  <TextInput
+                    style={[styles.input, {color: '#808080'}]}
+                    value={values.display_name}
+                    onChangeText={handleChange('display_name')}
+                    onBlur={handleBlur('display_name')}
+                    error={errors.display_name}
+                    touched={touched.display_name}
+                    editable={false}
+                  />
 
-					<Text
-						style={{
-						size: 7,
-						marginLeft: 10,
-						fontSize: 10,
-						color: '#8F9BB3',
-						}}>
-						First Name
-					</Text>
-					<TextInput
-						style={styles.input}
-						value={values.first_name}
-						onChangeText={handleChange('first_name')}
-						onBlur={handleBlur('first_name')}
-						error={errors.first_name}
-						touched={touched.first_name}
-					/>
+                  <Text
+                    style={{
+                      size: 7,
+                      marginLeft: 10,
+                      fontSize: 10,
+                      color: '#8F9BB3',
+                    }}>
+                    First Name
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    value={values.first_name}
+                    onChangeText={handleChange('first_name')}
+                    onBlur={handleBlur('first_name')}
+                    error={errors.first_name}
+                    touched={touched.first_name}
+                  />
 
-					<Text
-						style={{
-						size: 7,
-						marginLeft: 10,
-						fontSize: 10,
-						color: '#8F9BB3',
-						}}>
-						Last Name
-					</Text>
-					<TextInput
-						style={styles.input}
-						value={values.last_name}
-						onChangeText={handleChange('last_name')}
-						onBlur={handleBlur('last_name')}
-						error={errors.last_name}
-						touched={touched.last_name}
-					/>
+                  <Text
+                    style={{
+                      size: 7,
+                      marginLeft: 10,
+                      fontSize: 10,
+                      color: '#8F9BB3',
+                    }}>
+                    Last Name
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    value={values.last_name}
+                    onChangeText={handleChange('last_name')}
+                    onBlur={handleBlur('last_name')}
+                    error={errors.last_name}
+                    touched={touched.last_name}
+                  />
 
-					<Text
-						style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-						Email Address
-					</Text>
-					<TextInput
-						style={[styles.input, {color: '#808080'}]}
-						value={values.email}
-						onChangeText={handleChange('email')}
-						onBlur={handleBlur('email')}
-						error={errors.email}
-						touched={touched.email}
-						editable={false}
-					/>
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    Email Address
+                  </Text>
+                  <TextInput
+                    style={[styles.input, {color: '#808080'}]}
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    error={errors.email}
+                    touched={touched.email}
+                    editable={false}
+                  />
 
-					<Text
-						style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-						Location
-					</Text>
-					<TextInput
-						style={styles.input}
-						value={values.Location}
-						onChangeText={handleChange('Location')}
-						onBlur={handleBlur('Location')}
-						error={errors.Location}
-						touched={touched.Location}
-					/>
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    Location
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    value={values.Location}
+                    onChangeText={handleChange('Location')}
+                    onBlur={handleBlur('Location')}
+                    error={errors.Location}
+                    touched={touched.Location}
+                  />
 
-					<Text
-						style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-						Favorite Quote
-					</Text>
-					<TextInput
-						multiline={true}
-						numberOfLines={4}
-						style={styles.textarea}
-						value={values.favorite_quote}
-						onChangeText={handleChange('favorite_quote')}
-						onBlur={handleBlur('favorite_quote')}
-						error={errors.favorite_quote}
-						touched={touched.favorite_quote}
-					/>
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    Favorite Quote
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={styles.textarea}
+                    value={values.favorite_quote}
+                    onChangeText={handleChange('favorite_quote')}
+                    onBlur={handleBlur('favorite_quote')}
+                    error={errors.favorite_quote}
+                    touched={touched.favorite_quote}
+                  />
 
-					<Text
-						style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-						Professional Summary
-					</Text>
-					<TextInput
-						multiline={true}
-						numberOfLines={6}
-						style={styles.textarea}
-						value={values.professional_summary}
-						onChangeText={handleChange('professional_summary')}
-						onBlur={handleBlur('professional_summary')}
-						error={errors.professional_summary}
-						touched={touched.professional_summary}
-					/>
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    Professional Summary
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={6}
+                    style={styles.textarea}
+                    value={values.professional_summary}
+                    onChangeText={handleChange('professional_summary')}
+                    onBlur={handleBlur('professional_summary')}
+                    error={errors.professional_summary}
+                    touched={touched.professional_summary}
+                  />
 
-					<Text
-						style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-						Expertise Areas
-					</Text>
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    Expertise Areas
+                  </Text>
 
-					<DropDownPicker
-						multiple={true}
-						min={0}
-						max={5}
-						open={open}
-						value={value}
-						items={items}
-						setOpen={setOpen}
-						setValue={setValue}
-						setItems={setItems}
-						onChangeValue={value => {
-						setFieldValue('expertise_areas1', value);
-						}}
-						containerStyle={{
-						width: '94%',
-						marginLeft: 10,
-						}}
-					/>
+                  <DropDownPicker
+                    multiple={true}
+                    min={0}
+                    max={5}
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                    onChangeValue={value => {
+                      setFieldValue('expertise_areas1', value);
+                    }}
+                    containerStyle={{
+                      width: '94%',
+                      marginLeft: 10,
+                    }}
+                  />
 
-					<Text
-						style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-						Most Recent Growth/Innovation Initative
-					</Text>
-					<TextInput
-						multiline={true}
-						numberOfLines={4}
-						style={styles.textarea}
-						value={values.initatives}
-						onChangeText={handleChange('initatives')}
-						onBlur={handleBlur('initatives')}
-						error={errors.initatives}
-						touched={touched.initatives}
-					/>
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    Most Recent Growth/Innovation Initative
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={styles.textarea}
+                    value={values.initatives}
+                    onChangeText={handleChange('initatives')}
+                    onBlur={handleBlur('initatives')}
+                    error={errors.initatives}
+                    touched={touched.initatives}
+                  />
 
-					<Text
-						style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-						I'm Seeking Insights On
-					</Text>
-					<TextInput
-						multiline={true}
-						numberOfLines={4}
-						style={styles.textarea}
-						value={values.insights}
-						onChangeText={handleChange('insights')}
-						onBlur={handleBlur('insights')}
-						error={errors.insights}
-						touched={touched.insights}
-					/>
+                  <Text
+                    style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                    I'm Seeking Insights On
+                  </Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={styles.textarea}
+                    value={values.insights}
+                    onChangeText={handleChange('insights')}
+                    onBlur={handleBlur('insights')}
+                    error={errors.insights}
+                    touched={touched.insights}
+                  />
 
-					<View style={styles.loginButtonWrapper}>
-						{userLoading && (
-						<View style={styles.loading1}>
-							<BubblesLoader
-							color={Colors.SECONDARY_TEXT_COLOR}
-							size={80}
-							/>
-						</View>
-						)}
-						<TouchableOpacity>
-						<Button style={styles.loginButton} onPress={handleSubmit}>
-							<Text style={styles.loginButtonText}>Update</Text>
-						</Button>
-						</TouchableOpacity>
-					</View>
-					</View>
-				</View>
+                  <View style={styles.loginButtonWrapper}>
+                    {userLoading && (
+                      <View style={styles.loading1}>
+                        <BubblesLoader
+                          color={Colors.SECONDARY_TEXT_COLOR}
+                          size={80}
+                        />
+                      </View>
+                    )}
+                    <TouchableOpacity>
+                      <Button style={styles.loginButton} onPress={handleSubmit}>
+                        <Text style={styles.loginButtonText}>Update</Text>
+                      </Button>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
 
-				<View>
-					<TouchableOpacity
-					onPress={() => navigation.navigate('ChangePassword')}>
-					<View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
-						<View style={styles.middleImage}>
-						<Ionicons name="key" color="white" size={20} />
-						</View>
-						<Text style={styles.menuText}>Change Password</Text>
-					</View>
-					</TouchableOpacity>
-				</View>
-				</View>
-			</View>
-			</View>
-		</View>
-		<Footer />
-		</ScrollView>
-	
+              <View>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ChangePassword')}>
+                  <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
+                    <View style={styles.middleImage}>
+                      <Ionicons name="key" color="white" size={20} />
+                    </View>
+                    <Text style={styles.menuText}>Change Password</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      {/* <Footer /> */}
+    </ScrollView>
   );
 };
 

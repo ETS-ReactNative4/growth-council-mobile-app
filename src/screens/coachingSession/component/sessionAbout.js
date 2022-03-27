@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  StatusBar,
 } from 'react-native';
 import {Button, useToast} from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
@@ -109,16 +110,12 @@ const sessionAbout = props => {
   const GobalEndTime = moment(timeToEnd).format('h:mm a ');
   const GobalEndMonth = moment(timeToEnd).format('D MMMM (dddd)');
 
-
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
       backStartTimeStamp,
       currentTimeZoneOffsetInHours,
     );
     setTimeToDisplay(convertedToLocalTime);
-  }, [sessions]);
-
-  useEffect(() => {
     const convertedToLocalTimeEnd = formatTimeByOffset(
       backEndTimeStamp,
       currentTimeZoneOffsetInHours,
@@ -128,6 +125,12 @@ const sessionAbout = props => {
 
   return (
     <View>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={{height: 150, flexDirection: 'column'}}>
         <View
           style={{
@@ -471,7 +474,7 @@ const styles = StyleSheet.create({
   traitWrapper: {
     paddingTop: 5,
     paddingBottom: 5,
-	marginRight:5,
+    marginRight: 5,
     flexDirection: 'row',
   },
   traitW: {

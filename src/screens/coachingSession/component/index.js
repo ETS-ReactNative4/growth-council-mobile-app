@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   View,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
+  Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
@@ -17,7 +18,8 @@ import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {BubblesLoader} from 'react-native-indicator';
-import {set} from 'immer/dist/internal';
+import moment from 'moment';
+import ToastMessage from '../../../shared/toast';
 
 const CoachingSession = props => {
   const {
@@ -41,6 +43,7 @@ const CoachingSession = props => {
     cleanSessionRegister,
   } = props;
 
+  const scrollRef = useRef();
   const [value, setValue] = useState('About');
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -91,17 +94,29 @@ const CoachingSession = props => {
     });
   }, [answers]);
 
-  // score 
-  let num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(2);
-  if (isNaN(num)) num = 0.00;
-  console.log(num);
+  // score
+  let num = 0.0;
+  if (sessions?.session_score) {
+    num = sessions.session_score.toFixed(2);
+  } else {
+    num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(
+      2,
+    );
+    if (isNaN(num)) num = 0.0;
+  }
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
     </View>
   ) : (
-    <ScrollView style={styles.scrollBox}>
+    <ScrollView style={styles.scrollBox} ref={scrollRef}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <StatusBar
           barStyle="dark-content"
@@ -109,7 +124,11 @@ const CoachingSession = props => {
         />
         <View>
           <View style={[styles.content, {height: 'auto'}]}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
               <View style={styles.buttonWrapper}>
                 <ButtonToggleGroup
                   highlightBackgroundColor={'white'}
@@ -118,12 +137,19 @@ const CoachingSession = props => {
                   inactiveTextColor={'grey'}
                   values={['About', 'Self-Assessment']}
                   value={value}
-                  onSelect={val => setValue(val)}
+                  onSelect={val => {
+                    if (moment(sessions?.event_end).isBefore()) {
+                      if (sessions?.completed_status) {
+                        ToastMessage.show('You have completed this assessment');
+                      } else {
+                        return setValue(val);
+                      }
+                    } else {
+                      ToastMessage.show('Session has not ended');
+                    }
+                  }}
                   style={{
                     height: 30,
-                    marginTop: 5,
-                    width: '90%',
-                    marginLeft: 10,
                     fontSize: 12,
                     borderRadius: 15,
                   }}
@@ -150,7 +176,12 @@ const CoachingSession = props => {
                   onRequestClose={() => {
                     setModalVisible(false);
                   }}>
-                  <View>
+                  <ScrollView
+                    style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
+                    contentContainerStyle={{
+                      alignItems: 'center',
+                      paddingBottom: 10,
+                    }}>
                     <View style={styles.modalView}>
                       {traits?.map((trait, index1) => (
                         <View key={index1}>
@@ -188,9 +219,7 @@ const CoachingSession = props => {
                                     marginTop: 10,
                                     alignItems: 'center',
                                   }}>
-                                  <Text style={{fontSize: 12}}>
-                                    {num}
-                                  </Text>
+                                  <Text style={{fontSize: 12}}>{num}</Text>
                                 </View>
                               </View>
                             )}
@@ -203,7 +232,8 @@ const CoachingSession = props => {
                                 <Text style={{fontSize: 12}}>
                                   {subTrait?.title}
                                 </Text>
-                                {checkMark(index1, index2) && (
+                                {(checkMark(index1, index2) ||
+                                  sessions?.completed_status) && (
                                   <Ionicons
                                     name={'checkmark-outline'}
                                     size={20}
@@ -222,7 +252,7 @@ const CoachingSession = props => {
                         <Text style={styles.textS}>Close</Text>
                       </Pressable>
                     </View>
-                  </View>
+                  </ScrollView>
                 </Modal>
               </View>
             </View>
@@ -262,6 +292,7 @@ const CoachingSession = props => {
                   setAnswers={setAnswers}
                   selectedId={selectedId}
                   setSelectedId={setSelectedId}
+                  scrollRef={scrollRef}
                 />
               )}
             </View>
@@ -403,10 +434,12 @@ const styles = StyleSheet.create({
     paddingLeft: 110,
   },
   buttonWrapper: {
-    width: 310,
+    width: Dimensions.get('window').width - 70,
     height: 40,
-    backgroundColor: '#ECECEC',
+    paddingHorizontal: 10,
+    justifyContent: 'center',
     borderRadius: 15,
+    backgroundColor: '#ECECEC',
   },
   centeredView: {
     flex: 1,
@@ -437,14 +470,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   modalView: {
-    width: 295,
-    margin: 20,
+    width: Dimensions.get('window').width - 30,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
     shadowColor: '#000',
-    marginTop: 110,
-    marginLeft: 80,
+    marginTop: 100,
     shadowOffset: {
       width: 0,
       height: 2,

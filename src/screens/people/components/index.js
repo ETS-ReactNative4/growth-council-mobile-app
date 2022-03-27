@@ -12,6 +12,7 @@ import {
   Modal,
   SafeAreaView,
   RefreshControl,
+  StatusBar,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -53,6 +54,8 @@ const People = props => {
 
   const toast = useToast();
   const [category, setCategory] = useState();
+  const [account, setAccount] = useState();
+  const [region, setRegion] = useState();
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
@@ -101,7 +104,6 @@ const People = props => {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
-    console.log(response);
   };
 
   const _renderItem = ({item, index}) => {
@@ -160,10 +162,17 @@ const People = props => {
   };
 
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [accountVisible, setAccountVisible] = useState(false);
+  const [regionVisible, setRegionVisible] = useState(false);
 
   return (
-
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <View style={{marginBottom: 20}}>
           <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
@@ -181,27 +190,10 @@ const People = props => {
                 });
               }}
             />
-          </View>
-          <View style={styles.iconWrapper}>
-            <TouchableOpacity
-              onPress={() => setPickerVisible(true)}
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                borderWidth: 1,
-                paddingVertical: 10,
-                borderRadius: 10,
-                borderColor: 'gray',
-                marginRight: 30,
-              }}>
-              <Text style={{fontSize: 14, color: '#222B45'}}>
-                {category ? category : 'Select Expertise Areas'}
-              </Text>
-            </TouchableOpacity>
             <View style={styles.icon}>
               <Ionicons
                 name="arrow-up"
-                size={20}
+                size={25}
                 color="#7E7F84"
                 onPress={async () => {
                   setSorting('DESC');
@@ -214,7 +206,7 @@ const People = props => {
               />
               <Ionicons
                 name="arrow-down"
-                size={20}
+                size={25}
                 color="#7E7F84"
                 onPress={async () => {
                   setSorting('ASC');
@@ -227,6 +219,47 @@ const People = props => {
               />
               <Text style={styles.textWrapper}>Sort</Text>
             </View>
+          </View>
+          <View style={styles.iconWrapper}>
+            <TouchableOpacity
+              onPress={() => setPickerVisible(true)}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                borderWidth: 0.5,
+                paddingVertical: 10,
+                borderColor: 'gray',
+              }}>
+              <Text style={{fontSize: 14, color: '#222B45'}}>
+                {category ? category : 'Expertise Areas'}
+              </Text>
+            </TouchableOpacity>
+            {/* <TouchableOpacity
+              onPress={() => setAccountVisible(true)}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                borderWidth: 0.5,
+                paddingVertical: 10,
+                borderColor: 'gray',
+              }}>
+              <Text style={{fontSize: 14, color: '#222B45'}}>
+                {account ? account : 'Account Type'}
+              </Text>
+            </TouchableOpacity> */}
+            {/* <TouchableOpacity
+              onPress={() => setRegionVisible(true)}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                borderWidth: 0.5,
+                paddingVertical: 10,
+                borderColor: 'gray',
+              }}>
+              <Text style={{fontSize: 14, color: '#222B45'}}>
+                {region ? region : 'Region'}
+              </Text>
+            </TouchableOpacity> */}
           </View>
         </View>
 
@@ -264,9 +297,10 @@ const People = props => {
               renderItem={_renderItem}
             />
           </View>
+          <Footer />
         </ScrollView>
       </View>
-      <Footer />
+      {/* <Footer /> */}
       <Modal transparent visible={pickerVisible}>
         <View
           style={{
@@ -323,6 +357,118 @@ const People = props => {
         </View>
       </Modal>
 
+      <Modal transparent visible={accountVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setAccountVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={account}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 12}}
+                onValueChange={async (itemValue, itemIndex) => {
+                  setAccount(itemValue);
+                  //   await fetchAllUsers({
+                  //     s: searchKey,
+                  //     sort: 'ASC',
+                  //     expertise_areas: category,
+                  //   });
+                }}>
+                {/* {Object.keys(expertise).map(key => {
+                  return (
+                    <Picker.Item
+                      label={expertise[key]}
+                      value={key}
+                      key={key}
+                      style={{fontSize: 14}}
+                    />
+                  );
+                })} */}
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal transparent visible={regionVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setRegionVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={region}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 12}}
+                onValueChange={async (itemValue, itemIndex) => {
+                  setRegion(itemValue);
+                  //   await fetchAllUsers({
+                  //     s: searchKey,
+                  //     sort: 'ASC',
+                  //     expertise_areas: category,
+                  //   });
+                }}>
+                {/* {Object.keys(expertise).map(key => {
+                  return (
+                    <Picker.Item
+                      label={expertise[key]}
+                      value={key}
+                      key={key}
+                      style={{fontSize: 14}}
+                    />
+                  );
+                })} */}
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
@@ -333,11 +479,14 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+    marginBottom: 20,
   },
   input: {
     height: 45,
-    width: '90%',
-    margin: 20,
+    width: '70%',
+    marginLeft: 20,
+    marginTop: 20,
+    marginBottom: 20,
     borderRadius: 20,
     backgroundColor: '#F5F5F5',
   },
@@ -357,10 +506,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    width: '20%',
     borderColor: '#707070',
+    width: '20%',
   },
   textWrapper: {
     fontSize: 14,

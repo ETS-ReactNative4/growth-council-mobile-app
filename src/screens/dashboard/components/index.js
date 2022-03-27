@@ -11,8 +11,10 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
 import {useIsFocused} from '@react-navigation/native';
@@ -20,13 +22,13 @@ import Material from 'react-native-vector-icons/MaterialIcons';
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_TEXT_COLOR, SECONDARY_TEXT_COLOR} from '../../../theme/colors';
-import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
+import HTMLView from 'react-native-htmlview';
 
-const win = Dimensions.get('window');
-const contentContainerWidth = win.width - 30;
+const win = Dimensions.get('window').width;
+const contentContainerWidth = win / 2;
 
 const Dashboard = props => {
   const {
@@ -57,6 +59,17 @@ const Dashboard = props => {
     fetchAllPillarEvent,
     cleanPillarEvent,
     contentSlider,
+
+    latestContent,
+    latestContentLoading,
+    latestContentError,
+    fetchLatestContent,
+    cleanLatestContent,
+    criticalIssue,
+    criticalIssueLoading,
+    criticalIssueError,
+    fetchCritcalIssue,
+    cleanCriticalIssue,
   } = props;
 
   const isFocused = useIsFocused();
@@ -98,6 +111,16 @@ const Dashboard = props => {
     setMemberConnection(communityMembers);
   }, [communityMembers]);
 
+  useEffect(() => {
+    const fetchLatestContentAsync = async () => {
+      await fetchLatestContent();
+    };
+    fetchLatestContentAsync();
+  }, []);
+
+  useEffect(() => {
+    fetchCritcalIssue();
+  }, []);
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -140,43 +163,54 @@ const Dashboard = props => {
     );
   };
 
-  const _renderMiddleItem = ({item, index}) => {
-    let poePage = 'CommunityDetail';
-    if (item?.parent === 119) {
-      //   poePage = 'GrowthDetail';
-      if (item?.slug === 'growth-leadership-coaching') {
-        poePage = 'GrowthDetail';
-      } else {
-        poePage = 'CommunityDetail';
-      }
-    }
+
+  const _renderContent = ({item, index}) => {
+    const date = moment(item?.post_modified).format('D/MM/yyyy');
     return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate(poePage, {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-          })
-        }>
-        <View style={styles.middleWrapper}>
-          <View style={[styles.middleW, styles.shadowProp]}>
-            <Image
-              source={{uri: item?.image}}
-              style={{width: 30, height: 30}}
+      <View style={[styles.middleWrapper, styles.shadowContent]}>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{width: '70%', margin: 10}}>
+            <Text style={{fontSize: 12, color: '#041C3E', fontWeight: '600'}}>
+              {item.post_title}
+            </Text>
+            <HTMLView
+              value={'<p>' + item?.post_excerpt + '</p>'}
+              stylesheet={webViewStyle}
             />
           </View>
-          <Text
-            style={{
-              marginTop: 10,
-              fontSize: 10,
-              marginHorizontal: 10,
-              textAlign: 'center',
-              color: '#222B45',
-            }}>
-            {item?.name}
-          </Text>
+          <View style={styles.middleW}>
+            {item?.video_url !== null && item?.video_url !== '' && (
+              <Image
+                source={require('../../../assets/img/file-play.png')}
+                style={{width: 20, height: 20, color: '#9B9CA0'}}
+                resizeMode="contain"
+              />
+            )}
+            {item?.video_url === '' && (
+              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+            )}
+            {item?.video_url === null && (
+              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
+            )}
+            <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+          </View>
         </View>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ContentLibraryDetail', {
+              id: item?.ID,
+              title: item?.post_title,
+            })
+          }>
+          <View style={styles.middleWrap}>
+            <Text style={{color: 'white', fontSize: 10}}>View</Text>
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.contentTime}>
+          <Text style={{fontSize: 7}}>Published on: {date}</Text>
+        </View>
+      </View>
     );
   };
 
@@ -185,14 +219,17 @@ const Dashboard = props => {
     const date = actualDate[0].split(' ', 3);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent) {
+    switch (
+      item?.pillar_categories[0]?.parent ||
+      item?.pillar_categories[1]?.parent
+    ) {
       case 117:
       case 0:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
       case 118:
       case 0:
-        backgroundImage = require('../../../assets/img/Rectangle1.png');
+        backgroundImage = require('../../../assets/img/best-practice-bg.png');
         break;
 
       default:
@@ -247,21 +284,51 @@ const Dashboard = props => {
     );
   };
 
-  const _renderContentItem = ({item, index}) => {
-    const file = item?.file;
-    const link = file.split('=', 2);
-    let videoLink = link[1].split('&', 2);
+  //   const _renderContentItem = ({item, index}) => {
+  //     const file = item?.file;
+  //     const link = file.split('=', 2);
+  //     let videoLink = link[1].split('&', 2);
 
-    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
+  //     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
+  //   };
+
+  const _renderCritical = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('CriticalIssue')}>
+        <View style={styles.ContentWrapper}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <View style={[styles.criticalW, styles.shadowCritical]}>
+              <Image
+                source={{uri: item?.icon}}
+                style={{width: 36, height: 36}}
+              />
+            </View>
+            <Text
+              style={{
+                fontSize: 10,
+                width: '60%',
+                paddingLeft: 5,
+                // paddingRight: 10,
+              }}>
+              {item?.heading}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   };
-
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
       <StatusBar
         barStyle="light-content"
-        hidden={true}
-        backgroundColor={require('../../../assets/img/appBG.png')}
-        translucent={true}
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
       />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <View>
@@ -282,7 +349,7 @@ const Dashboard = props => {
             <Text style={styles.title}>Upcoming Events</Text>
           </View>
 
-          {upcomingEventLoading && (
+          {latestContentLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
@@ -304,19 +371,14 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.middle}>
-          <Text style={[styles.title, {marginLeft: 15}]}>
-            Points of Engagement
-          </Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <FlatList
-              scrollEnabled={false}
-              style={{flexDirection: 'row'}}
-              numColumns={10}
-              showsHorizontalScrollIndicator={false}
-              data={poes}
-              renderItem={_renderMiddleItem}
-            />
-          </ScrollView>
+          <Text style={[styles.title, {marginLeft: 15}]}>Latest Content</Text>
+
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={latestContent}
+            renderItem={_renderContent}
+          />
         </View>
 
         <View style={styles.bottom}>
@@ -327,7 +389,7 @@ const Dashboard = props => {
               marginLeft: 15,
               marginRight: 15,
             }}>
-            <Text style={styles.title}> Growth Council Members</Text>
+            <Text style={styles.title}>Welcome New Members</Text>
           </View>
           <View>
             <FlatList
@@ -340,25 +402,19 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={[styles.title, {marginLeft: 15}]}> Content Library</Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}>
+          <Text style={styles.title}>Critical Issues</Text>
+          <View>
             <FlatList
-              horizontal
+              numColumns={2}
               showsHorizontalScrollIndicator={false}
-              data={contentSlider}
-              renderItem={_renderContentItem}
+              data={criticalIssue?.critical_issue_mobile_lists}
+              renderItem={_renderCritical}
             />
           </View>
         </View>
-
-        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -367,7 +423,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
-    paddingBottom: 100,
+    marginBottom: 40,
   },
   pillar: {
     display: 'flex',
@@ -409,14 +465,14 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   title: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: Typography.FONT_SF_REGULAR,
     color: PRIMARY_TEXT_COLOR,
     fontWeight: '700',
   },
   headingText1: {
     fontFamily: Typography.FONT_SF_MEDIUM,
-    marginTop: 20,
+    marginTop: 10,
     fontWeight: '600',
     width: '98%',
     color: 'white',
@@ -434,21 +490,39 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   middleWrapper: {
-    width: (Dimensions.get('window').width - 10) / 4,
-    borderRadius: 20,
-    marginTop: 15,
-
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 150,
+    width: 256,
+    marginLeft: 15,
+    marginTop: 20,
+    marginBottom: 10,
+    borderRadius: 16,
+    overflow: Platform.OS === 'ios' ? 'visible' : 'hidden',
+    backgroundColor: 'white',
+    marginRight: 5,
+    // borderWidth: 0.3,
   },
   middleW: {
-    backgroundColor: 'white',
-    width: 64,
-    height: 64,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 40,
+    height: 50,
+    marginTop: 10,
+    backgroundColor: '#EBECF0',
     borderRadius: 10,
-    // borderWidth: 0.2,
+    padding: 5,
+    alignItems: 'center',
+  },
+  middleWrap: {
+    width: 70,
+    padding: 5,
+    alignItems: 'center',
+    borderRadius: 12,
+    marginLeft: 20,
+    backgroundColor: '#183863',
+  },
+  contentTime: {
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 15,
+    bottom: 10,
   },
   headingText3: {
     ...CommonStyles.headingText3,
@@ -457,7 +531,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     margin: 5,
-    marginTop: 25,
+    marginTop: 15,
   },
   bottomWrapper: {
     position: 'relative',
@@ -478,18 +552,22 @@ const styles = StyleSheet.create({
     bottom: 4,
   },
   content: {
-    marginLeft: 5,
+    marginLeft: 20,
     marginTop: 15,
     justifyContent: 'center',
     borderRadius: 20,
+    marginBottom: 30,
+    paddingBottom: 5,
   },
   ContentWrapper: {
-    width: contentContainerWidth,
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: (Dimensions.get('window').width - 50) / 2,
     marginTop: 20,
-    marginBottom: 10,
-    marginLeft: 15,
-    borderRadius: 20,
-    overflow: 'hidden',
+    marginLeft: 5,
+    marginRight: 5,
+    paddingBottom: 5,
   },
   shadowProp: {
     shadowColor: '#000',
@@ -499,6 +577,27 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    elevation: 5,
+  },
+  shadowCritical: {
+    shadowColor: '#183863',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  shadowContent: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
     elevation: 5,
   },
   loading1: {
@@ -511,6 +610,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1011,
   },
+  criticalW: {
+    backgroundColor: 'white',
+    width: 64,
+    height: 68,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
 });
-
+const webViewStyle = StyleSheet.create({
+  p: {fontSize: 8, color: 'black', marginTop: 5},
+});
 export default Dashboard;

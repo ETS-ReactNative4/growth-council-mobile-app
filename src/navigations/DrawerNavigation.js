@@ -12,8 +12,6 @@ import {
   View,
   Image,
   Text,
-  ImageBackground,
-  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Font from 'react-native-vector-icons/FontAwesome5';
@@ -21,11 +19,10 @@ import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
-import DashboardScreen from '../screens/dashboard';
+
 import {useAuthentication} from '../context/auth';
-
+import ContentScreen from '../screens/contentLibrary';
 import CalendarScreen from '../screens/calendar';
-
 import AboutScreen from '../screens/about';
 import FeedbackScreen from '../screens/feedback';
 import ContributeIdeasScreen from '../screens/ideas';
@@ -33,13 +30,11 @@ import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
 import BestPracticeScreen from '../screens/dashboard/BestPractice';
 import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import SettingScreen from '../screens/setting/index';
-import BottomNav from '../layout/BottomLayout';
-import {Colors} from '../theme';
 
-import {fetchProfileByID} from '../screens/account/slice/profileSlice';
-import MainHeader from '../shared/header/MainHeader';
 import SubHeader from '../shared/header/SubHeader';
 import {DashboardStackScreen} from './MainNavigation';
+
+import {fetchProfileByID} from '../screens/account/slice/profileSlice';
 
 const Drawer = createDrawerNavigator();
 
@@ -76,28 +71,23 @@ const CustomDrawerContent = props => {
         style={{
           flexDirection: 'row',
           paddingHorizontal: 10,
-          marginTop: 10,
           justifyContent: 'space-between',
         }}>
-		<Image
-          source={require('../../src/assets/img/GILCouncil.jpg')}
-          style={{      
-            width: "75%"
-          }}
-		  resizeMode="contain"
-        />
+        {/* <Image
+                    source={require('../../src/assets/img/GILCouncil.jpg')}
+                    style={{
+                        width: "70%"
+                    }}
+                    resizeMode="contain"
+                /> */}
         <TouchableOpacity onPress={toggleDrawer}>
-          <Ionicons name="close-outline" color={'#000'} size={30} />
+          <Ionicons name="close-outline" color={'#000'} size={35} />
         </TouchableOpacity>
-       
       </View>
-
       <View
         style={{
           flexDirection: 'row',
-          marginTop: 20,
-          marginBottom: 10,
-          marginLeft: 10,
+          margin: 10,
         }}>
         <Image
           source={{
@@ -143,11 +133,7 @@ const CustomDrawerContent = props => {
   );
 };
 
-const DrawerNavigation = props => {
-  const nav = () => {
-    DashboardScreen;
-    BottomNav;
-  };
+const DrawerNavigation = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
@@ -192,7 +178,7 @@ const DrawerNavigation = props => {
           header: () => (
             <SubHeader
               title="Best Practices"
-              image={require('../assets/img/Rectangle1.png')}
+              image={require('../assets/img/best-practice-bg.png')}
               navigation={navigation}
             />
           ),
@@ -209,6 +195,22 @@ const DrawerNavigation = props => {
             <SubHeader
               title="Growth Coaching"
               image={require('../assets/img/Rectangle.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen
+        name="Content Library"
+        component={ContentScreen}
+        options={({navigation}) => ({
+          drawerIcon: ({focused, size}) => (
+            <Material name="content-copy" color={'#00008B'} size={24} />
+          ),
+          header: () => (
+            <SubHeader
+              title="Content Library"
+              image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />
           ),
@@ -260,22 +262,6 @@ const DrawerNavigation = props => {
           header: () => (
             <SubHeader
               title="Settings"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <Drawer.Screen
-        name="Feedback"
-        component={FeedbackScreen}
-        options={({navigation}) => ({
-          drawerIcon: ({focused, size}) => (
-            <Font name="edit" color={'#00008B'} size={20} />
-          ),
-          header: () => (
-            <SubHeader
-              title="Feedback"
               image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />

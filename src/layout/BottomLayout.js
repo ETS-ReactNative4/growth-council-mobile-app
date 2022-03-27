@@ -24,7 +24,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="home-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -41,7 +41,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="calendar-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -58,7 +58,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="chatbox-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -75,7 +75,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="people-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -92,7 +92,7 @@ const BottomLayout = ({focused, navigation}) => {
                 name="person-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#989BA5'}}
+                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -104,16 +104,15 @@ const BottomLayout = ({focused, navigation}) => {
 const styles = StyleSheet.create({
   NavContainer: {
     position: 'absolute',
-    bottom: 10,
-    left: 10,
-    right: 10,
-    marginBottom: 3,
-    elevation: 0,
-	// backgroundColor:"#EBF4FA",
-    backgroundColor: 'rgba(215,233,245, 0.88)',
-    borderRadius: 15,
+    bottom: 5,
+    // backgroundColor: '#0C336C',
+	backgroundColor:'rgba(12,51,108,0.90)',
     height: 60,
     alignContent: 'center',
+    left: 10,
+    right: 10,
+    borderRadius: 15,
+    opacity: 1.2,
   },
   shadow: {
     shadowColor: 'rgba(200, 200, 200, 0.33)',
@@ -128,10 +127,9 @@ const styles = StyleSheet.create({
   NavBar: {
     flexDirection: 'row',
     width: '100%',
-    padding: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    justifyContent: 'space-between',
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    justifyContent: 'space-around',
     borderRadius: 40,
   },
   IconBehave: {
