@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     borderBottomWidth: 1,
     borderColor: 'rgba(112, 112, 112, 0.13)',
-    marginTop: 10,
+    marginTop: 20,
   },
   bodyTitleText: {
     marginBottom: 20,
@@ -376,7 +376,8 @@ const styles = StyleSheet.create({
   userNameText: {
     marginBottom: 10,
     fontFamily: 'SFProText-Medium',
-    color: Colors.PRIMARY_TEXT_COLOR,
+    color: Colors.SECONDARY_TEXT_COLOR,
+    width: '75%',
   },
   userInfoText: {
     fontFamily: 'SFProText-Medium',
@@ -384,6 +385,7 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     marginBottom: 20,
+    marginTop: 15,
   },
   abstractDescriptionText: {
     flex: 1,
