@@ -438,7 +438,7 @@ const SignUpForm = props => {
 
               <PhoneInput
                 ref={phoneInput}
-                defaultCode="IN"
+                defaultCode="US"
                 // layout="first"
                 containerStyle={styles.phoneNumberView}
                 textContainerStyle={{paddingVertical: 0}}
