@@ -96,7 +96,13 @@ const ContactTags = props => {
 
             <Searchbar
               style={styles.input}
+              inputStyle={{
+                height: 38,
+                paddingVertical: 0,
+              }}
               placeholder="Search"
+              placeholderTextColor="#B2B3B9"
+              iconColor="#B2B3B9"
               value={search}
               onChangeText={text => searchFilterFunction(text)}
             />
@@ -118,7 +124,7 @@ const ContactTags = props => {
               />
             </View>
             <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-			<HTMLView
+              <HTMLView
                 value={route.params.itemname}
                 textComponentProps={{
                   style: {
@@ -282,6 +288,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 14,
     fontWeight: 'normal',
+    fontWeight: '600',
+    color: 'black',
   },
   eventParagraph: {
     fontSize: 8,

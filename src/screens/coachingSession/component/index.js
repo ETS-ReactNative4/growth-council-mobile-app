@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-
+  Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
@@ -124,7 +124,11 @@ const CoachingSession = props => {
         />
         <View>
           <View style={[styles.content, {height: 'auto'}]}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
               <View style={styles.buttonWrapper}>
                 <ButtonToggleGroup
                   highlightBackgroundColor={'white'}
@@ -146,9 +150,6 @@ const CoachingSession = props => {
                   }}
                   style={{
                     height: 30,
-                    marginTop: 5,
-                    width: '90%',
-                    marginLeft: 10,
                     fontSize: 12,
                     borderRadius: 15,
                   }}
@@ -175,7 +176,12 @@ const CoachingSession = props => {
                   onRequestClose={() => {
                     setModalVisible(false);
                   }}>
-                  <View>
+                  <ScrollView
+                    style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
+                    contentContainerStyle={{
+                      alignItems: 'center',
+                      paddingBottom: 10,
+                    }}>
                     <View style={styles.modalView}>
                       {traits?.map((trait, index1) => (
                         <View key={index1}>
@@ -246,7 +252,7 @@ const CoachingSession = props => {
                         <Text style={styles.textS}>Close</Text>
                       </Pressable>
                     </View>
-                  </View>
+                  </ScrollView>
                 </Modal>
               </View>
             </View>
@@ -428,10 +434,12 @@ const styles = StyleSheet.create({
     paddingLeft: 110,
   },
   buttonWrapper: {
-    width: 310,
+    width: Dimensions.get('window').width - 70,
     height: 40,
-    backgroundColor: '#ECECEC',
+    paddingHorizontal: 10,
+    justifyContent: 'center',
     borderRadius: 15,
+    backgroundColor: '#ECECEC',
   },
   centeredView: {
     flex: 1,
@@ -462,14 +470,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   modalView: {
-    width: 295,
-    margin: 20,
+    width: Dimensions.get('window').width - 30,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
     shadowColor: '#000',
-    marginTop: 110,
-    marginLeft: 80,
+    marginTop: 100,
     shadowOffset: {
       width: 0,
       height: 2,
