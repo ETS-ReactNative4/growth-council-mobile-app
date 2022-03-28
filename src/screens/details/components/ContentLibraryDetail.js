@@ -236,22 +236,23 @@ const ContentLibraryDetail = props => {
                 />
               </View>
             )}
-          {contentLibraryDetails?.presenter !== null && (
-            <View style={styles.sectionContainerBorder}>
-              <Text style={styles.bodyTitleText}>Presented By:</Text>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image
-                  source={{uri: contentLibraryDetails?.presenter_image}}
-                  style={styles.userImage}
-                />
-                <View style={{marginLeft: 20}}>
-                  <Text style={styles.userNameText}>
-                    {contentLibraryDetails?.presenter}
-                  </Text>
+          {contentLibraryDetails?.presenter !== null ||
+            (contentLibraryDetails?.presenter !== undefined && (
+              <View style={styles.sectionContainerBorder}>
+                <Text style={styles.bodyTitleText}>Presented By:</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    source={{uri: contentLibraryDetails?.presenter_image}}
+                    style={styles.userImage}
+                  />
+                  <View style={{marginLeft: 20}}>
+                    <Text style={styles.userNameText}>
+                      {contentLibraryDetails?.presenter}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          )}
+            ))}
 
           {contentLibraryDetailsLoading && (
             <View style={styles.loading1}>
