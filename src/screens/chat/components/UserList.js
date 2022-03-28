@@ -10,10 +10,10 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
-import {Button} from 'native-base';
-import {Linking} from 'react-native';
 import {BubblesLoader} from 'react-native-indicator';
-
+import {Searchbar} from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN, USER_NAME, USER_AVATAR} from '../../../constants';
@@ -35,6 +35,7 @@ const UserList = props => {
   } = props;
 
   const [userID, setUserID] = useState(null);
+  const [search, setSearch] = useState('');
   const [avatarImg, setAvatarImg] = useState(null);
   const [userName, setUserName] = useState(null);
   const isFocused = useIsFocused();
@@ -114,9 +115,10 @@ const UserList = props => {
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+          marginBottom: 25,
         }}>
         <View style={styles.container}>
-          <View style={styles.buttonWrapper}>
+          {/* <View style={styles.buttonWrapper}>
             <TouchableOpacity>
               <Button style={[styles.button, styles.shadowProp]}>
                 <Text style={[styles.buttonText, {color: '#4835BE'}]}>
@@ -131,18 +133,53 @@ const UserList = props => {
                 <Text style={styles.buttonText}>Contact us</Text>
               </Button>
             </TouchableOpacity>
+          </View> */}
+          <View
+            style={{
+              height: 80,
+              paddingLeft: 4,
+              paddingRight: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              shadowColor: '#000000',
+              shadowOffset: {width: 0, height: 3},
+              shadowRadius: 9,
+              shadowOpacity: 0.1,
+              elevation: 5,
+              backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+            }}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
+            </TouchableOpacity>
+            <Searchbar
+              style={styles.input}
+              inputStyle={{
+                height: 38,
+                paddingVertical: 0,
+              }}
+              placeholder="Search"
+              placeholderTextColor="#B2B3B9"
+              iconColor="#B2B3B9"
+              value={search}
+              onChangeText={text => searchFilterFunction(text)}
+            />
+            <TouchableOpacity>
+              <FontAwesome5 name="edit" size={25} color="#00b0f0" />
+            </TouchableOpacity>
           </View>
           {connectionLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
             </View>
           )}
-          <FlatList
-            Vertical
-            showsVerticalScrollIndicator={false}
-            data={connection}
-            renderItem={_renderItems}
-          />
+          <View style={{marginTop: 10}}>
+            <FlatList
+              Vertical
+              showsVerticalScrollIndicator={false}
+              data={connection}
+              renderItem={_renderItems}
+            />
+          </View>
         </View>
 
         <Footer />
@@ -184,6 +221,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
     fontFamily: Typography.FONT_BOLD,
+  },
+  input: {
+    flex: 1,
+    height: 45,
+    marginLeft: 10,
+    borderRadius: 19,
+    backgroundColor: '#F5F5F5',
+    marginRight: 15,
   },
   shadowProp: {
     shadowColor: '#000',
