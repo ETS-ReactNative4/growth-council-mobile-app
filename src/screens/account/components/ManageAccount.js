@@ -189,7 +189,6 @@ const ManageAccount = props => {
       professional_summary: professional_summary,
     },
     onSubmit: async values => {
-      console.log('values::::::::::', values);
       await updateUser(values).then(response => {
         if (response?.payload?.code === 200) {
           navigation.navigate('Person');

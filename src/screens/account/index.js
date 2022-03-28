@@ -7,10 +7,7 @@ import {
   fetchEventsByUserID,
   resetProfileEvent,
 } from './slice/profileEventSlice';
-import {
-  fetchSessionsByUserID,
-  resetprofileSession,
-} from './slice/profileSessionSlice';
+
 
 const ProfileScreen = props => {
   const dispatch = useDispatch();
@@ -18,8 +15,7 @@ const ProfileScreen = props => {
   const {profileEvent, profileEventLoading, profileEventError} = useSelector(
     state => state.profileEvent,
   );
-  const {profileSession, profileSessionLoading, profileSessionError} =
-    useSelector(state => state.profileSession);
+
   const {profile, profileLoading, profileError} = useSelector(
     state => state.profile,
   );
@@ -45,13 +41,7 @@ const ProfileScreen = props => {
     dispatch(resetProfileEvent());
   };
 
-  const fetchSessionsByUserIdentifier = identifier => {
-    dispatch(fetchSessionsByUserID(identifier));
-  };
-
-  const cleanProfileSession = () => {
-    dispatch(resetprofileSession());
-  };
+ 
   return (
     <Profile
       {...props}
@@ -60,11 +50,6 @@ const ProfileScreen = props => {
       profileEventError={profileEventError}
       fetchEventsByUserIdentifier={fetchEventsByUserIdentifier}
       cleanProfileEvent={cleanProfileEvent}
-      profileSession={profileSession}
-      profileSessionLoading={profileSessionLoading}
-      profileSessionError={profileSessionError}
-      fetchSessionsByUserIdentifier={fetchSessionsByUserIdentifier}
-      cleanProfileSession={cleanProfileSession}
       profile={profile}
       profileLoading={profileLoading}
       profileError={profileError}

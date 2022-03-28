@@ -20,7 +20,7 @@ import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
 import {useIsFocused} from '@react-navigation/native';
 import MyEvent from './MyEvent';
-import MySession from './MySession';
+import AboutMe from './AboutMe';
 import BottomNav from '../../../layout/BottomLayout';
 
 const Profile = props => {
@@ -35,7 +35,7 @@ const Profile = props => {
 
   const win = Dimensions.get('window');
 
-  const [value, setValue] = useState('About Us');
+  const [value, setValue] = useState('About me');
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -118,7 +118,7 @@ const Profile = props => {
                     highlightTextColor={'#0B0B45'}
                     inactiveBackgroundColor={'transparent'}
                     inactiveTextColor={'grey'}
-                    values={['About Us', 'My Point of Engagement']}
+                    values={['About me', 'My Point of Engagement']}
                     value={value}
                     onSelect={val => setValue(val)}
                     style={{
@@ -128,7 +128,7 @@ const Profile = props => {
                       width: '96%',
                       marginLeft: 4,
                       borderRadius: 20,
-
+                      justifyContent: 'center',
                       alignContent: 'center',
                     }}
                     textStyle={{
@@ -136,7 +136,8 @@ const Profile = props => {
                       paddingLeft: 5,
                       fontSize: 13,
                       width: '100%',
-
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       alignContent: 'center',
                     }}
                   />
@@ -162,7 +163,7 @@ const Profile = props => {
                 )}
                 {value === 'My Point of Engagement' && <MyEvent {...props} />}
 
-                {/* {value === 'About Us' && <MySession {...props} />} */}
+                {value === 'About me' && <AboutMe {...props} />}
               </View>
             </View>
           </View>
