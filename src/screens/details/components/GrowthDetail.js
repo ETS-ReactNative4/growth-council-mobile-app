@@ -337,75 +337,62 @@ const GrowthDetail = props => {
                 {poeDetails.name}
               </Text>
               <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-              {/* <View style={styles.top}>
-                <Text style={styles.title}> Growth Coaching Events</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={poeEvents}
-                    renderItem={_renderTopItem}
-                  />
+              {coachingSessionLoading && (
+                <>
+                  <View
+                    style={{
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      position: 'absolute',
+                      zIndex: 1011,
+                    }}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
+              {coachingSession?.length !== 0 && (
+                <View style={styles.middle}>
+                  <Text style={styles.title}>Sessions</Text>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={coachingSession}
+                      renderItem={_renderMiddleItem}
+                    />
+                  </View>
                 </View>
-              </View> */}
-
-              <View style={styles.middle}>
-                <Text style={styles.title}>Sessions</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  {coachingSessionLoading && (
-                    <>
-                      <View
-                        style={{
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          position: 'absolute',
-                          zIndex: 1011,
-                        }}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    </>
-                  )}
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={coachingSession}
-                    renderItem={_renderMiddleItem}
-                  />
+              )}
+              {poeSelfLearns?.length !== 0 && (
+                <View style={styles.learn}>
+                  <Text style={styles.title}>Self Learn</Text>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={poeSelfLearns}
+                      renderItem={_renderLearnItem}
+                    />
+                  </View>
                 </View>
-              </View>
-              <View style={styles.learn}>
-                <Text style={styles.title}>Self Learn</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={poeSelfLearns}
-                    renderItem={_renderLearnItem}
-                  />
-                </View>
-              </View>
+              )}
 
-              {pillarMemberContents.members && (
+              {pillarMemberContents.members?.length !== 0 && (
                 <View style={styles.bottom}>
                   <Text style={styles.title}>Coaches</Text>
                   <View>
@@ -433,22 +420,25 @@ const GrowthDetail = props => {
                   </View>
                 </View>
               )}
-
-              <View style={styles.growthContent}>
-                <Text style={styles.title}>Growth Leadership Coaching Content Library</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.pillar_contents}
-                    renderItem={_renderContentItem}
-                  />
+              {pillarMemberContents?.pillar_contents?.length !== 0 && (
+                <View style={styles.growthContent}>
+                  <Text style={styles.title}>
+                    Growth Leadership Coaching Content Library
+                  </Text>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarMemberContents?.pillar_contents}
+                      renderItem={_renderContentItem}
+                    />
+                  </View>
                 </View>
-              </View>
+              )}
             </View>
           </ScrollView>
         </View>

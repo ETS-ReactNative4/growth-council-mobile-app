@@ -24,6 +24,7 @@ import BottomNav from '../../../layout/BottomLayout';
 import Player from './Player';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import {isEmptyArray} from 'formik';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -240,7 +241,7 @@ const GrowthCoaching = props => {
     let videoLink = link[1].split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
-
+  console.log(pillarMemberContents?.members?.length);
   return (
     <View style={{flex: 1}}>
       <StatusBar
@@ -253,69 +254,75 @@ const GrowthCoaching = props => {
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          <View style={styles.top}>
-            <Text style={styles.title}>Growth Coaching Events</Text>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarEvents}
-                //renderItem={_renderTopItem}
-                renderItem={item => _renderTopItem(item, navigation)}
-              />
-            </View>
-          </View>
-
-          <View style={styles.middle}>
-            <Text style={styles.title}>Points of Engagement</Text>
-
-            {pillarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          {pillarEvents?.length !== 0 && (
+            <View style={styles.top}>
+              <Text style={styles.title}>Growth Coaching Events</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarEvents}
+                  //renderItem={_renderTopItem}
+                  renderItem={item => _renderTopItem(item, navigation)}
+                />
               </View>
-            )}
+            </View>
+          )}
 
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              renderItem={_renderMiddleItem}
-              // renderItem={item => _renderMiddleItem(item, navigation)}
-            />
-          </View>
+          {pillarEventLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
+          {pillarPOEs?.length !== 0 && (
+            <View style={styles.middle}>
+              <Text style={styles.title}>Points of Engagement</Text>
 
-          <View style={styles.bottom}>
-            <Text style={styles.title}>Growth Coaching Members</Text>
-            <View>
               <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents?.members}
-                renderItem={_renderItem}
+                data={pillarPOEs}
+                renderItem={_renderMiddleItem}
+                // renderItem={item => _renderMiddleItem(item, navigation)}
               />
             </View>
-          </View>
+          )}
 
-          <View style={styles.content}>
-            <Text style={styles.title}>Growth Coaching Content</Text>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents?.pillar_contents}
-                renderItem={_renderContentItem}
-              />
+          {pillarMemberContents?.members?.length !== 0 && (
+            <View style={styles.bottom}>
+              <Text style={styles.title}>Growth Coaching Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.members}
+                  renderItem={_renderItem}
+                />
+              </View>
             </View>
-          </View>
+          )}
+          {pillarMemberContents?.pillar_contents?.length !== 0 && (
+            <View style={styles.content}>
+              <Text style={styles.title}>Growth Coaching Content</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.pillar_contents}
+                  renderItem={_renderContentItem}
+                />
+              </View>
+            </View>
+          )}
+
           {/* <Footer /> */}
         </View>
       </ScrollView>
@@ -329,7 +336,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
-	marginBottom: 60,
+    marginBottom: 60,
   },
   top: {
     marginTop: 25,
