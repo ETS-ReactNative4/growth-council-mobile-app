@@ -53,8 +53,8 @@ const SplashScreen = () => {
         style={styles.content}
         source={require('../../assets/img/appBG.png')}
         resizeMode="cover">
-        <Text style={styles.heading}>Growth</Text>
-        <Text style={styles.heading}>Council App</Text>
+        <Text style={styles.heading}>Growth, Innovation, Leadership</Text>
+        <Text style={styles.heading}>Council</Text>
         <Image
           style={styles.mainLogo}
           source={require('../../assets/img/GILCouncillog.png')}

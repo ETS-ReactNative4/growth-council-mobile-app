@@ -155,7 +155,7 @@ const Home = props => {
           style={styles.signinbutton}
           onPress={() => navigation.navigate('SignIn')}>
           <Text style={[styles.signinbuttonText]}>
-            I already have an account{' '}
+            Member Login
           </Text>
         </Button>
       </View>
