@@ -492,7 +492,7 @@ const MainNavigation = () => {
               </View>
             ),
             headerTitle: () => (
-              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 10}}>
                 <Text
                   style={{
                     color: 'white',
@@ -533,7 +533,7 @@ const MainNavigation = () => {
               </View>
             ),
             headerTitle: () => (
-              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
+              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 10}}>
                 <Text
                   style={{
                     color: 'white',
