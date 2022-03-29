@@ -66,7 +66,7 @@ const About = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="transparent"
+        backgroundColor="grey"
         translucent={false}
       />
       <ScrollView

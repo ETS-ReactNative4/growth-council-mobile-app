@@ -270,62 +270,67 @@ const Event = props => {
               </View>
               <View style={styles.seperationline} />
 
-              {events?.organizer?.term_name !== undefined && (
-                <View
-                  style={{
-                    borderBottomColor: '#F6F4F4',
-                    borderBottomWidth: 1,
-                  }}>
-                  <View>
-                    <Text style={styles.contentHeading}>Hosted By</Text>
-                  </View>
+              {events?.organizer?.term_name !== undefined &&
+                events?.organizer?.term_name !== '' && (
+                  <View
+                    style={{
+                      borderBottomColor: '#F6F4F4',
+                      borderBottomWidth: 1,
+                    }}>
+                    <View>
+                      <Text style={styles.contentHeading}>Hosted By</Text>
+                    </View>
 
-                  <View style={styles.hostdetail}>
-                    <View
-                      style={[
-                        styles.hostimage,
-                        {backgroundColor: backgroundColor},
-                      ]}>
-                      <Image
-                        source={{
-                          uri:
-                            typeof events?.organizer_image === 'boolean'
-                              ? null
-                              : events?.organizer_image,
-                        }}
+                    <View style={styles.hostdetail}>
+                      <View
+                        style={[
+                          styles.hostimage,
+                          {backgroundColor: backgroundColor},
+                        ]}>
+                        <Image
+                          source={{
+                            uri:
+                              typeof events?.organizer_image === 'boolean'
+                                ? null
+                                : events?.organizer_image,
+                          }}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                          }}
+                        />
+                      </View>
+
+                      <View
                         style={{
-                          width: '100%',
-                          height: '100%',
-                        }}
-                      />
+                          flex: 3,
+                          paddingLeft: 20,
+                          justifyContent: 'center',
+                        }}>
+                        <Text style={styles.contentTitle}>
+                          {events?.organizer?.term_name}
+                        </Text>
+                        <Text style={{fontSize: 14}}>
+                          {events?.organizer?.description}
+                        </Text>
+                      </View>
+                      <View style={styles.eventaddress}></View>
                     </View>
-
-                    <View
-                      style={{
-                        flex: 3,
-                        paddingLeft: 20,
-                        justifyContent: 'center',
-                      }}>
-                      <Text style={styles.contentTitle}>
-                        {events?.organizer?.term_name}
-                      </Text>
-                      <Text style={{fontSize: 14}}>
-                        {events?.organizer?.description}
-                      </Text>
-                    </View>
-                    <View style={styles.eventaddress}></View>
                   </View>
+                )}
+              {events?.descirption !== undefined && events?.descirption !== '' && (
+                <View>
+                  <Text style={[styles.contentHeading, {marginTop: 20}]}>
+                    Event Info
+                  </Text>
+                  {!isEventLoaded && (
+                    <HTMLView
+                      value={description}
+                      style={{fontSize: 14, color: '#77838F'}}
+                    />
+                  )}
                 </View>
               )}
-              <View>
-                <Text style={styles.contentHeading}>Event Info</Text>
-                {!isEventLoaded && (
-                  <HTMLView
-                    value={description}
-                    style={{fontSize: 14, color: '#77838F'}}
-                  />
-                )}
-              </View>
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 {eventRegisterLoading && (
@@ -522,7 +527,7 @@ const styles = StyleSheet.create({
   },
   hostdetail: {
     flex: 1,
-    paddingBottom: 5,
+    paddingBottom: 15,
     flexDirection: 'row',
     marginTop: 5,
   },

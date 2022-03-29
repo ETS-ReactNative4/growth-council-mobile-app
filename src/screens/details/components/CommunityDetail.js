@@ -323,49 +323,54 @@ const CommunityDetail = props => {
                 </View>
               )}
 
-              <View style={styles.top}>
-                <Text style={styles.title}> Events</Text>
+              {poeEvents?.length !== 0 && (
+                <View style={styles.top}>
+                  <Text style={styles.title}> Events</Text>
 
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={poeEvents}
-                    renderItem={_renderTopItem}
-                  />
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={poeEvents}
+                      renderItem={_renderTopItem}
+                    />
+                  </View>
                 </View>
-              </View>
-              <View style={styles.bottom}>
-                <Text style={styles.title}> Members</Text>
-                <View>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.members}
-                    renderItem={item => _renderItem(item, navigation)}
-                  />
+              )}
+              {pillarMemberContents?.members?.length !== 0 && (
+                <View style={styles.bottom}>
+                  <Text style={styles.title}> Members</Text>
+                  <View>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarMemberContents?.members}
+                      renderItem={item => _renderItem(item, navigation)}
+                    />
+                  </View>
                 </View>
-              </View>
-
-              <View style={styles.growthContent}>
-                <Text style={styles.title}> Content Library</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents?.pillar_contents}
-                    renderItem={_renderContentItem}
-                  />
+              )}
+              {pillarMemberContents?.pillar_contents?.length !== 0 && (
+                <View style={styles.growthContent}>
+                  <Text style={styles.title}> Content Library</Text>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarMemberContents?.pillar_contents}
+                      renderItem={_renderContentItem}
+                    />
+                  </View>
                 </View>
-              </View>
+              )}
 
               {/* <Footer /> */}
             </View>
@@ -422,6 +427,7 @@ const styles = StyleSheet.create({
     // borderRadius: 18,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+    marginBottom: 20,
   },
   contentWrapper: {
     backgroundColor: 'white',
