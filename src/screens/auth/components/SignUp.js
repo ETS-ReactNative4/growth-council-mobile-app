@@ -482,13 +482,11 @@ const SignUpForm = props => {
                   <View style={{flex: 0.9}}>
                     <View >
                       <Text style={{marginTop: 7}}>
-                        By clicking submit, I agree to Frost & Sullivan's  <Text
-                        style={{color: '#31ade5', fontWeight: '700'}}
+                        By clicking submit, I agree to Frost & Sullivan's <Text style={{color: '#31ade5', fontWeight: '700'}}
                         onPress={() => navigation.navigate('Terms')}>                       
                         Terms of Use{' '}
                       </Text>
-                       and
-                      <Text
+                       and <Text
                         style={{color: '#31ade5', fontWeight: '700'}}
                         onPress={() => navigation.navigate('Privacys')}>
                         {' '}
