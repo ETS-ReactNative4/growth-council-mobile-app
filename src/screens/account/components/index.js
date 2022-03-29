@@ -130,6 +130,7 @@ const Profile = props => {
                       borderRadius: 20,
                       justifyContent: 'center',
                       alignContent: 'center',
+                      alignItems: 'center',
                     }}
                     textStyle={{
                       paddingHorizontal: 0,
