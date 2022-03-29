@@ -81,6 +81,7 @@ export default privacy;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
+	paddingBottom: 20,
   },
   header: {
     ...CommonStyles.header,

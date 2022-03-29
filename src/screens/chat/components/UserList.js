@@ -132,7 +132,7 @@ const UserList = props => {
                 margin: 14,
               }}
             />
-            <View style={{margin: 10, width: '55%'}}>
+            <View style={{margin: 10, width: '65%',}}>
               <Text
                 style={{
                   fontSize: 14,
@@ -147,7 +147,16 @@ const UserList = props => {
               <Text style={{fontSize: 12, color: '#222B45'}}>
                 {item?.company}
               </Text>
-              <ChatCount item={item} userID={userID} />
+              <View
+                style={{
+					top:20,
+                  right: 10,
+                  backgroundColor: 'red',
+                  zIndex: 101,
+                  position: 'absolute',
+                }}>
+                <ChatCount item={item} userID={userID} />
+              </View>
             </View>
             {/* {!memberConnection[index]?.connection && (
               <TouchableOpacity
@@ -161,12 +170,7 @@ const UserList = props => {
               </TouchableOpacity>
             )} */}
             {memberConnection[index]?.connection && (
-              <Material
-                name="check-circle"
-                size={1}
-                color="#14A2E2"
-                style={{marginTop: 5}}
-              />
+              <Material name="check-circle" size={1} color="#14A2E2" />
             )}
           </View>
         </TouchableOpacity>

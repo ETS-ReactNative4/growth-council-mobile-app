@@ -129,7 +129,7 @@ const Profile = props => {
                       marginLeft: 4,
                       borderRadius: 20,
                       justifyContent: 'center',
-                      alignContent: 'center',
+                   
                       alignItems: 'center',
                     }}
                     textStyle={{
@@ -139,7 +139,7 @@ const Profile = props => {
                       width: '100%',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      alignContent: 'center',
+                   
                     }}
                   />
                 </View>
@@ -168,7 +168,7 @@ const Profile = props => {
               </View>
             </View>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />

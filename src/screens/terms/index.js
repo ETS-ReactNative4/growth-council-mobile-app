@@ -173,7 +173,7 @@ const Terms = props => {
               </Text>
             </Button>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
     </>
@@ -183,6 +183,7 @@ export default Terms;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
+    paddingBottom: 20,
   },
   header: {
     ...CommonStyles.header,

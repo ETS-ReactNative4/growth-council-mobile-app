@@ -297,10 +297,10 @@ const People = props => {
               renderItem={_renderItem}
             />
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </ScrollView>
       </View>
-      {/* <Footer /> */}
+    
       <Modal transparent visible={pickerVisible}>
         <View
           style={{
