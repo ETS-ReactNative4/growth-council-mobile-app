@@ -423,22 +423,13 @@ const SignUpForm = props => {
                 <Text style={styles.errorMessage}>{errors.email}</Text>
               )}
 
-              {/* <FlatTextInput
-                                label="Business Phone *"
-                                value={values.phone}
-                                onChangeText={handleChange('phone')}
-                                onFocus={handleBlur('phone')}
-                                error={errors.phone}
-                                touched={touched.phone}
-                            /> */}
-
               <Text style={{marginTop: 20, color: 'black'}}>
                 Phone Number *
               </Text>
 
               <PhoneInput
                 ref={phoneInput}
-                defaultCode="IN"
+                defaultCode="US"
                 // layout="first"
                 containerStyle={styles.phoneNumberView}
                 textContainerStyle={{paddingVertical: 0}}
@@ -704,7 +695,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderWidth: 0.4,
     borderRadius: 4,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
 });
 
