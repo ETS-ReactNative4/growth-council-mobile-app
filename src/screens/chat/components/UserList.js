@@ -11,9 +11,10 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {BubblesLoader} from 'react-native-indicator';
-import {Searchbar} from 'react-native-paper';
+import {Searchbar, Button} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Material from 'react-native-vector-icons/MaterialIcons';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN, USER_NAME, USER_AVATAR} from '../../../constants';
@@ -32,12 +33,25 @@ const UserList = props => {
     connectionError,
     fetchAllConnection,
     cleanConnection,
+
+    users,
+    userLoading,
+    userError,
+    fetchAllUsers,
+    cleanUser,
+
+    memberConnections,
+    memberConnectionLoading,
+    memberConnectionError,
+    connectMemberByIdentifier,
+    cleanConnectMember,
   } = props;
 
   const [userID, setUserID] = useState(null);
-  const [search, setSearch] = useState('');
+  const [searchKey, setSearchKey] = useState('');
   const [avatarImg, setAvatarImg] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [memberConnection, setMemberConnection] = useState([]);
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -52,12 +66,47 @@ const UserList = props => {
     setLoggedInUserInfoAsync();
   }, [isFocused]);
 
+  //   useEffect(() => {
+  //     fetchAllConnection();
+  //     return () => {
+  //       cleanConnection();
+  //     };
+  //   }, [isFocused]);
+
   useEffect(() => {
-    fetchAllConnection();
+    const fetchAllUsersAsync = async () => {
+      await fetchAllUsers({
+        s: searchKey,
+      });
+    };
+    fetchAllUsersAsync();
+
     return () => {
-      cleanConnection();
+      cleanUser();
     };
   }, [isFocused]);
+
+  useEffect(() => {
+    setMemberConnection(users);
+  }, [users]);
+
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      fetchAllUsers({
+        s: searchKey,
+      });
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+  };
 
   const _renderItems = ({item, index}) => {
     return (
@@ -65,9 +114,9 @@ const UserList = props => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('Chat', {
-              friendID: item.ID,
-              friendName: item.display_name,
-              friendAvatar: item.avatar,
+              friendID: item?.ID,
+              friendName: item?.display_name,
+              friendAvatar: item?.avatar,
               userID: userID,
               userName: userName,
               userAvatar: avatarImg,
@@ -75,7 +124,7 @@ const UserList = props => {
           }>
           <View style={[styles.wrapper, styles.shadowProp]} key={index}>
             <Image
-              source={{uri: item.avatar}}
+              source={{uri: item?.avatar}}
               style={{
                 height: 60,
                 width: 60,
@@ -93,10 +142,32 @@ const UserList = props => {
                 {item?.display_name}
               </Text>
               <Text style={{fontSize: 12, marginTop: 10}}>
-                {item.user_email}
+                {item?.user_email}
+              </Text>
+              <Text style={{fontSize: 12, color: '#222B45'}}>
+                {item?.company}
               </Text>
               <ChatCount item={item} userID={userID} />
             </View>
+            {/* {!memberConnection[index]?.connection && (
+              <TouchableOpacity
+                onPress={() => connectMemberByMemberID(item.ID, index)}>
+                <Ionicons
+                  name="add-circle"
+                  size={10}
+                  color="#B2B3B9"
+                  style={{marginTop: 25}}
+                />
+              </TouchableOpacity>
+            )} */}
+            {memberConnection[index]?.connection && (
+              <Material
+                name="check-circle"
+                size={1}
+                color="#14A2E2"
+                style={{marginTop: 5}}
+              />
+            )}
           </View>
         </TouchableOpacity>
       </View>
@@ -104,86 +175,78 @@ const UserList = props => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <StatusBar
         barStyle="light-content"
         hidden={false}
         backgroundColor="grey"
         translucent={false}
       />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-          marginBottom: 25,
-        }}>
-        <View style={styles.container}>
-          {/* <View style={styles.buttonWrapper}>
-            <TouchableOpacity>
-              <Button style={[styles.button, styles.shadowProp]}>
-                <Text style={[styles.buttonText, {color: '#4835BE'}]}>
-                  Message
-                </Text>
-              </Button>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Button
-                style={[styles.button, {backgroundColor: '#F26722'}]}
-                onPress={() => Linking.openURL('mailto:contact@frost.com')}>
-                <Text style={styles.buttonText}>Contact us</Text>
-              </Button>
-            </TouchableOpacity>
-          </View> */}
-          <View
-            style={{
-              height: 80,
-              paddingLeft: 4,
-              paddingRight: 20,
-              flexDirection: 'row',
-              alignItems: 'center',
-              shadowColor: '#000000',
-              shadowOffset: {width: 0, height: 3},
-              shadowRadius: 9,
-              shadowOpacity: 0.1,
-              elevation: 5,
-              backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-            }}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
-            </TouchableOpacity>
-            <Searchbar
-              style={styles.input}
-              inputStyle={{
-                height: 38,
-                paddingVertical: 0,
-              }}
-              placeholder="Search"
-              placeholderTextColor="#B2B3B9"
-              iconColor="#B2B3B9"
-              value={search}
-              onChangeText={text => searchFilterFunction(text)}
-            />
-            <TouchableOpacity>
-              <FontAwesome5 name="edit" size={25} color="#00b0f0" />
-            </TouchableOpacity>
+      <View style={styles.container}>
+        <View
+          style={{
+            height: 80,
+            paddingLeft: 4,
+            paddingRight: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            shadowColor: '#000000',
+            shadowOffset: {width: 0, height: 3},
+            shadowRadius: 9,
+            shadowOpacity: 0.1,
+            elevation: 5,
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+          }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
+          </TouchableOpacity>
+
+          <Searchbar
+            style={styles.input}
+            placeholder="Search"
+            keyboardType="default"
+            value={searchKey}
+            onChangeText={async text => {
+              setSearchKey(text);
+              await fetchAllUsers({
+                s: text,
+              });
+            }}
+          />
+          <TouchableOpacity>
+            <FontAwesome5 name="edit" size={25} color="#00b0f0" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonWrapper}>
+          <TouchableOpacity>
+            <Button
+              style={[styles.button]}
+              onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+              <Text style={styles.buttonText}>Contact us</Text>
+            </Button>
+          </TouchableOpacity>
+        </View>
+        {userLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
           </View>
-          {connectionLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-            </View>
-          )}
+        )}
+        <ScrollView>
           <View style={{marginTop: 10}}>
             <FlatList
               Vertical
               showsVerticalScrollIndicator={false}
-              data={connection}
+              data={users}
               renderItem={_renderItems}
             />
           </View>
-        </View>
-
+        </ScrollView>
+      </View>
+      {/* <View
+        style={{paddingBottom: 20, backgroundColor: 'white', marginTop: 10}}>
         <Footer />
-      </ScrollView>
+      </View> */}
+
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
@@ -193,6 +256,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    paddingBottom: 70,
   },
   wrapper: {
     height: 88,
@@ -209,18 +273,20 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingRight: 35,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   button: {
-    width: '85%',
+    width: '100%',
     borderRadius: 10,
     height: 38,
     marginTop: 8,
     backgroundColor: 'white',
+    borderColor: '#F26722',
+    borderWidth: 1,
   },
   buttonText: {
-    color: Colors.PRIMARY_BUTTON_TEXT_COLOR,
-    fontFamily: Typography.FONT_BOLD,
+    color: '#F26722',
+    fontSize: 12,
   },
   input: {
     flex: 1,
