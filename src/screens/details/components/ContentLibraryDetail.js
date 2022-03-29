@@ -251,22 +251,24 @@ const ContentLibraryDetail = props => {
                 />
               </View>
             )}
-          {contentLibraryDetails?.presenter !== null && (
-            <View style={styles.sectionContainerBorder}>
-              <Text style={styles.bodyTitleText}>Presented By:</Text>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image
-                  source={{uri: contentLibraryDetails?.presenter_image}}
-                  style={styles.userImage}
-                />
-                <View style={{marginLeft: 20}}>
-                  <Text style={styles.userNameText}>
-                    {contentLibraryDetails?.presenter}
-                  </Text>
+          {contentLibraryDetails?.presenter !== false &&
+            contentLibraryDetails?.presenter !== null &&
+            contentLibraryDetails?.presenter !== '' && (
+              <View style={styles.sectionContainerBorder}>
+                <Text style={styles.bodyTitleText}>Presented By:</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    source={{uri: contentLibraryDetails?.presenter_image}}
+                    style={styles.userImage}
+                  />
+                  <View style={{marginLeft: 20}}>
+                    <Text style={styles.userNameText}>
+                      {contentLibraryDetails?.presenter}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          )}
+            )}
 
           {contentLibraryDetailsLoading && (
             <View style={styles.loading1}>
@@ -274,50 +276,60 @@ const ContentLibraryDetail = props => {
             </View>
           )}
           {/* Abstract Section */}
-          <View style={styles.sectionContainer}>
-            <Text style={styles.bodyTitleText}>Abstract:</Text>
-            <Text style={styles.abstractDescriptionText}>
-              {contentLibraryDetails?.abstract}
-            </Text>
-          </View>
-
+          {contentLibraryDetails?.abstract !== undefined &&
+            contentLibraryDetails?.abstract !== '' && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>Abstract:</Text>
+                <Text style={styles.abstractDescriptionText}>
+                  {contentLibraryDetails?.abstract}
+                </Text>
+              </View>
+            )}
           {/* Call To Action Section */}
-          <View style={styles.sectionContainer}>
-            <Text style={styles.bodyTitleText}>Call to Action:</Text>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              data={contentLibraryDetails?.call_to_action}
-              renderItem={_renderActionItem}
-            />
-          </View>
+          {contentLibraryDetails?.call_to_action?.length !== 0 &&
+            contentLibraryDetails?.call_to_action !== false && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>Call to Action:</Text>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  data={contentLibraryDetails?.call_to_action}
+                  renderItem={_renderActionItem}
+                />
+              </View>
+            )}
 
           {/* Attachments Section */}
-          <View style={styles.sectionContainer}>
-            <Text style={styles.bodyTitleText}>Attachments:</Text>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              data={contentLibraryDetails?.attachment}
-              renderItem={_renderItem}
-            />
-          </View>
+          {contentLibraryDetails?.attachment?.length !== 0 &&
+            contentLibraryDetails?.attachment !== false && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>Attachments:</Text>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  data={contentLibraryDetails?.attachment}
+                  renderItem={_renderItem}
+                />
+              </View>
+            )}
 
           {/* Tags Section */}
-          <View style={styles.sectionContainerBorder}>
-            <Text style={styles.bodyTitleText}>Tags:</Text>
+          {contentLibraryDetails?.tags?.length !== 0 && (
+            <View style={styles.sectionContainerBorder}>
+              <Text style={styles.bodyTitleText}>Tags:</Text>
 
-            <FlatList
-              contentContainerStyle={{
-                flex: 1,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-              }}
-              showsVerticalScrollIndicator={false}
-              data={contentLibraryDetails?.tags}
-              renderItem={_renderTagItem}
-            />
-          </View>
+              <FlatList
+                contentContainerStyle={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}
+                showsVerticalScrollIndicator={false}
+                data={contentLibraryDetails?.tags}
+                renderItem={_renderTagItem}
+              />
+            </View>
+          )}
 
           {/* Article Feedback Section */}
           <ArticleFeedbackCard
@@ -371,7 +383,7 @@ const styles = StyleSheet.create({
   contentImage: {width: '100%', height: 205, borderRadius: 16},
   sectionContainerBorder: {
     margin: 2,
-    marginBottom: 20,
+    marginBottom: 10,
     paddingBottom: 25,
     borderBottomWidth: 1,
     borderColor: 'rgba(112, 112, 112, 0.13)',
@@ -400,7 +412,7 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     marginBottom: 20,
-    marginTop: 15,
+    marginTop: 20,
   },
   abstractDescriptionText: {
     flex: 1,

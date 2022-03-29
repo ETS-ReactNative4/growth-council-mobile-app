@@ -223,7 +223,7 @@ const MainNavigation = () => {
         <Stack.Screen
           name="coachingSession"
           component={CoachingSessionDetailScreen}
-          options={({route,navigation}) => ({
+          options={({route, navigation}) => ({
             header: () => (
               <SubHeader
                 title={route?.params?.title}
@@ -405,7 +405,7 @@ const MainNavigation = () => {
           options={() => ({
             header: ({navigation}) => (
               <SubHeader
-                title="Critical Issue"
+                title="Critical Issues"
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}
                 noDrawer
