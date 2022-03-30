@@ -226,40 +226,50 @@ const People = props => {
               style={{
                 flex: 1,
                 alignItems: 'center',
-                borderWidth: 0.5,
+                borderWidth: 0.3,
                 paddingVertical: 10,
                 borderColor: 'gray',
+                height: 60,
+                borderBottomLeftRadius: 10,
+                borderTopLeftRadius: 10,
+                justifyContent: 'center',
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {category ? category : 'Expertise Areas'}
               </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               onPress={() => setAccountVisible(true)}
               style={{
                 flex: 1,
                 alignItems: 'center',
-                borderWidth: 0.5,
+                borderWidth: 0.3,
                 paddingVertical: 10,
                 borderColor: 'gray',
+                height: 60,
+                justifyContent: 'center',
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {account ? account : 'Account Type'}
               </Text>
-            </TouchableOpacity> */}
-            {/* <TouchableOpacity
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => setRegionVisible(true)}
               style={{
                 flex: 1,
                 alignItems: 'center',
-                borderWidth: 0.5,
+                borderWidth: 0.3,
                 paddingVertical: 10,
                 borderColor: 'gray',
+                height: 60,
+                justifyContent: 'center',
+                borderBottomRightRadius: 10,
+                borderTopRightRadius: 10,
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {region ? region : 'Region'}
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -504,6 +514,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 15,
+    height: 70,
   },
   icon: {
     flexDirection: 'row',
