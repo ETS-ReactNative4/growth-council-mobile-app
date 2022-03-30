@@ -478,31 +478,29 @@ const MainNavigation = () => {
           name="Privacys"
           component={PrivacyScreen}
           options={({navigation}) => ({
-			header: () => (
-				<OptionHeader
-				  title="Privacy Policy"
-				  image={require('../assets/img/appBG.png')}
-				  navigation={navigation}
-				  noDrawer
-				/>
-			  ),
+            header: () => (
+              <OptionHeader
+                title="Privacy Policy"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
         <Stack.Screen
           name="Terms"
           component={Terms}
           options={({navigation}) => ({
-			header: () => (
-				<OptionHeader
-				  title="Terms Of Use"
-				  image={require('../assets/img/appBG.png')}
-				  navigation={navigation}
-				  noDrawer
-				/>
-			  ),
-			})
-			}
-       
+            header: () => (
+              <OptionHeader
+                title="Terms Of Use"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
       </Stack.Group>
 

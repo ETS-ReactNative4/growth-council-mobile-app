@@ -122,24 +122,20 @@ const Profile = props => {
                     value={value}
                     onSelect={val => setValue(val)}
                     style={{
-                      flex: 0,
-                      height: 40,
-                      marginTop: 5,
-                      width: '96%',
-                      marginLeft: 4,
-                      borderRadius: 20,
-                      justifyContent: 'center',
-                   
-                      alignItems: 'center',
+                      // width: '100%',
+                      // alignItems: 'center',
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      // borderRadius: 10,
                     }}
                     textStyle={{
                       paddingHorizontal: 0,
-                      paddingLeft: 5,
+                      // paddingLeft: 15,
                       fontSize: 13,
                       width: '100%',
                       alignItems: 'center',
                       justifyContent: 'center',
-                   
+                      textAlign: 'center',
                     }}
                   />
                 </View>
@@ -264,12 +260,13 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   buttonWrapper: {
-    height: 50,
+    width: '100%',
+    height: 55,
     backgroundColor: '#ECECEC',
     borderRadius: 10,
-    margin: 10,
     marginTop: 15,
-    marginLeft: Platform.OS === 'ios' ? 10 : 10,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
 
   iconWrapper: {
