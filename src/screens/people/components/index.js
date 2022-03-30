@@ -268,6 +268,7 @@ const People = props => {
             flexGrow: 1,
 
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+            paddingBottom: 50,
           }}>
           {userLoading && (
             <View style={styles.loading1}>
@@ -297,10 +298,10 @@ const People = props => {
               renderItem={_renderItem}
             />
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </ScrollView>
       </View>
-      {/* <Footer /> */}
+
       <Modal transparent visible={pickerVisible}>
         <View
           style={{

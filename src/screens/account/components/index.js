@@ -121,22 +121,22 @@ const Profile = props => {
                     values={['About me', 'My Point of Engagement']}
                     value={value}
                     onSelect={val => setValue(val)}
-                    style={{                                  
+                    style={{
                       // width: '100%',
                       // alignItems: 'center',
                       paddingLeft: 5,
-                      paddingRight: 5,              
-                      // borderRadius: 10,                                                                
+                      paddingRight: 5,
+                      // borderRadius: 10,
                     }}
-                   textStyle={{
+                    textStyle={{
                       paddingHorizontal: 0,
                       // paddingLeft: 15,
                       fontSize: 13,
                       width: '100%',
-                      textAlign: 'center'
-                      
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textAlign: 'center',
                     }}
-                   
                   />
                 </View>
                 {profileLoading && (
@@ -164,7 +164,7 @@ const Profile = props => {
               </View>
             </View>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
@@ -259,15 +259,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     margin: 15,
   },
-  buttonWrapper: {  
+  buttonWrapper: {
     width: '100%',
-    height: 55, 
+    height: 55,
     backgroundColor: '#ECECEC',
     borderRadius: 10,
     marginTop: 15,
     justifyContent: 'center',
     alignContent: 'center',
-
   },
 
   iconWrapper: {
