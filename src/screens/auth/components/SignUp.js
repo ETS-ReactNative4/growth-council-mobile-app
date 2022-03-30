@@ -469,8 +469,8 @@ const SignUpForm = props => {
                 </Text>
               )}
 
-              <View>
-                <View style={{flexDirection: 'row'}}>
+              <View style={{flex: 1}}>
+                <View style={{flexDirection: 'row' , flex:0.2}}>
                   <CheckBox
                     status={checked ? 'checked' : 'unchecked'}
                     onPress={() => {
@@ -479,27 +479,22 @@ const SignUpForm = props => {
                     }}
                   />
 
-                  <View>
-                    <View>
+                  <View style={{flex: 0.9}}>
+                    <View >
                       <Text style={{marginTop: 7}}>
-                        By clicking submit, I agree to Frost & Sullivan
+                        By clicking submit, I agree to Frost & Sullivan's <Text style={{color: '#31ade5', fontWeight: '700'}}
+                        onPress={() => navigation.navigate('Terms')}>                       
+                        Terms of Use{' '}
                       </Text>
-                    </View>
-                    <View style={{flexDirection: 'row'}}>
-                      <Text
-                        style={{color: '#31ade5', fontWeight: '700'}}
-                        onPress={() => navigation.navigate('Terms')}>
-                        {' '}
-                        Terms and Use{' '}
-                      </Text>
-                      <Text>and</Text>
-                      <Text
+                       and <Text
                         style={{color: '#31ade5', fontWeight: '700'}}
                         onPress={() => navigation.navigate('Privacys')}>
                         {' '}
-                        Privacy Policy*{' '}
+                        Privacy Policy* {' '}
                       </Text>
+                      </Text> 
                     </View>
+                    
                   </View>
                 </View>
 

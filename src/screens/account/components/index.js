@@ -121,26 +121,22 @@ const Profile = props => {
                     values={['About me', 'My Point of Engagement']}
                     value={value}
                     onSelect={val => setValue(val)}
-                    style={{
-                      flex: 0,
-                      height: 40,
-                      marginTop: 5,
-                      width: '96%',
-                      marginLeft: 4,
-                      borderRadius: 20,
-                      justifyContent: 'center',
-                      alignContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    textStyle={{
-                      paddingHorizontal: 0,
+                    style={{                                  
+                      // width: '100%',
+                      // alignItems: 'center',
                       paddingLeft: 5,
+                      paddingRight: 5,              
+                      // borderRadius: 10,                                                                
+                    }}
+                   textStyle={{
+                      paddingHorizontal: 0,
+                      // paddingLeft: 15,
                       fontSize: 13,
                       width: '100%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      alignContent: 'center',
+                      textAlign: 'center'
+                      
                     }}
+                   
                   />
                 </View>
                 {profileLoading && (
@@ -263,13 +259,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     margin: 15,
   },
-  buttonWrapper: {
-    height: 50,
+  buttonWrapper: {  
+    width: '100%',
+    height: 55, 
     backgroundColor: '#ECECEC',
     borderRadius: 10,
-    margin: 10,
     marginTop: 15,
-    marginLeft: Platform.OS === 'ios' ? 10 : 10,
+    justifyContent: 'center',
+    alignContent: 'center',
+
   },
 
   iconWrapper: {
