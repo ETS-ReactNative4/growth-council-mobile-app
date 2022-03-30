@@ -19,6 +19,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN, USER_NAME, USER_AVATAR} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
+import {Linking} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';

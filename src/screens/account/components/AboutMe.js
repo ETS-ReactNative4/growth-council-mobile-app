@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: PRIMARY_BACKGROUND_COLOR,
     paddingLeft: 20,
     paddingRight: 20,
+    paddingBottom: 20,
   },
   middle: {},
   wrapper: {
