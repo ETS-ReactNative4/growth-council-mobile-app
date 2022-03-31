@@ -197,8 +197,8 @@ const EventCalendar = props => {
             <Text
               style={{
                 marginTop: 30,
-                marginLeft: 10,
-                marginRight: 10,
+                marginLeft: 5,
+                marginRight: 5,
                 fontSize: 12,
                 color: '#030303',
               }}>
@@ -312,7 +312,7 @@ const EventCalendar = props => {
             )}
             {!calendarEventLoading && (
               <FlatList
-                horizontal={false}
+                vertical
                 showsVerticalScrollIndicator={true}
                 data={currentEvents}
                 renderItem={renderItem}
@@ -381,7 +381,6 @@ const EventCalendar = props => {
               </View>
             </View>
           </Modal>
-   
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
@@ -439,8 +438,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   events: {
-    padding: 20,
+    padding: 12,
     borderWidth: 0.1,
+    paddingBottom: 50,
   },
   eventCard: {
     // height: 82,
@@ -452,7 +452,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 10,
-    paddingBottom: 10,
   },
   eventTheme: {
     height: '100%',

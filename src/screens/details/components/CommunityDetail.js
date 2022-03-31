@@ -99,6 +99,8 @@ const CommunityDetail = props => {
     }, []),
   );
 
+  console.log(route.params.poeId);
+
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -140,7 +142,8 @@ const CommunityDetail = props => {
         onPress={() =>
           navigation.navigate('SubPoe', {
             poeId: item?.term_id,
-            pillarId: item?.parent,
+            pillarId: route?.params?.pillarId,
+            id: route?.params?.poeId,
           })
         }>
         <View style={styles.middleWrapper}>
@@ -243,7 +246,7 @@ const CommunityDetail = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videoLink = link[1].split('&', 2);
+    let videoLink = link[1]?.split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
   let backgroundColor = '';

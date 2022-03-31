@@ -99,7 +99,7 @@ const SubPOEDetails = props => {
       };
     }, []),
   );
-
+  console.log(route.params.id);
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -132,37 +132,6 @@ const SubPOEDetails = props => {
           </TouchableOpacity>
         </View> */}
       </View>
-    );
-  };
-
-  const _renderMiddleItem = ({item, index}, navigation) => {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('CommunityDetail', {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-          })
-        }>
-        <View style={styles.middleWrapper}>
-          <View style={[styles.middleW, styles.shadowProp]}>
-            <Image
-              source={{uri: item?.image}}
-              style={{width: 30, height: 30}}
-            />
-          </View>
-          <Text
-            style={{
-              marginTop: 10,
-              fontSize: 10,
-              marginHorizontal: 10,
-              textAlign: 'center',
-              color: '#030303',
-            }}>
-            {item?.name}
-          </Text>
-        </View>
-      </TouchableOpacity>
     );
   };
 
@@ -244,9 +213,11 @@ const SubPOEDetails = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videoLink = link[1].split('&', 2);
+
+    let videoLink = link[1]?.split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
+
   let backgroundColor = '';
   const parent = poeDetails?.parent;
   switch (parent) {
@@ -277,7 +248,12 @@ const SubPOEDetails = props => {
             source={{uri: poeDetails?.pillar_detail_image}}
             style={{height: 240, width: '100%'}}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Best Practices')}>
+              onPress={() =>
+                navigation.goBack({
+                  poeId: route.params.id,
+                  pillarId: route?.params?.pillarId,
+                })
+              }>
               <View style={styles.arrow}>
                 <Ionicons name={'arrow-back'} size={50} color="white" />
               </View>
