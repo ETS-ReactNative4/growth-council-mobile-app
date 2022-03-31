@@ -336,7 +336,7 @@ const SubPOEDetails = props => {
             style={{height: 240, width: '100%'}}>
             <TouchableOpacity
               onPress={() =>
-                navigation.goBack({
+                navigation.navigate('Best Practices', {
                   poeId: route.params.id,
                   pillarId: route?.params?.pillarId,
                 })

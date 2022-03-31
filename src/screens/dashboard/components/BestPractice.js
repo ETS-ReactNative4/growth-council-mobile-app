@@ -192,12 +192,23 @@ const BestPractice = props => {
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('CommunityDetail', {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-          })
-        }>
+        onPress={() => {
+          if (
+            item.slug === 'annual-ceo-survey' ||
+            item.slug === 'innovation-generator'
+          ) {
+            navigation.navigate('', {
+              poeId: item?.term_id,
+              pillarId: item?.parent,
+            });
+          }
+		  else{
+			navigation.navigate('CommunityDetail', {
+				poeId: item?.term_id,
+				pillarId: item?.parent,
+			  });
+		  }
+        }}>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
