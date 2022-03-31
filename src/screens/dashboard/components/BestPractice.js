@@ -251,12 +251,12 @@ const BestPractice = props => {
             </View>
           )}
 
-          {pillarEventLoading && (
+          {pillarPOELoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-		  
+
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
               <Text style={styles.title}>Points of Engagement</Text>
@@ -271,7 +271,7 @@ const BestPractice = props => {
             </View>
           )}
 
-          {pillarMemberContents?.members?.length !== 0 && (
+          {/* {pillarMemberContents?.members?.length !== 0 && (
             <View style={styles.bottom}>
               <Text style={styles.title}>Best Practices Members</Text>
               <View>
@@ -284,7 +284,7 @@ const BestPractice = props => {
                 />
               </View>
             </View>
-          )}
+          )} */}
           {/* <Footer /> */}
         </View>
       </ScrollView>
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loading1: {
-    top: 0,
+    top: 50,
     left: 0,
     right: 0,
     bottom: 0,
