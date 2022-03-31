@@ -16,11 +16,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
-import HTMLView from 'react-native-htmlview';
+import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
+import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const CommunityDetail = props => {
+const SubPOEDetails = props => {
   const {
     navigation,
     route,
@@ -138,7 +139,7 @@ const CommunityDetail = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('SubPoe', {
+          navigation.navigate('CommunityDetail', {
             poeId: item?.term_id,
             pillarId: item?.parent,
           })
@@ -275,7 +276,8 @@ const CommunityDetail = props => {
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
             style={{height: 240, width: '100%'}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Best Practices')}>
               <View style={styles.arrow}>
                 <Ionicons name={'arrow-back'} size={50} color="white" />
               </View>
@@ -322,20 +324,7 @@ const CommunityDetail = props => {
                 }}
               />
 
-              {poeDetails?.slug === '10-growth-processes' && (
-                <View style={styles.top}>
-                  <Text style={styles.title}> Sub Points of Engagement</Text>
-                  <FlatList
-                    numColumns={4}
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarPOEs}
-                    // renderItem={_renderMiddleItem}
-                    renderItem={item => _renderMiddleItem(item, navigation)}
-                  />
-                </View>
-              )}
-{/* 
-              {poeEvents?.length !== 0 && (
+              {/* {poeEvents?.length !== 0 && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Events</Text>
 
@@ -352,8 +341,8 @@ const CommunityDetail = props => {
                     />
                   </View>
                 </View>
-              )}
-              {pillarMemberContents?.members?.length !== 0 && (
+              )} */}
+              {/* {pillarMemberContents?.members?.length !== 0 && (
                 <View style={styles.bottom}>
                   <Text style={styles.title}> Members</Text>
                   <View>
@@ -563,4 +552,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CommunityDetail;
+export default SubPOEDetails;

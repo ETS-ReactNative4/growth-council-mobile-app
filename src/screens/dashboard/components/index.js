@@ -343,78 +343,74 @@ const Dashboard = props => {
           </ImageBackground>
         </View>
 
-        {upcomingEvents?.length !== 0 && (
-          <View style={styles.top}>
-            <View style={styles.eventWrapper}>
-              <Text style={styles.title}>Upcoming Events</Text>
-            </View>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginTop: 20,
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={upcomingEvents}
-                renderItem={item => _renderTopItem(item, navigation)}
-              />
-            </View>
+        <View style={styles.top}>
+          <View style={styles.eventWrapper}>
+            <Text style={styles.title}>Upcoming Events</Text>
           </View>
-        )}
+
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginTop: 20,
+            }}>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={upcomingEvents}
+              renderItem={item => _renderTopItem(item, navigation)}
+            />
+          </View>
+        </View>
+
         {latestContentLoading && (
           <View style={styles.loading1}>
             <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
           </View>
         )}
-        {latestContent?.length !== 0 && (
-          <View style={styles.middle}>
-            <Text style={[styles.title, {marginLeft: 15}]}>Latest Content</Text>
 
+        <View style={styles.middle}>
+          <Text style={[styles.title, {marginLeft: 15}]}>Latest Content</Text>
+
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={latestContent}
+            renderItem={_renderContent}
+          />
+        </View>
+
+        <View style={styles.bottom}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginLeft: 15,
+              marginRight: 15,
+            }}>
+            <Text style={styles.title}>Welcome New Members</Text>
+          </View>
+          <View>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={latestContent}
-              renderItem={_renderContent}
+              data={communityMembers}
+              renderItem={_renderItem}
             />
           </View>
-        )}
-        {communityMembers?.length !== 0 && (
-          <View style={styles.bottom}>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginLeft: 15,
-                marginRight: 15,
-              }}>
-              <Text style={styles.title}>Welcome New Members</Text>
-            </View>
-            <View>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={communityMembers}
-                renderItem={_renderItem}
-              />
-            </View>
+        </View>
+
+        <View style={styles.content}>
+          <Text style={styles.title}>Critical Issues</Text>
+          <View>
+            <FlatList
+              numColumns={2}
+              showsHorizontalScrollIndicator={false}
+              data={criticalIssue?.critical_issue_mobile_lists}
+              renderItem={_renderCritical}
+            />
           </View>
-        )}
-        {criticalIssue?.critical_issue_mobile_lists?.length !== 0 && (
-          <View style={styles.content}>
-            <Text style={styles.title}>Critical Issues</Text>
-            <View>
-              <FlatList
-                numColumns={2}
-                showsHorizontalScrollIndicator={false}
-                data={criticalIssue?.critical_issue_mobile_lists}
-                renderItem={_renderCritical}
-              />
-            </View>
-          </View>
-        )}
+        </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </View>
@@ -450,7 +446,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   top: {
-    height: 200,
+    marginBottom: 10,
     marginTop: 60,
     justifyContent: 'center',
     marginLeft: 5,
