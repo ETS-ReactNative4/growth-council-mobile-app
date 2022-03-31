@@ -11,6 +11,8 @@ import {
   Dimensions,
   StatusBar,
 } from 'react-native';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -249,6 +251,92 @@ const CommunityDetail = props => {
     let videoLink = link[1]?.split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
+
+  const _renderContent = ({item, index}) => {
+    const fileUrl = item?.file?.url;
+
+    const checkPermission = async () => {
+      if (Platform.OS === 'ios') {
+        downloadFile();
+      } else {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+              title: 'Storage Permission Required',
+              message:
+                'Application needs access to your storage to download File',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            downloadFile();
+
+            console.log('Storage Permission Granted.');
+          } else {
+            Alert.alert('Error', 'Storage Permission Not Granted');
+          }
+        } catch (err) {
+          console.log('++++' + err);
+        }
+      }
+    };
+
+    const downloadFile = () => {
+      let date = new Date();
+
+      let FILE_URL = fileUrl;
+
+      let file_ext = getFileExtention(FILE_URL);
+
+      file_ext = '.' + file_ext[0];
+
+      const {config, fs} = ReactNativeBlobUtil;
+      let RootDir = fs.dirs.PictureDir;
+      let options = {
+        fileCache: true,
+        addAndroidDownloads: {
+          path:
+            RootDir +
+            '/file_' +
+            Math.floor(date.getTime() + date.getSeconds() / 2) +
+            file_ext,
+          description: 'downloading file...',
+          notification: true,
+          useDownloadManager: true,
+        },
+      };
+      config(options)
+        .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
+        .then(res => {
+          console.log('res -> ', JSON.stringify(res));
+          ToastMessage.show('PDF File Downloaded Successfully.');
+        });
+    };
+
+    const getFileExtention = fileUrl => {
+      return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
+    };
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+        }>
+        <View style={styles.attachmentContainer}>
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
+            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.attachmentDownloadButton}
+            onPress={checkPermission}>
+            <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   let backgroundColor = '';
   const parent = poeDetails?.parent;
   switch (parent) {
@@ -356,20 +444,36 @@ const CommunityDetail = props => {
                   </View>
                 </View>
               )}
-              {poeDetails?.parent !== 118 &&
-                pillarMemberContents?.members?.length !== 0 && (
-                  <View style={styles.bottom}>
-                    <Text style={styles.title}> Members</Text>
-                    <View>
-                      <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={pillarMemberContents?.members}
-                        renderItem={item => _renderItem(item, navigation)}
-                      />
-                    </View>
+              {poeDetails?.parent === 118 &&
+                pillarMemberContents?.attachments?.length !== 0 &&
+                pillarMemberContents?.attachments !== false && (
+                  <View style={styles.sectionContainer}>
+                    <Text style={styles.title}>
+                      {' '}
+                      Content Library Attachments:
+                    </Text>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarMemberContents?.attachments}
+                      renderItem={_renderContent}
+                    />
                   </View>
                 )}
+              {/* {pillarMemberContents?.members?.length !== 0 && (
+                <View style={styles.bottom}>
+                  <Text style={styles.title}> Members</Text>
+                  <View>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarMemberContents?.members}
+                      renderItem={item => _renderItem(item, navigation)}
+                    />
+                  </View>
+                </View>
+              )} */}
+
               {pillarMemberContents?.pillar_contents?.length !== 0 && (
                 <View style={styles.growthContent}>
                   <Text style={styles.title}> Content Library</Text>
@@ -564,6 +668,46 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  attachmentContainer: {
+    margin: 1,
+    width: 320,
+    height: 70,
+    paddingLeft: 20,
+    paddingRight: 8,
+    marginRight: 5,
+    marginLeft: 15,
+    marginTop: 20,
+    paddingBottom: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 15,
+    shadowOpacity: 0.1,
+    shadowColor: Colors.UNDENARY_BACKGROUND_COLOR,
+    elevation: 5,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+  },
+  attachmentTitle: {
+    marginLeft: 10,
+    fontSize: 14,
+    width: '80%',
+    fontFamily: 'SFProText-Regular',
+    color: Colors.SECONDARY_TEXT_COLOR,
+  },
+  attachmentDownloadButton: {
+    width: 35,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: '#F5F5F5',
+  },
+  sectionContainer: {
+    marginBottom: 20,
+    marginTop: 20,
   },
 });
 

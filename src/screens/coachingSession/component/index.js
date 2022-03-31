@@ -308,7 +308,7 @@ const CoachingSession = props => {
                         </Pressable>
                       </View>
 
-                      <View style={{flexDirection: 'row'}}>
+                      <View style={{flexDirection: 'row', marginBottom: 10}}>
                         {traits?.map((trait, index1) => (
                           <View
                             style={[
@@ -732,10 +732,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    right: 0,
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    marginTop: 30,
+    backgroundColor: '#2196F3',
   },
 
   textS: {
