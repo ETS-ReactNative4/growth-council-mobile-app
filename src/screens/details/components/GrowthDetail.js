@@ -316,8 +316,8 @@ const GrowthDetail = props => {
             <Image
               source={{uri: poeDetails?.image}}
               style={{
-                width: 30,
-                height: 30,
+                width: 35,
+                height: 40,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
