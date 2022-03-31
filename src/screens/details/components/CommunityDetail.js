@@ -334,8 +334,8 @@ const CommunityDetail = props => {
                   />
                 </View>
               )}
-{/* 
-              {poeEvents?.length !== 0 && (
+
+              {poeDetails?.parent !== 118 && poeEvents?.length !== 0 && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Events</Text>
 
@@ -353,19 +353,20 @@ const CommunityDetail = props => {
                   </View>
                 </View>
               )}
-              {pillarMemberContents?.members?.length !== 0 && (
-                <View style={styles.bottom}>
-                  <Text style={styles.title}> Members</Text>
-                  <View>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.members}
-                      renderItem={item => _renderItem(item, navigation)}
-                    />
+              {poeDetails?.parent !== 118 &&
+                pillarMemberContents?.members?.length !== 0 && (
+                  <View style={styles.bottom}>
+                    <Text style={styles.title}> Members</Text>
+                    <View>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents?.members}
+                        renderItem={item => _renderItem(item, navigation)}
+                      />
+                    </View>
                   </View>
-                </View>
-              )} */}
+                )}
               {pillarMemberContents?.pillar_contents?.length !== 0 && (
                 <View style={styles.growthContent}>
                   <Text style={styles.title}> Content Library</Text>
