@@ -381,7 +381,7 @@ const EventCalendar = props => {
               </View>
             </View>
           </Modal>
-          <Footer />
+   
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />

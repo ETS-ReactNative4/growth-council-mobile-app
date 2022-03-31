@@ -249,7 +249,7 @@ const HomeCommunity = props => {
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          {pillarEvents?.length !== 0 && (
+         
             <View style={styles.top}>
               <Text style={styles.title}>Growth Community Events</Text>
 
@@ -266,7 +266,7 @@ const HomeCommunity = props => {
                 />
               </View>
             </View>
-          )}
+          
 
           {pillarEventLoading && (
             <View style={styles.loading1}>

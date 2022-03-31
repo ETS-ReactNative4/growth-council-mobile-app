@@ -55,10 +55,7 @@ const BestPractice = props => {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPillarPOEAsync = async () => {
-        await fetchAllPillarPOE(pillarId);
-      };
-      fetchAllPillarPOEAsync();
+      fetchAllPillarPOE(pillarId);
 
       return () => {
         cleanPillarPOE();
