@@ -152,13 +152,14 @@ const Profile = props => {
           </View>
         </>
       )}
-
-      <FlatList
-        Vertical
-        showsVerticalScrollIndicator={false}
-        data={profileEvent}
-        renderItem={_renderItem}
-      />
+      <View style={{paddingBottom: 20}}>
+        <FlatList
+          Vertical
+          showsVerticalScrollIndicator={false}
+          data={profileEvent}
+          renderItem={_renderItem}
+        />
+      </View>
     </>
   );
 };

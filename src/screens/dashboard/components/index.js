@@ -163,7 +163,6 @@ const Dashboard = props => {
     );
   };
 
-
   const _renderContent = ({item, index}) => {
     const date = moment(item?.post_modified).format('D/MM/yyyy');
     return (
@@ -349,12 +348,6 @@ const Dashboard = props => {
             <Text style={styles.title}>Upcoming Events</Text>
           </View>
 
-          {latestContentLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
-
           <View
             style={{
               display: 'flex',
@@ -369,6 +362,12 @@ const Dashboard = props => {
             />
           </View>
         </View>
+
+        {latestContentLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
 
         <View style={styles.middle}>
           <Text style={[styles.title, {marginLeft: 15}]}>Latest Content</Text>
@@ -447,7 +446,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   top: {
-    height: 200,
+    marginBottom: 10,
     marginTop: 60,
     justifyContent: 'center',
     marginLeft: 5,

@@ -199,40 +199,43 @@ const sessionAbout = props => {
             </View>
           )}
         </View>
-        <View
-          style={{
-            flex: 1,
-            paddingTop: 20,
-            flexDirection: 'row',
-          }}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: '#A1BA68',
-              height: 60,
-              width: 48,
-              borderRadius: 14,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Ionicons name={'location-outline'} size={35} color={'white'} />
-          </View>
-
-          {!isSessionLoaded && (
+        {sessions?.location?.location_city !== undefined &&
+          sessions?.location?.location_address !== '' && (
             <View
               style={{
-                flex: 5,
-                paddingLeft: 10,
+                flex: 1,
+                paddingTop: 20,
+                flexDirection: 'row',
               }}>
-              <Text style={styles.eventLocationDetails}>
-                {sessions?.location?.location_city}
-                {sessions?.location?.location_state}
-                {sessions?.location?.location_country}
-              </Text>
-              <Text>{sessions?.location?.location_address}</Text>
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: '#A1BA68',
+                  height: 60,
+                  width: 48,
+                  borderRadius: 14,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Ionicons name={'location-outline'} size={35} color={'white'} />
+              </View>
+
+              {!isSessionLoaded && (
+                <View
+                  style={{
+                    flex: 5,
+                    paddingLeft: 10,
+                  }}>
+                  <Text style={styles.eventLocationDetails}>
+                    {sessions?.location?.location_city}
+                    {sessions?.location?.location_state}
+                    {sessions?.location?.location_country}
+                  </Text>
+                  <Text>{sessions?.location?.location_address}</Text>
+                </View>
+              )}
             </View>
           )}
-        </View>
       </View>
 
       <View>
@@ -247,49 +250,52 @@ const sessionAbout = props => {
           renderItem={item => _renderItem(item, navigation)}
         />
       </View>
+      {sessions?.organizer?.term_name !== undefined &&
+        sessions?.organizer?.term_name !== '' && (
+          <View style={{height: 150}}>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.contentHeading}>Coached By</Text>
+            </View>
+            <View style={styles.hostdetail}>
+              <View style={styles.hostimage}>
+                <Image
+                  source={{uri: sessions?.organizer_image}}
+                  style={{width: '100%', height: '100%'}}
+                />
+              </View>
 
-      <View style={{height: 150}}>
-        <View style={{marginTop: 25}}>
-          <Text style={styles.contentHeading}>Coached By</Text>
-        </View>
-        <View style={styles.hostdetail}>
-          <View style={styles.hostimage}>
-            <Image
-              source={{uri: sessions?.organizer_image}}
-              style={{width: '100%', height: '100%'}}
-            />
+              <View
+                style={{
+                  flex: 3,
+                  paddingLeft: 20,
+                }}>
+                <Text style={styles.contentHeading}>
+                  {sessions?.organizer?.term_name}
+                </Text>
+                <Text>{sessions?.organizer?.description}</Text>
+              </View>
+              <View
+                style={{
+                  flex: 2,
+                  height: 60,
+                  width: 30,
+                  borderRadius: 15,
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                }}
+              />
+            </View>
           </View>
-
-          <View
-            style={{
-              flex: 3,
-              paddingLeft: 20,
-            }}>
-            <Text style={styles.contentHeading}>
-              {sessions?.organizer?.term_name}
-            </Text>
-            <Text>{sessions?.organizer?.description}</Text>
-          </View>
-          <View
-            style={{
-              flex: 2,
-              height: 60,
-              width: 30,
-              borderRadius: 15,
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-            }}
-          />
-        </View>
-      </View>
-
-      <View>
-        <Text style={styles.contentHeading}>Session Brief</Text>
-        {!isSessionLoaded && (
-          <HTMLView value={description} stylesheet={styles} />
         )}
-      </View>
 
+      {sessions?.descirption !== undefined && sessions?.descirption !== '' && (
+        <View>
+          <Text style={styles.contentHeading}>Session Brief</Text>
+          {!isSessionLoaded && (
+            <HTMLView value={description} stylesheet={styles} />
+          )}
+        </View>
+      )}
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         {sessionRegisterLoading && (
           <View style={styles.loading1}>

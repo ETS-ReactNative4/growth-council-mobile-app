@@ -9,19 +9,9 @@ import {
 } from 'react-native';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import {useDispatch, useSelector} from 'react-redux';
 
-import {fetchProfileByID} from '../../screens/account/slice/profileSlice';
-import HeaderRight from './HeaderRight';
-
-const SubHeader = props => {
-  const dispatch = useDispatch();
-  const {profile, profileLoading, profileError} = useSelector(
-    state => state.profile,
-  );
-  const fetchProfileByIdentifier = () => {
-    dispatch(fetchProfileByID());
-  };
+const OptionHeader = props => {
+  
 
   return (
     <ImageBackground source={props.image} style={{width: '100%'}}>
@@ -40,7 +30,7 @@ const SubHeader = props => {
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          {props?.noDrawer ? (
+          {props.noDrawer ? (
             <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <IonIcon name="arrow-back-sharp" size={30} color="white" />
             </TouchableOpacity>
@@ -48,8 +38,7 @@ const SubHeader = props => {
             <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
               <IonIcon name="menu-outline" color={'white'} size={30} />
             </TouchableOpacity>
-          )}
-         
+          )} 
           <Text
             style={{
               marginLeft: 10,
@@ -61,15 +50,10 @@ const SubHeader = props => {
           </Text>
         </View>
 
-        <HeaderRight
-          {...props}
-          navigation={props.navigation}
-          profile={profile}
-          fetchProfileByIdentifier={fetchProfileByIdentifier}
-        />
+        
       </View>
     </ImageBackground>
   );
 };
 
-export default SubHeader;
+export default  OptionHeader;

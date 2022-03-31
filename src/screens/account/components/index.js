@@ -20,7 +20,7 @@ import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
 import {useIsFocused} from '@react-navigation/native';
 import MyEvent from './MyEvent';
-import MySession from './MySession';
+import AboutMe from './AboutMe';
 import BottomNav from '../../../layout/BottomLayout';
 
 const Profile = props => {
@@ -35,7 +35,7 @@ const Profile = props => {
 
   const win = Dimensions.get('window');
 
-  const [value, setValue] = useState('About Us');
+  const [value, setValue] = useState('About me');
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -118,26 +118,24 @@ const Profile = props => {
                     highlightTextColor={'#0B0B45'}
                     inactiveBackgroundColor={'transparent'}
                     inactiveTextColor={'grey'}
-                    values={['About Us', 'My Point of Engagement']}
+                    values={['About me', 'My Point of Engagement']}
                     value={value}
                     onSelect={val => setValue(val)}
                     style={{
-                      flex: 0,
-                      height: 40,
-                      marginTop: 5,
-                      width: '96%',
-                      marginLeft: 4,
-                      borderRadius: 20,
-
-                      alignContent: 'center',
+                      // width: '100%',
+                      // alignItems: 'center',
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      // borderRadius: 10,
                     }}
                     textStyle={{
                       paddingHorizontal: 0,
-                      paddingLeft: 5,
+                      // paddingLeft: 15,
                       fontSize: 13,
                       width: '100%',
-
-                      alignContent: 'center',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textAlign: 'center',
                     }}
                   />
                 </View>
@@ -162,11 +160,11 @@ const Profile = props => {
                 )}
                 {value === 'My Point of Engagement' && <MyEvent {...props} />}
 
-                {/* {value === 'About Us' && <MySession {...props} />} */}
+                {value === 'About me' && <AboutMe {...props} />}
               </View>
             </View>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
@@ -262,12 +260,13 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   buttonWrapper: {
-    height: 50,
+    width: '100%',
+    height: 55,
     backgroundColor: '#ECECEC',
     borderRadius: 10,
-    margin: 10,
     marginTop: 15,
-    marginLeft: Platform.OS === 'ios' ? 10 : 10,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
 
   iconWrapper: {

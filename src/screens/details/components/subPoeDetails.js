@@ -11,18 +11,19 @@ import {
   Dimensions,
   StatusBar,
 } from 'react-native';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
-import HTMLView from 'react-native-htmlview';
+import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
+import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const CommunityDetail = props => {
+const SubPOEDetails = props => {
   const {
     navigation,
     route,
@@ -100,9 +101,7 @@ const CommunityDetail = props => {
       };
     }, []),
   );
-
-  console.log(route.params.poeId);
-
+  console.log(pillarMemberContents.attachments);
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -135,38 +134,6 @@ const CommunityDetail = props => {
           </TouchableOpacity>
         </View> */}
       </View>
-    );
-  };
-
-  const _renderMiddleItem = ({item, index}, navigation) => {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('SubPoe', {
-            poeId: item?.term_id,
-            pillarId: route?.params?.pillarId,
-            id: route?.params?.poeId,
-          })
-        }>
-        <View style={styles.middleWrapper}>
-          <View style={[styles.middleW, styles.shadowProp]}>
-            <Image
-              source={{uri: item?.image}}
-              style={{width: 30, height: 30}}
-            />
-          </View>
-          <Text
-            style={{
-              marginTop: 10,
-              fontSize: 10,
-              marginHorizontal: 10,
-              textAlign: 'center',
-              color: '#030303',
-            }}>
-            {item?.name}
-          </Text>
-        </View>
-      </TouchableOpacity>
     );
   };
 
@@ -248,6 +215,7 @@ const CommunityDetail = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
+
     let videoLink = link[1]?.split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
@@ -366,7 +334,13 @@ const CommunityDetail = props => {
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
             style={{height: 240, width: '100%'}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Best Practices', {
+                  poeId: route.params.id,
+                  pillarId: route?.params?.pillarId,
+                })
+              }>
               <View style={styles.arrow}>
                 <Ionicons name={'arrow-back'} size={50} color="white" />
               </View>
@@ -413,20 +387,7 @@ const CommunityDetail = props => {
                 }}
               />
 
-              {poeDetails?.slug === '10-growth-processes' && (
-                <View style={styles.top}>
-                  <Text style={styles.title}> Sub Points of Engagement</Text>
-                  <FlatList
-                    numColumns={4}
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarPOEs}
-                    // renderItem={_renderMiddleItem}
-                    renderItem={item => _renderMiddleItem(item, navigation)}
-                  />
-                </View>
-              )}
-
-              {poeDetails?.parent !== 118 && poeEvents?.length !== 0 && (
+              {/* {poeEvents?.length !== 0 && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Events</Text>
 
@@ -443,23 +404,7 @@ const CommunityDetail = props => {
                     />
                   </View>
                 </View>
-              )}
-              {poeDetails?.parent === 118 &&
-                poeDetails?.attachments?.length !== 0 &&
-                poeDetails?.attachments !== null && (
-                  <View style={styles.sectionContainer}>
-                    <Text style={styles.title}>
-                      {' '}
-                      Content Library Attachments:
-                    </Text>
-                    <FlatList
-                      vertical
-                      showsHorizontalScrollIndicator={false}
-                      data={poeDetails?.attachments}
-                      renderItem={_renderContent}
-                    />
-                  </View>
-                )}
+              )} */}
               {/* {pillarMemberContents?.members?.length !== 0 && (
                 <View style={styles.bottom}>
                   <Text style={styles.title}> Members</Text>
@@ -474,25 +419,40 @@ const CommunityDetail = props => {
                 </View>
               )} */}
 
-              {poeDetails?.pillar_contents?.length !== 0 &&
-			  poeDetails?.pillar_contents !== false && 
-			  poeDetails?.pillar_contents !== null &&  (
-                <View style={styles.growthContent}>
-                  <Text style={styles.title}> Content Library</Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
+              {poeDetails?.attachments?.length !== 0 &&
+                poeDetails?.attachments !== null && (
+                  <View style={styles.sectionContainer}>
+                    <Text style={styles.title}>
+                      {' '}
+                      Content Library Attachments:
+                    </Text>
                     <FlatList
-                      horizontal
+                      vertical
                       showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.pillar_contents}
-                      renderItem={_renderContentItem}
+                      data={pillarMemberContents?.attachments}
+                      renderItem={_renderContent}
                     />
                   </View>
-                </View>
-              )}
+                )}
+              {poeDetails?.pillar_contents?.length !== 0 &&
+                poeDetails?.pillar_contents !== null &&
+                poeDetails?.pillar_contents !== false && (
+                  <View style={styles.growthContent}>
+                    <Text style={styles.title}> Content Library</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents?.pillar_contents}
+                        renderItem={_renderContentItem}
+                      />
+                    </View>
+                  </View>
+                )}
 
               {/* <Footer /> */}
             </View>
@@ -713,4 +673,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CommunityDetail;
+export default SubPOEDetails;
