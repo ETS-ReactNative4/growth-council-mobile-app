@@ -397,7 +397,7 @@ const GrowthCoaching = props => {
               <View style={styles.sectionContainer}>
                 <Text style={styles.title}> Content Library Attachments:</Text>
                 <FlatList
-                  horizontal
+                  vertical
                   showsHorizontalScrollIndicator={false}
                   data={pillarMemberContents?.attachments}
                   renderItem={_renderContent}
@@ -558,7 +558,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: 320,
+    width: '90%',
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,
