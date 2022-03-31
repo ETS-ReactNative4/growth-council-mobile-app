@@ -307,8 +307,9 @@ const CoachingSession = props => {
                           />
                         </Pressable>
                       </View>
-                      {traits?.map((trait, index1) => (
-                        <View style={{flexDirection: 'row'}}>
+
+                      <View style={{flexDirection: 'row'}}>
+                        {traits?.map((trait, index1) => (
                           <View
                             style={[
                               {
@@ -325,14 +326,15 @@ const CoachingSession = props => {
                             <Text
                               style={{
                                 fontSize: 12,
-                                color: '#C8E1C2',
+                                color: '#8DC182',
                                 fontWeight: '700',
                               }}>
                               {trait?.title}
                             </Text>
                           </View>
-                        </View>
-                      ))}
+                        ))}
+                      </View>
+
                       <View
                         style={{
                           flexDirection: 'row',
