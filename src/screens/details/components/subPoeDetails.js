@@ -419,8 +419,8 @@ const SubPOEDetails = props => {
                 </View>
               )} */}
 
-              {pillarMemberContents?.attachments?.length !== 0 &&
-                pillarMemberContents?.attachments !== false && (
+              {poeDetails?.attachments?.length !== 0 &&
+                poeDetails?.attachments !== null && (
                   <View style={styles.sectionContainer}>
                     <Text style={styles.title}>
                       {' '}
@@ -434,23 +434,25 @@ const SubPOEDetails = props => {
                     />
                   </View>
                 )}
-              {pillarMemberContents?.pillar_contents?.length !== 0 && (
-                <View style={styles.growthContent}>
-                  <Text style={styles.title}> Content Library</Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.pillar_contents}
-                      renderItem={_renderContentItem}
-                    />
+              {poeDetails?.pillar_contents?.length !== 0 &&
+                poeDetails?.pillar_contents !== null &&
+                poeDetails?.pillar_contents !== false && (
+                  <View style={styles.growthContent}>
+                    <Text style={styles.title}> Content Library</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents?.pillar_contents}
+                        renderItem={_renderContentItem}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
 
               {/* <Footer /> */}
             </View>
