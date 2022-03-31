@@ -40,6 +40,7 @@ import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import SubPOEDetailScreen from '../screens/details/subPoeDetails';
 import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
@@ -508,6 +509,16 @@ const MainNavigation = () => {
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
+          options={({route}) => ({
+            poeId: route.params.poeId,
+            pillarId: route.params.pillarId,
+            headerShown: false,
+          })}
+        />
+
+        <Stack.Screen
+          name="SubPoe"
+          component={SubPOEDetailScreen}
           options={({route}) => ({
             poeId: route.params.poeId,
             pillarId: route.params.pillarId,

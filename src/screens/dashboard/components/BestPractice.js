@@ -232,7 +232,7 @@ const BestPractice = props => {
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          {pillarEvents?.length !== 0 && (
+          {/* {pillarEvents?.length !== 0 && (
             <View style={styles.top}>
               <Text style={styles.title}>Best Practices Events</Text>
               <View
@@ -249,29 +249,26 @@ const BestPractice = props => {
                 />
               </View>
             </View>
-          )}
+          )} */}
 
-          {pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
-		  
-          {pillarPOEs?.length !== 0 && (
-            <View style={styles.middle}>
-              <Text style={styles.title}>Points of Engagement</Text>
+          <View style={styles.middle}>
+            <Text style={styles.title}>Points of Engagement</Text>
+            {pillarPOELoading && (
+              <View style={styles.loading1}>
+                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              </View>
+            )}
 
-              <FlatList
-                numColumns={4}
-                showsHorizontalScrollIndicator={false}
-                data={pillarPOEs}
-                // renderItem={_renderMiddleItem}
-                renderItem={item => _renderMiddleItem(item, navigation)}
-              />
-            </View>
-          )}
+            <FlatList
+              numColumns={4}
+              showsHorizontalScrollIndicator={false}
+              data={pillarPOEs}
+              // renderItem={_renderMiddleItem}
+              renderItem={item => _renderMiddleItem(item, navigation)}
+            />
+          </View>
 
-          {pillarMemberContents?.members?.length !== 0 && (
+          {/* {pillarMemberContents?.members?.length !== 0 && (
             <View style={styles.bottom}>
               <Text style={styles.title}>Best Practices Members</Text>
               <View>
@@ -284,7 +281,7 @@ const BestPractice = props => {
                 />
               </View>
             </View>
-          )}
+          )} */}
           {/* <Footer /> */}
         </View>
       </ScrollView>
@@ -415,7 +412,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loading1: {
-    top: 0,
+    top: 30,
     left: 0,
     right: 0,
     bottom: 0,

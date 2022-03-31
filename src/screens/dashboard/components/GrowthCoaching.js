@@ -161,7 +161,8 @@ const GrowthCoaching = props => {
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 30, height: 30}}
+              style={{width: 30, height: 35}}
+              resizeMode="contain"
             />
           </View>
           <Text
@@ -292,7 +293,7 @@ const GrowthCoaching = props => {
             </View>
           )}
 
-          {pillarMemberContents?.members?.length !== 0 && (
+          {/* {pillarMemberContents?.members?.length !== 0 && (
             <View style={styles.bottom}>
               <Text style={styles.title}>Growth Coaching Members</Text>
               <View>
@@ -304,7 +305,7 @@ const GrowthCoaching = props => {
                 />
               </View>
             </View>
-          )}
+          )} */}
           {pillarMemberContents?.pillar_contents?.length !== 0 && (
             <View style={styles.content}>
               <Text style={styles.title}>Growth Coaching Content</Text>
@@ -448,7 +449,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loading1: {
-    top: 10,
+    top: 50,
     left: 0,
     right: 0,
     bottom: 0,

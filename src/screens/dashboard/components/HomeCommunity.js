@@ -290,7 +290,7 @@ const HomeCommunity = props => {
               />
             </View>
           )}
-          {pillarMemberContents.members.length !== 0 && (
+          {pillarMemberContents?.members?.length !== 0 && (
             <View style={styles.bottom}>
               <Text style={styles.title}>Growth Community Members</Text>
               <View>

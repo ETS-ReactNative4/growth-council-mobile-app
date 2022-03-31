@@ -218,9 +218,7 @@ const UserList = props => {
               });
             }}
           />
-          <TouchableOpacity>
-            <FontAwesome5 name="edit" size={25} color="#00b0f0" />
-          </TouchableOpacity>
+          
         </View>
         <View style={styles.buttonWrapper}>
           <TouchableOpacity>

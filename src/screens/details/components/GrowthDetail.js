@@ -19,7 +19,7 @@ import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
 import {useIsFocused} from '@react-navigation/native';
-
+import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {WebView} from 'react-native-webview';
 import {Button} from 'native-base';
@@ -336,7 +336,19 @@ const GrowthDetail = props => {
                 }}>
                 {poeDetails.name}
               </Text>
-              <Text style={styles.paragraph}>{poeDetails.description}</Text>
+              <HTMLView
+                value={poeDetails.description}
+                textComponentProps={{
+                  style: {
+                    fontFamily: Typography.FONT_SF_REGULAR,
+                    fontSize: 14,
+                    lineHeight: 24,
+                    padding: 15,
+                    textAlign: 'left',
+                    color: '#77838F',
+                  },
+                }}
+              />
               {coachingSessionLoading && (
                 <>
                   <View

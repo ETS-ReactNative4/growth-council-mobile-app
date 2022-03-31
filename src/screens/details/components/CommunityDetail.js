@@ -16,7 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
-import Footer from '../../../shared/footer';
+import HTMLView from 'react-native-htmlview';
 import Player from '../../dashboard/components/Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
@@ -138,7 +138,7 @@ const CommunityDetail = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('CommunityDetail', {
+          navigation.navigate('SubPoe', {
             poeId: item?.term_id,
             pillarId: item?.parent,
           })
@@ -308,9 +308,21 @@ const CommunityDetail = props => {
                 {poeDetails.name}
               </Text>
 
-              <Text style={styles.paragraph}>{poeDetails.description}</Text>
+              <HTMLView
+                value={poeDetails.description}
+                textComponentProps={{
+                  style: {
+                    fontFamily: Typography.FONT_SF_REGULAR,
+                    fontSize: 14,
+                    lineHeight: 24,
+                    padding: 15,
+                    textAlign: 'left',
+                    color: '#77838F',
+                  },
+                }}
+              />
 
-              {poeDetails.slug === '10-growth-processes' && (
+              {poeDetails?.slug === '10-growth-processes' && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Sub Points of Engagement</Text>
                   <FlatList
@@ -322,7 +334,7 @@ const CommunityDetail = props => {
                   />
                 </View>
               )}
-
+{/* 
               {poeEvents?.length !== 0 && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Events</Text>
@@ -353,7 +365,7 @@ const CommunityDetail = props => {
                     />
                   </View>
                 </View>
-              )}
+              )} */}
               {pillarMemberContents?.pillar_contents?.length !== 0 && (
                 <View style={styles.growthContent}>
                   <Text style={styles.title}> Content Library</Text>
