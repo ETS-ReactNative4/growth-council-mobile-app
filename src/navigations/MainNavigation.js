@@ -156,7 +156,7 @@ export const DashboardStackScreen = () => {
               title="Content Library"
               image={require('../assets/img/appBG.png')}
               navigation={navigation}
-			  noDrawer
+              noDrawer
             />
           ),
         })}
@@ -341,7 +341,7 @@ const MainNavigation = () => {
           name="pdf"
           component={PDFDetailScreen}
           options={{
-            headerTitle: 'Self Learn',
+            headerTitle: 'PDF',
           }}
         />
         <Stack.Screen

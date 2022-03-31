@@ -126,6 +126,10 @@ const ContentLibraryDetail = props => {
       return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
     };
     return (
+		<TouchableOpacity
+        onPress={() =>
+          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+        }>
       <View style={styles.attachmentContainer}>
         <View style={{flex: 1, flexDirection: 'row'}}>
           <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
@@ -138,6 +142,7 @@ const ContentLibraryDetail = props => {
           <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
         </TouchableOpacity>
       </View>
+	  </TouchableOpacity>
     );
   };
 
