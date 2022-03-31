@@ -9,6 +9,7 @@ import {
   Image,
   Switch,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -46,123 +47,142 @@ const Setting = props => {
     fetchProfileAsync();
   }, []);
 
-
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        backgroundColor: PRIMARY_BACKGROUND_COLOR,
-      }}>
-      <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, width: '100%'}}>
-        <Image
-          source={require('../../../assets/img/appBG.png')}
-          style={{height: 160}}
-        />
+    <>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          backgroundColor: PRIMARY_BACKGROUND_COLOR,
+        }}>
         <View
-          style={{
-            display: 'flex',
-            marginTop: -90,
-            alignContent: 'center',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}>
+          style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, width: '100%'}}>
+          <Image
+            source={require('../../../assets/img/appBG.png')}
+            style={{height: 160}}
+          />
           <View
             style={{
-              padding: 20,
-              alignItems: 'center',
-              width: 328,
-              backgroundColor: PRIMARY_BACKGROUND_COLOR,
-              borderRadius: 12,
-              position: 'relative',
-              paddingTop: 100,
-              borderWidth: 1,
-              borderColor: '#707070',
+              display: 'flex',
+              marginTop: -90,
+              alignContent: 'center',
+              marginLeft: 'auto',
+              marginRight: 'auto',
             }}>
-            <View style={styles.icon}>
-              <Image
-                source={{uri: profile.avatar}}
-                style={{width: '100%', height: '100%'}}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={styles.header}>
-              <Text style={styles.headingText1}>{profile?.user_meta?.first_name} {profile?.user_meta?.last_name}</Text>
-              <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
+            <View
+              style={{
+                padding: 20,
+                alignItems: 'center',
+                width: 328,
+                backgroundColor: PRIMARY_BACKGROUND_COLOR,
+                borderRadius: 12,
+                position: 'relative',
+                paddingTop: 100,
+                borderWidth: 1,
+                borderColor: '#707070',
+              }}>
+              <View style={styles.icon}>
+                <Image
+                  source={{uri: profile.avatar}}
+                  style={{width: '100%', height: '100%'}}
+                  resizeMode="cover"
+                />
+              </View>
+              <View style={styles.header}>
+                <Text style={styles.headingText1}>
+                  {profile?.user_meta?.first_name}{' '}
+                  {profile?.user_meta?.last_name}
+                </Text>
+                <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={styles.container}>
-          <View>
-            <View style={styles.middle}>
-              <View style={styles.wrapper}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('ManageAccount')}>
-                  <View style={styles.middleWrapper}>
+          <View style={styles.container}>
+            <View>
+              <View style={styles.middle}>
+                <View style={styles.wrapper}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('ManageAccount')}>
+                    <View style={styles.middleWrapper}>
+                      <View style={styles.middleImage}>
+                        <Ionicons
+                          name="person-outline"
+                          color="white"
+                          size={20}
+                        />
+                      </View>
+                      <Text style={styles.menuText}>Account</Text>
+                      <View style={{right: 0, position: 'absolute'}}>
+                        <Ionicons
+                          name="chevron-forward-outline"
+                          size={20}
+                          color="#d7d7d7"
+                        />
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+
+                  <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
                     <View style={styles.middleImage}>
-                      <Ionicons name="person-outline" color="white" size={20} />
-                    </View>
-                    <Text style={styles.menuText}>Account</Text>
-                    <View style={{right: 0, position: 'absolute'}}>
                       <Ionicons
-                        name="chevron-forward-outline"
-                        size={20}
-                        color="#d7d7d7"
-                      />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-
-                <View style={[styles.middleWrapper, {borderBottomWidth: 0}]}>
-                  <View style={styles.middleImage}>
-                    <Ionicons name={'notifications'} size={20} color="white" />
-                  </View>
-                  <Text style={styles.menuText}>Notifications</Text>
-                  <Switch
-                    trackColor={{false: '#767577', true: '#32a32e'}}
-                    thumbColor={isEnabled ? 'white' : 'white'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}
-                    style={{
-                      // transform: [{scaleX: 1.4}, {scaleY: 1.5}],
-                      right: 0,
-                      position: 'absolute',
-                    }}
-                  />
-                </View>
-              </View>
-              <View style={styles.wrapper}>
-                <TouchableOpacity
-                  onPress={() => Linking.openURL('mailto:contact@frost.com')}>
-                  <View style={styles.middleWrapper}>
-                    <View style={styles.middleImage1}>
-                      <Ionicons name={'headset'} size={20} color="white" />
-                    </View>
-                    <Text style={styles.menuText}>Help</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Privacy')}>
-                  <View style={styles.middleWrapper}>
-                    <View style={styles.middleImage1}>
-                      <Ionicons
-                        name={'lock-closed-outline'}
+                        name={'notifications'}
                         size={20}
                         color="white"
                       />
                     </View>
-                    <Text style={styles.menuText}>Privacy Policy</Text>
+                    <Text style={styles.menuText}>Notifications</Text>
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32a32e'}}
+                      thumbColor={isEnabled ? 'white' : 'white'}
+                      ios_backgroundColor="#3e3e3e"
+                      onValueChange={toggleSwitch}
+                      value={isEnabled}
+                      style={{
+                        // transform: [{scaleX: 1.4}, {scaleY: 1.5}],
+                        right: 0,
+                        position: 'absolute',
+                      }}
+                    />
                   </View>
-                </TouchableOpacity>
+                </View>
+                <View style={styles.wrapper}>
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+                    <View style={styles.middleWrapper}>
+                      <View style={styles.middleImage1}>
+                        <Ionicons name={'headset'} size={20} color="white" />
+                      </View>
+                      <Text style={styles.menuText}>Help</Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Privacy')}>
+                    <View style={styles.middleWrapper}>
+                      <View style={styles.middleImage1}>
+                        <Ionicons
+                          name={'lock-closed-outline'}
+                          size={20}
+                          color="white"
+                        />
+                      </View>
+                      <Text style={styles.menuText}>Privacy Policy</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
-      <Footer />
-    </ScrollView>
+        {/* <Footer /> */}
+      </ScrollView>
+    </>
   );
 };
 

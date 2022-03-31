@@ -207,7 +207,6 @@ const ContentLibraryDetail = props => {
         {/* Breadcrumb Section */}
         <View style={styles.breadcrumbContainer}>
           <View style={styles.singleBreadcrumb}>
-           
             {route.params.itemname !== undefined && (
               <HTMLView
                 value={route.params.itemname}
@@ -263,10 +262,13 @@ const ContentLibraryDetail = props => {
               <View style={styles.sectionContainerBorder}>
                 <Text style={styles.bodyTitleText}>Presented By:</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image
-                    source={{uri: contentLibraryDetails?.presenter_image}}
-                    style={styles.userImage}
-                  />
+                  <View style={{backgroundColor: '#0C336C', borderRadius: 10}}>
+                    <Image
+                      source={{uri: contentLibraryDetails?.presenter_image}}
+                      style={styles.userImage}
+                    />
+                  </View>
+
                   <View style={{marginLeft: 20}}>
                     <Text style={styles.userNameText}>
                       {contentLibraryDetails?.presenter}

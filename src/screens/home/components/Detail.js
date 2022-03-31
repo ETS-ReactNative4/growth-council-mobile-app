@@ -38,7 +38,6 @@ const Detail = props => {
     description = '';
   }
 
-  // console.log('Details ====== ', details?.heading1);
 
   return (
     <View style={styles.container}>

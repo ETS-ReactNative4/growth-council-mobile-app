@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   Platform,
   Text,
@@ -10,6 +10,8 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  StatusBar,
+  Dimensions,
 } from 'react-native';
 import {Searchbar} from 'react-native-paper';
 import {Colors, Typography} from '../../../theme';
@@ -17,6 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -34,9 +37,16 @@ const LibraryDetail = props => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(libraryDetails);
 
-  useEffect(() => {
-    fetchLibraryDetail(route.params.resources);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchLibraryDetail(route.params.resources);
+
+      return () => {
+        cleanLibraryDetail();
+      };
+    }, []),
+  );
+  console.log(route.params.resources);
 
   useEffect(() => {
     setFilteredDataSource(libraryDetails);
@@ -65,98 +75,65 @@ const LibraryDetail = props => {
     }
   };
 
-  const _renderContent = ({item, index}) => {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ContentLibraryDetail', {
-            id: item?.ID,
-            title: item?.post_title,
-          })
-        }>
-        <View>
-          <View style={[styles.eventCard, styles.shadowProp]} key={index}>
-            <View style={[styles.eventTheme, {borderColor: '#19325A'}]} />
-            <View style={styles.eventDetails}>
-              <View style={styles.eventInfo}>
-                <Text style={styles.eventTitle}>{item?.post_title}</Text>
-                {/* <Text style={{fontSize: 8, color: '#041C3E'}}>
-                  {item.post_excerpt}
-                </Text> */}
-                <HTMLView
-                  value={'<p>' + item?.post_excerpt + '</p>'}
-                  stylesheet={webViewStyle}
-                />
-                {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
-              </View>
-              <View
-                style={{
-                  width: 50,
-                  height: 60,
-                  backgroundColor: '#EBECF0',
-                  borderRadius: 10,
-                  padding: 10,
-                  alignItems: 'center',
-                }}>
-                {item?.video_url === null ? (
-                  <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-                ) : (
-                  <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
-                )}
-                <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
-        <View style={{marginBottom: 20}}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginTop: 20,
-              alignContent: 'center',
-              marginLeft: 10,
-            }}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Ionicons
-                name="chevron-back-outline"
-                size={30}
-                color="#B2B3B9"
-                style={{marginTop: 5}}
-              />
-            </TouchableOpacity>
+        {/* Search Header */}
+        <View
+          style={{
+            height: 80,
+            paddingLeft: 4,
+            paddingRight: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            shadowColor: '#000000',
+            shadowOffset: {width: 0, height: 3},
+            shadowRadius: 9,
+            shadowOpacity: 0.1,
+            elevation: 5,
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+          }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
+          </TouchableOpacity>
 
-            <Searchbar
-              style={styles.input}
-              placeholder="Search"
-              value={search}
-              onChangeText={text => searchFilterFunction(text)}
+          <Searchbar
+            style={styles.input}
+            inputStyle={{
+              height: 38,
+              paddingVertical: 0,
+            }}
+            placeholder="Search"
+            placeholderTextColor="#B2B3B9"
+            iconColor="#B2B3B9"
+            value={search}
+            onChangeText={text => searchFilterFunction(text)}
+          />
+        </View>
+
+        <View
+          style={{
+            margin: 15,
+            paddingBottom: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderBottomWidth: 0.3,
+          }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{fontSize: 9}}>Content Library</Text>
+            <Ionicons
+              name="chevron-forward-outline"
+              size={15}
+              color="#B2B3B9"
             />
           </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              borderBottomWidth: 0.3,
-              marginHorizontal: 20,
-              paddingBottom: 10,
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{fontSize: 9}}>Content Library</Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={15}
-                color="#B2B3B9"
-              />
-            </View>
+          {route.params.breadcrumbName !== undefined && (
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
               <Ionicons
@@ -165,36 +142,104 @@ const LibraryDetail = props => {
                 color="#B2B3B9"
               />
             </View>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-              <Text
-                style={{
+          )}
+          <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+            <HTMLView
+              value={route.params.itemname}
+              textComponentProps={{
+                style: {
                   fontSize: 9,
                   color: '#14A2E2',
-                }}>
-                {route.params.itemname}
-              </Text>
-            </View>
+                },
+              }}
+            />
           </View>
         </View>
 
         <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingBottom: 20,
-          }}>
+          style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}
+          contentContainerStyle={{paddingBottom: 20}}>
           {libraryDetailsLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            data={filteredDataSource}
-            renderItem={_renderContent}
-          />
+
+          <View style={{alignItems: 'center'}}>
+            {filteredDataSource.map(item => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('ContentLibraryDetail', {
+                      id: item?.ID,
+                      title: item?.post_title,
+                      itemname: route?.params?.itemname,
+                      resourceId: route?.params?.resources,
+                    })
+                  }>
+                  <View>
+                    <View style={[styles.eventCard, styles.shadowProp]}>
+                      <View
+                        style={[styles.eventTheme, {borderColor: '#19325A'}]}
+                      />
+                      <View style={styles.eventDetails}>
+                        <View style={styles.eventInfo}>
+                          <Text style={styles.eventTitle}>
+                            {item?.post_title}
+                          </Text>
+                          {/* <Text style={{fontSize: 8, color: '#041C3E'}}>
+								{item.post_excerpt}
+							  </Text> */}
+                          <HTMLView
+                            value={'<p>' + item?.post_excerpt + '</p>'}
+                            stylesheet={webViewStyle}
+                          />
+                          {/* <Text style={styles.eventParagraph}>{item.text1}</Text> */}
+                        </View>
+                        <View
+                          style={{
+                            width: 50,
+                            height: 60,
+                            backgroundColor: '#EBECF0',
+                            borderRadius: 10,
+                            padding: 10,
+                            alignItems: 'center',
+                          }}>
+                          {item?.video_url !== null && item?.video_url !== '' && (
+                            <Image
+                              source={require('../../../assets/img/file-play.png')}
+                              style={{
+                                width: 20,
+                                height: 20,
+                                color: '#9B9CA0',
+                              }}
+                              resizeMode="contain"
+                            />
+                          )}
+                          {item?.video_url === '' && (
+                            <FontAwesome5
+                              name="file-pdf"
+                              size={20}
+                              color="#9B9CA0"
+                            />
+                          )}
+                          {item?.video_url === null && (
+                            <FontAwesome5
+                              name="file-pdf"
+                              size={20}
+                              color="#9B9CA0"
+                            />
+                          )}
+                          <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+
           <View style={{marginTop: 10}}>
             <Footer />
           </View>
@@ -211,11 +256,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
+    flex: 1,
     height: 45,
-    width: '85%',
     marginLeft: 10,
-    marginBottom: 20,
-    borderRadius: 20,
+    borderRadius: 19,
     backgroundColor: '#F5F5F5',
   },
   content: {
@@ -242,7 +286,7 @@ const styles = StyleSheet.create({
   },
 
   eventCard: {
-    width: '99%',
+    width: Dimensions.get('window').width - 20,
     marginTop: 5,
     flexDirection: 'row',
     flexWrap: 'nowrap',
@@ -276,6 +320,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 14,
     fontWeight: 'normal',
+    fontWeight: '600',
+    color: 'black',
   },
   eventParagraph: {
     fontSize: 8,
@@ -317,5 +363,8 @@ const styles = StyleSheet.create({
     zIndex: 1011,
   },
 });
-const webViewStyle = StyleSheet.create({p: {fontSize: 10}});
+const webViewStyle = StyleSheet.create(
+  {p: {fontSize: 10}},
+  {h3: {fontSize: 9, color: '#14A2E2'}},
+);
 export default LibraryDetail;

@@ -63,10 +63,17 @@ const About = props => {
 
   return (
     <>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
           height: Platform.OS === 'ios' ? 400 : 350,
+          backgroundColor: 'white',
         }}>
         <View style={styles.container}>
           <View style={styles.about}>
@@ -147,7 +154,7 @@ const About = props => {
 					/>
 					
 				</View> */}
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
     </>
@@ -157,6 +164,7 @@ const About = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
+    marginBottom: 20,
   },
   header: {
     ...CommonStyles.header,

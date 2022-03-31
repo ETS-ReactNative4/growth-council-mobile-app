@@ -36,7 +36,7 @@ const MainHeader = props => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingTop: 30,
+          paddingTop: Platform.OS === 'ios' ? 40 : 30,
           paddingBottom: 10,
           paddingHorizontal: 15,
         }}>
@@ -49,7 +49,7 @@ const MainHeader = props => {
           <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
             <IonIcon name="menu-outline" color={'white'} size={30} />
           </TouchableOpacity>
-         
+
           <HeaderTitle
             {...props}
             profile={profile}

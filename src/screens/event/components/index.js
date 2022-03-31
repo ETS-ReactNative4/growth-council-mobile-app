@@ -70,7 +70,8 @@ const Event = props => {
 
   let backgroundColor = '';
   const pillarCategory = events?.pillar_categories
-    ? events?.pillar_categories[0]?.parent || events?.pillar_categories[1]?.parent
+    ? events?.pillar_categories[0]?.parent ||
+      events?.pillar_categories[1]?.parent
     : '';
   switch (pillarCategory) {
     case 0:
@@ -222,102 +223,114 @@ const Event = props => {
                     </View>
                   )}
                 </View>
-
-                <View
-                  style={{
-                    flex: 1,
-                    paddingTop: 20,
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={[
-                      styles.infoicon,
-                      {backgroundColor: backgroundColor},
-                    ]}>
-                    <Ionicons
-                      name={'location-outline'}
-                      size={25}
-                      color={'white'}
-                    />
-                  </View>
-
-                  {!isEventLoaded && (
+                {events?.location?.location_city !== undefined &&
+                  events?.location?.location_address !== '' && (
                     <View
                       style={{
-                        flex: 5,
-                        paddingLeft: 10,
+                        flex: 1,
+                        paddingTop: 20,
+                        flexDirection: 'row',
                       }}>
-                      <Text style={styles.eventLocationDetails}>
-                        {events?.location?.location_city}{' '}
-                        {events?.location?.location_state}{' '}
-                        {events?.location?.location_country}
-                      </Text>
-                      <Text>{events?.location?.location_address}</Text>
-                    </View>
-                  )}
+                      <View
+                        style={[
+                          styles.infoicon,
+                          {backgroundColor: backgroundColor},
+                        ]}>
+                        <Ionicons
+                          name={'location-outline'}
+                          size={25}
+                          color={'white'}
+                        />
+                      </View>
 
-                  {eventLoading && (
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
+                      {!isEventLoaded && (
+                        <View
+                          style={{
+                            flex: 5,
+                            paddingLeft: 10,
+                          }}>
+                          <Text style={styles.eventLocationDetails}>
+                            {events?.location?.location_city}{' '}
+                            {events?.location?.location_country}
+                          </Text>
+                          <Text>{events?.location?.location_address}</Text>
+                        </View>
+                      )}
+
+                      {eventLoading && (
+                        <View style={styles.loading1}>
+                          <BubblesLoader
+                            color={Colors.SECONDARY_TEXT_COLOR}
+                            size={80}
+                          />
+                        </View>
+                      )}
                     </View>
                   )}
-                </View>
               </View>
               <View style={styles.seperationline} />
-              <View>
-                <View>
-                  <Text style={styles.contentHeading}>Hosted By</Text>
-                </View>
 
-                <View style={styles.hostdetail}>
-                  <View
-                    style={[
-                      styles.hostimage,
-                      {backgroundColor: backgroundColor},
-                    ]}>
-                    <Image
-                      source={{
-                        uri:
-                          typeof events?.organizer_image === 'boolean'
-                            ? null
-                            : events?.organizer_image,
-                      }}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                      }}
-                    />
-                  </View>
-
+              {events?.organizer?.term_name !== undefined &&
+                events?.organizer?.term_name !== '' && (
                   <View
                     style={{
-                      flex: 3,
-                      paddingLeft: 20,
-                      justifyContent: 'center',
+                      borderBottomColor: '#F6F4F4',
+                      borderBottomWidth: 1,
                     }}>
-                    <Text style={styles.contentTitle}>
-                      {events?.organizer?.term_name}
-                    </Text>
-                    <Text style={{fontSize: 14}}>
-                      {events?.organizer?.description}
-                    </Text>
+                    <View>
+                      <Text style={styles.contentHeading}>Hosted By</Text>
+                    </View>
+
+                    <View style={styles.hostdetail}>
+                      <View
+                        style={[
+                          styles.hostimage,
+                          {backgroundColor: backgroundColor},
+                        ]}>
+                        <Image
+                          source={{
+                            uri:
+                              typeof events?.organizer_image === 'boolean'
+                                ? null
+                                : events?.organizer_image,
+                          }}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                          }}
+                        />
+                      </View>
+
+                      <View
+                        style={{
+                          flex: 3,
+                          paddingLeft: 20,
+                          justifyContent: 'center',
+                        }}>
+                        <Text style={styles.contentTitle}>
+                          {events?.organizer?.term_name}
+                        </Text>
+                        <Text style={{fontSize: 14}}>
+                          {events?.organizer?.description}
+                        </Text>
+                      </View>
+                      <View style={styles.eventaddress}></View>
+                    </View>
                   </View>
-                  <View style={styles.eventaddress}></View>
-                </View>
-              </View>
-              <View style={styles.seperationline} />
-              <View>
-                <Text style={styles.contentHeading}>Event Info</Text>
-                {!isEventLoaded && (
-                  <HTMLView
-                    value={description}
-                    style={{fontSize:14, color: '#77838F'}}
-                  />
                 )}
-              </View>
+              {events?.descirption !== undefined && events?.descirption !== '' && (
+                <View>
+                  <Text style={[styles.contentHeading, {marginTop: 20}]}>
+                    Event Info
+                  </Text>
+                  {!isEventLoaded && (
+                    <HTMLView
+                      value={description}
+                      style={{fontSize: 14, color: '#77838F'}}
+                    />
+                  )}
+                </View>
+              )}
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 {eventRegisterLoading && (
@@ -356,7 +369,7 @@ const Event = props => {
           </View>
         </ImageBackground>
       </View>
-      <Footer />
+      {/* <Footer /> */}
     </ScrollView>
   );
 };
@@ -514,7 +527,7 @@ const styles = StyleSheet.create({
   },
   hostdetail: {
     flex: 1,
-    paddingBottom: 5,
+    paddingBottom: 15,
     flexDirection: 'row',
     marginTop: 5,
   },

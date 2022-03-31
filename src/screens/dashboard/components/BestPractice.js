@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
+  StatusBar,
   SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -54,10 +55,7 @@ const BestPractice = props => {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPillarPOEAsync = async () => {
-        await fetchAllPillarPOE(pillarId);
-      };
-      fetchAllPillarPOEAsync();
+      fetchAllPillarPOE(pillarId);
 
       return () => {
         cleanPillarPOE();
@@ -219,44 +217,45 @@ const BestPractice = props => {
     );
   };
 
-  const _renderContentItem = ({item, index}) => {
-    const file = item?.file;
-    const link = file.split('=', 2);
-    let videoLink = link[1].split('&', 2);
-    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
-  };
-
   return (
     <View style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          <View style={styles.top}>
-            <Text style={styles.title}>Best Practices Events</Text>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarEvents}
-                // renderItem={_renderTopItem}
-                renderItem={item => _renderTopItem(item, navigation)}
-              />
+          {/* {pillarEvents?.length !== 0 && (
+            <View style={styles.top}>
+              <Text style={styles.title}>Best Practices Events</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarEvents}
+                  // renderItem={_renderTopItem}
+                  renderItem={item => _renderTopItem(item, navigation)}
+                />
+              </View>
             </View>
-          </View>
+          )} */}
 
           <View style={styles.middle}>
             <Text style={styles.title}>Points of Engagement</Text>
-            {pillarEventLoading && (
+            {pillarPOELoading && (
               <View style={styles.loading1}>
                 <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
               </View>
             )}
+
             <FlatList
               numColumns={4}
               showsHorizontalScrollIndicator={false}
@@ -266,35 +265,21 @@ const BestPractice = props => {
             />
           </View>
 
-          <View style={styles.bottom}>
-            <Text style={styles.title}>Best Practices Members</Text>
-            <View>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents?.members}
-                renderItem={_renderItem}
-                // renderItem={item => _renderItem(item, navigation)}
-              />
+          {/* {pillarMemberContents?.members?.length !== 0 && (
+            <View style={styles.bottom}>
+              <Text style={styles.title}>Best Practices Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.members}
+                  renderItem={_renderItem}
+                  // renderItem={item => _renderItem(item, navigation)}
+                />
+              </View>
             </View>
-          </View>
-
-          {/* <View style={styles.content}>
-            <Text style={styles.title}>Best Practices Content</Text>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents?.pillar_contents}
-                renderItem={_renderContentItem}
-              />
-            </View>
-          </View> */}
-          <Footer />
+          )} */}
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
@@ -307,11 +292,12 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+    marginBottom: 60,
   },
   top: {
     marginTop: 20,
     justifyContent: 'center',
-	marginRight:5,
+    marginRight: 5,
   },
   title: {
     fontFamily: Typography.FONT_SF_BOLD,
@@ -322,13 +308,12 @@ const styles = StyleSheet.create({
   },
 
   topWrapper: {
-	height: 144,
+    height: 144,
     width: 256,
     marginLeft: 15,
     borderRadius: 16,
     overflow: 'hidden',
-	marginTop:20,
-
+    marginTop: 20,
   },
   header: {
     margin: 10,
@@ -357,16 +342,14 @@ const styles = StyleSheet.create({
   },
   middleWrapper: {
     width: (Dimensions.get('window').width - 10) / 4,
-    borderRadius: 20,
     marginTop: 15,
-
     justifyContent: 'center',
     alignItems: 'center',
   },
   middleW: {
     backgroundColor: 'white',
-    width: 64,
-    height: 64,
+    width: 70,
+    height: 70,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -415,7 +398,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
   },
-
   shadowProp: {
     shadowColor: '#000',
     shadowOffset: {
@@ -427,7 +409,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loading1: {
-    top: 0,
+    top: 30,
     left: 0,
     right: 0,
     bottom: 0,

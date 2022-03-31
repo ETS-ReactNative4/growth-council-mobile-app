@@ -10,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   Pressable,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -18,7 +19,7 @@ import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
 import {useIsFocused} from '@react-navigation/native';
-
+import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {WebView} from 'react-native-webview';
 import {Button} from 'native-base';
@@ -133,22 +134,6 @@ const GrowthDetail = props => {
             <Text style={{fontSize: 6}}>Frost and Sullivan</Text>
           </View>
         </TouchableOpacity>
-
-        {/* <View style={styles.chatIcon}>
-		{!memberConnection[index]?.connection && (
-            <TouchableOpacity onPress={() => navigation.navigate('People')}>
-              <Ionicons name="add-circle" size={20} color="#B2B3B9" />
-            </TouchableOpacity>
-          )}
-          {memberConnection[index]?.connection && (
-            <Material
-              name="check-circle"
-              size={20}
-              color="#14A2E2"
-              style={{marginTop: 25}}
-            />
-          )}
-        </View> */}
       </View>
     );
   };
@@ -205,6 +190,7 @@ const GrowthDetail = props => {
             navigation.navigate('coachingSession', {
               id: item.ID,
               sessionId: item?.ID,
+              title: item?.title,
             })
           }>
           <View style={styles.middleWrapper}>
@@ -238,7 +224,6 @@ const GrowthDetail = props => {
   };
 
   const _renderContentItem = ({item, index}) => {
-    console.log(item?.file);
     const file = item?.file;
     const link = file.split('=', 2);
     let videoLink = link[1].split('&', 2);
@@ -308,160 +293,170 @@ const GrowthDetail = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
-      <View style={styles.container}>
-        <ImageBackground
-          source={{uri: poeDetails?.pillar_detail_image}}
-          style={{height: 240, width: '100%'}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <View style={styles.arrow}>
-              <Ionicons name={'arrow-back'} size={50} color="white" />
-            </View>
-          </TouchableOpacity>
-        </ImageBackground>
+    <>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
+      <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+        <View style={styles.container}>
+          <ImageBackground
+            source={{uri: poeDetails?.pillar_detail_image}}
+            style={{height: 240, width: '100%'}}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <View style={styles.arrow}>
+                <Ionicons name={'arrow-back'} size={50} color="white" />
+              </View>
+            </TouchableOpacity>
+          </ImageBackground>
 
-        <View style={[styles.icon, styles.shadowProp]}>
-          <Image
-            source={{uri: poeDetails?.image}}
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          />
-        </View>
-
-        <ScrollView style={styles.content}>
-          <View style={styles.contentWrapper}>
-            <Text
+          <View style={[styles.icon, styles.shadowProp]}>
+            <Image
+              source={{uri: poeDetails?.image}}
               style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: '#1E2022',
-                textAlign: 'center',
-                marginTop: 50,
-              }}>
-              {poeDetails.name}
-            </Text>
-            <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-            {/* <View style={styles.top}>
-                <Text style={styles.title}> Growth Coaching Events</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={poeEvents}
-                    renderItem={_renderTopItem}
-                  />
-                </View>
-              </View> */}
-
-            <View style={styles.middle}>
-              <Text style={styles.title}>Sessions</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                {coachingSessionLoading && (
-                  <>
-                    <View
-                      style={{
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        zIndex: 1011,
-                      }}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={coachingSession}
-                  renderItem={_renderMiddleItem}
-                />
-              </View>
-            </View>
-            <View style={styles.learn}>
-              <Text style={styles.title}>Self Learn</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={poeSelfLearns}
-                  renderItem={_renderLearnItem}
-                />
-              </View>
-            </View>
-
-            {pillarMemberContents.members && (
-              <View style={styles.bottom}>
-                <Text style={styles.title}>Members</Text>
-                <View>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents.members}
-                    renderItem={item => _renderItem(item, navigation)}
-                  />
-                </View>
-              </View>
-            )}
-
-            {showChartButton && (
-              <View style={styles.bottom}>
-                <Text style={styles.title}>Radar</Text>
-                <View style={styles.buttonWrapper}>
-                  <Button
-                    style={[styles.button, {marginLeft: 15}]}
-                    onPress={() => {
-                      navigation.navigate('Radar');
-                    }}>
-                    <Text style={styles.buttonText}>View chart</Text>
-                  </Button>
-                </View>
-              </View>
-            )}
-
-            <View style={styles.growthContent}>
-              <Text style={styles.title}>Growth Coaching Content</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.pillar_contents}
-                  renderItem={_renderContentItem}
-                />
-              </View>
-            </View>
+                width: 30,
+                height: 30,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            />
           </View>
-        </ScrollView>
-      </View>
-      <Footer />
-    </ScrollView>
+
+          <ScrollView style={styles.content}>
+            <View style={styles.contentWrapper}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '500',
+                  color: '#1E2022',
+                  textAlign: 'center',
+                  marginTop: 50,
+                }}>
+                {poeDetails.name}
+              </Text>
+              <HTMLView
+                value={poeDetails.description}
+                textComponentProps={{
+                  style: {
+                    fontFamily: Typography.FONT_SF_REGULAR,
+                    fontSize: 14,
+                    lineHeight: 24,
+                    padding: 15,
+                    textAlign: 'left',
+                    color: '#77838F',
+                  },
+                }}
+              />
+              {coachingSessionLoading && (
+                <>
+                  <View
+                    style={{
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      position: 'absolute',
+                      zIndex: 1011,
+                    }}>
+                    <BubblesLoader
+                      color={Colors.SECONDARY_TEXT_COLOR}
+                      size={80}
+                    />
+                  </View>
+                </>
+              )}
+              {coachingSession?.length !== 0 && (
+                <View style={styles.middle}>
+                  <Text style={styles.title}>Sessions</Text>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={coachingSession}
+                      renderItem={_renderMiddleItem}
+                    />
+                  </View>
+                </View>
+              )}
+              {poeSelfLearns?.length !== 0 && (
+                <View style={styles.learn}>
+                  <Text style={styles.title}>Self Learn</Text>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={poeSelfLearns}
+                      renderItem={_renderLearnItem}
+                    />
+                  </View>
+                </View>
+              )}
+
+              {pillarMemberContents.members?.length !== 0 && (
+                <View style={styles.bottom}>
+                  <Text style={styles.title}>Coaches</Text>
+                  <View>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarMemberContents.members}
+                      renderItem={item => _renderItem(item, navigation)}
+                    />
+                  </View>
+                </View>
+              )}
+
+              {showChartButton && (
+                <View style={styles.bottom}>
+                  <Text style={styles.title}>Radar</Text>
+                  <View style={styles.buttonWrapper}>
+                    <Button
+                      style={[styles.button, {marginLeft: 15}]}
+                      onPress={() => {
+                        navigation.navigate('Radar');
+                      }}>
+                      <Text style={styles.buttonText}>View chart</Text>
+                    </Button>
+                  </View>
+                </View>
+              )}
+              {pillarMemberContents?.pillar_contents?.length !== 0 && (
+                <View style={styles.growthContent}>
+                  <Text style={styles.title}>
+                    Growth Leadership Coaching Content Library
+                  </Text>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarMemberContents?.pillar_contents}
+                      renderItem={_renderContentItem}
+                    />
+                  </View>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </View>
+        <Footer />
+      </ScrollView>
+    </>
   );
 };
 
@@ -610,6 +605,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
+    marginBottom: 10,
   },
   ContentWrapper: {
     height: 206,

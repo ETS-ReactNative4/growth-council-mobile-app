@@ -12,6 +12,7 @@ import {
   Modal,
   SafeAreaView,
   RefreshControl,
+  StatusBar,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -65,6 +66,8 @@ const People = props => {
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
+        category: account,
+        country: region,
       });
     };
     fetchAllUsersAsync();
@@ -97,14 +100,216 @@ const People = props => {
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
+        category: account,
+        country: region,
       });
       ToastMessage.show('You have successfully connected.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
-    console.log(response);
   };
+
+  const countries = [
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'Andorra',
+    'Angola',
+    'Antigua & Deps',
+    'Argentina',
+    'Armenia',
+    'Australia',
+    'Austria',
+    'Azerbaijan',
+    'Bahamas',
+    'Bahrain',
+    'Bangladesh',
+    'Barbados',
+    'Belarus',
+    'Belgium',
+    'Belize',
+    'Benin',
+    'Bhutan',
+    'Bolivia',
+    'Bosnia Herzegovina',
+    'Botswana',
+    'Brazil',
+    'Brunei',
+    'Bulgaria',
+    'Burkina',
+    'Burundi',
+    'Cambodia',
+    'Cameroon',
+    'Canada',
+    'Cape Verde',
+    'Central African Rep',
+    'Chad',
+    'Chile',
+    'China',
+    'Colombia',
+    'Comoros',
+    'Congo',
+    'Congo {Democratic Rep}',
+    'Costa Rica',
+    'Croatia',
+    'Cuba',
+    'Cyprus',
+    'Czech Republic',
+    'Denmark',
+    'Djibouti',
+    'Dominica',
+    'Dominican Republic',
+    'East Timor',
+    'Ecuador',
+    'Egypt',
+    'El Salvador',
+    'Equatorial Guinea',
+    'Eritrea',
+    'Estonia',
+    'Ethiopia',
+    'Fiji',
+    'Finland',
+    'France',
+    'Gabon',
+    'Gambia',
+    'Georgia',
+    'Germany',
+    'Ghana',
+    'Greece',
+    'Grenada',
+    'Guatemala',
+    'Guinea',
+    'Guinea-Bissau',
+    'Guyana',
+    'Haiti',
+    'Honduras',
+    'Hungary',
+    'Iceland',
+    'India',
+    'Indonesia',
+    'Iran',
+    'Iraq',
+    'Ireland {Republic}',
+    'Israel',
+    'Italy',
+    'Ivory Coast',
+    'Jamaica',
+    'Japan',
+    'Jordan',
+    'Kazakhstan',
+    'Kenya',
+    'Kiribati',
+    'Korea North',
+    'Korea South',
+    'Kosovo',
+    'Kuwait',
+    'Kyrgyzstan',
+    'Laos',
+    'Latvia',
+    'Lebanon',
+    'Lesotho',
+    'Liberia',
+    'Libya',
+    'Liechtenstein',
+    'Lithuania',
+    'Luxembourg',
+    'Macedonia',
+    'Madagascar',
+    'Malawi',
+    'Malaysia',
+    'Maldives',
+    'Mali',
+    'Malta',
+    'Marshall Islands',
+    'Mauritania',
+    'Mauritius',
+    'Mexico',
+    'Micronesia',
+    'Moldova',
+    'Monaco',
+    'Mongolia',
+    'Montenegro',
+    'Morocco',
+    'Mozambique',
+    'Myanmar, {Burma}',
+    'Namibia',
+    'Nauru',
+    'Nepal',
+    'Netherlands',
+    'New Zealand',
+    'Nicaragua',
+    'Niger',
+    'Nigeria',
+    'Norway',
+    'Oman',
+    'Pakistan',
+    'Palau',
+    'Panama',
+    'Papua New Guinea',
+    'Paraguay',
+    'Peru',
+    'Philippines',
+    'Poland',
+    'Portugal',
+    'Qatar',
+    'Romania',
+    'Russian Federation',
+    'Rwanda',
+    'St Kitts & Nevis',
+    'St Lucia',
+    'Saint Vincent & the Grenadines',
+    'Samoa',
+    'San Marino',
+    'Sao Tome & Principe',
+    'Saudi Arabia',
+    'Senegal',
+    'Serbia',
+    'Seychelles',
+    'Sierra Leone',
+    'Singapore',
+    'Slovakia',
+    'Slovenia',
+    'Solomon Islands',
+    'Somalia',
+    'South Africa',
+    'South Sudan',
+    'Spain',
+    'Sri Lanka',
+    'Sudan',
+    'Suriname',
+    'Swaziland',
+    'Sweden',
+    'Switzerland',
+    'Syria',
+    'Taiwan',
+    'Tajikistan',
+    'Tanzania',
+    'Thailand',
+    'Togo',
+    'Tonga',
+    'Trinidad & Tobago',
+    'Tunisia',
+    'Turkey',
+    'Turkmenistan',
+    'Tuvalu',
+    'Uganda',
+    'Ukraine',
+    'United Arab Emirates',
+    'United Kingdom',
+    'United States',
+    'Uruguay',
+    'Uzbekistan',
+    'Vanuatu',
+    'Vatican City',
+    'Venezuela',
+    'Vietnam',
+    'Yemen',
+    'Zambia',
+    'Zimbabwe',
+  ];
+
+  const pillar = ['Community', 'Best Practice', 'Growth Coaching'];
 
   const _renderItem = ({item, index}) => {
     return (
@@ -167,6 +372,12 @@ const People = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <View style={{marginBottom: 20}}>
           <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
@@ -181,6 +392,8 @@ const People = props => {
                   s: text,
                   sort: sorting,
                   expertise_areas: category,
+                  category: account,
+                  country: region,
                 });
               }}
             />
@@ -195,6 +408,8 @@ const People = props => {
                     s: searchKey,
                     sort: 'DESC',
                     expertise_areas: category,
+                    category: account,
+                    country: region,
                   });
                 }}
               />
@@ -208,6 +423,8 @@ const People = props => {
                     s: searchKey,
                     sort: 'ASC',
                     expertise_areas: category,
+                    category: account,
+                    country: region,
                   });
                 }}
               />
@@ -220,9 +437,13 @@ const People = props => {
               style={{
                 flex: 1,
                 alignItems: 'center',
-                borderWidth: 0.5,
+                borderWidth: 0.3,
                 paddingVertical: 10,
                 borderColor: 'gray',
+                height: 60,
+                borderBottomLeftRadius: 10,
+                borderTopLeftRadius: 10,
+                justifyContent: 'center',
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {category ? category : 'Expertise Areas'}
@@ -233,9 +454,11 @@ const People = props => {
               style={{
                 flex: 1,
                 alignItems: 'center',
-                borderWidth: 0.5,
+                borderWidth: 0.3,
                 paddingVertical: 10,
                 borderColor: 'gray',
+                height: 60,
+                justifyContent: 'center',
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {account ? account : 'Account Type'}
@@ -246,9 +469,13 @@ const People = props => {
               style={{
                 flex: 1,
                 alignItems: 'center',
-                borderWidth: 0.5,
+                borderWidth: 0.3,
                 paddingVertical: 10,
                 borderColor: 'gray',
+                height: 60,
+                justifyContent: 'center',
+                borderBottomRightRadius: 10,
+                borderTopRightRadius: 10,
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {region ? region : 'Region'}
@@ -262,6 +489,7 @@ const People = props => {
             flexGrow: 1,
 
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+            paddingBottom: 50,
           }}>
           {userLoading && (
             <View style={styles.loading1}>
@@ -291,9 +519,10 @@ const People = props => {
               renderItem={_renderItem}
             />
           </View>
+          {/* <Footer /> */}
         </ScrollView>
       </View>
-      <Footer />
+
       <Modal transparent visible={pickerVisible}>
         <View
           style={{
@@ -384,22 +613,22 @@ const People = props => {
                 itemTextStyle={{fontSize: 12}}
                 onValueChange={async (itemValue, itemIndex) => {
                   setAccount(itemValue);
-                //   await fetchAllUsers({
-                //     s: searchKey,
-                //     sort: 'ASC',
-                //     expertise_areas: category,
-                //   });
+                  await fetchAllUsers({
+                    s: searchKey,
+                    sort: 'ASC',
+                    category: account,
+                  });
                 }}>
-                {/* {Object.keys(expertise).map(key => {
+                {Object.keys(pillar).map(key => {
                   return (
                     <Picker.Item
-                      label={expertise[key]}
-                      value={key}
+                      label={pillar[key]}
+                      value={pillar[key]}
                       key={key}
                       style={{fontSize: 14}}
                     />
                   );
-                })} */}
+                })}
               </Picker>
             </View>
           </View>
@@ -440,22 +669,22 @@ const People = props => {
                 itemTextStyle={{fontSize: 12}}
                 onValueChange={async (itemValue, itemIndex) => {
                   setRegion(itemValue);
-                //   await fetchAllUsers({
-                //     s: searchKey,
-                //     sort: 'ASC',
-                //     expertise_areas: category,
-                //   });
+                  await fetchAllUsers({
+                    s: searchKey,
+                    sort: 'ASC',
+                    country: region,
+                  });
                 }}>
-                {/* {Object.keys(expertise).map(key => {
+                {Object.keys(countries).map(key => {
                   return (
                     <Picker.Item
-                      label={expertise[key]}
-                      value={key}
+                      label={countries[key]}
+                      value={countries[key]}
                       key={key}
                       style={{fontSize: 14}}
                     />
                   );
-                })} */}
+                })}
               </Picker>
             </View>
           </View>
@@ -472,6 +701,7 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+    marginBottom: 20,
   },
   input: {
     height: 45,
@@ -495,6 +725,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 15,
+    height: 70,
   },
   icon: {
     flexDirection: 'row',

@@ -10,15 +10,16 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  StatusBar,
+  Dimensions,
 } from 'react-native';
 import {Searchbar} from 'react-native-paper';
-import {Colors, Typography} from '../../../theme';
+import {Colors} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import {BubblesLoader} from 'react-native-indicator';
-import SearchBox from '../../../shared/header/SearchHeader';
 
 const Content = props => {
   const {
@@ -26,7 +27,6 @@ const Content = props => {
     content,
     contentLoading,
     contentError,
-
     cleanContent,
 
     searchContent,
@@ -43,11 +43,7 @@ const Content = props => {
   }, [content]);
 
   const searchFilterFunction = text => {
-    // Check if searched text is not blank
     if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
       const newData = content?.filter(function (item) {
         const itemData = item.name ? item.name.toLowerCase() : ''.toLowerCase();
         const textData = text.toLowerCase();
@@ -56,8 +52,6 @@ const Content = props => {
       setFilteredDataSource(newData);
       setSearch(text);
     } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
       setFilteredDataSource(content);
       setSearch(text);
     }
@@ -66,110 +60,162 @@ const Content = props => {
   const _renderContent = ({item, index}) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ContentDetail', {
-            resourceId: item?.term_id,
-            resourcesName: item?.name,
-          })
-        }>
-        <View style={[styles.content, styles.shadowProp]}>
-          {item?.image === null && (
-            <ImageBackground
-              style={{width: '100%', height: 190, borderRadius: 16}}
-              source={require('../../../assets/img/image.png')}>
-              <View style={styles.contentWrapper}>
-                <Text>{item?.count}</Text>
-              </View>
-              <View style={styles.wrapper}>
-                <HTMLView
-                  value={item?.name}
-                  style={{fontSize: 14, color: 'black'}}
-                />
-                {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
-              </View>
-            </ImageBackground>
-          )}
-          {item?.image !== null && (
-            <ImageBackground
-              style={{width: '100%', height: 190, borderRadius: 16}}
-              source={{uri: item?.image}}>
-              <View style={styles.contentWrapper}>
-                <Text>{item?.count}</Text>
-              </View>
-              <View style={styles.wrapper}>
-                <HTMLView
-                  value={item?.name}
-                  style={{fontSize: 14, color: 'black'}}
-                />
-                {/* <Text style={{color: 'black', fontSize: 14}}>{item.name}</Text> */}
-              </View>
-            </ImageBackground>
-          )}
-        </View>
+        style={[styles.content, styles.shadowProp]}
+        onPress={() => {
+          if (item.children_count === 0) {
+            navigation.navigate('LibraryDetail', {
+              resources: item?.term_id,
+              itemname: item?.name,
+            });
+          } else {
+            navigation.navigate('ContentDetail', {
+              resourceId: item?.term_id,
+              resourcesName: item?.name,
+            });
+          }
+        }}>
+        {item?.image === null && (
+          <>
+            <Image
+              style={{
+                width: '100%',
+                height: 170,
+                borderTopLeftRadius: 14,
+                borderTopRightRadius: 14,
+              }}
+              source={require('../../../assets/img/image.png')}
+            />
+            <View style={styles.contentWrapper}>
+              <Text style={{color: 'black'}}>{item?.children_count}</Text>
+              <Text
+                style={{
+                  fontFamily: 'SFProText-Regular',
+                  fontSize: 10,
+                  color: 'black',
+                }}>
+                Article
+              </Text>
+            </View>
+            <View style={styles.wrapper}>
+              <HTMLView
+                value={item?.name}
+                textComponentProps={{
+                  style: {
+                    color: 'black',
+                    fontWeight: '600',
+                  },
+                }}
+              />
+            </View>
+          </>
+        )}
+        {item?.image !== null && (
+          <>
+            <Image
+              style={{
+                width: '100%',
+                height: 170,
+                borderTopLeftRadius: 14,
+                borderTopRightRadius: 14,
+              }}
+              source={{uri: item?.image}}
+            />
+            <View style={styles.contentWrapper}>
+              <Text style={{color: 'black'}}>{item?.children_count}</Text>
+              <Text
+                style={{
+                  fontFamily: 'SFProText-Regular',
+                  fontSize: 10,
+                  color: 'black',
+                }}>
+                Article
+              </Text>
+            </View>
+            <View style={styles.wrapper}>
+              <HTMLView
+                value={item?.name}
+                textComponentProps={{
+                  style: {
+                    color: 'black',
+                    fontWeight: '600',
+                  },
+                }}
+              />
+            </View>
+          </>
+        )}
       </TouchableOpacity>
     );
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
-        <View style={{marginBottom: 20}}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginTop: 20,
-              alignContent: 'center',
-              marginLeft: 10,
-            }}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Ionicons
-                name="chevron-back-outline"
-                size={30}
-                color="#B2B3B9"
-                style={{marginTop: 5}}
-              />
-            </TouchableOpacity>
+        {/* Search Header */}
+        <View
+          style={{
+            height: 80,
+            paddingLeft: 4,
+            paddingRight: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            shadowColor: '#000000',
+            shadowOffset: {width: 0, height: 3},
+            shadowRadius: 9,
+            shadowOpacity: 0.1,
+            elevation: 5,
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+          }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
+          </TouchableOpacity>
+          <Searchbar
+            style={styles.input}
+            inputStyle={{
+              height: 38,
+              paddingVertical: 0,
+            }}
+            placeholder="Search"
+            placeholderTextColor="#B2B3B9"
+            iconColor="#B2B3B9"
+            value={search}
+            onChangeText={text => searchFilterFunction(text)}
+          />
+        </View>
 
-            <Searchbar
-              style={styles.input}
-              placeholder="Search"
-              value={search}
-              onChangeText={text => searchFilterFunction(text)}
-            />
-          </View>
-          <View
-            style={{
-              borderBottomWidth: 0.3,
-              marginHorizontal: 20,
-              paddingBottom: 10,
-            }}>
-            <Text style={{fontSize: 9, color: '#14A2E2'}}>Content Library</Text>
-          </View>
+        <View
+          style={{
+            margin: 15,
+            paddingBottom: 10,
+            borderBottomWidth: 0.3,
+          }}>
+          <Text style={{fontSize: 9, color: '#14A2E2'}}>Content Library</Text>
         </View>
 
         <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
+          style={{
+            flex: 1,
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-            marginHorizontal: 20,
-            paddingBottom: 20,
-          }}>
+          }}
+          contentContainerStyle={{paddingBottom: 20}}>
           {contentLoading && (
             <View style={styles.loading1}>
               <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
             </View>
           )}
-          <ScrollView
-            horizontal
-            scrollEnabled={false}
-            contentContainerStyle={{flex: 1}}>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={filteredDataSource}
-              renderItem={_renderContent}
-            />
-          </ScrollView>
+
+          <FlatList
+            contentContainerStyle={{alignItems: 'center'}}
+            showsVerticalScrollIndicator={false}
+            data={filteredDataSource}
+            renderItem={_renderContent}
+          />
 
           <View style={{marginTop: 10}}>
             <Footer />
@@ -182,62 +228,48 @@ const Content = props => {
 };
 const styles = StyleSheet.create({
   container: {
-    // ...CommonStyles.container,
-    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
   },
   input: {
+    flex: 1,
     height: 45,
-    width: '85%',
     marginLeft: 10,
-    marginBottom: 20,
-    borderRadius: 20,
+    borderRadius: 19,
     backgroundColor: '#F5F5F5',
   },
   content: {
-    width: '98%',
-    marginLeft: 5,
-    height: 190,
-    borderRadius: 16,
-    overflow: 'hidden',
-    marginTop: 20,
-    marginBottom: 5,
-    // borderWidth: 0.3,
+    width: Dimensions.get('window').width - 30,
+    borderRadius: 14,
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+    marginBottom: 20,
     backgroundColor: 'white',
   },
   contentWrapper: {
-    width: 50,
-    height: 60,
-    backgroundColor: '#ECECEC',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 30,
     position: 'absolute',
+    width: 55,
+    height: 60,
+    top: 10,
     right: 10,
-    top: 20,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
     opacity: 0.7,
+    backgroundColor: '#ECECEC',
   },
   wrapper: {
-    padding: 10,
-    zIndex: 30,
-
-    bottom: 0.3,
-    width: '100%',
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16,
-    backgroundColor: 'white',
-    position: 'absolute',
+    padding: 15,
+    borderBottomLeftRadius: 14,
+    borderBottomRightRadius: 14,
   },
   shadowProp: {
-    shadowColor: '#000',
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
     elevation: 5,
   },
   loading1: {

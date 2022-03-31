@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -26,8 +27,8 @@ import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 
-const win = Dimensions.get('window');
-const contentContainerWidth = win.width - 30;
+const win = Dimensions.get('window').width;
+const contentContainerWidth = win / 2;
 
 const Dashboard = props => {
   const {
@@ -64,6 +65,11 @@ const Dashboard = props => {
     latestContentError,
     fetchLatestContent,
     cleanLatestContent,
+    criticalIssue,
+    criticalIssueLoading,
+    criticalIssueError,
+    fetchCritcalIssue,
+    cleanCriticalIssue,
   } = props;
 
   const isFocused = useIsFocused();
@@ -112,6 +118,9 @@ const Dashboard = props => {
     fetchLatestContentAsync();
   }, []);
 
+  useEffect(() => {
+    fetchCritcalIssue();
+  }, []);
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -154,53 +163,13 @@ const Dashboard = props => {
     );
   };
 
-  //   const _renderMiddleItem = ({item, index}) => {
-  //     let poePage = 'CommunityDetail';
-  //     if (item?.parent === 119) {
-  //       //   poePage = 'GrowthDetail';
-  //       if (item?.slug === 'growth-leadership-coaching') {
-  //         poePage = 'GrowthDetail';
-  //       } else {
-  //         poePage = 'CommunityDetail';
-  //       }
-  //     }
-  //     return (
-  //       <TouchableOpacity
-  //         onPress={() =>
-  //           navigation.navigate(poePage, {
-  //             poeId: item?.term_id,
-  //             pillarId: item?.parent,
-  //           })
-  //         }>
-  //         <View style={styles.middleWrapper}>
-  //           <View style={[styles.middleW, styles.shadowProp]}>
-  //             <Image
-  //               source={{uri: item?.image}}
-  //               style={{width: 30, height: 30}}
-  //             />
-  //           </View>
-  //           <Text
-  //             style={{
-  //               marginTop: 10,
-  //               fontSize: 10,
-  //               marginHorizontal: 10,
-  //               textAlign: 'center',
-  //               color: '#222B45',
-  //             }}>
-  //             {item?.name}
-  //           </Text>
-  //         </View>
-  //       </TouchableOpacity>
-  //     );
-  //   };
-
   const _renderContent = ({item, index}) => {
     const date = moment(item?.post_modified).format('D/MM/yyyy');
     return (
       <View style={[styles.middleWrapper, styles.shadowContent]}>
         <View style={{flexDirection: 'row'}}>
           <View style={{width: '70%', margin: 10}}>
-            <Text style={{fontSize: 12, color: '#041C3E'}}>
+            <Text style={{fontSize: 12, color: '#041C3E', fontWeight: '600'}}>
               {item.post_title}
             </Text>
             <HTMLView
@@ -209,10 +178,18 @@ const Dashboard = props => {
             />
           </View>
           <View style={styles.middleW}>
-            {item?.video_url === null ? (
+            {item?.video_url !== null && item?.video_url !== '' && (
+              <Image
+                source={require('../../../assets/img/file-play.png')}
+                style={{width: 20, height: 20, color: '#9B9CA0'}}
+                resizeMode="contain"
+              />
+            )}
+            {item?.video_url === '' && (
               <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
-            ) : (
-              <FontAwesome5 name="file-video" size={20} color="#9B9CA0" />
+            )}
+            {item?.video_url === null && (
+              <FontAwesome5 name="file-pdf" size={20} color="#9B9CA0" />
             )}
             <Text style={{fontSize: 8, marginTop: 2}}>View</Text>
           </View>
@@ -314,70 +291,43 @@ const Dashboard = props => {
   //     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   //   };
 
-  const issue = [
-    {
-      image: require('../../../assets/img/geographi.png'),
-      text: 'Strategic Planning for 2030 and Beyond',
-    },
-    {
-      image: require('../../../assets/img/Sel-Serve-Icon.png'),
-      text: 'The War for Talent',
-    },
-    {
-      image: require('../../../assets/img/business-process-outsourcing.png'),
-      text: 'Integrating New Disruptive Technologies into Your Innovation Portfolio',
-    },
-    {
-      image: require('../../../assets/img/Research-frost.png'),
-      text: 'Go-To-Market Strategy',
-    },
-    {
-      image: require('../../../assets/img/discussion-guides.png'),
-      text: 'Integrating New Disruptive Technologies into Your Innovation Portfolio',
-    },
-    {
-      image: require('../../../assets/img/data-insights.png'),
-      text: 'Go-To-Market Strategy',
-    },
-  ];
-
   const _renderCritical = ({item, index}) => {
     return (
-      <View
-        style={{
-          width: 170,
-          marginLeft: 10,
-          marginTop: 20,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <View style={[styles.criticalW, styles.shadowCritical]}>
-            <Image source={item?.image} style={{width: 38, height: 38}} />
-          </View>
-          <Text
+      <TouchableOpacity onPress={() => navigation.navigate('CriticalIssue')}>
+        <View style={styles.ContentWrapper}>
+          <View
             style={{
-              fontSize: 10,
-              width: '70%',
-              paddingLeft: 10,
-              paddingRight: 10,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            {item.text}
-          </Text>
+            <View style={[styles.criticalW, styles.shadowCritical]}>
+              <Image
+                source={{uri: item?.icon}}
+                style={{width: 36, height: 36}}
+              />
+            </View>
+            <Text
+              style={{
+                fontSize: 10,
+                width: '60%',
+                paddingLeft: 5,
+                // paddingRight: 10,
+              }}>
+              {item?.heading}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
     <View style={{flex: 1}}>
       <StatusBar
         barStyle="light-content"
-        hidden={true}
-        backgroundColor={require('../../../assets/img/appBG.png')}
-        translucent={true}
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
       />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <View>
@@ -398,12 +348,6 @@ const Dashboard = props => {
             <Text style={styles.title}>Upcoming Events</Text>
           </View>
 
-          {latestContentLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
-
           <View
             style={{
               display: 'flex',
@@ -418,6 +362,12 @@ const Dashboard = props => {
             />
           </View>
         </View>
+
+        {latestContentLoading && (
+          <View style={styles.loading1}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
 
         <View style={styles.middle}>
           <Text style={[styles.title, {marginLeft: 15}]}>Latest Content</Text>
@@ -451,22 +401,16 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>Critical Issue</Text>
+          <Text style={styles.title}>Critical Issues</Text>
           <View>
             <FlatList
-              contentContainerStyle={{
-                flex: 1,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-              }}
+              numColumns={2}
               showsHorizontalScrollIndicator={false}
-              data={issue}
+              data={criticalIssue?.critical_issue_mobile_lists}
               renderItem={_renderCritical}
             />
           </View>
         </View>
-
-        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </View>
@@ -478,7 +422,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
-    paddingBottom: 100,
+    marginBottom: 40,
   },
   pillar: {
     display: 'flex',
@@ -502,7 +446,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   top: {
-    height: 200,
+    marginBottom: 10,
     marginTop: 60,
     justifyContent: 'center',
     marginLeft: 5,
@@ -537,7 +481,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_MEDIUM,
     fontWeight: '700',
     color: 'white',
-    fontSize: 10,
+    fontSize: 8,
     lineHeight: 12,
   },
   middle: {
@@ -545,13 +489,13 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   middleWrapper: {
-    height: 144,
+    height: 150,
     width: 256,
     marginLeft: 15,
     marginTop: 20,
     marginBottom: 10,
     borderRadius: 16,
-    overflow: 'hidden',
+    overflow: Platform.OS === 'ios' ? 'visible' : 'hidden',
     backgroundColor: 'white',
     marginRight: 5,
     // borderWidth: 0.3,
@@ -611,15 +555,18 @@ const styles = StyleSheet.create({
     marginTop: 15,
     justifyContent: 'center',
     borderRadius: 20,
-    marginBottom: 20,
+    marginBottom: 30,
+    paddingBottom: 5,
   },
   ContentWrapper: {
-    width: contentContainerWidth,
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: (Dimensions.get('window').width - 50) / 2,
     marginTop: 20,
-    marginBottom: 10,
-    marginLeft: 15,
-    borderRadius: 20,
-    overflow: 'hidden',
+    marginLeft: 5,
+    marginRight: 5,
+    paddingBottom: 5,
   },
   shadowProp: {
     shadowColor: '#000',
@@ -665,7 +612,7 @@ const styles = StyleSheet.create({
   criticalW: {
     backgroundColor: 'white',
     width: 64,
-    height: 66,
+    height: 68,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

@@ -59,7 +59,7 @@ const Player = props => {
                     borderRadius: 20,
                     overflow: 'hidden',
                   }}>
-                  <YoutubePlayer videoId={videoLink[0]} />
+                  <YoutubePlayer videoId={videoLink} />
                 </View>
               </View>
 

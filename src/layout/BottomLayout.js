@@ -104,11 +104,15 @@ const BottomLayout = ({focused, navigation}) => {
 const styles = StyleSheet.create({
   NavContainer: {
     position: 'absolute',
-    bottom: 0,
-    width: '100%',
-	backgroundColor:'#0C336C',
+    bottom: 5,
+    // backgroundColor: '#0C336C',
+	backgroundColor:'rgba(12,51,108,0.90)',
     height: 60,
     alignContent: 'center',
+    left: 10,
+    right: 10,
+    borderRadius: 15,
+    opacity: 1.2,
   },
   shadow: {
     shadowColor: 'rgba(200, 200, 200, 0.33)',
@@ -124,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingHorizontal: 5,
     justifyContent: 'space-around',
     borderRadius: 40,
   },

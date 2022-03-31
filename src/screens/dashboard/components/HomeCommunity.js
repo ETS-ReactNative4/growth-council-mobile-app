@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -55,7 +56,9 @@ const HomeCommunity = props => {
 
   const isFocused = useIsFocused();
 
-  const [memberConnection, setMemberConnection] = useState(pillarMemberContents.members);
+  const [memberConnection, setMemberConnection] = useState(
+    pillarMemberContents.members,
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -236,76 +239,72 @@ const HomeCommunity = props => {
 
   return (
     <View style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          <View style={styles.top}>
-            <Text style={styles.title}>Growth Community Events</Text>
+         
+            <View style={styles.top}>
+              <Text style={styles.title}>Growth Community Events</Text>
 
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarEvents}
-                renderItem={item => _renderTopItem(item, navigation)}
-              />
-            </View>
-          </View>
-
-          <View style={styles.middle}>
-            <Text style={styles.title}>Points of Engagement</Text>
-            {pillarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarEvents}
+                  renderItem={item => _renderTopItem(item, navigation)}
+                />
               </View>
-            )}
-            <FlatList
-              contentContainerStyle={{
-                flex: 1,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-              }}
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              // renderItem={_renderMiddleItem}
-              renderItem={item => _renderMiddleItem(item, navigation)}
-            />
-          </View>
+            </View>
+          
 
-          <View style={styles.bottom}>
-            <Text style={styles.title}>Growth Community Members</Text>
-            <View>
+          {pillarEventLoading && (
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
+          )}
+          {pillarPOEs?.length !== 0 && (
+            <View style={styles.middle}>
+              <Text style={styles.title}>Points of Engagement</Text>
+
               <FlatList
-                horizontal
+                contentContainerStyle={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}
                 showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents.members}
-                renderItem={_renderItem}
+                data={pillarPOEs}
+                // renderItem={_renderMiddleItem}
+                renderItem={item => _renderMiddleItem(item, navigation)}
               />
             </View>
-          </View>
-
-          {/* <View style={styles.content}>
-            <Text style={styles.title}>Growth Community Content</Text>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents?.pillar_contents}
-                renderItem={_renderContentItem}
-              />
+          )}
+          {pillarMemberContents?.members?.length !== 0 && (
+            <View style={styles.bottom}>
+              <Text style={styles.title}>Growth Community Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents.members}
+                  renderItem={_renderItem}
+                />
+              </View>
             </View>
-          </View> */}
+          )}
 
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
@@ -318,6 +317,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+    marginBottom: 60,
   },
   top: {
     marginTop: 25,

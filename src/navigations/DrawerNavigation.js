@@ -35,7 +35,6 @@ import SubHeader from '../shared/header/SubHeader';
 import {DashboardStackScreen} from './MainNavigation';
 
 import {fetchProfileByID} from '../screens/account/slice/profileSlice';
-import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
 
 const Drawer = createDrawerNavigator();
 
@@ -70,22 +69,22 @@ const CustomDrawerContent = props => {
     <SafeAreaView style={{flex: 1}}>
       <View
         style={{
-          flexDirection: 'row',
           paddingHorizontal: 10,
           justifyContent: 'space-between',
         }}>
-        {/* <Image
-                    source={require('../../src/assets/img/GILCouncil.jpg')}
-                    style={{
-                        width: "70%"
-                    }}
-                    resizeMode="contain"
-                /> */}
         <TouchableOpacity onPress={toggleDrawer}>
           <Ionicons name="close-outline" color={'#000'} size={35} />
         </TouchableOpacity>
+        <Image
+          source={require('../../src/assets/img/GILCouncil.jpg')}
+          style={{
+            width: '80%',
+            marginLeft: 20,
+          }}
+          resizeMode="contain"
+        />
       </View>
-      <View
+      {/* <View
         style={{
           flexDirection: 'row',
           margin: 10,
@@ -110,7 +109,7 @@ const CustomDrawerContent = props => {
           }}>
           {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
         </Text>
-      </View>
+      </View> */}
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
 
@@ -121,6 +120,14 @@ const CustomDrawerContent = props => {
         />
 
         <View style={styles.footer}>
+          <Image
+            source={require('../../src/assets/img/frost-sullivan.png')}
+            style={{
+              width: '70%',
+              height: 50,
+            }}
+            resizeMode="contain"
+          />
           <Text style={styles.footerText}>Powered By</Text>
 
           <Image
@@ -174,7 +181,7 @@ const DrawerNavigation = () => {
         component={BestPracticeScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Feature name="thumbs-up" color={'#3693AC'} size={24} />
+            <Feature name="thumbs-up" color={'#f26722'} size={24} />
           ),
           header: () => (
             <SubHeader
@@ -190,7 +197,11 @@ const DrawerNavigation = () => {
         component={GrowthCoachingScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Feature name="git-pull-request" color={'#80BA74'} size={24} />
+            <Image
+              source={require('../../src/assets/img/GrowthCoaching-01.png')}
+              style={{width: 30, height: 40, marginTop: 10}}
+              resizeMode="cover"
+            />
           ),
           header: () => (
             <SubHeader
@@ -206,7 +217,7 @@ const DrawerNavigation = () => {
         component={ContentScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Material name="content-copy" color={'#00008B'} size={24}/>
+            <Material name="content-copy" color={'#00008B'} size={24} />
           ),
           header: () => (
             <SubHeader
@@ -270,22 +281,6 @@ const DrawerNavigation = () => {
         })}
       />
       <Drawer.Screen
-        name="Feedback"
-        component={FeedbackScreen}
-        options={({navigation}) => ({
-          drawerIcon: ({focused, size}) => (
-            <Font name="edit" color={'#00008B'} size={20} />
-          ),
-          header: () => (
-            <SubHeader
-              title="Feedback"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <Drawer.Screen
         name="Contribute Ideas"
         component={ContributeIdeasScreen}
         options={({navigation}) => ({
@@ -319,9 +314,9 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10,
   },
   footerText: {
-    margin: 3,
     fontSize: 8,
   },
 });

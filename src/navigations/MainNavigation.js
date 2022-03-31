@@ -22,6 +22,8 @@ import JourneyScreen from '../screens/auth/Journey';
 import ContactUsScreen from '../screens/static/ContactUs';
 import ContentLibraryScreen from '../screens/contentLibrary/contentLibrary';
 import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
+import ContentTagsScreen from '../screens/contentLibrary/contentTags';
+import CriticalIssueScreen from '../screens/criticalIssue/index';
 import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
 
 import ChangePasswordScreen from '../screens/account/ChangePassword';
@@ -38,6 +40,7 @@ import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import SubPOEDetailScreen from '../screens/details/subPoeDetails';
 import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
@@ -52,6 +55,7 @@ import AccountScreen from '../screens/account';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
 import SubHeader from '../shared/header/SubHeader';
+import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
 
 const Stack = createStackNavigator();
@@ -64,7 +68,13 @@ export const DashboardStackScreen = () => {
       screenOptions={({navigation}) => ({
         header: () => <MainHeader navigation={navigation} />,
       })}>
-      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={({route, navigation}) => ({
+          animationEnabled: false,
+        })}
+      />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen
         name="People"
@@ -88,6 +98,65 @@ export const DashboardStackScreen = () => {
               title="Profile"
               image={require('../assets/img/appBG.png')}
               navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <DashboardStack.Screen
+        name="ContentDetail"
+        component={ContentLibraryScreen}
+        options={({route, navigation}) => ({
+          resourceId: route?.params?.resourceId,
+          header: () => (
+            <SubHeader
+              title="Content Library"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <DashboardStack.Screen
+        name="LibraryDetail"
+        component={LibraryDetailScreen}
+        options={({route, navigation}) => ({
+          resourceId: route?.params?.resourceId,
+          header: () => (
+            <SubHeader
+              title="Content Library"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <DashboardStack.Screen
+        name="ContentTags"
+        component={ContentTagsScreen}
+        options={({route, navigation}) => ({
+          id: route?.params?.id,
+          animationEnabled: false,
+          header: () => (
+            <SubHeader
+              title="Content Library"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <DashboardStack.Screen
+        name="ContentLibraryDetail"
+        component={ContentLibraryDetailScreen}
+        options={({route}) => ({
+          id: route?.params?.id,
+          animationEnabled: false,
+          header: ({navigation}) => (
+            <SubHeader
+              title="Content Library"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+              noDrawer
             />
           ),
         })}
@@ -215,10 +284,10 @@ const MainNavigation = () => {
         <Stack.Screen
           name="coachingSession"
           component={CoachingSessionDetailScreen}
-          options={() => ({
-            header: ({navigation}) => (
+          options={({route, navigation}) => ({
+            header: () => (
               <SubHeader
-                title="Session"
+                title={route?.params?.title}
                 image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
@@ -272,7 +341,7 @@ const MainNavigation = () => {
           name="pdf"
           component={PDFDetailScreen}
           options={{
-            headerTitle: 'Self Learn',
+            headerTitle: 'PDF',
           }}
         />
         <Stack.Screen
@@ -329,44 +398,14 @@ const MainNavigation = () => {
             ),
           })}
         />
+
         <Stack.Screen
-          name="ContentDetail"
-          component={ContentLibraryScreen}
-          options={({route, navigation}) => ({
-            resourceId: route?.params?.resourceId,
-            header: () => (
+          name="CriticalIssue"
+          component={CriticalIssueScreen}
+          options={() => ({
+            header: ({navigation}) => (
               <SubHeader
-                title="Content Library"
-                image={require('../assets/img/appBG.png')}
-                navigation={navigation}
-                noDrawer
-              />
-            ),
-          })}
-        />
-        <Stack.Screen
-          name="LibraryDetail"
-          component={LibraryDetailScreen}
-          options={({route, navigation}) => ({
-            resourceId: route?.params?.resourceId,
-            header: () => (
-              <SubHeader
-                title="Content Library"
-                image={require('../assets/img/appBG.png')}
-                navigation={navigation}
-                noDrawer
-              />
-            ),
-          })}
-        />
-        <Stack.Screen
-          name="ContentLibraryDetail"
-          component={ContentLibraryDetailScreen}
-          options={({route, navigation}) => ({
-            id: route?.params?.id,
-            header: () => (
-              <SubHeader
-                title="Content Library"
+                title="Critical Issues"
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}
                 noDrawer
@@ -438,40 +477,13 @@ const MainNavigation = () => {
           name="Privacys"
           component={PrivacyScreen}
           options={({navigation}) => ({
-            headerLeft: () => (
-              <View>
-                <View>
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons
-                      name={'arrow-back'}
-                      size={30}
-                      color="white"
-                      style={{marginLeft: 10, top: 5}}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ),
-            headerTitle: () => (
-              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontSize: 22,
-                    marginTop: 10,
-                  }}>
-                  Privacy Policy
-                </Text>
-              </View>
-            ),
-
-            headerBackground: () => (
-              <View>
-                <ImageBackground
-                  source={require('../../src/assets/img/appBG.png')}
-                  style={{width: '100%', height: 60}}
-                />
-              </View>
+            header: () => (
+              <OptionHeader
+                title="Privacy Policy"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
             ),
           })}
         />
@@ -479,40 +491,13 @@ const MainNavigation = () => {
           name="Terms"
           component={Terms}
           options={({navigation}) => ({
-            headerLeft: () => (
-              <View>
-                <View>
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons
-                      name={'arrow-back'}
-                      size={30}
-                      color="white"
-                      style={{marginLeft: 10, top: 5}}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ),
-            headerTitle: () => (
-              <View style={{marginLeft: Platform.OS === 'ios' ? 10 : 35}}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontSize: 22,
-                    marginTop: 10,
-                  }}>
-                  Terms of Use
-                </Text>
-              </View>
-            ),
-
-            headerBackground: () => (
-              <View>
-                <ImageBackground
-                  source={require('../../src/assets/img/appBG.png')}
-                  style={{width: '100%', height: 60}}
-                />
-              </View>
+            header: () => (
+              <OptionHeader
+                title="Terms Of Use"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
             ),
           })}
         />
@@ -522,6 +507,16 @@ const MainNavigation = () => {
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
+          options={({route}) => ({
+            poeId: route.params.poeId,
+            pillarId: route.params.pillarId,
+            headerShown: false,
+          })}
+        />
+
+        <Stack.Screen
+          name="SubPoe"
+          component={SubPOEDetailScreen}
           options={({route}) => ({
             poeId: route.params.poeId,
             pillarId: route.params.pillarId,

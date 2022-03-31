@@ -8,6 +8,7 @@ import {
   Modal,
   ScrollView,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
@@ -37,7 +38,7 @@ const EventCalendar = props => {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
-//   const [markedDay, setMarkedDay] = useState([]);
+  //   const [markedDay, setMarkedDay] = useState([]);
 
   useEffect(() => {
     const fetchCalendarEventAsync = async () => {
@@ -47,80 +48,18 @@ const EventCalendar = props => {
         all_events: showAllEvents,
       })
         .then(response => {
-          console.log(response);
           if (response?.payload?.code === 200) {
             setCurrentEvents(response?.payload?.data);
           } else {
-            // setMarkedDay([]);
             setCurrentEvents([]);
           }
         })
         .catch(e => {
-        //   setMarkedDay([]);
           setCurrentEvents([]);
         });
     };
     fetchCalendarEventAsync();
   }, []);
-
-//   useEffect(() => {
-//     let monthDays = [];
-//     currentEvents?.map(item => {
-//       const startDate = moment(item.event_start).format('YYYY-MM-DD');
-//       const endDate = moment(item.event_end).format('YYYY-MM-DD');
-
-//       let backgroundColor = '';
-//       const pillarCategory = item?.pillar_categories
-//         ? item?.pillar_categories[0]?.parent ||
-//           item?.pillar_categories[1]?.parent
-//         : '';
-//       switch (pillarCategory) {
-//         case 0:
-//         case 117:
-//           backgroundColor = Colors.COMMUNITY_COLOR;
-//           break;
-//         case 0:
-//         case 118:
-//           backgroundColor = Colors.PRACTICE_COLOR;
-//           break;
-//         default:
-//           backgroundColor = Colors.COACHING_COLOR;
-//       }
-
-//       if (moment(startDate).isSame(endDate)) {
-//         monthDays[startDate] = {
-//           color: backgroundColor,
-//           textColor: 'white',
-//         };
-//       } else {
-//         const dates = getDates(
-//           new Date(moment(startDate).format('YYYY-MM-DD')),
-//           new Date(moment(endDate).format('YYYY-MM-DD')),
-//         );
-//         dates.map((item, index) => {
-//           if (index === 0) {
-//             monthDays[moment(item).format('YYYY-MM-DD')] = {
-//               startingDay: true,
-//               color: backgroundColor,
-//               textColor: 'white',
-//             };
-//           } else if (dates?.length - 1 === index) {
-//             monthDays[moment(item).format('YYYY-MM-DD')] = {
-//               endingDay: true,
-//               color: backgroundColor,
-//               textColor: 'white',
-//             };
-//           } else {
-//             monthDays[moment(item).format('YYYY-MM-DD')] = {
-//               color: backgroundColor,
-//               textColor: 'white',
-//             };
-//           }
-//         });
-//       }
-//       setMarkedDay(monthDays);
-//     });
-//   }, [currentEvents]);
 
   const getDates = (startDate, endDate) => {
     const dates = [];
@@ -192,7 +131,6 @@ const EventCalendar = props => {
     }
   });
 
-
   const renderItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('D MMMM ');
     const eventStart = moment(item.event_start).format('D MMMM -');
@@ -244,9 +182,9 @@ const EventCalendar = props => {
         borderColor = Colors.COACHING_COLOR;
     }
 
-    let nav = 'SessionDetail';
+    let nav = 'coachingSession';
     if (item?.pillar_categories[0]?.slug === 'growth-leadership-coaching') {
-      nav = 'SessionDetail';
+      nav = 'coachingSession';
     } else {
       nav = 'EventDetail';
     }
@@ -259,8 +197,8 @@ const EventCalendar = props => {
             <Text
               style={{
                 marginTop: 30,
-                marginLeft: 10,
-                marginRight: 10,
+                marginLeft: 5,
+                marginRight: 5,
                 fontSize: 12,
                 color: '#030303',
               }}>
@@ -303,6 +241,12 @@ const EventCalendar = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
           <View style={styles.iconWrapper}>
@@ -343,7 +287,7 @@ const EventCalendar = props => {
                     if (response?.payload?.code === 200) {
                       setCurrentEvents(response?.payload?.data);
                     } else {
-                    //   setMarkedDay([]);
+                      //   setMarkedDay([]);
                       setCurrentEvents([]);
                     }
                   })
@@ -368,7 +312,7 @@ const EventCalendar = props => {
             )}
             {!calendarEventLoading && (
               <FlatList
-                horizontal={false}
+                vertical
                 showsVerticalScrollIndicator={true}
                 data={currentEvents}
                 renderItem={renderItem}
@@ -426,7 +370,7 @@ const EventCalendar = props => {
                         .catch(e => {
                           //   ToastMessage.show(e?.response?.payload?.response);
                           console.log(e);
-                        //   setMarkedDay([]);
+                          //   setMarkedDay([]);
                           setCurrentEvents([]);
                         });
                     }}>
@@ -438,7 +382,6 @@ const EventCalendar = props => {
             </View>
           </Modal>
         </View>
-        <Footer />
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
@@ -449,6 +392,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    marginBottom: 20,
   },
   yearTab: {
     width: '90%',
@@ -494,8 +438,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   events: {
-    padding: 20,
+    padding: 12,
     borderWidth: 0.1,
+    paddingBottom: 50,
   },
   eventCard: {
     // height: 82,
