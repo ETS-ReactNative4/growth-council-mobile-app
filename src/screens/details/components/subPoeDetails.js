@@ -298,11 +298,11 @@ const SubPOEDetails = props => {
             <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </TouchableOpacity>
     );
@@ -427,7 +427,7 @@ const SubPOEDetails = props => {
                   <View style={styles.sectionContainer}>
                     <Text style={styles.title}>
                       {' '}
-                      Content Library Attachments:
+                      Content Library Attachments
                     </Text>
                     <FlatList
                       vertical

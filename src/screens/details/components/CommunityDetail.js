@@ -330,11 +330,11 @@ const CommunityDetail = props => {
             <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </TouchableOpacity>
     );
@@ -453,7 +453,7 @@ const CommunityDetail = props => {
                   <View style={styles.sectionContainer}>
                     <Text style={styles.title}>
                       {' '}
-                      Content Library Attachments:
+                      Content Library Attachments
                     </Text>
                     <FlatList
                       vertical
@@ -478,24 +478,24 @@ const CommunityDetail = props => {
               )} */}
 
               {poeDetails?.pillar_contents?.length !== 0 &&
-			  poeDetails?.pillar_contents !== false && 
-			  poeDetails?.pillar_contents !== null &&  (
-                <View style={styles.growthContent}>
-                  <Text style={styles.title}> Content Library</Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.pillar_contents}
-                      renderItem={_renderContentItem}
-                    />
+                poeDetails?.pillar_contents !== false &&
+                poeDetails?.pillar_contents !== null && (
+                  <View style={styles.growthContent}>
+                    <Text style={styles.title}> Content Library</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents?.pillar_contents}
+                        renderItem={_renderContentItem}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
 
               {/* <Footer /> */}
             </View>
@@ -676,7 +676,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width:contentContainerWidth,
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

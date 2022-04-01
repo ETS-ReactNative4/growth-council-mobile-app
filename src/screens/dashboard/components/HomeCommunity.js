@@ -307,11 +307,11 @@ const HomeCommunity = props => {
             <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </TouchableOpacity>
     );
@@ -370,7 +370,7 @@ const HomeCommunity = props => {
           {pillarMemberContents?.attachments?.length !== 0 &&
             pillarMemberContents?.attachments !== null && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments:</Text>
+                <Text style={styles.title}> Content Library Attachments</Text>
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
