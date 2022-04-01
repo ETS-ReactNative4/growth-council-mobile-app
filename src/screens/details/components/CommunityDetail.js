@@ -22,6 +22,9 @@ import HTMLView from 'react-native-htmlview';
 import Player from '../../dashboard/components/Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
+
 const CommunityDetail = props => {
   const {
     navigation,
@@ -673,7 +676,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width:contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

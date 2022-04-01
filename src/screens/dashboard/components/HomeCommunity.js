@@ -352,9 +352,7 @@ const HomeCommunity = props => {
           )}
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
-              <Text style={styles.title}>
-                Points of Engagement
-              </Text>
+              <Text style={styles.title}>Points of Engagement</Text>
 
               <FlatList
                 contentContainerStyle={{
@@ -533,7 +531,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,
