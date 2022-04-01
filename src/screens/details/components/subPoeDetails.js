@@ -336,7 +336,7 @@ const SubPOEDetails = props => {
             style={{height: 240, width: '100%'}}>
             <TouchableOpacity
               onPress={() =>
-                navigation.goBack({
+                navigation.navigate('Best Practices', {
                   poeId: route.params.id,
                   pillarId: route?.params?.pillarId,
                 })
@@ -419,38 +419,40 @@ const SubPOEDetails = props => {
                 </View>
               )} */}
 
-              {pillarMemberContents?.attachments?.length !== 0 &&
-                pillarMemberContents?.attachments !== false && (
+              {poeDetails?.attachments?.length !== 0 &&
+                poeDetails?.attachments !== null && (
                   <View style={styles.sectionContainer}>
                     <Text style={styles.title}>
                       {' '}
                       Content Library Attachments:
                     </Text>
                     <FlatList
-                      horizontal
+                      vertical
                       showsHorizontalScrollIndicator={false}
                       data={pillarMemberContents?.attachments}
                       renderItem={_renderContent}
                     />
                   </View>
                 )}
-              {pillarMemberContents?.pillar_contents?.length !== 0 && (
-                <View style={styles.growthContent}>
-                  <Text style={styles.title}> Content Library</Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.pillar_contents}
-                      renderItem={_renderContentItem}
-                    />
+              {poeDetails?.pillar_contents?.length !== 0 &&
+                poeDetails?.pillar_contents !== null &&
+                poeDetails?.pillar_contents !== false && (
+                  <View style={styles.growthContent}>
+                    <Text style={styles.title}> Content Library</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents?.pillar_contents}
+                        renderItem={_renderContentItem}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
 
               {/* <Footer /> */}
             </View>
@@ -631,7 +633,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: 320,
+    width: '90%',
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

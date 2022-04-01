@@ -445,17 +445,17 @@ const CommunityDetail = props => {
                 </View>
               )}
               {poeDetails?.parent === 118 &&
-                pillarMemberContents?.attachments?.length !== 0 &&
-                pillarMemberContents?.attachments !== false && (
+                poeDetails?.attachments?.length !== 0 &&
+                poeDetails?.attachments !== null && (
                   <View style={styles.sectionContainer}>
                     <Text style={styles.title}>
                       {' '}
                       Content Library Attachments:
                     </Text>
                     <FlatList
-                      horizontal
+                      vertical
                       showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.attachments}
+                      data={poeDetails?.attachments}
                       renderItem={_renderContent}
                     />
                   </View>
@@ -474,7 +474,9 @@ const CommunityDetail = props => {
                 </View>
               )} */}
 
-              {pillarMemberContents?.pillar_contents?.length !== 0 && (
+              {poeDetails?.pillar_contents?.length !== 0 &&
+			  poeDetails?.pillar_contents !== false && 
+			  poeDetails?.pillar_contents !== null &&  (
                 <View style={styles.growthContent}>
                   <Text style={styles.title}> Content Library</Text>
                   <View
@@ -671,7 +673,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: 320,
+    width: '90%',
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

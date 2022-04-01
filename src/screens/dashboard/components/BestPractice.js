@@ -192,12 +192,22 @@ const BestPractice = props => {
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('CommunityDetail', {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-          })
-        }>
+        onPress={() => {
+          if (
+            item.slug === 'annual-ceo-survey' ||
+            item.slug === 'innovation-generator'
+          ) {
+            navigation.navigate('', {
+              poeId: item?.term_id,
+              pillarId: item?.parent,
+            });
+          } else {
+            navigation.navigate('CommunityDetail', {
+              poeId: item?.term_id,
+              pillarId: item?.parent,
+            });
+          }
+        }}>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
@@ -336,7 +346,9 @@ const BestPractice = props => {
           )} */}
 
           <View style={styles.middle}>
-            <Text style={styles.title}>Points of Engagement</Text>
+            <Text style={[styles.title, {marginLeft: 15}]}>
+              Points of Engagement
+            </Text>
             {pillarPOELoading && (
               <View style={styles.loading1}>
                 <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -356,7 +368,7 @@ const BestPractice = props => {
               <View style={styles.sectionContainer}>
                 <Text style={styles.title}> Content Library Attachments:</Text>
                 <FlatList
-                  horizontal
+                  vertical
                   showsHorizontalScrollIndicator={false}
                   data={pillarMemberContents?.attachments}
                   renderItem={_renderContent}
@@ -402,7 +414,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_BOLD,
     fontSize: 14,
     color: Colors.PRIMARY_TEXT_COLOR,
-    marginLeft: 15,
+    marginLeft: 10,
     fontWeight: '700',
   },
 
@@ -519,7 +531,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: 320,
+    width: '90%',
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

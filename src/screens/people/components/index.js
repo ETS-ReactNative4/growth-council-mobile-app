@@ -440,16 +440,18 @@ const People = props => {
                 borderWidth: 0.3,
                 paddingVertical: 10,
                 borderColor: 'gray',
-                height: 60,
+                height: 50,
                 borderBottomLeftRadius: 10,
                 borderTopLeftRadius: 10,
+				borderBottomRightRadius: 10,
+                borderTopRightRadius: 10,
                 justifyContent: 'center',
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {category ? category : 'Expertise Areas'}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setAccountVisible(true)}
               style={{
                 flex: 1,
@@ -463,8 +465,8 @@ const People = props => {
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {account ? account : 'Account Type'}
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+            </TouchableOpacity> */}
+            {/* <TouchableOpacity
               onPress={() => setRegionVisible(true)}
               style={{
                 flex: 1,
@@ -480,7 +482,7 @@ const People = props => {
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {region ? region : 'Region'}
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
 
