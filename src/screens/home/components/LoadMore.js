@@ -56,7 +56,8 @@ const CouncilAllDetail = props => {
     // console.log(date[1]);
 
     let backgroundColor = '';
-    const pillarCategory = item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent 
+    const pillarCategory =
+      item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent;
     switch (pillarCategory) {
       case 0:
       case 117:
@@ -107,9 +108,10 @@ const CouncilAllDetail = props => {
               <Image
                 source={{uri: item.image}}
                 style={{
-                  width: 30,
-                  height: 30,
+                  width: 32,
+                  height: 35,
                 }}
+				resizeMode="center"
               />
             </View>
             <View style={styles.eventDetails}>
@@ -247,8 +249,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   poeTheme: {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

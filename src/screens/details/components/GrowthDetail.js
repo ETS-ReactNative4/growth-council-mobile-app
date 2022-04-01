@@ -195,14 +195,14 @@ const GrowthDetail = props => {
           }>
           <View style={styles.middleWrapper}>
             <View>
-              <Text style={{fontWeight: '500', fontSize: 13, margin: 10}}>
+              <Text style={{fontWeight: '500', fontSize: 14, margin: 10}}>
                 {item?.title}
               </Text>
-              <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
+              {/* <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
                 {item?.organizer?.term_name} {item?.organizer?.description}
-              </Text>
+              </Text> */}
             </View>
-            <View
+            {/* <View
               style={{
                 width: 40,
                 height: 50,
@@ -216,7 +216,7 @@ const GrowthDetail = props => {
               }}>
               <Text>{date[1]}</Text>
               <Text>{date[0]}</Text>
-            </View>
+            </View> */}
           </View>
         </TouchableOpacity>
       </View>
@@ -527,7 +527,7 @@ const styles = StyleSheet.create({
   },
   middleWrapper: {
     height: 68,
-    width: 200,
+    width: 180,
     display: 'flex',
     flexDirection: 'row',
     marginTop: 15,
