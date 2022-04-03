@@ -11,6 +11,7 @@ import {
   Dimensions,
   StatusBar,
   SafeAreaView,
+  Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -89,7 +90,7 @@ const BestPractice = props => {
       };
     }, [isFocused]),
   );
-  console.log('abcd', pillarMemberContents?.attachments);
+
 
   useEffect(() => {
     setMemberConnection(pillarMemberContents?.members);
@@ -300,15 +301,15 @@ const BestPractice = props => {
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
-            <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
+            <FontAwesomeIcon name="file-pdf-o" size={30} color="#9B9CA0" />
             <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          <TouchableOpacity
+          {/* <Pressable
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity>
+          </Pressable> */}
         </View>
       </TouchableOpacity>
     );
@@ -366,7 +367,7 @@ const BestPractice = props => {
           {pillarMemberContents?.attachments?.length !== 0 &&
             pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments:</Text>
+                <Text style={styles.title}> Content Library Attachments </Text>
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
@@ -531,7 +532,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

@@ -23,6 +23,9 @@ import Player from '../../dashboard/components/Player';
 import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
+
 const SubPOEDetails = props => {
   const {
     navigation,
@@ -295,11 +298,11 @@ const SubPOEDetails = props => {
             <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </TouchableOpacity>
     );
@@ -424,7 +427,7 @@ const SubPOEDetails = props => {
                   <View style={styles.sectionContainer}>
                     <Text style={styles.title}>
                       {' '}
-                      Content Library Attachments:
+                      Content Library Attachments
                     </Text>
                     <FlatList
                       vertical
@@ -633,7 +636,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

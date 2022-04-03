@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   StyleSheet,
   View,
@@ -19,6 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
+import {useIsFocused, useFocusEffect} from '@react-navigation/native';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {Dialog} from 'react-native-paper';
@@ -53,29 +54,32 @@ const People = props => {
   } = props;
 
   const toast = useToast();
-  const [category, setCategory] = useState();
+  const isFocused = useIsFocused();
+  const [category, setCategory] = useState([]);
   const [account, setAccount] = useState();
   const [region, setRegion] = useState();
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
 
-  useEffect(() => {
-    const fetchAllUsersAsync = async () => {
-      await fetchAllUsers({
-        s: searchKey,
-        sort: sorting,
-        expertise_areas: category,
-        category: account,
-        country: region,
-      });
-    };
-    fetchAllUsersAsync();
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllUsersAsync = async () => {
+        await fetchAllUsers({
+          s: searchKey,
+          sort: sorting,
+          expertise_areas: category,
+          category: account,
+          country: region,
+        });
+      };
+      fetchAllUsersAsync();
 
-    return () => {
-      cleanUser();
-    };
-  }, []);
+      return () => {
+        cleanUser();
+      };
+    }, [isFocused]),
+  );
 
   useEffect(() => {
     setMemberConnection(users);
@@ -86,7 +90,7 @@ const People = props => {
       await fetchAllExpertises();
     };
     fetchAllExpertisesAsync();
-  }, []);
+  }, [isFocused]);
 
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
@@ -443,7 +447,7 @@ const People = props => {
                 height: 50,
                 borderBottomLeftRadius: 10,
                 borderTopLeftRadius: 10,
-				borderBottomRightRadius: 10,
+                borderBottomRightRadius: 10,
                 borderTopRightRadius: 10,
                 justifyContent: 'center',
               }}>
@@ -557,9 +561,9 @@ const People = props => {
                 selectedValue={category}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={async (itemValue, itemIndex) => {
+                onValueChange={itemValue => {
                   setCategory(itemValue);
-                  await fetchAllUsers({
+                  fetchAllUsers({
                     s: searchKey,
                     sort: 'ASC',
                     expertise_areas: category,
@@ -613,7 +617,7 @@ const People = props => {
                 selectedValue={account}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={async (itemValue, itemIndex) => {
+                onValueChange={async itemValue => {
                   setAccount(itemValue);
                   await fetchAllUsers({
                     s: searchKey,

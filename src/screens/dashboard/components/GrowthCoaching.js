@@ -320,11 +320,11 @@ const GrowthCoaching = props => {
             <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </TouchableOpacity>
     );
@@ -395,7 +395,7 @@ const GrowthCoaching = props => {
           {pillarMemberContents?.attachments?.length !== 0 &&
             pillarMemberContents?.attachments !== null && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments:</Text>
+                <Text style={styles.title}> Content Library Attachments</Text>
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
@@ -558,7 +558,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,
