@@ -27,14 +27,15 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const Radar = props => {
   const {
     route,
-    navigation,   
+    navigation
   } = props;
 
   const [modalVisible, setModalVisible] = useState(false);
-
   const webviewRef = React.useRef(null);
-
   const [userId, setUserId] = useState(0);
+
+
+
 
   useEffect(async () => {
     let token =  await getAsyncStorage(JWT_TOKEN);
@@ -103,37 +104,129 @@ const Radar = props => {
             <View>
               <View style={{flexDirection : 'row', flex: 1}}>
                 <View style={{flex: 2}} >
-                  <Text style={{fontSize: 12}}>Name</Text>
+                  <Text style={styles.name}>Name</Text>
                 </View>
                 <View style={{flex: 2}}>
-                  <Text style={{fontSize: 12}}>Growth Index</Text>
+                  <Text style={styles.name}>Growth Index</Text>
                 </View>  
                 <View style={{flex: 2}}>
-                  <Text style={{fontSize: 12}}>Innovation Index</Text>
+                  <Text style={styles.name}>Innovation Index</Text>
                 </View>
               </View>
+
+              <View style={{flexDirection : 'row', flex: 1}}>
+                <View style={{flex: 2}} >
+                  <Text style={styles.name}>Member</Text>
+                </View>
+                <View style={{flex: 2}}>
+                <TextInput style={styles.input} />
+                </View>  
+                <View style={{flex: 2}}>
+                <TextInput style={styles.input} />
+                </View>
+              </View>             
              
               <View style={styles.seperationline} />
 
-              <View style={{flexDirection : 'row', flex: 1}}>
-                
-                <View style={{flex: 2}} >
-                  <Text>Elon Musk</Text>
+              <View>
+                <View style={styles.descriptionBtn}>
+                  <View style={{flex: 2}} >
+                    <Text  style={styles.name}>Elon Musk</Text>
+                  </View>
+                  <View style={{flex: 4}}>
+                    <Pressable
+                      style={[styles.button, styles.buttonOpen]}
+                      onPress={() => setModalVisible(true)}
+                    >
+                      <Text style={styles.textStyle}>View Description</Text>
+                    </Pressable>                 
+                  </View> 
                 </View>
-                <View style={{flex: 4}}>
-                <Button title='View Description'
-                      style={[styles.button, {marginLeft: 15}]}
-                     >                    
-                    </Button>
-                </View> 
-                
-              </View>
-             
-            </View>
-           
-          
-               
-               
+                <View style={styles.descriptionBtn}>
+                  <View style={{flex: 2}} >
+                    <Text  style={styles.name}>Elon Musk</Text>
+                  </View>
+                  <View style={{flex: 4}}>
+                    <Pressable
+                      style={[styles.button, styles.buttonOpen]}
+                      onPress={() => setModalVisible(true)}
+                    >
+                      <Text style={styles.textStyle}>View Description</Text>
+                    </Pressable>                 
+                  </View> 
+                </View>   
+
+                <View style={styles.descriptionBtn}>
+                  <View style={{flex: 2}} >
+                    <Text  style={styles.name}>Elon Musk</Text>
+                  </View>
+                  <View style={{flex: 4}}>
+                    <Pressable
+                      style={[styles.button, styles.buttonOpen]}
+                      onPress={() => setModalVisible(true)}
+                    >
+                      <Text style={styles.textStyle}>View Description</Text>
+                    </Pressable>                 
+                  </View> 
+                </View>   
+
+                <View style={styles.descriptionBtn}>
+                  <View style={{flex: 2}} >
+                    <Text  style={styles.name}>Elon Musk</Text>
+                  </View>
+                  <View style={{flex: 4}}>
+                    <Pressable
+                      style={[styles.button, styles.buttonOpen]}
+                      onPress={() => setModalVisible(true)}
+                    >
+                      <Text style={styles.textStyle}>View Description</Text>
+                    </Pressable>                 
+                  </View> 
+                </View>   
+
+                <View style={styles.descriptionBtn}>
+                  <View style={{flex: 2}} >
+                    <Text  style={styles.name}>Elon Musk</Text>
+                  </View>
+                  <View style={{flex: 4}}>
+                    <Pressable
+                      style={[styles.button, styles.buttonOpen]}
+                      onPress={() => setModalVisible(true)}
+                    >
+                      <Text style={styles.textStyle}>View Description</Text>
+                    </Pressable>                 
+                  </View> 
+                </View>   
+
+                <View style={styles.descriptionBtn}>
+                  <View style={{flex: 2}} >
+                    <Text  style={styles.name}>Elon Musk</Text>
+                  </View>
+                  <View style={{flex: 4}}>
+                    <Pressable
+                      style={[styles.button, styles.buttonOpen]}
+                      onPress={() => setModalVisible(true)}
+                    >
+                      <Text style={styles.textStyle}>View Description</Text>
+                    </Pressable>                 
+                  </View> 
+                </View>   
+
+                <View style={styles.descriptionBtn}>
+                  <View style={{flex: 2}} >
+                    <Text  style={styles.name}>Elon Musk</Text>
+                  </View>
+                  <View style={{flex: 4}}>
+                    <Pressable
+                      style={[styles.button, styles.buttonOpen]}
+                      onPress={() => setModalVisible(true)}
+                    >
+                      <Text style={styles.textStyle}>View Description</Text>
+                    </Pressable>                 
+                  </View> 
+                </View>            
+              </View>            
+            </View>         
           </View> 
         </View>
         <View style={styles.centeredView}>
@@ -141,14 +234,13 @@ const Radar = props => {
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+          onRequestClose={() => {           
             setModalVisible(!modalVisible);
           }}
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
+              <Text style={styles.modalText}>Satya Nadella is Indian-born business executive who is CEO of the computer software company Microsoft. He has steered the company away from a failing mobile strategy and focused on other segments, including cloud computing and augmented reality. In 2016 he oversaw the purchase of the professional network LinkedIn for $26.2 billion. </Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -158,12 +250,7 @@ const Radar = props => {
             </View>
           </View>
         </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
+     
     </View>
       </ScrollView>     
     </View>
@@ -185,13 +272,18 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10,
     padding: 20,    
-    backgroundColor: 'blue',  
+    //backgroundColor: 'blue',  
   },
   seperationline: {
     marginTop: 10,
     marginBottom: 10,
     borderBottomColor: '#F6F4F4',
     borderBottomWidth: 1,
+  },
+  descriptionBtn :{
+    flexDirection : 'row',
+    flex: 1,
+    marginBottom: 10,
   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
@@ -200,13 +292,6 @@ const styles = StyleSheet.create({
     padding: 15,
     textAlign: 'left',
     color: '#77838F',
-  },  
-  button: {
-    ...CommonStyles.button,
-    height: 10,
-    marginBottom: 15,
-    borderRadius: 20,
-    width: '100%',
   },
   ContentWrapper: {
     height: 400,
@@ -215,13 +300,19 @@ const styles = StyleSheet.create({
     marginLeft: 15,   
   }, 
   name: {
-    marginTop: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '600',
     height: 30,
     alignItems: 'center',
     fontFamily: Typography.FONT_SF_REGULAR,
     color: 'black',
+  },
+  input: {
+    width: 100,
+    height: 30,
+    borderRadius: 10,
+    borderWidth: 0.5,
+    marginTop: 10,
   },
   centeredView: {
     flex: 1,
@@ -245,9 +336,9 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
+    height: 20,
+    borderRadius: 20,    
+    elevation: 3
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -257,7 +348,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: "white",
-    fontWeight: "bold",
     textAlign: "center"
   },
   modalText: {
