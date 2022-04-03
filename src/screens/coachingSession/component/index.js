@@ -267,6 +267,7 @@ const CoachingSession = props => {
                   </ScrollView>
                 </Modal>
               </View>
+			  
               <View style={styles.centeredView}>
                 <Modal
                   animationType="slide"
