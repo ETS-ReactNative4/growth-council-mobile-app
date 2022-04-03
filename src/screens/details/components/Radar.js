@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ScrollView,
+  Text,
   StyleSheet,
   Dimensions,
   ActivityIndicator,
   View,
+  Button,
+  Alert,
+  TextInput,
+  Image,
+  Modal,
+  Pressable
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import { WebView } from 'react-native-webview';
@@ -12,6 +20,7 @@ import { decodeUserID } from '../../../utils/jwtUtil';
 import { JWT_TOKEN } from '../../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Column } from 'native-base';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -20,6 +29,8 @@ const Radar = props => {
     route,
     navigation,   
   } = props;
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const webviewRef = React.useRef(null);
 
@@ -65,7 +76,8 @@ const Radar = props => {
     //   </View>
     //   <Footer />
     // </ScrollView>
-      <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex : 1}}>
+        
         <View style={styles.arrow}>
           <Ionicons
             name={'arrow-back'}
@@ -74,12 +86,87 @@ const Radar = props => {
             onPress={() => navigation.goBack()}
           />
         </View>
+
+        <View  style={{ height : 400}}>
         <WebView
             source={{ uri: `https://beta.gilcouncil.com/frost-radar?user_id=${userId}` }}
             renderLoading={LoadingIndicatorView}
             startInLoadingState={true}
             ref={webviewRef}
+           
           />
+          </View>
+          <View style={{flex: 1}}>     
+      <ScrollView showsVerticalScrollIndicator={false} >
+        <View style={styles.container}>    
+          <View style= {styles.mainContent}>
+            <View>
+              <View style={{flexDirection : 'row', flex: 1}}>
+                <View style={{flex: 2}} >
+                  <Text style={{fontSize: 12}}>Name</Text>
+                </View>
+                <View style={{flex: 2}}>
+                  <Text style={{fontSize: 12}}>Growth Index</Text>
+                </View>  
+                <View style={{flex: 2}}>
+                  <Text style={{fontSize: 12}}>Innovation Index</Text>
+                </View>
+              </View>
+             
+              <View style={styles.seperationline} />
+
+              <View style={{flexDirection : 'row', flex: 1}}>
+                
+                <View style={{flex: 2}} >
+                  <Text>Elon Musk</Text>
+                </View>
+                <View style={{flex: 4}}>
+                <Button title='View Description'
+                      style={[styles.button, {marginLeft: 15}]}
+                     >                    
+                    </Button>
+                </View> 
+                
+              </View>
+             
+            </View>
+           
+          
+               
+               
+          </View> 
+        </View>
+        <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+      <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.textStyle}>Show Modal</Text>
+      </Pressable>
+    </View>
+      </ScrollView>     
+    </View>
       </SafeAreaView>
   );
 };
@@ -91,26 +178,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  container: {
-    alignItems: 'center',
-    height: 500,
+  container: {   
     width: '100%',
   },
-  title: {
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
-    fontSize: 14,
-    color: Colors.PRIMARY_TEXT_COLOR,
-    marginLeft: 15,
+  mainContent : {
+    margin: 20,
+    borderRadius: 10,
+    padding: 20,    
+    backgroundColor: 'blue',  
   },
-  content: {
-    backgroundColor: 'white',
-    borderRadius: 18,
-    borderTopWidth: 10,
-    width: '100%',
-    borderColor: Colors.COACHING_COLOR,
-  },
-  contentWrapper: {      
+  seperationline: {
     marginTop: 10,
+    marginBottom: 10,
+    borderBottomColor: '#F6F4F4',
+    borderBottomWidth: 1,
   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
@@ -120,43 +201,67 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: '#77838F',
   },  
-  bottom: {
-    marginTop: 25,
+  button: {
+    ...CommonStyles.button,
+    height: 10,
+    marginBottom: 15,
+    borderRadius: 20,
+    width: '100%',
   },
-  bottomWrapper: {
-    width: Dimensions.get('window').width / 4,
-    position: 'relative',
-    borderRadius: 10,
-    marginTop: 15,
-    marginLeft: 15,
-    backgroundColor: 'white',
-    marginBottom: 5,
-  },
-  
- 
-  header: {
-    margin: 10,
-  },
-  headingText1: {
-    ...CommonStyles.headingText1,
-    fontFamily: Typography.FONT_SF_REGULAR,
-    marginTop: 10,
-    fontWeight: '800',
-    color: 'white',
-    fontSize: 12,
-  },
-  headingText2: {
-    ...CommonStyles.headingText2,
-    fontFamily: Typography.FONT_SF_REGULAR,
-    fontWeight: '400',
-    color: 'white',
-    fontSize: 8,
-  },
-
   ContentWrapper: {
     height: 400,
     width: '100%',
     marginTop: 20,
     marginLeft: 15,   
   }, 
+  name: {
+    marginTop: 10,
+    fontSize: 14,
+    fontWeight: '600',
+    height: 30,
+    alignItems: 'center',
+    fontFamily: Typography.FONT_SF_REGULAR,
+    color: 'black',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
 });
