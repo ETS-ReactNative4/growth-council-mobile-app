@@ -187,7 +187,7 @@ const SignInForm = props => {
                 <Text>Join Growth Council</Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
-                  onPress={() => navigation.navigate('Radar')}>
+                  onPress={() => navigation.navigate('SignUp')}>
                   {' '}
                   Sign Up{' '}
                 </Text>

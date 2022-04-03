@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10,
     padding: 20,    
-    //backgroundColor: 'blue',  
+    backgroundColor: 'blue',  
   },
   seperationline: {
     marginTop: 10,
@@ -311,8 +311,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 30,
     borderRadius: 10,
-    borderWidth: 0.5,
-    marginTop: 10,
+    borderWidth: 0.5,   
   },
   centeredView: {
     flex: 1,
