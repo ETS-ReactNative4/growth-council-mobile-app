@@ -22,6 +22,7 @@ import moment from 'moment';
 import ToastMessage from '../../../shared/toast';
 import {padding} from '@mui/system';
 import {TextArea} from 'native-base';
+import SessionCompleted from './sessionCompleted';
 
 const CoachingSession = props => {
   const {
@@ -541,6 +542,7 @@ const CoachingSession = props => {
                   setSelectedId={setSelectedId}
                   scrollRef={scrollRef}
                 />
+                // <SessionCompleted />
               )}
             </View>
           </View>
