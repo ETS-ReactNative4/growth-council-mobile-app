@@ -119,10 +119,10 @@ const Radar = props => {
                   <Text style={styles.name}>Member</Text>
                 </View>
                 <View style={{flex: 2}}>
-                <TextInput style={styles.input} />
+                <TextInput editable={false} textAlign={'center'} style={styles.input}  value='3.5' />
                 </View>  
                 <View style={{flex: 2}}>
-                <TextInput style={styles.input} />
+                <TextInput editable={false}  textAlign={'center'} style={styles.input}  value='4.0' />
                 </View>
               </View>             
              
@@ -308,7 +308,6 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    width: 100,
     height: 30,
     borderRadius: 10,
     borderWidth: 0.5,   
