@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   Text,
@@ -11,36 +11,32 @@ import {
   TextInput,
   Image,
   Modal,
-  Pressable
+  Pressable,
 } from 'react-native';
 import {CommonStyles, Colors, Typography} from '../../../theme';
-import { WebView } from 'react-native-webview';
-import { getAsyncStorage } from '../../../utils/storageUtil';
-import { decodeUserID } from '../../../utils/jwtUtil';
-import { JWT_TOKEN } from '../../../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import FlatTextInput from '../../../shared/form/FlatTextInput';
+import {WebView} from 'react-native-webview';
+import {getAsyncStorage} from '../../../utils/storageUtil';
+import {decodeUserID} from '../../../utils/jwtUtil';
+import {JWT_TOKEN} from '../../../constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Column } from 'native-base';
+import {Column} from 'native-base';
+import {padding} from '@mui/system';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const Radar = props => {
-  const {
-    route,
-    navigation
-  } = props;
+  const {route, navigation, } = props;
 
   const [modalVisible, setModalVisible] = useState(false);
   const webviewRef = React.useRef(null);
   const [userId, setUserId] = useState(0);
 
-
-
-
   useEffect(async () => {
-    let token =  await getAsyncStorage(JWT_TOKEN);
+    let token = await getAsyncStorage(JWT_TOKEN);
     let ID = decodeUserID(token);
-    if(ID){
+    if (ID) {
       setUserId(ID);
     }
   }, []);
@@ -55,14 +51,14 @@ const Radar = props => {
     );
   }
 
-  console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`)
+  console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`);
 
   return (
     // <ScrollView>
-    //   <View style={styles.container}> 
+    //   <View style={styles.container}>
     //     <ScrollView style={styles.content}>
-    //       <View style={styles.contentWrapper}>      
-    //         <Text style={styles.title}> Radar</Text> 
+    //       <View style={styles.contentWrapper}>
+    //         <Text style={styles.title}> Radar</Text>
     //         <WebView
     //             source={{ uri: 'https://beta.gilcouncil.com/frost-radar/' }}
     //             style={{ marginTop: 20 }}
@@ -77,8 +73,8 @@ const Radar = props => {
     //   </View>
     //   <Footer />
     // </ScrollView>
-      <SafeAreaView style={{flex : 1}}>
-        
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.arrow}>
           <Ionicons
             name={'arrow-back'}
@@ -88,173 +84,128 @@ const Radar = props => {
           />
         </View>
 
-        <View  style={{ height : 400}}>
-        <WebView
-            source={{ uri: `https://beta.gilcouncil.com/frost-radar?user_id=${userId}` }}
+        <View style={{height: 400}}>
+          <WebView
+            source={{
+              uri: `https://beta.gilcouncil.com/frost-radar?user_id=${userId}`,
+            }}
             renderLoading={LoadingIndicatorView}
             startInLoadingState={true}
             ref={webviewRef}
-           
           />
-          </View>
-          <View style={{flex: 1}}>     
-      <ScrollView showsVerticalScrollIndicator={false} >
-        <View style={styles.container}>    
-          <View style= {styles.mainContent}>
-            <View>
-              <View style={{flexDirection : 'row', flex: 1}}>
-                <View style={{flex: 2}} >
-                  <Text style={styles.name}>Name</Text>
+        </View>
+        <View style={{flex: 1}}>
+          <View style={styles.container}>
+            <View style={styles.mainContent}>
+              <View>
+                <View style={{flexDirection: 'row', flex: 1}}>
+                  <View style={{flex: 2}}>
+                    <Text style={styles.name}>Name</Text>
+                  </View>
+                  <View style={{flex: 2, marginLeft: 5}}>
+                    <Text style={styles.name}>Growth Index</Text>
+                  </View>
+                  <View style={{flex: 2, marginLeft: 5}}>
+                    <Text style={styles.name}>Innovation Index</Text>
+                  </View>
                 </View>
-                <View style={{flex: 2}}>
-                  <Text style={styles.name}>Growth Index</Text>
-                </View>  
-                <View style={{flex: 2}}>
-                  <Text style={styles.name}>Innovation Index</Text>
+
+                <View
+                  style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
+                  <View style={{flex: 2}}>
+                    <Text style={styles.name}>Member</Text>
+                  </View>
+                  <View style={{flex: 2}}>
+                    <TextInput
+                      editable={false}
+                      textAlign={'center'}
+                      style={styles.input}
+                      value="4.0"
+                    />
+                  </View>
+                  <View style={{flex: 2}}>
+                    <TextInput
+                      editable={false}
+                      textAlign={'center'}
+                      style={styles.input}
+                      value="4.0"
+                    />
+                  </View>
+                </View>
+
+                <View style={styles.seperationline} />
+
+                <View>
+                  <View style={styles.descriptionBtn}>
+                    <View style={{flex: 2}}>
+                      <Text style={styles.name}>Elon Musk</Text>
+                    </View>
+                    <View style={{flex: 4}}>
+                      <Pressable
+                        style={styles.button}
+                        onPress={() => setModalVisible(true)}>
+                        <Text style={styles.textStyle}>View Description</Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                  <View style={styles.descriptionBtn}>
+                    <View style={{flex: 2}}>
+                      <Text style={styles.name}>Elon Musk</Text>
+                    </View>
+                    <View style={{flex: 4}}>
+                      <Pressable
+                        style={styles.button}
+                        onPress={() => setModalVisible(true)}>
+                        <Text style={styles.textStyle}>View Description</Text>
+                      </Pressable>
+                    </View>
+                  </View>
                 </View>
               </View>
-
-              <View style={{flexDirection : 'row', flex: 1}}>
-                <View style={{flex: 2}} >
-                  <Text style={styles.name}>Member</Text>
-                </View>
-                <View style={{flex: 2}}>
-                <TextInput editable={false} textAlign={'center'} style={styles.input}  value='3.5' />
-                </View>  
-                <View style={{flex: 2}}>
-                <TextInput editable={false}  textAlign={'center'} style={styles.input}  value='4.0' />
-                </View>
-              </View>             
-             
-              <View style={styles.seperationline} />
-
-              <View>
-                <View style={styles.descriptionBtn}>
-                  <View style={{flex: 2}} >
-                    <Text  style={styles.name}>Elon Musk</Text>
-                  </View>
-                  <View style={{flex: 4}}>
-                    <Pressable
-                      style={[styles.button, styles.buttonOpen]}
-                      onPress={() => setModalVisible(true)}
-                    >
-                      <Text style={styles.textStyle}>View Description</Text>
-                    </Pressable>                 
-                  </View> 
-                </View>
-                <View style={styles.descriptionBtn}>
-                  <View style={{flex: 2}} >
-                    <Text  style={styles.name}>Elon Musk</Text>
-                  </View>
-                  <View style={{flex: 4}}>
-                    <Pressable
-                      style={[styles.button, styles.buttonOpen]}
-                      onPress={() => setModalVisible(true)}
-                    >
-                      <Text style={styles.textStyle}>View Description</Text>
-                    </Pressable>                 
-                  </View> 
-                </View>   
-
-                <View style={styles.descriptionBtn}>
-                  <View style={{flex: 2}} >
-                    <Text  style={styles.name}>Elon Musk</Text>
-                  </View>
-                  <View style={{flex: 4}}>
-                    <Pressable
-                      style={[styles.button, styles.buttonOpen]}
-                      onPress={() => setModalVisible(true)}
-                    >
-                      <Text style={styles.textStyle}>View Description</Text>
-                    </Pressable>                 
-                  </View> 
-                </View>   
-
-                <View style={styles.descriptionBtn}>
-                  <View style={{flex: 2}} >
-                    <Text  style={styles.name}>Elon Musk</Text>
-                  </View>
-                  <View style={{flex: 4}}>
-                    <Pressable
-                      style={[styles.button, styles.buttonOpen]}
-                      onPress={() => setModalVisible(true)}
-                    >
-                      <Text style={styles.textStyle}>View Description</Text>
-                    </Pressable>                 
-                  </View> 
-                </View>   
-
-                <View style={styles.descriptionBtn}>
-                  <View style={{flex: 2}} >
-                    <Text  style={styles.name}>Elon Musk</Text>
-                  </View>
-                  <View style={{flex: 4}}>
-                    <Pressable
-                      style={[styles.button, styles.buttonOpen]}
-                      onPress={() => setModalVisible(true)}
-                    >
-                      <Text style={styles.textStyle}>View Description</Text>
-                    </Pressable>                 
-                  </View> 
-                </View>   
-
-                <View style={styles.descriptionBtn}>
-                  <View style={{flex: 2}} >
-                    <Text  style={styles.name}>Elon Musk</Text>
-                  </View>
-                  <View style={{flex: 4}}>
-                    <Pressable
-                      style={[styles.button, styles.buttonOpen]}
-                      onPress={() => setModalVisible(true)}
-                    >
-                      <Text style={styles.textStyle}>View Description</Text>
-                    </Pressable>                 
-                  </View> 
-                </View>   
-
-                <View style={styles.descriptionBtn}>
-                  <View style={{flex: 2}} >
-                    <Text  style={styles.name}>Elon Musk</Text>
-                  </View>
-                  <View style={{flex: 4}}>
-                    <Pressable
-                      style={[styles.button, styles.buttonOpen]}
-                      onPress={() => setModalVisible(true)}
-                    >
-                      <Text style={styles.textStyle}>View Description</Text>
-                    </Pressable>                 
-                  </View> 
-                </View>            
-              </View>            
-            </View>         
-          </View> 
-        </View>
-        <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {           
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Satya Nadella is Indian-born business executive who is CEO of the computer software company Microsoft. He has steered the company away from a failing mobile strategy and focused on other segments, including cloud computing and augmented reality. In 2016 he oversaw the purchase of the professional network LinkedIn for $26.2 billion. </Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
             </View>
           </View>
-        </Modal>
-     
-    </View>
-      </ScrollView>     
-    </View>
-      </SafeAreaView>
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                setModalVisible(!modalVisible);
+              }}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      right: 30,
+                      top: 20,
+                      bottom: 20,
+                    }}>
+                    <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                      <Ionicons name={'close'} size={35} color={'#4936BE'} />
+                    </Pressable>
+                  </View>
+
+                  <Text style={styles.modalText}>
+                    Satya Nadella is Indian-born business executive who is CEO
+                    of the computer software company Microsoft. He has steered
+                    the company away from a failing mobile strategy and focused
+                    on other segments, including cloud computing and augmented
+                    reality. In 2016 he oversaw the purchase of the professional
+                    network LinkedIn for $26.2 billion.{' '}
+                  </Text>
+                  {/* <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <Text style={styles.textStyle}>Hide Modal</Text>
+                  </Pressable> */}
+                </View>
+              </View>
+            </Modal>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -263,16 +214,19 @@ export default Radar;
 const styles = StyleSheet.create({
   ActivityIndicatorStyle: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
-  container: {   
+  container: {
     width: '100%',
+    marginTop: 30,
+  
   },
-  mainContent : {
+  mainContent: {
     margin: 20,
     borderRadius: 10,
-    padding: 20,    
-    backgroundColor: 'blue',  
+    padding: 20,
+    borderWidth: 0.5,
+    // backgroundColor: 'blue',
   },
   seperationline: {
     marginTop: 10,
@@ -280,10 +234,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F6F4F4',
     borderBottomWidth: 1,
   },
-  descriptionBtn :{
-    flexDirection : 'row',
+  descriptionBtn: {
+    flexDirection: 'row',
     flex: 1,
     marginBottom: 10,
+    alignItems: 'center',
   },
   paragraph: {
     fontFamily: Typography.FONT_SF_REGULAR,
@@ -297,8 +252,8 @@ const styles = StyleSheet.create({
     height: 400,
     width: '100%',
     marginTop: 20,
-    marginLeft: 15,   
-  }, 
+    marginLeft: 15,
+  },
   name: {
     fontSize: 12,
     fontWeight: '600',
@@ -308,48 +263,52 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    height: 30,
+    height: 40,
+    marginLeft: 5,
+    marginBottom: 10,
+    borderWidth: 0.5,
     borderRadius: 10,
-    borderWidth: 0.5,   
+    borderColor: '#707070',
   },
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+    padding: 20,
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
-    height: 20,
-    borderRadius: 20,    
-    elevation: 3
+    padding: 5,
+    borderRadius: 20,
+    elevation: 3,
+    backgroundColor: '#0C336C',
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
+
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: "white",
-    textAlign: "center"
+    color: 'white',
+    textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: 'center',
+    marginTop: 20,
+  },
 });
