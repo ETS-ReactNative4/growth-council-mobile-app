@@ -115,13 +115,13 @@ const Radar = props => {
               <View>
                 <View style={{flexDirection: 'row', flex: 1}}>
                   <View style={{flex: 2}}>
-                    <Text style={styles.name}>Name</Text>
+                    <Text style={styles.title}>Name</Text>
                   </View>
-                  <View style={{flex: 2, marginLeft: 5}}>
-                    <Text style={styles.name}>Growth Index</Text>
+                  <View style={{flex: 2, marginLeft: 10}}>
+                    <Text style={styles.title}>Growth Index</Text>
                   </View>
-                  <View style={{flex: 2, marginLeft: 5}}>
-                    <Text style={styles.name}>Innovation Index</Text>
+                  <View style={{flex: 2, marginLeft: 10}}>
+                    <Text style={styles.title}>Innovation Index</Text>
                   </View>
                 </View>
 
@@ -149,16 +149,13 @@ const Radar = props => {
                     />
                   </View>
                 </View>
-
-                <View style={styles.seperationline} />
-
-                {radarMemberDetails?.member_details?.map(item => {
-                  const memberData = () => {
-                    setDescription(item?.member_description);
-                    setName(item?.member_name);
-                  };
-                  return (
-                    <View>
+                <View style={{marginTop: 20}}>
+                  {radarMemberDetails?.member_details?.map(item => {
+                    const memberData = () => {
+                      setDescription(item?.member_description);
+                      setName(item?.member_name);
+                    };
+                    return (
                       <View style={styles.descriptionBtn}>
                         <View style={{flex: 2}}>
                           <Text style={styles.name}>{item?.member_name}</Text>
@@ -176,22 +173,9 @@ const Radar = props => {
                           </Pressable>
                         </View>
                       </View>
-                    </View>
-                  );
-                })}
-
-                {/* <View style={styles.descriptionBtn}>
-                    <View style={{flex: 2}}>
-                      <Text style={styles.name}>Elon Musk</Text>
-                    </View>
-                    <View style={{flex: 4}}>
-                      <Pressable
-                        style={styles.button}
-                        onPress={() => setModalVisible(true)}>
-                        <Text style={styles.textStyle}>View Description</Text>
-                      </Pressable>
-                    </View>
-                  </View> */}
+                    );
+                  })}
+                </View>
               </View>
             </View>
           </View>
@@ -214,20 +198,13 @@ const Radar = props => {
                       bottom: 20,
                     }}>
                     <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                      <Ionicons name={'close'} size={35} color={'#4936BE'} />
+                      <Ionicons name={'close'} size={35} color={'#3495D2'} />
                     </Pressable>
                   </View>
                   <View style={{marginTop: 40}}>
                     <Text style={{fontSize: 18, color: 'black'}}>{name}</Text>
-                    <View
-                      style={{
-                        height: 2,
-                        backgroundColor: 'black',
-                        borderWidth: 1,
-                        width: 250,
-                        marginTop: 10,
-                      }}
-                    />
+
+                    <View style={styles.seperationline} />
                     <Text style={styles.modalText}>{description}</Text>
                   </View>
                 </View>
@@ -256,13 +233,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     borderWidth: 0.5,
-    // backgroundColor: 'blue',
+    backgroundColor: '#E4F2F8',
   },
   seperationline: {
     marginTop: 10,
     marginBottom: 10,
-    borderBottomColor: '#F6F4F4',
-    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    borderBottomWidth: 0.5,
+    height: 2,
   },
   descriptionBtn: {
     flexDirection: 'row',
@@ -286,19 +264,27 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 12,
+    fontWeight: '800',
+    height: 30,
+    alignItems: 'center',
+    fontFamily: Typography.FONT_SF_REGULAR,
+    color: '#373A3C',
+  },
+  title: {
+    fontSize: 10,
     fontWeight: '600',
     height: 30,
     alignItems: 'center',
     fontFamily: Typography.FONT_SF_REGULAR,
-    color: 'black',
   },
   input: {
     height: 40,
     marginLeft: 5,
     marginBottom: 10,
-    borderWidth: 0.5,
     borderRadius: 10,
     borderColor: '#707070',
+    elevation: 3,
+    backgroundColor: 'white',
   },
   centeredView: {
     flex: 1,
@@ -326,19 +312,20 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 20,
     elevation: 3,
-    backgroundColor: '#0C336C',
+    backgroundColor: '#FFFFFF',
   },
 
   buttonClose: {
     backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: 'white',
+    color: '#949494',
     textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
     marginTop: 20,
+    color: '#686868',
   },
 });
