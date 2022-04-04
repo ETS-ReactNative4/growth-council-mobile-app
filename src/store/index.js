@@ -86,6 +86,8 @@ import searchContentReducer from '../screens/contentLibrary/slice/searchContentS
 import criticalIssueReducer from '../screens/criticalIssue/slice/criticalIssueSlice';
 import contentTagsReducer from '../screens/contentLibrary/slice/contentTagsSlice';
 
+import radarReducer from '../screens/details/slice/radarSlice';
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -153,6 +155,7 @@ const reducers = combineReducers({
   latestContent: latestContentReducer,
   searchContent: searchContentReducer,
   contentTags: contentTagsReducer,
+  radarMemberDetails:radarReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
