@@ -67,7 +67,6 @@ const Radar = props => {
 
   console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`);
 
-  console.log({radarMemberDetails});
   return (
     // <ScrollView>
     //   <View style={styles.container}>
@@ -149,7 +148,8 @@ const Radar = props => {
                     />
                   </View>
                 </View>
-                <View style={{marginTop: 20}}>
+                <View style={styles.seperationline} />
+                <View style={{marginTop: 10}}>
                   {radarMemberDetails?.member_details?.map(item => {
                     const memberData = () => {
                       setDescription(item?.member_description);
@@ -230,10 +230,10 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     margin: 20,
-    borderRadius: 10,
+    borderRadius: 15,
     padding: 20,
-    borderWidth: 0.5,
     backgroundColor: '#E4F2F8',
+    elevation: 3,
   },
   seperationline: {
     marginTop: 10,
@@ -263,9 +263,8 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   name: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '800',
-    height: 30,
     alignItems: 'center',
     fontFamily: Typography.FONT_SF_REGULAR,
     color: '#373A3C',
@@ -278,7 +277,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_REGULAR,
   },
   input: {
-    height: 40,
+    height: 35,
     marginLeft: 5,
     marginBottom: 10,
     borderRadius: 10,
@@ -325,7 +324,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 10,
     color: '#686868',
   },
 });
