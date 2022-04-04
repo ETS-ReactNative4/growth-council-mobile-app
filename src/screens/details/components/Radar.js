@@ -27,9 +27,19 @@ import {padding} from '@mui/system';
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 const Radar = props => {
-  const {route, navigation, } = props;
+  const {
+    route,
+    navigation,
+    radarMemberDetails,
+    radarMemberDetailsLoading,
+    radarMemberDetailsError,
+    fetchRadarMemberDetail,
+    cleanPOEDetail,
+  } = props;
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
   const webviewRef = React.useRef(null);
   const [userId, setUserId] = useState(0);
 
@@ -39,6 +49,10 @@ const Radar = props => {
     if (ID) {
       setUserId(ID);
     }
+  }, []);
+
+  useEffect(() => {
+    fetchRadarMemberDetail();
   }, []);
 
   function LoadingIndicatorView() {
@@ -53,6 +67,7 @@ const Radar = props => {
 
   console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`);
 
+  console.log({radarMemberDetails});
   return (
     // <ScrollView>
     //   <View style={styles.container}>
@@ -113,14 +128,16 @@ const Radar = props => {
                 <View
                   style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
                   <View style={{flex: 2}}>
-                    <Text style={styles.name}>Member</Text>
+                    <Text style={styles.name}>
+                      {radarMemberDetails?.display_name}
+                    </Text>
                   </View>
                   <View style={{flex: 2}}>
                     <TextInput
                       editable={false}
                       textAlign={'center'}
                       style={styles.input}
-                      value="4.0"
+                      value={radarMemberDetails?.user_radar_growth_index}
                     />
                   </View>
                   <View style={{flex: 2}}>
@@ -128,15 +145,42 @@ const Radar = props => {
                       editable={false}
                       textAlign={'center'}
                       style={styles.input}
-                      value="4.0"
+                      value={radarMemberDetails?.user_radar_innovation_index}
                     />
                   </View>
                 </View>
 
                 <View style={styles.seperationline} />
 
-                <View>
-                  <View style={styles.descriptionBtn}>
+                {radarMemberDetails?.member_details?.map(item => {
+                  const memberData = () => {
+                    setDescription(item?.member_description);
+                    setName(item?.member_name);
+                  };
+                  return (
+                    <View>
+                      <View style={styles.descriptionBtn}>
+                        <View style={{flex: 2}}>
+                          <Text style={styles.name}>{item?.member_name}</Text>
+                        </View>
+                        <View style={{flex: 4}}>
+                          <Pressable
+                            style={styles.button}
+                            onPress={() => {
+                              setModalVisible(true),
+                                memberData(description, name);
+                            }}>
+                            <Text style={styles.textStyle}>
+                              View Description
+                            </Text>
+                          </Pressable>
+                        </View>
+                      </View>
+                    </View>
+                  );
+                })}
+
+                {/* <View style={styles.descriptionBtn}>
                     <View style={{flex: 2}}>
                       <Text style={styles.name}>Elon Musk</Text>
                     </View>
@@ -147,23 +191,11 @@ const Radar = props => {
                         <Text style={styles.textStyle}>View Description</Text>
                       </Pressable>
                     </View>
-                  </View>
-                  <View style={styles.descriptionBtn}>
-                    <View style={{flex: 2}}>
-                      <Text style={styles.name}>Elon Musk</Text>
-                    </View>
-                    <View style={{flex: 4}}>
-                      <Pressable
-                        style={styles.button}
-                        onPress={() => setModalVisible(true)}>
-                        <Text style={styles.textStyle}>View Description</Text>
-                      </Pressable>
-                    </View>
-                  </View>
-                </View>
+                  </View> */}
               </View>
             </View>
           </View>
+
           <View style={styles.centeredView}>
             <Modal
               animationType="slide"
@@ -177,7 +209,7 @@ const Radar = props => {
                   <View
                     style={{
                       position: 'absolute',
-                      right: 30,
+                      left: 20,
                       top: 20,
                       bottom: 20,
                     }}>
@@ -185,20 +217,19 @@ const Radar = props => {
                       <Ionicons name={'close'} size={35} color={'#4936BE'} />
                     </Pressable>
                   </View>
-
-                  <Text style={styles.modalText}>
-                    Satya Nadella is Indian-born business executive who is CEO
-                    of the computer software company Microsoft. He has steered
-                    the company away from a failing mobile strategy and focused
-                    on other segments, including cloud computing and augmented
-                    reality. In 2016 he oversaw the purchase of the professional
-                    network LinkedIn for $26.2 billion.{' '}
-                  </Text>
-                  {/* <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => setModalVisible(!modalVisible)}>
-                    <Text style={styles.textStyle}>Hide Modal</Text>
-                  </Pressable> */}
+                  <View style={{marginTop: 40}}>
+                    <Text style={{fontSize: 18, color: 'black'}}>{name}</Text>
+                    <View
+                      style={{
+                        height: 2,
+                        backgroundColor: 'black',
+                        borderWidth: 1,
+                        width: 250,
+                        marginTop: 10,
+                      }}
+                    />
+                    <Text style={styles.modalText}>{description}</Text>
+                  </View>
                 </View>
               </View>
             </Modal>
@@ -219,7 +250,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     marginTop: 30,
-  
   },
   mainContent: {
     margin: 20,
