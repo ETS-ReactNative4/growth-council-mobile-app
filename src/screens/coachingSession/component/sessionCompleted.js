@@ -78,17 +78,22 @@ const SessionCompleted = props => {
           marginTop: 30,
         }}>
         <Text style={{fontSize: 12, marginBottom: 10}}>View your score</Text>
-        <View
-          style={{
-            padding: 10,
-            backgroundColor: '#A1BD6F',
-            width: '100%',
-            borderRadius: 24,
-            alignContent: 'center',
-            alignItems: 'center',
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Radar');
           }}>
-          <Text style={{color: 'white', fontSize: 18}}>FROST RADAR</Text>
-        </View>
+          <View
+            style={{
+              padding: 10,
+              backgroundColor: '#A1BD6F',
+              width: '100%',
+              borderRadius: 24,
+              alignContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={{color: 'white', fontSize: 18}}>FROST RADAR</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
