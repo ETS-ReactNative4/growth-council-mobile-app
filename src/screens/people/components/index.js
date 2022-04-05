@@ -55,7 +55,7 @@ const People = props => {
 
   const toast = useToast();
   const isFocused = useIsFocused();
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState();
   const [account, setAccount] = useState();
   const [region, setRegion] = useState();
   const [searchKey, setSearchKey] = useState('');
@@ -69,8 +69,8 @@ const People = props => {
           s: searchKey,
           sort: sorting,
           expertise_areas: category,
-          category: account,
-          country: region,
+          // category: account,
+          // country: region,
         });
       };
       fetchAllUsersAsync();
@@ -104,8 +104,8 @@ const People = props => {
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
-        category: account,
-        country: region,
+        // category: account,
+        // country: region,
       });
       ToastMessage.show('You have successfully connected.');
     } else {
@@ -374,6 +374,7 @@ const People = props => {
   const [accountVisible, setAccountVisible] = useState(false);
   const [regionVisible, setRegionVisible] = useState(false);
 
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar
@@ -561,13 +562,51 @@ const People = props => {
                 selectedValue={category}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={itemValue => {
-                  setCategory(itemValue);
-                  fetchAllUsers({
+                onValueChange={ async (itemValue) => {
+                setCategory(itemValue);
+                if(itemValue === 'None'){
+                  await fetchAllUsers({
                     s: searchKey,
                     sort: 'ASC',
-                    expertise_areas: category,
+                    expertise_areas: '',
+                  })
+                  .then(response => {
+                    if (response?.payload?.code === 200) {
+                      setMemberConnection(response?.payload?.data);
+                    } else {
+                      // setMarkedDay([]);
+                      setMemberConnection([]);
+                    }
+                  })
+                  .catch(e => {
+                    //   ToastMessage.show(e?.response?.payload?.response);
+                    console.log(e);
+                    //   setMarkedDay([]);
+                    setMemberConnection([]);
                   });
+                }
+                else {
+                  await fetchAllUsers({
+                    s: searchKey,
+                    sort: 'ASC',
+                    expertise_areas: itemValue,
+                  })
+                  .then(response => {
+                    if (response?.payload?.code === 200) {
+                      setMemberConnection(response?.payload?.data);
+                    } else {
+                      // setMarkedDay([]);
+                      setMemberConnection([]);
+                    }
+                  })
+                  .catch(e => {
+                    //   ToastMessage.show(e?.response?.payload?.response);
+                    console.log(e);
+                    //   setMarkedDay([]);
+                    setMemberConnection([]);
+                  });
+                }                  
+                 
                 }}>
                 {Object.keys(expertise).map(key => {
                   return (
@@ -625,8 +664,10 @@ const People = props => {
                     category: account,
                   });
                 }}>
+                 
                 {Object.keys(pillar).map(key => {
                   return (
+                   
                     <Picker.Item
                       label={pillar[key]}
                       value={pillar[key]}
