@@ -55,9 +55,9 @@ const People = props => {
 
   const toast = useToast();
   const isFocused = useIsFocused();
-  const [category, setCategory] = useState();
-  const [account, setAccount] = useState();
-  const [region, setRegion] = useState();
+  const [category, setCategory] = useState('');
+  const [account, setAccount] = useState('');
+  const [region, setRegion] = useState('');
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
@@ -564,7 +564,7 @@ const People = props => {
                 itemTextStyle={{fontSize: 12}}
                 onValueChange={ async (itemValue) => {
                 setCategory(itemValue);
-                if(itemValue === 'None'){
+                if(itemValue === 'Expertise Areas'){
                   await fetchAllUsers({
                     s: searchKey,
                     sort: 'ASC',
