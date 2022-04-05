@@ -565,46 +565,20 @@ const People = props => {
                 onValueChange={ async (itemValue) => {
                 setCategory(itemValue);
                 if(itemValue === 'Expertise Areas'){
-                  await fetchAllUsers({
+                fetchAllUsers({
                     s: searchKey,
-                    sort: 'ASC',
+                    sort: sorting,
                     expertise_areas: '',
                   })
-                  .then(response => {
-                    if (response?.payload?.code === 200) {
-                      setMemberConnection(response?.payload?.data);
-                    } else {
-                      // setMarkedDay([]);
-                      setMemberConnection([]);
-                    }
-                  })
-                  .catch(e => {
-                    //   ToastMessage.show(e?.response?.payload?.response);
-                    console.log(e);
-                    //   setMarkedDay([]);
-                    setMemberConnection([]);
-                  });
+                  
                 }
                 else {
-                  await fetchAllUsers({
+                   fetchAllUsers({
                     s: searchKey,
-                    sort: 'ASC',
+                    sort: sorting,
                     expertise_areas: itemValue,
                   })
-                  .then(response => {
-                    if (response?.payload?.code === 200) {
-                      setMemberConnection(response?.payload?.data);
-                    } else {
-                      // setMarkedDay([]);
-                      setMemberConnection([]);
-                    }
-                  })
-                  .catch(e => {
-                    //   ToastMessage.show(e?.response?.payload?.response);
-                    console.log(e);
-                    //   setMarkedDay([]);
-                    setMemberConnection([]);
-                  });
+                  
                 }                  
                  
                 }}>
