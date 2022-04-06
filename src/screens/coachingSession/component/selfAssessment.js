@@ -112,7 +112,7 @@ const SelfAssessment = props => {
         .then(response => {
           if (response?.data?.code === 200) {
             ToastMessage.show(
-              'You score has submitted. Please complete all the session.',
+              'You score has submitted.',
             );
             setAnswers({
               questions: {
@@ -124,7 +124,7 @@ const SelfAssessment = props => {
             navigation.goBack();
 
             if (sessions.title === 'Session 10') {
-              ToastMessage.show('You score has submitted.');
+            //   ToastMessage.show('You score has submitted.');
               navigation.navigate('SessionCompleted');
             }
           } else {
