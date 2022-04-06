@@ -292,6 +292,13 @@ const GrowthDetail = props => {
     );
   };
 
+  let poeDescription = poeDetails?.description;
+  if (poeDescription !== undefined) {
+    poeDescription = poeDetails?.description;
+  } else {
+    poeDescription = '';
+  }
+
   return (
     <>
       <StatusBar
@@ -337,7 +344,7 @@ const GrowthDetail = props => {
                 {poeDetails.name}
               </Text>
               <HTMLView
-                value={poeDetails.description}
+                value={poeDescription}
                 textComponentProps={{
                   style: {
                     fontFamily: Typography.FONT_SF_REGULAR,
