@@ -321,6 +321,13 @@ const SubPOEDetails = props => {
       backgroundColor = Colors.COACHING_COLOR;
   }
 
+  let poeDescription = poeDetails?.description;
+  if (poeDescription !== undefined) {
+    poeDescription = poeDetails?.description;
+  } else {
+    poeDescription = '';
+  }
+
   return (
     <>
       <StatusBar
@@ -377,7 +384,7 @@ const SubPOEDetails = props => {
               </Text>
 
               <HTMLView
-                value={poeDetails.description}
+                value={poeDescription}
                 textComponentProps={{
                   style: {
                     fontFamily: Typography.FONT_SF_REGULAR,
