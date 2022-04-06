@@ -139,7 +139,7 @@ const Profile = props => {
                     }}
                   />
                 </View>
-                {profileLoading && (
+                {/* {profileLoading && (
                   <>
                     <View
                       style={{
@@ -157,7 +157,7 @@ const Profile = props => {
                       />
                     </View>
                   </>
-                )}
+                )} */}
                 {value === 'My Point of Engagement' && <MyEvent {...props} />}
 
                 {value === 'About me' && <AboutMe {...props} />}
