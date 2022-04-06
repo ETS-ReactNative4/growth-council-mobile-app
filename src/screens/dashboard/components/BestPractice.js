@@ -213,6 +213,7 @@ const BestPractice = props => {
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
+              resizeMode="contain"
             />
           </View>
           <Text
