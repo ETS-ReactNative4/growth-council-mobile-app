@@ -104,7 +104,7 @@ const CommunityDetail = props => {
     }, []),
   );
 
-  
+  console.log("poe",route.params.poeId)
 
   const _renderItem = ({item, index}, navigation) => {
     return (

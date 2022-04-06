@@ -133,7 +133,7 @@ const UserList = props => {
                 margin: 14,
               }}
             />
-            <View style={{margin: 10, width: '65%',}}>
+            <View style={{margin: 10, width: '65%'}}>
               <Text
                 style={{
                   fontSize: 14,
@@ -150,7 +150,7 @@ const UserList = props => {
               </Text>
               <View
                 style={{
-					top:20,
+                  top: 20,
                   right: 10,
                   backgroundColor: 'red',
                   zIndex: 101,
@@ -218,7 +218,6 @@ const UserList = props => {
               });
             }}
           />
-          
         </View>
         <View style={styles.buttonWrapper}>
           <TouchableOpacity>

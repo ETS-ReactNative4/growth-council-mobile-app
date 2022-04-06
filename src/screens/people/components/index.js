@@ -90,7 +90,7 @@ const People = props => {
       await fetchAllExpertises();
     };
     fetchAllExpertisesAsync();
-  }, [isFocused]);
+  }, []);
 
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});

@@ -295,7 +295,7 @@ const SubPOEDetails = props => {
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
-            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+            <Text style={styles.attachmentTitle}></Text>
           </View>
 
           {/* <TouchableOpacity
@@ -327,7 +327,7 @@ const SubPOEDetails = props => {
   } else {
     poeDescription = '';
   }
-
+  console.log('poe', route.params.poeId);
   return (
     <>
       <StatusBar
@@ -430,7 +430,8 @@ const SubPOEDetails = props => {
               )} */}
 
               {poeDetails?.attachments?.length !== 0 &&
-                poeDetails?.attachments !== null && (
+                poeDetails?.attachments !== null &&
+                poeDetails?.attachments !== false && (
                   <View style={styles.sectionContainer}>
                     <Text style={styles.title}>
                       {' '}
@@ -439,7 +440,7 @@ const SubPOEDetails = props => {
                     <FlatList
                       vertical
                       showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.attachments}
+                      data={poeDetails?.attachments}
                       renderItem={_renderContent}
                     />
                   </View>
