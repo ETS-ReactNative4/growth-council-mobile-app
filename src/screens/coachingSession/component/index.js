@@ -532,6 +532,7 @@ const CoachingSession = props => {
                 <SelfAssessment
                   {...props}
                   score={score}
+				  sessions={sessions}
                   traits={traits}
                   traitsLoading={traitsLoading}
                   traitsError={traitsError}

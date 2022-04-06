@@ -5,8 +5,10 @@ import {Typography} from '../../../theme';
 import {ScrollView} from 'native-base';
 
 const SessionCompleted = props => {
+  const {navigation} = props;
   return (
-    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      style={{justifyContent: 'center', alignItems: 'center', paddingTop: 50}}>
       <View
         style={{
           width: '70%',
@@ -91,7 +93,9 @@ const SessionCompleted = props => {
               alignContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={{color: 'white', fontSize: 18}}>FROST RADAR</Text>
+            <Text style={{color: 'white', fontSize: 18, paddingHorizontal: 20}}>
+              FROST RADAR
+            </Text>
           </View>
         </TouchableOpacity>
       </View>

@@ -17,6 +17,7 @@ import {
 import {BubblesLoader} from 'react-native-indicator';
 import ToastMessage from '../../../shared/toast';
 import {store} from '../../../utils/httpUtil';
+import SessionCompleted from './sessionCompleted';
 
 const win = Dimensions.get('window');
 const SelfAssessment = props => {
@@ -34,6 +35,7 @@ const SelfAssessment = props => {
     setAnswers,
     selectedId,
     setSelectedId,
+    sessions,
 
     scrollRef,
   } = props;
@@ -109,6 +111,10 @@ const SelfAssessment = props => {
       })
         .then(response => {
           if (response?.data?.code === 200) {
+            if (sessions.title === 'Session 10') {
+              ToastMessage.show('You score has submitted.');
+              navigation.navigate('SessionCompleted');
+            }
             ToastMessage.show(
               'You score has submitted. Please complete all the session.',
             );
@@ -175,6 +181,7 @@ const SelfAssessment = props => {
       setIndex({...index, subTraitIndex: index.subTraitIndex - 1});
     }
   };
+  console.log({sessions});
 
   return (
     <View>

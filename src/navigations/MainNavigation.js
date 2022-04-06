@@ -57,6 +57,7 @@ import PeopleScreen from '../screens/people';
 import SubHeader from '../shared/header/SubHeader';
 import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
+import SessionCompleted from '../screens/coachingSession/component/sessionCompleted';
 
 const Stack = createStackNavigator();
 
@@ -295,6 +296,22 @@ const MainNavigation = () => {
             ),
           })}
         />
+
+        <Stack.Screen
+          name="SessionCompleted"
+          component={SessionCompleted}
+          options={({route, navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Session 10"
+                image={require('../assets/img/Rectangle.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        />
+
         <Stack.Screen
           name="selfAssessment"
           component={SelfAssessment}
