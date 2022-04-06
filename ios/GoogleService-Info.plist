@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>98653816763-7d4h6mv0kklcivtqnj4pq6gmcmphid9d.apps.googleusercontent.com</string>
+	<string>377923277535-qc1an7qhen6tnjdk7ar7vrn9dlakckct.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.98653816763-7d4h6mv0kklcivtqnj4pq6gmcmphid9d</string>
+	<string>com.googleusercontent.apps.377923277535-qc1an7qhen6tnjdk7ar7vrn9dlakckct</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAxDyR2XY9SUc2q6oRRHuqblJSyf8yON1A</string>
+	<string>AIzaSyDrnOSQsMZD3wsrapPVfCQiLi7bXmeDKp4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>98653816763</string>
+	<string>377923277535</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.growthcouncil</string>
 	<key>PROJECT_ID</key>
-	<string>growth-council</string>
+	<string>growth-council-69a81</string>
 	<key>STORAGE_BUCKET</key>
-	<string>growth-council.appspot.com</string>
+	<string>growth-council-69a81.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:98653816763:ios:ebadf975607e8b753a669e</string>
+	<string>1:377923277535:ios:9cdf0432e58f951e9f4f6a</string>
 	<key>DATABASE_URL</key>
-	<string>https://growth-council-default-rtdb.firebaseio.com</string>
+	<string>https://growth-council-69a81-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
