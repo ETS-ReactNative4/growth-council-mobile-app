@@ -317,7 +317,7 @@ const GrowthCoaching = props => {
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
-            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+            <Text style={styles.attachmentTitle}></Text>
           </View>
 
           {/* <TouchableOpacity
@@ -393,7 +393,8 @@ const GrowthCoaching = props => {
             </View>
           )} */}
           {pillarMemberContents?.attachments?.length !== 0 &&
-            pillarMemberContents?.attachments !== null && (
+            pillarMemberContents?.attachments !== null && 
+			pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.title}> Content Library Attachments</Text>
                 <FlatList
