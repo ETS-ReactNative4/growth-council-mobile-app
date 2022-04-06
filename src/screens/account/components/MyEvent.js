@@ -93,22 +93,41 @@ const Profile = props => {
           }>
           <View style={[styles.middleWrapper, styles.shadowProp]}>
             <View style={styles.wrapper}>
-              <Text style={styles.text}>{item?.title}</Text>
+              <View style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+                <Text style={[styles.text, {width: "70%", marginRight:10}]}>{item?.title}</Text>
+                <Button
+                style={{
+                  height: 35,
+                  backgroundColor: '#183863',
+                  borderRadius: 15,
+                }}>
+                  <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>
+                    Upcoming
+                  </Text>
+                </Button>
+              </View>
+              
               <View style={styles.iconWrapper}>
-                <Ionicon name={'person'} size={20} color="#0B0B45" />
-                <Text style={[styles.text, {fontSize: 10, width: 100}]}>
-                  {organizer} {description}
-                </Text>
-
-                <Ionicon name={'time'} size={20} color="#0B0B45" />
-                <Text style={[styles.text, {fontSize: 12}]}>{time}</Text>
+                <View style={{flexDirection:"row", alignItems:"flex-start"}}>
+                  <Ionicon name={'person'} size={20} color="#0B0B45" />
+                  <Text style={[styles.text, {fontSize: 10, width: 100}]}>
+                    {organizer} {description}
+                  </Text>
+                </View>
+                <View style={{flexDirection:"row", alignItems:"center"}}>
+                  <Ionicon name={'time'} size={20} color="#0B0B45" />
+                  <Text style={[styles.text, {fontSize: 12}]}>{time}</Text>
+                </View>
               </View>
               <View style={styles.iconWrapper}>
-                <Ionicon name={'calendar'} size={20} color="#0B0B45" />
-                <Text style={[styles.text, {fontSize: 12, width: 100}]}>
-                  {date[2]} {date[1]}
-                </Text>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection:"row", alignItems:"center"}}>
+                  <Ionicon name={'calendar'} size={20} color="#0B0B45" />
+                  <Text style={[styles.text, {fontSize: 12, width: 100}]}>
+                    {date[2]} {date[1]}
+                  </Text>
+                </View>
+
+                <View style={{flexDirection: 'row', alignItems:"center"}}>
                   <Ionicon name={'location'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 12, width: 120}]}>
                     {item.location?.location_address}
@@ -116,17 +135,6 @@ const Profile = props => {
                 </View>
               </View>
             </View>
-            <Button
-              style={{
-                height: 35,
-                top: 40,
-                backgroundColor: '#183863',
-                borderRadius: 15,
-              }}>
-              <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>
-                Upcoming
-              </Text>
-            </Button>
           </View>
         </TouchableOpacity>
       </View>
@@ -181,7 +189,6 @@ const styles = StyleSheet.create({
   },
 
   wrapper: {
-    width: Platform.OS === 'ios' ? '65%' : '70%',
     marginLeft: 10,
     marginTop: 10,
   },
@@ -233,6 +240,7 @@ const styles = StyleSheet.create({
   iconWrapper: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems:'flex-start',
     marginLeft: 10,
     marginTop: 10,
   },

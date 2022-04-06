@@ -213,6 +213,7 @@ const BestPractice = props => {
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
+              resizeMode="contain"
             />
           </View>
           <Text
@@ -299,7 +300,7 @@ const BestPractice = props => {
           navigation.navigate('pdf', {paramsFile: item?.file?.url})
         }>
         <View style={styles.attachmentContainer}>
-          <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={{display: "flex",flexDirection:"row", flexWrap:"nowrap", alignItems:"center"}}>
             <FontAwesomeIcon name="file-pdf-o" size={30} color="#9B9CA0" />
             <Text style={styles.attachmentTitle}></Text>
           </View>
@@ -579,7 +580,6 @@ const styles = StyleSheet.create({
   attachmentTitle: {
     marginLeft: 10,
     fontSize: 14,
-    width: '80%',
     fontFamily: 'SFProText-Regular',
     color: Colors.SECONDARY_TEXT_COLOR,
   },

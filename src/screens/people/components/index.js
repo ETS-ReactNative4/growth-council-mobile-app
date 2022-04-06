@@ -402,39 +402,30 @@ const People = props => {
                 });
               }}
             />
-            <View style={styles.icon}>
+            <TouchableOpacity style={styles.icon}
+              onPress={async () => {
+                let newSorting = 'DESC';
+                if( sorting === 'DESC'){
+                  newSorting = 'ASC'
+                }
+                setSorting(newSorting);
+                
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: newSorting,
+                  expertise_areas: category,
+                  category: account,
+                  country: region,
+                });
+              }}
+            >
               <Ionicons
-                name="arrow-up"
+                name="swap-vertical-outline"
                 size={25}
                 color="#7E7F84"
-                onPress={async () => {
-                  setSorting('DESC');
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'DESC',
-                    expertise_areas: category,
-                    category: account,
-                    country: region,
-                  });
-                }}
-              />
-              <Ionicons
-                name="arrow-down"
-                size={25}
-                color="#7E7F84"
-                onPress={async () => {
-                  setSorting('ASC');
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'ASC',
-                    expertise_areas: category,
-                    category: account,
-                    country: region,
-                  });
-                }}
               />
               <Text style={styles.textWrapper}>Sort</Text>
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.iconWrapper}>
             <TouchableOpacity
@@ -749,12 +740,13 @@ const styles = StyleSheet.create({
     height: 70,
   },
   icon: {
+    marginHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: '#707070',
-    width: '20%',
   },
   textWrapper: {
+    marginLeft: 5,
     fontSize: 14,
     color: '#7E7F84',
   },
