@@ -160,6 +160,7 @@ const HomeCommunity = props => {
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
+              resizeMode="contain"
             />
           </View>
           <Text
@@ -231,6 +232,13 @@ const HomeCommunity = props => {
         </TouchableOpacity>
       </View>
     );
+  };
+
+  const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   const _renderContent = ({item, index}) => {
@@ -305,7 +313,7 @@ const HomeCommunity = props => {
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
-            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+            <Text style={styles.attachmentTitle}></Text>
           </View>
 
           {/* <TouchableOpacity
@@ -365,7 +373,8 @@ const HomeCommunity = props => {
             </View>
           )}
           {pillarMemberContents?.attachments?.length !== 0 &&
-            pillarMemberContents?.attachments !== null && (
+            pillarMemberContents?.attachments !== null &&
+            pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.title}> Content Library Attachments</Text>
                 <FlatList
@@ -385,6 +394,26 @@ const HomeCommunity = props => {
                   showsHorizontalScrollIndicator={false}
                   data={pillarMemberContents.members}
                   renderItem={_renderItem}
+                />
+              </View>
+            </View>
+          )}
+
+          {pillarMemberContents?.pillar_contents?.length !== 0 && 
+		  pillarMemberContents?.pillar_contents?.length !== null &&
+		  pillarMemberContents?.pillar_contents?.length !== false &&(
+            <View style={styles.content}>
+              <Text style={styles.title}>Growth Coaching Content</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.pillar_contents}
+                  renderItem={_renderContentItem}
                 />
               </View>
             </View>
@@ -495,16 +524,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
+    marginRight: 10,
   },
   ContentWrapper: {
-    height: 206,
+    height: 210,
     width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
     overflow: 'hidden',
   },
-
   shadowProp: {
     shadowColor: '#000',
     shadowOffset: {

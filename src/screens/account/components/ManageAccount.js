@@ -208,7 +208,12 @@ const ManageAccount = props => {
   }, []);
 
   useEffect(() => {
-    const result = Object.entries(expertise)?.map(([key, value]) => ({
+    const result = Object.entries(expertise)?.filter(function([key, value]) {
+      if (value === "Expertise Areas") {
+        return false; // skip
+      }
+      return true;
+    }).map(([key, value]) => ({
       label: key,
       value,
     }));

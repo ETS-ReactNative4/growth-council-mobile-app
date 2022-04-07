@@ -109,7 +109,7 @@ const GrowthDetail = props => {
   //     }
   //   };
   // },[coachingSession]);
-
+  
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>

@@ -389,7 +389,6 @@ const styles = StyleSheet.create({
   sectionContainerBorder: {
     margin: 2,
     marginBottom: 10,
-    paddingBottom: 25,
     borderBottomWidth: 1,
     borderColor: 'rgba(112, 112, 112, 0.13)',
     marginTop: 20,
@@ -476,7 +475,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     shadowOffset: {width: 0, height: 2},
-    shadowRadius: 15,
+    shadowRadius: 4,
     shadowOpacity: 0.1,
     shadowColor: Colors.UNDENARY_BACKGROUND_COLOR,
     elevation: 5,

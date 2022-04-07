@@ -108,10 +108,10 @@ const CouncilAllDetail = props => {
               <Image
                 source={{uri: item.image}}
                 style={{
-                  width: 32,
+                  width: 35,
                   height: 35,
                 }}
-				resizeMode="center"
+				        resizeMode="contain"
               />
             </View>
             <View style={styles.eventDetails}>
@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flexDirection: 'row',
     flexWrap: 'nowrap',
+    alignItems: 'center',
     // backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 5,

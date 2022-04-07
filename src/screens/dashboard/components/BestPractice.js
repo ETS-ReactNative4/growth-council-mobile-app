@@ -214,6 +214,7 @@ const BestPractice = props => {
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
+              resizeMode="contain"
             />
           </View>
           <Text
@@ -300,9 +301,9 @@ const BestPractice = props => {
           navigation.navigate('pdf', {paramsFile: item?.file?.url})
         }>
         <View style={styles.attachmentContainer}>
-          <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={{display: "flex",flexDirection:"row", flexWrap:"nowrap", alignItems:"center"}}>
             <FontAwesomeIcon name="file-pdf-o" size={30} color="#9B9CA0" />
-            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+            <Text style={styles.attachmentTitle}></Text>
           </View>
 
           {/* <Pressable
@@ -315,6 +316,12 @@ const BestPractice = props => {
     );
   };
 
+  const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
+  };
   return (
     <View style={{flex: 1}}>
       <StatusBar
@@ -387,6 +394,26 @@ const BestPractice = props => {
               </View>
             </View>
           )} */}
+
+          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+		   pillarMemberContents?.pillar_contents?.length !== null &&
+		   pillarMemberContents?.pillar_contents?.length !== false && (
+            <View style={styles.content}>
+              <Text style={styles.title}>Growth Coaching Content</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.pillar_contents}
+                  renderItem={_renderContentItem}
+                />
+              </View>
+            </View>
+          )}
           {/* <Footer /> */}
         </View>
       </ScrollView>
@@ -550,7 +577,6 @@ const styles = StyleSheet.create({
   attachmentTitle: {
     marginLeft: 10,
     fontSize: 14,
-    width: '80%',
     fontFamily: 'SFProText-Regular',
     color: Colors.SECONDARY_TEXT_COLOR,
   },

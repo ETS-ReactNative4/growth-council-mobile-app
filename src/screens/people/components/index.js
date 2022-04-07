@@ -56,9 +56,9 @@ const People = props => {
 
   const toast = useToast();
   const isFocused = useIsFocused();
-  const [category, setCategory] = useState([]);
-  const [account, setAccount] = useState();
-  const [region, setRegion] = useState();
+  const [category, setCategory] = useState('');
+  const [account, setAccount] = useState('');
+  const [region, setRegion] = useState('');
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
@@ -70,8 +70,8 @@ const People = props => {
           s: searchKey,
           sort: sorting,
           expertise_areas: category,
-          category: account,
-          country: region,
+          // category: account,
+          // country: region,
         });
       };
       fetchAllUsersAsync();
@@ -91,7 +91,7 @@ const People = props => {
       await fetchAllExpertises();
     };
     fetchAllExpertisesAsync();
-  }, [isFocused]);
+  }, []);
 
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
@@ -105,8 +105,8 @@ const People = props => {
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
-        category: account,
-        country: region,
+        // category: account,
+        // country: region,
       });
       ToastMessage.show('You have successfully connected.');
     } else {
@@ -375,6 +375,7 @@ const People = props => {
   const [accountVisible, setAccountVisible] = useState(false);
   const [regionVisible, setRegionVisible] = useState(false);
 
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar
@@ -402,39 +403,30 @@ const People = props => {
                 });
               }}
             />
-            <View style={styles.icon}>
+            <TouchableOpacity style={styles.icon}
+              onPress={async () => {
+                let newSorting = 'DESC';
+                if( sorting === 'DESC'){
+                  newSorting = 'ASC'
+                }
+                setSorting(newSorting);
+                
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: newSorting,
+                  expertise_areas: category,
+                  category: account,
+                  country: region,
+                });
+              }}
+            >
               <Ionicons
-                name="arrow-up"
+                name="swap-vertical-outline"
                 size={25}
                 color="#7E7F84"
-                onPress={async () => {
-                  setSorting('DESC');
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'DESC',
-                    expertise_areas: category,
-                    category: account,
-                    country: region,
-                  });
-                }}
-              />
-              <Ionicons
-                name="arrow-down"
-                size={25}
-                color="#7E7F84"
-                onPress={async () => {
-                  setSorting('ASC');
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'ASC',
-                    expertise_areas: category,
-                    category: account,
-                    country: region,
-                  });
-                }}
               />
               <Text style={styles.textWrapper}>Sort</Text>
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.iconWrapper}>
             <TouchableOpacity
@@ -544,13 +536,25 @@ const People = props => {
                 selectedValue={category}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={itemValue => {
-                  setCategory(itemValue);
-                  fetchAllUsers({
+                onValueChange={ async (itemValue) => {
+                setCategory(itemValue);
+                if(itemValue === 'Expertise Areas'){
+                fetchAllUsers({
                     s: searchKey,
-                    sort: 'ASC',
-                    expertise_areas: category,
-                  });
+                    sort: sorting,
+                    expertise_areas: '',
+                  })
+                  
+                }
+                else {
+                   fetchAllUsers({
+                    s: searchKey,
+                    sort: sorting,
+                    expertise_areas: itemValue,
+                  })
+                  
+                }                  
+                 
                 }}>
                 {Object.keys(expertise).map(key => {
                   return (
@@ -608,8 +612,10 @@ const People = props => {
                     category: account,
                   });
                 }}>
+                 
                 {Object.keys(pillar).map(key => {
                   return (
+                   
                     <Picker.Item
                       label={pillar[key]}
                       value={pillar[key]}
@@ -717,12 +723,13 @@ const styles = StyleSheet.create({
     height: 70,
   },
   icon: {
+    marginHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: '#707070',
-    width: '20%',
   },
   textWrapper: {
+    marginLeft: 5,
     fontSize: 14,
     color: '#7E7F84',
   },

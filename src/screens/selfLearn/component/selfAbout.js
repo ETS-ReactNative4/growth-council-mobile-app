@@ -57,12 +57,11 @@ const selfAbout = props => {
           <Image
             source={{uri: selfLearns?.image}}
             style={{
-              width: 163,
-              height: 232,
+              width: "45%",
               borderRadius: 10,
             }}
           />
-          <View style={{width: 160, marginLeft: 20}}>
+          <View style={{width: "45%", marginLeft: 20}}>
             <View style={{marginTop: 10, height: 130}}>
               <Text
                 style={{
@@ -146,7 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   buttonWrapper: {
-    width: 165,
+    width: "100%",
     height: 34,
     borderRadius: 20,
     backgroundColor: '#F26722',

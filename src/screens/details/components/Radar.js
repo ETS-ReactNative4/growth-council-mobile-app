@@ -67,6 +67,7 @@ const Radar = props => {
 
   console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`);
 
+
   return (
     // <ScrollView>
     //   <View style={styles.container}>
@@ -136,7 +137,8 @@ const Radar = props => {
                       editable={false}
                       textAlign={'center'}
                       style={styles.input}
-                      value={radarMemberDetails?.user_radar_growth_index}
+                      value={radarMemberDetails?.present_growth_index?.user_radar_growth_index}
+					  maxLength={4}
                     />
                   </View>
                   <View style={{flex: 2}}>
@@ -144,7 +146,8 @@ const Radar = props => {
                       editable={false}
                       textAlign={'center'}
                       style={styles.input}
-                      value={radarMemberDetails?.user_radar_innovation_index}
+                      value={radarMemberDetails?.present_growth_index?.user_radar_innovation_index}
+					  maxLength={4}
                     />
                   </View>
                 </View>
