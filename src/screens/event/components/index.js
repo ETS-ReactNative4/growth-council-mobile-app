@@ -147,10 +147,12 @@ const Event = props => {
             <View
               style={[styles.topbanner, {backgroundColor: backgroundColor}]}>
               {!isEventLoaded && (
-                <Text style={styles.headingText1}>{events.title}</Text>
+                <Text style={styles.headingText1}>{events?.title}</Text>
               )}
               <View style={styles.poe}>
-                <Text style={{fontSize: 12}}>Megatrend Workshop</Text>
+                <Text style={{fontSize: 12}}>
+                  {events?.pillar_categories[0]?.name}
+                </Text>
               </View>
             </View>
           </View>
@@ -494,7 +496,6 @@ const styles = StyleSheet.create({
   },
 
   poe: {
-    height: 22,
     width: 148,
     position: 'absolute',
     top: -10,
@@ -502,9 +503,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffff',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
     borderWidth: 0.2,
+    paddingVertical: 5,
   },
   infoicon: {
     flex: 1,
