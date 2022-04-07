@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
+  PermissionsAndroid
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -21,6 +22,8 @@ import YoutubePlayer from '../../../shared/youtube';
 import HTMLView from 'react-native-htmlview';
 import Player from '../../dashboard/components/Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -331,11 +334,11 @@ const CommunityDetail = props => {
             <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );
@@ -459,10 +462,7 @@ const CommunityDetail = props => {
                 poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null && (
                   <View style={styles.sectionContainer}>
-                    <Text style={styles.title}>
-                      {' '}
-                      Content Library Attachments
-                    </Text>
+                   
                     <FlatList
                       vertical
                       showsHorizontalScrollIndicator={false}

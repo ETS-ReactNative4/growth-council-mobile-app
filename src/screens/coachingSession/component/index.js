@@ -153,9 +153,17 @@ const CoachingSession = props => {
                     }
                   }}
                   style={{
+                    paddingLeft: 5,
+                    paddingRight: 5,
                     height: 30,
-                    fontSize: 12,
-                    borderRadius: 15,
+                  }}
+                  textStyle={{
+                    paddingHorizontal: 0,
+                    fontSize: 14,
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
                   }}
                 />
               </View>
@@ -208,14 +216,14 @@ const CoachingSession = props => {
                               </Text>
                             </View>
                             {index1 === 0 && (
-                              <View style={{flexDirection: 'row', alignItems:"center"}}>
-                                <Text style={{fontSize: 12}}>
-                                  Score
-                                </Text>
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+                                }}>
+                                <Text style={{fontSize: 12}}>Score</Text>
                                 <TouchableOpacity
-                                  onPress={() =>
-                                    setScoreVisible(!scoreVisible)
-                                  }
+                                  onPress={() => setScoreVisible(!scoreVisible)}
                                   onPressIn={() => {
                                     setDisplay(!display);
                                   }}
@@ -226,10 +234,9 @@ const CoachingSession = props => {
                                     borderRadius: 50,
                                     padding: 5,
                                     alignItems: 'center',
-                                  }}
-                                  >
-                                    <Text style={{fontSize: 12}}>{num}</Text>
-                                  </TouchableOpacity>
+                                  }}>
+                                  <Text style={{fontSize: 12}}>{num}</Text>
+                                </TouchableOpacity>
                               </View>
                             )}
                           </View>
@@ -238,7 +245,7 @@ const CoachingSession = props => {
                               <View
                                 style={[styles.textStyle, styles.shadowProp]}
                                 key={index2}>
-                                <Text style={{fontSize: 12, width: "80%"}}>
+                                <Text style={{fontSize: 12, width: '80%'}}>
                                   {subTrait?.title}
                                 </Text>
                                 {(checkMark(index1, index2) ||
@@ -264,7 +271,7 @@ const CoachingSession = props => {
                   </ScrollView>
                 </Modal>
               </View>
-			  
+
               <View style={styles.centeredView}>
                 <Modal
                   animationType="slide"
@@ -529,7 +536,7 @@ const CoachingSession = props => {
                 <SelfAssessment
                   {...props}
                   score={score}
-				  sessions={sessions}
+                  sessions={sessions}
                   traits={traits}
                   traitsLoading={traitsLoading}
                   traitsError={traitsError}
@@ -701,13 +708,13 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: 10,
     borderBottomColor: '#EBECFO',
-    alignItems: "center"
+    alignItems: 'center',
   },
   traitWrapper: {
     paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   traitW: {
     height: 50,
