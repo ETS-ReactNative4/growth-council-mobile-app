@@ -22,6 +22,7 @@ import YoutubePlayer from '../../../shared/youtube';
 import HTMLView from 'react-native-htmlview';
 import Player from '../../dashboard/components/Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import ToastMessage from '../../../shared/toast';
 
@@ -106,8 +107,6 @@ const CommunityDetail = props => {
       };
     }, []),
   );
-
-  console.log("poe",route.params.poeId)
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -357,9 +356,9 @@ const CommunityDetail = props => {
       backgroundColor = Colors.COACHING_COLOR;
   }
 
-  let poeDescription =poeDetails?.description;
+  let poeDescription = poeDetails?.description;
   if (poeDescription !== undefined) {
-    poeDescription =poeDetails?.description;
+    poeDescription = poeDetails?.description;
   } else {
     poeDescription = '';
   }
@@ -509,19 +508,7 @@ const CommunityDetail = props => {
             </View>
           </ScrollView>
         </View>
-        {poeDetailLoading && (
-          <View
-            style={{
-              height: Dimensions.get('window').height,
-              position: 'absolute',
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: 0,
-              right: 0,
-            }}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+        {poeDetailLoading && <Loading />}
       </ScrollView>
     </>
   );

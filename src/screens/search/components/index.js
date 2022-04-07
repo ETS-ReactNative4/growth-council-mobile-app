@@ -18,6 +18,7 @@ import SearchBox from '../../../shared/form/SearchBar';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 
 const Search = props => {
   const {
@@ -193,14 +194,7 @@ const Search = props => {
             </Text>
 
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              {searchLoading && (
-                <View style={styles.loading1}>
-                  <BubblesLoader
-                    color={Colors.SECONDARY_TEXT_COLOR}
-                    size={80}
-                  />
-                </View>
-              )}
+              {searchLoading && <Loading />}
 
               <FlatList
                 horizontal

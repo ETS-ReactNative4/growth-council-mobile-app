@@ -17,6 +17,7 @@ import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import LoadMore from './LoadMore';
+import Loading from '../../../shared/loading';
 
 const CouncilDetail = props => {
   const {
@@ -39,7 +40,7 @@ const CouncilDetail = props => {
   }, []);
 
   return (
-    <SafeAreaView style={{flex:1}}>
+    <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.meta}>
           {!loadMore && (
@@ -108,11 +109,7 @@ const CouncilDetail = props => {
           />
 
           <View style={{marginLeft: 20, marginRight: 20}}>
-            {pillarLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-              </View>
-            )}
+            {pillarLoading && <Loading />}
             <Text style={styles.headingTitle}>{pillars?.name}</Text>
             <HTMLView
               value={pillars?.description ? pillars.description : ''}
