@@ -8,13 +8,13 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
-  
 } from 'react-native';
 import {Button} from 'native-base';
 import HTMLView from 'react-native-htmlview';
 
 import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 
 const selfAbout = props => {
   const {
@@ -46,7 +46,7 @@ const selfAbout = props => {
 
   return (
     <ScrollView>
-		<StatusBar
+      <StatusBar
         barStyle="light-content"
         hidden={false}
         backgroundColor="grey"
@@ -92,33 +92,17 @@ const selfAbout = props => {
           </View>
         </View>
 
-        {selfLearnLoading && (
-          <View
-            style={{
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'absolute',
-              zIndex: 1011,
-            }}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
-        <View >
-         
-		  <HTMLView
-                value={selfLearns?.description}
-                textComponentProps={{
-                  style: {
-					
-					fontSize: 14,
-					fontFamily: Typography.FONT_SF_REGULAR,
-                  },
-                }}
-              />
+        {selfLearnLoading && <Loading />}
+        <View>
+          <HTMLView
+            value={selfLearns?.description}
+            textComponentProps={{
+              style: {
+                fontSize: 14,
+                fontFamily: Typography.FONT_SF_REGULAR,
+              },
+            }}
+          />
           {/* <Text
             style={{
               marginTop: 10,

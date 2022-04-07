@@ -18,6 +18,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
+import Loading from '../../../shared/loading';
 
 const passwordSchema = Yup.object().shape({
   oldPassword: Yup.string()
@@ -145,21 +146,7 @@ const ChangePasswordForm = props => {
             </View>
           )}
 
-          {loading && (
-            <>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
-                  position: 'absolute',
-                  zIndex: 1011,
-                }}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} />
-              </View>
-            </>
-          )}
+          {loading && <Loading />}
 
           <View style={styles.body}>
             <View style={styles.bodyWrapper}>

@@ -25,6 +25,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
+import Loading from '../../../shared/loading';
 
 const Event = props => {
   const {
@@ -257,14 +258,7 @@ const Event = props => {
                         </View>
                       )}
 
-                      {eventLoading && (
-                        <View style={styles.loading1}>
-                          <BubblesLoader
-                            color={Colors.SECONDARY_TEXT_COLOR}
-                            size={80}
-                          />
-                        </View>
-                      )}
+                      {eventLoading && <Loading />}
                     </View>
                   )}
               </View>
@@ -333,14 +327,7 @@ const Event = props => {
               )}
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                {eventRegisterLoading && (
-                  <View style={styles.loading1}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                )}
+                {eventRegisterLoading && <Loading />}
                 {!eventStatus && (
                   <Button
                     style={styles.acceptButton}

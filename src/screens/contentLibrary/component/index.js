@@ -20,7 +20,7 @@ import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import {BubblesLoader} from 'react-native-indicator';
-import useLoader from '../../loading/useLoader';
+import Loading from '../../../shared/loading';
 
 const Content = props => {
   const {
@@ -29,12 +29,10 @@ const Content = props => {
     contentLoading,
     contentError,
     cleanContent,
-	loader,
-
+    loader,
   } = props;
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(content);
-
 
   useEffect(() => {
     setFilteredDataSource(content);
@@ -146,8 +144,6 @@ const Content = props => {
     );
   };
 
- 
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar
@@ -204,12 +200,8 @@ const Content = props => {
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
           }}
           contentContainerStyle={{paddingBottom: 20}}>
-          {contentLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
-		  {/* {loader} */}
+          {contentLoading && <Loading />}
+          {/* {loader} */}
 
           <FlatList
             contentContainerStyle={{alignItems: 'center'}}

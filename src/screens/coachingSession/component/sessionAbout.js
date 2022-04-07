@@ -21,6 +21,7 @@ import {BubblesLoader} from 'react-native-indicator';
 
 import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 
 const sessionAbout = props => {
   const {
@@ -297,11 +298,7 @@ const sessionAbout = props => {
         </View>
       )}
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        {sessionRegisterLoading && (
-          <View style={styles.loading1}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+        {sessionRegisterLoading && <Loading />}
         {!sessionStatus && (
           <Button
             style={styles.acceptButton}

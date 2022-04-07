@@ -23,6 +23,7 @@ import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {WebView} from 'react-native-webview';
 import {Button} from 'native-base';
+import Loading from '../../../shared/loading';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -356,26 +357,7 @@ const GrowthDetail = props => {
                   },
                 }}
               />
-              {coachingSessionLoading && (
-                <>
-                  <View
-                    style={{
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      position: 'absolute',
-                      zIndex: 1011,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )}
+              {coachingSessionLoading && <Loading />}
               {coachingSession?.length !== 0 && (
                 <View style={styles.middle}>
                   <Text style={styles.title}>Sessions</Text>

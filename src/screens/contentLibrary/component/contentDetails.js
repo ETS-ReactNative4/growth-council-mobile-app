@@ -21,6 +21,7 @@ import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import Loading from '../../../shared/loading';
 
 const ContentLibrary = props => {
   const {
@@ -138,11 +139,7 @@ const ContentLibrary = props => {
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
           }}
           contentContainerStyle={{paddingBottom: 20}}>
-          {contentLibraryLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {contentLibraryLoading && <Loading />}
           <View style={{alignItems: 'center'}}>
             {filteredDataSource.map(item => {
               const itemname = item?.name;

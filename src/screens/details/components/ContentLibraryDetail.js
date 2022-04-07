@@ -30,6 +30,7 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import WebView from 'react-native-autoheight-webview';
 import HTMLView from 'react-native-htmlview';
+import Loading from '../../../shared/loading';
 
 const ContentLibraryDetail = props => {
   const {
@@ -126,23 +127,23 @@ const ContentLibraryDetail = props => {
       return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
     };
     return (
-		<TouchableOpacity
+      <TouchableOpacity
         onPress={() =>
           navigation.navigate('pdf', {paramsFile: item?.file?.url})
         }>
-      <View style={styles.attachmentContainer}>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
-          <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
-        </View>
+        <View style={styles.attachmentContainer}>
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
+            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+          </View>
 
-        <TouchableOpacity
-          style={styles.attachmentDownloadButton}
-          onPress={checkPermission}>
-          <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-        </TouchableOpacity>
-      </View>
-	  </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.attachmentDownloadButton}
+            onPress={checkPermission}>
+            <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -278,11 +279,7 @@ const ContentLibraryDetail = props => {
               </View>
             )}
 
-          {contentLibraryDetailsLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {contentLibraryDetailsLoading && <Loading />}
           {/* Abstract Section */}
           {contentLibraryDetails?.abstract !== undefined &&
             contentLibraryDetails?.abstract !== '' && (

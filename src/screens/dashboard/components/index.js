@@ -26,6 +26,7 @@ import Footer from '../../../shared/footer';
 import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window').width;
 const contentContainerWidth = win / 2;
@@ -363,11 +364,7 @@ const Dashboard = props => {
           </View>
         </View>
 
-        {latestContentLoading && (
-          <View style={styles.loading1}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+        {latestContentLoading && <Loading />}
 
         <View style={styles.middle}>
           <Text style={[styles.title, {marginLeft: 15}]}>Latest Content</Text>

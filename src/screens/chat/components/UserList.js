@@ -24,6 +24,7 @@ import {useIsFocused} from '@react-navigation/native';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import ChatCount from '../../../shared/chatCount';
+import Loading from '../../../shared/loading';
 
 const UserList = props => {
   const {
@@ -133,7 +134,7 @@ const UserList = props => {
                 margin: 14,
               }}
             />
-            <View style={{margin: 10, width: '65%',}}>
+            <View style={{margin: 10, width: '65%'}}>
               <Text
                 style={{
                   fontSize: 14,
@@ -150,7 +151,7 @@ const UserList = props => {
               </Text>
               <View
                 style={{
-					top:20,
+                  top: 20,
                   right: 10,
                   backgroundColor: 'red',
                   zIndex: 101,
@@ -218,7 +219,6 @@ const UserList = props => {
               });
             }}
           />
-          
         </View>
         <View style={styles.buttonWrapper}>
           <TouchableOpacity>
@@ -229,11 +229,7 @@ const UserList = props => {
             </Button>
           </TouchableOpacity>
         </View>
-        {userLoading && (
-          <View style={styles.loading1}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-          </View>
-        )}
+        {userLoading && <Loading />}
         <ScrollView>
           <View style={{marginTop: 10}}>
             <FlatList
