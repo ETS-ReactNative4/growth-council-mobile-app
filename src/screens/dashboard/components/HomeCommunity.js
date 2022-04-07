@@ -11,6 +11,7 @@ import {
   Dimensions,
   SafeAreaView,
   StatusBar,
+  PermissionsAndroid,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -25,7 +26,8 @@ import Player from './Player';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
-
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Loading from '../../../shared/loading';
 
@@ -313,14 +315,14 @@ const HomeCommunity = props => {
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
-            <Text style={styles.attachmentTitle}></Text>
+            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );
@@ -376,7 +378,6 @@ const HomeCommunity = props => {
             pillarMemberContents?.attachments !== null &&
             pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments</Text>
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
@@ -399,25 +400,25 @@ const HomeCommunity = props => {
             </View>
           )}
 
-          {pillarMemberContents?.pillar_contents?.length !== 0 && 
-		  pillarMemberContents?.pillar_contents?.length !== null &&
-		  pillarMemberContents?.pillar_contents?.length !== false &&(
-            <View style={styles.content}>
-              <Text style={styles.title}>Growth Coaching Content</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.pillar_contents}
-                  renderItem={_renderContentItem}
-                />
+          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+            pillarMemberContents?.pillar_contents?.length !== null &&
+            pillarMemberContents?.pillar_contents?.length !== false && (
+              <View style={styles.content}>
+                <Text style={styles.title}>Growth Coaching Content</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.pillar_contents}
+                    renderItem={_renderContentItem}
+                  />
+                </View>
               </View>
-            </View>
-          )}
+            )}
 
           {/* <Footer /> */}
         </View>

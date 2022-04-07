@@ -12,6 +12,7 @@ import {
   StatusBar,
   SafeAreaView,
   Pressable,
+  PermissionsAndroid,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -20,7 +21,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from './Player';
@@ -301,16 +303,16 @@ const BestPractice = props => {
           navigation.navigate('pdf', {paramsFile: item?.file?.url})
         }>
         <View style={styles.attachmentContainer}>
-          <View style={{display: "flex",flexDirection:"row", flexWrap:"nowrap", alignItems:"center"}}>
-            <FontAwesomeIcon name="file-pdf-o" size={30} color="#9B9CA0" />
-            <Text style={styles.attachmentTitle}></Text>
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
+            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          {/* <Pressable
+          <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </Pressable> */}
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );
@@ -370,7 +372,6 @@ const BestPractice = props => {
           {pillarMemberContents?.attachments?.length !== 0 &&
             pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments </Text>
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
@@ -396,24 +397,24 @@ const BestPractice = props => {
           )} */}
 
           {pillarMemberContents?.pillar_contents?.length !== 0 &&
-		   pillarMemberContents?.pillar_contents?.length !== null &&
-		   pillarMemberContents?.pillar_contents?.length !== false && (
-            <View style={styles.content}>
-              <Text style={styles.title}>Growth Coaching Content</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.pillar_contents}
-                  renderItem={_renderContentItem}
-                />
+            pillarMemberContents?.pillar_contents?.length !== null &&
+            pillarMemberContents?.pillar_contents?.length !== false && (
+              <View style={styles.content}>
+                <Text style={styles.title}>Growth Coaching Content</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.pillar_contents}
+                    renderItem={_renderContentItem}
+                  />
+                </View>
               </View>
-            </View>
-          )}
+            )}
           {/* <Footer /> */}
         </View>
       </ScrollView>
@@ -577,6 +578,7 @@ const styles = StyleSheet.create({
   attachmentTitle: {
     marginLeft: 10,
     fontSize: 14,
+    width: '80%',
     fontFamily: 'SFProText-Regular',
     color: Colors.SECONDARY_TEXT_COLOR,
   },

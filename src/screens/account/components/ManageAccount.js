@@ -453,7 +453,7 @@ const ManageAccount = props => {
                   <DropDownPicker
                     multiple={true}
                     min={0}
-                    max={5}
+                    max={7}
                     open={open}
                     value={value}
                     items={items}
