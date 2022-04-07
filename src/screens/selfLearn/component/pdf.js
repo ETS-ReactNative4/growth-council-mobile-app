@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   Text,
   PermissionsAndroid,
+  PermissionStatus,
 } from 'react-native';
 import Pdf from 'react-native-pdf';
 import ToastMessage from '../../../shared/toast';
-import ReactNativeBlobUtil from 'react-native-blob-util'
+import ReactNativeBlobUtil from 'react-native-blob-util';
 
 const pdf = props => {
   const {navigation, route} = props;
@@ -19,7 +20,6 @@ const pdf = props => {
   const fileUrl = route.params.paramsFile;
 
   const checkPermission = async () => {
-
     if (Platform.OS === 'ios') {
       downloadFile();
     } else {
@@ -44,7 +44,6 @@ const pdf = props => {
   };
 
   const downloadFile = () => {
-   
     let date = new Date();
 
     let FILE_URL = fileUrl;
@@ -54,10 +53,11 @@ const pdf = props => {
     file_ext = '.' + file_ext[0];
 
     const {config, fs} = ReactNativeBlobUtil;
-    let RootDir = fs.dirs.PictureDir;
-    let options = {
-      fileCache: true,
-      addAndroidDownloads: {
+    let RootDir =
+      Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+    let options = Platform.select({
+      ios: {
+        fileCache: true,
         path:
           RootDir +
           '/file_' +
@@ -65,9 +65,21 @@ const pdf = props => {
           file_ext,
         description: 'downloading file...',
         notification: true,
-        useDownloadManager: true,
       },
-    };
+      android: {
+        fileCache: true,
+        addAndroidDownloads: {
+          path:
+            RootDir +
+            '/file_' +
+            Math.floor(date.getTime() + date.getSeconds() / 2) +
+            file_ext,
+          description: 'downloading file...',
+          notification: true,
+          useDownloadManager: true,
+        },
+      },
+    });
     config(options)
       .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
       .then(res => {
@@ -77,7 +89,6 @@ const pdf = props => {
   };
 
   const getFileExtention = fileUrl => {
-
     return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
   };
 

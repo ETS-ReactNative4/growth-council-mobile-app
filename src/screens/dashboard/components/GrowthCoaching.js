@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  PermissionsAndroid,
   StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -19,7 +20,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
@@ -317,14 +319,14 @@ const GrowthCoaching = props => {
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
-            <Text style={styles.attachmentTitle}></Text>
+            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
           </View>
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.attachmentDownloadButton}
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );
@@ -396,7 +398,7 @@ const GrowthCoaching = props => {
             pillarMemberContents?.attachments !== null && 
 			pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments</Text>
+
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
