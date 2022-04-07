@@ -55,9 +55,9 @@ const pdf = props => {
     const {config, fs} = ReactNativeBlobUtil;
     let RootDir =
       Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
-    let options = {
-      fileCache: true,
-      addAndroidDownloads: {
+    let options = Platform.select({
+      ios: {
+        fileCache: true,
         path:
           RootDir +
           '/file_' +
@@ -65,9 +65,21 @@ const pdf = props => {
           file_ext,
         description: 'downloading file...',
         notification: true,
-        useDownloadManager: true,
       },
-    };
+      android: {
+        fileCache: true,
+        addAndroidDownloads: {
+          path:
+            RootDir +
+            '/file_' +
+            Math.floor(date.getTime() + date.getSeconds() / 2) +
+            file_ext,
+          description: 'downloading file...',
+          notification: true,
+          useDownloadManager: true,
+        },
+      },
+    });
     config(options)
       .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
       .then(res => {
