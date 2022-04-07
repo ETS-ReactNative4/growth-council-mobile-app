@@ -279,7 +279,6 @@ const ContentLibraryDetail = props => {
               </View>
             )}
 
-          {contentLibraryDetailsLoading && <Loading />}
           {/* Abstract Section */}
           {contentLibraryDetails?.abstract !== undefined &&
             contentLibraryDetails?.abstract !== '' && (
@@ -290,6 +289,7 @@ const ContentLibraryDetail = props => {
                 </Text>
               </View>
             )}
+          {contentLibraryDetailsLoading && <Loading />}
           {/* Call To Action Section */}
           {contentLibraryDetails?.call_to_action?.length !== 0 &&
             contentLibraryDetails?.call_to_action !== false && (
