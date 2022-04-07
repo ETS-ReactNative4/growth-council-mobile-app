@@ -27,6 +27,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import Footer from '../../../shared/footer';
 import {Searchbar} from 'react-native-paper';
 import BottomNav from '../../../layout/BottomLayout';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -489,27 +490,9 @@ const People = props => {
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
             paddingBottom: 50,
           }}>
-          {userLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {userLoading && <Loading />}
           <View style={{marginTop: 10}}>
-            {memberConnectionLoading && (
-              <View
-                style={{
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  zIndex: 1011,
-                }}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
+            {memberConnectionLoading && <Loading />}
             <FlatList
               vertical
               showsVerticalScrollIndicator={false}

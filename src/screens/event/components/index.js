@@ -25,6 +25,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
+import Loading from '../../../shared/loading';
 
 const Event = props => {
   const {
@@ -126,6 +127,9 @@ const Event = props => {
     setTimeToEnd(convertedToLocalTimeEnd);
   }, [events]);
 
+  const pillarname = events?.pillar_categories
+    ? events?.pillar_categories[0]?.name
+    : '';
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
@@ -150,9 +154,7 @@ const Event = props => {
                 <Text style={styles.headingText1}>{events?.title}</Text>
               )}
               <View style={styles.poe}>
-                <Text style={{fontSize: 12}}>
-                  {events?.pillar_categories[0]?.name}
-                </Text>
+                <Text style={{fontSize: 12}}>{pillarname}</Text>
               </View>
             </View>
           </View>
@@ -259,14 +261,7 @@ const Event = props => {
                         </View>
                       )}
 
-                      {eventLoading && (
-                        <View style={styles.loading1}>
-                          <BubblesLoader
-                            color={Colors.SECONDARY_TEXT_COLOR}
-                            size={80}
-                          />
-                        </View>
-                      )}
+                      {eventLoading && <Loading />}
                     </View>
                   )}
               </View>
@@ -335,14 +330,7 @@ const Event = props => {
               )}
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                {eventRegisterLoading && (
-                  <View style={styles.loading1}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                )}
+                {eventRegisterLoading && <Loading />}
                 {!eventStatus && (
                   <Button
                     style={styles.acceptButton}

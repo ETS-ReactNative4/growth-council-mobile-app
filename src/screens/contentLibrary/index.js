@@ -8,8 +8,10 @@ import {
   resetSearchContent,
 } from './slice/searchContentSlice';
 
+
 const ContentScreen = props => {
   const dispatch = useDispatch();
+
 
   const {content, contentLoading, contentError} = useSelector(
     state => state.content,
@@ -23,6 +25,7 @@ const ContentScreen = props => {
     dispatch(fetchAllContent());
   }, []);
 
+
   const cleanContent = () => {
     dispatch(resetContent());
   };
@@ -35,13 +38,15 @@ const ContentScreen = props => {
     dispatch(resetSearchContent());
   };
 
+
+
   return (
     <Content
       {...props}
       content={content}
       contentLoading={contentLoading}
       contentError={contentError}
-    //   fetchContent={fetchContent}
+	 //   fetchContent={fetchContent}
       cleanContent={cleanContent}
       searchContent={searchContent}
       searchContentLoading={searchContentLoading}

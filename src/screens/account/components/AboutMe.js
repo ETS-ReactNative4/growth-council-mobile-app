@@ -19,6 +19,7 @@ import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import {BubblesLoader} from 'react-native-indicator';
 import * as Colors from '../../../theme/colors';
 import {useIsFocused} from '@react-navigation/native';
+import Loading from '../../../shared/loading';
 
 const AboutMe = props => {
   const isFocused = useIsFocused();
@@ -54,16 +55,7 @@ const AboutMe = props => {
         <View>
           <View style={styles.middle}>
             <View style={styles.wrapper}>
-              {profileLoading && (
-                <>
-                  <View style={styles.loading1}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )}
+              {profileLoading && <Loading />}
 
               <View style={styles.TextWrapper}>
                 <Text

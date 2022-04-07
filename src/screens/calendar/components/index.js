@@ -20,6 +20,7 @@ import BottomNav from '../../../layout/BottomLayout';
 import Footer from '../../../shared/footer';
 import ToastMessage from '../../../shared/toast';
 import {formatTimeByOffset} from '../../event/components/timezone';
+import Loading from '../../../shared/loading';
 
 const EventCalendar = props => {
   const {
@@ -305,11 +306,7 @@ const EventCalendar = props => {
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
               {currentMonth} Events
             </Text>
-            {calendarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-              </View>
-            )}
+            {calendarEventLoading && <Loading />}
             {!calendarEventLoading && (
               <FlatList
                 vertical

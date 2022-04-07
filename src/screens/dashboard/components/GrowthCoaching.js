@@ -29,6 +29,7 @@ import Player from './Player';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {isEmptyArray} from 'formik';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -362,11 +363,7 @@ const GrowthCoaching = props => {
             </View>
           )}
 
-          {pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {pillarEventLoading && <Loading />}
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
               <Text style={styles.title}>Points of Engagement</Text>

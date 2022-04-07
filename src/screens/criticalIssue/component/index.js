@@ -20,6 +20,7 @@ import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import {BubblesLoader} from 'react-native-indicator';
 import Entypo from 'react-native-vector-icons/Entypo';
+import Loading from '../../../shared/loading';
 
 const CriticalIssue = props => {
   const {
@@ -88,8 +89,7 @@ const CriticalIssue = props => {
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-        }}
-        >
+        }}>
         <View style={styles.container}>
           <View style={styles.title}>
             <Text
@@ -108,11 +108,7 @@ const CriticalIssue = props => {
             </Text>
           </View>
 
-          {criticalIssueLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {criticalIssueLoading && <Loading />}
 
           <FlatList
             showsVerticalScrollIndicator={false}

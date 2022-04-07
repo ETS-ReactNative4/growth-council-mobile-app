@@ -23,6 +23,7 @@ import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
 import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import ToastMessage from '../../../shared/toast';
 
@@ -468,19 +469,7 @@ const SubPOEDetails = props => {
             </View>
           </ScrollView>
         </View>
-        {poeDetailLoading && (
-          <View
-            style={{
-              height: Dimensions.get('window').height,
-              position: 'absolute',
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: 0,
-              right: 0,
-            }}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+        {poeDetailLoading && <Loading />}
       </ScrollView>
     </>
   );

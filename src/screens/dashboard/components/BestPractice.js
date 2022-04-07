@@ -28,6 +28,7 @@ import Footer from '../../../shared/footer';
 import Player from './Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -358,11 +359,7 @@ const BestPractice = props => {
             <Text style={[styles.title, {marginLeft: 15}]}>
               Points of Engagement
             </Text>
-            {pillarPOELoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
+            {pillarPOELoading && <Loading />}
 
             <FlatList
               numColumns={4}
