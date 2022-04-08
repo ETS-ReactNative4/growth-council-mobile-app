@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -108,7 +108,8 @@ const SubPOEDetails = props => {
       };
     }, []),
   );
-  console.log(pillarMemberContents.attachments);
+  console.log(route.params.poeId);
+  
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>

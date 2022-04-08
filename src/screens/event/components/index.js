@@ -130,6 +130,8 @@ const Event = props => {
   const pillarname = events?.pillar_categories
     ? events?.pillar_categories[0]?.name
     : '';
+
+  console.log(events.ID);
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>

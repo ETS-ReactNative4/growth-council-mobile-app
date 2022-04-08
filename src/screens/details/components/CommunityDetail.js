@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -461,7 +461,6 @@ const CommunityDetail = props => {
                 poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null && (
                   <View style={styles.sectionContainer}>
-                   
                     <FlatList
                       vertical
                       showsHorizontalScrollIndicator={false}

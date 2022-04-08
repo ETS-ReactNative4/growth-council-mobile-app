@@ -25,7 +25,6 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
-
 import {useSelector} from 'react-redux';
 import Loading from '../../../shared/loading';
 
@@ -208,15 +207,17 @@ const ManageAccount = props => {
   }, []);
 
   useEffect(() => {
-    const result = Object.entries(expertise)?.filter(function([key, value]) {
-      if (value === "Expertise Areas") {
-        return false; // skip
-      }
-      return true;
-    }).map(([key, value]) => ({
-      label: key,
-      value,
-    }));
+    const result = Object.entries(expertise)
+      ?.filter(function ([key, value]) {
+        if (value === 'Expertise Areas') {
+          return false; // skip
+        }
+        return true;
+      })
+      .map(([key, value]) => ({
+        label: key,
+        value,
+      }));
     setItems(result);
     setValue(expertise_areas1);
   }, [expertise]);
@@ -452,14 +453,13 @@ const ManageAccount = props => {
 
                   <DropDownPicker
                     multiple={true}
-                    min={0}
-                    max={7}
                     open={open}
                     value={value}
                     items={items}
                     setOpen={setOpen}
                     setValue={setValue}
                     setItems={setItems}
+                    maxHeight={1000}
                     onChangeValue={value => {
                       setFieldValue('expertise_areas1', value);
                     }}
