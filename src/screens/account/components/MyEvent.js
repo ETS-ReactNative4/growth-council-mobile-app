@@ -94,7 +94,7 @@ const Profile = props => {
           <View style={[styles.middleWrapper, styles.shadowProp]}>
             <View style={styles.wrapper}>
               <View style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
-                <Text style={[styles.text, {width: "70%", marginRight:10}]}>{item?.title}</Text>
+                <Text style={[styles.text, {width: "60%", marginRight:10}]}>{item?.title}</Text>
                 <Button
                 style={{
                   height: 35,
@@ -108,7 +108,7 @@ const Profile = props => {
               </View>
               
               <View style={styles.iconWrapper}>
-                <View style={{flexDirection:"row", alignItems:"flex-start"}}>
+                <View style={{flexDirection:"row", alignItems:"flex-start", marginRight: 10}}>
                   <Ionicon name={'person'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 10, width: 100}]}>
                     {organizer} {description}
@@ -120,7 +120,7 @@ const Profile = props => {
                 </View>
               </View>
               <View style={styles.iconWrapper}>
-                <View style={{flexDirection:"row", alignItems:"center"}}>
+                <View style={{flexDirection:"row", alignItems:"center", marginRight: 10}}>
                   <Ionicon name={'calendar'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 12, width: 100}]}>
                     {date[2]} {date[1]}
@@ -241,8 +241,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems:'flex-start',
-    marginLeft: 10,
-    marginTop: 10,
+    marginTop: 10
   },
   shadowProp: {
     shadowColor: '#000',
