@@ -56,6 +56,7 @@ const Content = props => {
   const _renderContent = ({item, index}) => {
     return (
       <TouchableOpacity
+        key={index}
         style={[styles.content, styles.shadowProp]}
         onPress={() => {
           if (item.children_count === 0) {
@@ -168,7 +169,9 @@ const Content = props => {
             elevation: 5,
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
           }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => {
+            navigation.goBack()
+            }}>
             <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
           </TouchableOpacity>
           <Searchbar
