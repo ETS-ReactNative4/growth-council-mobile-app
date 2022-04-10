@@ -34,21 +34,11 @@ const SubPOEDetails = props => {
   const {
     navigation,
     route,
-    sessionDetails,
-    sessionDetailLoading,
-    sessionDetailError,
-    fetchSessionDetailByIdentifier,
-    cleanSessionDetail,
     poeDetails,
     poeDetailLoading,
     poeDetailError,
     fetchAllPOEDetail,
     cleanPOEDetail,
-    poeEvents,
-    poeEventLoading,
-    poeEventError,
-    fetchAllPOEEvent,
-    cleanPOEEvent,
     pillarMemberContents,
     pillarMemberContentLoading,
     pillarMemberContentError,
@@ -64,12 +54,6 @@ const SubPOEDetails = props => {
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
-  useEffect(() => {
-    const fetchEventDetailAsync = async () => {
-      await fetchSessionDetailByIdentifier(route.params.id);
-    };
-    fetchEventDetailAsync();
-  }, []);
 
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
@@ -78,12 +62,7 @@ const SubPOEDetails = props => {
     fetchAllPOEDetailAsync();
   }, []);
 
-  useEffect(() => {
-    const fetchAllPOEEventAsync = async () => {
-      await fetchAllPOEEvent(route.params.poeId);
-    };
-    fetchAllPOEEventAsync();
-  }, []);
+
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {

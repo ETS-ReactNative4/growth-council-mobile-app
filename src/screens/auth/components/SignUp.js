@@ -347,7 +347,7 @@ const SignUpForm = props => {
               source={require('../../../assets/img/GILCouncil.jpg')}
               resizeMode="contain"
             />
-            <Text style={styles.headingText1}>Join Growth Council</Text>
+            <Text style={styles.headingText1}>Join GIL Council</Text>
           </View>
 
           {loading && (
@@ -517,7 +517,7 @@ const SignUpForm = props => {
 
             <View style={styles.signUpLinkWrapper}>
               <Text style={{color: Colors.NONARY_TEXT_COLOR}}>
-                Already a Growth Council Member?
+                Already a GIL Council Member?
               </Text>
               <TouchableOpacity>
                 <Text

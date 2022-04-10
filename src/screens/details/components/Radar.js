@@ -67,7 +67,6 @@ const Radar = props => {
 
   console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`);
 
-
   return (
     // <ScrollView>
     //   <View style={styles.container}>
@@ -137,8 +136,11 @@ const Radar = props => {
                       editable={false}
                       textAlign={'center'}
                       style={styles.input}
-                      value={radarMemberDetails?.present_growth_index?.user_radar_growth_index}
-					  maxLength={4}
+                      value={
+                        radarMemberDetails?.present_growth_index
+                          ?.user_radar_growth_index
+                      }
+                      maxLength={4}
                     />
                   </View>
                   <View style={{flex: 2}}>
@@ -146,8 +148,11 @@ const Radar = props => {
                       editable={false}
                       textAlign={'center'}
                       style={styles.input}
-                      value={radarMemberDetails?.present_growth_index?.user_radar_innovation_index}
-					  maxLength={4}
+                      value={
+                        radarMemberDetails?.present_growth_index
+                          ?.user_radar_innovation_index
+                      }
+                      maxLength={4}
                     />
                   </View>
                 </View>
@@ -204,8 +209,10 @@ const Radar = props => {
                       <Ionicons name={'close'} size={35} color={'#3495D2'} />
                     </Pressable>
                   </View>
-                  <View style={{marginTop: 40}}>
-                    <Text style={{fontSize: 18, color: 'black'}}>{name}</Text>
+                  <View style={{padding: 10}}>
+                    <Text style={{fontSize: 18, color: 'black', marginTop: 10}}>
+                      {name}
+                    </Text>
 
                     <View style={styles.seperationline} />
                     <Text style={styles.modalText}>{description}</Text>
@@ -325,6 +332,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
+    paddingVertical: 10,
     marginBottom: 15,
     textAlign: 'center',
     marginTop: 10,
