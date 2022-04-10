@@ -205,12 +205,10 @@ const CoachingSession = props => {
                                   style={{width: 20, height: 20}}
                                 />
                               </View>
-
                               <Text
                                 style={{
-                                  paddingLeft: 10,
                                   fontSize: 12,
-                                  width: '60%',
+                                  width: '50%',
                                 }}>
                                 {trait?.title}
                               </Text>
@@ -704,9 +702,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 0.2,
-    paddingBottom: 5,
-    paddingLeft: 10,
+    borderBottomWidth: 0.3, 
+    paddingLeft: 5,
     borderBottomColor: '#EBECFO',
     alignItems: 'center',
   },
