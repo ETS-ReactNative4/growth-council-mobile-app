@@ -308,12 +308,10 @@ const sessionAbout = props => {
         )}
         {sessionStatus && (
           <TouchableOpacity style={styles.registeredButton} disabled>
-            <View style={{paddingLeft: 10}}>
-              <Image
-                source={require('../../../assets/img/tick-icon.png')}
-                style={{width: 30, height: 30}}
-              />
-            </View>
+            <Image
+              source={require('../../../assets/img/tick-icon.png')}
+              style={{width: 30, height: 30}}
+            />
             <Text style={styles.registeredButtonText}>Registered</Text>
           </TouchableOpacity>
         )}
@@ -450,6 +448,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: '#ffffff',
     marginTop: 25,
+    padding: 10,
     borderColor: '#F26722',
     borderWidth: 2,
     flexDirection: 'row',
@@ -462,11 +461,11 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   registeredButtonText: {
-    width: '100%',
     height: 20,
     fontSize: 14,
     color: '#F26722',
-    paddingLeft: 110,
+    textAlign: 'center',
+    width: '90%'
   },
   buttonWrapper: {
     width: 308,
