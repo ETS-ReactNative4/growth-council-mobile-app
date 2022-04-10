@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -34,21 +34,11 @@ const SubPOEDetails = props => {
   const {
     navigation,
     route,
-    sessionDetails,
-    sessionDetailLoading,
-    sessionDetailError,
-    fetchSessionDetailByIdentifier,
-    cleanSessionDetail,
     poeDetails,
     poeDetailLoading,
     poeDetailError,
     fetchAllPOEDetail,
     cleanPOEDetail,
-    poeEvents,
-    poeEventLoading,
-    poeEventError,
-    fetchAllPOEEvent,
-    cleanPOEEvent,
     pillarMemberContents,
     pillarMemberContentLoading,
     pillarMemberContentError,
@@ -64,12 +54,6 @@ const SubPOEDetails = props => {
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
-  useEffect(() => {
-    const fetchEventDetailAsync = async () => {
-      await fetchSessionDetailByIdentifier(route.params.id);
-    };
-    fetchEventDetailAsync();
-  }, []);
 
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
@@ -78,12 +62,7 @@ const SubPOEDetails = props => {
     fetchAllPOEDetailAsync();
   }, []);
 
-  useEffect(() => {
-    const fetchAllPOEEventAsync = async () => {
-      await fetchAllPOEEvent(route.params.poeId);
-    };
-    fetchAllPOEEventAsync();
-  }, []);
+
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {
@@ -108,7 +87,8 @@ const SubPOEDetails = props => {
       };
     }, []),
   );
-  console.log(pillarMemberContents.attachments);
+  console.log(route.params.poeId);
+  
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>

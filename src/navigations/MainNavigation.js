@@ -103,65 +103,6 @@ export const DashboardStackScreen = () => {
           ),
         })}
       />
-      <DashboardStack.Screen
-        name="ContentDetail"
-        component={ContentLibraryScreen}
-        options={({route, navigation}) => ({
-          resourceId: route?.params?.resourceId,
-          header: () => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <DashboardStack.Screen
-        name="LibraryDetail"
-        component={LibraryDetailScreen}
-        options={({route, navigation}) => ({
-          resourceId: route?.params?.resourceId,
-          header: () => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <DashboardStack.Screen
-        name="ContentTags"
-        component={ContentTagsScreen}
-        options={({route, navigation}) => ({
-          id: route?.params?.id,
-          animationEnabled: false,
-          header: () => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <DashboardStack.Screen
-        name="ContentLibraryDetail"
-        component={ContentLibraryDetailScreen}
-        options={({route}) => ({
-          id: route?.params?.id,
-          animationEnabled: false,
-          header: ({navigation}) => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-              noDrawer
-            />
-          ),
-        })}
-      />
     </DashboardStack.Navigator>
   );
 };
@@ -430,6 +371,68 @@ const MainNavigation = () => {
             ),
           })}
         />
+        <DashboardStack.Screen
+          name="ContentDetail"
+          component={ContentLibraryScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <DashboardStack.Screen
+          name="LibraryDetail"
+          component={LibraryDetailScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentTags"
+          component={ContentTagsScreen}
+          options={({route, navigation}) => ({
+            id: route?.params?.id,
+            animationEnabled: false,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            animationEnabled: false,
+            header: ({navigation}) => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
         <Stack.Screen
           name="ContactUs"
           component={ContactUsScreen}
@@ -536,7 +539,6 @@ const MainNavigation = () => {
           component={SubPOEDetailScreen}
           options={({route}) => ({
             poeId: route.params.poeId,
-            pillarId: route.params.pillarId,
             headerShown: false,
           })}
         />

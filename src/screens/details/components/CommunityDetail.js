@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -107,7 +107,7 @@ const CommunityDetail = props => {
       };
     }, []),
   );
-
+  console.log(route.params.poeId);
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -418,7 +418,7 @@ const CommunityDetail = props => {
                   style: {
                     fontFamily: Typography.FONT_SF_REGULAR,
                     fontSize: 14,
-                    lineHeight: 24,
+                    lineHeight: 20,
                     padding: 15,
                     textAlign: 'left',
                     color: '#77838F',
@@ -461,7 +461,6 @@ const CommunityDetail = props => {
                 poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null && (
                   <View style={styles.sectionContainer}>
-                   
                     <FlatList
                       vertical
                       showsHorizontalScrollIndicator={false}
@@ -640,7 +639,6 @@ const styles = StyleSheet.create({
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_SF_REGULAR,
-    fontWeight: '400',
     color: 'white',
     fontSize: 8,
   },

@@ -185,7 +185,7 @@ const SignInForm = props => {
                 </TouchableOpacity>
               </View>
               <View style={styles.signuptext}>
-                <Text>Join Growth Council</Text>
+                <Text>Join the Council</Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
                   onPress={() => navigation.navigate('SignUp')}>
