@@ -95,18 +95,21 @@ const Profile = props => {
             <View style={styles.wrapper}>
               <View style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
                 <Text style={[styles.text, {width: "60%", marginRight:10}]}>{item?.title}</Text>
+            
                 <Button
-                style={{
-                  height: 35,
-                  backgroundColor: '#183863',
-                  borderRadius: 15,
-                }}>
+                  style={{
+                    height: 35,
+                    backgroundColor: '#183863',
+                    borderRadius: 15,
+                    position: 'absolute',
+                    right: 5,
+                  }}>
                   <Text style={{fontSize: 10, color: PRIMARY_BACKGROUND_COLOR}}>
                     Upcoming
                   </Text>
                 </Button>
               </View>
-              
+
               <View style={styles.iconWrapper}>
                 <View style={{flexDirection:"row", alignItems:"flex-start", marginRight: 10}}>
                   <Ionicon name={'person'} size={20} color="#0B0B45" />
@@ -114,7 +117,7 @@ const Profile = props => {
                     {organizer} {description}
                   </Text>
                 </View>
-                <View style={{flexDirection:"row", alignItems:"center"}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Ionicon name={'time'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 12}]}>{time}</Text>
                 </View>
@@ -127,7 +130,7 @@ const Profile = props => {
                   </Text>
                 </View>
 
-                <View style={{flexDirection: 'row', alignItems:"center"}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Ionicon name={'location'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 12, width: 120}]}>
                     {item.location?.location_address}
@@ -186,6 +189,7 @@ const styles = StyleSheet.create({
     color: '#343537',
     marginLeft: 5,
     fontFamily: Typography.FONT_SF_REGULAR,
+    fontSize: 14,
   },
 
   wrapper: {
@@ -199,9 +203,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginTop: 20,
-    left: 2,
-    right: 5,
-
+    padding: 5,
+    left: 5,
     backgroundColor: 'white',
     // borderWidth: 0.3,
   },

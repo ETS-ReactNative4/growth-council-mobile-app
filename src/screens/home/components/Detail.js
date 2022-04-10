@@ -38,7 +38,6 @@ const Detail = props => {
     description = '';
   }
 
-
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -55,7 +54,9 @@ const Detail = props => {
               <Button
                 style={styles.acceptButton}
                 onPress={() => navigation.navigate('SignUp')}>
-                <Text style={styles.acceptButtonText}>Join Growth Council</Text>
+                <Text style={styles.acceptButtonText}>
+                  Join Growth Innovation Leadership Council
+                </Text>
               </Button>
             </View>
 

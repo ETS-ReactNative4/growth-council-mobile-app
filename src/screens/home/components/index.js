@@ -14,6 +14,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('screen');
 
@@ -139,9 +140,7 @@ const Home = props => {
               />
             </View>
           ) : (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-            </View>
+            <Loading />
           )}
         </View>
       </View>
@@ -154,9 +153,7 @@ const Home = props => {
         <Button
           style={styles.signinbutton}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text style={[styles.signinbuttonText]}>
-            Member Login
-          </Text>
+          <Text style={[styles.signinbuttonText]}>Member Login</Text>
         </Button>
       </View>
 
