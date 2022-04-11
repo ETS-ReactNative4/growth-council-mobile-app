@@ -259,7 +259,7 @@ const Dashboard = props => {
             source={backgroundImage}>
             <View
               style={{
-                width: 40,
+                width: 50,
                 height: 50,
                 marginTop: 10,
                 marginLeft: 200,
@@ -294,7 +294,7 @@ const Dashboard = props => {
 
   const _renderCritical = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('CriticalIssue')}>
+    
         <View style={styles.ContentWrapper}>
           <View
             style={{
@@ -319,7 +319,7 @@ const Dashboard = props => {
             </Text>
           </View>
         </View>
-      </TouchableOpacity>
+
     );
   };
   return (

@@ -400,7 +400,7 @@ const BestPractice = props => {
             pillarMemberContents?.pillar_contents?.length !== null &&
             pillarMemberContents?.pillar_contents?.length !== false && (
               <View style={styles.content}>
-                <Text style={styles.title}>Growth Coaching Content</Text>
+                <Text style={styles.title}>Best Practice Content</Text>
                 <View
                   style={{
                     display: 'flex',

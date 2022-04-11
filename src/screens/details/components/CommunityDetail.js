@@ -420,7 +420,8 @@ const CommunityDetail = props => {
                     fontSize: 14,
                     lineHeight: 20,
                     padding: 15,
-                    textAlign: 'left',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     color: '#77838F',
                   },
                 }}

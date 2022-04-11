@@ -404,7 +404,7 @@ const HomeCommunity = props => {
             pillarMemberContents?.pillar_contents?.length !== null &&
             pillarMemberContents?.pillar_contents?.length !== false && (
               <View style={styles.content}>
-                <Text style={styles.title}>Growth Coaching Content</Text>
+                <Text style={styles.title}>Growth Community Content</Text>
                 <View
                   style={{
                     display: 'flex',
