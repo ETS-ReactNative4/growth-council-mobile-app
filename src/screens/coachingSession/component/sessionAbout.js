@@ -101,6 +101,13 @@ const sessionAbout = props => {
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
   const GobalEndMonth = moment(timeToEnd).format('D MMMM (h:mma)');
 
+  const EventDate = moment(sessions?.event_start).format('D MMMM, dddd, h:mma - ');
+  const EventStartMonth = moment(sessions?.event_end).format('D MMMM (h:mma)');
+
+  const EventDateEnd = moment(sessions?.event_end).format('D MMMM, dddd, h:mm a ');
+  const EventEndTime = moment(sessions?.event_end).format('h:mma ');
+  const EventEndMonth = moment(sessions?.event_end).format('D MMMM (h:mma)');
+
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
       backStartTimeStamp,
@@ -157,7 +164,14 @@ const sessionAbout = props => {
                   GobalDate.split(/(\s+)/)[8] +
                   GobalDate.split(/(\s+)/)[7] +
                   GobalEndMonth}{' '}
-              ({deviceTimeZone})
+              ({deviceTimeZone}) /
+              {EventStartMonth === EventEndMonth
+                ? EventDate + EventEndTime
+                : EventStartMonth +
+                  EventDate.split(/(\s+)/)[7] +
+                  EventDate.split(/(\s+)/)[8] +
+                  EventDate.split(/(\s+)/)[7] +
+                  EventEndMonth}
             </Text>
           </View>
           {!sessionStatus && (

@@ -104,14 +104,19 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const eventDate = moment(events?.event_start).format('D MMMM (h:mma)');
-  const eventEnd = moment(events?.event_end).format('D MMMM (h:mma)');
-  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM dddd');
+  const eventDate = moment(events?.event_start).format('D MMMM, h:mma - ');
+  const eventEnd = moment(events?.event_end).format('D MMMM, h:mma');
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const eventStartMonth = moment(events?.event_start).format('D MMMM');
+
+  const eventEndTime = moment(events?.event_end).format('h:mma ');
+  const eventEndMonth = moment(events?.event_end).format('D MMMM');
+
+  const GobalDate = moment(timeToDisplay).format('D MMMM, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM dddd');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -213,10 +218,14 @@ const Event = props => {
                           GobalDate.split(/(\s+)/)[8] +
                           GobalDate.split(/(\s+)/)[7] +
                           GobalEndMonth}{' '}
-                      ({deviceTimeZone}) /{eventEnd.split(/(\s+)/)[3]}
-					   {eventDate} - {eventEnd.split(/(\s+)/)[4]}
-					   
-					  
+                      ({deviceTimeZone}) /{' '}
+                      {eventStartMonth === eventEndMonth
+                        ? eventDate + eventEndTime
+                        : eventStartMonth +
+                          eventDate.split(/(\s+)/)[7] +
+                          eventDate.split(/(\s+)/)[8] +
+                          eventDate.split(/(\s+)/)[7] +
+                          eventEndMonth}
                     </Text>
                   </View>
                   {!eventStatus && (

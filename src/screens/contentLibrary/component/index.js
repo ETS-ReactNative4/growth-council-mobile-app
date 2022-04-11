@@ -71,45 +71,41 @@ const Content = props => {
             });
           }
         }}>
-       
-          <>
-            <Image
+        <>
+          <Image
+            style={{
+              width: '100%',
+              height: 170,
+              borderTopLeftRadius: 14,
+              borderTopRightRadius: 14,
+            }}
+            source={require('../../../assets/img/image.png')}
+          />
+          <View style={styles.contentWrapper}>
+            <Text style={{color: 'black'}}>
+              {item?.children_count === 0 ? item?.count : item?.children_count}
+            </Text>
+            <Text
               style={{
-                width: '100%',
-                height: 170,
-                borderTopLeftRadius: 14,
-                borderTopRightRadius: 14,
-              }}
-              source={require('../../../assets/img/image.png')}
-            />
-            <View style={styles.contentWrapper}>
-              <Text style={{color: 'black'}}>
-                {item?.children_count === 0
-                  ? item?.count
-                  : item?.children_count}
-              </Text>
-              <Text
-                style={{
-                  fontFamily: 'SFProText-Regular',
-                  fontSize: 10,
+                fontFamily: 'SFProText-Regular',
+                fontSize: 10,
+                color: 'black',
+              }}>
+              Article
+            </Text>
+          </View>
+          <View style={styles.wrapper}>
+            <HTMLView
+              value={item?.name}
+              textComponentProps={{
+                style: {
                   color: 'black',
-                }}>
-                Article
-              </Text>
-            </View>
-            <View style={styles.wrapper}>
-              <HTMLView
-                value={item?.name}
-                textComponentProps={{
-                  style: {
-                    color: 'black',
-                    fontWeight: '600',
-                  },
-                }}
-              />
-            </View>
-          </>
-     
+                  fontWeight: '600',
+                },
+              }}
+            />
+          </View>
+        </>
       </TouchableOpacity>
     );
   };
@@ -175,13 +171,15 @@ const Content = props => {
           contentContainerStyle={{paddingBottom: 20}}>
           {contentLoading && <Loading />}
           {/* {loader} */}
-
-          <FlatList
-            contentContainerStyle={{alignItems: 'center'}}
-            showsVerticalScrollIndicator={false}
-            data={filteredDataSource}
-            renderItem={_renderContent}
-          />
+          {filteredDataSource.count !== 0 &&
+            filteredDataSource.children_count !== 0 && (
+              <FlatList
+                contentContainerStyle={{alignItems: 'center'}}
+                showsVerticalScrollIndicator={false}
+                data={filteredDataSource}
+                renderItem={_renderContent}
+              />
+            )}
 
           <View style={{marginTop: 10}}>
             <Footer />

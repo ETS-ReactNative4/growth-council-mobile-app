@@ -408,7 +408,9 @@ const GrowthCoaching = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.pillar_contents?.length !== 0 && (
+          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+		  pillarMemberContents?.pillar_contents !== null &&
+		  pillarMemberContents?.pillar_contents !== false && (
             <View style={styles.content}>
               <Text style={styles.title}>Growth Coaching Content</Text>
               <View
