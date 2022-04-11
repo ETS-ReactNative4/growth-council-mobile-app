@@ -219,6 +219,7 @@ const Dashboard = props => {
     const date = actualDate[0].split(' ', 3);
 
     let backgroundImage = '';
+    let pillarname = '';
     switch (
       item?.pillar_categories[0]?.parent ||
       item?.pillar_categories[1]?.parent
@@ -226,14 +227,17 @@ const Dashboard = props => {
       case 117:
       case 0:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
+        pillarname = 'Growth Community';
         break;
       case 118:
       case 0:
         backgroundImage = require('../../../assets/img/best-practice-bg.png');
+        pillarname = 'Best Practices';
         break;
 
       default:
         backgroundImage = require('../../../assets/img/Rectangle.png');
+        pillarname = 'Growth Coaching';
     }
 
     let organizer = item?.organizer?.term_name;
@@ -253,13 +257,19 @@ const Dashboard = props => {
     return (
       <View key={index} style={styles.topWrapper}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate('EventDetail', {
+              id: item.ID,
+              title: pillarname,
+              image: backgroundImage,
+            })
+          }>
           <ImageBackground
             style={{width: '100%', height: 150, borderRadius: 20}}
             source={backgroundImage}>
             <View
               style={{
-                width: 40,
+                width: 50,
                 height: 50,
                 marginTop: 10,
                 marginLeft: 200,
@@ -294,32 +304,27 @@ const Dashboard = props => {
 
   const _renderCritical = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('CriticalIssue')}>
-        <View style={styles.ContentWrapper}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <View style={[styles.criticalW, styles.shadowCritical]}>
-              <Image
-                source={{uri: item?.icon}}
-                style={{width: 36, height: 36}}
-              />
-            </View>
-            <Text
-              style={{
-                fontSize: 10,
-                width: '60%',
-                paddingLeft: 5,
-                // paddingRight: 10,
-              }}>
-              {item?.heading}
-            </Text>
+      <View style={styles.ContentWrapper}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View style={[styles.criticalW, styles.shadowCritical]}>
+            <Image source={{uri: item?.icon}} style={{width: 36, height: 36}} />
           </View>
+          <Text
+            style={{
+              fontSize: 10,
+              width: '60%',
+              paddingLeft: 5,
+              // paddingRight: 10,
+            }}>
+            {item?.heading}
+          </Text>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
   return (

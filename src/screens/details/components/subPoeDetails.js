@@ -328,7 +328,7 @@ const SubPOEDetails = props => {
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
             style={{height: 240, width: '100%'}}>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() =>
                 navigation.navigate('Best Practices', {
                   poeId: route.params.id,
@@ -338,7 +338,7 @@ const SubPOEDetails = props => {
               <View style={styles.arrow}>
                 <Ionicons name={'arrow-back'} size={50} color="white" />
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>

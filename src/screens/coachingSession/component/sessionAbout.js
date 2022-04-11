@@ -78,16 +78,9 @@ const sessionAbout = props => {
 
   const _renderItem = ({item, index}, navigation) => {
     return (
-      <View>
-        <View style={styles.traitWrapper}>
-          <View style={[styles.traitW, styles.shadowProp]}>
-            <Image
-              source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
-            />
-          </View>
-
-          <Text style={{paddingLeft: 10, width: 100, fontSize: 12}}>
+      <View style={styles.traitWrapper}>
+        <View style={[styles.traitW, styles.shadowProp]}>
+          <Text style={{paddingHorizontal: 10, fontSize: 12}}>
             {item?.title}
           </Text>
         </View>
@@ -101,15 +94,19 @@ const sessionAbout = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM (dddd), h:mma - ');
+  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (h:mma)');
 
-  const GobalTime = moment(timeToDisplay).format('h:mm a');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (dddd)');
-  const GobalMonth = moment(timeToDisplay).format('D MMMM (dddd) - ');
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const GobalEndTime = moment(timeToEnd).format('h:mma ');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM (h:mma)');
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM (dddd), h:mm a ');
-  const GobalEndTime = moment(timeToEnd).format('h:mm a ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM (dddd)');
+  const EventDate = moment(sessions?.event_start).format('D MMMM, dddd, h:mma - ');
+  const EventStartMonth = moment(sessions?.event_start).format('D MMMM (h:mma)');
+
+  const EventDateEnd = moment(sessions?.event_end).format('D MMMM, dddd, h:mm a ');
+  const EventEndTime = moment(sessions?.event_end).format('h:mma ');
+  const EventEndMonth = moment(sessions?.event_end).format('D MMMM (h:mma)');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -161,11 +158,20 @@ const sessionAbout = props => {
             {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
               {GobalStartMonth === GobalEndMonth
-                ? GobalDate +
-                  GobalDateEnd.split(/(\s+)/)[6] +
-                  GobalDateEnd.split(/(\s+)/)[8]
-                : GobalMonth + GobalEndMonth}{' '}
-              ({deviceTimeZone})
+                ? GobalDate + GobalEndTime
+                : GobalStartMonth +
+                  GobalDate.split(/(\s+)/)[7] +
+                  GobalDate.split(/(\s+)/)[8] +
+                  GobalDate.split(/(\s+)/)[7] +
+                  GobalEndMonth}{' '}
+              ({deviceTimeZone}) / {EventDate.split(/(\s+)/)[7] }
+              {EventStartMonth === EventEndMonth
+                ? EventDate + EventEndTime
+                : EventStartMonth +
+                  EventDate.split(/(\s+)/)[7] +
+                  EventDate.split(/(\s+)/)[8] +
+                  EventDate.split(/(\s+)/)[7] +
+                  EventEndMonth}
             </Text>
           </View>
           {!sessionStatus && (
@@ -365,7 +371,7 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
     marginLeft: 5,
-    fontSize: 14,
+    fontSize: 12,
   },
   eventLocationDetails: {
     fontFamily: Typography.FONT_NORMAL,
@@ -465,7 +471,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#F26722',
     textAlign: 'center',
-    width: '90%'
+    width: '90%',
   },
   buttonWrapper: {
     width: 308,
@@ -480,8 +486,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   traitW: {
-    height: 60,
-    width: 60,
+    padding: 10,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',

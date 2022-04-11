@@ -62,7 +62,7 @@ const Event = props => {
     const response = await registerEventByIdentifier({event_id: eventID});
     if (response?.payload?.code === 200) {
       setEventStatus(true);
-      ToastMessage.show('You have successfully registered this event.');
+      ToastMessage.show('You have successfully RSVP’d this event.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
@@ -104,12 +104,19 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM dddd');
+  const eventDate = moment(events?.event_start).format('D MMMM, h:mma - ');
+  const eventEnd = moment(events?.event_end).format('D MMMM, h:mma');
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const eventStartMonth = moment(events?.event_start).format('D MMMM');
+
+  const eventEndTime = moment(events?.event_end).format('h:mma ');
+  const eventEndMonth = moment(events?.event_end).format('D MMMM');
+
+  const GobalDate = moment(timeToDisplay).format('D MMMM, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM dddd');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -127,9 +134,28 @@ const Event = props => {
     setTimeToEnd(convertedToLocalTimeEnd);
   }, [events]);
 
+  let title = '';
   const pillarname = events?.pillar_categories
-    ? events?.pillar_categories[0]?.name
+    ? events?.pillar_categories[1]?.parent ||
+      events?.pillar_categories[0]?.parent
     : '';
+  switch (pillarname) {
+    case 117:
+      title =
+        events?.pillar_categories[1]?.name ||
+        events?.pillar_categories[0]?.name;
+      break;
+    case 118:
+      title =
+        events?.pillar_categories[1]?.name ||
+        events?.pillar_categories[0]?.name;
+      break;
+    case 119:
+      title =
+        events?.pillar_categories[0]?.name ||
+        events?.pillar_categories[0]?.name;
+      break;
+  }
 
   console.log(events.ID);
   return (
@@ -141,11 +167,11 @@ const Event = props => {
           }}
           resizeMode="cover"
           style={{height: '55%'}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          {/* <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={30} color="black" />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View
             style={{
               alignItems: 'center',
@@ -156,7 +182,7 @@ const Event = props => {
                 <Text style={styles.headingText1}>{events?.title}</Text>
               )}
               <View style={styles.poe}>
-                <Text style={{fontSize: 12}}>{pillarname}</Text>
+                <Text style={{fontSize: 12}}>{title}</Text>
               </View>
             </View>
           </View>
@@ -192,7 +218,14 @@ const Event = props => {
                           GobalDate.split(/(\s+)/)[8] +
                           GobalDate.split(/(\s+)/)[7] +
                           GobalEndMonth}{' '}
-                      ({deviceTimeZone})
+                      ({deviceTimeZone}) /{' '}
+                      {eventStartMonth === eventEndMonth
+                        ? eventDate + eventEndTime
+                        : eventStartMonth +
+                          eventDate.split(/(\s+)/)[7] +
+                          eventDate.split(/(\s+)/)[8] +
+                          eventDate.split(/(\s+)/)[7] +
+                          eventEndMonth}
                     </Text>
                   </View>
                   {!eventStatus && (
@@ -353,7 +386,7 @@ const Event = props => {
                         }}
                       />
                     </View>
-                    <Text style={styles.registeredButtonText}>Registered</Text>
+                    <Text style={styles.registeredButtonText}>RSVP</Text>
                   </TouchableOpacity>
                 )}
               </View>
@@ -402,8 +435,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
     marginLeft: 5,
-    marginTop: 3,
-    fontSize: 14,
+    fontSize: 13,
     color: '#1E2022',
     fontWeight: 'bold',
   },
@@ -486,9 +518,9 @@ const styles = StyleSheet.create({
   },
 
   poe: {
-    width: 148,
+    width: 160,
     position: 'absolute',
-    top: -10,
+    top: -15,
     left: 0,
     backgroundColor: '#ffff',
     justifyContent: 'center',
