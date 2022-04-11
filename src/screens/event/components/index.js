@@ -435,7 +435,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
     marginLeft: 5,
-    fontSize: 14,
+    fontSize: 13,
     color: '#1E2022',
     fontWeight: 'bold',
   },
