@@ -153,25 +153,34 @@ const GrowthDetail = props => {
               title: item?.title,
             })
           }>
-          <View style={styles.middleWrapper}>
-            <View
+          <View
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              borderWidth: 1.3,
+              borderColor: '#9EBD6D',
+              marginLeft: 15,
+              borderRadius: 14,
+              marginTop: 10,
+              padding: 10,
+              paddingHorizontal: 20,
+            }}>
+            <Text
               style={{
-                justifyContent: 'center',
+                fontWeight: '500',
+                fontSize: 14,
+
+                alignItems: 'center',
+                alignContent: 'center',
               }}>
-              <Text
-                style={{
-                  fontWeight: '500',
-                  fontSize: 14,
-                  margin: 10,
-                  alignItems: 'center',
-                }}>
-                {item?.title}
-              </Text>
-              {/* <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
+              {item?.title}
+            </Text>
+            {/* <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
                 {item?.organizer?.term_name} {item?.organizer?.description}
               </Text> */}
-            </View>
-            {/* <View
+          </View>
+          {/* <View
               style={{
                 width: 40,
                 height: 50,
@@ -186,7 +195,6 @@ const GrowthDetail = props => {
               <Text>{date[1]}</Text>
               <Text>{date[0]}</Text>
             </View> */}
-          </View>
         </TouchableOpacity>
       </View>
     );

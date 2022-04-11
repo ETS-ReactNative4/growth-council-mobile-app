@@ -164,7 +164,7 @@ const sessionAbout = props => {
                   GobalDate.split(/(\s+)/)[8] +
                   GobalDate.split(/(\s+)/)[7] +
                   GobalEndMonth}{' '}
-              ({deviceTimeZone}) /
+              ({deviceTimeZone}) / {EventDate.split(/(\s+)/)[7] }
               {EventStartMonth === EventEndMonth
                 ? EventDate + EventEndTime
                 : EventStartMonth +
@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
     marginLeft: 5,
-    fontSize: 14,
+    fontSize: 12,
   },
   eventLocationDetails: {
     fontFamily: Typography.FONT_NORMAL,
