@@ -72,13 +72,14 @@ const styles = StyleSheet.create({
   },
   sliderText: {
     position: 'absolute',
-    top: '80%',
+    bottom: '5%',
     left: 4,
     color: 'white',
     marginTop: 10,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
     fontWeight: '800',
     fontSize: Platform.OS === 'ios' ? 10 : 13,
+    width: '90%',
   },
 });
 export default PillarList;

@@ -317,6 +317,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 13,
     lineHeight: 13,
+    width: '90%'
   },
   carouselLeft: {
     position: 'absolute',
