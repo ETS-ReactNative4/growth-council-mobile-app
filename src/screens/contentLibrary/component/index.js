@@ -71,7 +71,7 @@ const Content = props => {
             });
           }
         }}>
-        {item?.image === null && (
+       
           <>
             <Image
               style={{
@@ -83,7 +83,11 @@ const Content = props => {
               source={require('../../../assets/img/image.png')}
             />
             <View style={styles.contentWrapper}>
-              <Text style={{color: 'black'}}>{item?.children_count}</Text>
+              <Text style={{color: 'black'}}>
+                {item?.children_count === 0
+                  ? item?.count
+                  : item?.children_count}
+              </Text>
               <Text
                 style={{
                   fontFamily: 'SFProText-Regular',
@@ -105,42 +109,7 @@ const Content = props => {
               />
             </View>
           </>
-        )}
-        {item?.image !== null && (
-          <>
-            <Image
-              style={{
-                width: '100%',
-                height: 170,
-                borderTopLeftRadius: 14,
-                borderTopRightRadius: 14,
-              }}
-              source={{uri: item?.image}}
-            />
-            <View style={styles.contentWrapper}>
-              <Text style={{color: 'black'}}>{item?.children_count}</Text>
-              <Text
-                style={{
-                  fontFamily: 'SFProText-Regular',
-                  fontSize: 10,
-                  color: 'black',
-                }}>
-                Article
-              </Text>
-            </View>
-            <View style={styles.wrapper}>
-              <HTMLView
-                value={item?.name}
-                textComponentProps={{
-                  style: {
-                    color: 'black',
-                    fontWeight: '600',
-                  },
-                }}
-              />
-            </View>
-          </>
-        )}
+     
       </TouchableOpacity>
     );
   };
@@ -169,8 +138,9 @@ const Content = props => {
             elevation: 5,
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
           }}>
-          <TouchableOpacity onPress={() => {
-            navigation.goBack()
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
             }}>
             <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
           </TouchableOpacity>

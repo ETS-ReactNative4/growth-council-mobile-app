@@ -375,7 +375,6 @@ const People = props => {
   const [accountVisible, setAccountVisible] = useState(false);
   const [regionVisible, setRegionVisible] = useState(false);
 
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar
@@ -403,7 +402,7 @@ const People = props => {
                 });
               }}
             />
-            <TouchableOpacity style={styles.icon}
+            {/* <TouchableOpacity style={styles.icon}
               onPress={async () => {
                 let newSorting = 'DESC';
                 if( sorting === 'DESC'){
@@ -426,7 +425,7 @@ const People = props => {
                 color="#7E7F84"
               />
               <Text style={styles.textWrapper}>Sort</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.iconWrapper}>
             <TouchableOpacity
@@ -437,18 +436,16 @@ const People = props => {
                 borderWidth: 0.3,
                 paddingVertical: 10,
                 borderColor: 'gray',
-                height: 50,
+                height: 60,
                 borderBottomLeftRadius: 10,
                 borderTopLeftRadius: 10,
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 10,
                 justifyContent: 'center',
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {category ? category : 'Expertise Areas'}
               </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               onPress={() => setAccountVisible(true)}
               style={{
                 flex: 1,
@@ -462,8 +459,8 @@ const People = props => {
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {account ? account : 'Account Type'}
               </Text>
-            </TouchableOpacity> */}
-            {/* <TouchableOpacity
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => setRegionVisible(true)}
               style={{
                 flex: 1,
@@ -479,7 +476,7 @@ const People = props => {
               <Text style={{fontSize: 14, color: '#222B45'}}>
                 {region ? region : 'Region'}
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -536,25 +533,21 @@ const People = props => {
                 selectedValue={category}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={ async (itemValue) => {
-                setCategory(itemValue);
-                if(itemValue === 'Expertise Areas'){
-                fetchAllUsers({
-                    s: searchKey,
-                    sort: sorting,
-                    expertise_areas: '',
-                  })
-                  
-                }
-                else {
-                   fetchAllUsers({
-                    s: searchKey,
-                    sort: sorting,
-                    expertise_areas: itemValue,
-                  })
-                  
-                }                  
-                 
+                onValueChange={async itemValue => {
+                  setCategory(itemValue);
+                  if (itemValue === 'Expertise Areas') {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      expertise_areas: '',
+                    });
+                  } else {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      expertise_areas: itemValue,
+                    });
+                  }
                 }}>
                 {Object.keys(expertise).map(key => {
                   return (
@@ -612,10 +605,8 @@ const People = props => {
                     category: account,
                   });
                 }}>
-                 
                 {Object.keys(pillar).map(key => {
                   return (
-                   
                     <Picker.Item
                       label={pillar[key]}
                       value={pillar[key]}
@@ -700,7 +691,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 45,
-    width: '70%',
+    width: '90%',
     marginLeft: 20,
     marginTop: 20,
     marginBottom: 20,

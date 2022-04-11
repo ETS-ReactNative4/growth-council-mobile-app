@@ -344,16 +344,20 @@ const CommunityDetail = props => {
   };
 
   let backgroundColor = '';
+  let title = '';
   const parent = poeDetails?.parent;
   switch (parent) {
     case 118:
       backgroundColor = Colors.PRACTICE_COLOR;
+      title = 'Best Practices';
       break;
     case 117:
       backgroundColor = Colors.COMMUNITY_COLOR;
+      title = 'Growth Community';
       break;
     case 119:
       backgroundColor = Colors.COACHING_COLOR;
+      title = 'Growth Coaching';
   }
 
   let poeDescription = poeDetails?.description;
@@ -379,11 +383,11 @@ const CommunityDetail = props => {
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
             style={{height: 240, width: '100%'}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            {/* <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.arrow}>
                 <Ionicons name={'arrow-back'} size={50} color="white" />
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>

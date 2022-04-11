@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '80%',
     left: 4,
-    color: 'white',
+    color: '#041C3E',
     marginTop: 10,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
     fontWeight: '800',

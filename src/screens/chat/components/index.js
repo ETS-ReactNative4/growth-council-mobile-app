@@ -153,12 +153,12 @@ const Chat = props => {
               width: 50,
               borderRadius: 50,
               marginLeft: 10,
-			  backgroundColor:'red'
+              backgroundColor: 'red',
             }}
           />
           <View
             style={{
-              width: '50%',
+              width: '60%',
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
     height: 35,
     width: 35,
+    paddingHorizontal: 5,
     backgroundColor: '#246EE9',
     borderRadius: 40,
   },

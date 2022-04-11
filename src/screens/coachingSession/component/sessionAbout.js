@@ -101,15 +101,12 @@ const sessionAbout = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM (dddd), h:mma - ');
+  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (h:mma)');
 
-  const GobalTime = moment(timeToDisplay).format('h:mm a');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (dddd)');
-  const GobalMonth = moment(timeToDisplay).format('D MMMM (dddd) - ');
-
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM (dddd), h:mm a ');
-  const GobalEndTime = moment(timeToEnd).format('h:mm a ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM (dddd)');
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const GobalEndTime = moment(timeToEnd).format('h:mma ');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM (h:mma)');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -161,10 +158,12 @@ const sessionAbout = props => {
             {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
               {GobalStartMonth === GobalEndMonth
-                ? GobalDate +
-                  GobalDateEnd.split(/(\s+)/)[6] +
-                  GobalDateEnd.split(/(\s+)/)[8]
-                : GobalMonth + GobalEndMonth}{' '}
+                ? GobalDate + GobalEndTime
+                : GobalStartMonth +
+                  GobalDate.split(/(\s+)/)[7] +
+                  GobalDate.split(/(\s+)/)[8] +
+                  GobalDate.split(/(\s+)/)[7] +
+                  GobalEndMonth}{' '}
               ({deviceTimeZone})
             </Text>
           </View>
@@ -465,7 +464,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#F26722',
     textAlign: 'center',
-    width: '90%'
+    width: '90%',
   },
   buttonWrapper: {
     width: 308,

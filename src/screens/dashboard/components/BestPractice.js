@@ -115,11 +115,18 @@ const BestPractice = props => {
     } else {
       description = item?.organizer?.description;
     }
-
+    const pillarname = 'Best Practice';
+    const image = require('../../../assets/img/best-practice-bg.png');
     return (
       <View key={index} style={styles.topWrapper}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate('EventDetail', {
+              id: item.ID,
+              title: pillarname,
+              image: image,
+            })
+          }>
           <ImageBackground
             style={{width: '100%', height: 150, borderRadius: 20}}
             source={require('../../../assets/img/best-practice-bg.png')}>
@@ -208,6 +215,8 @@ const BestPractice = props => {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
+              title: 'Best Practice',
+              image: require('../../../assets/img/best-practice-bg.png'),
             });
           }
         }}>
