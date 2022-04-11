@@ -102,7 +102,7 @@ const sessionAbout = props => {
   const GobalEndMonth = moment(timeToEnd).format('D MMMM (h:mma)');
 
   const EventDate = moment(sessions?.event_start).format('D MMMM, dddd, h:mma - ');
-  const EventStartMonth = moment(sessions?.event_end).format('D MMMM (h:mma)');
+  const EventStartMonth = moment(sessions?.event_start).format('D MMMM (h:mma)');
 
   const EventDateEnd = moment(sessions?.event_end).format('D MMMM, dddd, h:mm a ');
   const EventEndTime = moment(sessions?.event_end).format('h:mma ');
