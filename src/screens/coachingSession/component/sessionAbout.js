@@ -78,16 +78,9 @@ const sessionAbout = props => {
 
   const _renderItem = ({item, index}, navigation) => {
     return (
-      <View>
-        <View style={styles.traitWrapper}>
-          <View style={[styles.traitW, styles.shadowProp]}>
-            <Image
-              source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
-            />
-          </View>
-
-          <Text style={{paddingLeft: 10, width: 100, fontSize: 12}}>
+      <View style={styles.traitWrapper}>
+        <View style={[styles.traitW, styles.shadowProp]}>
+          <Text style={{paddingHorizontal: 10, fontSize: 12}}>
             {item?.title}
           </Text>
         </View>
@@ -479,8 +472,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   traitW: {
-    height: 60,
-    width: 60,
+    padding: 10,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
