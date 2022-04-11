@@ -274,6 +274,7 @@ const SelfAssessment = props => {
           style={{
             height: 90,
             display: 'flex',
+            justifyContent: 'space-around',
             flexDirection: 'row',
             paddingTop: 15,
             borderTopWidth: 0.4,
@@ -283,12 +284,12 @@ const SelfAssessment = props => {
             style={styles.buttonWrapper}
             onPress={handlePreviousButtonClick}
             disabled={index.traitIndex === 0 && index.subTraitIndex === 0}>
-            <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
+            <Text style={{color: '#FFFFFF', fontSize: 14}}>
               Previous
             </Text>
           </Button>
           <Button style={styles.buttonWrapper} onPress={handleNextButtonClick}>
-            <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
+            <Text style={{color: '#FFFFFF', fontSize: 14}}>
               {index.traitIndex === traitLength - 1 &&
               index.subTraitIndex === subTraitLength - 1
                 ? 'Complete'
@@ -308,11 +309,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   buttonWrapper: {
-    width: 147,
+    width: '45%',
     height: 45,
     display: 'flex',
     flexDirection: 'row',
-    margin: 10,
     padding: 10,
     backgroundColor: '#9FBC6C',
     borderRadius: 10,
