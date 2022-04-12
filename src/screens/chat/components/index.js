@@ -6,7 +6,19 @@ import {
     Image,
 } from 'react-native';
 import {GiftedChat, Send} from 'react-native-gifted-chat';
-import {collection, addDoc, query, orderBy, onSnapshot, getDocs, where, updateDoc, doc} from 'firebase/firestore';
+import {
+    collection,
+    addDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    getDocs,
+    where,
+    updateDoc,
+    doc,
+    setDoc,
+    getDoc
+} from 'firebase/firestore';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -26,6 +38,9 @@ const Chat = (props) => {
 
     console.log('FRIEND NAME:::::::::::::::', friendID, friendName);
     console.log('USER NAME:::::::::::::::', userID, userName);
+
+    const [userScreen, setUserScreen] = useState(false);
+    const [friendScreen, setFriendScreen] = useState(false);
 
     const chatID = () => {
         const chatIDPre = [];
@@ -77,13 +92,59 @@ const Chat = (props) => {
 
     }, []);
 
+    useEffect(() => {
+        const isActive = async (action) => {
+            if (action === 'add') {
+                const addPayload = {is_active: true};
+                await setDoc(doc(database, `rooms/${chatID()}/screens`, userID), addPayload, {merge: true});
+            } else {
+                const updatePayload = {is_active: false};
+                await updateDoc(doc(database, `rooms/${chatID()}/screens`, userID), updatePayload);
+            }
+        };
+        isActive('add');
+        return () => {
+            isActive('update');
+        }
+    }, []);
+
     const onSend = useCallback(async (messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
         const {_id, createdAt, text, user} = messages[0];
         const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
-        const newDoc = await addDoc(chatsCol, {_id, createdAt, text, user, status: 'unread'});
-        console.log('Document ID::::::::::: ', newDoc);
-        const response = await sendNotificationByIdentifier({user_id:friendID, title:`Message From ${userName}`, message: text, notification_type:'chat'});
+
+        const userIDSnap = await getDoc(doc(database, `rooms/${chatID()}/screens`, userID));
+        if (userIDSnap.exists()) {
+            console.log("User Document data:", userIDSnap.data().is_active);
+            if(userIDSnap.data().is_active){
+                setUserScreen(true)
+            }
+        } else {
+            console.log("No such user document!");
+        }
+
+        const friendIDSnap = await getDoc(doc(database, `rooms/${chatID()}/screens`, friendID));
+        if (friendIDSnap.exists()) {
+            console.log("Friend Document data:", friendIDSnap.data().is_active);
+            if(friendIDSnap.data().is_active){
+                setFriendScreen(true)
+            }
+        } else {
+            console.log("No such friend document!");
+        }
+
+        if (userScreen && friendScreen) {
+            await addDoc(chatsCol, {_id, createdAt, text, user, status: 'read'});
+        } else {
+            await addDoc(chatsCol, {_id, createdAt, text, user, status: 'unread'});
+        }
+
+        const response = await sendNotificationByIdentifier({
+            user_id: friendID,
+            title: `Message From ${userName}`,
+            message: text,
+            notification_type: 'chat'
+        });
         console.log('Notification response::::::::::: ', response);
     }, []);
 
