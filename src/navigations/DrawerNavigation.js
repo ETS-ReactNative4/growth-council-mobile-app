@@ -229,7 +229,7 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Critical Issues"
         component={CriticalIssueScreen}
         options={({navigation}) => ({
@@ -244,7 +244,7 @@ const DrawerNavigation = () => {
             />
           ),
         })}
-      />
+      /> */}
       <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}

@@ -347,7 +347,9 @@ const SignUpForm = props => {
               source={require('../../../assets/img/GILCouncil.jpg')}
               resizeMode="contain"
             />
-            <Text style={styles.headingText1}>Join Growth Innovation Leadership Council</Text>
+            <Text style={styles.headingText1}>
+              Join Growth Innovation Leadership Council
+            </Text>
           </View>
 
           {loading && (
@@ -470,7 +472,7 @@ const SignUpForm = props => {
               )}
 
               <View style={{flex: 1}}>
-                <View style={{flexDirection: 'row' , flex:0.2}}>
+                <View style={{flexDirection: 'row', flex: 0.2}}>
                   <CheckBox
                     status={checked ? 'checked' : 'unchecked'}
                     onPress={() => {
@@ -480,21 +482,23 @@ const SignUpForm = props => {
                   />
 
                   <View style={{flex: 0.9}}>
-                    <View >
+                    <View>
                       <Text style={{marginTop: 7}}>
-                        By clicking submit, I agree to Frost & Sullivan's <Text style={{color: '#31ade5', fontWeight: '700'}}
-                        onPress={() => navigation.navigate('Terms')}>                       
-                        Terms of Use{' '}
+                        By clicking submit, I agree to Frost & Sullivan's{' '}
+                        <Text
+                          style={{color: '#31ade5', fontWeight: '700'}}
+                          onPress={() => navigation.navigate('Terms')}>
+                          Terms of Use{' '}
+                        </Text>
+                        and{' '}
+                        <Text
+                          style={{color: '#31ade5', fontWeight: '700'}}
+                          onPress={() => navigation.navigate('Privacys')}>
+                          {' '}
+                          Privacy Policy*{' '}
+                        </Text>
                       </Text>
-                       and <Text
-                        style={{color: '#31ade5', fontWeight: '700'}}
-                        onPress={() => navigation.navigate('Privacys')}>
-                        {' '}
-                        Privacy Policy* {' '}
-                      </Text>
-                      </Text> 
                     </View>
-                    
                   </View>
                 </View>
 
@@ -516,16 +520,19 @@ const SignUpForm = props => {
             </View>
 
             <View style={styles.signUpLinkWrapper}>
-              <Text style={{color: Colors.NONARY_TEXT_COLOR}}>
-                Already a Growth Innovation Leadership Council Member?
-              </Text>
-              <TouchableOpacity>
+              <View>
+                <Text style={{color: Colors.NONARY_TEXT_COLOR}}>
+                  Already a Growth Innovation Leadership Council Member?
+                </Text>
+              </View>
+
+              <View>
                 <Text
                   style={styles.signUpButtonText}
                   onPress={() => navigation.navigate('SignIn')}>
                   Click Here
                 </Text>
-              </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </View>
@@ -655,7 +662,6 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_BOLD,
   },
   signUpLinkWrapper: {
-    ...CommonStyles.linkWrapper,
     marginTop: 10,
     alignItems: 'center',
     marginBottom: 30,
@@ -663,8 +669,11 @@ const styles = StyleSheet.create({
   signUpButtonText: {
     color: Colors.PRIMARY_BUTTON_COLOR,
     fontFamily: Typography.FONT_NORMAL,
-    paddingLeft: 5,
+    zIndex: 10,
+    right: 50,
+    bottom: 18,
   },
+
   errorText: {
     ...CommonStyles.errorText,
     textAlign: 'left',

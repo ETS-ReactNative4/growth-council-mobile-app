@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -76,6 +76,11 @@ const Dashboard = props => {
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
+  const [dataSource, setDataSource] = useState([]);
+  const [scrollToIndex, setScrollToIndex] = useState(0);
+  const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
+  const [ref, setRef] = useState(null);
+
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -122,6 +127,24 @@ const Dashboard = props => {
   useEffect(() => {
     fetchCritcalIssue();
   }, []);
+
+  useEffect(() => {
+    setDataSourceCords(criticalIssue);
+  }, [criticalIssue]);
+
+  const scrollHandler = () => {
+    if (dataSourceCords?.critical_issue_mobile_lists?.length > 0) {
+      ref.current?.scrollTo({
+        x: 0,
+        y: dataSourceCords,
+        animated: true,
+      });
+    } else {
+      alert('Out of Max Index');
+    }
+    console.log('ssmh');
+  };
+
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -304,27 +327,48 @@ const Dashboard = props => {
 
   const _renderCritical = ({item, index}) => {
     return (
-      <View style={styles.ContentWrapper}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('CriticalIssue'), scrollHandler();
+        }}>
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
+          style={styles.ContentWrapper}
+          key={index}
+          onLayout={items => {
+            const layout = items.nativeEvent.layout;
+            dataSourceCords[index] = layout.y;
+            setDataSourceCords(dataSourceCords);
+
+            console.log(dataSourceCords);
+            console.log('height:', layout.height);
+            console.log('width:', layout.width);
+            console.log('x:', layout.x);
+            console.log('y:', layout.y);
           }}>
-          <View style={[styles.criticalW, styles.shadowCritical]}>
-            <Image source={{uri: item?.icon}} style={{width: 36, height: 36}} />
-          </View>
-          <Text
+          <View
             style={{
-              fontSize: 10,
-              width: '60%',
-              paddingLeft: 5,
-              // paddingRight: 10,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            {item?.heading}
-          </Text>
+            <View style={[styles.criticalW, styles.shadowCritical]}>
+              <Image
+                source={{uri: item?.icon}}
+                style={{width: 36, height: 36}}
+              />
+            </View>
+            <Text
+              style={{
+                fontSize: 10,
+                width: '60%',
+                paddingLeft: 5,
+                // paddingRight: 10,
+              }}>
+              {item?.heading}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
@@ -404,7 +448,10 @@ const Dashboard = props => {
 
         <View style={styles.content}>
           <Text style={styles.title}>Critical Issues</Text>
-          <View>
+          <View
+            ref={ref => {
+              setRef(ref);
+            }}>
             <FlatList
               numColumns={2}
               showsHorizontalScrollIndicator={false}
