@@ -9,16 +9,17 @@ import {
     ScrollView,
     StatusBar,
     SafeAreaView,
+    Linking
 } from 'react-native';
 import {Searchbar, Button} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
+import {useIsFocused} from '@react-navigation/native';
+
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN, USER_NAME, USER_AVATAR} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
-import {Linking} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
 import BottomNav from '../../../layout/BottomLayout';
 import ChatCount from '../../../shared/chatCount';
 import Loading from '../../../shared/loading';
