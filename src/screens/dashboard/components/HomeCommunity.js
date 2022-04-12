@@ -151,12 +151,21 @@ const HomeCommunity = props => {
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('CommunityDetail', {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-          })
-        }>
+        onPress={() => {
+          if (item.slug === 'brainstorming-strategy-discussions') {
+            navigation.navigate('', {
+              poeId: item?.term_id,
+              pillarId: item?.parent,
+            });
+          } else {
+            navigation.navigate('CommunityDetail', {
+              poeId: item?.term_id,
+              pillarId: item?.parent,
+              title: 'Growth Community',
+			  image:require('../../../assets/img/Rectangle2.png')
+            });
+          }
+        }}>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
@@ -197,11 +206,14 @@ const HomeCommunity = props => {
     } else {
       description = item?.organizer?.description;
     }
-
+    const pillarname = 'Growth Community';
+	const image=require('../../../assets/img/Rectangle2.png')
     return (
       <View style={styles.topWrapper} key={index}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate('EventDetail', {id: item.ID, title: pillarname, image:image})
+          }>
           <ImageBackground
             style={{
               width: '100%',
@@ -401,10 +413,10 @@ const HomeCommunity = props => {
           )}
 
           {pillarMemberContents?.pillar_contents?.length !== 0 &&
-            pillarMemberContents?.pillar_contents?.length !== null &&
-            pillarMemberContents?.pillar_contents?.length !== false && (
+            pillarMemberContents?.pillar_contents !== null &&
+            pillarMemberContents?.pillar_contents !== false && (
               <View style={styles.content}>
-                <Text style={styles.title}>Growth Coaching Content</Text>
+                <Text style={styles.title}>Growth Community Content</Text>
                 <View
                   style={{
                     display: 'flex',

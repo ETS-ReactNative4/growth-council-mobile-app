@@ -160,6 +160,8 @@ const GrowthCoaching = props => {
           navigation.navigate(navigationPath, {
             poeId: item?.term_id,
             pillarId: item?.parent,
+            title: 'Growth Coaching',
+			image:require('../../../assets/img/Rectangle.png')
           })
         }>
         <View style={styles.middleWrapper}>
@@ -202,11 +204,14 @@ const GrowthCoaching = props => {
     } else {
       description = item?.organizer?.description;
     }
-
+    const pillarname = 'Growth Coaching';
+	const image = require('../../../assets/img/Rectangle.png')
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate('EventDetail', {id: item.ID, title: pillarname, image:image})
+          }>
           <ImageBackground
             style={{
               width: '100%',
@@ -392,10 +397,9 @@ const GrowthCoaching = props => {
             </View>
           )} */}
           {pillarMemberContents?.attachments?.length !== 0 &&
-            pillarMemberContents?.attachments !== null && 
-			pillarMemberContents?.attachments !== false && (
+            pillarMemberContents?.attachments !== null &&
+            pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
-
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
@@ -404,7 +408,9 @@ const GrowthCoaching = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.pillar_contents?.length !== 0 && (
+          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+		  pillarMemberContents?.pillar_contents !== null &&
+		  pillarMemberContents?.pillar_contents !== false && (
             <View style={styles.content}>
               <Text style={styles.title}>Growth Coaching Content</Text>
               <View

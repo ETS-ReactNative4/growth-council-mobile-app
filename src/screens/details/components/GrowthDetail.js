@@ -139,47 +139,6 @@ const GrowthDetail = props => {
     );
   };
 
-  const _renderTopItem = ({item, index}) => {
-    const actualDate = moment(item.event_start).format('ll').split(',', 3);
-    const date = actualDate[0].split(' ', 3);
-
-    return (
-      <View style={styles.topWrapper}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: 20,
-          }}
-          source={require('../../../assets/img/green_blank.png')}>
-          <View
-            style={{
-              width: 40,
-              height: 50,
-              marginTop: 10,
-              marginLeft: 200,
-              backgroundColor: '#EBECF0',
-              borderRadius: 10,
-              padding: 5,
-              alignItems: 'center',
-            }}>
-            <Text>{date[1]}</Text>
-            <Text>{date[0]}</Text>
-          </View>
-
-          <View style={styles.header}>
-            <Text style={styles.headingText1}>{item?.title}</Text>
-            <Text style={styles.headingText2}>
-              {' '}
-              Hosted by {item?.organizer?.term_name}
-              {item?.organizer?.description}
-            </Text>
-          </View>
-        </ImageBackground>
-      </View>
-    );
-  };
-
   const _renderMiddleItem = ({item, index}) => {
     const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
@@ -194,16 +153,34 @@ const GrowthDetail = props => {
               title: item?.title,
             })
           }>
-          <View style={styles.middleWrapper}>
-            <View>
-              <Text style={{fontWeight: '500', fontSize: 14, margin: 10}}>
-                {item?.title}
-              </Text>
-              {/* <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              borderWidth: 1.3,
+              borderColor: '#9EBD6D',
+              marginLeft: 15,
+              borderRadius: 14,
+              marginTop: 10,
+              padding: 10,
+              paddingHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                fontWeight: '500',
+                fontSize: 14,
+
+                alignItems: 'center',
+                alignContent: 'center',
+              }}>
+              {item?.title}
+            </Text>
+            {/* <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
                 {item?.organizer?.term_name} {item?.organizer?.description}
               </Text> */}
-            </View>
-            {/* <View
+          </View>
+          {/* <View
               style={{
                 width: 40,
                 height: 50,
@@ -218,7 +195,6 @@ const GrowthDetail = props => {
               <Text>{date[1]}</Text>
               <Text>{date[0]}</Text>
             </View> */}
-          </View>
         </TouchableOpacity>
       </View>
     );
@@ -313,11 +289,11 @@ const GrowthDetail = props => {
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
             style={{height: 240, width: '100%'}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            {/* <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.arrow}>
                 <Ionicons name={'arrow-back'} size={50} color="white" />
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>

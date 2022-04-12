@@ -450,9 +450,16 @@ const MainNavigation = () => {
         <Stack.Screen
           name="EventDetail"
           component={EventDetailScreen}
-          options={({route}) => ({
+          options={({navigation, route}) => ({
             id: route?.params?.id,
-            headerShown: false,
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
         <Stack.Screen
@@ -527,19 +534,35 @@ const MainNavigation = () => {
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             poeId: route.params.poeId,
             pillarId: route.params.pillarId,
-            headerShown: false,
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
 
         <Stack.Screen
           name="SubPoe"
           component={SubPOEDetailScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             poeId: route.params.poeId,
-            headerShown: false,
+            background: route.params.image,
+
+            header: () => (
+              <SubHeader
+                title="Best Practices"
+                image={require('../assets/img/best-practice-bg.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
         <Stack.Screen
@@ -551,7 +574,16 @@ const MainNavigation = () => {
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}
-          options={{headerShown: false}}
+          options={({navigation, route}) => ({
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
 
         <Stack.Screen

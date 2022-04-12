@@ -263,14 +263,22 @@ const ContentLibraryDetail = props => {
               <View style={styles.sectionContainerBorder}>
                 <Text style={styles.bodyTitleText}>Presented By:</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{backgroundColor: '#0C336C', borderRadius: 10}}>
-                    <Image
-                      source={{uri: contentLibraryDetails?.presenter_image}}
-                      style={styles.userImage}
-                    />
-                  </View>
+                  {contentLibraryDetails?.presenter_image !== false &&
+                    contentLibraryDetails?.presenter_image !== null && (
+                      <View
+                        style={{backgroundColor: '#0C336C', borderRadius: 10}}>
+                        <Image
+                          source={{uri: contentLibraryDetails?.presenter_image}}
+                          style={styles.userImage}
+                        />
+                      </View>
+                    )}
 
-                  <View style={{marginLeft: 20}}>
+                  <View
+                    style={{
+                      marginLeft: 20,
+                      width: '85%',
+                    }}>
                     <Text style={styles.userNameText}>
                       {contentLibraryDetails?.presenter}
                     </Text>

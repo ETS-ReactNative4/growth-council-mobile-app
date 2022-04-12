@@ -1,10 +1,5 @@
 import React, {useState, useCallback, useLayoutEffect, useEffect} from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    Image,
-} from 'react-native';
+import {StyleSheet, View, Text, Image} from 'react-native';
 import {GiftedChat, Send} from 'react-native-gifted-chat';
 import {
     collection,
@@ -25,9 +20,16 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {CommonStyles, Colors} from '../../../theme';
 import {database} from '../../../utils/firebaseUtil';
 
-const Chat = (props) => {
-
-    const {navigation, route, notifications, notificationLoading, notificationError, sendNotificationByIdentifier, cleanNotification} = props;
+const Chat = props => {
+    const {
+        navigation,
+        route,
+        notifications,
+        notificationLoading,
+        notificationError,
+        sendNotificationByIdentifier,
+        cleanNotification,
+    } = props;
 
     const friendID = route.params.friendID;
     const friendName = route.params.friendName;
@@ -57,7 +59,7 @@ const Chat = (props) => {
         const fetchMessageAsync = async () => {
             const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
             const q = await query(chatsCol, orderBy('createdAt', 'desc'));
-            unsubscribe = onSnapshot(q, (querySnapshot) => {
+            unsubscribe = onSnapshot(q, querySnapshot => {
                 const messageList = querySnapshot?.docs?.map(doc => ({
                     _id: doc.data()._id,
                     createdAt: doc.data().createdAt.toDate(),
@@ -70,15 +72,16 @@ const Chat = (props) => {
         fetchMessageAsync();
 
         return () => unsubscribe();
-
     }, []);
 
     useEffect(() => {
         const fetchMessage2Async = async () => {
             let docIds = [];
             const chatsCol = await collection(database, 'rooms', chatID(), 'messages');
-            const chatSnapshot = await getDocs(query(chatsCol, where('status', '==', 'unread'), where('user._id', '==', friendID)));
-            chatSnapshot.docs.map(async (record) => {
+            const chatSnapshot = await getDocs(
+                query(chatsCol, where('status', '==', 'unread'), where('user._id', '==', friendID)),
+            );
+            chatSnapshot.docs.map(async record => {
                 if (record.exists) {
                     console.log('Document ID::::::::::: ', record.id, record.data()._id);
                     const taskDocRef = doc(database, 'rooms', chatID(), 'messages', record.id);
@@ -89,7 +92,6 @@ const Chat = (props) => {
         };
 
         fetchMessage2Async();
-
     }, []);
 
     useEffect(() => {
@@ -116,7 +118,7 @@ const Chat = (props) => {
         const userIDSnap = await getDoc(doc(database, `rooms/${chatID()}/screens`, userID));
         if (userIDSnap.exists()) {
             console.log("User Document data:", userIDSnap.data().is_active);
-            if(userIDSnap.data().is_active){
+            if (userIDSnap.data().is_active) {
                 setUserScreen(true)
             }
         } else {
@@ -126,7 +128,7 @@ const Chat = (props) => {
         const friendIDSnap = await getDoc(doc(database, `rooms/${chatID()}/screens`, friendID));
         if (friendIDSnap.exists()) {
             console.log("Friend Document data:", friendIDSnap.data().is_active);
-            if(friendIDSnap.data().is_active){
+            if (friendIDSnap.data().is_active) {
                 setFriendScreen(true)
             }
         } else {
@@ -143,40 +145,46 @@ const Chat = (props) => {
             user_id: friendID,
             title: `Message From ${userName}`,
             message: text,
-            notification_type: 'chat'
+            notification_type: 'chat',
         });
         console.log('Notification response::::::::::: ', response);
     }, []);
 
     return (
         <View style={styles.container}>
-
             <View style={styles.wrapper}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Ionicons
-                        name='chevron-back-outline'
-                        size={30}
-                        color='#02B0F0'
-                        style={{marginTop: 10}}
+                        name="chevron-back-outline"
+                        size={40}
+                        color="#02B0F0"
+                        style={{marginTop: 15}}
                     />
                 </TouchableOpacity>
+                <View style={{flexDirection: 'row', marginTop: 10}}>
+                    <Image
+                        source={{
+                            uri: friendAvatar,
+                        }}
+                        style={{
+                            height: 50,
+                            width: 50,
+                            borderRadius: 50,
+                            marginLeft: 10,
+                            backgroundColor: 'red',
+                        }}
+                    />
+                    <View
+                        style={{
+                            width: '60%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                        <Text style={{color: '#323232', fontSize: 16}}>{friendName}</Text>
+                    </View>
+                </View>
 
-                <Image
-                    source={{
-                        uri: friendAvatar,
-                    }}
-                    style={{
-                        height: 50,
-                        width: 50,
-                        borderRadius: 50,
-                        marginLeft: 20,
-
-                    }}
-                />
-                <View style={{marginLeft: 10, width: '50%'}}>
-                    <Text style={{color: '#323232', fontSize: 16}}>{friendName}</Text>
-                    <Text style={{color: '#969696', fontSize: 14}}>Last seen recently</Text>
-                </View>{/**/}
+                {/**/}
             </View>
             <GiftedChat
                 messages={messages}
@@ -189,17 +197,10 @@ const Chat = (props) => {
                     // name: auth?.currentUser?.displayName,
                     // avatar: auth?.currentUser?.photoURL
                 }}
-                renderSend={(props) => {
+                renderSend={props => {
                     return (
-                        <Send
-                            {...props}
-                            containerStyle={styles.sendContainer}
-                        >
-                            <Ionicons
-                                name={'send-sharp'}
-                                size={20}
-                                color={'white'}
-                            />
+                        <Send {...props} containerStyle={styles.sendContainer}>
+                            <Ionicons name={'send-sharp'} size={20} color={'white'}/>
                         </Send>
                     );
                 }}
@@ -222,6 +223,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         height: 35,
         width: 35,
+        paddingHorizontal: 5,
         backgroundColor: '#246EE9',
         borderRadius: 40,
     },
