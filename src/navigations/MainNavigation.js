@@ -57,6 +57,7 @@ import PeopleScreen from '../screens/people';
 import SubHeader from '../shared/header/SubHeader';
 import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
+import SessionCompleted from '../screens/coachingSession/component/sessionCompleted';
 
 const Stack = createStackNavigator();
 
@@ -98,65 +99,6 @@ export const DashboardStackScreen = () => {
               title="Profile"
               image={require('../assets/img/appBG.png')}
               navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <DashboardStack.Screen
-        name="ContentDetail"
-        component={ContentLibraryScreen}
-        options={({route, navigation}) => ({
-          resourceId: route?.params?.resourceId,
-          header: () => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <DashboardStack.Screen
-        name="LibraryDetail"
-        component={LibraryDetailScreen}
-        options={({route, navigation}) => ({
-          resourceId: route?.params?.resourceId,
-          header: () => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <DashboardStack.Screen
-        name="ContentTags"
-        component={ContentTagsScreen}
-        options={({route, navigation}) => ({
-          id: route?.params?.id,
-          animationEnabled: false,
-          header: () => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <DashboardStack.Screen
-        name="ContentLibraryDetail"
-        component={ContentLibraryDetailScreen}
-        options={({route}) => ({
-          id: route?.params?.id,
-          animationEnabled: false,
-          header: ({navigation}) => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-              noDrawer
             />
           ),
         })}
@@ -295,6 +237,22 @@ const MainNavigation = () => {
             ),
           })}
         />
+
+        <Stack.Screen
+          name="SessionCompleted"
+          component={SessionCompleted}
+          options={({route, navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Session 10"
+                image={require('../assets/img/Rectangle.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        />
+
         <Stack.Screen
           name="selfAssessment"
           component={SelfAssessment}
@@ -413,6 +371,68 @@ const MainNavigation = () => {
             ),
           })}
         />
+        <DashboardStack.Screen
+          name="ContentDetail"
+          component={ContentLibraryScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <DashboardStack.Screen
+          name="LibraryDetail"
+          component={LibraryDetailScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentTags"
+          component={ContentTagsScreen}
+          options={({route, navigation}) => ({
+            id: route?.params?.id,
+            animationEnabled: false,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            animationEnabled: false,
+            header: ({navigation}) => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
         <Stack.Screen
           name="ContactUs"
           component={ContactUsScreen}
@@ -430,9 +450,16 @@ const MainNavigation = () => {
         <Stack.Screen
           name="EventDetail"
           component={EventDetailScreen}
-          options={({route}) => ({
+          options={({navigation, route}) => ({
             id: route?.params?.id,
-            headerShown: false,
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
         <Stack.Screen
@@ -507,20 +534,35 @@ const MainNavigation = () => {
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             poeId: route.params.poeId,
             pillarId: route.params.pillarId,
-            headerShown: false,
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
 
         <Stack.Screen
           name="SubPoe"
           component={SubPOEDetailScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             poeId: route.params.poeId,
-            pillarId: route.params.pillarId,
-            headerShown: false,
+            background: route.params.image,
+
+            header: () => (
+              <SubHeader
+                title="Best Practices"
+                image={require('../assets/img/best-practice-bg.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
         <Stack.Screen
@@ -532,7 +574,16 @@ const MainNavigation = () => {
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}
-          options={{headerShown: false}}
+          options={({navigation, route}) => ({
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
 
         <Stack.Screen

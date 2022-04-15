@@ -65,8 +65,6 @@ const Radar = props => {
     );
   }
 
-  console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`);
-
   return (
     // <ScrollView>
     //   <View style={styles.container}>
@@ -101,127 +99,13 @@ const Radar = props => {
         <View style={{height: 400}}>
           <WebView
             source={{
-              uri: `https://beta.gilcouncil.com/frost-radar?user_id=${userId}`,
+              uri: `https://beta.gilcouncil.com/frost-radar`,
             }}
             renderLoading={LoadingIndicatorView}
             startInLoadingState={true}
             ref={webviewRef}
           />
-        </View>
-        <View style={{flex: 1}}>
-          <View style={styles.container}>
-            <View style={styles.mainContent}>
-              <View>
-                <View style={{flexDirection: 'row', flex: 1}}>
-                  <View style={{flex: 2}}>
-                    <Text style={styles.title}>Name</Text>
-                  </View>
-                  <View style={{flex: 2, marginLeft: 10}}>
-                    <Text style={styles.title}>Growth Index</Text>
-                  </View>
-                  <View style={{flex: 2, marginLeft: 10}}>
-                    <Text style={styles.title}>Innovation Index</Text>
-                  </View>
-                </View>
-
-                <View
-                  style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
-                  <View style={{flex: 2}}>
-                    <Text style={styles.name}>
-                      {radarMemberDetails?.display_name}
-                    </Text>
-                  </View>
-                  <View style={{flex: 2}}>
-                    <TextInput
-                      editable={false}
-                      textAlign={'center'}
-                      style={styles.input}
-                      value={
-                        radarMemberDetails?.present_growth_index
-                          ?.user_radar_growth_index
-                      }
-                      maxLength={4}
-                    />
-                  </View>
-                  <View style={{flex: 2}}>
-                    <TextInput
-                      editable={false}
-                      textAlign={'center'}
-                      style={styles.input}
-                      value={
-                        radarMemberDetails?.present_growth_index
-                          ?.user_radar_innovation_index
-                      }
-                      maxLength={4}
-                    />
-                  </View>
-                </View>
-                <View style={styles.seperationline} />
-                <View style={{marginTop: 10}}>
-                  {radarMemberDetails?.member_details?.map(item => {
-                    const memberData = () => {
-                      setDescription(item?.member_description);
-                      setName(item?.member_name);
-                    };
-                    return (
-                      <View style={styles.descriptionBtn}>
-                        <View style={{flex: 2}}>
-                          <Text style={styles.name}>{item?.member_name}</Text>
-                        </View>
-                        <View style={{flex: 4}}>
-                          <Pressable
-                            style={styles.button}
-                            onPress={() => {
-                              setModalVisible(true),
-                                memberData(description, name);
-                            }}>
-                            <Text style={styles.textStyle}>
-                              View Description
-                            </Text>
-                          </Pressable>
-                        </View>
-                      </View>
-                    );
-                  })}
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.centeredView}>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                setModalVisible(!modalVisible);
-              }}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      left: 20,
-                      top: 20,
-                      bottom: 20,
-                    }}>
-                    <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                      <Ionicons name={'close'} size={35} color={'#3495D2'} />
-                    </Pressable>
-                  </View>
-                  <View style={{padding: 10}}>
-                    <Text style={{fontSize: 18, color: 'black', marginTop: 10}}>
-                      {name}
-                    </Text>
-
-                    <View style={styles.seperationline} />
-                    <Text style={styles.modalText}>{description}</Text>
-                  </View>
-                </View>
-              </View>
-            </Modal>
-          </View>
-        </View>
+        </View>       
       </ScrollView>
     </SafeAreaView>
   );
@@ -332,7 +216,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    paddingVertical: 10,
     marginBottom: 15,
     textAlign: 'center',
     marginTop: 10,

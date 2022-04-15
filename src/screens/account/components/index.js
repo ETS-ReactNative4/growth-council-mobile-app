@@ -22,6 +22,7 @@ import {useIsFocused} from '@react-navigation/native';
 import MyEvent from './MyEvent';
 import AboutMe from './AboutMe';
 import BottomNav from '../../../layout/BottomLayout';
+import Loading from '../../../shared/loading';
 
 const Profile = props => {
   const {
@@ -139,25 +140,7 @@ const Profile = props => {
                     }}
                   />
                 </View>
-                {profileLoading && (
-                  <>
-                    <View
-                      style={{
-                        flex: 1,
-                        alignItems: 'center',
-                        flexDirection: 'column',
-                        justifyContent: 'space-around',
-                        position: 'absolute',
-                        left: 120,
-                        top: 120,
-                      }}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
+                {profileLoading && <Loading />	}
                 {value === 'My Point of Engagement' && <MyEvent {...props} />}
 
                 {value === 'About me' && <AboutMe {...props} />}

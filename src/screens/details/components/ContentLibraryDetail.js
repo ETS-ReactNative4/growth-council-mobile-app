@@ -30,6 +30,7 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import WebView from 'react-native-autoheight-webview';
 import HTMLView from 'react-native-htmlview';
+import Loading from '../../../shared/loading';
 
 const ContentLibraryDetail = props => {
   const {
@@ -126,23 +127,23 @@ const ContentLibraryDetail = props => {
       return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
     };
     return (
-		<TouchableOpacity
+      <TouchableOpacity
         onPress={() =>
           navigation.navigate('pdf', {paramsFile: item?.file?.url})
         }>
-      <View style={styles.attachmentContainer}>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
-          <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
-        </View>
+        <View style={styles.attachmentContainer}>
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
+            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+          </View>
 
-        <TouchableOpacity
-          style={styles.attachmentDownloadButton}
-          onPress={checkPermission}>
-          <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
-        </TouchableOpacity>
-      </View>
-	  </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.attachmentDownloadButton}
+            onPress={checkPermission}>
+            <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -262,14 +263,22 @@ const ContentLibraryDetail = props => {
               <View style={styles.sectionContainerBorder}>
                 <Text style={styles.bodyTitleText}>Presented By:</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{backgroundColor: '#0C336C', borderRadius: 10}}>
-                    <Image
-                      source={{uri: contentLibraryDetails?.presenter_image}}
-                      style={styles.userImage}
-                    />
-                  </View>
+                  {contentLibraryDetails?.presenter_image !== false &&
+                    contentLibraryDetails?.presenter_image !== null && (
+                      <View
+                        style={{backgroundColor: '#0C336C', borderRadius: 10}}>
+                        <Image
+                          source={{uri: contentLibraryDetails?.presenter_image}}
+                          style={styles.userImage}
+                        />
+                      </View>
+                    )}
 
-                  <View style={{marginLeft: 20}}>
+                  <View
+                    style={{
+                      marginLeft: 20,
+                      width: '85%',
+                    }}>
                     <Text style={styles.userNameText}>
                       {contentLibraryDetails?.presenter}
                     </Text>
@@ -278,11 +287,6 @@ const ContentLibraryDetail = props => {
               </View>
             )}
 
-          {contentLibraryDetailsLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
           {/* Abstract Section */}
           {contentLibraryDetails?.abstract !== undefined &&
             contentLibraryDetails?.abstract !== '' && (
@@ -293,6 +297,7 @@ const ContentLibraryDetail = props => {
                 </Text>
               </View>
             )}
+          {contentLibraryDetailsLoading && <Loading />}
           {/* Call To Action Section */}
           {contentLibraryDetails?.call_to_action?.length !== 0 &&
             contentLibraryDetails?.call_to_action !== false && (
@@ -392,7 +397,6 @@ const styles = StyleSheet.create({
   sectionContainerBorder: {
     margin: 2,
     marginBottom: 10,
-    paddingBottom: 25,
     borderBottomWidth: 1,
     borderColor: 'rgba(112, 112, 112, 0.13)',
     marginTop: 20,
@@ -479,7 +483,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     shadowOffset: {width: 0, height: 2},
-    shadowRadius: 15,
+    shadowRadius: 4,
     shadowOpacity: 0.1,
     shadowColor: Colors.UNDENARY_BACKGROUND_COLOR,
     elevation: 5,

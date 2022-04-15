@@ -21,6 +21,7 @@ import HTMLView from 'react-native-htmlview';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Loading from '../../../shared/loading';
 
 const ContactTags = props => {
   const {
@@ -142,11 +143,7 @@ const ContactTags = props => {
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
             paddingBottom: 20,
           }}>
-          {contentTagsLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {contentTagsLoading && <Loading />}
 
           {filteredDataSource?.map((item, index) => {
             return (

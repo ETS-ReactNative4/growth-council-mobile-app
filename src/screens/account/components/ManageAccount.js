@@ -25,8 +25,8 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
-
 import {useSelector} from 'react-redux';
+import Loading from '../../../shared/loading';
 
 const profileUpdateSchema = Yup.object().shape({
   display_name: Yup.string().required('Name is required.'),
@@ -207,10 +207,17 @@ const ManageAccount = props => {
   }, []);
 
   useEffect(() => {
-    const result = Object.entries(expertise)?.map(([key, value]) => ({
-      label: key,
-      value,
-    }));
+    const result = Object.entries(expertise)
+      ?.filter(function ([key, value]) {
+        if (value === 'Expertise Areas') {
+          return false; // skip
+        }
+        return true;
+      })
+      .map(([key, value]) => ({
+        label: key,
+        value,
+      }));
     setItems(result);
     setValue(expertise_areas1);
   }, [expertise]);
@@ -311,16 +318,7 @@ const ManageAccount = props => {
                     <Text style={styles.errorText}>{profileError.message}</Text>
                   </View>
                 )}
-                {profileLoading && (
-                  <>
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
+                {profileLoading && <Loading />}
 
                 <View style={styles.middleWrapper}>
                   <View style={styles.middleImage}>
@@ -455,14 +453,13 @@ const ManageAccount = props => {
 
                   <DropDownPicker
                     multiple={true}
-                    min={0}
-                    max={5}
                     open={open}
                     value={value}
                     items={items}
                     setOpen={setOpen}
                     setValue={setValue}
                     setItems={setItems}
+                    maxHeight={1000}
                     onChangeValue={value => {
                       setFieldValue('expertise_areas1', value);
                     }}
@@ -503,14 +500,7 @@ const ManageAccount = props => {
                   />
 
                   <View style={styles.loginButtonWrapper}>
-                    {userLoading && (
-                      <View style={styles.loading1}>
-                        <BubblesLoader
-                          color={Colors.SECONDARY_TEXT_COLOR}
-                          size={80}
-                        />
-                      </View>
-                    )}
+                    {userLoading && <Loading />}
                     <TouchableOpacity>
                       <Button style={styles.loginButton} onPress={handleSubmit}>
                         <Text style={styles.loginButtonText}>Update</Text>

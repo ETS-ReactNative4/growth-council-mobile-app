@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
+  PermissionsAndroid,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -21,6 +22,12 @@ import YoutubePlayer from '../../../shared/youtube';
 import HTMLView from 'react-native-htmlview';
 import Player from '../../dashboard/components/Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
+
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
 
 const CommunityDetail = props => {
   const {
@@ -100,9 +107,7 @@ const CommunityDetail = props => {
       };
     }, []),
   );
-
   console.log(route.params.poeId);
-
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -153,6 +158,7 @@ const CommunityDetail = props => {
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
+              resizeMode="contain"
             />
           </View>
           <Text
@@ -338,16 +344,27 @@ const CommunityDetail = props => {
   };
 
   let backgroundColor = '';
+  let title = '';
   const parent = poeDetails?.parent;
   switch (parent) {
     case 118:
       backgroundColor = Colors.PRACTICE_COLOR;
+      title = 'Best Practices';
       break;
     case 117:
       backgroundColor = Colors.COMMUNITY_COLOR;
+      title = 'Growth Community';
       break;
     case 119:
       backgroundColor = Colors.COACHING_COLOR;
+      title = 'Growth Coaching';
+  }
+
+  let poeDescription = poeDetails?.description;
+  if (poeDescription !== undefined) {
+    poeDescription = poeDetails?.description;
+  } else {
+    poeDescription = '';
   }
 
   return (
@@ -366,11 +383,11 @@ const CommunityDetail = props => {
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
             style={{height: 240, width: '100%'}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            {/* <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.arrow}>
                 <Ionicons name={'arrow-back'} size={50} color="white" />
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>
@@ -400,14 +417,15 @@ const CommunityDetail = props => {
               </Text>
 
               <HTMLView
-                value={poeDetails.description}
+                value={poeDescription}
                 textComponentProps={{
                   style: {
                     fontFamily: Typography.FONT_SF_REGULAR,
                     fontSize: 14,
-                    lineHeight: 24,
+                    lineHeight: 20,
                     padding: 15,
-                    textAlign: 'left',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     color: '#77838F',
                   },
                 }}
@@ -448,10 +466,6 @@ const CommunityDetail = props => {
                 poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null && (
                   <View style={styles.sectionContainer}>
-                    <Text style={styles.title}>
-                      {' '}
-                      Content Library Attachments:
-                    </Text>
                     <FlatList
                       vertical
                       showsHorizontalScrollIndicator={false}
@@ -475,42 +489,30 @@ const CommunityDetail = props => {
               )} */}
 
               {poeDetails?.pillar_contents?.length !== 0 &&
-			  poeDetails?.pillar_contents !== false && 
-			  poeDetails?.pillar_contents !== null &&  (
-                <View style={styles.growthContent}>
-                  <Text style={styles.title}> Content Library</Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.pillar_contents}
-                      renderItem={_renderContentItem}
-                    />
+                poeDetails?.pillar_contents !== false &&
+                poeDetails?.pillar_contents !== null && (
+                  <View style={styles.growthContent}>
+                    <Text style={styles.title}> Content Library</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents?.pillar_contents}
+                        renderItem={_renderContentItem}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
 
               {/* <Footer /> */}
             </View>
           </ScrollView>
         </View>
-        {poeDetailLoading && (
-          <View
-            style={{
-              height: Dimensions.get('window').height,
-              position: 'absolute',
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: 0,
-              right: 0,
-            }}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+        {poeDetailLoading && <Loading />}
       </ScrollView>
     </>
   );
@@ -642,7 +644,6 @@ const styles = StyleSheet.create({
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_SF_REGULAR,
-    fontWeight: '400',
     color: 'white',
     fontSize: 8,
   },
@@ -673,7 +674,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

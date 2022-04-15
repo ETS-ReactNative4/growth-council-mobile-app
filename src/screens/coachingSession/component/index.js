@@ -22,6 +22,7 @@ import moment from 'moment';
 import ToastMessage from '../../../shared/toast';
 import {padding} from '@mui/system';
 import {TextArea} from 'native-base';
+import SessionCompleted from './sessionCompleted';
 
 const CoachingSession = props => {
   const {
@@ -152,9 +153,17 @@ const CoachingSession = props => {
                     }
                   }}
                   style={{
+                    paddingLeft: 5,
+                    paddingRight: 5,
                     height: 30,
-                    fontSize: 12,
-                    borderRadius: 15,
+                  }}
+                  textStyle={{
+                    paddingHorizontal: 0,
+                    fontSize: 14,
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
                   }}
                 />
               </View>
@@ -196,42 +205,36 @@ const CoachingSession = props => {
                                   style={{width: 20, height: 20}}
                                 />
                               </View>
-
                               <Text
                                 style={{
-                                  paddingLeft: 10,
                                   fontSize: 12,
-                                  width: '53%',
+                                  width: '50%',
                                 }}>
                                 {trait?.title}
                               </Text>
                             </View>
                             {index1 === 0 && (
-                              <View style={{flexDirection: 'row'}}>
-                                <Text style={{marginTop: 15, fontSize: 12}}>
-                                  Score
-                                </Text>
-                                <View
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+                                }}>
+                                <Text style={{fontSize: 12}}>Score</Text>
+                                <TouchableOpacity
+                                  onPress={() => setScoreVisible(!scoreVisible)}
+                                  onPressIn={() => {
+                                    setDisplay(!display);
+                                  }}
                                   style={{
                                     width: 40,
-                                    height: 30,
                                     marginLeft: 5,
                                     backgroundColor: 'orange',
                                     borderRadius: 50,
                                     padding: 5,
-                                    marginTop: 10,
                                     alignItems: 'center',
                                   }}>
-                                  <TouchableOpacity
-                                    onPress={() =>
-                                      setScoreVisible(!scoreVisible)
-                                    }
-                                    onPressIn={() => {
-                                      setDisplay(!display);
-                                    }}>
-                                    <Text style={{fontSize: 12}}>{num}</Text>
-                                  </TouchableOpacity>
-                                </View>
+                                  <Text style={{fontSize: 12}}>{num}</Text>
+                                </TouchableOpacity>
                               </View>
                             )}
                           </View>
@@ -240,7 +243,7 @@ const CoachingSession = props => {
                               <View
                                 style={[styles.textStyle, styles.shadowProp]}
                                 key={index2}>
-                                <Text style={{fontSize: 12}}>
+                                <Text style={{fontSize: 12, width: '80%'}}>
                                   {subTrait?.title}
                                 </Text>
                                 {(checkMark(index1, index2) ||
@@ -266,6 +269,7 @@ const CoachingSession = props => {
                   </ScrollView>
                 </Modal>
               </View>
+
               <View style={styles.centeredView}>
                 <Modal
                   animationType="slide"
@@ -530,6 +534,7 @@ const CoachingSession = props => {
                 <SelfAssessment
                   {...props}
                   score={score}
+                  sessions={sessions}
                   traits={traits}
                   traitsLoading={traitsLoading}
                   traitsError={traitsError}
@@ -541,6 +546,7 @@ const CoachingSession = props => {
                   setSelectedId={setSelectedId}
                   scrollRef={scrollRef}
                 />
+                // <SessionCompleted />
               )}
             </View>
           </View>
@@ -696,16 +702,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 0.2,
-    paddingBottom: 5,
-    paddingLeft: 10,
+    borderBottomWidth: 0.3, 
+    paddingLeft: 5,
     borderBottomColor: '#EBECFO',
-    marginTop: 10,
+    alignItems: 'center',
   },
   traitWrapper: {
     paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   traitW: {
     height: 50,

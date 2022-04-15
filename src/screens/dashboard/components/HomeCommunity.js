@@ -11,6 +11,7 @@ import {
   Dimensions,
   SafeAreaView,
   StatusBar,
+  PermissionsAndroid,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -25,8 +26,10 @@ import Player from './Player';
 import {getAsyncStorage} from '../../../utils/storageUtil';
 import {JWT_TOKEN} from '../../../constants';
 import {decodeUserID} from '../../../utils/jwtUtil';
-
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -148,17 +151,27 @@ const HomeCommunity = props => {
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('CommunityDetail', {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-          })
-        }>
+        onPress={() => {
+          if (item.slug === 'brainstorming-strategy-discussions') {
+            navigation.navigate('', {
+              poeId: item?.term_id,
+              pillarId: item?.parent,
+            });
+          } else {
+            navigation.navigate('CommunityDetail', {
+              poeId: item?.term_id,
+              pillarId: item?.parent,
+              title: 'Growth Community',
+			  image:require('../../../assets/img/Rectangle2.png')
+            });
+          }
+        }}>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
+              resizeMode="contain"
             />
           </View>
           <Text
@@ -193,11 +206,14 @@ const HomeCommunity = props => {
     } else {
       description = item?.organizer?.description;
     }
-
+    const pillarname = 'Growth Community';
+	const image=require('../../../assets/img/Rectangle2.png')
     return (
       <View style={styles.topWrapper} key={index}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate('EventDetail', {id: item.ID, title: pillarname, image:image})
+          }>
           <ImageBackground
             style={{
               width: '100%',
@@ -230,6 +246,13 @@ const HomeCommunity = props => {
         </TouchableOpacity>
       </View>
     );
+  };
+
+  const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
   const _renderContent = ({item, index}) => {
@@ -345,16 +368,10 @@ const HomeCommunity = props => {
             </View>
           </View>
 
-          {pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {pillarEventLoading && <Loading />}
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
-              <Text style={styles.title}>
-                Points of Engagement
-              </Text>
+              <Text style={styles.title}>Points of Engagement</Text>
 
               <FlatList
                 contentContainerStyle={{
@@ -370,9 +387,9 @@ const HomeCommunity = props => {
             </View>
           )}
           {pillarMemberContents?.attachments?.length !== 0 &&
-            pillarMemberContents?.attachments !== null && (
+            pillarMemberContents?.attachments !== null &&
+            pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments:</Text>
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
@@ -394,6 +411,26 @@ const HomeCommunity = props => {
               </View>
             </View>
           )}
+
+          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+            pillarMemberContents?.pillar_contents !== null &&
+            pillarMemberContents?.pillar_contents !== false && (
+              <View style={styles.content}>
+                <Text style={styles.title}>Growth Community Content</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.pillar_contents}
+                    renderItem={_renderContentItem}
+                  />
+                </View>
+              </View>
+            )}
 
           {/* <Footer /> */}
         </View>
@@ -500,16 +537,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 20,
+    marginRight: 10,
   },
   ContentWrapper: {
-    height: 206,
+    height: 210,
     width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 20,
     overflow: 'hidden',
   },
-
   shadowProp: {
     shadowColor: '#000',
     shadowOffset: {
@@ -533,7 +570,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

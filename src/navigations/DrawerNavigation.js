@@ -22,6 +22,7 @@ import {useIsFocused} from '@react-navigation/native';
 
 import {useAuthentication} from '../context/auth';
 import ContentScreen from '../screens/contentLibrary';
+import CriticalIssueScreen from '../screens/criticalIssue';
 import CalendarScreen from '../screens/calendar';
 import AboutScreen from '../screens/about';
 import FeedbackScreen from '../screens/feedback';
@@ -78,7 +79,7 @@ const CustomDrawerContent = props => {
         <Image
           source={require('../../src/assets/img/GILCouncil.jpg')}
           style={{
-            width: '80%',
+            width: '70%',
             marginLeft: 20,
           }}
           resizeMode="contain"
@@ -116,15 +117,15 @@ const CustomDrawerContent = props => {
         <DrawerItem
           label="Logout"
           onPress={logout}
-          icon={() => <Material name={'logout'} size={24} color={'#00008B'} />}
+          icon={() => <Material name={'logout'} size={20} color={'#00008B'} />}
         />
 
         <View style={styles.footer}>
           <Image
             source={require('../../src/assets/img/frost-sullivan.png')}
             style={{
-              width: '70%',
-              height: 50,
+              width: '60%',
+              height: 45,
             }}
             resizeMode="contain"
           />
@@ -132,7 +133,7 @@ const CustomDrawerContent = props => {
 
           <Image
             source={require('../../src/assets/img/splashFooter.png')}
-            style={{width: 100, height: 40, opacity: 0.75, marginTop: 10}}
+            style={{width: 80, height: 40, opacity: 0.75, }}
             resizeMode="cover"
           />
         </View>
@@ -147,7 +148,7 @@ const DrawerNavigation = () => {
       initialRouteName="Dashboard"
       screenOptions={() => ({
         activeTintColor: '#e91e63',
-        itemStyle: {marginVertical: 2},
+        itemStyle: {marginVertical: 1},
       })}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
@@ -155,7 +156,7 @@ const DrawerNavigation = () => {
         component={DashboardStackScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Material name="inbox" color={'#00008B'} size={24} />
+            <Material name="inbox" color={'#00008B'} size={20} />
           ),
           headerShown: false,
         })}
@@ -165,11 +166,11 @@ const DrawerNavigation = () => {
         component={HomeCommunityScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Material name="group-work" color={'#14A2E2'} size={24} />
+            <Material name="group-work" color={'#14A2E2'} size={20} />
           ),
           header: () => (
             <SubHeader
-              title="Community"
+              title="Growth Community"
               image={require('../assets/img/Rectangle2.png')}
               navigation={navigation}
             />
@@ -181,7 +182,7 @@ const DrawerNavigation = () => {
         component={BestPracticeScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Feature name="thumbs-up" color={'#f26722'} size={24} />
+            <Feature name="thumbs-up" color={'#f26722'} size={20} />
           ),
           header: () => (
             <SubHeader
@@ -199,7 +200,7 @@ const DrawerNavigation = () => {
           drawerIcon: ({focused, size}) => (
             <Image
               source={require('../../src/assets/img/GrowthCoaching-01.png')}
-              style={{width: 30, height: 40, marginTop: 10}}
+              style={{width: 25, height: 30}}
               resizeMode="cover"
             />
           ),
@@ -217,7 +218,7 @@ const DrawerNavigation = () => {
         component={ContentScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Material name="content-copy" color={'#00008B'} size={24} />
+            <Material name="content-copy" color={'#00008B'} size={20} />
           ),
           header: () => (
             <SubHeader
@@ -229,11 +230,27 @@ const DrawerNavigation = () => {
         })}
       />
       <Drawer.Screen
+        name="Critical Issues"
+        component={CriticalIssueScreen}
+        options={({navigation}) => ({
+          drawerIcon: ({focused, size}) => (
+            <Material name="content-copy" color={'#00008B'} size={20} />
+          ),
+          header: () => (
+            <SubHeader
+              title="Critical Issues"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="calendar-outline" color={'#00008B'} size={size} />
+            <Ionicons name="calendar-outline" color={'#00008B'} size={20} />
           ),
           header: () => (
             <SubHeader
@@ -252,7 +269,7 @@ const DrawerNavigation = () => {
             <Ionicons
               name="information-circle-outline"
               color={'#00008B'}
-              size={24}
+              size={20}
             />
           ),
           header: () => (
@@ -269,7 +286,7 @@ const DrawerNavigation = () => {
         component={SettingScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="settings-outline" color={'#00008B'} size={24} />
+            <Ionicons name="settings-outline" color={'#00008B'} size={20} />
           ),
           header: () => (
             <SubHeader
@@ -285,7 +302,7 @@ const DrawerNavigation = () => {
         component={ContributeIdeasScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Ionicons name="bulb-outline" color={'#00008B'} size={24} />
+            <Ionicons name="bulb-outline" color={'#00008B'} size={20} />
           ),
           header: () => (
             <SubHeader
@@ -314,7 +331,6 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
   },
   footerText: {
     fontSize: 8,

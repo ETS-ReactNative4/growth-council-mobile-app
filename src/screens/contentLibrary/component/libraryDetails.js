@@ -22,6 +22,7 @@ import HTMLView from 'react-native-htmlview';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {BubblesLoader} from 'react-native-indicator';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Loading from '../../../shared/loading';
 
 const LibraryDetail = props => {
   const {
@@ -159,11 +160,7 @@ const LibraryDetail = props => {
         <ScrollView
           style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}
           contentContainerStyle={{paddingBottom: 20}}>
-          {libraryDetailsLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {libraryDetailsLoading && <Loading />}
 
           <View style={{alignItems: 'center'}}>
             {filteredDataSource.map(item => {

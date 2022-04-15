@@ -59,6 +59,7 @@ const SignInForm = props => {
         token: messageToken,
       };
       const resp = await postToAPI(firebasePayload);
+      console.log('Token Response::::', firebasePayload);
       console.log('API Response::::', resp?.data);
       await signIn(values);
     },
@@ -79,7 +80,7 @@ const SignInForm = props => {
   );
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
+    <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight+100}}>
       <View style={styles.container}>
         <ImageBackground
           source={require('../../../assets/img/splash-screen.png')}
@@ -184,7 +185,7 @@ const SignInForm = props => {
                 </TouchableOpacity>
               </View>
               <View style={styles.signuptext}>
-                <Text>Join Growth Council</Text>
+                <Text>Join Growth Innovation Leadership Council</Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
                   onPress={() => navigation.navigate('SignUp')}>

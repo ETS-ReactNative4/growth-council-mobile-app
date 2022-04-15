@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  PermissionsAndroid,
   StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -19,7 +20,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
@@ -27,6 +29,7 @@ import Player from './Player';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {isEmptyArray} from 'formik';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -157,6 +160,8 @@ const GrowthCoaching = props => {
           navigation.navigate(navigationPath, {
             poeId: item?.term_id,
             pillarId: item?.parent,
+            title: 'Growth Coaching',
+			image:require('../../../assets/img/Rectangle.png')
           })
         }>
         <View style={styles.middleWrapper}>
@@ -199,11 +204,14 @@ const GrowthCoaching = props => {
     } else {
       description = item?.organizer?.description;
     }
-
+    const pillarname = 'Growth Coaching';
+	const image = require('../../../assets/img/Rectangle.png')
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate('EventDetail', {id: item.ID, title: pillarname, image:image})
+          }>
           <ImageBackground
             style={{
               width: '100%',
@@ -360,11 +368,7 @@ const GrowthCoaching = props => {
             </View>
           )}
 
-          {pillarEventLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+          {pillarEventLoading && <Loading />}
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
               <Text style={styles.title}>Points of Engagement</Text>
@@ -393,9 +397,9 @@ const GrowthCoaching = props => {
             </View>
           )} */}
           {pillarMemberContents?.attachments?.length !== 0 &&
-            pillarMemberContents?.attachments !== null && (
+            pillarMemberContents?.attachments !== null &&
+            pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments:</Text>
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
@@ -404,7 +408,9 @@ const GrowthCoaching = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.pillar_contents?.length !== 0 && (
+          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+		  pillarMemberContents?.pillar_contents !== null &&
+		  pillarMemberContents?.pillar_contents !== false && (
             <View style={styles.content}>
               <Text style={styles.title}>Growth Coaching Content</Text>
               <View
@@ -558,7 +564,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

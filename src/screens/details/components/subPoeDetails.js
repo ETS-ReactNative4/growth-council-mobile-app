@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
+  PermissionsAndroid,
 } from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -22,26 +23,22 @@ import Footer from '../../../shared/footer';
 import Player from '../../dashboard/components/Player';
 import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
+
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
 
 const SubPOEDetails = props => {
   const {
     navigation,
     route,
-    sessionDetails,
-    sessionDetailLoading,
-    sessionDetailError,
-    fetchSessionDetailByIdentifier,
-    cleanSessionDetail,
     poeDetails,
     poeDetailLoading,
     poeDetailError,
     fetchAllPOEDetail,
     cleanPOEDetail,
-    poeEvents,
-    poeEventLoading,
-    poeEventError,
-    fetchAllPOEEvent,
-    cleanPOEEvent,
     pillarMemberContents,
     pillarMemberContentLoading,
     pillarMemberContentError,
@@ -57,12 +54,6 @@ const SubPOEDetails = props => {
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
-  useEffect(() => {
-    const fetchEventDetailAsync = async () => {
-      await fetchSessionDetailByIdentifier(route.params.id);
-    };
-    fetchEventDetailAsync();
-  }, []);
 
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
@@ -71,12 +62,7 @@ const SubPOEDetails = props => {
     fetchAllPOEDetailAsync();
   }, []);
 
-  useEffect(() => {
-    const fetchAllPOEEventAsync = async () => {
-      await fetchAllPOEEvent(route.params.poeId);
-    };
-    fetchAllPOEEventAsync();
-  }, []);
+
 
   useEffect(() => {
     const fetchAllPillarMemberContentAsync = async () => {
@@ -101,7 +87,8 @@ const SubPOEDetails = props => {
       };
     }, []),
   );
-  console.log(pillarMemberContents.attachments);
+  console.log(route.params.poeId);
+  
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -318,6 +305,13 @@ const SubPOEDetails = props => {
       backgroundColor = Colors.COACHING_COLOR;
   }
 
+  let poeDescription = poeDetails?.description;
+  if (poeDescription !== undefined) {
+    poeDescription = poeDetails?.description;
+  } else {
+    poeDescription = '';
+  }
+  console.log('poe', route.params.poeId);
   return (
     <>
       <StatusBar
@@ -334,7 +328,7 @@ const SubPOEDetails = props => {
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
             style={{height: 240, width: '100%'}}>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() =>
                 navigation.navigate('Best Practices', {
                   poeId: route.params.id,
@@ -344,7 +338,7 @@ const SubPOEDetails = props => {
               <View style={styles.arrow}>
                 <Ionicons name={'arrow-back'} size={50} color="white" />
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>
@@ -374,7 +368,7 @@ const SubPOEDetails = props => {
               </Text>
 
               <HTMLView
-                value={poeDetails.description}
+                value={poeDescription}
                 textComponentProps={{
                   style: {
                     fontFamily: Typography.FONT_SF_REGULAR,
@@ -420,16 +414,13 @@ const SubPOEDetails = props => {
               )} */}
 
               {poeDetails?.attachments?.length !== 0 &&
-                poeDetails?.attachments !== null && (
+                poeDetails?.attachments !== null &&
+                poeDetails?.attachments !== false && (
                   <View style={styles.sectionContainer}>
-                    <Text style={styles.title}>
-                      {' '}
-                      Content Library Attachments:
-                    </Text>
                     <FlatList
                       vertical
                       showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.attachments}
+                      data={poeDetails?.attachments}
                       renderItem={_renderContent}
                     />
                   </View>
@@ -458,19 +449,7 @@ const SubPOEDetails = props => {
             </View>
           </ScrollView>
         </View>
-        {poeDetailLoading && (
-          <View
-            style={{
-              height: Dimensions.get('window').height,
-              position: 'absolute',
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: 0,
-              right: 0,
-            }}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+        {poeDetailLoading && <Loading />}
       </ScrollView>
     </>
   );
@@ -633,7 +612,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,

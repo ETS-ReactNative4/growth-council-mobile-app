@@ -11,6 +11,8 @@ import {
   Dimensions,
   StatusBar,
   SafeAreaView,
+  Pressable,
+  PermissionsAndroid,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
@@ -19,12 +21,14 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import Player from './Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -89,7 +93,6 @@ const BestPractice = props => {
       };
     }, [isFocused]),
   );
-  console.log('abcd', pillarMemberContents?.attachments);
 
   useEffect(() => {
     setMemberConnection(pillarMemberContents?.members);
@@ -112,11 +115,18 @@ const BestPractice = props => {
     } else {
       description = item?.organizer?.description;
     }
-
+    const pillarname = 'Best Practice';
+    const image = require('../../../assets/img/best-practice-bg.png');
     return (
       <View key={index} style={styles.topWrapper}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate('EventDetail', {
+              id: item.ID,
+              title: pillarname,
+              image: image,
+            })
+          }>
           <ImageBackground
             style={{width: '100%', height: 150, borderRadius: 20}}
             source={require('../../../assets/img/best-practice-bg.png')}>
@@ -205,6 +215,8 @@ const BestPractice = props => {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
+              title: 'Best Practice',
+              image: require('../../../assets/img/best-practice-bg.png'),
             });
           }
         }}>
@@ -213,6 +225,7 @@ const BestPractice = props => {
             <Image
               source={{uri: item?.image}}
               style={{width: 30, height: 30}}
+              resizeMode="contain"
             />
           </View>
           <Text
@@ -314,6 +327,12 @@ const BestPractice = props => {
     );
   };
 
+  const _renderContentItem = ({item, index}) => {
+    const file = item?.file;
+    const link = file.split('=', 2);
+    let videoLink = link[1].split('&', 2);
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
+  };
   return (
     <View style={{flex: 1}}>
       <StatusBar
@@ -349,11 +368,7 @@ const BestPractice = props => {
             <Text style={[styles.title, {marginLeft: 15}]}>
               Points of Engagement
             </Text>
-            {pillarPOELoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
+            {pillarPOELoading && <Loading />}
 
             <FlatList
               numColumns={4}
@@ -366,7 +381,6 @@ const BestPractice = props => {
           {pillarMemberContents?.attachments?.length !== 0 &&
             pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.title}> Content Library Attachments:</Text>
                 <FlatList
                   vertical
                   showsHorizontalScrollIndicator={false}
@@ -390,6 +404,26 @@ const BestPractice = props => {
               </View>
             </View>
           )} */}
+
+          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+            pillarMemberContents?.pillar_contents?.length !== null &&
+            pillarMemberContents?.pillar_contents?.length !== false && (
+              <View style={styles.content}>
+                <Text style={styles.title}>Best Practice Content</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.pillar_contents}
+                    renderItem={_renderContentItem}
+                  />
+                </View>
+              </View>
+            )}
           {/* <Footer /> */}
         </View>
       </ScrollView>
@@ -531,7 +565,7 @@ const styles = StyleSheet.create({
   },
   attachmentContainer: {
     margin: 1,
-    width: '90%',
+    width: contentContainerWidth,
     height: 70,
     paddingLeft: 20,
     paddingRight: 8,
