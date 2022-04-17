@@ -18,13 +18,12 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-                tintColor: focused ? '#e32f45' : '#57585A',
               }}>
               <Ionicons
                 name="home-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
+                style={{color: focused ? 'black' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -35,13 +34,12 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-                tintColor: focused ? '#e32f45' : '#57585A',
               }}>
               <Ionicons
                 name="calendar-outline"
-                color={'#000'}
+                color={focused ? 'black' : 'red'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
+                style={{color: focused ? 'black' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -52,13 +50,13 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-                tintColor: focused ? '#e32f45' : '#57585A',
+             
               }}>
               <Ionicons
                 name="chatbox-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
+                style={{color: focused ? 'black' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -69,13 +67,13 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-                tintColor: focused ? '#e32f45' : '#57585A',
+              
               }}>
               <Ionicons
                 name="people-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
+                style={{color: focused ? 'black' : '#FFFFFF'}}
               />
             </View>
           </View>
@@ -86,13 +84,13 @@ const BottomLayout = ({focused, navigation}) => {
             <View
               style={{
                 top: Platform.OS === 'ios' ? 8 : 0,
-                tintColor: focused ? '#e32f45' : '#57585A',
+               
               }}>
               <Ionicons
                 name="person-outline"
                 color={'#000'}
                 size={30}
-                style={{color: focused ? '#e32f45' : '#FFFFFF'}}
+                style={{color: focused ? 'black' : '#FFFFFF'}}
               />
             </View>
           </View>
