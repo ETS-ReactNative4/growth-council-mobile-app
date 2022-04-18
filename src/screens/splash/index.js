@@ -57,7 +57,8 @@ const SplashScreen = () => {
         <Text style={styles.heading}></Text> */}
         <Image
           style={styles.mainLogo}
-          source={require('../../assets/img/GILCouncillog.png')}
+          source={require('../../assets/img/council.png')}
+          resizeMode="contain"
         />
         <View style={styles.footerContent}>
           <Image
@@ -108,7 +109,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   mainLogo: {
-    marginTop: 20,
+    width: 350,
+    height: 250,
   },
   footerLogo: {},
 

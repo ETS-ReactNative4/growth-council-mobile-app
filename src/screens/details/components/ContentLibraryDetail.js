@@ -359,8 +359,6 @@ const ContentLibraryDetail = props => {
             handleValue={handleFeedbackChange}
           />
 
-          {/* Footer Section */}
-          <Footer />
         </ScrollView>
       </View>
 

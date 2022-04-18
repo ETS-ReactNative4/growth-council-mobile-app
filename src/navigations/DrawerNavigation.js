@@ -168,7 +168,7 @@ const DrawerNavigation = () => {
         })}
       />
       <Drawer.Screen
-        name="Community"
+        name="Growth Community"
         component={HomeCommunityScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
