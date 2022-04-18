@@ -289,7 +289,9 @@ const ContentLibraryDetail = props => {
 
           {/* Abstract Section */}
           {contentLibraryDetails?.abstract !== undefined &&
-            contentLibraryDetails?.abstract !== '' && (
+            contentLibraryDetails?.abstract !== '' &&
+            contentLibraryDetails?.abstract !== false &&
+            contentLibraryDetails?.abstract !== null && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.bodyTitleText}>Abstract:</Text>
                 <Text style={styles.abstractDescriptionText}>
@@ -300,7 +302,8 @@ const ContentLibraryDetail = props => {
           {contentLibraryDetailsLoading && <Loading />}
           {/* Call To Action Section */}
           {contentLibraryDetails?.call_to_action?.length !== 0 &&
-            contentLibraryDetails?.call_to_action !== false && (
+            contentLibraryDetails?.call_to_action !== false &&
+            contentLibraryDetails?.call_to_action !== null && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.bodyTitleText}>Call to Action:</Text>
                 <FlatList
@@ -314,7 +317,8 @@ const ContentLibraryDetail = props => {
 
           {/* Attachments Section */}
           {contentLibraryDetails?.attachment?.length !== 0 &&
-            contentLibraryDetails?.attachment !== false && (
+            contentLibraryDetails?.attachment !== false &&
+            contentLibraryDetails?.attachment !== null && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.bodyTitleText}>Attachments:</Text>
                 <FlatList
@@ -327,22 +331,24 @@ const ContentLibraryDetail = props => {
             )}
 
           {/* Tags Section */}
-          {contentLibraryDetails?.tags?.length !== 0 && (
-            <View style={styles.sectionContainerBorder}>
-              <Text style={styles.bodyTitleText}>Tags:</Text>
+          {contentLibraryDetails?.tags?.length !== 0 &&
+            contentLibraryDetails?.tags?.length !== false &&
+            contentLibraryDetails?.tags?.length !== null && (
+              <View style={styles.sectionContainerBorder}>
+                <Text style={styles.bodyTitleText}>Tags:</Text>
 
-              <FlatList
-                contentContainerStyle={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                }}
-                showsVerticalScrollIndicator={false}
-                data={contentLibraryDetails?.tags}
-                renderItem={_renderTagItem}
-              />
-            </View>
-          )}
+                <FlatList
+                  contentContainerStyle={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                  }}
+                  showsVerticalScrollIndicator={false}
+                  data={contentLibraryDetails?.tags}
+                  renderItem={_renderTagItem}
+                />
+              </View>
+            )}
 
           {/* Article Feedback Section */}
           <ArticleFeedbackCard
