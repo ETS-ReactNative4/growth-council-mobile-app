@@ -60,12 +60,6 @@ const SubPOEDetails = props => {
     fetchAllPOEDetailAsync();
   }, []);
 
-  useEffect(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(route.params.pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
-  }, [isFocused]);
 
   useFocusEffect(
     useCallback(() => {

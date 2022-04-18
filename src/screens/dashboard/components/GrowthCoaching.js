@@ -377,7 +377,11 @@ const GrowthCoaching = props => {
               </View>
             )}
 
-          {pillarEventLoading && <Loading />}
+          {pillarEventLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
+            </View>
+          )}
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
               <Text style={styles.title}>Points of Engagement</Text>

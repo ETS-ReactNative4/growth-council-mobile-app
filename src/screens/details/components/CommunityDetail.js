@@ -149,7 +149,6 @@ const CommunityDetail = props => {
         onPress={() =>
           navigation.navigate('SubPoe', {
             poeId: item?.term_id,
-            pillarId: route?.params?.pillarId,
             id: route?.params?.poeId,
           })
         }>

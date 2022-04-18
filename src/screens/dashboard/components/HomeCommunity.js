@@ -358,28 +358,31 @@ const HomeCommunity = props => {
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          {pillarEvents?.length !== 0 &&
-            pillarEvents !== null &&
-            pillarEvents !== false && (
-              <View style={styles.top}>
-                <Text style={styles.title}>Growth Community Events</Text>
+          {pillarEvents?.length !== 0 && (
+            <View style={styles.top}>
+              <Text style={styles.title}>Growth Community Events</Text>
 
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarEvents}
-                    renderItem={item => _renderTopItem(item, navigation)}
-                  />
-                </View>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarEvents}
+                  renderItem={item => _renderTopItem(item, navigation)}
+                />
               </View>
-            )}
+            </View>
+          )}
 
-          {pillarEventLoading && <Loading />}
+          {pillarEventLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
+            </View>
+          )}
+
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
               <Text style={styles.title}>Points of Engagement</Text>

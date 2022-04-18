@@ -309,6 +309,23 @@ const MainNavigation = () => {
             ),
           })}
         />
+
+        <Stack.Screen
+          name="SubPoe"
+          component={SubPOEDetailScreen}
+          options={({route}) => ({
+            poeId: route.params.id,
+            background: route.params.image,
+            header: ({ navigation}) => (
+              <SubHeader
+                title="Growth Content"
+                image={require('../assets/img/best-practice-bg.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
@@ -555,23 +572,6 @@ const MainNavigation = () => {
           })}
         />
 
-        <Stack.Screen
-          name="SubPoe"
-          component={SubPOEDetailScreen}
-          options={({route, navigation}) => ({
-            poeId: route.params.poeId,
-            background: route.params.image,
-
-            header: () => (
-              <SubHeader
-                title="Growth Content"
-                image={require('../assets/img/best-practice-bg.png')}
-                navigation={navigation}
-                noDrawer
-              />
-            ),
-          })}
-        />
         <Stack.Screen
           name="CouncilDetail"
           component={CouncilDetailScreen}
