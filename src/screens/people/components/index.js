@@ -479,7 +479,7 @@ const People = props => {
             </TouchableOpacity>
           </View>
         </View>
-
+        {userLoading && <Loading />}
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
@@ -487,7 +487,6 @@ const People = props => {
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
             paddingBottom: 50,
           }}>
-          {userLoading && <Loading />}
           <View style={{marginTop: 10}}>
             {memberConnectionLoading && <Loading />}
             <FlatList

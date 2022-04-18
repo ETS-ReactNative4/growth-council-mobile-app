@@ -34,6 +34,7 @@ const Content = props => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(content);
   const [count, setCount] = useState(false);
+  
   useEffect(() => {
     setFilteredDataSource(content);
   }, [content]);
@@ -185,7 +186,7 @@ const Content = props => {
             />
           )}
 
-          <View style={{marginTop: 10}}>
+          <View style={{marginVertical:5}}>
             <Footer />
           </View>
         </ScrollView>
