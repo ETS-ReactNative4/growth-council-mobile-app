@@ -188,7 +188,7 @@ const Dashboard = props => {
   };
 
   const _renderContent = ({item, index}) => {
-    const date = moment(item?.post_modified).format('D/MM/yyyy');
+    const date = moment(item?.post_modified).format('MM/D/yyyy');
     return (
       <View style={[styles.middleWrapper, styles.shadowContent]}>
         <View style={{flexDirection: 'row'}}>
@@ -301,8 +301,8 @@ const Dashboard = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text style={{color: '#030303'}}>{date[1]}</Text>
               <Text style={{color: '#030303'}}>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
             </View>
 
             <View style={styles.header}>
@@ -447,7 +447,10 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>Critical Issues</Text>
+          <Text style={styles.title}>
+            {' '}
+            {criticalIssue?.critical_issue_mobile_title}
+          </Text>
           <View
             ref={ref => {
               setRef(ref);

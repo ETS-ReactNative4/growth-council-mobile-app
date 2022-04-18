@@ -73,7 +73,9 @@ const CouncilAllDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => ToastMessage.show('Log in as Council membership to review')}>
+          onPress={() =>
+            ToastMessage.show('Log in as Council membership to review')
+          }>
           <View style={styles.eventCard} key={index}>
             <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
             <View style={styles.eventDetails}>
@@ -102,7 +104,9 @@ const CouncilAllDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => ToastMessage.show('Log in as Council membership to review')}>
+          onPress={() =>
+            ToastMessage.show('Log in as Council membership to review')
+          }>
           <View style={styles.poeCard} key={index}>
             <View style={[styles.poeTheme, styles.shadowProp]}>
               <Image
@@ -111,7 +115,7 @@ const CouncilAllDetail = props => {
                   width: 35,
                   height: 35,
                 }}
-				        resizeMode="contain"
+                resizeMode="contain"
               />
             </View>
             <View style={styles.eventDetails}>
@@ -205,22 +209,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   events: {
-    padding: 30,
+    padding: 20,
     width: '100%',
   },
   eventsTitle: {
     marginBottom: 34,
-    fontWeight: 'semi-bold',
+    fontWeight: '600',
+	color:'black'
   },
   poeTitle: {
     marginTop: 10,
-    marginBottom: 34,
-    fontWeight: 'semi-bold',
+    marginBottom: 30,
+    fontWeight: '600',
+	color:'black'
   },
   eventList: {},
   eventCard: {
     width: '100%',
-    marginTop: 5,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     backgroundColor: '#fff',

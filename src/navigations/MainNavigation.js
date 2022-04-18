@@ -299,9 +299,9 @@ const MainNavigation = () => {
           name="pdf"
           component={PDFDetailScreen}
           options={() => ({
-            header: ({navigation}) => (
+            header: ({navigation, route}) => (
               <SubHeader
-                title="PDF"
+                title={route?.params?.title}
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}
                 noDrawer={true}

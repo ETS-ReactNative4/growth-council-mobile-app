@@ -104,11 +104,11 @@ const styles = StyleSheet.create({
   acceptButton: {
     borderRadius: 10,
     height: 50,
-    backgroundColor: '#183863',
+    backgroundColor: Colors.PRACTICE_COLOR,
     marginTop: 10,
   },
   acceptButtonText: {
-    color: '#ffffff',
+    color: 'white',
   },
   titleBorder: {
     marginTop: 30,

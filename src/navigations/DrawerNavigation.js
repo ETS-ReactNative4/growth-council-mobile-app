@@ -19,7 +19,7 @@ import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
-
+import {Linking} from 'react-native';
 import {useAuthentication} from '../context/auth';
 import ContentScreen from '../screens/contentLibrary';
 import CriticalIssueScreen from '../screens/criticalIssue';
@@ -121,21 +121,27 @@ const CustomDrawerContent = props => {
         />
 
         <View style={styles.footer}>
-          <Image
-            source={require('../../src/assets/img/frost-sullivan.png')}
-            style={{
-              width: '60%',
-              height: 45,
-            }}
-            resizeMode="contain"
-          />
-          <Text style={styles.footerText}>Powered By</Text>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://www.frost.com/')}>
+            <Image
+              source={require('../../src/assets/img/frost-sullivan.png')}
+              style={{
+                width: 180,
+                height: 45,
+              }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
 
-          <Image
-            source={require('../../src/assets/img/splashFooter.png')}
-            style={{width: 80, height: 40, opacity: 0.75, }}
-            resizeMode="cover"
-          />
+          <Text style={styles.footerText}>Powered By</Text>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://frostdigi.ai/')}>
+            <Image
+              source={require('../../src/assets/img/splashFooter.png')}
+              style={{width: 80, height: 40, opacity: 0.75}}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
         </View>
       </DrawerContentScrollView>
     </SafeAreaView>

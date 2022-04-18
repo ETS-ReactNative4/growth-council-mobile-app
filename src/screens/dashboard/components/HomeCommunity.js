@@ -326,7 +326,10 @@ const HomeCommunity = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
