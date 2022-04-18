@@ -20,6 +20,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import * as Colors from '../../../theme/colors';
 import * as RNLocalize from 'react-native-localize';
 import {formatTimeByOffset} from '../../event/components/timezone';
+import Loading from '../../../shared/loading';
 
 const Profile = props => {
   const isFocused = useIsFocused();
@@ -93,9 +94,16 @@ const Profile = props => {
           }>
           <View style={[styles.middleWrapper, styles.shadowProp]}>
             <View style={styles.wrapper}>
-              <View style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
-                <Text style={[styles.text, {width: "60%", marginRight:10}]}>{item?.title}</Text>
-            
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={[styles.text, {width: '60%', marginRight: 10}]}>
+                  {item?.title}
+                </Text>
+
                 <Button
                   style={{
                     height: 35,
@@ -111,7 +119,12 @@ const Profile = props => {
               </View>
 
               <View style={styles.iconWrapper}>
-                <View style={{flexDirection:"row", alignItems:"flex-start", marginRight: 10}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'flex-start',
+                    marginRight: 10,
+                  }}>
                   <Ionicon name={'person'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 10, width: 100}]}>
                     {organizer} {description}
@@ -123,7 +136,12 @@ const Profile = props => {
                 </View>
               </View>
               <View style={styles.iconWrapper}>
-                <View style={{flexDirection:"row", alignItems:"center", marginRight: 10}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginRight: 10,
+                  }}>
                   <Ionicon name={'calendar'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 12, width: 100}]}>
                     {date[2]} {date[1]}
@@ -146,24 +164,8 @@ const Profile = props => {
 
   return (
     <>
-      {profileEventLoading && (
-        <>
-          <View
-            style={{
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'absolute',
-              zIndex: 1011,
-            }}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        </>
-      )}
       <View style={{paddingBottom: 20}}>
+        {profileEventLoading && <Loading />}
         <FlatList
           Vertical
           showsVerticalScrollIndicator={false}
@@ -243,8 +245,8 @@ const styles = StyleSheet.create({
   iconWrapper: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems:'flex-start',
-    marginTop: 10
+    alignItems: 'flex-start',
+    marginTop: 10,
   },
   shadowProp: {
     shadowColor: '#000',

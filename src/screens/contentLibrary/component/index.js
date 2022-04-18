@@ -33,10 +33,15 @@ const Content = props => {
   } = props;
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(content);
-
+  const [count, setCount] = useState(false);
+  
   useEffect(() => {
     setFilteredDataSource(content);
   }, [content]);
+
+  useEffect(() => {
+    setCount(filteredDataSource?.children_count);
+  }, [filteredDataSource]);
 
   const searchFilterFunction = text => {
     if (text) {
@@ -171,17 +176,17 @@ const Content = props => {
           contentContainerStyle={{paddingBottom: 20}}>
           {contentLoading && <Loading />}
           {/* {loader} */}
-          {filteredDataSource.count !== 0 &&
-            filteredDataSource.children_count !== 0 && (
-              <FlatList
-                contentContainerStyle={{alignItems: 'center'}}
-                showsVerticalScrollIndicator={false}
-                data={filteredDataSource}
-                renderItem={_renderContent}
-              />
-            )}
 
-          <View style={{marginTop: 10}}>
+          {!count && (
+            <FlatList
+              contentContainerStyle={{alignItems: 'center'}}
+              showsVerticalScrollIndicator={false}
+              data={filteredDataSource}
+              renderItem={_renderContent}
+            />
+          )}
+
+          <View style={{marginVertical:5}}>
             <Footer />
           </View>
         </ScrollView>

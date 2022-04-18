@@ -382,13 +382,7 @@ const CommunityDetail = props => {
         <View style={styles.container}>
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
-            style={{height: 240, width: '100%'}}>
-            {/* <TouchableOpacity onPress={() => navigation.goBack()}>
-              <View style={styles.arrow}>
-                <Ionicons name={'arrow-back'} size={50} color="white" />
-              </View>
-            </TouchableOpacity> */}
-          </ImageBackground>
+            style={{height: 240, width: '100%'}}></ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>
             <Image
@@ -405,32 +399,33 @@ const CommunityDetail = props => {
           <ScrollView
             style={[styles.content, {backgroundColor: backgroundColor}]}>
             <View style={styles.contentWrapper}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  color: '#1E2022',
-                  textAlign: 'center',
-                  marginTop: 50,
-                }}>
-                {poeDetails.name}
-              </Text>
+              <View style={{padding: 15}}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    color: '#1E2022',
+                    textAlign: 'center',
+                    marginTop: 40,
+                    marginBottom: 15,
+                  }}>
+                  {poeDetails.name}
+                </Text>
 
-              <HTMLView
-                value={poeDescription}
-                textComponentProps={{
-                  style: {
-                    fontFamily: Typography.FONT_SF_REGULAR,
-                    fontSize: 14,
-                    lineHeight: 20,
-                    padding: 15,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#77838F',
-                  },
-                }}
-              />
-
+                <HTMLView
+                  value={poeDescription}
+                  textComponentProps={{
+                    style: {
+                      fontFamily: Typography.FONT_SF_REGULAR,
+                      fontSize: 14,
+                      lineHeight: 20,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#77838F',
+                    },
+                  }}
+                />
+              </View>
               {poeDetails?.slug === '10-growth-processes' && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Sub Points of Engagement</Text>

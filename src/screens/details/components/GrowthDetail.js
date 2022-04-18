@@ -176,25 +176,9 @@ const GrowthDetail = props => {
               }}>
               {item?.title}
             </Text>
-            {/* <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
-                {item?.organizer?.term_name} {item?.organizer?.description}
-              </Text> */}
+            
           </View>
-          {/* <View
-              style={{
-                width: 40,
-                height: 50,
-                marginTop: 10,
-                backgroundColor: '#EBECF0',
-                borderRadius: 15,
-                right: 5,
-                padding: 5,
-                position: 'absolute',
-                alignItems: 'center',
-              }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
-            </View> */}
+         
         </TouchableOpacity>
       </View>
     );
@@ -247,7 +231,7 @@ const GrowthDetail = props => {
                     fontSize: 8,
                   }}></Text>
               </View>
-              {/* <View
+              <View
 						style={{
 						marginTop: 30,
 						display: 'flex',
@@ -257,11 +241,11 @@ const GrowthDetail = props => {
 						}}>
 						<Ionicons
 						name={'book-outline'}
-						size={12}
+						size={18}
 						color="#cccccc"
 						style={{right: 0, marginLeft: 80}}
 						/>
-					</View> */}
+					</View>
             </View>
           </View>
         </TouchableOpacity>

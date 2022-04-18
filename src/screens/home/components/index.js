@@ -140,7 +140,9 @@ const Home = props => {
               />
             </View>
           ) : (
-            <Loading />
+            <View style={styles.loading1}>
+              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+            </View>
           )}
         </View>
       </View>

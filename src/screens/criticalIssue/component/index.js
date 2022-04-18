@@ -25,6 +25,7 @@ import Loading from '../../../shared/loading';
 const CriticalIssue = props => {
   const {
     navigation,
+	route,
     criticalIssue,
     criticalIssueLoading,
     criticalIssueError,
@@ -32,13 +33,34 @@ const CriticalIssue = props => {
     cleanCriticalIssue,
   } = props;
 
+
   useEffect(() => {
     fetchCritcalIssue();
   }, []);
 
+//   useEffect(() => {
+//     setDataSourceCords(criticalIssue);
+//   }, [criticalIssue]);
+
+// console.log(route.params.dataSourceCords)
+
+//   const scrollHandler = () => {
+//     console.log(route.params.dataSourceCords.length, route.params.scrollToIndex);
+//     if (route.params.dataSourceCords.length > route.params.scrollToIndex) {
+//       ref.scrollTo({
+//         x: 0,
+//         y: route.params.dataSourceCords[route.params.scrollToIndex - 1],
+//         animated: true,
+//       });
+//     } else {
+//       alert('Out of Max Index');
+//     }
+//   };
+
   const _renderCritical = ({item, index}) => {
     return (
-      <View style={styles.content}>
+      <View
+        style={styles.content}>
         <Image
           style={{
             width: Dimensions.get('window').width - 40,
@@ -109,12 +131,13 @@ const CriticalIssue = props => {
           </View>
 
           {criticalIssueLoading && <Loading />}
-
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={criticalIssue?.critical_issue_mobile_lists}
-            renderItem={_renderCritical}
-          />
+          <View>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={criticalIssue?.critical_issue_mobile_lists}
+              renderItem={_renderCritical}
+            />
+          </View>
         </View>
       </ScrollView>
 

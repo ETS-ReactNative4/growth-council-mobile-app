@@ -215,7 +215,7 @@ const BestPractice = props => {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
-              title: 'Best Practice',
+              title: 'Growth Content',
               image: require('../../../assets/img/best-practice-bg.png'),
             });
           }
@@ -409,7 +409,7 @@ const BestPractice = props => {
             pillarMemberContents?.pillar_contents?.length !== null &&
             pillarMemberContents?.pillar_contents?.length !== false && (
               <View style={styles.content}>
-                <Text style={styles.title}>Best Practice Content</Text>
+                <Text style={styles.title}>Growth Content Content</Text>
                 <View
                   style={{
                     display: 'flex',
