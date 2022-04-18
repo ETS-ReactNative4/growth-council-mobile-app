@@ -34,7 +34,7 @@ const Content = props => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(content);
   const [count, setCount] = useState(false);
-  
+
   useEffect(() => {
     setFilteredDataSource(content);
   }, [content]);
@@ -173,8 +173,12 @@ const Content = props => {
             flex: 1,
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
           }}
-          contentContainerStyle={{paddingBottom: 20}}>
-          {contentLoading && <Loading />}
+          contentContainerStyle={{paddingBottom: 50}}>
+          {contentLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
+            </View>
+          )}
           {/* {loader} */}
 
           {!count && (
@@ -186,9 +190,9 @@ const Content = props => {
             />
           )}
 
-          <View style={{marginVertical:5}}>
+          {/* <View style={{marginVertical:5}}>
             <Footer />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
       <BottomNav {...props} navigation={navigation} />

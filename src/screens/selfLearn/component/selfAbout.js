@@ -88,7 +88,10 @@ const selfAbout = props => {
             <Button
               style={styles.buttonWrapper}
               onPress={() =>
-                navigation.navigate('pdf', {paramsFile: selfLearns?.file, title: selfLearns?.title,})
+                navigation.navigate('pdf', {
+                  paramsFile: selfLearns?.file,
+                  title: selfLearns?.title,
+                })
               }>
               <Text style={{color: 'white', fontSize: 11}}>Read E-Book</Text>
             </Button>
@@ -152,6 +155,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 34,
     borderRadius: 20,
+    marginTop: 10,
     backgroundColor: '#F26722',
   },
 });
