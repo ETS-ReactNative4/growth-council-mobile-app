@@ -67,7 +67,7 @@ const ImageUpload = () => {
         let isStoragePermitted = await requestExternalWritePermission();
         if (isCameraPermitted && isStoragePermitted) {
             launchCamera(options, response => {
-                console.log('Response = ', response);
+                
                 if (response.didCancel) {
                     alert('User cancelled camera picker');
                     return;
@@ -81,13 +81,7 @@ const ImageUpload = () => {
                     alert(response.errorMessage);
                     return;
                 }
-                console.log('base64 -> ', response.base64);
-                console.log('uri -> ', response.uri);
-                console.log('width -> ', response.width);
-                console.log('height -> ', response.height);
-                console.log('fileSize -> ', response.fileSize);
-                console.log('type -> ', response.type);
-                console.log('fileName -> ', response.fileName);
+               
                 setFilePath(response);
             });
         }
@@ -101,7 +95,7 @@ const ImageUpload = () => {
             quality: 1,
         };
         launchImageLibrary(options, response => {
-            console.log('Response = ', response);
+            
 
             if (response.didCancel) {
                 alert('User cancelled camera picker');
@@ -116,13 +110,7 @@ const ImageUpload = () => {
                 alert(response.errorMessage);
                 return;
             }
-            console.log('base64 -> ', response.base64);
-            console.log('uri -> ', response.uri);
-            console.log('width -> ', response.width);
-            console.log('height -> ', response.height);
-            console.log('fileSize -> ', response.fileSize);
-            console.log('type -> ', response.type);
-            console.log('fileName -> ', response.fileName);
+          
             setFilePath(response);
         });
     };

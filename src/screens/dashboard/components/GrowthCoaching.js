@@ -152,7 +152,7 @@ const GrowthCoaching = props => {
     } else {
       navigationPath = 'CommunityDetail';
     }
-    console.log(item?.slug);
+
 
     return (
       <TouchableOpacity
@@ -276,12 +276,12 @@ const GrowthCoaching = props => {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
 
-            console.log('Storage Permission Granted.');
+           
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+			ToastMessage.show('++++' + err);
         }
       }
     };
@@ -313,7 +313,7 @@ const GrowthCoaching = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
+          
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };

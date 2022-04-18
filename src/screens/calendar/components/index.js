@@ -299,7 +299,7 @@ const EventCalendar = props => {
                   all_events: showAllEvents,
                 })
                   .then(response => {
-                    console.log(response);
+                  
                     if (response?.payload?.code === 200) {
                       setCurrentEvents(response?.payload?.data);
                     } else {
@@ -309,7 +309,7 @@ const EventCalendar = props => {
                   })
                   .catch(e => {
                     //   ToastMessage.show(e?.response?.payload?.response);
-                    console.log(e);
+                  
                     // setMarkedDay([]);
                     setCurrentEvents([]);
                   });
@@ -381,7 +381,7 @@ const EventCalendar = props => {
                         })
                         .catch(e => {
                           //   ToastMessage.show(e?.response?.payload?.response);
-                          console.log(e);
+                          
                           //   setMarkedDay([]);
                           setCurrentEvents([]);
                         });

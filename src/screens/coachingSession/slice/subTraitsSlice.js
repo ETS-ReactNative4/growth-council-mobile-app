@@ -7,7 +7,6 @@ export const fetchAllSubTraits = createAsyncThunk(
   (identifier, {rejectWithValue}) => {
     return fetch(`jwt-auth/v1/traits/${identifier}`)
       .then(response => {
-        console.log({test: response.data.data});
         return response.data.data;
       })
       .catch(error => rejectWithValue(error?.response?.data || error));
