@@ -99,7 +99,7 @@ const Search = props => {
         navigationPath = 'Community';
         break;
       case 'best-practices':
-        navigationPath = 'Best Practices';
+        navigationPath = 'Growth Content';
         break;
       case 'growth-coaching':
         navigationPath = 'Growth Coaching';

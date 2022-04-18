@@ -32,7 +32,7 @@ const PillarList = props => {
           borderColor = COMMUNITY_COLOR;
           break;
         case 'best-practices':
-          navigationPath = 'Best Practices';
+          navigationPath = 'Growth Content';
           borderColor = PRACTICE_COLOR;
           break;
         case 'growth-coaching':
@@ -48,7 +48,9 @@ const PillarList = props => {
             onPress={() =>
               navigation.navigate(navigationPath, {pillarId: item?.term_id})
             }>
-            <ImageBackground source={{uri: item?.image}} style={styles.ImageStyle}>
+            <ImageBackground
+              source={{uri: item?.image}}
+              style={styles.ImageStyle}>
               <LinearGradient
                 colors={['#00000000', '#000000']}
                 style={{height: '100%', width: '100%'}}

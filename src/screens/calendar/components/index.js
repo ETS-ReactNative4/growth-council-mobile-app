@@ -182,7 +182,7 @@ const EventCalendar = props => {
       case 118:
       case 0:
         borderColor = Colors.PRACTICE_COLOR;
-        pillarname = 'Best Practices';
+        pillarname = 'Growth Content';
         backgroundImage = require('../../../assets/img/best-practice-bg.png');
         break;
 

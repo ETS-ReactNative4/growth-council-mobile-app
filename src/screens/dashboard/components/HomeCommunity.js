@@ -162,7 +162,7 @@ const HomeCommunity = props => {
               poeId: item?.term_id,
               pillarId: item?.parent,
               title: 'Growth Community',
-			  image:require('../../../assets/img/Rectangle2.png')
+              image: require('../../../assets/img/Rectangle2.png'),
             });
           }
         }}>
@@ -207,12 +207,16 @@ const HomeCommunity = props => {
       description = item?.organizer?.description;
     }
     const pillarname = 'Growth Community';
-	const image=require('../../../assets/img/Rectangle2.png')
+    const image = require('../../../assets/img/Rectangle2.png');
     return (
       <View style={styles.topWrapper} key={index}>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('EventDetail', {id: item.ID, title: pillarname, image:image})
+            navigation.navigate('EventDetail', {
+              id: item.ID,
+              title: pillarname,
+              image: image,
+            })
           }>
           <ImageBackground
             style={{
@@ -351,22 +355,26 @@ const HomeCommunity = props => {
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          <View style={styles.top}>
-            <Text style={styles.title}>Growth Community Events</Text>
+          {pillarEvents?.length !== 0 &&
+            pillarEvents !== null &&
+            pillarEvents !== false && (
+              <View style={styles.top}>
+                <Text style={styles.title}>Growth Community Events</Text>
 
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarEvents}
-                renderItem={item => _renderTopItem(item, navigation)}
-              />
-            </View>
-          </View>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarEvents}
+                    renderItem={item => _renderTopItem(item, navigation)}
+                  />
+                </View>
+              </View>
+            )}
 
           {pillarEventLoading && <Loading />}
           {pillarPOEs?.length !== 0 && (
@@ -398,19 +406,21 @@ const HomeCommunity = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.members?.length !== 0 && (
-            <View style={styles.bottom}>
-              <Text style={styles.title}>Growth Community Members</Text>
-              <View>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents.members}
-                  renderItem={_renderItem}
-                />
+          {pillarMemberContents?.members?.length !== 0 &&
+            pillarMemberContents?.members !== null &&
+            pillarMemberContents?.members !== false && (
+              <View style={styles.bottom}>
+                <Text style={styles.title}>Growth Community Members</Text>
+                <View>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents.members}
+                    renderItem={_renderItem}
+                  />
+                </View>
               </View>
-            </View>
-          )}
+            )}
 
           {pillarMemberContents?.pillar_contents?.length !== 0 &&
             pillarMemberContents?.pillar_contents !== null &&

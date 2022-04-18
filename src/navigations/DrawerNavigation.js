@@ -178,7 +178,7 @@ const DrawerNavigation = () => {
         })}
       />
       <Drawer.Screen
-        name="Best Practices"
+        name="Growth Content"
         component={BestPracticeScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
@@ -186,7 +186,7 @@ const DrawerNavigation = () => {
           ),
           header: () => (
             <SubHeader
-              title="Best Practices"
+              title="Growth Content"
               image={require('../assets/img/best-practice-bg.png')}
               navigation={navigation}
             />

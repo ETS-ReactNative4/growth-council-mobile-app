@@ -298,9 +298,16 @@ const MainNavigation = () => {
         <Stack.Screen
           name="pdf"
           component={PDFDetailScreen}
-          options={{
-            headerTitle: 'PDF',
-          }}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="PDF"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="ManageAccount"
@@ -557,7 +564,7 @@ const MainNavigation = () => {
 
             header: () => (
               <SubHeader
-                title="Best Practices"
+                title="Growth Content"
                 image={require('../assets/img/best-practice-bg.png')}
                 navigation={navigation}
                 noDrawer

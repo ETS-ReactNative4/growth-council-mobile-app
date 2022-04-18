@@ -161,7 +161,7 @@ const GrowthCoaching = props => {
             poeId: item?.term_id,
             pillarId: item?.parent,
             title: 'Growth Coaching',
-			image:require('../../../assets/img/Rectangle.png')
+            image: require('../../../assets/img/Rectangle.png'),
           })
         }>
         <View style={styles.middleWrapper}>
@@ -205,12 +205,16 @@ const GrowthCoaching = props => {
       description = item?.organizer?.description;
     }
     const pillarname = 'Growth Coaching';
-	const image = require('../../../assets/img/Rectangle.png')
+    const image = require('../../../assets/img/Rectangle.png');
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('EventDetail', {id: item.ID, title: pillarname, image:image})
+            navigation.navigate('EventDetail', {
+              id: item.ID,
+              title: pillarname,
+              image: image,
+            })
           }>
           <ImageBackground
             style={{
@@ -349,24 +353,26 @@ const GrowthCoaching = props => {
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          {pillarEvents?.length !== 0 && (
-            <View style={styles.top}>
-              <Text style={styles.title}>Growth Coaching Events</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarEvents}
-                  //renderItem={_renderTopItem}
-                  renderItem={item => _renderTopItem(item, navigation)}
-                />
+          {pillarEvents?.length !== 0 &&
+            pillarEvents !== null &&
+            pillarEvents !== false && (
+              <View style={styles.top}>
+                <Text style={styles.title}>Growth Coaching Events</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarEvents}
+                    //renderItem={_renderTopItem}
+                    renderItem={item => _renderTopItem(item, navigation)}
+                  />
+                </View>
               </View>
-            </View>
-          )}
+            )}
 
           {pillarEventLoading && <Loading />}
           {pillarPOEs?.length !== 0 && (
@@ -409,24 +415,24 @@ const GrowthCoaching = props => {
               </View>
             )}
           {pillarMemberContents?.pillar_contents?.length !== 0 &&
-		  pillarMemberContents?.pillar_contents !== null &&
-		  pillarMemberContents?.pillar_contents !== false && (
-            <View style={styles.content}>
-              <Text style={styles.title}>Growth Coaching Content</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.pillar_contents}
-                  renderItem={_renderContentItem}
-                />
+            pillarMemberContents?.pillar_contents !== null &&
+            pillarMemberContents?.pillar_contents !== false && (
+              <View style={styles.content}>
+                <Text style={styles.title}>Growth Coaching Content</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.pillar_contents}
+                    renderItem={_renderContentItem}
+                  />
+                </View>
               </View>
-            </View>
-          )}
+            )}
 
           {/* <Footer /> */}
         </View>

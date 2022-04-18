@@ -255,7 +255,7 @@ const Dashboard = props => {
       case 118:
       case 0:
         backgroundImage = require('../../../assets/img/best-practice-bg.png');
-        pillarname = 'Best Practices';
+        pillarname = 'Growth Content';
         break;
 
       default:
