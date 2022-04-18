@@ -53,7 +53,6 @@ const SubPOEDetails = props => {
 
   const isFocused = useIsFocused();
 
-
   useEffect(() => {
     const fetchAllPOEDetailAsync = async () => {
       await fetchAllPOEDetail(route.params.poeId);
@@ -61,14 +60,6 @@ const SubPOEDetails = props => {
     fetchAllPOEDetailAsync();
   }, []);
 
-  useEffect(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(route.params.pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
-  }, [isFocused]);
-
-  
 
   useFocusEffect(
     useCallback(() => {
@@ -82,7 +73,6 @@ const SubPOEDetails = props => {
     }, []),
   );
   console.log(route.params.poeId);
-
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
@@ -159,7 +149,10 @@ const SubPOEDetails = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
@@ -212,8 +205,7 @@ const SubPOEDetails = props => {
         <View style={styles.container}>
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
-            style={{height: 240, width: '100%'}}>
-          </ImageBackground>
+            style={{height: 240, width: '100%'}}></ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>
             <Image
@@ -254,7 +246,6 @@ const SubPOEDetails = props => {
                   },
                 }}
               />
-
 
               {poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null &&

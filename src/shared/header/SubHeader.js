@@ -49,13 +49,14 @@ const SubHeader = props => {
               <IonIcon name="menu-outline" color={'white'} size={30} />
             </TouchableOpacity>
           )}
-         
+
           <Text
             style={{
               marginLeft: 10,
               fontFamily: 'SFProText-Medium',
               fontSize: 18,
               color: 'white',
+              width: '80%',
             }}>
             {props.title}
           </Text>

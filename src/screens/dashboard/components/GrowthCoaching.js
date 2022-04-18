@@ -324,7 +324,10 @@ const GrowthCoaching = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
@@ -374,7 +377,11 @@ const GrowthCoaching = props => {
               </View>
             )}
 
-          {pillarEventLoading && <Loading />}
+          {pillarEventLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
+            </View>
+          )}
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
               <Text style={styles.title}>Points of Engagement</Text>

@@ -138,8 +138,12 @@ const ContentLibrary = props => {
             flex: 1,
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
           }}
-          contentContainerStyle={{paddingBottom: 20}}>
-          {contentLibraryLoading && <Loading />}
+          contentContainerStyle={{paddingBottom: 50}}>
+          {contentLibraryLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
+            </View>
+          )}
           <View style={{alignItems: 'center'}}>
             {filteredDataSource.map(item => {
               const itemname = item?.name;
@@ -227,9 +231,9 @@ const ContentLibrary = props => {
               );
             })}
           </View>
-          <View style={{marginTop: 10}}>
+          {/* <View style={{marginTop: 10}}>
             <Footer />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
       <BottomNav {...props} navigation={navigation} />

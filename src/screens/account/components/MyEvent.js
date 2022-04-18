@@ -86,11 +86,37 @@ const Profile = props => {
       nav = 'EventDetail';
     }
 
+    let backgroundImage = '';
+    let pillarname = '';
+    switch (
+      item?.pillar_categories[0]?.parent ||
+      item?.pillar_categories[1]?.parent
+    ) {
+      case 117:
+      case 0:
+        backgroundImage = require('../../../assets/img/Rectangle2.png');
+        pillarname = 'Growth Community';
+        break;
+      case 118:
+      case 0:
+        backgroundImage = require('../../../assets/img/best-practice-bg.png');
+        pillarname = 'Growth Content';
+        break;
+
+      default:
+        backgroundImage = require('../../../assets/img/Rectangle.png');
+        pillarname = 'Growth Coaching';
+    }
+
     return (
       <View key={index} style={{paddingBottom: 10}}>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate(nav, {id: item?.ID, title: item?.title})
+            navigation.navigate(nav, {
+              id: item?.ID,
+              title: pillarname,
+              image: backgroundImage,
+            })
           }>
           <View style={[styles.middleWrapper, styles.shadowProp]}>
             <View style={styles.wrapper}>

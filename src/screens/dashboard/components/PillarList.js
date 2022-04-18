@@ -28,7 +28,7 @@ const PillarList = props => {
       let borderColor = PRIMARY_BACKGROUND_COLOR;
       switch (item?.slug) {
         case 'community':
-          navigationPath = 'Community';
+          navigationPath = 'Growth Community';
           borderColor = COMMUNITY_COLOR;
           break;
         case 'best-practices':

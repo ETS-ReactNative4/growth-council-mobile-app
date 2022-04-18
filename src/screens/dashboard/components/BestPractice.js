@@ -309,7 +309,10 @@ const BestPractice = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
@@ -406,8 +409,8 @@ const BestPractice = props => {
           )} */}
 
           {pillarMemberContents?.pillar_contents?.length !== 0 &&
-            pillarMemberContents?.pillar_contents?.length !== null &&
-            pillarMemberContents?.pillar_contents?.length !== false && (
+            pillarMemberContents?.pillar_contents !== null &&
+            pillarMemberContents?.pillar_contents !== false && (
               <View style={styles.content}>
                 <Text style={styles.title}>Growth Content Content</Text>
                 <View
