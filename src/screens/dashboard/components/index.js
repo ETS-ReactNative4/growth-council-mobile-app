@@ -142,7 +142,6 @@ const Dashboard = props => {
     } else {
       alert('Out of Max Index');
     }
-   
   };
 
   const _renderItem = ({item, index}) => {
@@ -338,7 +337,6 @@ const Dashboard = props => {
             const layout = items.nativeEvent.layout;
             dataSourceCords[index] = layout.y;
             setDataSourceCords(dataSourceCords);
-
           }}>
           <View
             style={{
@@ -387,39 +385,46 @@ const Dashboard = props => {
             </View>
           </ImageBackground>
         </View>
+        {upcomingEvents?.length !== 0 &&
+          upcomingEvents !== null &&
+          upcomingEvents !== false && (
+            <View style={styles.top}>
+              <View style={styles.eventWrapper}>
+                <Text style={styles.title}>Upcoming Events</Text>
+              </View>
 
-        <View style={styles.top}>
-          <View style={styles.eventWrapper}>
-            <Text style={styles.title}>Upcoming Events</Text>
-          </View>
-
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginTop: 20,
-            }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={upcomingEvents}
-              renderItem={item => _renderTopItem(item, navigation)}
-            />
-          </View>
-        </View>
-
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  marginTop: 20,
+                }}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={upcomingEvents}
+                  renderItem={item => _renderTopItem(item, navigation)}
+                />
+              </View>
+            </View>
+          )}
         {latestContentLoading && <Loading />}
+        {latestContent?.length !== 0 &&
+          latestContent !== null &&
+          latestContent !== false && (
+            <View style={styles.middle}>
+              <Text style={[styles.title, {marginLeft: 15}]}>
+                Latest Content
+              </Text>
 
-        <View style={styles.middle}>
-          <Text style={[styles.title, {marginLeft: 15}]}>Latest Content</Text>
-
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={latestContent}
-            renderItem={_renderContent}
-          />
-        </View>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={latestContent}
+                renderItem={_renderContent}
+              />
+            </View>
+          )}
 
         <View style={styles.bottom}>
           <View
