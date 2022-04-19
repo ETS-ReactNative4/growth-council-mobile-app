@@ -266,7 +266,7 @@ const BestPractice = props => {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          ToastMessage.show('++++' + err);
+          ToastMessage.show(err);
         }
       }
     };
@@ -298,6 +298,7 @@ const BestPractice = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
+			console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };

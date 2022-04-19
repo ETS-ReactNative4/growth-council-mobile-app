@@ -82,7 +82,7 @@ const ContentLibraryDetail = props => {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-			ToastMessage.show('++++' + err);
+			ToastMessage.show(err);
         }
       }
     };
@@ -114,7 +114,7 @@ const ContentLibraryDetail = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          
+			console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -370,6 +370,7 @@ const styles = StyleSheet.create({
   bodyContainer: {
     ...CommonStyles.container,
     marginTop: 25,
+	marginBottom:20
   },
   breadcrumbContainer: {
     marginHorizontal: 25,
