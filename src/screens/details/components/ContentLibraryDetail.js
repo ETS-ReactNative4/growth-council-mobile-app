@@ -59,8 +59,6 @@ const ContentLibraryDetail = props => {
     setIsTrue(value);
   };
 
-  console.log(route.params.id);
-  console.log({contentLibraryDetails});
 
   const _renderItem = ({item, index}) => {
     const fileUrl = item?.file?.url;
@@ -80,13 +78,11 @@ const ContentLibraryDetail = props => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
-
-            console.log('Storage Permission Granted.');
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+			ToastMessage.show('++++' + err);
         }
       }
     };
@@ -118,7 +114,7 @@ const ContentLibraryDetail = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
+          
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -191,7 +187,7 @@ const ContentLibraryDetail = props => {
       </View>
     );
   };
-  console.log(contentLibraryDetails?.presenter);
+
   let video = contentLibraryDetails?.video_url;
   if (video !== undefined) {
     video = contentLibraryDetails?.video_url;

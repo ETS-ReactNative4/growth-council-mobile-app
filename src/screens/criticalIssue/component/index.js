@@ -38,24 +38,6 @@ const CriticalIssue = props => {
     fetchCritcalIssue();
   }, []);
 
-//   useEffect(() => {
-//     setDataSourceCords(criticalIssue);
-//   }, [criticalIssue]);
-
-// console.log(route.params.dataSourceCords)
-
-//   const scrollHandler = () => {
-//     console.log(route.params.dataSourceCords.length, route.params.scrollToIndex);
-//     if (route.params.dataSourceCords.length > route.params.scrollToIndex) {
-//       ref.scrollTo({
-//         x: 0,
-//         y: route.params.dataSourceCords[route.params.scrollToIndex - 1],
-//         animated: true,
-//       });
-//     } else {
-//       alert('Out of Max Index');
-//     }
-//   };
 
   const _renderCritical = ({item, index}) => {
     return (

@@ -72,7 +72,6 @@ const SubPOEDetails = props => {
       };
     }, []),
   );
-  console.log(route.params.poeId);
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
@@ -101,12 +100,12 @@ const SubPOEDetails = props => {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
 
-            console.log('Storage Permission Granted.');
+            
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+			ToastMessage.show('++++' + err);
         }
       }
     };
@@ -138,7 +137,7 @@ const SubPOEDetails = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
+         
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };

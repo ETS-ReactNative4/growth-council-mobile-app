@@ -72,11 +72,11 @@ const ChangePasswordForm = props => {
     onSubmit: async values => {
       delete values.confirmPassword;
       await updateCustomerPassword(values).then(response => {
-        console.log({response});
+       
         if (response?.payload?.code === 200) {
           navigation.navigate('Dashboard');
           ToastMessage.show(response?.payload?.message);
-          console.log(values);
+          
         }
       });
     },

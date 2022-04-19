@@ -261,12 +261,12 @@ const BestPractice = props => {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
 
-            console.log('Storage Permission Granted.');
+            caches;
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+          ToastMessage.show('++++' + err);
         }
       }
     };
@@ -298,7 +298,6 @@ const BestPractice = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
