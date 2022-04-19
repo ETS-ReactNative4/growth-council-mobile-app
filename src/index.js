@@ -62,7 +62,6 @@ const App = () => {
                     importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
                     vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
                 },
-                // created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
             );
         };
 
@@ -87,9 +86,7 @@ const App = () => {
                      */
                     messaging()
                         .getToken()
-                        // .then(fcmToken => {
-                        //     console.log('FCM Token -> ', fcmToken);
-                        // });
+                        
                 }
 
                 /**
