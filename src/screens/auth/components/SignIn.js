@@ -59,8 +59,7 @@ const SignInForm = props => {
         token: messageToken,
       };
       const resp = await postToAPI(firebasePayload);
-      console.log('Token Response::::', firebasePayload);
-      console.log('API Response::::', resp?.data);
+    
       await signIn(values);
     },
   });
@@ -80,7 +79,8 @@ const SignInForm = props => {
   );
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight+100}}>
+    <ScrollView
+      contentContainerStyle={{flexGrow: 1, height: screenHeight + 100}}>
       <View style={styles.container}>
         <ImageBackground
           source={require('../../../assets/img/splash-screen.png')}
@@ -180,7 +180,7 @@ const SignInForm = props => {
                   <Text
                     style={styles.forgotButtonText}
                     onPress={() => navigation.navigate('Forgot')}>
-                    Forgot Password?
+                    Reset Password?
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -259,7 +259,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   loginButton: {
-    ...CommonStyles.button,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.PRACTICE_COLOR,
     height: 40,
     marginBottom: 15,
     borderRadius: 10,

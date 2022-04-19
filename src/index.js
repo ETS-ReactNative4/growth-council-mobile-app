@@ -62,7 +62,6 @@ const App = () => {
                     importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
                     vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
                 },
-                created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
             );
         };
 
@@ -87,9 +86,7 @@ const App = () => {
                      */
                     messaging()
                         .getToken()
-                        .then(fcmToken => {
-                            console.log('FCM Token -> ', fcmToken);
-                        });
+                        
                 }
 
                 /**
@@ -101,12 +98,9 @@ const App = () => {
                 messaging()
                     .getInitialNotification()
                     .then(async remoteMessage => {
-                        console.log("InitialNotification::::::::::", remoteMessage);
+                       
                         if (remoteMessage) {
-                            console.log(
-                                'getInitialNotification:' +
-                                'Notification caused app to open from quit state',
-                            );
+                            
                             const notificationType = remoteMessage?.data?.notification_type;
                             switch (notificationType) {
                                 case 'event':
@@ -133,12 +127,9 @@ const App = () => {
                  * a quit state.
                  */
                 messaging().onNotificationOpenedApp(async remoteMessage => {
-                    console.log("NotificationOpenedApp::::::::::", remoteMessage);
+                 
                     if (remoteMessage) {
-                        console.log(
-                            'onNotificationOpenedApp: ' +
-                            'Notification caused app to open from background state',
-                        );
+                        
                         const notificationType = remoteMessage?.data?.notification_type;
                         switch (notificationType) {
                             case 'event':
@@ -165,7 +156,7 @@ const App = () => {
                  * local storage, or sending a network request.
                  */
                 messaging().setBackgroundMessageHandler(async remoteMessage => {
-                    console.log('Message handled in the background!', remoteMessage);
+                   
                     if (Platform.OS !== 'ios') {
                         showNotification(remoteMessage);
                         return;
@@ -181,7 +172,7 @@ const App = () => {
                  * function to stop listening for new messages.
                  */
                 const unsubscribe = messaging().onMessage(async remoteMessage => {
-                    console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+                    
                     if (Platform.OS !== 'ios') {
                         showNotification(remoteMessage);
                         return;
@@ -224,7 +215,7 @@ const App = () => {
                                     onStateChange={async () => {
                                         const previousRouteName = routeNameRef.current;
                                         const currentRouteName = navigationRef.current.getCurrentRoute().name;
-                                        console.log("RouteName", previousRouteName, currentRouteName);
+                                        
                                         if (previousRouteName !== currentRouteName) {
                                             await analytics().logScreenView({
                                                 screen_name: currentRouteName,

@@ -59,8 +59,6 @@ const ContentLibraryDetail = props => {
     setIsTrue(value);
   };
 
-  console.log(route.params.id);
-  console.log({contentLibraryDetails});
 
   const _renderItem = ({item, index}) => {
     const fileUrl = item?.file?.url;
@@ -80,13 +78,11 @@ const ContentLibraryDetail = props => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
-
-            console.log('Storage Permission Granted.');
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+			ToastMessage.show(err);
         }
       }
     };
@@ -118,7 +114,7 @@ const ContentLibraryDetail = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
+			console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -129,7 +125,10 @@ const ContentLibraryDetail = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
@@ -188,7 +187,7 @@ const ContentLibraryDetail = props => {
       </View>
     );
   };
-  console.log(contentLibraryDetails?.presenter);
+
   let video = contentLibraryDetails?.video_url;
   if (video !== undefined) {
     video = contentLibraryDetails?.video_url;
@@ -289,7 +288,9 @@ const ContentLibraryDetail = props => {
 
           {/* Abstract Section */}
           {contentLibraryDetails?.abstract !== undefined &&
-            contentLibraryDetails?.abstract !== '' && (
+            contentLibraryDetails?.abstract !== '' &&
+            contentLibraryDetails?.abstract !== false &&
+            contentLibraryDetails?.abstract !== null && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.bodyTitleText}>Abstract:</Text>
                 <Text style={styles.abstractDescriptionText}>
@@ -300,7 +301,8 @@ const ContentLibraryDetail = props => {
           {contentLibraryDetailsLoading && <Loading />}
           {/* Call To Action Section */}
           {contentLibraryDetails?.call_to_action?.length !== 0 &&
-            contentLibraryDetails?.call_to_action !== false && (
+            contentLibraryDetails?.call_to_action !== false &&
+            contentLibraryDetails?.call_to_action !== null && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.bodyTitleText}>Call to Action:</Text>
                 <FlatList
@@ -314,7 +316,8 @@ const ContentLibraryDetail = props => {
 
           {/* Attachments Section */}
           {contentLibraryDetails?.attachment?.length !== 0 &&
-            contentLibraryDetails?.attachment !== false && (
+            contentLibraryDetails?.attachment !== false &&
+            contentLibraryDetails?.attachment !== null && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.bodyTitleText}>Attachments:</Text>
                 <FlatList
@@ -327,22 +330,24 @@ const ContentLibraryDetail = props => {
             )}
 
           {/* Tags Section */}
-          {contentLibraryDetails?.tags?.length !== 0 && (
-            <View style={styles.sectionContainerBorder}>
-              <Text style={styles.bodyTitleText}>Tags:</Text>
+          {contentLibraryDetails?.tags?.length !== 0 &&
+            contentLibraryDetails?.tags?.length !== false &&
+            contentLibraryDetails?.tags?.length !== null && (
+              <View style={styles.sectionContainerBorder}>
+                <Text style={styles.bodyTitleText}>Tags:</Text>
 
-              <FlatList
-                contentContainerStyle={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                }}
-                showsVerticalScrollIndicator={false}
-                data={contentLibraryDetails?.tags}
-                renderItem={_renderTagItem}
-              />
-            </View>
-          )}
+                <FlatList
+                  contentContainerStyle={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                  }}
+                  showsVerticalScrollIndicator={false}
+                  data={contentLibraryDetails?.tags}
+                  renderItem={_renderTagItem}
+                />
+              </View>
+            )}
 
           {/* Article Feedback Section */}
           <ArticleFeedbackCard
@@ -350,8 +355,6 @@ const ContentLibraryDetail = props => {
             handleValue={handleFeedbackChange}
           />
 
-          {/* Footer Section */}
-          <Footer />
         </ScrollView>
       </View>
 
@@ -367,6 +370,7 @@ const styles = StyleSheet.create({
   bodyContainer: {
     ...CommonStyles.container,
     marginTop: 25,
+	marginBottom:20
   },
   breadcrumbContainer: {
     marginHorizontal: 25,

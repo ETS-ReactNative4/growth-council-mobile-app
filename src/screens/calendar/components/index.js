@@ -167,20 +167,29 @@ const EventCalendar = props => {
     }
 
     let borderColor = '';
+    let backgroundImage = '';
+    let pillarname = '';
     const pillarCategory = item?.pillar_categories
       ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
       : '';
     switch (pillarCategory) {
-      case 0:
       case 117:
-        borderColor = Colors.COMMUNITY_COLOR;
-        break;
       case 0:
-      case 118:
-        borderColor = Colors.PRACTICE_COLOR;
+        borderColor = Colors.COMMUNITY_COLOR;
+        pillarname = 'Growth Community';
+        backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
+      case 118:
+      case 0:
+        borderColor = Colors.PRACTICE_COLOR;
+        pillarname = 'Growth Content';
+        backgroundImage = require('../../../assets/img/best-practice-bg.png');
+        break;
+
       default:
         borderColor = Colors.COACHING_COLOR;
+        pillarname = 'Growth Coaching';
+        backgroundImage = require('../../../assets/img/Rectangle.png');
     }
 
     let nav = 'coachingSession';
@@ -193,7 +202,13 @@ const EventCalendar = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate(nav, {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate(nav, {
+              id: item.ID,
+              title: pillarname,
+              image: backgroundImage,
+            })
+          }>
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <Text
               style={{
@@ -284,7 +299,7 @@ const EventCalendar = props => {
                   all_events: showAllEvents,
                 })
                   .then(response => {
-                    console.log(response);
+                  
                     if (response?.payload?.code === 200) {
                       setCurrentEvents(response?.payload?.data);
                     } else {
@@ -294,7 +309,7 @@ const EventCalendar = props => {
                   })
                   .catch(e => {
                     //   ToastMessage.show(e?.response?.payload?.response);
-                    console.log(e);
+                  
                     // setMarkedDay([]);
                     setCurrentEvents([]);
                   });
@@ -366,7 +381,7 @@ const EventCalendar = props => {
                         })
                         .catch(e => {
                           //   ToastMessage.show(e?.response?.payload?.response);
-                          console.log(e);
+                          
                           //   setMarkedDay([]);
                           setCurrentEvents([]);
                         });

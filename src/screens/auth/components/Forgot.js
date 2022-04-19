@@ -42,7 +42,7 @@ const ForgotForm = props => {
     initialValues: {email: ''},
     onSubmit: async values => {
       await forgotPassword(values).then(response => {
-        console.log('response?.payload', response);
+        
         if (response?.payload?.code === 200) {
           navigation.navigate('SignIn');
           ToastMessage.show('Email sent successfully to reset password.');
@@ -54,17 +54,17 @@ const ForgotForm = props => {
   });
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1,}}>
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <View style={styles.container}>
-	 	 <Image
-            style={{marginBottom:30}}
-            source={require('../../../assets/img/GILCouncillog.png')}
-          />
+        <Image
+          source={require('../../../assets/img/GIL.png')}
+          style={{width: '80%', height: 50}}
+          resizeMode="contain"
+        />
         <View style={styles.header}>
-        
           <Text style={styles.headingText1}>Reset Password</Text>
           <Text style={styles.headingText2}>
-            To reset your password, please provide your email.
+            To reset your password, please enter your email.
           </Text>
         </View>
 
@@ -107,10 +107,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
-    marginBottom: 40,
+    marginTop: 30,
   },
   body: {
-    width: '70%',
+    width: '80%',
+    marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -118,22 +119,28 @@ const styles = StyleSheet.create({
     ...CommonStyles.message,
   },
   headingText1: {
-    ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_BOLD,
+    fontSize: 20,
+    color: 'black',
+    marginTop: 20,
   },
   headingText2: {
-    ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_NORMAL,
-    width: 210,
+    marginTop: 10,
     textAlign: 'center',
   },
   submitButtonWrapper: {
     ...CommonStyles.buttonWrapper,
   },
   submitButton: {
-    ...CommonStyles.button,
+    width: '90%',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.PRACTICE_COLOR,
     height: 56,
-    marginBottom: 20,
+    marginBottom: 10,
+    marginTop: 10,
   },
   submitButtonText: {
     ...CommonStyles.buttonText,

@@ -59,7 +59,7 @@ const sessionAbout = props => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
     if (response?.payload?.code === 200) {
       setSessionStatus(true);
-      ToastMessage.show('You have successfully registered this event.');
+      ToastMessage.show('You have successfully RSVP this event.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
@@ -318,7 +318,7 @@ const sessionAbout = props => {
               source={require('../../../assets/img/tick-icon.png')}
               style={{width: 30, height: 30}}
             />
-            <Text style={styles.registeredButtonText}>Registered</Text>
+            <Text style={styles.registeredButtonText}>RSVP</Text>
           </TouchableOpacity>
         )}
       </View>

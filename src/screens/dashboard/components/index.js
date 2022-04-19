@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -76,6 +76,11 @@ const Dashboard = props => {
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
+  const [dataSource, setDataSource] = useState([]);
+  const [scrollToIndex, setScrollToIndex] = useState(0);
+  const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
+  const [ref, setRef] = useState(null);
+
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
       await fetchAllUpcomingEvent();
@@ -122,6 +127,24 @@ const Dashboard = props => {
   useEffect(() => {
     fetchCritcalIssue();
   }, []);
+
+  useEffect(() => {
+    setDataSourceCords(criticalIssue);
+  }, [criticalIssue]);
+
+  const scrollHandler = () => {
+    if (dataSourceCords?.critical_issue_mobile_lists?.length > 0) {
+      ref.current?.scrollTo({
+        x: 0,
+        y: dataSourceCords,
+        animated: true,
+      });
+    } else {
+      alert('Out of Max Index');
+    }
+   
+  };
+
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -165,7 +188,7 @@ const Dashboard = props => {
   };
 
   const _renderContent = ({item, index}) => {
-    const date = moment(item?.post_modified).format('D/MM/yyyy');
+    const date = moment(item?.post_modified).format('MM/D/yyyy');
     return (
       <View style={[styles.middleWrapper, styles.shadowContent]}>
         <View style={{flexDirection: 'row'}}>
@@ -232,7 +255,7 @@ const Dashboard = props => {
       case 118:
       case 0:
         backgroundImage = require('../../../assets/img/best-practice-bg.png');
-        pillarname = 'Best Practices';
+        pillarname = 'Growth Content';
         break;
 
       default:
@@ -278,8 +301,8 @@ const Dashboard = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text style={{color: '#030303'}}>{date[1]}</Text>
               <Text style={{color: '#030303'}}>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
             </View>
 
             <View style={styles.header}>
@@ -304,27 +327,43 @@ const Dashboard = props => {
 
   const _renderCritical = ({item, index}) => {
     return (
-      <View style={styles.ContentWrapper}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('CriticalIssue'), scrollHandler();
+        }}>
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
+          style={styles.ContentWrapper}
+          key={index}
+          onLayout={items => {
+            const layout = items.nativeEvent.layout;
+            dataSourceCords[index] = layout.y;
+            setDataSourceCords(dataSourceCords);
+
           }}>
-          <View style={[styles.criticalW, styles.shadowCritical]}>
-            <Image source={{uri: item?.icon}} style={{width: 36, height: 36}} />
-          </View>
-          <Text
+          <View
             style={{
-              fontSize: 10,
-              width: '60%',
-              paddingLeft: 5,
-              // paddingRight: 10,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            {item?.heading}
-          </Text>
+            <View style={[styles.criticalW, styles.shadowCritical]}>
+              <Image
+                source={{uri: item?.icon}}
+                style={{width: 36, height: 36}}
+              />
+            </View>
+            <Text
+              style={{
+                fontSize: 10,
+                width: '60%',
+                paddingLeft: 5,
+                // paddingRight: 10,
+              }}>
+              {item?.heading}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
@@ -403,8 +442,14 @@ const Dashboard = props => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>Critical Issues</Text>
-          <View>
+          <Text style={styles.title}>
+            {' '}
+            {criticalIssue?.critical_issue_mobile_title}
+          </Text>
+          <View
+            ref={ref => {
+              setRef(ref);
+            }}>
             <FlatList
               numColumns={2}
               showsHorizontalScrollIndicator={false}

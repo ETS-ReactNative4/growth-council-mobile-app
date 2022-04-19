@@ -215,7 +215,7 @@ const BestPractice = props => {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
-              title: 'Best Practice',
+              title: 'Growth Content',
               image: require('../../../assets/img/best-practice-bg.png'),
             });
           }
@@ -261,12 +261,12 @@ const BestPractice = props => {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
 
-            console.log('Storage Permission Granted.');
+            caches;
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+          ToastMessage.show(err);
         }
       }
     };
@@ -298,7 +298,7 @@ const BestPractice = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
+			console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -309,7 +309,10 @@ const BestPractice = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
@@ -406,10 +409,10 @@ const BestPractice = props => {
           )} */}
 
           {pillarMemberContents?.pillar_contents?.length !== 0 &&
-            pillarMemberContents?.pillar_contents?.length !== null &&
-            pillarMemberContents?.pillar_contents?.length !== false && (
+            pillarMemberContents?.pillar_contents !== null &&
+            pillarMemberContents?.pillar_contents !== false && (
               <View style={styles.content}>
-                <Text style={styles.title}>Best Practice Content</Text>
+                <Text style={styles.title}>Growth Content Content</Text>
                 <View
                   style={{
                     display: 'flex',

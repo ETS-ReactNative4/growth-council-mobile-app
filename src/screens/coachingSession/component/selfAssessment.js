@@ -182,7 +182,7 @@ const SelfAssessment = props => {
       setIndex({...index, subTraitIndex: index.subTraitIndex - 1});
     }
   };
-  console.log({sessions});
+
 
   return (
     <View>

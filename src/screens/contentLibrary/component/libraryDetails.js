@@ -47,7 +47,7 @@ const LibraryDetail = props => {
       };
     }, []),
   );
-  console.log(route.params.resources);
+
 
   useEffect(() => {
     setFilteredDataSource(libraryDetails);
@@ -159,8 +159,12 @@ const LibraryDetail = props => {
 
         <ScrollView
           style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}
-          contentContainerStyle={{paddingBottom: 20}}>
-          {libraryDetailsLoading && <Loading />}
+          contentContainerStyle={{paddingBottom: 50}}>
+          {libraryDetailsLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
+            </View>
+          )}
 
           <View style={{alignItems: 'center'}}>
             {filteredDataSource.map(item => {
@@ -237,9 +241,9 @@ const LibraryDetail = props => {
             })}
           </View>
 
-          <View style={{marginTop: 10}}>
+          {/* <View style={{marginTop: 10}}>
             <Footer />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
       <BottomNav {...props} navigation={navigation} />

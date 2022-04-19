@@ -46,8 +46,7 @@ const ContactTags = props => {
       };
     }, []),
   );
-  console.log(route.params.id);
-  console.log({contentTags});
+  
 
   useEffect(() => {
     setFilteredDataSource(contentTags);
@@ -141,9 +140,13 @@ const ContactTags = props => {
           contentContainerStyle={{
             flexGrow: 1,
             backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-            paddingBottom: 20,
+            paddingBottom: 50,
           }}>
-          {contentTagsLoading && <Loading />}
+          {contentTagsLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
+            </View>
+          )}
 
           {filteredDataSource?.map((item, index) => {
             return (
@@ -203,9 +206,9 @@ const ContactTags = props => {
             );
           })}
 
-          <View style={{marginTop: 10}}>
+          {/* <View style={{marginTop: 10}}>
             <Footer />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
       <BottomNav {...props} navigation={navigation} />

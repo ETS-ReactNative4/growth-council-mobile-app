@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 
 import {Typography} from '../../../theme';
@@ -16,6 +17,7 @@ import {
   PRIMARY_BACKGROUND_COLOR,
   QUATERNARY_TEXT_COLOR,
 } from '../../../theme/colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 const PillarList = props => {
   const {navigation, pillarSliders} = props;
@@ -26,11 +28,11 @@ const PillarList = props => {
       let borderColor = PRIMARY_BACKGROUND_COLOR;
       switch (item?.slug) {
         case 'community':
-          navigationPath = 'Community';
+          navigationPath = 'Growth Community';
           borderColor = COMMUNITY_COLOR;
           break;
         case 'best-practices':
-          navigationPath = 'Best Practices';
+          navigationPath = 'Growth Content';
           borderColor = PRACTICE_COLOR;
           break;
         case 'growth-coaching':
@@ -46,7 +48,14 @@ const PillarList = props => {
             onPress={() =>
               navigation.navigate(navigationPath, {pillarId: item?.term_id})
             }>
-            <Image source={{uri: item?.image}} style={styles.ImageStyle} />
+            <ImageBackground
+              source={{uri: item?.image}}
+              style={styles.ImageStyle}>
+              <LinearGradient
+                colors={['#00000000', '#000000']}
+                style={{height: '100%', width: '100%'}}
+              />
+            </ImageBackground>
             <Text style={styles.sliderText}>{item?.name}</Text>
           </TouchableOpacity>
         </View>
@@ -77,8 +86,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: 10,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
-    fontWeight: '800',
-    fontSize: Platform.OS === 'ios' ? 10 : 13,
+    fontSize: Platform.OS === 'ios' ? 10 : 12,
   },
 });
 export default PillarList;

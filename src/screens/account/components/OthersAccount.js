@@ -231,7 +231,6 @@ const OthersAccount = props => {
           </View>
         </View>
       </View>
-      <Footer style={{marginBottom: 5}} />
     </ScrollView>
   );
 };

@@ -107,7 +107,7 @@ const CommunityDetail = props => {
       };
     }, []),
   );
-  console.log(route.params.poeId);
+
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -149,7 +149,6 @@ const CommunityDetail = props => {
         onPress={() =>
           navigation.navigate('SubPoe', {
             poeId: item?.term_id,
-            pillarId: route?.params?.pillarId,
             id: route?.params?.poeId,
           })
         }>
@@ -179,7 +178,6 @@ const CommunityDetail = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    //console.log(date[1]);
 
     let backgroundImage = '';
     switch (
@@ -277,12 +275,12 @@ const CommunityDetail = props => {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
 
-            console.log('Storage Permission Granted.');
+          
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+          ToastMessage.show('++++' + err);
         }
       }
     };
@@ -314,7 +312,7 @@ const CommunityDetail = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
+         
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -325,7 +323,10 @@ const CommunityDetail = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
@@ -382,13 +383,7 @@ const CommunityDetail = props => {
         <View style={styles.container}>
           <ImageBackground
             source={{uri: poeDetails?.pillar_detail_image}}
-            style={{height: 240, width: '100%'}}>
-            {/* <TouchableOpacity onPress={() => navigation.goBack()}>
-              <View style={styles.arrow}>
-                <Ionicons name={'arrow-back'} size={50} color="white" />
-              </View>
-            </TouchableOpacity> */}
-          </ImageBackground>
+            style={{height: 240, width: '100%'}}></ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>
             <Image
@@ -405,32 +400,33 @@ const CommunityDetail = props => {
           <ScrollView
             style={[styles.content, {backgroundColor: backgroundColor}]}>
             <View style={styles.contentWrapper}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  color: '#1E2022',
-                  textAlign: 'center',
-                  marginTop: 50,
-                }}>
-                {poeDetails.name}
-              </Text>
+              <View style={{padding: 15}}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    color: '#1E2022',
+                    textAlign: 'center',
+                    marginTop: 40,
+                    marginBottom: 15,
+                  }}>
+                  {poeDetails.name}
+                </Text>
 
-              <HTMLView
-                value={poeDescription}
-                textComponentProps={{
-                  style: {
-                    fontFamily: Typography.FONT_SF_REGULAR,
-                    fontSize: 14,
-                    lineHeight: 20,
-                    padding: 15,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#77838F',
-                  },
-                }}
-              />
-
+                <HTMLView
+                  value={poeDescription}
+                  textComponentProps={{
+                    style: {
+                      fontFamily: Typography.FONT_SF_REGULAR,
+                      fontSize: 14,
+                      lineHeight: 20,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#77838F',
+                    },
+                  }}
+                />
+              </View>
               {poeDetails?.slug === '10-growth-processes' && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Sub Points of Engagement</Text>

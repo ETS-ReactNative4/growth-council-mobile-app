@@ -152,7 +152,7 @@ const GrowthCoaching = props => {
     } else {
       navigationPath = 'CommunityDetail';
     }
-    console.log(item?.slug);
+
 
     return (
       <TouchableOpacity
@@ -161,7 +161,7 @@ const GrowthCoaching = props => {
             poeId: item?.term_id,
             pillarId: item?.parent,
             title: 'Growth Coaching',
-			image:require('../../../assets/img/Rectangle.png')
+            image: require('../../../assets/img/Rectangle.png'),
           })
         }>
         <View style={styles.middleWrapper}>
@@ -205,12 +205,16 @@ const GrowthCoaching = props => {
       description = item?.organizer?.description;
     }
     const pillarname = 'Growth Coaching';
-	const image = require('../../../assets/img/Rectangle.png')
+    const image = require('../../../assets/img/Rectangle.png');
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('EventDetail', {id: item.ID, title: pillarname, image:image})
+            navigation.navigate('EventDetail', {
+              id: item.ID,
+              title: pillarname,
+              image: image,
+            })
           }>
           <ImageBackground
             style={{
@@ -272,12 +276,12 @@ const GrowthCoaching = props => {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
 
-            console.log('Storage Permission Granted.');
+           
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+			ToastMessage.show( err);
         }
       }
     };
@@ -309,7 +313,7 @@ const GrowthCoaching = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
+			console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -320,7 +324,10 @@ const GrowthCoaching = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('pdf', {paramsFile: item?.file?.url})
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
         }>
         <View style={styles.attachmentContainer}>
           <View style={{flex: 1, flexDirection: 'row'}}>
@@ -349,26 +356,32 @@ const GrowthCoaching = props => {
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          {pillarEvents?.length !== 0 && (
-            <View style={styles.top}>
-              <Text style={styles.title}>Growth Coaching Events</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarEvents}
-                  //renderItem={_renderTopItem}
-                  renderItem={item => _renderTopItem(item, navigation)}
-                />
+          {pillarEvents?.length !== 0 &&
+            pillarEvents !== null &&
+            pillarEvents !== false && (
+              <View style={styles.top}>
+                <Text style={styles.title}>Growth Coaching Events</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarEvents}
+                    //renderItem={_renderTopItem}
+                    renderItem={item => _renderTopItem(item, navigation)}
+                  />
+                </View>
               </View>
+            )}
+
+          {pillarEventLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
             </View>
           )}
-
-          {pillarEventLoading && <Loading />}
           {pillarPOEs?.length !== 0 && (
             <View style={styles.middle}>
               <Text style={styles.title}>Points of Engagement</Text>
@@ -409,24 +422,24 @@ const GrowthCoaching = props => {
               </View>
             )}
           {pillarMemberContents?.pillar_contents?.length !== 0 &&
-		  pillarMemberContents?.pillar_contents !== null &&
-		  pillarMemberContents?.pillar_contents !== false && (
-            <View style={styles.content}>
-              <Text style={styles.title}>Growth Coaching Content</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.pillar_contents}
-                  renderItem={_renderContentItem}
-                />
+            pillarMemberContents?.pillar_contents !== null &&
+            pillarMemberContents?.pillar_contents !== false && (
+              <View style={styles.content}>
+                <Text style={styles.title}>Growth Coaching Content</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.pillar_contents}
+                    renderItem={_renderContentItem}
+                  />
+                </View>
               </View>
-            </View>
-          )}
+            )}
 
           {/* <Footer /> */}
         </View>

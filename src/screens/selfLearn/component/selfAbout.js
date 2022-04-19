@@ -34,9 +34,6 @@ const selfAbout = props => {
     fetchPoeSelfLearnByIdAsync();
   }, []);
 
-  console.log('learn', route.params.selfLearnId);
-  console.log('learn', selfLearns);
-
   let title = selfLearns?.title;
   if (title !== undefined) {
     title = selfLearns?.title;
@@ -57,11 +54,11 @@ const selfAbout = props => {
           <Image
             source={{uri: selfLearns?.image}}
             style={{
-              width: "45%",
+              width: '45%',
               borderRadius: 10,
             }}
           />
-          <View style={{width: "45%", marginLeft: 20}}>
+          <View style={{width: '45%', marginLeft: 20}}>
             <View style={{marginTop: 10, height: 130}}>
               <Text
                 style={{
@@ -77,14 +74,21 @@ const selfAbout = props => {
                 style={{height: 2, width: 50, backgroundColor: '#4774B5'}}
               />
 
-              <Text
-                style={{fontSize: 10, marginTop: 5, color: '#77838F'}}></Text>
+              <Text style={{fontSize: 12, marginTop: 5, color: '#77838F'}}>
+                {selfLearns?.subtitle}
+              </Text>
+              <Text style={{fontSize: 10, marginTop: 15, color: '#77838F'}}>
+                {selfLearns?.author}
+              </Text>
             </View>
 
             <Button
               style={styles.buttonWrapper}
               onPress={() =>
-                navigation.navigate('pdf', {paramsFile: selfLearns?.file})
+                navigation.navigate('pdf', {
+                  paramsFile: selfLearns?.file,
+                  title: selfLearns?.title,
+                })
               }>
               <Text style={{color: 'white', fontSize: 11}}>Read E-Book</Text>
             </Button>
@@ -145,9 +149,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   buttonWrapper: {
-    width: "100%",
+    width: '100%',
     height: 34,
     borderRadius: 20,
+    marginTop: 10,
     backgroundColor: '#F26722',
   },
 });

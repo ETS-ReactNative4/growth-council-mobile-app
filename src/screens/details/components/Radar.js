@@ -65,7 +65,6 @@ const Radar = props => {
     );
   }
 
-  console.log(`https://beta.gilcouncil.com/frost-radar?user_id=${userId}`);
 
   return (
     // <ScrollView>

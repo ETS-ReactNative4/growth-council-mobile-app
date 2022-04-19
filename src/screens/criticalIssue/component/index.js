@@ -25,6 +25,7 @@ import Loading from '../../../shared/loading';
 const CriticalIssue = props => {
   const {
     navigation,
+	route,
     criticalIssue,
     criticalIssueLoading,
     criticalIssueError,
@@ -32,13 +33,16 @@ const CriticalIssue = props => {
     cleanCriticalIssue,
   } = props;
 
+
   useEffect(() => {
     fetchCritcalIssue();
   }, []);
 
+
   const _renderCritical = ({item, index}) => {
     return (
-      <View style={styles.content}>
+      <View
+        style={styles.content}>
         <Image
           style={{
             width: Dimensions.get('window').width - 40,
@@ -109,12 +113,13 @@ const CriticalIssue = props => {
           </View>
 
           {criticalIssueLoading && <Loading />}
-
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={criticalIssue?.critical_issue_mobile_lists}
-            renderItem={_renderCritical}
-          />
+          <View>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={criticalIssue?.critical_issue_mobile_lists}
+              renderItem={_renderCritical}
+            />
+          </View>
         </View>
       </ScrollView>
 

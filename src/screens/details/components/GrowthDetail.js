@@ -170,31 +170,13 @@ const GrowthDetail = props => {
               style={{
                 fontWeight: '500',
                 fontSize: 14,
-
+                color: 'black',
                 alignItems: 'center',
                 alignContent: 'center',
               }}>
               {item?.title}
             </Text>
-            {/* <Text style={{marginTop: 10, marginLeft: 10, fontSize: 8}}>
-                {item?.organizer?.term_name} {item?.organizer?.description}
-              </Text> */}
           </View>
-          {/* <View
-              style={{
-                width: 40,
-                height: 50,
-                marginTop: 10,
-                backgroundColor: '#EBECF0',
-                borderRadius: 15,
-                right: 5,
-                padding: 5,
-                position: 'absolute',
-                alignItems: 'center',
-              }}>
-              <Text>{date[1]}</Text>
-              <Text>{date[0]}</Text>
-            </View> */}
         </TouchableOpacity>
       </View>
     );
@@ -228,40 +210,45 @@ const GrowthDetail = props => {
               }}
             />
             <View>
-              <View>
+              <View style={{width: '80%'}}>
                 <Text
                   style={{
                     fontWeight: '500',
-                    fontSize: 10,
-                    marginLeft: 10,
+                    fontSize: 12,
                     marginTop: 10,
-                    width: 100,
+                    color: 'black',
                   }}>
                   {item?.title}
                 </Text>
                 <Text
                   style={{
-                    marginLeft: 10,
-                    width: 100,
+                    fontSize: 8,
+                    marginTop: 5,
+                  }}>
+                  {item.subtitle}
+                </Text>
+                <Text
+                  style={{
                     marginTop: 10,
                     fontSize: 8,
-                  }}></Text>
+                  }}>
+                  {item.author}
+                </Text>
               </View>
-              {/* <View
-						style={{
-						marginTop: 30,
-						display: 'flex',
-						flexDirection: 'row',
-						marginLeft: 10,
-						fontSize: 8,
-						}}>
-						<Ionicons
-						name={'book-outline'}
-						size={12}
-						color="#cccccc"
-						style={{right: 0, marginLeft: 80}}
-						/>
-					</View> */}
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  marginLeft: 10,
+                  fontSize: 8,
+                }}>
+                <Ionicons
+                  name={'book-outline'}
+                  size={18}
+                  color="#cccccc"
+                  style={{right: 0, marginLeft: 80}}
+                />
+              </View>
             </View>
           </View>
         </TouchableOpacity>
@@ -336,7 +323,7 @@ const GrowthDetail = props => {
               {coachingSessionLoading && <Loading />}
               {coachingSession?.length !== 0 && (
                 <View style={styles.middle}>
-                  <Text style={styles.title}>Sessions</Text>
+                  <Text style={styles.title}>Growth Coaching Sessions</Text>
                   <View
                     style={{
                       display: 'flex',
@@ -351,37 +338,41 @@ const GrowthDetail = props => {
                   </View>
                 </View>
               )}
-              {poeSelfLearns?.length !== 0 && (
-                <View style={styles.learn}>
-                  <Text style={styles.title}>Self Learn</Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={poeSelfLearns}
-                      renderItem={_renderLearnItem}
-                    />
+              {poeSelfLearns?.length !== 0 &&
+                poeSelfLearns !== false &&
+                poeSelfLearns !== null && (
+                  <View style={styles.learn}>
+                    <Text style={styles.title}>Growth Leader</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={poeSelfLearns}
+                        renderItem={_renderLearnItem}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
 
-              {pillarMemberContents.members?.length !== 0 && (
-                <View style={styles.bottom}>
-                  <Text style={styles.title}>Coaches</Text>
-                  <View>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents.members}
-                      renderItem={item => _renderItem(item, navigation)}
-                    />
+              {pillarMemberContents.members?.length !== 0 &&
+                pillarMemberContents.members !== false &&
+                pillarMemberContents.members !== null && (
+                  <View style={styles.bottom}>
+                    <Text style={styles.title}>Coaches</Text>
+                    <View>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents.members}
+                        renderItem={item => _renderItem(item, navigation)}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
 
               {showChartButton && (
                 <View style={styles.bottom}>
@@ -392,30 +383,32 @@ const GrowthDetail = props => {
                       onPress={() => {
                         navigation.navigate('Radar');
                       }}>
-                      <Text style={styles.buttonText}>View chart</Text>
+                      <Text style={styles.buttonText}>View Frost chart</Text>
                     </Button>
                   </View>
                 </View>
               )}
-              {pillarMemberContents?.pillar_contents?.length !== 0 && (
-                <View style={styles.growthContent}>
-                  <Text style={styles.title}>
-                    Growth Leadership Coaching Content Library
-                  </Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={pillarMemberContents?.pillar_contents}
-                      renderItem={_renderContentItem}
-                    />
+              {pillarMemberContents?.pillar_contents?.length !== 0 &&
+                pillarMemberContents?.pillar_contents !== false &&
+                pillarMemberContents?.pillar_contents !== null && (
+                  <View style={styles.growthContent}>
+                    <Text style={styles.title}>
+                      Growth Leadership Coaching Content Library
+                    </Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents?.pillar_contents}
+                        renderItem={_renderContentItem}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
             </View>
           </ScrollView>
         </View>

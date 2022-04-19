@@ -38,7 +38,7 @@ const pdf = props => {
           Alert.alert('Error', 'Storage Permission Not Granted');
         }
       } catch (err) {
-        console.log('++++' + err);
+		ToastMessage.show( err);
       }
     }
   };
@@ -83,7 +83,7 @@ const pdf = props => {
     config(options)
       .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
       .then(res => {
-        console.log('res -> ', JSON.stringify(res));
+		console.log('res -> ', JSON.stringify(res));
         ToastMessage.show('PDF File Downloaded Successfully.');
       });
   };
@@ -96,18 +96,6 @@ const pdf = props => {
     <View style={styles.container}>
       <Pdf
         source={source}
-        onLoadComplete={(numberOfPages, filePath) => {
-          console.log(`Number of pages: ${5}`);
-        }}
-        onPageChanged={(page, numberOfPages) => {
-          console.log(`Current page: ${1}`);
-        }}
-        onError={error => {
-          console.log(error);
-        }}
-        onPressLink={uri => {
-          console.log(`Link pressed: ${uri}`);
-        }}
         style={styles.pdf}
       />
 
@@ -125,7 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 5,
   },
   pdf: {
     flex: 1,

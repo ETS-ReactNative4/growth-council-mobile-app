@@ -298,9 +298,33 @@ const MainNavigation = () => {
         <Stack.Screen
           name="pdf"
           component={PDFDetailScreen}
-          options={{
-            headerTitle: 'PDF',
-          }}
+          options={() => ({
+            header: ({navigation, route}) => (
+              <SubHeader
+                title={route?.params?.title}
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="SubPoe"
+          component={SubPOEDetailScreen}
+          options={({route}) => ({
+            poeId: route.params.id,
+            background: route.params.image,
+            header: ({ navigation}) => (
+              <SubHeader
+                title="Growth Content"
+                image={require('../assets/img/best-practice-bg.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="ManageAccount"
@@ -548,23 +572,6 @@ const MainNavigation = () => {
           })}
         />
 
-        <Stack.Screen
-          name="SubPoe"
-          component={SubPOEDetailScreen}
-          options={({route, navigation}) => ({
-            poeId: route.params.poeId,
-            background: route.params.image,
-
-            header: () => (
-              <SubHeader
-                title="Best Practices"
-                image={require('../assets/img/best-practice-bg.png')}
-                navigation={navigation}
-                noDrawer
-              />
-            ),
-          })}
-        />
         <Stack.Screen
           name="CouncilDetail"
           component={CouncilDetailScreen}
