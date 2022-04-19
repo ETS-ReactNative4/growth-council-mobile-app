@@ -156,8 +156,6 @@ const Event = props => {
         events?.pillar_categories[0]?.name;
       break;
   }
-
-  console.log(events.ID);
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>

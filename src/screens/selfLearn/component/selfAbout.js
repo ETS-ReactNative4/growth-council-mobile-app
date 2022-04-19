@@ -34,9 +34,6 @@ const selfAbout = props => {
     fetchPoeSelfLearnByIdAsync();
   }, []);
 
-  console.log('learn', route.params.selfLearnId);
-  console.log('learn', selfLearns);
-
   let title = selfLearns?.title;
   if (title !== undefined) {
     title = selfLearns?.title;

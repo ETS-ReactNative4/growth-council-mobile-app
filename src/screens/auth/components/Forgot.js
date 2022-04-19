@@ -42,7 +42,7 @@ const ForgotForm = props => {
     initialValues: {email: ''},
     onSubmit: async values => {
       await forgotPassword(values).then(response => {
-        console.log('response?.payload', response);
+        
         if (response?.payload?.code === 200) {
           navigation.navigate('SignIn');
           ToastMessage.show('Email sent successfully to reset password.');

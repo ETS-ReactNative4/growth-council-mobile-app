@@ -47,7 +47,7 @@ const LibraryDetail = props => {
       };
     }, []),
   );
-  console.log(route.params.resources);
+
 
   useEffect(() => {
     setFilteredDataSource(libraryDetails);

@@ -46,8 +46,7 @@ const ContactTags = props => {
       };
     }, []),
   );
-  console.log(route.params.id);
-  console.log({contentTags});
+  
 
   useEffect(() => {
     setFilteredDataSource(contentTags);

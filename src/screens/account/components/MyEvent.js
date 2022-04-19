@@ -35,9 +35,7 @@ const Profile = props => {
 
   useEffect(() => {
     const fetchProfileEventAsync = async () => {
-      //   let token = await getAsyncStorage(JWT_TOKEN);
-      //   let userID = decodeUserID(token);
-      //   console.log({token});
+     
       await fetchEventsByUserIdentifier({
         all_events: false,
       });

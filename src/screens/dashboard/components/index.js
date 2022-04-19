@@ -142,7 +142,7 @@ const Dashboard = props => {
     } else {
       alert('Out of Max Index');
     }
-    console.log('ssmh');
+   
   };
 
   const _renderItem = ({item, index}) => {
@@ -339,11 +339,6 @@ const Dashboard = props => {
             dataSourceCords[index] = layout.y;
             setDataSourceCords(dataSourceCords);
 
-            console.log(dataSourceCords);
-            console.log('height:', layout.height);
-            console.log('width:', layout.width);
-            console.log('x:', layout.x);
-            console.log('y:', layout.y);
           }}>
           <View
             style={{

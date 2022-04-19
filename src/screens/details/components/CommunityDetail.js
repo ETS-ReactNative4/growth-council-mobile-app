@@ -107,7 +107,7 @@ const CommunityDetail = props => {
       };
     }, []),
   );
-  console.log(route.params.poeId);
+
   const _renderItem = ({item, index}, navigation) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -178,7 +178,6 @@ const CommunityDetail = props => {
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    //console.log(date[1]);
 
     let backgroundImage = '';
     switch (
@@ -276,12 +275,12 @@ const CommunityDetail = props => {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
 
-            console.log('Storage Permission Granted.');
+          
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-          console.log('++++' + err);
+          ToastMessage.show('++++' + err);
         }
       }
     };
@@ -313,7 +312,7 @@ const CommunityDetail = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
+         
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
