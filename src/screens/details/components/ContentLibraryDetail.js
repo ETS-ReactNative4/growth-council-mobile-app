@@ -513,7 +513,8 @@ const styles = StyleSheet.create({
     color: Colors.SECONDARY_TEXT_COLOR,
   },
   attachmentContainer: {
-    margin: 1,
+    marginVertical: 5,
+    marginHorizontal: 2,
     height: 63,
     paddingLeft: 20,
     paddingRight: 8,
