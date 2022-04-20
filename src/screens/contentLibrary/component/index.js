@@ -33,7 +33,7 @@ const Content = props => {
   } = props;
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(content);
-  const [count, setCount] = useState(false);
+  const [count, setCount] = useState();
 
   useEffect(() => {
     setFilteredDataSource(content);
@@ -58,60 +58,70 @@ const Content = props => {
     }
   };
 
+  console.log('abcd', filteredDataSource.children_count);
+
   const _renderContent = ({item, index}) => {
     return (
-      <TouchableOpacity
-        key={index}
-        style={[styles.content, styles.shadowProp]}
-        onPress={() => {
-          if (item.children_count === 0) {
-            navigation.navigate('LibraryDetail', {
-              resources: item?.term_id,
-              itemname: item?.name,
-            });
-          } else {
-            navigation.navigate('ContentDetail', {
-              resourceId: item?.term_id,
-              resourcesName: item?.name,
-            });
-          }
-        }}>
-        <>
-          <Image
-            style={{
-              width: '100%',
-              height: 170,
-              borderTopLeftRadius: 14,
-              borderTopRightRadius: 14,
-            }}
-            source={require('../../../assets/img/image.png')}
-          />
-          <View style={styles.contentWrapper}>
-            <Text style={{color: 'black'}}>
-              {item?.children_count === 0 ? item?.count : item?.children_count}
-            </Text>
-            <Text
-              style={{
-                fontFamily: 'SFProText-Regular',
-                fontSize: 10,
-                color: 'black',
-              }}>
-              Article
-            </Text>
-          </View>
-          <View style={styles.wrapper}>
-            <HTMLView
-              value={item?.name}
-              textComponentProps={{
-                style: {
-                  color: 'black',
-                  fontWeight: '600',
-                },
-              }}
-            />
-          </View>
-        </>
-      </TouchableOpacity>
+      <>
+        {/* {(item.children_count === item.count) === 0 ? ( */}
+          <TouchableOpacity
+            key={index}
+            style={[styles.content, styles.shadowProp]}
+            onPress={() => {
+              if (item.children_count === 0) {
+                navigation.navigate('LibraryDetail', {
+                  resources: item?.term_id,
+                  itemname: item?.name,
+                });
+              } else {
+                navigation.navigate('ContentDetail', {
+                  resourceId: item?.term_id,
+                  resourcesName: item?.name,
+                });
+              }
+            }}>
+            <>
+              <Image
+                style={{
+                  width: '100%',
+                  height: 170,
+                  borderTopLeftRadius: 14,
+                  borderTopRightRadius: 14,
+                }}
+                source={require('../../../assets/img/image.png')}
+              />
+              <View style={styles.contentWrapper}>
+                <Text style={{color: 'black'}}>
+                  {item?.children_count === 0
+                    ? item?.count
+                    : item?.children_count}
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: 'SFProText-Regular',
+                    fontSize: 10,
+                    color: 'black',
+                  }}>
+                  Article
+                </Text>
+              </View>
+              <View style={styles.wrapper}>
+                <HTMLView
+                  value={item?.name}
+                  textComponentProps={{
+                    style: {
+                      color: 'black',
+                      fontWeight: '600',
+                    },
+                  }}
+                />
+              </View>
+            </>
+          </TouchableOpacity>
+        {/* ) : (
+          <></>
+        )} */}
+      </>
     );
   };
 
