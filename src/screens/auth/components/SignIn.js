@@ -59,7 +59,8 @@ const SignInForm = props => {
         auth,
         values?.username?.trim(),
         values?.password,
-      );
+      )
+      .catch((e)=>console.log(e));
       const messageToken = await messaging().getToken();
       const firebasePayload = {
         username: values.username,
