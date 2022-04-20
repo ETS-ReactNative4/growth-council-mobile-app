@@ -313,17 +313,38 @@ const MainNavigation = () => {
         <Stack.Screen
           name="SubPoe"
           component={SubPOEDetailScreen}
-          options={({route}) => ({
+          //   options={({route}) => ({
+          //     poeId: route.params.id,
+          //     background: route.params.image,
+          //     header: ({ navigation}) => (
+          //       <SubHeader
+          //         title="Growth Content"
+          //         image={require('../assets/img/best-practice-bg.png')}
+          //         navigation={navigation}
+          //         noDrawer
+          //       />
+          //     ),
+          //   })}
+          options={({route, navigation}) => ({
             poeId: route.params.id,
             background: route.params.image,
-            header: ({ navigation}) => (
-              <SubHeader
-                title="Growth Content"
-                image={require('../assets/img/best-practice-bg.png')}
-                navigation={navigation}
-                noDrawer
+            headerTitle: '',
+            headerStyle: {height: 80},
+            headerTransparent: true,
+            headerLeft: props => (
+              <Ionicons
+                name={'arrow-back'}
+                size={40}
+                color={'white'}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+				  marginLeft:10,
+                }}
+                onPress={() => navigation.navigate('Growth Content')}
               />
             ),
+            ...TransitionPresets.RevealFromBottomAndroid,
+            gestureDirection: 'horizontal-inverted',
           })}
         />
         <Stack.Screen

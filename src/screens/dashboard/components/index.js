@@ -425,26 +425,29 @@ const Dashboard = props => {
               />
             </View>
           )}
-
-        <View style={styles.bottom}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 15,
-              marginRight: 15,
-            }}>
-            <Text style={styles.title}>Welcome New Members</Text>
-          </View>
-          <View>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={communityMembers}
-              renderItem={_renderItem}
-            />
-          </View>
-        </View>
+        {communityMembers?.length !== 0 &&
+          communityMembers !== null &&
+          communityMembers !== false && (
+            <View style={styles.bottom}>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  marginLeft: 15,
+                  marginRight: 15,
+                }}>
+                <Text style={styles.title}>Welcome New Members</Text>
+              </View>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={communityMembers}
+                  renderItem={_renderItem}
+                />
+              </View>
+            </View>
+          )}
 
         <View style={styles.content}>
           <Text style={styles.title}>
