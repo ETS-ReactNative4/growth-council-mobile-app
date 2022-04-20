@@ -99,13 +99,13 @@ const Radar = props => {
         <View style={{height: 400}}>
           <WebView
             source={{
-              uri: `https://beta.gilcouncil.com/frost-radar`,
+              uri: `https://www.gilcouncil.com/frost-radar`,
             }}
             renderLoading={LoadingIndicatorView}
             startInLoadingState={true}
             ref={webviewRef}
           />
-        </View>       
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

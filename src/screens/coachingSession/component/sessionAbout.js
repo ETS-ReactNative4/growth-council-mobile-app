@@ -309,7 +309,7 @@ const sessionAbout = props => {
           <Button
             style={styles.acceptButton}
             onPress={() => registerSessionBySessionID(route?.params?.id)}>
-            <Text style={styles.acceptButtonText}>Sign Up in One Click</Text>
+            <Text style={styles.acceptButtonText}>RSVP</Text>
           </Button>
         )}
         {sessionStatus && (
@@ -318,7 +318,7 @@ const sessionAbout = props => {
               source={require('../../../assets/img/tick-icon.png')}
               style={{width: 30, height: 30}}
             />
-            <Text style={styles.registeredButtonText}>RSVP</Text>
+            <Text style={styles.registeredButtonText}>RSVP't</Text>
           </TouchableOpacity>
         )}
       </View>
