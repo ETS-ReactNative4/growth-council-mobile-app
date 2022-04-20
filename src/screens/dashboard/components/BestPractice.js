@@ -115,7 +115,7 @@ const BestPractice = props => {
     } else {
       description = item?.organizer?.description;
     }
-    const pillarname = 'Best Practice';
+    const pillarname = 'Growth Content';
     const image = require('../../../assets/img/best-practice-bg.png');
     return (
       <View key={index} style={styles.topWrapper}>
@@ -298,7 +298,7 @@ const BestPractice = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-			console.log('res -> ', JSON.stringify(res));
+          console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -348,24 +348,26 @@ const BestPractice = props => {
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          {/* {pillarEvents?.length !== 0 && (
-            <View style={styles.top}>
-              <Text style={styles.title}>Best Practices Events</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarEvents}
-                  // renderItem={_renderTopItem}
-                  renderItem={item => _renderTopItem(item, navigation)}
-                />
+          {pillarEvents?.length !== 0 &&
+            pillarEvents !== null &&
+            pillarEvents !== false && (
+              <View style={styles.top}>
+                <Text style={styles.title}>Growth Content Events</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarEvents}
+                    // renderItem={_renderTopItem}
+                    renderItem={item => _renderTopItem(item, navigation)}
+                  />
+                </View>
               </View>
-            </View>
-          )} */}
+            )}
 
           <View style={styles.middle}>
             <Text style={[styles.title, {marginLeft: 15}]}>
@@ -446,6 +448,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     marginRight: 5,
+	marginLeft:5,
   },
   title: {
     fontFamily: Typography.FONT_SF_BOLD,
@@ -458,7 +461,7 @@ const styles = StyleSheet.create({
   topWrapper: {
     height: 144,
     width: 256,
-    marginLeft: 15,
+    marginLeft: 10,
     borderRadius: 16,
     overflow: 'hidden',
     marginTop: 20,
