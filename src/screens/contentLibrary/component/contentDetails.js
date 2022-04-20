@@ -49,6 +49,7 @@ const ContentLibrary = props => {
     setFilteredDataSource(contentLibrary);
   }, [contentLibrary]);
 
+
   const breadcrumbName = route.params.resourcesName;
 
   const searchFilterFunction = text => {
@@ -144,6 +145,7 @@ const ContentLibrary = props => {
               <Loading />
             </View>
           )}
+
           <View style={{alignItems: 'center'}}>
             {filteredDataSource.map(item => {
               const itemname = item?.name;
@@ -235,6 +237,7 @@ const ContentLibrary = props => {
               );
             })}
           </View>
+
           {/* <View style={{marginTop: 10}}>
             <Footer />
           </View> */}

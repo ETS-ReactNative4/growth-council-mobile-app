@@ -33,7 +33,7 @@ const Content = props => {
   } = props;
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(content);
-  const [count, setCount] = useState(false);
+  const [count, setCount] = useState();
 
   useEffect(() => {
     setFilteredDataSource(content);
@@ -57,6 +57,8 @@ const Content = props => {
       setSearch(text);
     }
   };
+
+  console.log('abcd', filteredDataSource.children_count);
 
   const _renderContent = ({item, index}) => {
     return (

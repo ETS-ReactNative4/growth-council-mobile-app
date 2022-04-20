@@ -369,7 +369,7 @@ const Event = props => {
                     style={styles.acceptButton}
                     onPress={() => registerEventByEventID(route?.params?.id)}>
                     <Text style={styles.acceptButtonText}>
-                      Sign Up in One Click
+                     RSVP
                     </Text>
                   </Button>
                 )}
@@ -384,7 +384,7 @@ const Event = props => {
                         }}
                       />
                     </View>
-                    <Text style={styles.registeredButtonText}>RSVP</Text>
+                    <Text style={styles.registeredButtonText}>RSVP't</Text>
                   </TouchableOpacity>
                 )}
               </View>
