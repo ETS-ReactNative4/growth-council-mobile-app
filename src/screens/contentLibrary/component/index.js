@@ -58,7 +58,7 @@ const Content = props => {
     }
   };
 
-  console.log('abcd', filteredDataSource.children_count);
+  
 
   const _renderContent = ({item, index}) => {
     return (
