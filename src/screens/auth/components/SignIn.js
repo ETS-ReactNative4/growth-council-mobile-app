@@ -24,6 +24,8 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 import {API_URL} from '../../../constants';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../../../utils/firebaseUtil';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -53,6 +55,11 @@ const SignInForm = props => {
     // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     initialValues: {username: '', password: ''},
     onSubmit: async values => {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        values?.username?.trim(),
+        values?.password,
+      );
       const messageToken = await messaging().getToken();
       const firebasePayload = {
         username: values.username,
