@@ -65,7 +65,7 @@ const SplashScreen = () => {
           }}>
           <Image
             style={styles.mainLogo}
-            source={require('../../assets/img/GILCouncillog.jpg')}
+            source={require('../../assets/img/GILCouncil.jpg')}
             resizeMode="contain"
           />
         </View>
