@@ -25,7 +25,7 @@ import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
 import ContentTagsScreen from '../screens/contentLibrary/contentTags';
 import CriticalIssueScreen from '../screens/criticalIssue/index';
 import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
-
+import ContentScreen from '../screens/contentLibrary';
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
@@ -48,7 +48,7 @@ import CoachingSessionDetailScreen from '../screens/coachingSession';
 import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
-import ContentScreen from '../screens/contentLibrary';
+
 
 import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
@@ -316,7 +316,7 @@ const MainNavigation = () => {
           options={({route}) => ({
             poeId: route.params.id,
             background: route.params.image,
-            header: ({ navigation}) => (
+            header: ({navigation}) => (
               <SubHeader
                 title="Growth Content"
                 image={require('../assets/img/best-practice-bg.png')}
@@ -388,6 +388,20 @@ const MainNavigation = () => {
             header: ({navigation}) => (
               <SubHeader
                 title="Critical Issues"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentLibrary"
+          component={ContentScreen}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Content Library"
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}
                 noDrawer

@@ -148,86 +148,90 @@ const ContentLibrary = props => {
             {filteredDataSource.map(item => {
               const itemname = item?.name;
               return (
-                <TouchableOpacity
-                  style={[styles.content, styles.shadowProp]}
-                  onPress={() =>
-                    navigation.navigate('LibraryDetail', {
-                      breadcrumbName,
-                      resources: item?.term_id,
-                      itemname,
-                    })
-                  }>
-                  {item?.image === null && (
-                    <>
-                      <Image
-                        style={{
-                          width: '100%',
-                          height: 170,
-                        }}
-                        resizeMode="stretch"
-                        source={require('../../../assets/img/library.png')}
-                      />
-                      <View style={styles.contentWrapper}>
-                        <Text style={{color: 'black'}}>{item?.count}</Text>
-                        <Text
-                          style={{
-                            fontFamily: 'SFProText-Regular',
-                            fontSize: 10,
-                            color: 'black',
-                          }}>
-                          Article
-                        </Text>
-                      </View>
-                      <View style={styles.wrapper}>
-                        <HTMLView
-                          value={item?.name}
-                          textComponentProps={{
-                            style: {
-                              color: 'black',
-                              fontWeight: '600',
-                            },
-                          }}
-                        />
-                      </View>
-                    </>
+                <>
+                  {item?.count !== 0 && (
+                    <TouchableOpacity
+                      style={[styles.content, styles.shadowProp]}
+                      onPress={() =>
+                        navigation.navigate('LibraryDetail', {
+                          breadcrumbName,
+                          resources: item?.term_id,
+                          itemname,
+                        })
+                      }>
+                      {item?.image === null && (
+                        <>
+                          <Image
+                            style={{
+                              width: '100%',
+                              height: 170,
+                            }}
+                            resizeMode="stretch"
+                            source={require('../../../assets/img/library.png')}
+                          />
+                          <View style={styles.contentWrapper}>
+                            <Text style={{color: 'black'}}>{item?.count}</Text>
+                            <Text
+                              style={{
+                                fontFamily: 'SFProText-Regular',
+                                fontSize: 10,
+                                color: 'black',
+                              }}>
+                              Article
+                            </Text>
+                          </View>
+                          <View style={styles.wrapper}>
+                            <HTMLView
+                              value={item?.name}
+                              textComponentProps={{
+                                style: {
+                                  color: 'black',
+                                  fontWeight: '600',
+                                },
+                              }}
+                            />
+                          </View>
+                        </>
+                      )}
+                      {item?.image !== null && (
+                        <>
+                          <Image
+                            style={{
+                              width: '100%',
+                              height: 170,
+                              borderTopLeftRadius: 14,
+                              borderTopRightRadius: 14,
+                            }}
+                            source={{uri: item?.image}}
+                            resizeMode="stretch"
+                          />
+                          <View style={styles.contentWrapper}>
+                            <Text style={{color: 'black'}}>{item?.count}</Text>
+                            <Text
+                              style={{
+                                fontFamily: 'SFProText-Regular',
+                                fontSize: 10,
+                                color: 'black',
+                              }}>
+                              Article
+                            </Text>
+                          </View>
+                          <View style={styles.wrapper}>
+                            <HTMLView
+                              value={item?.name}
+                              textComponentProps={{
+                                style: {
+                                  color: 'black',
+                                  fontWeight: '600',
+                                },
+                              }}
+                            />
+                          </View>
+                        </>
+                      )}
+                    </TouchableOpacity>
                   )}
-                  {item?.image !== null && (
-                    <>
-                      <Image
-                        style={{
-                          width: '100%',
-                          height: 170,
-                          borderTopLeftRadius: 14,
-                          borderTopRightRadius: 14,
-                        }}
-                        source={{uri: item?.image}}
-                        resizeMode="stretch"
-                      />
-                      <View style={styles.contentWrapper}>
-                        <Text style={{color: 'black'}}>{item?.count}</Text>
-                        <Text
-                          style={{
-                            fontFamily: 'SFProText-Regular',
-                            fontSize: 10,
-                            color: 'black',
-                          }}>
-                          Article
-                        </Text>
-                      </View>
-                      <View style={styles.wrapper}>
-                        <HTMLView
-                          value={item?.name}
-                          textComponentProps={{
-                            style: {
-                              color: 'black',
-                              fontWeight: '600',
-                            },
-                          }}
-                        />
-                      </View>
-                    </>
-                  )}
-                </TouchableOpacity>
+                </>
               );
             })}
           </View>
