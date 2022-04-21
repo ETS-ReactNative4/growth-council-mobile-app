@@ -100,7 +100,6 @@ const Event = props => {
   const backStartTimeStamp = events?.event_start;
   const backEndTimeStamp = events?.event_end;
   const deviceTimeZone = RNLocalize.getTimeZone();
-  console.log(deviceTimeZone.split(/(\s+)/)[0]);
 
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
@@ -350,19 +349,23 @@ const Event = props => {
                     </View>
                   </View>
                 )}
-              {events?.descirption !== undefined && events?.descirption !== '' && (
-                <View>
-                  <Text style={[styles.contentHeading, {marginTop: 20}]}>
-                    Event Info
-                  </Text>
-                  {!isEventLoaded && (
-                    <HTMLView
-                      value={description}
-                      style={{fontSize: 14, color: '#77838F'}}
-                    />
-                  )}
-                </View>
-              )}
+              {events?.descirption !== undefined &&
+                events?.descirption !== '' &&
+                events?.descirption !== null && (
+                  <View>
+                    <Text style={[styles.contentHeading, {marginTop: 20}]}>
+                      Event Info
+                    </Text>
+                    {!isEventLoaded && (
+                      <HTMLView
+                        value={description}
+                        textComponentProps={{
+                          style: {fontSize: 14},
+                        }}
+                      />
+                    )}
+                  </View>
+                )}
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 {eventRegisterLoading && <Loading />}

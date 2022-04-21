@@ -119,7 +119,7 @@ const Profile = props => {
                     highlightTextColor={'#0B0B45'}
                     inactiveBackgroundColor={'transparent'}
                     inactiveTextColor={'grey'}
-                    values={['About me', 'Point of Engagement']}
+                    values={['About me', 'Points of Engagement']}
                     value={value}
                     onSelect={val => setValue(val)}
                     style={{
@@ -141,7 +141,7 @@ const Profile = props => {
                   />
                 </View>
                 {profileLoading && <Loading />	}
-                {value === 'Point of Engagement' && <MyEvent {...props} />}
+                {value === 'Points of Engagement' && <MyEvent {...props} />}
 
                 {value === 'About me' && <AboutMe {...props} />}
               </View>
