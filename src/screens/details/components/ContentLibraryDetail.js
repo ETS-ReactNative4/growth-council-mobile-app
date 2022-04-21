@@ -501,7 +501,6 @@ const styles = StyleSheet.create({
     color: Colors.SECONDARY_TEXT_COLOR,
   },
   sectionContainer: {
-    marginBottom: 20,
     marginTop: 20,
   },
   abstractDescriptionText: {
