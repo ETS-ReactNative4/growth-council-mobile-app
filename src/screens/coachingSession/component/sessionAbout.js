@@ -94,25 +94,25 @@ const sessionAbout = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (h:mma)');
+  const GobalDate = moment(timeToDisplay).format('MMMM D, dddd, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('MMMM D (h:mma)');
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const GobalDateEnd = moment(timeToEnd).format('MMMM D, dddd, h:mm a ');
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM (h:mma)');
+  const GobalEndMonth = moment(timeToEnd).format('MMMM D (h:mma)');
 
   const EventDate = moment(sessions?.event_start).format(
-    'D MMMM, dddd, h:mma - ',
+    'MMMM D, dddd, h:mma - ',
   );
   const EventStartMonth = moment(sessions?.event_start).format(
-    'D MMMM (h:mma)',
+    'MMMM D (h:mma)',
   );
 
   const EventDateEnd = moment(sessions?.event_end).format(
-    'D MMMM, dddd, h:mm a ',
+    'MMMM D, dddd, h:mm a ',
   );
   const EventEndTime = moment(sessions?.event_end).format('h:mma ');
-  const EventEndMonth = moment(sessions?.event_end).format('D MMMM (h:mma)');
+  const EventEndMonth = moment(sessions?.event_end).format('MMMM D (h:mma)');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -178,6 +178,7 @@ const sessionAbout = props => {
                   EventDate.split(/(\s+)/)[8] +
                   EventDate.split(/(\s+)/)[7] +
                   EventEndMonth}
+				  (America)
             </Text>
           </View>
           {!sessionStatus && (

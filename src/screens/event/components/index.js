@@ -100,23 +100,24 @@ const Event = props => {
   const backStartTimeStamp = events?.event_start;
   const backEndTimeStamp = events?.event_end;
   const deviceTimeZone = RNLocalize.getTimeZone();
+  console.log(deviceTimeZone.split(/(\s+)/)[0]);
 
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const eventDate = moment(events?.event_start).format('D MMMM, h:mma - ');
-  const eventEnd = moment(events?.event_end).format('D MMMM, h:mma');
+  const eventDate = moment(events?.event_start).format('MMMM D, h:mma - ');
+  const eventEnd = moment(events?.event_end).format('MMMM D, h:mma');
 
-  const eventStartMonth = moment(events?.event_start).format('D MMMM');
+  const eventStartMonth = moment(events?.event_start).format('MMMM D');
 
   const eventEndTime = moment(events?.event_end).format('h:mma ');
-  const eventEndMonth = moment(events?.event_end).format('D MMMM');
+  const eventEndMonth = moment(events?.event_end).format('MMMM D');
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+  const GobalDate = moment(timeToDisplay).format('MMMM D, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('MMMM D');
 
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
+  const GobalEndMonth = moment(timeToEnd).format('MMMM D');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -224,6 +225,7 @@ const Event = props => {
                           eventDate.split(/(\s+)/)[8] +
                           eventDate.split(/(\s+)/)[7] +
                           eventEndMonth}
+                      (America)
                     </Text>
                   </View>
                   {!eventStatus && (
@@ -368,9 +370,7 @@ const Event = props => {
                   <Button
                     style={styles.acceptButton}
                     onPress={() => registerEventByEventID(route?.params?.id)}>
-                    <Text style={styles.acceptButtonText}>
-                     RSVP
-                    </Text>
+                    <Text style={styles.acceptButtonText}>RSVP</Text>
                   </Button>
                 )}
                 {eventStatus && (

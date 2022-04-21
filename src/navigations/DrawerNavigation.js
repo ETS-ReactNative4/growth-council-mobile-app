@@ -206,7 +206,7 @@ const DrawerNavigation = () => {
           drawerIcon: ({focused, size}) => (
             <Image
               source={require('../../src/assets/img/GrowthCoaching-01.png')}
-              style={{width: 25, height: 30}}
+              style={{width: 20, height: 25}}
               resizeMode="cover"
             />
           ),

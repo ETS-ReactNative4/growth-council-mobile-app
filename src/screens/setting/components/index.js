@@ -153,7 +153,7 @@ const Setting = props => {
                 </View>
                 <View style={styles.wrapper}>
                   <TouchableOpacity
-                    onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+                    onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
                     <View style={styles.middleWrapper}>
                       <View style={styles.middleImage1}>
                         <Ionicons name={'headset'} size={20} color="white" />

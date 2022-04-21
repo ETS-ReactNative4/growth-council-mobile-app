@@ -274,8 +274,6 @@ const CommunityDetail = props => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
-
-          
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
@@ -312,7 +310,6 @@ const CommunityDetail = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-         
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -440,7 +437,7 @@ const CommunityDetail = props => {
                 </View>
               )}
 
-              {poeDetails?.parent !== 118 && poeEvents?.length !== 0 && (
+              {poeDetails !== null && poeEvents?.length !== 0 && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Events</Text>
 
@@ -565,6 +562,7 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 10,
     justifyContent: 'center',
+	marginBottom:10,
   },
   topWrapper: {
     height: 144,

@@ -314,7 +314,7 @@ const People = props => {
     'Zimbabwe',
   ];
 
-  const pillar = ['Community', 'Best Practice', 'Growth Coaching'];
+  const pillar = ['Council Member', 'Associate Member'];
 
   const _renderItem = ({item, index}) => {
     return (
