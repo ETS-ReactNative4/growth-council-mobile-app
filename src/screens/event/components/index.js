@@ -384,7 +384,7 @@ const Event = props => {
                         }}
                       />
                     </View>
-                    <Text style={styles.registeredButtonText}>RSVP't</Text>
+                    <Text style={styles.registeredButtonText}>RSVP'd</Text>
                   </TouchableOpacity>
                 )}
               </View>

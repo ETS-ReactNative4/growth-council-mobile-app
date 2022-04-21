@@ -59,7 +59,7 @@ const sessionAbout = props => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
     if (response?.payload?.code === 200) {
       setSessionStatus(true);
-      ToastMessage.show('You have successfully RSVP this event.');
+      ToastMessage.show('You have successfully RSVP’d  this event.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
@@ -101,10 +101,16 @@ const sessionAbout = props => {
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
   const GobalEndMonth = moment(timeToEnd).format('D MMMM (h:mma)');
 
-  const EventDate = moment(sessions?.event_start).format('D MMMM, dddd, h:mma - ');
-  const EventStartMonth = moment(sessions?.event_start).format('D MMMM (h:mma)');
+  const EventDate = moment(sessions?.event_start).format(
+    'D MMMM, dddd, h:mma - ',
+  );
+  const EventStartMonth = moment(sessions?.event_start).format(
+    'D MMMM (h:mma)',
+  );
 
-  const EventDateEnd = moment(sessions?.event_end).format('D MMMM, dddd, h:mm a ');
+  const EventDateEnd = moment(sessions?.event_end).format(
+    'D MMMM, dddd, h:mm a ',
+  );
   const EventEndTime = moment(sessions?.event_end).format('h:mma ');
   const EventEndMonth = moment(sessions?.event_end).format('D MMMM (h:mma)');
 
@@ -164,7 +170,7 @@ const sessionAbout = props => {
                   GobalDate.split(/(\s+)/)[8] +
                   GobalDate.split(/(\s+)/)[7] +
                   GobalEndMonth}{' '}
-              ({deviceTimeZone}) / {EventDate.split(/(\s+)/)[7] }
+              ({deviceTimeZone}) / {EventDate.split(/(\s+)/)[7]}
               {EventStartMonth === EventEndMonth
                 ? EventDate + EventEndTime
                 : EventStartMonth +
@@ -318,7 +324,7 @@ const sessionAbout = props => {
               source={require('../../../assets/img/tick-icon.png')}
               style={{width: 30, height: 30}}
             />
-            <Text style={styles.registeredButtonText}>RSVP't</Text>
+            <Text style={styles.registeredButtonText}>RSVP'd</Text>
           </TouchableOpacity>
         )}
       </View>
