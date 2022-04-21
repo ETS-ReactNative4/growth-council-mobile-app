@@ -18,6 +18,7 @@ import Material from 'react-native-vector-icons/MaterialIcons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
+import {Linking} from 'react-native';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
@@ -341,6 +342,22 @@ const GrowthCoaching = props => {
       </TouchableOpacity>
     );
   };
+
+  const _renderExternal = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => Linking.openURL(item?.link)}>
+        <View
+          style={{
+            marginBottom: 10,
+            flexDirection: 'row',
+            marginLeft: 20,
+            marginTop: 10,
+          }}>
+          <Text style={{fontSize: 14, fontWeight: '800'}}>{item?.link}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
   return (
     <View style={{flex: 1}}>
       <StatusBar
@@ -392,6 +409,19 @@ const GrowthCoaching = props => {
               />
             </View>
           )}
+		   {pillarMemberContents?.external_link?.length !== 0 &&
+            pillarMemberContents?.external_link !== false &&
+            pillarMemberContents?.external_link !== null && (
+              <View style={styles.content}>
+                <Text style={styles.title}>External Links:</Text>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  data={pillarMemberContents?.external_link}
+                  renderItem={_renderExternal}
+                />
+              </View>
+            )}
 
           {/* {pillarMemberContents?.members?.length !== 0 && (
             <View style={styles.bottom}>
@@ -418,6 +448,7 @@ const GrowthCoaching = props => {
                 />
               </View>
             )}
+
           {pillarMemberContents?.pillar_contents?.length !== 0 &&
             pillarMemberContents?.pillar_contents !== null &&
             pillarMemberContents?.pillar_contents !== false && (

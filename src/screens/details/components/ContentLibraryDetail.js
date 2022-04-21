@@ -26,7 +26,7 @@ import {Colors, CommonStyles} from '../../../theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Searchbar} from 'react-native-paper';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-
+import {Linking} from 'react-native';
 import {BubblesLoader} from 'react-native-indicator';
 import WebView from 'react-native-autoheight-webview';
 import HTMLView from 'react-native-htmlview';
@@ -59,7 +59,6 @@ const ContentLibraryDetail = props => {
     setIsTrue(value);
   };
 
-
   const _renderItem = ({item, index}) => {
     const fileUrl = item?.file?.url;
 
@@ -82,7 +81,7 @@ const ContentLibraryDetail = props => {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-			ToastMessage.show(err);
+          ToastMessage.show(err);
         }
       }
     };
@@ -114,7 +113,7 @@ const ContentLibraryDetail = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-			console.log('res -> ', JSON.stringify(res));
+          console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -185,6 +184,15 @@ const ContentLibraryDetail = props => {
           {item?.list}
         </Text>
       </View>
+    );
+  };
+  const _renderExternal = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => Linking.openURL(item?.link)}>
+        <View style={{marginBottom: 10, flexDirection: 'row'}}>
+          <Text>{item?.link}</Text>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -285,7 +293,18 @@ const ContentLibraryDetail = props => {
                 </View>
               </View>
             )}
-
+          {/* Coshots */}
+          {contentLibraryDetails?.coshots !== undefined &&
+            contentLibraryDetails?.coshots !== '' &&
+            contentLibraryDetails?.coshots !== false &&
+            contentLibraryDetails?.coshots !== null && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>Co-Hosts:</Text>
+                <Text style={styles.abstractDescriptionText}>
+                  {contentLibraryDetails?.coshots}
+                </Text>
+              </View>
+            )}
           {/* Abstract Section */}
           {contentLibraryDetails?.abstract !== undefined &&
             contentLibraryDetails?.abstract !== '' &&
@@ -298,7 +317,48 @@ const ContentLibraryDetail = props => {
                 </Text>
               </View>
             )}
+
+          {/* Panelists */}
+          {contentLibraryDetails?.panelists !== undefined &&
+            contentLibraryDetails?.panelists !== '' &&
+            contentLibraryDetails?.panelists !== false &&
+            contentLibraryDetails?.panelists !== null && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>Panelists:</Text>
+                <Text style={styles.abstractDescriptionText}>
+                  {contentLibraryDetails?.panelists}
+                </Text>
+              </View>
+            )}
+
+          {/* Agendas */}
+          {contentLibraryDetails?.agendas !== undefined &&
+            contentLibraryDetails?.agendas !== '' &&
+            contentLibraryDetails?.agendas !== false &&
+            contentLibraryDetails?.agendas !== null && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>Agendas:</Text>
+                <Text style={styles.abstractDescriptionText}>
+                  {contentLibraryDetails?.agendas}
+                </Text>
+              </View>
+            )}
+
+          {/* Notes */}
+          {contentLibraryDetails?.notes !== undefined &&
+            contentLibraryDetails?.notes !== '' &&
+            contentLibraryDetails?.notes !== false &&
+            contentLibraryDetails?.notes !== null && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>Notes:</Text>
+                <Text style={styles.abstractDescriptionText}>
+                  {contentLibraryDetails?.notes}
+                </Text>
+              </View>
+            )}
+
           {contentLibraryDetailsLoading && <Loading />}
+
           {/* Call To Action Section */}
           {contentLibraryDetails?.call_to_action?.length !== 0 &&
             contentLibraryDetails?.call_to_action !== false &&
@@ -329,6 +389,21 @@ const ContentLibraryDetail = props => {
               </View>
             )}
 
+          {/* external_links */}
+          {contentLibraryDetails?.external_links?.length !== 0 &&
+            contentLibraryDetails?.external_links !== false &&
+            contentLibraryDetails?.external_links !== null && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>External Links:</Text>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  data={contentLibraryDetails?.external_links}
+                  renderItem={_renderExternal}
+                />
+              </View>
+            )}
+
           {/* Tags Section */}
           {contentLibraryDetails?.tags?.length !== 0 &&
             contentLibraryDetails?.tags?.length !== false &&
@@ -354,7 +429,6 @@ const ContentLibraryDetail = props => {
             isTrue={isTrue}
             handleValue={handleFeedbackChange}
           />
-
         </ScrollView>
       </View>
 
@@ -370,7 +444,7 @@ const styles = StyleSheet.create({
   bodyContainer: {
     ...CommonStyles.container,
     marginTop: 25,
-	marginBottom:20
+    marginBottom: 20,
   },
   breadcrumbContainer: {
     marginHorizontal: 25,
@@ -427,7 +501,6 @@ const styles = StyleSheet.create({
     color: Colors.SECONDARY_TEXT_COLOR,
   },
   sectionContainer: {
-    marginBottom: 20,
     marginTop: 20,
   },
   abstractDescriptionText: {
@@ -437,7 +510,8 @@ const styles = StyleSheet.create({
     color: Colors.SECONDARY_TEXT_COLOR,
   },
   attachmentContainer: {
-    margin: 1,
+    marginVertical: 5,
+    marginHorizontal: 2,
     height: 63,
     paddingLeft: 20,
     paddingRight: 8,
