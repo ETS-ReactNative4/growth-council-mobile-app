@@ -26,6 +26,8 @@ import {Button} from 'native-base';
 import Loading from '../../../shared/loading';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
 
 const GrowthDetail = props => {
   const {
@@ -500,7 +502,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   learnWrapper: {
-    width: '95%',
+    width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 10,
