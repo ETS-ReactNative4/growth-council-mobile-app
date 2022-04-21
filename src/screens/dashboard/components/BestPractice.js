@@ -208,14 +208,12 @@ const BestPractice = props => {
             item.slug === 'annual-ceo-survey' ||
             item.slug === 'innovation-generator'
           ) {
-            navigation.navigate('', {
-              poeId: item?.term_id,
-              pillarId: item?.parent,
-            });
+            navigation.navigate('Growth Content');
           } else {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
+
               title: 'Growth Content',
               image: require('../../../assets/img/best-practice-bg.png'),
             });
@@ -348,7 +346,9 @@ const BestPractice = props => {
             marginLeft: 20,
             marginTop: 10,
           }}>
-          <Text style={{fontSize: 14, fontWeight: '600',color:"blue"}}>{item?.link}</Text>
+          <Text style={{fontSize: 14, fontWeight: '600', color: 'blue'}}>
+            {item?.link}
+          </Text>
         </View>
       </TouchableOpacity>
     );

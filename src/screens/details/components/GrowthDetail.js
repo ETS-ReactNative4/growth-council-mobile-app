@@ -322,23 +322,25 @@ const GrowthDetail = props => {
                 }}
               />
               {coachingSessionLoading && <Loading />}
-              {coachingSession?.length !== 0 && (
-                <View style={styles.middle}>
-                  <Text style={styles.title}>Growth Coaching Sessions</Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={coachingSession}
-                      renderItem={_renderMiddleItem}
-                    />
+              {coachingSession?.length !== 0 &&
+                coachingSession !== null &&
+                coachingSession !== false && (
+                  <View style={styles.middle}>
+                    <Text style={styles.title}>Growth Coaching Sessions</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={coachingSession}
+                        renderItem={_renderMiddleItem}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
               {poeSelfLearns?.length !== 0 &&
                 poeSelfLearns !== false &&
                 poeSelfLearns !== null && (
@@ -446,7 +448,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Typography.FONT_SF_REGULAR,
     color: Colors.PRIMARY_TEXT_COLOR,
-    fontWeight: '650',
+    fontWeight: '700',
     marginLeft: 15,
   },
 
