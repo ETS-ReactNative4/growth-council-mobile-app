@@ -190,7 +190,7 @@ const ContentLibraryDetail = props => {
     return (
       <TouchableOpacity onPress={() => Linking.openURL(item?.link)}>
         <View style={{marginBottom: 10, flexDirection: 'row'}}>
-          <Text>{item?.link}</Text>
+          <Text style={{color: 'blue'}}>{item?.link}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -483,6 +483,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontFamily: 'SFProText-SemiBold',
     color: Colors.PRIMARY_TEXT_COLOR,
+    fontWeight: '700',
   },
   userImage: {
     width: 60,

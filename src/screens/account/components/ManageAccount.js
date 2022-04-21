@@ -111,6 +111,8 @@ const ManageAccount = props => {
     ? profile?.expertise_areas1
     : [];
 
+	console.log(expertise)
+
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,

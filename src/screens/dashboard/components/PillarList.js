@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     top: '80%',
     left: 4,
     color: 'white',
-    marginTop: 10,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
     fontSize: Platform.OS === 'ios' ? 10 : 12,
   },

@@ -353,7 +353,7 @@ const GrowthCoaching = props => {
             marginLeft: 20,
             marginTop: 10,
           }}>
-          <Text style={{fontSize: 14, fontWeight: '800'}}>{item?.link}</Text>
+          <Text style={{fontSize: 14, fontWeight: '600',color:"blue"}}>{item?.link}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -413,7 +413,7 @@ const GrowthCoaching = props => {
             pillarMemberContents?.external_link !== false &&
             pillarMemberContents?.external_link !== null && (
               <View style={styles.content}>
-                <Text style={styles.title}>External Links:</Text>
+                <Text style={styles.title}>External Links</Text>
                 <FlatList
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}

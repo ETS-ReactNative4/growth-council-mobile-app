@@ -210,7 +210,7 @@ const SignInForm = props => {
                 <Text>Need Help? </Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
-                  onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+                  onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
                   {' '}
                   Contact Us{' '}
                 </Text>

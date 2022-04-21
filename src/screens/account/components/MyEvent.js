@@ -35,7 +35,6 @@ const Profile = props => {
 
   useEffect(() => {
     const fetchProfileEventAsync = async () => {
-     
       await fetchEventsByUserIdentifier({
         all_events: false,
       });
@@ -189,7 +188,7 @@ const Profile = props => {
   return (
     <>
       <View style={{paddingBottom: 20}}>
-        {profileEventLoading && <Loading />}
+        {/* {profileEventLoading && <Loading />} */}
         <FlatList
           Vertical
           showsVerticalScrollIndicator={false}
