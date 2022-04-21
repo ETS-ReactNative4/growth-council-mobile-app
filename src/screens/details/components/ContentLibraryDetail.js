@@ -293,7 +293,18 @@ const ContentLibraryDetail = props => {
                 </View>
               </View>
             )}
-
+          {/* Coshots */}
+          {contentLibraryDetails?.coshots !== undefined &&
+            contentLibraryDetails?.coshots !== '' &&
+            contentLibraryDetails?.coshots !== false &&
+            contentLibraryDetails?.coshots !== null && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.bodyTitleText}>Co-Hosts:</Text>
+                <Text style={styles.abstractDescriptionText}>
+                  {contentLibraryDetails?.coshots}
+                </Text>
+              </View>
+            )}
           {/* Abstract Section */}
           {contentLibraryDetails?.abstract !== undefined &&
             contentLibraryDetails?.abstract !== '' &&
@@ -342,19 +353,6 @@ const ContentLibraryDetail = props => {
                 <Text style={styles.bodyTitleText}>Notes:</Text>
                 <Text style={styles.abstractDescriptionText}>
                   {contentLibraryDetails?.notes}
-                </Text>
-              </View>
-            )}
-
-          {/* Coshots */}
-          {contentLibraryDetails?.coshots !== undefined &&
-            contentLibraryDetails?.coshots !== '' &&
-            contentLibraryDetails?.coshots !== false &&
-            contentLibraryDetails?.coshots !== null && (
-              <View style={styles.sectionContainer}>
-                <Text style={styles.bodyTitleText}>Coshots:</Text>
-                <Text style={styles.abstractDescriptionText}>
-                  {contentLibraryDetails?.coshots}
                 </Text>
               </View>
             )}
