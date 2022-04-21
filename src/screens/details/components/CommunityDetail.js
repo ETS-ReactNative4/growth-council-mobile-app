@@ -481,7 +481,7 @@ const CommunityDetail = props => {
                 </View>
               )} */}
 
-              {poeDetails?.pillar_contents?.length !== 0 &&
+              {/* {poeDetails?.pillar_contents?.length !== 0 &&
                 poeDetails?.pillar_contents !== false &&
                 poeDetails?.pillar_contents !== null && (
                   <View style={styles.growthContent}>
@@ -499,7 +499,7 @@ const CommunityDetail = props => {
                       />
                     </View>
                   </View>
-                )}
+                )} */}
 
               {/* <Footer /> */}
             </View>

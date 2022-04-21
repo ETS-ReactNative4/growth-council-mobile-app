@@ -154,14 +154,12 @@ const HomeCommunity = props => {
       <TouchableOpacity
         onPress={() => {
           if (item.slug === 'brainstorming-strategy-discussions') {
-            navigation.navigate('', {
-              poeId: item?.term_id,
-              pillarId: item?.parent,
-            });
+            navigation.navigate('Growth Community');
           } else {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
+			  
               title: 'Growth Community',
               image: require('../../../assets/img/Rectangle2.png'),
             });
