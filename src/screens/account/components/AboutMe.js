@@ -55,7 +55,7 @@ const AboutMe = props => {
         <View>
           <View style={styles.middle}>
             <View style={styles.wrapper}>
-              {profileLoading && <Loading />}
+              {/* {profileLoading && <Loading />} */}
 
               <View style={styles.TextWrapper}>
                 <Text

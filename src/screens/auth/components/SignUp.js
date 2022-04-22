@@ -70,7 +70,7 @@ const SignUpForm = props => {
       first_name: '',
       last_name: '',
       username: ``,
-      password: 'admin21',
+      password: uuid.v4(),
       title: '',
       company: '',
       phone: '',
@@ -89,7 +89,7 @@ const SignUpForm = props => {
         const response = await createUserWithEmailAndPassword(
           auth,
           values?.email?.trim(),
-          values?.firebase_password,
+          values?.password,
         );
         const token = await response.user.getIdToken();
         if (token) {

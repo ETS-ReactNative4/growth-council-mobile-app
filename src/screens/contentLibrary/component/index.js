@@ -33,15 +33,13 @@ const Content = props => {
   } = props;
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(content);
-  const [count, setCount] = useState();
+ 
 
   useEffect(() => {
     setFilteredDataSource(content);
   }, [content]);
 
-  useEffect(() => {
-    setCount(filteredDataSource?.children_count);
-  }, [filteredDataSource]);
+
 
   const searchFilterFunction = text => {
     if (text) {
@@ -58,12 +56,12 @@ const Content = props => {
     }
   };
 
-  console.log('abcd', filteredDataSource.children_count);
+  
 
   const _renderContent = ({item, index}) => {
     return (
       <>
-        {/* {(item.children_count === item.count) === 0 ? ( */}
+        {item?.children_count !== 0 && (
           <TouchableOpacity
             key={index}
             style={[styles.content, styles.shadowProp]}
@@ -95,6 +93,7 @@ const Content = props => {
                   {item?.children_count === 0
                     ? item?.count
                     : item?.children_count}
+                  {/* {item?.count} */}
                 </Text>
                 <Text
                   style={{
@@ -118,12 +117,12 @@ const Content = props => {
               </View>
             </>
           </TouchableOpacity>
-        {/* ) : (
-          <></>
-        )} */}
+        )}
       </>
     );
   };
+
+  let abc = 0;
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -191,14 +190,14 @@ const Content = props => {
           )}
           {/* {loader} */}
 
-          {!count && (
+          
             <FlatList
               contentContainerStyle={{alignItems: 'center'}}
               showsVerticalScrollIndicator={false}
               data={filteredDataSource}
               renderItem={_renderContent}
             />
-          )}
+         
 
           {/* <View style={{marginVertical:5}}>
             <Footer />

@@ -17,6 +17,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import {Linking} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
@@ -132,7 +133,7 @@ const BestPractice = props => {
             source={require('../../../assets/img/best-practice-bg.png')}>
             <View
               style={{
-                width: 40,
+                width: 50,
                 height: 50,
                 marginTop: 10,
                 marginLeft: 200,
@@ -141,8 +142,8 @@ const BestPractice = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text style={{color: '#030303'}}>{date[1]}</Text>
               <Text style={{color: '#030303'}}>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
             </View>
 
             <View style={styles.header}>
@@ -207,14 +208,14 @@ const BestPractice = props => {
             item.slug === 'annual-ceo-survey' ||
             item.slug === 'innovation-generator'
           ) {
-            navigation.navigate('', {
-              poeId: item?.term_id,
-              pillarId: item?.parent,
-            });
+            navigation.navigate('Growth Content');
+          } else if (item.slug === 'content-library') {
+            navigation.navigate('ContentLibrary');
           } else {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
+
               title: 'Growth Content',
               image: require('../../../assets/img/best-practice-bg.png'),
             });
@@ -336,6 +337,24 @@ const BestPractice = props => {
     let videoLink = link[1].split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
+
+  const _renderExternal = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => Linking.openURL(item?.link)}>
+        <View
+          style={{
+            marginBottom: 10,
+            flexDirection: 'row',
+            marginLeft: 20,
+            marginTop: 10,
+          }}>
+          <Text style={{fontSize: 14, fontWeight: '600', color: 'blue'}}>
+            {item?.link}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
   return (
     <View style={{flex: 1}}>
       <StatusBar
@@ -394,7 +413,19 @@ const BestPractice = props => {
                 />
               </View>
             )}
-
+          {pillarMemberContents?.external_link?.length !== 0 &&
+            pillarMemberContents?.external_link !== false &&
+            pillarMemberContents?.external_link !== null && (
+              <View style={styles.content}>
+                <Text style={styles.title}>External Links</Text>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  data={pillarMemberContents?.external_link}
+                  renderItem={_renderExternal}
+                />
+              </View>
+            )}
           {/* {pillarMemberContents?.members?.length !== 0 && (
             <View style={styles.bottom}>
               <Text style={styles.title}>Best Practices Members</Text>
@@ -448,7 +479,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     marginRight: 5,
-	marginLeft:5,
+    marginLeft: 5,
   },
   title: {
     fontFamily: Typography.FONT_SF_BOLD,

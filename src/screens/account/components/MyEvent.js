@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {Button} from 'native-base';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {useIsFocused} from '@react-navigation/native';
 import {CommonStyles, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
@@ -35,7 +35,6 @@ const Profile = props => {
 
   useEffect(() => {
     const fetchProfileEventAsync = async () => {
-     
       await fetchEventsByUserIdentifier({
         all_events: false,
       });
@@ -168,7 +167,7 @@ const Profile = props => {
                   }}>
                   <Ionicon name={'calendar'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 12, width: 100}]}>
-                    {date[2]} {date[1]}
+                    {date[1]} {date[2]}
                   </Text>
                 </View>
 
@@ -189,7 +188,7 @@ const Profile = props => {
   return (
     <>
       <View style={{paddingBottom: 20}}>
-        {profileEventLoading && <Loading />}
+        {/* {profileEventLoading && <Loading />} */}
         <FlatList
           Vertical
           showsVerticalScrollIndicator={false}

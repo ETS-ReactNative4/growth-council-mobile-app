@@ -24,6 +24,8 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import {useAuthentication} from '../../../context/auth';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 import {API_URL} from '../../../constants';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../../../utils/firebaseUtil';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -53,6 +55,12 @@ const SignInForm = props => {
     // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     initialValues: {username: '', password: ''},
     onSubmit: async values => {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        values?.username?.trim(),
+        values?.password,
+      )
+      .catch((e)=>console.log(e));
       const messageToken = await messaging().getToken();
       const firebasePayload = {
         username: values.username,
@@ -202,7 +210,7 @@ const SignInForm = props => {
                 <Text>Need Help? </Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
-                  onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+                  onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
                   {' '}
                   Contact Us{' '}
                 </Text>

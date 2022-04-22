@@ -188,7 +188,11 @@ const DrawerNavigation = () => {
         component={BestPracticeScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Feature name="thumbs-up" color={'#f26722'} size={20} />
+            <Image
+              source={require('../../src/assets/img/GrowthContentlogo.png')}
+              style={{width: 20, height: 25}}
+              resizeMode="cover"
+            />
           ),
           header: () => (
             <SubHeader
@@ -206,7 +210,7 @@ const DrawerNavigation = () => {
           drawerIcon: ({focused, size}) => (
             <Image
               source={require('../../src/assets/img/GrowthCoaching-01.png')}
-              style={{width: 25, height: 30}}
+              style={{width: 20, height: 25}}
               resizeMode="cover"
             />
           ),
@@ -219,7 +223,7 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Content Library"
         component={ContentScreen}
         options={({navigation}) => ({
@@ -234,23 +238,8 @@ const DrawerNavigation = () => {
             />
           ),
         })}
-      />
-      {/* <Drawer.Screen
-        name="Critical Issues"
-        component={CriticalIssueScreen}
-        options={({navigation}) => ({
-          drawerIcon: ({focused, size}) => (
-            <Material name="content-copy" color={'#00008B'} size={20} />
-          ),
-          header: () => (
-            <SubHeader
-              title="Critical Issues"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
       /> */}
+
       <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}
@@ -337,6 +326,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
+ 
   },
   footerText: {
     fontSize: 8,

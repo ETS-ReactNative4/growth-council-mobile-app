@@ -73,7 +73,7 @@ const CouncilAllDetail = props => {
       <View>
         <TouchableOpacity
           onPress={() =>
-            ToastMessage.show('Log in as Council membership to review')
+            ToastMessage.show('Log in as Council Member to Review')
           }>
           <View style={styles.eventCard} key={index}>
             <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
@@ -87,9 +87,9 @@ const CouncilAllDetail = props => {
               </View>
               <View style={styles.eventDate}>
                 <Text style={styles.eventDateText}>
-                  {date[1]}
-                  {'\n'}
                   {date[0]}
+                  {'\n'}
+                  {date[1]}
                 </Text>
               </View>
             </View>
@@ -104,7 +104,7 @@ const CouncilAllDetail = props => {
       <View>
         <TouchableOpacity
           onPress={() =>
-            ToastMessage.show('Log in as Council membership to review')
+            ToastMessage.show('Log in as Council Member to Review')
           }>
           <View style={styles.poeCard} key={index}>
             <View style={[styles.poeTheme, styles.shadowProp]}>
@@ -214,13 +214,13 @@ const styles = StyleSheet.create({
   eventsTitle: {
     marginBottom: 34,
     fontWeight: '600',
-	color:'black'
+    color: 'black',
   },
   poeTitle: {
     marginTop: 10,
     marginBottom: 30,
     fontWeight: '600',
-	color:'black'
+    color: 'black',
   },
   eventList: {},
   eventCard: {
