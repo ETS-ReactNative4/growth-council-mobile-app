@@ -11,7 +11,7 @@ import {
   StatusBar,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {BubblesLoader} from 'react-native-indicator';
 import * as RNLocalize from 'react-native-localize';
 import {Picker} from '@react-native-picker/picker';

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {Button} from 'native-base';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {useIsFocused} from '@react-navigation/native';
 import {CommonStyles, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';

@@ -15,9 +15,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
-import 'moment-timezone';
+// import 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {formatTimeByOffset} from './timezone';
 import {BubblesLoader} from 'react-native-indicator';
