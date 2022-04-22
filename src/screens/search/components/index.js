@@ -155,6 +155,10 @@ const Search = props => {
       poePage = 'GrowthDetail';
       pillarname = 'Growth Coaching';
       backgroundImage = require('../../../assets/img/Rectangle.png');
+    } else if (item?.parent === 118 || item?.parent === 133) {
+      poePage = 'CommunityDetail';
+      pillarname = 'Growth Content';
+      backgroundImage = require('../../../assets/img/best-practice-bg.png');
     }
     return (
       <TouchableOpacity

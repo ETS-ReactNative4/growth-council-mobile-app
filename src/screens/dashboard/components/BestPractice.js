@@ -142,8 +142,8 @@ const BestPractice = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text style={{color: '#030303'}}>{date[1]}</Text>
               <Text style={{color: '#030303'}}>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
             </View>
 
             <View style={styles.header}>
@@ -209,6 +209,8 @@ const BestPractice = props => {
             item.slug === 'innovation-generator'
           ) {
             navigation.navigate('Growth Content');
+          } else if (item.slug === 'content-library') {
+            navigation.navigate('ContentLibrary');
           } else {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,

@@ -258,7 +258,7 @@ const SubPOEDetails = props => {
                     />
                   </View>
                 )}
-              {/* {poeDetails?.pillar_contents?.length !== 0 &&
+              {poeDetails?.pillar_contents?.length !== 0 &&
                 poeDetails?.pillar_contents !== null &&
                 poeDetails?.pillar_contents !== false && (
                   <View style={styles.growthContent}>
@@ -276,7 +276,7 @@ const SubPOEDetails = props => {
                       />
                     </View>
                   </View>
-                )} */}
+                )}
 
               {/* <Footer /> */}
             </View>
