@@ -356,6 +356,8 @@ const CommunityDetail = props => {
     case 119:
       backgroundColor = Colors.COACHING_COLOR;
       title = 'Growth Coaching';
+    case 133:
+      backgroundColor = Colors.PRACTICE_COLOR;
   }
 
   let poeDescription = poeDetails?.description;
@@ -562,7 +564,7 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 10,
     justifyContent: 'center',
-	marginBottom:10,
+    marginBottom: 10,
   },
   topWrapper: {
     height: 144,

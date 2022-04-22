@@ -116,12 +116,13 @@ const People = props => {
   };
 
   const countries = [
+	"Region",
     "NORTH AMERICA",
 	"APAC",
 	"MEASA"
   ];
 
-  const pillar = ['Council Member', 'Associate Member'];
+  const pillar = ['Acount Type','Council Member', 'Associate Member'];
 
   const _renderItem = ({item, index}) => {
     return (

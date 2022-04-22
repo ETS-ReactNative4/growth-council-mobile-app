@@ -162,14 +162,23 @@ const Search = props => {
     }
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate(poePage, {
-            poeId: item?.term_id,
-            pillarId: item?.parent,
-            title: pillarname,
-            image: backgroundImage,
-          })
-        }>
+        onPress={() => {
+          if (
+            item.slug === 'annual-ceo-survey' ||
+            item.slug === 'innovation-generator'
+          ) {
+            navigation.navigate('Search');
+          } else if (item.slug === 'content-library') {
+            navigation.navigate('ContentLibrary');
+          } else {
+            navigation.navigate(poePage, {
+              poeId: item?.term_id,
+              pillarId: item?.parent,
+              title: pillarname,
+              image: backgroundImage,
+            });
+          }
+        }}>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image

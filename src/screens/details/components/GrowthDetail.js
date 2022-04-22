@@ -207,13 +207,13 @@ const GrowthDetail = props => {
           />
 
           <View>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() =>
                 navigation.navigate('selflearn', {
                   id: item.ID,
                   selfLearnId: item?.ID,
                 })
-              }>
+              }> */}
               <View>
                 <Text
                   style={{
@@ -242,7 +242,7 @@ const GrowthDetail = props => {
                   {item.author}
                 </Text>
               </View>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
             <View
               style={{
                 justifyContent: 'center',

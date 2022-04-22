@@ -53,13 +53,14 @@ const SubPOEDetails = props => {
 
   const isFocused = useIsFocused();
 
-  useEffect(() => {
-    const fetchAllPOEDetailAsync = async () => {
-      await fetchAllPOEDetail(route.params.poeId);
-    };
-    fetchAllPOEDetailAsync();
-  }, []);
-
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPOEDetailAsync = async () => {
+        await fetchAllPOEDetail(route.params.poeId);
+      };
+      fetchAllPOEDetailAsync();
+    }, []),
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -99,13 +100,11 @@ const SubPOEDetails = props => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
-
-            
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-			ToastMessage.show(err);
+          ToastMessage.show(err);
         }
       }
     };
@@ -137,7 +136,7 @@ const SubPOEDetails = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-			console.log('res -> ', JSON.stringify(res));
+          console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
