@@ -95,24 +95,22 @@ const sessionAbout = props => {
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
   const GobalDate = moment(timeToDisplay).format('MMMM D, dddd, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('MMMM D (h:mma)');
+  const GobalStartMonth = moment(timeToDisplay).format('MMMM D');
 
   const GobalDateEnd = moment(timeToEnd).format('MMMM D, dddd, h:mm a ');
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('MMMM D (h:mma)');
+  const GobalEndMonth = moment(timeToEnd).format('MMMM D');
 
   const EventDate = moment(sessions?.event_start).format(
     'MMMM D, dddd, h:mma - ',
   );
-  const EventStartMonth = moment(sessions?.event_start).format(
-    'MMMM D (h:mma)',
-  );
+  const EventStartMonth = moment(sessions?.event_start).format('MMMM D');
 
   const EventDateEnd = moment(sessions?.event_end).format(
     'MMMM D, dddd, h:mm a ',
   );
   const EventEndTime = moment(sessions?.event_end).format('h:mma ');
-  const EventEndMonth = moment(sessions?.event_end).format('MMMM D (h:mma)');
+  const EventEndMonth = moment(sessions?.event_end).format('MMMM D');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -160,6 +158,7 @@ const sessionAbout = props => {
             style={{
               flex: 4,
               paddingLeft: 5,
+              justifyContent: 'center',
             }}>
             {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
@@ -178,7 +177,7 @@ const sessionAbout = props => {
                   EventDate.split(/(\s+)/)[8] +
                   EventDate.split(/(\s+)/)[7] +
                   EventEndMonth}
-				  (America)
+              (America)
             </Text>
           </View>
           {!sessionStatus && (

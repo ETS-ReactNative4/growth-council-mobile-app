@@ -226,7 +226,7 @@ const HomeCommunity = props => {
             source={require('../../../assets/img/Rectangle2.png')}>
             <View
               style={{
-                width: 40,
+                width: 50,
                 height: 50,
                 marginTop: 10,
                 marginLeft: 200,

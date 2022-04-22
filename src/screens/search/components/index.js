@@ -160,6 +160,7 @@ const Search = props => {
       pillarname = 'Growth Content';
       backgroundImage = require('../../../assets/img/best-practice-bg.png');
     }
+
     return (
       <TouchableOpacity
         onPress={() => {
@@ -401,6 +402,7 @@ const styles = StyleSheet.create({
   },
   eventDate: {
     flex: 1,
+    height: 60,
     padding: 10,
     backgroundColor: 'rgba(245,245,245,1)',
     borderRadius: 10,

@@ -64,31 +64,19 @@ const CommunityDetail = props => {
   const [memberConnection, setMemberConnection] = useState([]);
 
   useEffect(() => {
-    const fetchEventDetailAsync = async () => {
-      await fetchSessionDetailByIdentifier(route.params.id);
-    };
-    fetchEventDetailAsync();
+    fetchSessionDetailByIdentifier(route.params.id);
   }, []);
 
   useEffect(() => {
-    const fetchAllPOEDetailAsync = async () => {
-      await fetchAllPOEDetail(route.params.poeId);
-    };
-    fetchAllPOEDetailAsync();
+    fetchAllPOEDetail(route.params.poeId);
   }, []);
 
   useEffect(() => {
-    const fetchAllPOEEventAsync = async () => {
-      await fetchAllPOEEvent(route.params.poeId);
-    };
-    fetchAllPOEEventAsync();
+    fetchAllPOEEvent(route.params.poeId);
   }, []);
 
   useEffect(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(route.params.pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
+    fetchAllPillarMemberContent(route.params.pillarId);
   }, [isFocused]);
 
   useEffect(() => {
@@ -543,12 +531,14 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   content: {
+    width: '98%',
     // borderRadius: 18,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginBottom: 20,
   },
   contentWrapper: {
+    width: '100%',
     backgroundColor: 'white',
     overflow: 'scroll',
     marginTop: 10,
@@ -649,14 +639,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
   },
-  ContentWrapper: {
-    height: 206,
-    width: 364,
-    marginTop: 20,
-    marginLeft: 15,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
+  //   ContentWrapper: {
+  //     height: 206,
+  //     width: 364,
+  //     marginTop: 20,
+  //     marginLeft: 15,
+  //     borderRadius: 20,
+  //     overflow: 'hidden',
+  //   },
   shadowProp: {
     shadowColor: '#000',
     shadowOffset: {

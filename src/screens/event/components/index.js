@@ -180,7 +180,7 @@ const Event = props => {
                 <Text style={styles.headingText1}>{events?.title}</Text>
               )}
               <View style={styles.poe}>
-                <Text style={{fontSize: 12}}>{title}</Text>
+                <Text style={{fontSize: 11}}>{title}</Text>
               </View>
             </View>
           </View>
@@ -206,6 +206,7 @@ const Event = props => {
                     style={{
                       flex: 5,
                       paddingLeft: 5,
+                      justifyContent: 'center',
                     }}>
                     {/* <Text style={styles.eventDetails}>{GobalDate} /</Text> */}
                     <Text style={styles.eventDetails}>
@@ -213,7 +214,7 @@ const Event = props => {
                         ? GobalDate + GobalEndTime
                         : GobalStartMonth +
                           GobalDate.split(/(\s+)/)[7] +
-                          GobalDate.split(/(\s+)/)[8] +
+                          GobalDate.split(/(\s+)/)[6] +
                           GobalDate.split(/(\s+)/)[7] +
                           GobalEndMonth}{' '}
                       ({deviceTimeZone}) /{' '}
@@ -221,7 +222,7 @@ const Event = props => {
                         ? eventDate + eventEndTime
                         : eventStartMonth +
                           eventDate.split(/(\s+)/)[7] +
-                          eventDate.split(/(\s+)/)[8] +
+                          eventDate.split(/(\s+)/)[6] +
                           eventDate.split(/(\s+)/)[7] +
                           eventEndMonth}
                       (America)
@@ -436,7 +437,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
     marginLeft: 5,
-    fontSize: 13,
+    fontSize: 12,
     color: '#1E2022',
     fontWeight: 'bold',
   },
@@ -519,15 +520,14 @@ const styles = StyleSheet.create({
   },
 
   poe: {
-    width: 160,
     position: 'absolute',
     top: -15,
     left: 0,
     backgroundColor: '#ffff',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderWidth: 0.2,
     paddingVertical: 5,
   },

@@ -225,17 +225,17 @@ const GrowthCoaching = props => {
             source={require('../../../assets/img/Rectangle.png')}>
             <View
               style={{
-                width: 40,
+                width: 50,
                 height: 50,
                 marginTop: 10,
                 marginLeft: 200,
                 backgroundColor: '#EBECF0',
-                borderRadius: 14,
+                borderRadius: 10,
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text style={{color: '#030303'}}>{date[0]}</Text>
               <Text style={{color: '#030303'}}>{date[1]}</Text>
+              <Text style={{color: '#030303'}}>{date[0]}</Text>
             </View>
 
             <View style={styles.header}>
