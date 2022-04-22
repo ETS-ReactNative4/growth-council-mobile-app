@@ -95,9 +95,9 @@ const Search = props => {
               </View>
               <View style={styles.eventDate}>
                 <Text style={styles.eventDateText}>
-                  {date[1]}
-                  {'\n'}
                   {date[0]}
+                  {'\n'}
+                  {date[1]}
                 </Text>
               </View>
             </View>
@@ -152,9 +152,15 @@ const Search = props => {
     let poePage = 'CommunityDetail';
 
     if (item?.parent === 119) {
-      poePage = 'GrowthDetail';
-      pillarname = 'Growth Coaching';
-      backgroundImage = require('../../../assets/img/Rectangle.png');
+      if (item?.slug === 'executive-coaching-clinic') {
+        poePage = 'CommunityDetail';
+        pillarname = 'Growth Coaching';
+        backgroundImage = require('../../../assets/img/Rectangle.png');
+      } else {
+        poePage = 'GrowthDetail';
+        pillarname = 'Growth Coaching';
+        backgroundImage = require('../../../assets/img/Rectangle.png');
+      }
     } else if (item?.parent === 118 || item?.parent === 133) {
       poePage = 'CommunityDetail';
       pillarname = 'Growth Content';

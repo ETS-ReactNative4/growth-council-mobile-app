@@ -63,17 +63,32 @@ const CommunityDetail = props => {
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
-  useEffect(() => {
-    fetchSessionDetailByIdentifier(route.params.id);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchSessionDetailByIdentifier(route.params.id);
+      return () => {
+        cleanSessionDetail();
+      };
+    }, []),
+  );
 
-  useEffect(() => {
-    fetchAllPOEDetail(route.params.poeId);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchAllPOEDetail(route.params.poeId);
+      return () => {
+        cleanPOEDetail();
+      };
+    }, []),
+  );
 
-  useEffect(() => {
-    fetchAllPOEEvent(route.params.poeId);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchAllPOEEvent(route.params.poeId);
+      return () => {
+        cleanPOEEvent();
+      };
+    }, []),
+  );
 
   useEffect(() => {
     fetchAllPillarMemberContent(route.params.pillarId);
@@ -221,8 +236,8 @@ const CommunityDetail = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
               <Text>{date[0]}</Text>
+              <Text>{date[1]}</Text>
             </View>
 
             <View style={styles.header}>
@@ -332,6 +347,7 @@ const CommunityDetail = props => {
   let backgroundColor = '';
   let title = '';
   const parent = poeDetails?.parent;
+  const slug = poeDetails?.slug;
   switch (parent) {
     case 118:
       backgroundColor = Colors.PRACTICE_COLOR;
@@ -346,6 +362,11 @@ const CommunityDetail = props => {
       title = 'Growth Coaching';
     case 133:
       backgroundColor = Colors.PRACTICE_COLOR;
+  }
+  switch (slug) {
+    case 'executive-coaching-clinic':
+      backgroundColor = Colors.COACHING_COLOR;
+      title = 'Growth Coaching';
   }
 
   let poeDescription = poeDetails?.description;
