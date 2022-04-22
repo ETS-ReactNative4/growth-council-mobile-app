@@ -299,7 +299,6 @@ const BestPractice = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-          console.log('res -> ', JSON.stringify(res));
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };

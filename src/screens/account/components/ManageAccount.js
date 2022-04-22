@@ -111,8 +111,6 @@ const ManageAccount = props => {
     ? profile?.expertise_areas1
     : [];
 
-	console.log(expertise)
-
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
@@ -193,7 +191,7 @@ const ManageAccount = props => {
     onSubmit: async values => {
       await updateUser(values).then(response => {
         if (response?.payload?.code === 200) {
-          navigation.navigate('Person');
+          navigation.navigate('ManageAccount');
           ToastMessage.show('Profile has been successfully updated.');
         }
       });
