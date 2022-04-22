@@ -167,7 +167,7 @@ const Profile = props => {
                   }}>
                   <Ionicon name={'calendar'} size={20} color="#0B0B45" />
                   <Text style={[styles.text, {fontSize: 12, width: 100}]}>
-                    {date[2]} {date[1]}
+                    {date[1]} {date[2]}
                   </Text>
                 </View>
 

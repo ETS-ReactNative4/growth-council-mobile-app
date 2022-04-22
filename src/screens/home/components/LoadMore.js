@@ -87,9 +87,9 @@ const CouncilAllDetail = props => {
               </View>
               <View style={styles.eventDate}>
                 <Text style={styles.eventDateText}>
-                  {date[1]}
-                  {'\n'}
                   {date[0]}
+                  {'\n'}
+                  {date[1]}
                 </Text>
               </View>
             </View>
