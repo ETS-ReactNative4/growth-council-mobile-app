@@ -190,7 +190,7 @@ const Search = props => {
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 30, height: 30}}
+              style={{width: 30, height: 35}}
             />
           </View>
           <Text style={{marginTop: 8, fontSize: 10}}>{item?.name}</Text>
