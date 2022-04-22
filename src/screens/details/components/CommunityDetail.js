@@ -485,7 +485,7 @@ const CommunityDetail = props => {
                 poeDetails?.pillar_contents !== false &&
                 poeDetails?.pillar_contents !== null && (
                   <View style={styles.growthContent}>
-                    <Text style={styles.title}> Content Library</Text>
+                    <Text style={styles.title}> Contents Library</Text>
                     <View
                       style={{
                         display: 'flex',

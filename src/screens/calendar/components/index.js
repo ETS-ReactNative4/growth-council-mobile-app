@@ -133,9 +133,9 @@ const EventCalendar = props => {
   });
 
   const renderItem = ({item, index}) => {
-    const actualDate = moment(item.event_start).format('D MMMM ');
-    const eventStart = moment(item.event_start).format('D MMMM -');
-    const eventEnd = moment(item.event_end).format('D MMMM ');
+    const actualDate = moment(item.event_start).format('MMMM DD ');
+    const eventStart = moment(item.event_start).format('MMMM DD -');
+    const eventEnd = moment(item.event_end).format('MMMM DD ');
     const startdate = eventStart.split(' ', 3)[1].split('', 3);
     const enddate = eventEnd.split(' ', 3)[1].split('', 3);
 
@@ -144,6 +144,7 @@ const EventCalendar = props => {
 
     const today = moment().tz(deviceTimeZone);
     const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+    console.log('a', startdate[1]);
 
     let convertedToLocalTime = formatTimeByOffset(
       backStartTimeStamp,
@@ -234,8 +235,7 @@ const EventCalendar = props => {
                     ? actualDate.split(' ', 3)[0] +
                       actualDate.split(/(\s+)/)[1] +
                       startdate[0] +
-                      startdate[1] +
-                      startdate[2]
+                      startdate[1]
                     : eventStart.split(/(\s+)/)[2] ===
                       eventEnd.split(/(\s+)/)[2]
                     ? eventStart.split(/(\s+)/)[0] +
@@ -299,7 +299,6 @@ const EventCalendar = props => {
                   all_events: showAllEvents,
                 })
                   .then(response => {
-                  
                     if (response?.payload?.code === 200) {
                       setCurrentEvents(response?.payload?.data);
                     } else {
@@ -309,7 +308,7 @@ const EventCalendar = props => {
                   })
                   .catch(e => {
                     //   ToastMessage.show(e?.response?.payload?.response);
-                  
+
                     // setMarkedDay([]);
                     setCurrentEvents([]);
                   });
@@ -381,7 +380,7 @@ const EventCalendar = props => {
                         })
                         .catch(e => {
                           //   ToastMessage.show(e?.response?.payload?.response);
-                          
+
                           //   setMarkedDay([]);
                           setCurrentEvents([]);
                         });

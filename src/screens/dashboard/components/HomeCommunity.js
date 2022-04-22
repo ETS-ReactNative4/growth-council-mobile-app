@@ -235,8 +235,8 @@ const HomeCommunity = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text style={{color: '#030303'}}>{date[1]}</Text>
               <Text style={{color: '#030303'}}>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
             </View>
 
             <View style={styles.header}>

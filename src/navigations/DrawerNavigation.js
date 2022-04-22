@@ -223,7 +223,7 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Content Library"
         component={ContentScreen}
         options={({navigation}) => ({
@@ -238,23 +238,8 @@ const DrawerNavigation = () => {
             />
           ),
         })}
-      />
-      {/* <Drawer.Screen
-        name="Critical Issues"
-        component={CriticalIssueScreen}
-        options={({navigation}) => ({
-          drawerIcon: ({focused, size}) => (
-            <Material name="content-copy" color={'#00008B'} size={20} />
-          ),
-          header: () => (
-            <SubHeader
-              title="Critical Issues"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
       /> */}
+
       <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}
@@ -341,6 +326,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
+ 
   },
   footerText: {
     fontSize: 8,

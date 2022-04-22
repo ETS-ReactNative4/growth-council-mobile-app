@@ -194,25 +194,26 @@ const GrowthDetail = props => {
   const _renderLearnItem = ({item, index}) => {
     return (
       <View>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('selflearn', {
-              id: item.ID,
-              selfLearnId: item?.ID,
-            })
-          }>
-          <View style={styles.learnWrapper}>
-            <Image
-              source={{uri: item?.image}}
-              style={{
-                width: 150,
-                height: 180,
-                margin: 10,
-                borderRadius: 10,
-              }}
-              resizeMode="contain"
-            />
-            <View>
+        <View style={styles.learnWrapper}>
+          <Image
+            source={{uri: item?.image}}
+            style={{
+              width: 150,
+              height: 180,
+              margin: 10,
+              borderRadius: 10,
+            }}
+            resizeMode="contain"
+          />
+
+          <View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('selflearn', {
+                  id: item.ID,
+                  selfLearnId: item?.ID,
+                })
+              }>
               <View>
                 <Text
                   style={{
@@ -241,18 +242,18 @@ const GrowthDetail = props => {
                   {item.author}
                 </Text>
               </View>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  position: 'absolute',
-                  right: 25,
-                  bottom: 10,
-                }}>
-                <Ionicons name={'book-outline'} size={20} color="#cccccc" />
-              </View>
+            </TouchableOpacity>
+            <View
+              style={{
+                justifyContent: 'center',
+                position: 'absolute',
+                right: 25,
+                bottom: 10,
+              }}>
+              <Ionicons name={'book-outline'} size={20} color="#cccccc" />
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
     );
   };
