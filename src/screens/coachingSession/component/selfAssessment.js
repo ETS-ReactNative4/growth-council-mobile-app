@@ -111,9 +111,7 @@ const SelfAssessment = props => {
       })
         .then(response => {
           if (response?.data?.code === 200) {
-            ToastMessage.show(
-              'You score has submitted.',
-            );
+            ToastMessage.show('You score has submitted.');
             setAnswers({
               questions: {
                 growthIndex: [],
@@ -124,7 +122,7 @@ const SelfAssessment = props => {
             navigation.goBack();
 
             if (sessions.title === 'Session 10') {
-            //   ToastMessage.show('You score has submitted.');
+              //   ToastMessage.show('You score has submitted.');
               navigation.navigate('SessionCompleted');
             }
           } else {
@@ -183,7 +181,6 @@ const SelfAssessment = props => {
     }
   };
 
-
   return (
     <View>
       <StatusBar
@@ -217,6 +214,9 @@ const SelfAssessment = props => {
                   paddingLeft: 5,
                   fontSize: 10,
                   width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
                 }}
               />
             </View>

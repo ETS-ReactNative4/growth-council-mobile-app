@@ -314,6 +314,8 @@ const Event = props => {
                     </View>
 
                     <View style={styles.hostdetail}>
+					{events?.organizer_image !== false &&
+                    events?.organizer_image !== null && (
                       <View
                         style={[
                           styles.hostimage,
@@ -332,6 +334,7 @@ const Event = props => {
                           }}
                         />
                       </View>
+					)}
 
                       <View
                         style={{

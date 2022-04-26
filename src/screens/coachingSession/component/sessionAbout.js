@@ -267,7 +267,7 @@ const sessionAbout = props => {
         sessions?.organizer?.term_name !== '' && (
           <View style={{height: 150}}>
             <View style={{marginTop: 25}}>
-              <Text style={styles.contentHeading}>Coached By</Text>
+              <Text style={styles.contentHeading}>Coach By</Text>
             </View>
             <View style={styles.hostdetail}>
               <View style={styles.hostimage}>

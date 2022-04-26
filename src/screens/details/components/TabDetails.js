@@ -32,7 +32,7 @@ import WebView from 'react-native-autoheight-webview';
 import HTMLView from 'react-native-htmlview';
 import Loading from '../../../shared/loading';
 
-const ContentLibraryDetail = props => {
+const TabDetail = props => {
   const {
     navigation,
     route,
@@ -487,8 +487,8 @@ const styles = StyleSheet.create({
   userImage: {
     width: 60,
     height: 60,
-    borderRadius: 14,
     marginRight: 15,
+    borderRadius: 14,
     resizeMode: 'contain',
   },
   userNameText: {
@@ -595,4 +595,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContentLibraryDetail;
+export default TabDetail;

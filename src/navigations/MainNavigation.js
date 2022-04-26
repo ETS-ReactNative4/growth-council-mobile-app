@@ -25,6 +25,7 @@ import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
 import ContentTagsScreen from '../screens/contentLibrary/contentTags';
 import CriticalIssueScreen from '../screens/criticalIssue/index';
 import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
+import TabDetailScreen from '../screens/details/TabDetails';
 import ContentScreen from '../screens/contentLibrary';
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
@@ -483,11 +484,27 @@ const MainNavigation = () => {
             id: route?.params?.id,
             // animationEnabled: false,
             header: ({navigation}) => (
-              <SubHeader
+				<SubHeader
                 title="Content Library"
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}
-                noDrawer={true}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="TabDetail"
+          component={TabDetailScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            // animationEnabled: false,
+            header: ({navigation}) => (
+				<SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
               />
             ),
           })}
