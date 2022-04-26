@@ -100,10 +100,7 @@ const CommunityDetail = props => {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPillarPOEAsync = async () => {
-        await fetchAllPillarPOE(route.params.poeId);
-      };
-      fetchAllPillarPOEAsync();
+      fetchAllPillarPOE(route.params.poeId);
 
       return () => {
         cleanPillarPOE();

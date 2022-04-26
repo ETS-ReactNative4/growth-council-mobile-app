@@ -49,7 +49,6 @@ import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
 
-
 import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
 import UserListScreen from '../screens/chat/UserList';
@@ -338,15 +337,16 @@ const MainNavigation = () => {
                 color={'white'}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
-				  marginLeft:10,
+                  marginLeft: 10,
                 }}
-                onPress={() => navigation.navigate('Growth Content')}
+                onPress={() => navigation.goBack()}
               />
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
             gestureDirection: 'horizontal-inverted',
           })}
         />
+
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
@@ -481,13 +481,13 @@ const MainNavigation = () => {
           component={ContentLibraryDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            animationEnabled: false,
+            // animationEnabled: false,
             header: ({navigation}) => (
               <SubHeader
                 title="Content Library"
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}
-                noDrawer
+                noDrawer={true}
               />
             ),
           })}
