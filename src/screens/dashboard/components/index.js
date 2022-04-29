@@ -78,6 +78,7 @@ const Dashboard = props => {
 
   const [dataSource, setDataSource] = useState([]);
   const [scrollToIndex, setScrollToIndex] = useState(0);
+  const [currentDate, setCurrentDate] = useState('');
   const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
   const [ref, setRef] = useState(null);
 
@@ -315,14 +316,6 @@ const Dashboard = props => {
       </View>
     );
   };
-
-  //   const _renderContentItem = ({item, index}) => {
-  //     const file = item?.file;
-  //     const link = file.split('=', 2);
-  //     let videoLink = link[1].split('&', 2);
-
-  //     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
-  //   };
 
   const _renderCritical = ({item, index}) => {
     return (

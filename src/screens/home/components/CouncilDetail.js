@@ -108,11 +108,20 @@ const CouncilDetail = props => {
             backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
           />
 
-          <View style={{marginLeft: 20, marginRight: 20}}>
+          <View style={{marginLeft: 20, marginRight: 20, flex: 1}}>
             {pillarLoading && <Loading />}
             <Text style={styles.headingTitle}>{pillars?.name}</Text>
             <HTMLView
               value={pillars?.description ? pillars.description : ''}
+              textComponentProps={{
+                style: {
+                  fontSize: 14,
+                  fontWeight: 'regular',
+                  color: '#666767',
+                  alignItems: 'center',
+				  textAlign:'justify'
+                },
+              }}
               style={styles.paragraph}
             />
           </View>
