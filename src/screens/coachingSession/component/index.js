@@ -209,6 +209,7 @@ const CoachingSession = props => {
                                 style={{
                                   fontSize: 12,
                                   width: '50%',
+								  marginLeft:10
                                 }}>
                                 {trait?.title}
                               </Text>
@@ -380,11 +381,10 @@ const CoachingSession = props => {
                           style={{
                             width: '60%',
                             marginLeft: 30,
-
+                            textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
                           }}>
-                          {' '}
                           You create a transparent environment where the flow of
                           information is seamless. EveryBody around you is aware
                           about the expectations for performance, quality and
@@ -433,11 +433,10 @@ const CoachingSession = props => {
                           style={{
                             width: '60%',
                             marginLeft: 30,
-
+                            textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
                           }}>
-                          {' '}
                           There is an appreciation for honestlty and sincerity,
                           however you are isnconsistent when it comes to
                           integrating it into your system. You try your best to
@@ -488,11 +487,10 @@ const CoachingSession = props => {
                           style={{
                             width: '60%',
                             marginLeft: 30,
-
+                            textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
                           }}>
-                          {' '}
                           You are unexpressive of your true emotions. There is a
                           belief that your words might hurt others, so you
                           creaft the carefully to the xtent at which it distorts
@@ -702,7 +700,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 0.3, 
+    borderBottomWidth: 0.3,
     paddingLeft: 5,
     borderBottomColor: '#EBECFO',
     alignItems: 'center',

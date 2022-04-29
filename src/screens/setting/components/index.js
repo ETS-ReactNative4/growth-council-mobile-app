@@ -12,7 +12,7 @@ import {
   StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Material from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Footer from '../../../shared/footer';
 import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -156,7 +156,7 @@ const Setting = props => {
                     onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
                     <View style={styles.middleWrapper}>
                       <View style={styles.middleImage1}>
-                        <Ionicons name={'headset'} size={20} color="white" />
+                        <AntDesign name={'mail'} size={20} color="white" />
                       </View>
                       <Text style={styles.menuText}>Help</Text>
                     </View>
