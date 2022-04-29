@@ -305,7 +305,19 @@ const sessionAbout = props => {
         <View>
           <Text style={styles.contentHeading}>Session Brief</Text>
           {!isSessionLoaded && (
-            <HTMLView value={description} stylesheet={styles} />
+            <HTMLView
+              value={description}
+              textComponentProps={{
+                style: {
+                  fontSize: 12,
+                  lineHeight: 20,
+                  fontWeight: 'regular',
+                  color: '#666767',
+                  alignItems: 'center',
+                  textAlign: 'justify',
+                },
+              }}
+            />
           )}
         </View>
       )}

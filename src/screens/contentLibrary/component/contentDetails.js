@@ -49,7 +49,6 @@ const ContentLibrary = props => {
     setFilteredDataSource(contentLibrary);
   }, [contentLibrary]);
 
-
   const breadcrumbName = route.params.resourcesName;
 
   const searchFilterFunction = text => {
@@ -161,76 +160,40 @@ const ContentLibrary = props => {
                           itemname,
                         })
                       }>
-                      {item?.image === null && (
-                        <>
-                          <Image
+                      <>
+                        <Image
+                          style={{
+                            width: '100%',
+                            height: 170,
+                            borderTopLeftRadius: 14,
+                            borderTopRightRadius: 14,
+                          }}
+                          source={{uri: item?.image}}
+                          resizeMode="stretch"
+                        />
+                        <View style={styles.contentWrapper}>
+                          <Text style={{color: 'black'}}>{item?.count}</Text>
+                          <Text
                             style={{
-                              width: '100%',
-                              height: 170,
-                            }}
-                            resizeMode="stretch"
-                            source={require('../../../assets/img/library.png')}
-                          />
-                          <View style={styles.contentWrapper}>
-                            <Text style={{color: 'black'}}>{item?.count}</Text>
-                            <Text
-                              style={{
-                                fontFamily: 'SFProText-Regular',
-                                fontSize: 10,
+                              fontFamily: 'SFProText-Regular',
+                              fontSize: 10,
+                              color: 'black',
+                            }}>
+                            Article
+                          </Text>
+                        </View>
+                        <View style={styles.wrapper}>
+                          <HTMLView
+                            value={item?.name}
+                            textComponentProps={{
+                              style: {
                                 color: 'black',
-                              }}>
-                              Article
-                            </Text>
-                          </View>
-                          <View style={styles.wrapper}>
-                            <HTMLView
-                              value={item?.name}
-                              textComponentProps={{
-                                style: {
-                                  color: 'black',
-                                  fontWeight: '600',
-                                },
-                              }}
-                            />
-                          </View>
-                        </>
-                      )}
-                      {item?.image !== null && (
-                        <>
-                          <Image
-                            style={{
-                              width: '100%',
-                              height: 170,
-                              borderTopLeftRadius: 14,
-                              borderTopRightRadius: 14,
+                                fontWeight: '600',
+                              },
                             }}
-                            source={{uri: item?.image}}
-                            resizeMode="stretch"
                           />
-                          <View style={styles.contentWrapper}>
-                            <Text style={{color: 'black'}}>{item?.count}</Text>
-                            <Text
-                              style={{
-                                fontFamily: 'SFProText-Regular',
-                                fontSize: 10,
-                                color: 'black',
-                              }}>
-                              Article
-                            </Text>
-                          </View>
-                          <View style={styles.wrapper}>
-                            <HTMLView
-                              value={item?.name}
-                              textComponentProps={{
-                                style: {
-                                  color: 'black',
-                                  fontWeight: '600',
-                                },
-                              }}
-                            />
-                          </View>
-                        </>
-                      )}
+                        </View>
+                      </>
                     </TouchableOpacity>
                   )}
                 </>

@@ -33,13 +33,10 @@ const Content = props => {
   } = props;
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(content);
- 
 
   useEffect(() => {
     setFilteredDataSource(content);
   }, [content]);
-
-
 
   const searchFilterFunction = text => {
     if (text) {
@@ -56,8 +53,6 @@ const Content = props => {
     }
   };
 
-  
-
   const _renderContent = ({item, index}) => {
     return (
       <>
@@ -66,7 +61,7 @@ const Content = props => {
             key={index}
             style={[styles.content, styles.shadowProp]}
             onPress={() => {
-              if (item.children_count === 0) {
+              if (item?.count !== 0) {
                 navigation.navigate('LibraryDetail', {
                   resources: item?.term_id,
                   itemname: item?.name,
@@ -86,7 +81,7 @@ const Content = props => {
                   borderTopLeftRadius: 14,
                   borderTopRightRadius: 14,
                 }}
-                source={require('../../../assets/img/image.png')}
+                source={{uri: item?.image}}
               />
               <View style={styles.contentWrapper}>
                 <Text style={{color: 'black'}}>
@@ -121,8 +116,6 @@ const Content = props => {
       </>
     );
   };
-
-  let abc = 0;
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -190,14 +183,12 @@ const Content = props => {
           )}
           {/* {loader} */}
 
-          
-            <FlatList
-              contentContainerStyle={{alignItems: 'center'}}
-              showsVerticalScrollIndicator={false}
-              data={filteredDataSource}
-              renderItem={_renderContent}
-            />
-         
+          <FlatList
+            contentContainerStyle={{alignItems: 'center'}}
+            showsVerticalScrollIndicator={false}
+            data={filteredDataSource}
+            renderItem={_renderContent}
+          />
 
           {/* <View style={{marginVertical:5}}>
             <Footer />

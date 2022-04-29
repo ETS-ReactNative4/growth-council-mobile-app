@@ -314,27 +314,27 @@ const Event = props => {
                     </View>
 
                     <View style={styles.hostdetail}>
-					{events?.organizer_image !== false &&
-                    events?.organizer_image !== null && (
-                      <View
-                        style={[
-                          styles.hostimage,
-                          {backgroundColor: backgroundColor},
-                        ]}>
-                        <Image
-                          source={{
-                            uri:
-                              typeof events?.organizer_image === 'boolean'
-                                ? null
-                                : events?.organizer_image,
-                          }}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                          }}
-                        />
-                      </View>
-					)}
+                      {events?.organizer_image !== false &&
+                        events?.organizer_image !== null && (
+                          <View
+                            style={[
+                              styles.hostimage,
+                              {backgroundColor: backgroundColor},
+                            ]}>
+                            <Image
+                              source={{
+                                uri:
+                                  typeof events?.organizer_image === 'boolean'
+                                    ? null
+                                    : events?.organizer_image,
+                              }}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                              }}
+                            />
+                          </View>
+                        )}
 
                       <View
                         style={{
@@ -364,7 +364,14 @@ const Event = props => {
                       <HTMLView
                         value={description}
                         textComponentProps={{
-                          style: {fontSize: 14},
+                          style: {
+                            fontSize: 12,
+                            lineHeight: 20,
+                            fontWeight: 'regular',
+                            color: '#666767',
+                            alignItems: 'center',
+                            textAlign: 'justify',
+                          },
                         }}
                       />
                     )}

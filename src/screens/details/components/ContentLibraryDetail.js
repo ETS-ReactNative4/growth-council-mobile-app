@@ -190,7 +190,7 @@ const ContentLibraryDetail = props => {
     return (
       <TouchableOpacity onPress={() => Linking.openURL(item?.link)}>
         <View style={{marginBottom: 10, flexDirection: 'row'}}>
-          <Text style={{color: 'blue'}}>{item?.link}</Text>
+          <Text style={{color: 'blue'}}>{item?.label}</Text>
         </View>
       </TouchableOpacity>
     );
