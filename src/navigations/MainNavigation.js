@@ -335,7 +335,7 @@ const MainNavigation = () => {
               <Ionicons
                 name={'arrow-back'}
                 size={40}
-                color={'white'}
+                color={'black'}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                   marginLeft: 10,
