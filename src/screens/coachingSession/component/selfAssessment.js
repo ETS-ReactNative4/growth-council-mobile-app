@@ -242,6 +242,8 @@ const SelfAssessment = props => {
                   fetchTraitsAnswer={fetchTraitsAnswer}
                   updateTraitsAnswer={updateTraitsAnswer}
                   cleanTraitsAnswer={cleanTraitsAnswer}
+
+				  scrollRef={scrollRef}
                 />
               )}
               {value === 'Yellow Questions' && (

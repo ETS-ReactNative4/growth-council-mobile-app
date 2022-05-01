@@ -165,6 +165,7 @@ const DrawerNavigation = () => {
             <Material name="inbox" color={'#00008B'} size={20} />
           ),
           headerShown: false,
+          navigationOptions: {gesturesEnabled: false},
         })}
       />
       <Drawer.Screen
@@ -326,7 +327,6 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
- 
   },
   footerText: {
     fontSize: 8,

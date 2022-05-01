@@ -74,6 +74,7 @@ export const DashboardStackScreen = () => {
         component={DashboardScreen}
         options={({route, navigation}) => ({
           animationEnabled: false,
+       
         })}
       />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
@@ -163,6 +164,7 @@ const MainNavigation = () => {
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
             gestureDirection: 'horizontal-inverted',
+            navigationOptions: {gesturesEnabled: false},
           })}
         />
         <Stack.Screen
@@ -484,7 +486,7 @@ const MainNavigation = () => {
             id: route?.params?.id,
             // animationEnabled: false,
             header: ({navigation}) => (
-				<SubHeader
+              <SubHeader
                 title="Content Library"
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}
@@ -500,7 +502,7 @@ const MainNavigation = () => {
             id: route?.params?.id,
             // animationEnabled: false,
             header: ({navigation}) => (
-				<SubHeader
+              <SubHeader
                 title="Content Library"
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}

@@ -339,7 +339,7 @@ const Event = props => {
                       <View
                         style={{
                           flex: 3,
-                          paddingLeft: 20,
+
                           justifyContent: 'center',
                         }}>
                         <Text style={styles.contentTitle}>
@@ -574,6 +574,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 15,
   },
   eventaddress: {
     flex: 2,
