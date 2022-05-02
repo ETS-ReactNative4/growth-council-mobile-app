@@ -402,7 +402,7 @@ const BestPractice = props => {
               renderItem={item => _renderMiddleItem(item, navigation)}
             />
           </View>
-          {pillarMemberContents?.attachments?.length !== 0 &&
+          {pillarMemberContents?.attachments !== undefined &&
             pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
                 <FlatList
@@ -413,7 +413,7 @@ const BestPractice = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.external_link?.length !== 0 &&
+          {pillarMemberContents?.external_link !== undefined &&
             pillarMemberContents?.external_link !== false &&
             pillarMemberContents?.external_link !== null && (
               <View style={styles.content}>
@@ -441,7 +441,7 @@ const BestPractice = props => {
             </View>
           )} */}
 
-          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+          {pillarMemberContents?.pillar_contents !== undefined &&
             pillarMemberContents?.pillar_contents !== null &&
             pillarMemberContents?.pillar_contents !== false && (
               <View style={styles.content}>

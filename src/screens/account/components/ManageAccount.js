@@ -419,7 +419,7 @@ const ManageAccount = props => {
                     touched={touched.Location}
                   />
 
-                  <Text
+                  {/* <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     Favorite Quote
                   </Text>
@@ -432,7 +432,7 @@ const ManageAccount = props => {
                     onBlur={handleBlur('favorite_quote')}
                     error={errors.favorite_quote}
                     touched={touched.favorite_quote}
-                  />
+                  /> */}
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
@@ -451,7 +451,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    Expertise Areas
+                    Areas of Expertise
                   </Text>
 
                   <DropDownPicker
@@ -472,7 +472,7 @@ const ManageAccount = props => {
                     }}
                   />
 
-                  <Text
+                  {/* <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     Most Recent Growth/Innovation Initative
                   </Text>
@@ -485,9 +485,9 @@ const ManageAccount = props => {
                     onBlur={handleBlur('initatives')}
                     error={errors.initatives}
                     touched={touched.initatives}
-                  />
+                  /> */}
 
-                  <Text
+                  {/* <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                     I'm Seeking Insights On
                   </Text>
@@ -500,7 +500,7 @@ const ManageAccount = props => {
                     onBlur={handleBlur('insights')}
                     error={errors.insights}
                     touched={touched.insights}
-                  />
+                  /> */}
 
                   <View style={styles.loginButtonWrapper}>
                     {userLoading && <Loading />}

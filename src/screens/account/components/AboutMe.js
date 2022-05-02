@@ -128,7 +128,7 @@ const AboutMe = props => {
                   editable={false}
                 />
 
-                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                {/* <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                   Favorite Quote
                 </Text>
                 <TextInput
@@ -142,7 +142,7 @@ const AboutMe = props => {
                       : profile?.user_meta?.favorite_quote[0]
                   }
                   editable={false}
-                />
+                /> */}
 
                 <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                   Professional Summary
@@ -161,7 +161,7 @@ const AboutMe = props => {
                 />
 
                 <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                  Expertise Areas
+                 Areas of Expertise
                 </Text>
                 <TextInput
                   multiline={true}
@@ -172,7 +172,7 @@ const AboutMe = props => {
                   editable={false}
                 />
 
-                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                {/* <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                   Most Recent Growth/Innovation Initative
                 </Text>
                 <TextInput
@@ -186,9 +186,9 @@ const AboutMe = props => {
                       : profile?.user_meta?.initatives[0]
                   }
                   editable={false}
-                />
+                /> */}
 
-                <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
+                {/* <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                   I'm Seeking Insights On
                 </Text>
                 <TextInput
@@ -202,7 +202,7 @@ const AboutMe = props => {
                       : profile?.user_meta?.insights[0]
                   }
                   editable={false}
-                />
+                /> */}
               </View>
             </View>
           </View>

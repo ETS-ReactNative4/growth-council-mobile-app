@@ -121,7 +121,10 @@ const SelfAssessment = props => {
             });
             navigation.goBack();
 
-            if (sessions.title === 'Session 10') {
+            if (
+              sessions?.title === 'Session 10' &&
+              sessions?.completed_status
+            ) {
               //   ToastMessage.show('You score has submitted.');
               navigation.navigate('SessionCompleted');
             }
@@ -192,6 +195,15 @@ const SelfAssessment = props => {
       <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         {traits?.length > 0 ? (
           <View style={{flex: 1}}>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 14,
+                marginBottom: 20,
+                color: '#0B0B45',
+              }}>
+              Traits :{' '}{traits[index.traitIndex].title}
+            </Text>
             <View style={styles.Wrapper}>
               <ButtonToggleGroup
                 highlightBackgroundColor={'white'}
@@ -242,8 +254,7 @@ const SelfAssessment = props => {
                   fetchTraitsAnswer={fetchTraitsAnswer}
                   updateTraitsAnswer={updateTraitsAnswer}
                   cleanTraitsAnswer={cleanTraitsAnswer}
-
-				  scrollRef={scrollRef}
+                  scrollRef={scrollRef}
                 />
               )}
               {value === 'Yellow Questions' && (

@@ -353,7 +353,9 @@ const GrowthCoaching = props => {
             marginLeft: 20,
             marginTop: 10,
           }}>
-          <Text style={{fontSize: 14, fontWeight: '600',color:"blue"}}>{item?.link}</Text>
+          <Text style={{fontSize: 14, fontWeight: '600', color: 'blue'}}>
+            {item?.link}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -371,6 +373,7 @@ const GrowthCoaching = props => {
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
           {pillarEvents?.length !== 0 &&
+            pillarEvents !== undefined &&
             pillarEvents !== null &&
             pillarEvents !== false && (
               <View style={styles.top}>
@@ -409,7 +412,7 @@ const GrowthCoaching = props => {
               />
             </View>
           )}
-		   {pillarMemberContents?.external_link?.length !== 0 &&
+          {pillarMemberContents?.external_link !== undefined &&
             pillarMemberContents?.external_link !== false &&
             pillarMemberContents?.external_link !== null && (
               <View style={styles.content}>
@@ -436,7 +439,7 @@ const GrowthCoaching = props => {
               </View>
             </View>
           )} */}
-          {pillarMemberContents?.attachments?.length !== 0 &&
+          {pillarMemberContents?.attachments !== undefined &&
             pillarMemberContents?.attachments !== null &&
             pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
@@ -449,7 +452,7 @@ const GrowthCoaching = props => {
               </View>
             )}
 
-          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+          {pillarMemberContents?.pillar_contents !== undefined &&
             pillarMemberContents?.pillar_contents !== null &&
             pillarMemberContents?.pillar_contents !== false && (
               <View style={styles.content}>

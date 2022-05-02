@@ -159,7 +159,7 @@ const HomeCommunity = props => {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
-			  
+
               title: 'Growth Community',
               image: require('../../../assets/img/Rectangle2.png'),
             });
@@ -353,7 +353,9 @@ const HomeCommunity = props => {
             marginLeft: 20,
             marginTop: 10,
           }}>
-          <Text style={{fontSize: 14, fontWeight: '600',color:"blue"}}>{item?.link}</Text>
+          <Text style={{fontSize: 14, fontWeight: '600', color: 'blue'}}>
+            {item?.link}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -414,7 +416,7 @@ const HomeCommunity = props => {
               />
             </View>
           )}
-          {pillarMemberContents?.attachments?.length !== 0 &&
+          {pillarMemberContents?.attachments !== undefined &&
             pillarMemberContents?.attachments !== null &&
             pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
@@ -426,7 +428,7 @@ const HomeCommunity = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.external_link?.length !== 0 &&
+          {pillarMemberContents?.external_link !== undefined &&
             pillarMemberContents?.external_link !== false &&
             pillarMemberContents?.external_link !== null && (
               <View style={styles.content}>
@@ -439,7 +441,7 @@ const HomeCommunity = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.members?.length !== 0 &&
+          {pillarMemberContents?.members !== undefined &&
             pillarMemberContents?.members !== null &&
             pillarMemberContents?.members !== false && (
               <View style={styles.bottom}>
@@ -457,7 +459,7 @@ const HomeCommunity = props => {
 
           {/* external_links */}
 
-          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+          {pillarMemberContents?.pillar_contents !== undefined &&
             pillarMemberContents?.pillar_contents !== null &&
             pillarMemberContents?.pillar_contents !== false && (
               <View style={styles.content}>

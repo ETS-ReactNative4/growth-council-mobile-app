@@ -158,7 +158,7 @@ const OthersAccount = props => {
                   editable={false}
                 />
 
-                <Text style={styles.title}>Favorite Quote</Text>
+                {/* <Text style={styles.title}>Favorite Quote</Text>
                 <TextInput
                   multiline={true}
                   numberOfLines={4}
@@ -170,7 +170,7 @@ const OthersAccount = props => {
                       : otherProfiles?.user_meta?.favorite_quote[0]
                   }
                   editable={false}
-                />
+                /> */}
 
                 <Text style={styles.title}>Professional Summary</Text>
                 <TextInput
@@ -186,7 +186,7 @@ const OthersAccount = props => {
                   editable={false}
                 />
 
-                <Text style={styles.title}>Expertise Areas</Text>
+                <Text style={styles.title}>Areas of Expertise</Text>
 
                 <TextInput
                   multiline={true}
@@ -197,7 +197,7 @@ const OthersAccount = props => {
                   editable={false}
                 />
 
-                <Text style={styles.title}>
+                {/* <Text style={styles.title}>
                   Most Recent Growth/Innovation Initative
                 </Text>
                 <TextInput
@@ -211,9 +211,9 @@ const OthersAccount = props => {
                       : otherProfiles?.user_meta?.initatives[0]
                   }
                   editable={false}
-                />
+                /> */}
 
-                <Text style={styles.title}>I'm Seeking Insights On</Text>
+                {/* <Text style={styles.title}>I'm Seeking Insights On</Text>
                 <TextInput
                   multiline={true}
                   numberOfLines={4}
@@ -225,7 +225,7 @@ const OthersAccount = props => {
                       : otherProfiles?.user_meta?.insights[0]
                   }
                   editable={false}
-                />
+                /> */}
               </View>
             </View>
           </View>
