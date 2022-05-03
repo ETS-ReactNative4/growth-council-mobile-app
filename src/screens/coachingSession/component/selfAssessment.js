@@ -121,10 +121,8 @@ const SelfAssessment = props => {
             });
             navigation.goBack();
 
-            if (
-              sessions?.title === 'Session 10' 
-            ) {
-              //   ToastMessage.show('You score has submitted.');
+            if (sessions.title === 'Session 10') {
+            //   ToastMessage.show('You score has submitted.');
               navigation.navigate('SessionCompleted');
             }
           } else {
@@ -201,7 +199,7 @@ const SelfAssessment = props => {
                 marginBottom: 20,
                 color: '#0B0B45',
               }}>
-              Traits :{' '}{traits[index.traitIndex].title}
+              Traits : {traits[index.traitIndex].title}
             </Text>
             <View style={styles.Wrapper}>
               <ButtonToggleGroup
