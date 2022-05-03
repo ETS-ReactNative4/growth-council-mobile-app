@@ -78,8 +78,7 @@ const Dashboard = props => {
 
   const nav = useNavigation();
 
-  const { signOut} =
-    useAuthentication();
+  const {signOut} = useAuthentication();
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
@@ -89,9 +88,8 @@ const Dashboard = props => {
   const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
   const [ref, setRef] = useState(null);
 
-  const logout = async (event) => {
+  const logout = async event => {
     await signOut();
-	
   };
 
   useEffect(
@@ -108,8 +106,9 @@ const Dashboard = props => {
             {
               text: 'Yes',
               style: 'destructive',
-              onPress: () => { nav.dispatch(event.data.action, 
-				logout())},
+              onPress: () => {
+                nav.dispatch(event.data.action, logout());
+              },
             },
           ],
         );
@@ -202,7 +201,10 @@ const Dashboard = props => {
               }}>
               {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
-            <Text style={{fontSize: 6, color: '#030303'}}>
+            <Text style={{fontSize: 6, color: '#030303', marginTop: 5}}>
+              {item?.registered_date}
+              {'\n'}
+
               Frost and Sullivan
             </Text>
           </View>
