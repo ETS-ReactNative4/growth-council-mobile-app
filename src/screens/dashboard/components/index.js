@@ -15,6 +15,7 @@ import {
   Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useAuthentication} from '../../../context/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {BubblesLoader} from 'react-native-indicator';
@@ -76,6 +77,9 @@ const Dashboard = props => {
   } = props;
 
   const nav = useNavigation();
+
+  const { signOut} =
+    useAuthentication();
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
@@ -85,6 +89,11 @@ const Dashboard = props => {
   const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
   const [ref, setRef] = useState(null);
 
+  const logout = async (event) => {
+    await signOut();
+	
+  };
+
   useEffect(
     () =>
       nav.addListener('beforeRemove', event => {
@@ -92,14 +101,15 @@ const Dashboard = props => {
         event.preventDefault();
 
         Alert.alert(
-          'Discard Details',
+          'Logout Details',
           'Are you sure you want to discard this?',
           [
             {text: 'No', style: 'cancel', onPress: () => {}},
             {
               text: 'Yes',
               style: 'destructive',
-              onPress: () => nav.dispatch(event.data.action),
+              onPress: () => { nav.dispatch(event.data.action, 
+				logout())},
             },
           ],
         );

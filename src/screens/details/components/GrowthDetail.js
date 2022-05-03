@@ -319,6 +319,7 @@ const GrowthDetail = props => {
                     padding: 15,
                     textAlign: 'left',
                     color: '#77838F',
+					textAlign: 'justify',
                   },
                 }}
               />

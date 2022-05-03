@@ -428,6 +428,7 @@ const CommunityDetail = props => {
                       alignItems: 'center',
                       justifyContent: 'center',
                       color: '#77838F',
+                      textAlign: 'justify',
                     },
                   }}
                 />

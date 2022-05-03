@@ -122,8 +122,7 @@ const SelfAssessment = props => {
             navigation.goBack();
 
             if (
-              sessions?.title === 'Session 10' &&
-              sessions?.completed_status
+              sessions?.title === 'Session 10' 
             ) {
               //   ToastMessage.show('You score has submitted.');
               navigation.navigate('SessionCompleted');
@@ -195,7 +194,7 @@ const SelfAssessment = props => {
       <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         {traits?.length > 0 ? (
           <View style={{flex: 1}}>
-            {/* <Text
+            <Text
               style={{
                 textAlign: 'center',
                 fontSize: 14,
@@ -203,7 +202,7 @@ const SelfAssessment = props => {
                 color: '#0B0B45',
               }}>
               Traits :{' '}{traits[index.traitIndex].title}
-            </Text> */}
+            </Text>
             <View style={styles.Wrapper}>
               <ButtonToggleGroup
                 highlightBackgroundColor={'white'}
