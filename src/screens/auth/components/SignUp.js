@@ -75,7 +75,7 @@ const SignUpForm = props => {
       company: '',
       phone: '',
       email: '',
-      country: '',
+      country: 'United States',
       checked: false,
       firebase_password: uuid.v4(),
     },
