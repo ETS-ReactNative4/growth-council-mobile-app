@@ -132,7 +132,7 @@ const MainNavigation = () => {
             headerLeft: props => (
               <Ionicons
                 name={'arrow-back'}
-                size={80}
+                size={60}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                 }}
@@ -154,7 +154,7 @@ const MainNavigation = () => {
             headerLeft: props => (
               <Ionicons
                 name={'arrow-back'}
-                size={70}
+                size={60}
                 color={'white'}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
@@ -177,7 +177,7 @@ const MainNavigation = () => {
             headerLeft: props => (
               <Ionicons
                 name={'arrow-back'}
-                size={80}
+                size={60}
                 color={'white'}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
