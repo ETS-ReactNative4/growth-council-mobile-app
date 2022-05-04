@@ -56,6 +56,12 @@ const HomeCommunity = props => {
     pillarPOEError,
     fetchAllPillarPOE,
     cleanPillarPOE,
+
+    users,
+    userLoading,
+    userError,
+    fetchAllUsers,
+    cleanUser,
   } = props;
 
   const pillarId = 117;
@@ -103,9 +109,24 @@ const HomeCommunity = props => {
     }, [isFocused]),
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllUsersAsync = async () => {
+        await fetchAllUsers({
+          sort: 'ASC',
+        });
+      };
+      fetchAllUsersAsync();
+
+      return () => {
+        cleanUser();
+      };
+    }, [isFocused]),
+  );
+
   useEffect(() => {
-    setMemberConnection(pillarMemberContents.members);
-  }, [pillarMemberContents]);
+    setMemberConnection(users);
+  }, [users]);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -441,21 +462,19 @@ const HomeCommunity = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.members !== undefined &&
-            pillarMemberContents?.members !== null &&
-            pillarMemberContents?.members !== false && (
-              <View style={styles.bottom}>
-                <Text style={styles.title}>Growth Community Members</Text>
-                <View>
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarMemberContents.members}
-                    renderItem={_renderItem}
-                  />
-                </View>
+          {users !== undefined && users !== null && users !== false && (
+            <View style={styles.bottom}>
+              <Text style={styles.title}>Growth Community Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={users}
+                  renderItem={_renderItem}
+                />
               </View>
-            )}
+            </View>
+          )}
 
           {/* external_links */}
 
@@ -556,6 +575,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     marginTop: 15,
+    marginRight: 5,
   },
   bottomWrapper: {
     position: 'relative',
