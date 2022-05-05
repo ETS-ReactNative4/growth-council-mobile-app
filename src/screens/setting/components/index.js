@@ -98,7 +98,7 @@ const Setting = props => {
                   {profile?.user_meta?.first_name}{' '}
                   {profile?.user_meta?.last_name}
                 </Text>
-                <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
+                <Text style={{color: '#222B45'}}>{profile.user_meta?.title}</Text>
               </View>
             </View>
           </View>

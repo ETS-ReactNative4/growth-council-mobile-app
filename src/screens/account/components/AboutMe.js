@@ -69,7 +69,7 @@ const AboutMe = props => {
                 </Text>
                 <TextInput
                   style={styles.input}
-                  value={profile.user_meta?.title[0]}
+                  value={profile?.user_meta?.title[0]}
                   editable={false}
                 />
 
@@ -84,7 +84,7 @@ const AboutMe = props => {
                 </Text>
                 <TextInput
                   style={styles.input}
-                  value={profile.user_meta?.company[0]}
+                  value={profile?.user_meta?.company[0]}
                   editable={false}
                 />
 

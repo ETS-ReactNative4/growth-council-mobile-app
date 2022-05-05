@@ -72,6 +72,20 @@ const ManageAccount = props => {
   const [items, setItems] = useState([]);
   const [image, setImage] = useState(profile.avatar);
 
+  let title = profile?.user_meta?.title;
+  if (typeof title === 'undefined') {
+    title = ' ';
+  } else {
+    title = profile?.user_meta?.title[0];
+  }
+
+  let company = profile?.user_meta?.company;
+  if (typeof company === 'undefined') {
+    company = ' ';
+  } else {
+    company = profile?.user_meta?.company[0];
+  }
+
   let Location = profile?.user_meta?.Location;
   if (typeof Location === 'undefined') {
     Location = ' ';
@@ -111,8 +125,6 @@ const ManageAccount = props => {
     ? profile?.expertise_areas1
     : [];
 
-
-
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
@@ -125,15 +137,15 @@ const ManageAccount = props => {
         name: 'profile_photo.jpg',
       };
       fd.append('file', file);
-      console.log("choosePhotoFromLibrary", fd);
+      console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
-		console.log("Upload response:::::::::::", response?.payload?.id);
+        console.log('Upload response:::::::::::', response?.payload?.id);
         await updateImage({attachment_id: response?.payload?.id}).then(
           response => {
             if (response?.payload?.code === 200) {
               navigation.navigate('Account');
               ToastMessage.show('Profile Image has been successfully updated.');
-			  console.log("Update response::::::::::", response);
+              console.log('Update response::::::::::', response);
             }
           },
         );
@@ -152,9 +164,8 @@ const ManageAccount = props => {
         name: 'profile_photo.jpg',
       };
       fd.append('file', file);
-     
+
       await uploadImage(fd).then(async response => {
-        
         await updateImage({attachment_id: response?.payload?.id}).then(
           response => {
             if (response?.payload?.code === 200) {
@@ -180,21 +191,17 @@ const ManageAccount = props => {
     enableReinitialize: true,
     validationSchema: profileUpdateSchema,
     initialValues: {
-		title: profile?.user_meta?.title[0],
-		company: profile?.user_meta?.company[0],
-      last_name: profile?.user_meta?.last_name[0],
+      title: title,
+      company: company,
       email: profile?.user_email,
       Location: Location,
-      favorite_quote: favorite_quote,
-      insights: insights,
       expertise_areas1: expertise_areas1,
-      initatives: initatives,
       professional_summary: professional_summary,
     },
     onSubmit: async values => {
       await updateUser(values).then(response => {
         if (response?.payload?.code === 200) {
-          navigation.navigate('Person');
+          navigation.navigate('Account');
           ToastMessage.show('Profile has been successfully updated.');
         }
       });
@@ -307,7 +314,7 @@ const ManageAccount = props => {
               <Text style={styles.headingText1}>
                 {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
               </Text>
-              <Text style={{color: '#222B45'}}>{profile.user_meta?.title[0]}</Text>
+              <Text style={{color: '#222B45'}}>{profile.user_meta?.title}</Text>
             </View>
           </View>
         </View>
@@ -347,13 +354,12 @@ const ManageAccount = props => {
                     Title
                   </Text>
                   <TextInput
-                    style={[styles.input, {color: '#808080'}]}
+                    style={styles.input}
                     value={values.title}
                     onChangeText={handleChange('title')}
                     onBlur={handleBlur('title')}
                     error={errors.title}
                     touched={touched.title}
-                    editable={false}
                   />
 
                   <Text

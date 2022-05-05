@@ -105,7 +105,7 @@ const Profile = props => {
                   {profile?.user_meta?.first_name}{' '}
                   {profile?.user_meta?.last_name}
                 </Text>
-                <Text style={{color: '#222B45'}}>{profile?.user_meta?.title[0]}</Text>
+                <Text style={{color: '#222B45'}}>{profile?.user_meta?.title}</Text>
               </View>
             </View>
           </View>
