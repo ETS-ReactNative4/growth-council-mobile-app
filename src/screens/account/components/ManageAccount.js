@@ -29,9 +29,9 @@ import {useSelector} from 'react-redux';
 import Loading from '../../../shared/loading';
 
 const profileUpdateSchema = Yup.object().shape({
-  display_name: Yup.string().required('Name is required.'),
-  first_name: Yup.string().required('First name is required.'),
-  last_name: Yup.string().required('Last Name is required.'),
+//   display_name: Yup.string().required('Name is required.'),
+//   first_name: Yup.string().required('First name is required.'),
+//   last_name: Yup.string().required('Last Name is required.'),
   email: Yup.string()
     .email('Please enter a valid email.')
     .required('Email is required.'),
