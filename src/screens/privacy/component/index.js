@@ -56,7 +56,16 @@ const privacy = props => {
               <Text style={styles.titleText}>{privacy.heading1}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-            <HTMLView value={description} style={styles.paragraph} />
+            <HTMLView value={description}
+                textComponentProps={{
+                  style: {
+                    color: '#fff',
+                    fontSize: 16,
+                    fontWeight: '600',
+                    paddingBottom: 30,
+					textAlign:'justify'
+                  },
+                }} />
           </View>
           <View style={styles.cta}>
             <Button

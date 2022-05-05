@@ -146,7 +146,7 @@ const OthersAccount = props => {
                   editable={false}
                 />
 
-                <Text style={styles.title}>Location</Text>
+                <Text style={styles.title}>Region</Text>
                 <TextInput
                   style={styles.input}
                   keyboardType="default"

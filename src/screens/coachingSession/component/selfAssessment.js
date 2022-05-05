@@ -122,7 +122,7 @@ const SelfAssessment = props => {
             navigation.goBack();
 
             if (sessions.title === 'Session 10') {
-            //   ToastMessage.show('You score has submitted.');
+              //   ToastMessage.show('You score has submitted.');
               navigation.navigate('SessionCompleted');
             }
           } else {
@@ -207,7 +207,7 @@ const SelfAssessment = props => {
                 highlightTextColor={'#0B0B45'}
                 inactiveBackgroundColor={'transparent'}
                 inactiveTextColor={'grey'}
-                values={[sub, 'Yellow Questions']}
+                values={[sub, 'Yellow Benchmark Questions']}
                 value={value}
                 onSelect={val => setValue(val)}
                 style={{
@@ -254,7 +254,7 @@ const SelfAssessment = props => {
                   scrollRef={scrollRef}
                 />
               )}
-              {value === 'Yellow Questions' && (
+              {value === 'Yellow Benchmark Questions' && (
                 <Question
                   {...props}
                   subTraits={traits[index.traitIndex]}

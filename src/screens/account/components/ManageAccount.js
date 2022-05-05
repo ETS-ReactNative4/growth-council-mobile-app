@@ -408,7 +408,7 @@ const ManageAccount = props => {
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                    Location
+                    Region
                   </Text>
                   <TextInput
                     style={styles.input}

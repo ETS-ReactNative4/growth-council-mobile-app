@@ -363,7 +363,7 @@ const ContentLibraryDetail = props => {
             contentLibraryDetails?.call_to_action !== false &&
             contentLibraryDetails?.call_to_action !== null && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.bodyTitleText}>Keys Takeaways:</Text>
+                <Text style={styles.bodyTitleText}>Key Take-Aways:</Text>
                 <FlatList
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}

@@ -37,7 +37,7 @@ const Terms = props => {
               <View style={styles.titleBorder}></View>
             </View>
             <View>
-              <Text>
+              <Text style={{textAlign: 'justify'}}>
                 Welcome to our Web site. By using any of our web sites
                 (frost.com, store.frost.com, go.frost.com, hub.frost.com,
                 brandanddemandsolutions.com, pdsxchange.com,
@@ -53,7 +53,7 @@ const Terms = props => {
                 {'\n'}
                 {'\n'}
               </Text>
-              <Text>
+              <Text style={{textAlign: 'justify'}}>
                 1. Acceptance of Agreement.
                 {'\n'}
                 {'\n'}
