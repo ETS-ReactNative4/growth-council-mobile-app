@@ -180,8 +180,8 @@ const ManageAccount = props => {
     enableReinitialize: true,
     validationSchema: profileUpdateSchema,
     initialValues: {
-      display_name: profile?.display_name,
-      first_name: profile?.user_meta?.first_name[0],
+		title: profile?.user_meta?.title[0],
+		company: profile?.user_meta?.company[0],
       last_name: profile?.user_meta?.last_name[0],
       email: profile?.user_email,
       Location: Location,
@@ -307,7 +307,7 @@ const ManageAccount = props => {
               <Text style={styles.headingText1}>
                 {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
               </Text>
-              <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
+              <Text style={{color: '#222B45'}}>{profile.user_meta?.title[0]}</Text>
             </View>
           </View>
         </View>
@@ -344,15 +344,15 @@ const ManageAccount = props => {
                       fontSize: 10,
                       color: '#8F9BB3',
                     }}>
-                    Username
+                    Title
                   </Text>
                   <TextInput
                     style={[styles.input, {color: '#808080'}]}
-                    value={values.display_name}
-                    onChangeText={handleChange('display_name')}
-                    onBlur={handleBlur('display_name')}
-                    error={errors.display_name}
-                    touched={touched.display_name}
+                    value={values.title}
+                    onChangeText={handleChange('title')}
+                    onBlur={handleBlur('title')}
+                    error={errors.title}
+                    touched={touched.title}
                     editable={false}
                   />
 
@@ -363,18 +363,18 @@ const ManageAccount = props => {
                       fontSize: 10,
                       color: '#8F9BB3',
                     }}>
-                    First Name
+                    Company
                   </Text>
                   <TextInput
                     style={styles.input}
-                    value={values.first_name}
-                    onChangeText={handleChange('first_name')}
-                    onBlur={handleBlur('first_name')}
-                    error={errors.first_name}
-                    touched={touched.first_name}
+                    value={values.company}
+                    onChangeText={handleChange('company')}
+                    onBlur={handleBlur('company')}
+                    error={errors.company}
+                    touched={touched.company}
                   />
 
-                  <Text
+                  {/* <Text
                     style={{
                       size: 7,
                       marginLeft: 10,
@@ -390,7 +390,7 @@ const ManageAccount = props => {
                     onBlur={handleBlur('last_name')}
                     error={errors.last_name}
                     touched={touched.last_name}
-                  />
+                  /> */}
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
