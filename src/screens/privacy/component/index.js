@@ -28,9 +28,7 @@ const privacy = props => {
   const win = Dimensions.get('window');
 
   useEffect(() => {
-  
-      fetchPrivacyPolicy();
-    
+    fetchPrivacyPolicy();
   }, []);
 
   let description = privacy.content1;
@@ -48,24 +46,24 @@ const privacy = props => {
         backgroundColor="grey"
         translucent={false}
       />
-      <ScrollView
-       >
+      <ScrollView>
         <View style={styles.container}>
           <View style={styles.privacy}>
             <View style={styles.title}>
               <Text style={styles.titleText}>{privacy.heading1}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-            <HTMLView value={description}
-                textComponentProps={{
-                  style: {
-                    color: '#fff',
-                    fontSize: 16,
-                    fontWeight: '600',
-                    paddingBottom: 30,
-					textAlign:'justify'
-                  },
-                }} />
+            <HTMLView
+              value={description}
+              textComponentProps={{
+                style: {
+                  color: 'black',
+                  fontSize: 16,
+                  paddingBottom: 30,
+                  textAlign: 'justify',
+                },
+              }}
+            />
           </View>
           <View style={styles.cta}>
             <Button
@@ -90,7 +88,7 @@ export default privacy;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
-	paddingBottom: 20,
+    paddingBottom: 20,
   },
   header: {
     ...CommonStyles.header,

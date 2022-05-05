@@ -35,6 +35,8 @@ const OthersAccount = props => {
     cleanConnectMember,
   } = props;
 
+  let title = otherProfiles?.user_meta?.title;
+  let company = otherProfiles?.user_meta?.company;
   let Location = otherProfiles?.user_meta?.Location;
 
   let favorite_quote = otherProfiles?.user_meta?.favorite_quote;
@@ -86,9 +88,9 @@ const OthersAccount = props => {
             </View>
             <View style={styles.header}>
               <Text style={styles.headingText1}>
-                {otherProfiles?.display_name}
+			  {otherProfiles?.user_meta?.first_name} {otherProfiles?.user_meta?.last_name}
               </Text>
-              <Text>{otherProfiles?.user_email}</Text>
+              <Text>{otherProfiles?.user_meta?.title}</Text>
             </View>
           </View>
         </View>
@@ -114,29 +116,37 @@ const OthersAccount = props => {
                 />
               </View>
               <View style={styles.TextWrapper}>
-                <Text style={styles.title}>Username</Text>
+                <Text style={styles.title}>Title</Text>
                 <TextInput
                   style={styles.input}
                   keyboardType="default"
-                  value={otherProfiles?.display_name}
+                  value={
+                    typeof title === 'undefined'
+                      ? ''
+                      : otherProfiles?.user_meta?.title[0]
+                  }
                   editable={false}
                 />
 
-                <Text style={styles.title}>First Name</Text>
+                <Text style={styles.title}>Company</Text>
                 <TextInput
                   style={styles.input}
                   keyboardType="default"
-                  value={otherProfiles?.user_meta?.first_name[0]}
+                  value={
+                    typeof company === 'undefined'
+                      ? ''
+                      : otherProfiles?.user_meta?.company[0]
+                  }
                   editable={false}
                 />
 
-                <Text style={styles.title}>Last Name</Text>
+                {/* <Text style={styles.title}>Last Name</Text>
                 <TextInput
                   style={styles.input}
                   keyboardType="default"
                   value={otherProfiles?.user_meta?.last_name[0]}
                   editable={false}
-                />
+                /> */}
 
                 <Text style={styles.title}>Email</Text>
                 <TextInput

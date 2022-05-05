@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
     color: '#ffff',
   },
   eventDetails: {
@@ -525,7 +525,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginBottom: 20,
     borderRadius: 14,
-    padding: 20,
+    padding: 15,
     position: 'relative',
   },
 

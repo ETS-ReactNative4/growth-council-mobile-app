@@ -29,9 +29,9 @@ import {useSelector} from 'react-redux';
 import Loading from '../../../shared/loading';
 
 const profileUpdateSchema = Yup.object().shape({
-  display_name: Yup.string().required('Name is required.'),
-  first_name: Yup.string().required('First name is required.'),
-  last_name: Yup.string().required('Last Name is required.'),
+  //   display_name: Yup.string().required('Name is required.'),
+  //   first_name: Yup.string().required('First name is required.'),
+  //   last_name: Yup.string().required('Last Name is required.'),
   email: Yup.string()
     .email('Please enter a valid email.')
     .required('Email is required.'),
@@ -72,6 +72,20 @@ const ManageAccount = props => {
   const [items, setItems] = useState([]);
   const [image, setImage] = useState(profile.avatar);
 
+  let title = profile?.user_meta?.title;
+  if (typeof title === 'undefined') {
+    title = ' ';
+  } else {
+    title = profile?.user_meta?.title[0];
+  }
+
+  let company = profile?.user_meta?.company;
+  if (typeof company === 'undefined') {
+    company = ' ';
+  } else {
+    company = profile?.user_meta?.company[0];
+  }
+
   let Location = profile?.user_meta?.Location;
   if (typeof Location === 'undefined') {
     Location = ' ';
@@ -111,8 +125,6 @@ const ManageAccount = props => {
     ? profile?.expertise_areas1
     : [];
 
-
-
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
@@ -125,15 +137,15 @@ const ManageAccount = props => {
         name: 'profile_photo.jpg',
       };
       fd.append('file', file);
-      console.log("choosePhotoFromLibrary", fd);
+      console.log('choosePhotoFromLibrary', fd);
       await uploadImage(fd).then(async response => {
-		console.log("Upload response:::::::::::", response?.payload?.id);
+        console.log('Upload response:::::::::::', response?.payload?.id);
         await updateImage({attachment_id: response?.payload?.id}).then(
           response => {
             if (response?.payload?.code === 200) {
               navigation.navigate('Account');
               ToastMessage.show('Profile Image has been successfully updated.');
-			  console.log("Update response::::::::::", response);
+              console.log('Update response::::::::::', response);
             }
           },
         );
@@ -152,9 +164,8 @@ const ManageAccount = props => {
         name: 'profile_photo.jpg',
       };
       fd.append('file', file);
-     
+
       await uploadImage(fd).then(async response => {
-        
         await updateImage({attachment_id: response?.payload?.id}).then(
           response => {
             if (response?.payload?.code === 200) {
@@ -180,21 +191,17 @@ const ManageAccount = props => {
     enableReinitialize: true,
     validationSchema: profileUpdateSchema,
     initialValues: {
-      display_name: profile?.display_name,
-      first_name: profile?.user_meta?.first_name[0],
-      last_name: profile?.user_meta?.last_name[0],
+      title: title,
+      company: company,
       email: profile?.user_email,
       Location: Location,
-      favorite_quote: favorite_quote,
-      insights: insights,
       expertise_areas1: expertise_areas1,
-      initatives: initatives,
       professional_summary: professional_summary,
     },
     onSubmit: async values => {
       await updateUser(values).then(response => {
         if (response?.payload?.code === 200) {
-          navigation.navigate('Person');
+          navigation.navigate('Account');
           ToastMessage.show('Profile has been successfully updated.');
         }
       });
@@ -304,10 +311,8 @@ const ManageAccount = props => {
                   </View>
                 </>
               )}
-              <Text style={styles.headingText1}>
-                {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
-              </Text>
-              <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
+              <Text style={styles.headingText1}>{profile?.display_name}</Text>
+              <Text style={{color: '#222B45'}}>{profile.user_meta?.title}</Text>
             </View>
           </View>
         </View>
@@ -344,16 +349,15 @@ const ManageAccount = props => {
                       fontSize: 10,
                       color: '#8F9BB3',
                     }}>
-                    Username
+                    Title
                   </Text>
                   <TextInput
-                    style={[styles.input, {color: '#808080'}]}
-                    value={values.display_name}
-                    onChangeText={handleChange('display_name')}
-                    onBlur={handleBlur('display_name')}
-                    error={errors.display_name}
-                    touched={touched.display_name}
-                    editable={false}
+                    style={styles.input}
+                    value={values.title}
+                    onChangeText={handleChange('title')}
+                    onBlur={handleBlur('title')}
+                    error={errors.title}
+                    touched={touched.title}
                   />
 
                   <Text
@@ -363,18 +367,18 @@ const ManageAccount = props => {
                       fontSize: 10,
                       color: '#8F9BB3',
                     }}>
-                    First Name
+                    Company
                   </Text>
                   <TextInput
                     style={styles.input}
-                    value={values.first_name}
-                    onChangeText={handleChange('first_name')}
-                    onBlur={handleBlur('first_name')}
-                    error={errors.first_name}
-                    touched={touched.first_name}
+                    value={values.company}
+                    onChangeText={handleChange('company')}
+                    onBlur={handleBlur('company')}
+                    error={errors.company}
+                    touched={touched.company}
                   />
 
-                  <Text
+                  {/* <Text
                     style={{
                       size: 7,
                       marginLeft: 10,
@@ -390,7 +394,7 @@ const ManageAccount = props => {
                     onBlur={handleBlur('last_name')}
                     error={errors.last_name}
                     touched={touched.last_name}
-                  />
+                  /> */}
 
                   <Text
                     style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
@@ -501,9 +505,8 @@ const ManageAccount = props => {
                     error={errors.insights}
                     touched={touched.insights}
                   /> */}
-
+                  {userLoading && <Loading />}
                   <View style={styles.loginButtonWrapper}>
-                    {userLoading && <Loading />}
                     <TouchableOpacity>
                       <Button style={styles.loginButton} onPress={handleSubmit}>
                         <Text style={styles.loginButtonText}>Update</Text>

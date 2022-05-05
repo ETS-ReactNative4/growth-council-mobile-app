@@ -65,11 +65,11 @@ const AboutMe = props => {
                     fontSize: 10,
                     color: '#8F9BB3',
                   }}>
-                  Username
+                  Title
                 </Text>
                 <TextInput
                   style={styles.input}
-                  value={profile.display_name}
+                  value={profile?.user_meta?.title[0]}
                   editable={false}
                 />
 
@@ -80,15 +80,15 @@ const AboutMe = props => {
                     fontSize: 10,
                     color: '#8F9BB3',
                   }}>
-                  First Name
+                  Company
                 </Text>
                 <TextInput
                   style={styles.input}
-                  value={profile.user_meta?.first_name[0]}
+                  value={profile?.user_meta?.company[0]}
                   editable={false}
                 />
 
-                <Text
+                {/* <Text
                   style={{
                     size: 7,
                     marginLeft: 10,
@@ -102,7 +102,7 @@ const AboutMe = props => {
                   keyboardType="default"
                   value={profile?.user_meta?.last_name[0]}
                   editable={false}
-                />
+                /> */}
 
                 <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
                   Email Address
@@ -161,7 +161,7 @@ const AboutMe = props => {
                 />
 
                 <Text style={{marginLeft: 10, fontSize: 10, color: '#8F9BB3'}}>
-                 Areas of Expertise
+                  Areas of Expertise
                 </Text>
                 <TextInput
                   multiline={true}

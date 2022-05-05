@@ -59,6 +59,8 @@ import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
 import SessionCompleted from '../screens/coachingSession/component/sessionCompleted';
 
+import EmailScreen from '../screens/email';
+
 const Stack = createStackNavigator();
 
 const DashboardStack = createStackNavigator();
@@ -74,7 +76,6 @@ export const DashboardStackScreen = () => {
         component={DashboardScreen}
         options={({route, navigation}) => ({
           animationEnabled: false,
-       
         })}
       />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
@@ -192,9 +193,7 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Forgot"
           component={ForgotScreen}
-          options={{
-            headerTitle: 'Forget',
-          }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="SignUpNext"
@@ -650,6 +649,11 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Radar"
           component={RadarScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Email"
+          component={EmailScreen}
           options={{headerShown: false}}
         />
       </Stack.Group>

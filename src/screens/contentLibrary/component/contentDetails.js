@@ -179,7 +179,7 @@ const ContentLibrary = props => {
                               fontSize: 10,
                               color: 'black',
                             }}>
-                            Article
+                            Articles
                           </Text>
                         </View>
                         <View style={styles.wrapper}>
