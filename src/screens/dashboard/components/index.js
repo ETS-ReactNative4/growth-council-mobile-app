@@ -204,7 +204,6 @@ const Dashboard = props => {
             <Text style={{fontSize: 6, color: '#030303', marginTop: 5}}>
               {item?.registered_date}
               {'\n'}
-
               Frost and Sullivan
             </Text>
           </View>
@@ -325,7 +324,7 @@ const Dashboard = props => {
             })
           }>
           <ImageBackground
-            style={{width: '100%', height: 150, borderRadius: 20}}
+            style={{width: '100%', height: 180, borderRadius: 20}}
             source={backgroundImage}>
             <View
               style={{
@@ -538,7 +537,7 @@ const styles = StyleSheet.create({
   },
 
   topWrapper: {
-    height: 144,
+    height: 160,
     width: 256,
     marginLeft: 15,
     borderRadius: 16,
@@ -547,6 +546,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginLeft: 10,
+  
   },
   title: {
     fontSize: 16,
@@ -560,14 +560,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     width: '98%',
     color: 'white',
-    fontSize: 12,
+    fontSize: 11,
   },
   headingText2: {
     fontFamily: Typography.FONT_SF_MEDIUM,
     fontWeight: '700',
     color: 'white',
     fontSize: 8,
-    lineHeight: 12,
+    lineHeight: 10,
   },
   middle: {
     marginTop: 10,

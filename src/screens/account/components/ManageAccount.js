@@ -29,9 +29,9 @@ import {useSelector} from 'react-redux';
 import Loading from '../../../shared/loading';
 
 const profileUpdateSchema = Yup.object().shape({
-//   display_name: Yup.string().required('Name is required.'),
-//   first_name: Yup.string().required('First name is required.'),
-//   last_name: Yup.string().required('Last Name is required.'),
+  //   display_name: Yup.string().required('Name is required.'),
+  //   first_name: Yup.string().required('First name is required.'),
+  //   last_name: Yup.string().required('Last Name is required.'),
   email: Yup.string()
     .email('Please enter a valid email.')
     .required('Email is required.'),
@@ -311,9 +311,7 @@ const ManageAccount = props => {
                   </View>
                 </>
               )}
-              <Text style={styles.headingText1}>
-                {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
-              </Text>
+              <Text style={styles.headingText1}>{profile?.display_name}</Text>
               <Text style={{color: '#222B45'}}>{profile.user_meta?.title}</Text>
             </View>
           </View>
@@ -507,9 +505,8 @@ const ManageAccount = props => {
                     error={errors.insights}
                     touched={touched.insights}
                   /> */}
-
+                  {userLoading && <Loading />}
                   <View style={styles.loginButtonWrapper}>
-                    {userLoading && <Loading />}
                     <TouchableOpacity>
                       <Button style={styles.loginButton} onPress={handleSubmit}>
                         <Text style={styles.loginButtonText}>Update</Text>

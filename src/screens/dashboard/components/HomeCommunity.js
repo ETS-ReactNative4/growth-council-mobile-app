@@ -554,7 +554,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   middleWrapper: {
-    width: (Dimensions.get('window').width - 10) / 4,
+    width: Dimensions.get('window').width / 4,
     borderRadius: 20,
     marginTop: 15,
     justifyContent: 'center',

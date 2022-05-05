@@ -56,9 +56,9 @@ const Email = props => {
             <View style={{flexDirection: 'row', marginTop: 10}}>
               <View
                 style={{
-                  width: '60%',
                   justifyContent: 'center',
-                  marginLeft: 20,
+
+                  marginLeft: 10,
                 }}>
                 <Text style={{color: 'white', fontSize: 20}}>New Messages</Text>
                 <Text style={{color: 'white', fontSize: 16}}>
@@ -82,6 +82,7 @@ const Email = props => {
                 multiline={true}
                 style={styles.input}
                 value={profile?.user_email}
+                editable={false}
               />
             </View>
             <View style={{flexDirection: 'row'}}>
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingLeft: 10,
+    color: 'black',
   },
   textarea: {
     padding: 10,

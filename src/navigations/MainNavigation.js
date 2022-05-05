@@ -193,9 +193,7 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Forgot"
           component={ForgotScreen}
-          options={{
-            headerTitle: 'Forget',
-          }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="SignUpNext"
