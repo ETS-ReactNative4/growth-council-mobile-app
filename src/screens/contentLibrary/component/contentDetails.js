@@ -173,14 +173,26 @@ const ContentLibrary = props => {
                         />
                         <View style={styles.contentWrapper}>
                           <Text style={{color: 'black'}}>{item?.count}</Text>
-                          <Text
-                            style={{
-                              fontFamily: 'SFProText-Regular',
-                              fontSize: 10,
-                              color: 'black',
-                            }}>
-                            Articles
-                          </Text>
+                          {item?.count === 1 ? (
+                            <Text
+                              style={{
+                                fontFamily: 'SFProText-Regular',
+                                fontSize: 10,
+                                color: 'black',
+                              }}>
+                              Article
+                            </Text>
+                          ) : (
+                            <Text
+                              style={{
+                                fontFamily: 'SFProText-Regular',
+                                fontSize: 10,
+                                color: 'black',
+                              }}>
+                              {' '}
+                              Articles{' '}
+                            </Text>
+                          )}
                         </View>
                         <View style={styles.wrapper}>
                           <HTMLView

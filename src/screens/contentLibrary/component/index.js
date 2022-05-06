@@ -90,14 +90,27 @@ const Content = props => {
                     : item?.children_count}
                   {/* {item?.count} */}
                 </Text>
-                <Text
-                  style={{
-                    fontFamily: 'SFProText-Regular',
-                    fontSize: 10,
-                    color: 'black',
-                  }}>
-                  Articles
-                </Text>
+
+                {item?.children_count === 1 ? (
+                  <Text
+                    style={{
+                      fontFamily: 'SFProText-Regular',
+                      fontSize: 10,
+                      color: 'black',
+                    }}>
+                    Article
+                  </Text>
+                ) : (
+                  <Text
+                    style={{
+                      fontFamily: 'SFProText-Regular',
+                      fontSize: 10,
+                      color: 'black',
+                    }}>
+                    {' '}
+                    Articles{' '}
+                  </Text>
+                )}
               </View>
               <View style={styles.wrapper}>
                 <HTMLView

@@ -193,7 +193,23 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Forgot"
           component={ForgotScreen}
-          options={{headerShown: false}}
+          options={({navigation}) => ({
+            headerTitle: '',
+            headerStyle: {height: 80},
+            headerTransparent: true,
+            headerLeft: props => (
+              <Ionicons
+                name={'arrow-back'}
+                size={40}
+                color={'black'}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                  marginLeft: 10,
+                }}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="SignUpNext"

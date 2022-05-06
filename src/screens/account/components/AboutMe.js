@@ -36,6 +36,10 @@ const AboutMe = props => {
     fetchProfileByIdentifier();
   }, [isFocused]);
 
+  let title = profile?.user_meta?.title;
+
+  let company = profile?.user_meta?.company;
+
   let Location = profile?.user_meta?.Location;
 
   let favorite_quote = profile?.user_meta?.favorite_quote;
@@ -69,7 +73,9 @@ const AboutMe = props => {
                 </Text>
                 <TextInput
                   style={styles.input}
-                  value={profile?.user_meta?.title[0]}
+                  value={typeof title === 'undefined'
+				  ? ''
+				  : profile?.user_meta?.title[0]}
                   editable={false}
                 />
 
@@ -84,7 +90,10 @@ const AboutMe = props => {
                 </Text>
                 <TextInput
                   style={styles.input}
-                  value={profile?.user_meta?.company[0]}
+                  value={
+					typeof company === 'undefined'
+					? ''
+					: profile?.user_meta?.company[0]}
                   editable={false}
                 />
 

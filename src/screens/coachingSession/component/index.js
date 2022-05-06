@@ -209,7 +209,7 @@ const CoachingSession = props => {
                                 style={{
                                   fontSize: 12,
                                   width: '50%',
-								  marginLeft:10
+                                  marginLeft: 10,
                                 }}>
                                 {trait?.title}
                               </Text>
@@ -380,7 +380,7 @@ const CoachingSession = props => {
                         <Text
                           style={{
                             width: '60%',
-                            marginLeft: 30,
+                            marginLeft: 25,
                             textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
@@ -432,7 +432,7 @@ const CoachingSession = props => {
                         <Text
                           style={{
                             width: '60%',
-                            marginLeft: 30,
+                            marginLeft: 25,
                             textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
@@ -486,7 +486,7 @@ const CoachingSession = props => {
                         <Text
                           style={{
                             width: '60%',
-                            marginLeft: 30,
+                            marginLeft: 25,
                             textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
