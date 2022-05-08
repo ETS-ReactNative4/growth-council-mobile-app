@@ -13,6 +13,7 @@ import {
   Dimensions,
   Platform,
   Alert,
+  BackHandler,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useAuthentication} from '../../../context/auth';
@@ -92,29 +93,50 @@ const Dashboard = props => {
     await signOut();
   };
 
-  useEffect(
-    () =>
-      nav.addListener('beforeRemove', event => {
-        // Prevent default behavior
-        event.preventDefault();
+  //   useEffect(
+  //     () =>
+  //       nav.addListener('beforeRemove', event => {
+  //         // Prevent default behavior
+  //         event.preventDefault();
 
-        Alert.alert(
-          'Logout Details',
-          'Are you sure you want to discard this?',
-          [
-            {text: 'No', style: 'cancel', onPress: () => {}},
-            {
-              text: 'Yes',
-              style: 'destructive',
-              onPress: () => {
-                nav.dispatch(event.data.action, logout());
-              },
-            },
-          ],
-        );
-      }),
-    [nav],
-  );
+  //         Alert.alert(
+  //           'Logout Details',
+  //           'Are you sure you want to discard this?',
+  //           [
+  //             {text: 'No', style: 'cancel', onPress: () => {}},
+  //             {
+  //               text: 'Yes',
+  //               style: 'destructive',
+  //               onPress: () => {
+  //                 nav.dispatch(event.data.action, logout());
+  //               },
+  //             },
+  //           ],
+  //         );
+  //       }),
+  //     [nav],
+  //   );
+  useEffect(() => {
+    const backAction = () => {
+      //   Alert.alert("Hold on!", "Are you sure you want to go back?", [
+      //     {
+      //       text: "Cancel",
+      //       onPress: () => null,
+      //       style: "cancel"
+      //     },
+      //     { text: "YES", onPress: () => BackHandler.exitApp() }
+      //   ]);
+      //   return true;
+      BackHandler.exitApp();
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -546,7 +568,6 @@ const styles = StyleSheet.create({
   },
   header: {
     marginLeft: 10,
-  
   },
   title: {
     fontSize: 16,

@@ -179,9 +179,12 @@ const SignInForm = props => {
               )}
 
               <View style={styles.loginButtonWrapper}>
-                <Button style={styles.loginButton} onPress={handleSubmit}>
-                  <Text style={styles.loginButtonText}>Sign In</Text>
-                </Button>
+				  <TouchableOpacity style={styles.loginButton}  onPress={handleSubmit}>
+				  <Text style={styles.loginButtonText}>Sign In</Text>
+				  </TouchableOpacity>
+                {/* <Button style={styles.loginButton} onPress={handleSubmit}>
+                
+                </Button> */}
               </View>
               <View style={styles.forgotButtonWrapper}>
                 <TouchableOpacity>

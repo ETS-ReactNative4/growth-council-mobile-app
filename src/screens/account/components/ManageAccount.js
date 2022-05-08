@@ -507,10 +507,10 @@ const ManageAccount = props => {
                   /> */}
                   {userLoading && <Loading />}
                   <View style={styles.loginButtonWrapper}>
-                    <TouchableOpacity>
-                      <Button style={styles.loginButton} onPress={handleSubmit}>
+                    <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
+                      
                         <Text style={styles.loginButtonText}>Update</Text>
-                      </Button>
+                     
                     </TouchableOpacity>
                   </View>
                 </View>
