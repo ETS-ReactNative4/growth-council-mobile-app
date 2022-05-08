@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import Pdf from 'react-native-pdf';
 import ToastMessage from '../../../shared/toast';
-import ReactNativeBlobUtil from 'react-native-blob-util';
-import RNFetchBlob from 'rn-fetch-blob';
+// import ReactNativeBlobUtil from 'react-native-blob-util';
+import RNFetchBlob from 'react-native-blob-util';
 
 const pdf = props => {
   const {navigation, route} = props;

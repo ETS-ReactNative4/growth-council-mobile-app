@@ -82,40 +82,13 @@ const Dashboard = props => {
   const {signOut} = useAuthentication();
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
-
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [dataSource, setDataSource] = useState([]);
   const [scrollToIndex, setScrollToIndex] = useState(0);
   const [currentDate, setCurrentDate] = useState('');
   const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
   const [ref, setRef] = useState(null);
 
-  const logout = async event => {
-    await signOut();
-  };
-
-  //   useEffect(
-  //     () =>
-  //       nav.addListener('beforeRemove', event => {
-  //         // Prevent default behavior
-  //         event.preventDefault();
-
-  //         Alert.alert(
-  //           'Logout Details',
-  //           'Are you sure you want to discard this?',
-  //           [
-  //             {text: 'No', style: 'cancel', onPress: () => {}},
-  //             {
-  //               text: 'Yes',
-  //               style: 'destructive',
-  //               onPress: () => {
-  //                 nav.dispatch(event.data.action, logout());
-  //               },
-  //             },
-  //           ],
-  //         );
-  //       }),
-  //     [nav],
-  //   );
   useEffect(() => {
     const backAction = () => {
       //   Alert.alert("Hold on!", "Are you sure you want to go back?", [
@@ -376,10 +349,16 @@ const Dashboard = props => {
   };
 
   const _renderCritical = ({item, index}) => {
+    const scroll = e => {
+      e => setScrollPosition(e.nativeEvent.contentOffset.y);
+    };
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('CriticalIssue'), scrollHandler();
+          navigation.navigate('CriticalIssue'),
+            (setScrollPosition = e =>
+              setScrollPosition(e.nativeEvent.contentOffset.y)),
+            (scrollPosition = {scrollPosition});
         }}>
         <View
           style={styles.ContentWrapper}
@@ -388,7 +367,8 @@ const Dashboard = props => {
             const layout = items.nativeEvent.layout;
             dataSourceCords[index] = layout.y;
             setDataSourceCords(dataSourceCords);
-          }}>
+          }}
+          onScroll={e => setPos(e.nativeEvent.contentOffset.y)}>
           <View
             style={{
               flexDirection: 'row',
@@ -410,6 +390,7 @@ const Dashboard = props => {
               }}>
               {item?.heading}
             </Text>
+            <Text style={{fontSize: 6, color: 'white'}}>{scrollPosition}</Text>
           </View>
         </View>
       </TouchableOpacity>

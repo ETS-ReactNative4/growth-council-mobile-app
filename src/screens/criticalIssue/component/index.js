@@ -25,24 +25,25 @@ import Loading from '../../../shared/loading';
 const CriticalIssue = props => {
   const {
     navigation,
-	route,
+    route,
     criticalIssue,
     criticalIssueLoading,
     criticalIssueError,
     fetchCritcalIssue,
     cleanCriticalIssue,
+    scrollPosition,
+    setScrollPosition,
   } = props;
-
 
   useEffect(() => {
     fetchCritcalIssue();
   }, []);
 
-
   const _renderCritical = ({item, index}) => {
     return (
-      <View
-        style={styles.content}>
+      <View style={styles.content} 
+	//   onScroll={route.params.setScrollPosition}
+	  >
         <Image
           style={{
             width: Dimensions.get('window').width - 40,
@@ -52,6 +53,7 @@ const CriticalIssue = props => {
           source={{uri: item?.image}}
         />
         <View style={styles.contentWrapper}>
+          <Text>{scrollPosition}</Text>
           <Text style={{color: 'black', fontSize: 14, marginBottom: 10}}>
             {item?.heading}
           </Text>
