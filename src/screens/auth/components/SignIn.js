@@ -59,15 +59,14 @@ const SignInForm = props => {
         auth,
         values?.username?.trim(),
         values?.password,
-      )
-      .catch((e)=>console.log(e));
+      ).catch(e => console.log(e));
       const messageToken = await messaging().getToken();
       const firebasePayload = {
         username: values.username,
         token: messageToken,
       };
       const resp = await postToAPI(firebasePayload);
-    
+
       await signIn(values);
     },
   });
@@ -179,12 +178,11 @@ const SignInForm = props => {
               )}
 
               <View style={styles.loginButtonWrapper}>
-				  <TouchableOpacity style={styles.loginButton}  onPress={handleSubmit}>
-				  <Text style={styles.loginButtonText}>Sign In</Text>
-				  </TouchableOpacity>
-                {/* <Button style={styles.loginButton} onPress={handleSubmit}>
-                
-                </Button> */}
+               
+                  <Button style={styles.loginButton} onPress={handleSubmit} >
+                    <Text style={styles.loginButtonText}>Sign In</Text>
+                  </Button>
+              
               </View>
               <View style={styles.forgotButtonWrapper}>
                 <TouchableOpacity>
@@ -280,6 +278,7 @@ const styles = StyleSheet.create({
   },
   loginButtonText: {
     ...CommonStyles.buttonText,
+    
   },
   forgotButtonWrapper: {
     ...CommonStyles.forgotButtonWrapper,
