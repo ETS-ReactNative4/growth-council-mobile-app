@@ -237,7 +237,7 @@ const GrowthCoaching = props => {
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
-    const link = file.split('=', 2);
+    const link = file?.split('=', 2);
     let videoLink = link[1].split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };

@@ -270,11 +270,13 @@ const Dashboard = props => {
   };
 
   const _renderContentItem = ({item, index}) => {
-    const file = item?.file;
-    const link = file.split('=', 2);
-    let videoLink = link[1].split('&', 2);
+    if(item){
+      const file = item?.file;
+      const link = file?.split('=', 2)
+      let videoLink = link[1].split('&', 2);
 
-    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
+    return <Player {...props} item={item} file={file} videoLink={videoLink} />
+    }
   };
 
   return (

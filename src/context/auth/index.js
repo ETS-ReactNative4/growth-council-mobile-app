@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import auth from '@react-native-firebase/auth'
 
 import {
   setAsyncStorage,
@@ -9,7 +9,6 @@ import {
 } from '../../utils/storageUtil';
 import {JWT_TOKEN, API_URL, USER_NAME, USER_AVATAR} from '../../constants';
 import {navigate} from '../../utils/navigationUtil';
-import {auth} from '../../utils/firebaseUtil';
 
 export const AuthContext = createContext({});
 
@@ -51,29 +50,22 @@ export const AuthProvider = ({children}) => {
               await setAsyncStorage(JWT_TOKEN, response.data.token);
               await setAsyncStorage(USER_NAME, response.data.user_display_name);
               await setAsyncStorage(USER_AVATAR, response.data.avatar);
+              
+              console.log(fromData);
 
-              const firebaseResponse = await signInWithEmailAndPassword(
-                auth,
-                response?.data?.user_email,
-                response?.data?.firebase_password,
-				console.log("password",response.data.firebase_password),
+              
+              const firebaseResponse = await auth().signInWithEmailAndPassword(fromData.username, fromData.password);
+              
 
-                // await setAsyncStorage(
-                //   USER_PASSWORD,
-                //   response.data.firebase_password,
-                // ),
-               
-              );
               const token = await firebaseResponse.user;
-			  const password = await firebaseResponse.firebase_password
-              console.log("token",password);
+              console.log(token);
               if (token) navigate('Dashboard');
             } else {
               setLoading(false);
               setMessage(response?.data?.message);
             }
           } catch (error) {
-            console.log({error});
+            console.log(error);
             setLoading(false);
             setMessage(error?.response?.data);
           }
