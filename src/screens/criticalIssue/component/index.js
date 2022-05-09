@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {
   Platform,
   Text,
@@ -21,6 +21,7 @@ import HTMLView from 'react-native-htmlview';
 import {BubblesLoader} from 'react-native-indicator';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Loading from '../../../shared/loading';
+import { useFocusEffect } from '@react-navigation/native';
 
 const CriticalIssue = props => {
   const {
@@ -31,12 +32,27 @@ const CriticalIssue = props => {
     criticalIssueError,
     fetchCritcalIssue,
     cleanCriticalIssue,
+    index
   } = props;
+
+  const listRef = useRef(null);
 
 
   useEffect(() => {
     fetchCritcalIssue();
   }, []);
+
+  useFocusEffect(useCallback(() => {wait(500).then(() => scrollToIndex())}, [criticalIssueLoading]))
+
+  const wait = (ms) => new Promise(resolve => {
+    setTimeout(() => {
+       resolve(true);
+    }, ms)
+  })
+
+  const scrollToIndex = () => {
+      listRef.current.scrollToIndex({animated: true, index});
+  }
 
 
   const _renderCritical = ({item, index}) => {
@@ -89,39 +105,35 @@ const CriticalIssue = props => {
         backgroundColor="grey"
         translucent={false}
       />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-        }}>
         <View style={styles.container}>
-          <View style={styles.title}>
-            <Text
-              style={{
-                color: 'black',
-                fontSize: 24,
-                paddingBottom: 30,
-                fontWeight: '600',
-              }}>
-              {criticalIssue?.critical_issue_mobile_title}
-            </Text>
-            <View style={styles.titleBorder} />
-
-            <Text style={styles.titleText}>
-              {criticalIssue?.critical_issue_mobile_description}
-            </Text>
-          </View>
-
           {criticalIssueLoading && <Loading />}
           <View>
             <FlatList
+              ref={listRef}
+              ListHeaderComponent={() => (
+                <View style={styles.title}>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontSize: 24,
+                    paddingBottom: 30,
+                    fontWeight: '600',
+                  }}>
+                  {criticalIssue?.critical_issue_mobile_title}
+                </Text>
+                <View style={styles.titleBorder} />
+    
+                <Text style={styles.titleText}>
+                  {criticalIssue?.critical_issue_mobile_description}
+                </Text>
+              </View>
+              )}
               showsVerticalScrollIndicator={false}
               data={criticalIssue?.critical_issue_mobile_lists}
               renderItem={_renderCritical}
             />
           </View>
         </View>
-      </ScrollView>
 
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
