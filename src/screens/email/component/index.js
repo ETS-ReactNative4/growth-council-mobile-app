@@ -44,6 +44,7 @@ const Email = props => {
     useFormik({
       validationSchema: emailSchema,
       initialValues: {
+        From: profile?.user_email,
         subject: '',
         message: '',
       },
@@ -52,7 +53,6 @@ const Email = props => {
           if (response?.payload?.code === 200) {
             navigation.navigate('Dashboard');
             ToastMessage.show(response?.payload?.message);
-            console.log(response?.payload?.message);
           }
         });
       },
@@ -117,8 +117,12 @@ const Email = props => {
               <TextInput
                 multiline={true}
                 style={styles.input}
-                value={profile?.user_email}
+                value={values.From}
                 editable={false}
+				onChangeText={handleChange('From')}
+                onFocus={handleBlur('From')}
+                error={errors.From}
+                touched={touched.From}
               />
             </View>
             {/* <View style={{flexDirection: 'row'}}>
