@@ -12,10 +12,17 @@ import {
   TextInput,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import {Button} from 'native-base';
+import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Loading from '../../../shared/loading';
+
+const emailSchema = Yup.object().shape({
+  subject: Yup.string().required('Subject is required.'),
+  message: Yup.string().required('Message is required.'),
+});
 
 const Email = props => {
   const {
@@ -35,6 +42,7 @@ const Email = props => {
 
   const {handleChange, handleBlur, handleSubmit, values, errors, touched} =
     useFormik({
+      validationSchema: emailSchema,
       initialValues: {
         subject: '',
         message: '',
@@ -43,8 +51,8 @@ const Email = props => {
         await sendMailUser(values).then(response => {
           if (response?.payload?.code === 200) {
             navigation.navigate('Dashboard');
-            ToastMessage.show('Email send sucessfuly');
             ToastMessage.show(response?.payload?.message);
+            console.log(response?.payload?.message);
           }
         });
       },
@@ -127,7 +135,7 @@ const Email = props => {
               <Text style={{fontSize: 18}}>Subject :</Text>
               <TextInput
                 multiline={true}
-                numberOfLines={3}
+                numberOfLines={2}
                 style={styles.textarea}
                 value={values.subject}
                 onChangeText={handleChange('subject')}
@@ -180,10 +188,13 @@ const styles = StyleSheet.create({
   input: {
     paddingLeft: 10,
     color: 'black',
+    fontSize: 16,
   },
   textarea: {
-    padding: 10,
-    fontSize: 20,
+    paddingTop: 10,
+    fontSize: 16,
+    textAlignVertical: 'top',
+    lineHeight: 30,
   },
   buttonWrapper: {
     width: 200,

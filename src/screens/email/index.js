@@ -22,8 +22,8 @@ const EmailScreen = props => {
     dispatch(resetProfile());
   };
 
-  const sendMailUser = () => {
-    dispatch(sendMailByUser());
+  const sendMailUser = formData => {
+    return dispatch(sendMailByUser(formData));
   };
   const cleanSendMail = () => {
     dispatch(resetSendMail());
