@@ -23,16 +23,11 @@
     "@react-native-community/progress-bar-android": "^1.0.4",
     "@react-native-community/progress-view": "^1.3.1",
     "@react-native-community/push-notification-ios": "^1.10.1",
-<<<<<<< HEAD
-    "@react-native-firebase/app": "^14.5.0",
     "@react-native-firebase/auth": "^14.9.1",
-    "@react-native-firebase/messaging": "^14.5.0",
-=======
-    "@react-native-firebase/analytics": "^14.5.1",
-    "@react-native-firebase/app": "^14.5.1",
-    "@react-native-firebase/crashlytics": "^14.5.1",
-    "@react-native-firebase/messaging": "^14.5.1",
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
+    "@react-native-firebase/analytics": "^14.9.1",
+    "@react-native-firebase/app": "^14.9.1",
+    "@react-native-firebase/crashlytics": "^14.9.1",
+    "@react-native-firebase/messaging": "^14.9.1",
     "@react-native-picker/picker": "^2.2.1",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/drawer": "^6.1.8",

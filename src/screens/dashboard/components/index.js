@@ -316,16 +316,6 @@ const Dashboard = props => {
     );
   };
 
-<<<<<<< HEAD
-  const _renderContentItem = ({item, index}) => {
-    if(item){
-      const file = item?.file;
-      const link = file?.split('=', 2)
-      let videoLink = link[1].split('&', 2);
-
-    return <Player {...props} item={item} file={file} videoLink={videoLink} />
-    }
-=======
   //   const _renderContentItem = ({item, index}) => {
   //     const file = item?.file;
   //     const link = file.split('=', 2);
@@ -373,7 +363,6 @@ const Dashboard = props => {
         </View>
       </TouchableOpacity>
     );
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
   };
   return (
     <View style={{flex: 1}}>

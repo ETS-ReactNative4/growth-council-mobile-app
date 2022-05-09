@@ -11,46 +11,27 @@ import messaging from '@react-native-firebase/messaging';
 import analytics from '@react-native-firebase/analytics';
 import PushNotification, {Importance} from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-<<<<<<< HEAD
-=======
-import {Platform} from 'react-native';
-
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
 import {store, persistor} from './store';
 import {MainNavigation} from './navigations';
 import {navigationRef} from './utils/navigationUtil';
 import {AuthProvider} from './context/auth';
 import SplashScreen from './screens/splash';
-<<<<<<< HEAD
-=======
-import {navigate} from './utils/navigationUtil';
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
 
 XMLHttpRequest = GLOBAL.originalXMLHttpRequest
     ? GLOBAL.originalXMLHttpRequest
     : GLOBAL.XMLHttpRequest;
-
-let fakeApiCallWithoutBadNetwork = ms =>
+    let fakeApiCallWithoutBadNetwork = ms =>
     new Promise(resolve => setTimeout(resolve, ms));
-
 const App = () => {
 
-<<<<<<< HEAD
   useEffect(() => {
     init();
   }, []);
-  
-=======
-        let init = async () => {
-            await RNBootSplash.hide();
-        };
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
 
-        useEffect(() => {
-            init();
-        }, []);
+  let init = async () => {
+    await RNBootSplash.hide();
+};
 
-<<<<<<< HEAD
   useEffect(() => {
     getNotifications();
     Platform.OS === 'android' && _createChannel();
@@ -109,7 +90,7 @@ const App = () => {
        */}
       <PersistGate
         loading={<SplashScreen />}
-        onBeforeLift={onBeforeLift}
+        onBeforeLift={fakeApiCallWithoutBadNetwork}
         persistor={persistor}>
         <NativeBaseProvider>
           <PaperProvider>
@@ -124,205 +105,5 @@ const App = () => {
     </Provider>
   );
 };
-=======
-        const onBeforeLift = async () => {
-            await fakeApiCallWithoutBadNetwork(1000);
-        };
-
-        const showNotification = notification => {
-            PushNotification.localNotification({
-                channelId: 'growth-council-reminder',
-                title: notification?.data?.title || notification?.notification?.title,
-                message: notification?.data?.message || notification?.notification?.body,
-                priority: 'high',
-                messageId: notification?.messageId,
-            });
-        };
-
-        const createChannel = () => {
-            PushNotification.createChannel(
-                {
-                    channelId: 'growth-council-reminder', // (required)
-                    channelName: 'growth council reminder', // (required)
-                    channelDescription: 'A growth council default channel"', // (optional) default: undefined.
-                    playSound: false, // (optional) default: true
-                    soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
-                    importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
-                    vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
-                },
-            );
-        };
-
-        const requestUserPermission = async () => {
-            /**
-             * On iOS, messaging permission must be requested by
-             * the current application before messages can be
-             * received or sent
-             */
-            const authStatus = await messaging().requestPermission();
-            return (
-                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-                authStatus === messaging.AuthorizationStatus.PROVISIONAL
-            );
-        };
-
-        useEffect(() => {
-                createChannel();
-                if (requestUserPermission()) {
-                    /**
-                     * Returns an FCM token for this device
-                     */
-                    messaging()
-                        .getToken()
-                        
-                }
-
-                /**
-                 * When a notification from FCM has triggered the application
-                 * to open from a quit state, this method will return a
-                 * `RemoteMessage` containing the notification data, or
-                 * `null` if the app was opened via another method.
-                 */
-                messaging()
-                    .getInitialNotification()
-                    .then(async remoteMessage => {
-                       
-                        if (remoteMessage) {
-                            
-                            const notificationType = remoteMessage?.data?.notification_type;
-                            switch (notificationType) {
-                                case 'event':
-                                    navigate('EventDetail', {id: remoteMessage.data.post_id});
-                                    break;
-                                case 'session':
-                                    navigate('SessionDetail', {id: remoteMessage.data.post_id});
-                                    break;
-                                case 'connection':
-                                    navigate('People', {id: remoteMessage.data.user_id});
-                                    break;
-                                case 'chat':
-                                    navigate('UserList');
-                                    break;
-                            }
-                        }
-                    });
-
-                /**
-                 * When the user presses a notification displayed via FCM,
-                 * this listener will be called if the app has opened from
-                 * a background state. See `getInitialNotification` to see
-                 * how to watch for when a notification opens the app from
-                 * a quit state.
-                 */
-                messaging().onNotificationOpenedApp(async remoteMessage => {
-                 
-                    if (remoteMessage) {
-                        
-                        const notificationType = remoteMessage?.data?.notification_type;
-                        switch (notificationType) {
-                            case 'event':
-                                navigate('EventDetail', {id: remoteMessage.data.post_id});
-                                break;
-                            case 'session':
-                                navigate('SessionDetail', {id: remoteMessage.data.post_id});
-                                break;
-                            case 'connection':
-                                navigate('People', {id: remoteMessage.data.user_id});
-                                break;
-                            case 'chat':
-                                navigate('UserList');
-                                break;
-                        }
-                    }
-                });
-
-                /**
-                 * Set a message handler function which is called when
-                 * the app is in the background or terminated. In Android,
-                 * a headless task is created, allowing you to access the
-                 * React Native environment to perform tasks such as updating
-                 * local storage, or sending a network request.
-                 */
-                messaging().setBackgroundMessageHandler(async remoteMessage => {
-                   
-                    if (Platform.OS !== 'ios') {
-                        showNotification(remoteMessage);
-                        return;
-                    }
-                    PushNotificationIOS.requestPermissions().then(() =>
-                        showNotification(remoteMessage),
-                    );
-                });
-
-                /**
-                 * When any FCM payload is received, the listener callback
-                 * is called with a `RemoteMessage`. Returns an unsubscribe
-                 * function to stop listening for new messages.
-                 */
-                const unsubscribe = messaging().onMessage(async remoteMessage => {
-                    
-                    if (Platform.OS !== 'ios') {
-                        showNotification(remoteMessage);
-                        return;
-                    }
-                    PushNotificationIOS.requestPermissions().then(() =>
-                        showNotification(remoteMessage),
-                    );
-                });
-
-                return () => {
-                    unsubscribe;
-                };
-            }, []
-        )
-        ;
-
-        const routeNameRef = useRef();
-
-        return (
-            <Provider store={store}>
-                {/**
-                 * PersistGate delays the rendering of the app's UI until the persisted state has been retrieved
-                 * and saved to redux.
-                 * The `loading` prop can be `null` or any react instance to show during loading (e.g. a splash screen),
-                 * for example `loading={<SplashScreen />}`.
-                 * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
-                 */}
-                <PersistGate
-                    loading={<SplashScreen/>}
-                    onBeforeLift={onBeforeLift}
-                    persistor={persistor}>
-                    <NativeBaseProvider>
-                        <PaperProvider>
-                            <AuthProvider>
-                                <NavigationContainer
-                                    ref={navigationRef}
-                                    onReady={() => {
-                                        routeNameRef.current = navigationRef.current.getCurrentRoute().name;
-                                    }}
-                                    onStateChange={async () => {
-                                        const previousRouteName = routeNameRef.current;
-                                        const currentRouteName = navigationRef.current.getCurrentRoute().name;
-                                        
-                                        if (previousRouteName !== currentRouteName) {
-                                            await analytics().logScreenView({
-                                                screen_name: currentRouteName,
-                                                screen_class: currentRouteName,
-                                            });
-                                        }
-                                        routeNameRef.current = currentRouteName;
-                                    }}
-                                >
-                                    <MainNavigation/>
-                                </NavigationContainer>
-                            </AuthProvider>
-                        </PaperProvider>
-                    </NativeBaseProvider>
-                </PersistGate>
-            </Provider>
-        );
-    }
-;
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
 
 export default App;

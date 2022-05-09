@@ -1,12 +1,8 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
-import auth from '@react-native-firebase/auth'
-=======
-import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth';
 import uuid from 'react-native-uuid';
 import crashlytics from '@react-native-firebase/crashlytics';
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
+import auth from '@react-native-firebase/auth'
 
 import {setAsyncStorage, clearAsyncStorage, getAsyncStorage} from '../../utils/storageUtil';
 import {JWT_TOKEN, API_URL, USER_NAME, USER_AVATAR} from '../../constants';
@@ -52,8 +48,7 @@ export const AuthProvider = ({children}) => {
                             await setAsyncStorage(USER_NAME, response.data.user_display_name);
                             await setAsyncStorage(USER_AVATAR, response.data.avatar);
 
-                            const firebaseResponse = await signInWithEmailAndPassword(
-                                auth,
+                            const firebaseResponse = await auth().signInWithEmailAndPassword(
                                 response?.data?.user_email,
                                 response?.data?.firebase_password,
                             );
@@ -76,46 +71,6 @@ export const AuthProvider = ({children}) => {
                         setMessage(error?.response?.data);
                     }
                 },
-<<<<<<< HEAD
-                responseType: 'json',
-              },
-            );
-            if (response.data.token) {
-              // console.log("abcd",response)
-              await setAsyncStorage(JWT_TOKEN, response.data.token);
-              await setAsyncStorage(USER_NAME, response.data.user_display_name);
-              await setAsyncStorage(USER_AVATAR, response.data.avatar);
-              
-              console.log(fromData);
-
-              
-              const firebaseResponse = await auth().signInWithEmailAndPassword(fromData.username, fromData.password);
-              
-
-              const token = await firebaseResponse.user;
-              console.log(token);
-              if (token) navigate('Dashboard');
-            } else {
-              setLoading(false);
-              setMessage(response?.data?.message);
-            }
-          } catch (error) {
-            console.log(error);
-            setLoading(false);
-            setMessage(error?.response?.data);
-          }
-        },
-        signOut: async () => {
-          await clearAsyncStorage(JWT_TOKEN);
-          await clearAsyncStorage(USER_NAME);
-          await clearAsyncStorage(USER_AVATAR);
-          navigate('SignIn');
-        },
-      }}>
-      {children}
-    </AuthContext.Provider>
-  );
-=======
                 signOut: async () => {
                     await clearAsyncStorage(JWT_TOKEN);
                     await clearAsyncStorage(USER_NAME);
@@ -126,7 +81,6 @@ export const AuthProvider = ({children}) => {
             {children}
         </AuthContext.Provider>
     );
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
 };
 
 export const useAuthentication = () => {

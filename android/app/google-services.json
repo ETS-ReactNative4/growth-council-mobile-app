@@ -30,7 +30,6 @@
             {
               "client_id": "377923277535-nl27jjuj76ve5b30ecaj9gmnbq55n254.apps.googleusercontent.com",
               "client_type": 3
-<<<<<<< HEAD
             },
             {
               "client_id": "377923277535-qc1an7qhen6tnjdk7ar7vrn9dlakckct.apps.googleusercontent.com",
@@ -38,8 +37,6 @@
               "ios_info": {
                 "bundle_id": "com.growthcouncil"
               }
-=======
->>>>>>> 779b66a08595d3cde27ecb076163ce9daa84668d
             }
           ]
         }
