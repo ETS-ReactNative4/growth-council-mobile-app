@@ -25,6 +25,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import Footer from '../../../shared/footer';
+import Loading from '../../../shared/loading';
 
 const Event = props => {
   const {
@@ -47,9 +48,11 @@ const Event = props => {
   const [timeToDisplay, setTimeToDisplay] = useState('');
   const [timeToEnd, setTimeToEnd] = useState('');
 
+  const eventID = route?.params?.id;
+
   useEffect(() => {
-    fetchEventByIdentifier(route.params.id);
-  }, []);
+    fetchEventByIdentifier(eventID);
+  }, [eventID]);
 
   useEffect(() => {
     setEventStatus(events?.register_status);
@@ -59,9 +62,8 @@ const Event = props => {
     const response = await registerEventByIdentifier({event_id: eventID});
     if (response?.payload?.code === 200) {
       setEventStatus(true);
-      ToastMessage.show('You have successfully registered this event.');
+      ToastMessage.show('You have successfully RSVP’d this event.');
     } else {
-      console.log('Error Toast');
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
@@ -69,17 +71,19 @@ const Event = props => {
 
   let backgroundColor = '';
   const pillarCategory = events?.pillar_categories
-    ? events?.pillar_categories[0]?.parent
+    ? events?.pillar_categories[0]?.parent ||
+      events?.pillar_categories[1]?.parent
     : '';
   switch (pillarCategory) {
-    case 0:
-    case 118:
-      backgroundColor = Colors.PRACTICE_COLOR;
-      break;
     case 0:
     case 117:
       backgroundColor = Colors.COMMUNITY_COLOR;
       break;
+    case 0:
+    case 118:
+      backgroundColor = Colors.PRACTICE_COLOR;
+      break;
+
     default:
       backgroundColor = Colors.COACHING_COLOR;
   }
@@ -100,13 +104,20 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM dddd');
+  const eventDate = moment(events?.event_start).format('D MMMM, h:mma - ');
+  const eventEnd = moment(events?.event_end).format('D MMMM, h:mma');
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const eventStartMonth = moment(events?.event_start).format('D MMMM');
+
+  const eventEndTime = moment(events?.event_end).format('h:mma ');
+  const eventEndMonth = moment(events?.event_end).format('D MMMM');
+
+  const GobalDate = moment(timeToDisplay).format('D MMMM, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM dddd');
-  console.log( GobalDate.split(/(\s+)/)[8])
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
+
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
       backStartTimeStamp,
@@ -123,6 +134,28 @@ const Event = props => {
     setTimeToEnd(convertedToLocalTimeEnd);
   }, [events]);
 
+  let title = '';
+  const pillarname = events?.pillar_categories
+    ? events?.pillar_categories[1]?.parent ||
+      events?.pillar_categories[0]?.parent
+    : '';
+  switch (pillarname) {
+    case 117:
+      title =
+        events?.pillar_categories[1]?.name ||
+        events?.pillar_categories[0]?.name;
+      break;
+    case 118:
+      title =
+        events?.pillar_categories[1]?.name ||
+        events?.pillar_categories[0]?.name;
+      break;
+    case 119:
+      title =
+        events?.pillar_categories[0]?.name ||
+        events?.pillar_categories[0]?.name;
+      break;
+  }
   return (
     <ScrollView style={styles.scrollBox}>
       <View style={styles.container}>
@@ -132,11 +165,11 @@ const Event = props => {
           }}
           resizeMode="cover"
           style={{height: '55%'}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          {/* <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrow}>
               <Ionicons name={'arrow-back'} size={30} color="black" />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View
             style={{
               alignItems: 'center',
@@ -144,10 +177,10 @@ const Event = props => {
             <View
               style={[styles.topbanner, {backgroundColor: backgroundColor}]}>
               {!isEventLoaded && (
-                <Text style={styles.headingText1}>{events.title}</Text>
+                <Text style={styles.headingText1}>{events?.title}</Text>
               )}
               <View style={styles.poe}>
-                <Text style={{fontSize: 12}}>Megatrend Workshop</Text>
+                <Text style={{fontSize: 12}}>{title}</Text>
               </View>
             </View>
           </View>
@@ -178,8 +211,19 @@ const Event = props => {
                     <Text style={styles.eventDetails}>
                       {GobalStartMonth === GobalEndMonth
                         ? GobalDate + GobalEndTime
-                        : GobalStartMonth +GobalDate.split(/(\s+)/)[7]+  GobalDate.split(/(\s+)/)[8] +GobalDate.split(/(\s+)/)[7]+ GobalEndMonth}{' '}
-                      ({deviceTimeZone})
+                        : GobalStartMonth +
+                          GobalDate.split(/(\s+)/)[7] +
+                          GobalDate.split(/(\s+)/)[8] +
+                          GobalDate.split(/(\s+)/)[7] +
+                          GobalEndMonth}{' '}
+                      ({deviceTimeZone}) /{' '}
+                      {eventStartMonth === eventEndMonth
+                        ? eventDate + eventEndTime
+                        : eventStartMonth +
+                          eventDate.split(/(\s+)/)[7] +
+                          eventDate.split(/(\s+)/)[8] +
+                          eventDate.split(/(\s+)/)[7] +
+                          eventEndMonth}
                     </Text>
                   </View>
                   {!eventStatus && (
@@ -216,118 +260,116 @@ const Event = props => {
                     </View>
                   )}
                 </View>
-
-                <View
-                  style={{
-                    flex: 1,
-                    paddingTop: 20,
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={[
-                      styles.infoicon,
-                      {backgroundColor: backgroundColor},
-                    ]}>
-                    <Ionicons
-                      name={'location-outline'}
-                      size={25}
-                      color={'white'}
-                    />
-                  </View>
-
-                  {!isEventLoaded && (
+                {events?.location?.location_city !== undefined &&
+                  events?.location?.location_address !== '' && (
                     <View
                       style={{
-                        flex: 5,
-                        paddingLeft: 10,
+                        flex: 1,
+                        paddingTop: 20,
+                        flexDirection: 'row',
                       }}>
-                      <Text style={styles.eventLocationDetails}>
-                        {events?.location?.location_city}{' '}
-                        {events?.location?.location_state}{' '}
-                        {events?.location?.location_country}
-                      </Text>
-                      <Text>{events?.location?.location_address}</Text>
-                    </View>
-                  )}
+                      <View
+                        style={[
+                          styles.infoicon,
+                          {backgroundColor: backgroundColor},
+                        ]}>
+                        <Ionicons
+                          name={'location-outline'}
+                          size={25}
+                          color={'white'}
+                        />
+                      </View>
 
-                  {eventLoading && (
-                    <View style={styles.loading1}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
+                      {!isEventLoaded && (
+                        <View
+                          style={{
+                            flex: 5,
+                            paddingLeft: 10,
+                          }}>
+                          <Text style={styles.eventLocationDetails}>
+                            {events?.location?.location_city}{' '}
+                            {events?.location?.location_country}
+                          </Text>
+                          <Text>{events?.location?.location_address}</Text>
+                        </View>
+                      )}
+
+                      {eventLoading && <Loading />}
                     </View>
                   )}
-                </View>
               </View>
               <View style={styles.seperationline} />
-              <View>
-                <View>
-                  <Text style={styles.contentHeading}>Hosted By</Text>
-                </View>
 
-                <View style={styles.hostdetail}>
-                  <View
-                    style={[
-                      styles.hostimage,
-                      {backgroundColor: backgroundColor},
-                    ]}>
-                    <Image
-                      source={{
-                        uri:
-                          typeof events?.organizer_image === 'boolean'
-                            ? null
-                            : events?.organizer_image,
-                      }}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                      }}
-                    />
-                  </View>
-
+              {events?.organizer?.term_name !== undefined &&
+                events?.organizer?.term_name !== '' && (
                   <View
                     style={{
-                      flex: 3,
-                      paddingLeft: 20,
-                      justifyContent: 'center',
+                      borderBottomColor: '#F6F4F4',
+                      borderBottomWidth: 1,
                     }}>
-                    <Text style={styles.contentTitle}>
-                      {events?.organizer?.term_name}
-                    </Text>
-                    <Text style={{fontSize: 14}}>
-                      {events?.organizer?.description}
-                    </Text>
+                    <View>
+                      <Text style={styles.contentHeading}>Hosted By</Text>
+                    </View>
+
+                    <View style={styles.hostdetail}>
+                      <View
+                        style={[
+                          styles.hostimage,
+                          {backgroundColor: backgroundColor},
+                        ]}>
+                        <Image
+                          source={{
+                            uri:
+                              typeof events?.organizer_image === 'boolean'
+                                ? null
+                                : events?.organizer_image,
+                          }}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                          }}
+                        />
+                      </View>
+
+                      <View
+                        style={{
+                          flex: 3,
+                          paddingLeft: 20,
+                          justifyContent: 'center',
+                        }}>
+                        <Text style={styles.contentTitle}>
+                          {events?.organizer?.term_name}
+                        </Text>
+                        <Text style={{fontSize: 14}}>
+                          {events?.organizer?.description}
+                        </Text>
+                      </View>
+                      <View style={styles.eventaddress}></View>
+                    </View>
                   </View>
-                  <View style={styles.eventaddress}></View>
-                </View>
-              </View>
-              <View style={styles.seperationline} />
-              <View>
-                <Text style={styles.contentHeading}>Event Info</Text>
-                {!isEventLoaded && (
-                  <HTMLView
-                    value={description}
-                    style={{fontSize: 14, color: '#77838F'}}
-                  />
                 )}
-              </View>
+              {events?.descirption !== undefined && events?.descirption !== '' && (
+                <View>
+                  <Text style={[styles.contentHeading, {marginTop: 20}]}>
+                    Event Info
+                  </Text>
+                  {!isEventLoaded && (
+                    <HTMLView
+                      value={description}
+                      style={{fontSize: 14, color: '#77838F'}}
+                    />
+                  )}
+                </View>
+              )}
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                {eventRegisterLoading && (
-                  <View style={styles.loading1}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                )}
+                {eventRegisterLoading && <Loading />}
                 {!eventStatus && (
                   <Button
                     style={styles.acceptButton}
                     onPress={() => registerEventByEventID(route?.params?.id)}>
                     <Text style={styles.acceptButtonText}>
-                      Sign Up in One Click
+                     RSVP
                     </Text>
                   </Button>
                 )}
@@ -342,7 +384,7 @@ const Event = props => {
                         }}
                       />
                     </View>
-                    <Text style={styles.registeredButtonText}>Registered</Text>
+                    <Text style={styles.registeredButtonText}>RSVP't</Text>
                   </TouchableOpacity>
                 )}
               </View>
@@ -350,7 +392,7 @@ const Event = props => {
           </View>
         </ImageBackground>
       </View>
-      <Footer />
+      {/* <Footer /> */}
     </ScrollView>
   );
 };
@@ -384,15 +426,14 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
     color: '#ffff',
   },
   eventDetails: {
     fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
     marginLeft: 5,
-    marginTop: 3,
-    fontSize: 14,
+    fontSize: 13,
     color: '#1E2022',
     fontWeight: 'bold',
   },
@@ -463,7 +504,7 @@ const styles = StyleSheet.create({
   },
   topbanner: {
     backgroundColor: 'rgba(54,147,172,1)',
-    height: 90,
+    height: 100,
     width: 318,
     justifyContent: 'center',
     alignItems: 'center',
@@ -475,16 +516,17 @@ const styles = StyleSheet.create({
   },
 
   poe: {
-    height: 22,
-    width: 148,
+    width: 160,
     position: 'absolute',
-    top: -10,
+    top: -15,
     left: 0,
     backgroundColor: '#ffff',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+    borderWidth: 0.2,
+    paddingVertical: 5,
   },
   infoicon: {
     flex: 1,
@@ -507,7 +549,7 @@ const styles = StyleSheet.create({
   },
   hostdetail: {
     flex: 1,
-    paddingBottom: 5,
+    paddingBottom: 15,
     flexDirection: 'row',
     marginTop: 5,
   },

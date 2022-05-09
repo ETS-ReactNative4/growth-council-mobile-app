@@ -8,14 +8,19 @@ import {
   Modal,
   ScrollView,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
+import * as RNLocalize from 'react-native-localize';
 import {Picker} from '@react-native-picker/picker';
 import {CommonStyles, Colors} from '../../../theme';
 import BottomNav from '../../../layout/BottomLayout';
 import Footer from '../../../shared/footer';
+import ToastMessage from '../../../shared/toast';
+import {formatTimeByOffset} from '../../event/components/timezone';
+import Loading from '../../../shared/loading';
 
 const EventCalendar = props => {
   const {
@@ -34,6 +39,7 @@ const EventCalendar = props => {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
+  //   const [markedDay, setMarkedDay] = useState([]);
 
   useEffect(() => {
     const fetchCalendarEventAsync = async () => {
@@ -41,11 +47,17 @@ const EventCalendar = props => {
         year: moment().format('YYYY'),
         month: moment().format('MM'),
         all_events: showAllEvents,
-      }).then(response => {
-        if (response?.payload?.code === 200) {
-          setCurrentEvents(response?.payload?.data);
-        }
-      });
+      })
+        .then(response => {
+          if (response?.payload?.code === 200) {
+            setCurrentEvents(response?.payload?.data);
+          } else {
+            setCurrentEvents([]);
+          }
+        })
+        .catch(e => {
+          setCurrentEvents([]);
+        });
     };
     fetchCalendarEventAsync();
   }, []);
@@ -67,21 +79,21 @@ const EventCalendar = props => {
 
   let markedDay = {};
   currentEvents?.map(item => {
-    const startDate = moment(item.event_start).format('YYYY-MM-DD');
-    const endDate = moment(item.event_end).format('YYYY-MM-DD');
+    const startDate = moment(item?.event_start).format('YYYY-MM-DD');
+    const endDate = moment(item?.event_end).format('YYYY-MM-DD');
 
     let backgroundColor = '';
     const pillarCategory = item?.pillar_categories
-      ? item?.pillar_categories[0]?.parent
+      ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
       : '';
     switch (pillarCategory) {
       case 0:
-      case 118:
-        backgroundColor = Colors.PRACTICE_COLOR;
-        break;
-      case 0:
       case 117:
         backgroundColor = Colors.COMMUNITY_COLOR;
+        break;
+      case 0:
+      case 118:
+        backgroundColor = Colors.PRACTICE_COLOR;
         break;
       default:
         backgroundColor = Colors.COACHING_COLOR;
@@ -121,16 +133,24 @@ const EventCalendar = props => {
   });
 
   const renderItem = ({item, index}) => {
-    //date
-    // const actualDate = moment(item.event_start).format('ll').split(',', 3);
-    // const date = actualDate[0].split(' ', 3);
     const actualDate = moment(item.event_start).format('D MMMM ');
-    const date = moment(item.event_start).format('D ');
     const eventStart = moment(item.event_start).format('D MMMM -');
     const eventEnd = moment(item.event_end).format('D MMMM ');
-  
-    //time
-    let time = moment(item.event_start).format('h:mma');
+    const startdate = eventStart.split(' ', 3)[1].split('', 3);
+    const enddate = eventEnd.split(' ', 3)[1].split('', 3);
+
+    const backStartTimeStamp = item?.event_start;
+    const deviceTimeZone = RNLocalize.getTimeZone();
+
+    const today = moment().tz(deviceTimeZone);
+    const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+
+    let convertedToLocalTime = formatTimeByOffset(
+      backStartTimeStamp,
+      currentTimeZoneOffsetInHours,
+    );
+
+    const time = moment(convertedToLocalTime).format('h:mma');
 
     let organizer = item?.organizer?.term_name;
     let description = item?.organizer?.description;
@@ -147,25 +167,34 @@ const EventCalendar = props => {
     }
 
     let borderColor = '';
+    let backgroundImage = '';
+    let pillarname = '';
     const pillarCategory = item?.pillar_categories
-      ? item?.pillar_categories[0]?.parent
+      ? item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent
       : '';
     switch (pillarCategory) {
-      case 0:
-      case 118:
-        borderColor = Colors.PRACTICE_COLOR;
-        break;
-      case 0:
       case 117:
+      case 0:
         borderColor = Colors.COMMUNITY_COLOR;
+        pillarname = 'Growth Community';
+        backgroundImage = require('../../../assets/img/Rectangle2.png');
         break;
+      case 118:
+      case 0:
+        borderColor = Colors.PRACTICE_COLOR;
+        pillarname = 'Growth Content';
+        backgroundImage = require('../../../assets/img/best-practice-bg.png');
+        break;
+
       default:
         borderColor = Colors.COACHING_COLOR;
+        pillarname = 'Growth Coaching';
+        backgroundImage = require('../../../assets/img/Rectangle.png');
     }
 
-    let nav = 'SessionDetail';
-    if (pillarCategory === 'growth-leadership-coaching') {
-      nav = 'SessionDetail';
+    let nav = 'coachingSession';
+    if (item?.pillar_categories[0]?.slug === 'growth-leadership-coaching') {
+      nav = 'coachingSession';
     } else {
       nav = 'EventDetail';
     }
@@ -173,13 +202,19 @@ const EventCalendar = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate(nav, {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate(nav, {
+              id: item.ID,
+              title: pillarname,
+              image: backgroundImage,
+            })
+          }>
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <Text
               style={{
                 marginTop: 30,
-                marginLeft: 10,
-                marginRight: 10,
+                marginLeft: 5,
+                marginRight: 5,
                 fontSize: 12,
                 color: '#030303',
               }}>
@@ -196,10 +231,20 @@ const EventCalendar = props => {
               <View style={styles.eventDate}>
                 <Text style={styles.eventDateText}>
                   {actualDate === eventEnd
-                    ? actualDate
+                    ? actualDate.split(' ', 3)[0] +
+                      actualDate.split(/(\s+)/)[1] +
+                      startdate[0] +
+                      startdate[1] +
+                      startdate[2]
                     : eventStart.split(/(\s+)/)[2] ===
                       eventEnd.split(/(\s+)/)[2]
-                    ? date + eventStart.split(/(\s+)/)[4] + eventEnd
+                    ? eventStart.split(/(\s+)/)[0] +
+                      eventStart.split(/(\s+)/)[4] +
+                      eventEnd.split(' ', 3)[0] +
+                      eventEnd.split(/(\s+)/)[1] +
+                      enddate[0] +
+                      enddate[1] +
+                      enddate[2]
                     : actualDate + eventStart.split(/(\s+)/)[4] + eventEnd}
                 </Text>
               </View>
@@ -212,6 +257,12 @@ const EventCalendar = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
           <View style={styles.iconWrapper}>
@@ -246,11 +297,22 @@ const EventCalendar = props => {
                   year: moment(month?.dateString).format('YYYY'),
                   month: moment(month?.dateString).format('MM'),
                   all_events: showAllEvents,
-                }).then(response => {
-                  if (response?.payload?.code === 200) {
-                    setCurrentEvents(response?.payload?.data);
-                  }
-                });
+                })
+                  .then(response => {
+                  
+                    if (response?.payload?.code === 200) {
+                      setCurrentEvents(response?.payload?.data);
+                    } else {
+                      //   setMarkedDay([]);
+                      setCurrentEvents([]);
+                    }
+                  })
+                  .catch(e => {
+                    //   ToastMessage.show(e?.response?.payload?.response);
+                  
+                    // setMarkedDay([]);
+                    setCurrentEvents([]);
+                  });
               }}
               markedDates={markedDay}
             />
@@ -259,14 +321,10 @@ const EventCalendar = props => {
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
               {currentMonth} Events
             </Text>
-            {calendarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={60} />
-              </View>
-            )}
+            {calendarEventLoading && <Loading />}
             {!calendarEventLoading && (
               <FlatList
-                horizontal={false}
+                vertical
                 showsVerticalScrollIndicator={true}
                 data={currentEvents}
                 renderItem={renderItem}
@@ -312,11 +370,21 @@ const EventCalendar = props => {
                         year: calendarYear,
                         month: calendarMonth,
                         all_events: itemValue,
-                      }).then(response => {
-                        if (response?.payload?.code === 200) {
-                          setCurrentEvents(response?.payload?.data);
-                        }
-                      });
+                      })
+                        .then(response => {
+                          if (response?.payload?.code === 200) {
+                            setCurrentEvents(response?.payload?.data);
+                          } else {
+                            // setMarkedDay([]);
+                            setCurrentEvents([]);
+                          }
+                        })
+                        .catch(e => {
+                          //   ToastMessage.show(e?.response?.payload?.response);
+                          
+                          //   setMarkedDay([]);
+                          setCurrentEvents([]);
+                        });
                     }}>
                     <Picker.Item label="All Events" value={true} />
                     <Picker.Item label="My Events" value={false} />
@@ -326,7 +394,6 @@ const EventCalendar = props => {
             </View>
           </Modal>
         </View>
-		<Footer/>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
@@ -337,6 +404,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    marginBottom: 20,
   },
   yearTab: {
     width: '90%',
@@ -382,11 +450,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   events: {
-    padding: 20,
+    padding: 12,
     borderWidth: 0.1,
+    paddingBottom: 50,
   },
   eventCard: {
-    height: 82,
+    // height: 82,
     marginTop: 15,
     marginLeft: 2,
     marginRight: 2,
@@ -417,7 +486,7 @@ const styles = StyleSheet.create({
     flex: 5,
   },
   eventTitle: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#030303',
   },
   eventParagraph: {

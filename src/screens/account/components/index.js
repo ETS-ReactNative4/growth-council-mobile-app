@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 import Font from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -19,8 +20,9 @@ import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
 import {useIsFocused} from '@react-navigation/native';
 import MyEvent from './MyEvent';
-import MySession from './MySession';
+import AboutMe from './AboutMe';
 import BottomNav from '../../../layout/BottomLayout';
+import Loading from '../../../shared/loading';
 
 const Profile = props => {
   const {
@@ -34,7 +36,7 @@ const Profile = props => {
 
   const win = Dimensions.get('window');
 
-  const [value, setValue] = useState('My Sessions');
+  const [value, setValue] = useState('About me');
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -43,6 +45,12 @@ const Profile = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -53,6 +61,7 @@ const Profile = props => {
             backgroundColor: PRIMARY_BACKGROUND_COLOR,
             justifyContent: 'center',
             alignContent: 'center',
+            marginBottom: 30,
           }}>
           <Image
             source={require('../../../assets/img/appBG.png')}
@@ -74,21 +83,11 @@ const Profile = props => {
                 marginTop: 10,
                 marginRight: 10,
               }}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('ManageAccount')}>
-                <Font
-                  name={'edit'}
-                  size={20}
-                  color="#C4C8CC"
-                  style={{marginTop: 5, marginLeft: 5}}
-                />
-              </TouchableOpacity>
-
               <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                 <Ionicon
                   name={'settings-outline'}
                   size={24}
-                  color="#C4C8CC"
+                  color="#A0A8B0"
                   style={{marginTop: 10, marginLeft: 5}}
                 />
               </TouchableOpacity>
@@ -120,44 +119,36 @@ const Profile = props => {
                     highlightTextColor={'#0B0B45'}
                     inactiveBackgroundColor={'transparent'}
                     inactiveTextColor={'grey'}
-                    values={['My Sessions', 'My Events']}
+                    values={['About me', 'My Point of Engagements']}
                     value={value}
                     onSelect={val => setValue(val)}
                     style={{
-                      height: 40,
-                      marginTop: 5,
-                      width: '90%',
-                      marginLeft: 10,
+                      // width: '100%',
+                      // alignItems: 'center',
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      // borderRadius: 10,
+                    }}
+                    textStyle={{
+                      paddingHorizontal: 0,
+                      // paddingLeft: 15,
+                      fontSize: 13,
+                      width: '100%',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textAlign: 'center',
                     }}
                   />
                 </View>
-                {profileLoading && (
-                  <>
-                    <View
-                      style={{
-                        flex: 1,
-                        alignItems: 'center',
-                        flexDirection: 'column',
-                        justifyContent: 'space-around',
-                        position: 'absolute',
-                        left: 120,
-                        top: 120,
-                      }}>
-                      <BubblesLoader
-                        color={Colors.SECONDARY_TEXT_COLOR}
-                        size={80}
-                      />
-                    </View>
-                  </>
-                )}
-                {value === 'My Events' && <MyEvent {...props} />}
+                {profileLoading && <Loading />	}
+                {value === 'My Point of Engagements' && <MyEvent {...props} />}
 
-                {value === 'My Sessions' && <MySession {...props} />}
+                {value === 'About me' && <AboutMe {...props} />}
               </View>
             </View>
           </View>
+          {/* <Footer /> */}
         </View>
-        {/* <Footer /> */}
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
@@ -172,6 +163,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     justifyContent: 'center',
     alignContent: 'center',
+    marginBottom: 20,
   },
   header: {
     alignItems: 'center',
@@ -251,12 +243,13 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   buttonWrapper: {
-    height: 50,
+    width: '100%',
+    height: 55,
     backgroundColor: '#ECECEC',
     borderRadius: 10,
-    margin: 10,
     marginTop: 15,
-    marginLeft: Platform.OS === 'ios' ? 10 : 10,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
 
   iconWrapper: {

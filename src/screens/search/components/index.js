@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  StatusBar,
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Font from 'react-native-vector-icons/FontAwesome5';
@@ -17,6 +18,7 @@ import SearchBox from '../../../shared/form/SearchBar';
 import {BubblesLoader} from 'react-native-indicator';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 
 const Search = props => {
   const {
@@ -97,7 +99,7 @@ const Search = props => {
         navigationPath = 'Community';
         break;
       case 'best-practices':
-        navigationPath = 'Best Practices';
+        navigationPath = 'Growth Content';
         break;
       case 'growth-coaching':
         navigationPath = 'Growth Coaching';
@@ -143,60 +145,76 @@ const Search = props => {
   };
 
   return (
-    <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+    <>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <ImageBackground
-          style={{width: '100%', height: 160}}
+          style={{width: '100%'}}
           source={require('../../../assets/img/search_back_image.png')}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{marginTop: 30}}>
             <View style={{marginTop: 10}}>
               <Ionicons name={'arrow-back'} size={50} color="white" />
             </View>
           </TouchableOpacity>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '95%',
+            }}>
             <SearchBox searchEventsByIdentifier={searchEventsByIdentifier} />
           </View>
         </ImageBackground>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
 
-        <View style={{marginTop: 20}}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={searches.pillars}
-            renderItem={searchTag}
-          />
-        </View>
-
-        <View style={styles.middle}>
-          <Text style={{fontFamily: Typography.FONT_SF_SEMIBOLD, fontSize: 11}}>
-            Suggestions
-          </Text>
-
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            {searchLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
-
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+          }}>
+          <View style={{marginTop: 20}}>
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={searches.poes}
-              renderItem={_renderMiddleItem}
+              data={searches.pillars}
+              renderItem={searchTag}
             />
           </View>
-        </View>
 
-        <View style={styles.events}>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            data={searches.events_sessions}
-            renderItem={eventItems}
-          />
-        </View>
+          <View style={styles.middle}>
+            <Text
+              style={{fontFamily: Typography.FONT_SF_SEMIBOLD, fontSize: 11}}>
+              Suggestions
+            </Text>
+
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              {searchLoading && <Loading />}
+
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={searches.poes}
+                renderItem={_renderMiddleItem}
+              />
+            </View>
+          </View>
+
+          <View style={styles.events}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              data={searches.events_sessions}
+              renderItem={eventItems}
+            />
+          </View>
+        </ScrollView>
       </View>
-    </ScrollView>
+    </>
   );
 };
 

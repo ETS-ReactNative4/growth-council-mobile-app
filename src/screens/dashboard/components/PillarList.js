@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 
 import {Typography} from '../../../theme';
@@ -16,41 +17,53 @@ import {
   PRIMARY_BACKGROUND_COLOR,
   QUATERNARY_TEXT_COLOR,
 } from '../../../theme/colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 const PillarList = props => {
   const {navigation, pillarSliders} = props;
 
-  return pillarSliders.map((item, index) => {
-    let navigationPath = '';
-    let borderColor = PRIMARY_BACKGROUND_COLOR;
-    switch (item?.slug) {
-      case 'community':
-        navigationPath = 'Community';
-        borderColor = COMMUNITY_COLOR;
-        break;
-      case 'best-practices':
-        navigationPath = 'Best Practices';
-        borderColor = PRACTICE_COLOR;
-        break;
-      case 'growth-coaching':
-        navigationPath = 'Growth Coaching';
-        borderColor = COACHING_COLOR;
-    }
-	
-    return (
-      <View
-        style={[styles.ImageWrapper, {borderColor: borderColor}]}
-        key={index}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(navigationPath, {pillarId: item.term_id})
-          }>
-          <Image source={{uri: item?.image}} style={styles.ImageStyle} />
-          <Text style={styles.sliderText}>{item?.name}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  });
+  return pillarSliders?.length > 0 ? (
+    pillarSliders?.map((item, index) => {
+      let navigationPath = '';
+      let borderColor = PRIMARY_BACKGROUND_COLOR;
+      switch (item?.slug) {
+        case 'community':
+          navigationPath = 'Growth Community';
+          borderColor = COMMUNITY_COLOR;
+          break;
+        case 'best-practices':
+          navigationPath = 'Growth Content';
+          borderColor = PRACTICE_COLOR;
+          break;
+        case 'growth-coaching':
+          navigationPath = 'Growth Coaching';
+          borderColor = COACHING_COLOR;
+      }
+
+      return (
+        <View
+          style={[styles.ImageWrapper, {borderColor: borderColor}]}
+          key={index}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(navigationPath, {pillarId: item?.term_id})
+            }>
+            <ImageBackground
+              source={{uri: item?.image}}
+              style={styles.ImageStyle}>
+              <LinearGradient
+                colors={['#00000000', '#000000']}
+                style={{height: '100%', width: '100%'}}
+              />
+            </ImageBackground>
+            <Text style={styles.sliderText}>{item?.name}</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    })
+  ) : (
+    <></>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -69,11 +82,10 @@ const styles = StyleSheet.create({
   sliderText: {
     position: 'absolute',
     top: '80%',
-    left: 8,
-    color: QUATERNARY_TEXT_COLOR,
+    left: 4,
+    color: 'white',
     marginTop: 10,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
-    fontWeight: '500',
     fontSize: Platform.OS === 'ios' ? 10 : 12,
   },
 });

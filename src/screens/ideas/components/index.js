@@ -39,6 +39,12 @@ const Ideas = props => {
 
   return (
     <>
+	 <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         style={{
           height: Platform.OS === 'ios' ? 400 : 350,
@@ -65,7 +71,7 @@ const Ideas = props => {
               </Text>
             </Button>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
     </>

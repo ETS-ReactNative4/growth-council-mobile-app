@@ -63,10 +63,17 @@ const About = props => {
 
   return (
     <>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
           height: Platform.OS === 'ios' ? 400 : 350,
+          backgroundColor: 'white',
         }}>
         <View style={styles.container}>
           <View style={styles.about}>
@@ -139,15 +146,7 @@ const About = props => {
               </Text>
             </Button>
           </View>
-          {/* <View style={{ alignItems:'center', width:'35%',marginLeft:140, marginBottom:10}}>
-					<Text style={{fontSize: 8, marginTop: 10}}>Powered By</Text>
-					<Image 
-						source={require('../../../assets/img/fristDigi.png')}
-						style={{width:"100%", height:20}}
-					/>
-					
-				</View> */}
-          <Footer />
+
         </View>
       </ScrollView>
     </>
@@ -157,6 +156,7 @@ const About = props => {
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
+    marginBottom: 20,
   },
   header: {
     ...CommonStyles.header,

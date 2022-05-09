@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Modal,
+  Image,
 } from 'react-native';
 import {Button} from 'native-base';
 import {useFormik} from 'formik';
@@ -337,7 +338,14 @@ const SignUpForm = props => {
 
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.headingText1}>Join Growth Council</Text>
+            <Image
+              style={{width: '80%'}}
+              source={require('../../../assets/img/GILCouncil.jpg')}
+              resizeMode="contain"
+            />
+            <Text style={styles.headingText1}>
+              Join Growth Innovation Leadership Council
+            </Text>
           </View>
 
           {loading && (
@@ -350,7 +358,6 @@ const SignUpForm = props => {
             style={styles.scrollBox}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}>
-				
             <View style={styles.body}>
               <FlatTextInput
                 label="First Name *"
@@ -414,25 +421,14 @@ const SignUpForm = props => {
                 <Text style={styles.errorMessage}>{errors.email}</Text>
               )}
 
-              {/* <FlatTextInput
-                                label="Business Phone *"
-                                value={values.phone}
-                                onChangeText={handleChange('phone')}
-                                onFocus={handleBlur('phone')}
-                                error={errors.phone}
-                                touched={touched.phone}
-                            /> */}
-
               <Text style={{marginTop: 20, color: 'black'}}>
                 Phone Number *
               </Text>
 
               <PhoneInput
                 ref={phoneInput}
-                defaultCode="IN"
-                layout="first"
-                withShadow
-                autoFocus
+                defaultCode="US"
+                // layout="first"
                 containerStyle={styles.phoneNumberView}
                 textContainerStyle={{paddingVertical: 0}}
                 // onChangeFormattedText={text => {
@@ -471,8 +467,8 @@ const SignUpForm = props => {
                 </Text>
               )}
 
-              <View>
-                <View style={{flexDirection: 'row'}}>
+              <View style={{flex: 1}}>
+                <View style={{flexDirection: 'row', flex: 0.2}}>
                   <CheckBox
                     status={checked ? 'checked' : 'unchecked'}
                     onPress={() => {
@@ -480,23 +476,25 @@ const SignUpForm = props => {
                       setChecked(!checked);
                     }}
                   />
-                  <View>
-                    <Text style={{marginTop: 7, width: '55%'}}>
-                      By clicking submit, I agree to Frost & Sullivan
-                      <Text
-                        style={{paddingTop: 5, color: 'blue'}}
-                        onPress={() => navigation.navigate('Terms')}>
-                        {' '}
-                        Terms of Use&nbsp;
+
+                  <View style={{flex: 0.9}}>
+                    <View>
+                      <Text style={{marginTop: 7}}>
+                        By clicking submit, I agree to Frost & Sullivan's{' '}
+                        <Text
+                          style={{color: '#31ade5', fontWeight: '700'}}
+                          onPress={() => navigation.navigate('Terms')}>
+                          Terms of Use{' '}
+                        </Text>
+                        and{' '}
+                        <Text
+                          style={{color: '#31ade5', fontWeight: '700'}}
+                          onPress={() => navigation.navigate('Privacys')}>
+                          {' '}
+                          Privacy Policy*{' '}
+                        </Text>
                       </Text>
-                      and
-                      <Text
-                        style={{paddingTop: 5, color: 'blue'}}
-                        onPress={() => navigation.navigate('Privacy')}>
-                        {' '}
-                        Privacy Policy*
-                      </Text>
-                    </Text>
+                    </View>
                   </View>
                 </View>
 
@@ -518,16 +516,19 @@ const SignUpForm = props => {
             </View>
 
             <View style={styles.signUpLinkWrapper}>
-              <Text style={{color: Colors.NONARY_TEXT_COLOR}}>
-                Already a Growth Council Member?
-              </Text>
-              <TouchableOpacity>
+              <View>
+                <Text style={{color: Colors.NONARY_TEXT_COLOR}}>
+                  Already a Growth Innovation Leadership Council Member?
+                </Text>
+              </View>
+
+              <View>
                 <Text
                   style={styles.signUpButtonText}
                   onPress={() => navigation.navigate('SignIn')}>
                   Click Here
                 </Text>
-              </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </View>
@@ -595,8 +596,8 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 70,
-    marginTop: Platform.OS === 'ios' ? 30 : 20,
-    marginBottom: 30,
+    marginTop: Platform.OS === 'ios' ? 20 : 20,
+    marginBottom: 60,
   },
   scrollBox: {
     height: '65%',
@@ -612,7 +613,9 @@ const styles = StyleSheet.create({
     height: '86%',
     backgroundColor: 'white',
     borderRadius: 18,
-    padding: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 30,
   },
   message: {
     ...CommonStyles.message,
@@ -626,7 +629,8 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_SF_SEMIBOLD,
     color: Colors.NONARY_TEXT_COLOR,
-    fontSize: 24,
+    fontSize: 22,
+    marginTop: 10,
   },
   headingText2: {
     ...CommonStyles.headingText2,
@@ -637,7 +641,8 @@ const styles = StyleSheet.create({
   loginButtonWrapper: {
     ...CommonStyles.buttonWrapper,
     width: '100%',
-    marginTop: 10,
+    marginTop: 30,
+    marginBottom: 30,
   },
   loginButton: {
     width: '50%',
@@ -645,7 +650,7 @@ const styles = StyleSheet.create({
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
+    backgroundColor: Colors.PRACTICE_COLOR,
     marginLeft: 5,
   },
   loginButtonText: {
@@ -653,7 +658,6 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_BOLD,
   },
   signUpLinkWrapper: {
-    ...CommonStyles.linkWrapper,
     marginTop: 10,
     alignItems: 'center',
     marginBottom: 30,
@@ -661,8 +665,11 @@ const styles = StyleSheet.create({
   signUpButtonText: {
     color: Colors.PRIMARY_BUTTON_COLOR,
     fontFamily: Typography.FONT_NORMAL,
-    paddingLeft: 5,
+    zIndex: 10,
+    right: 50,
+    bottom: 18,
   },
+
   errorText: {
     ...CommonStyles.errorText,
     textAlign: 'left',
@@ -686,7 +693,9 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 10,
     backgroundColor: 'white',
-    borderWidth: 0.3,
+    borderWidth: 0.4,
+    borderRadius: 4,
+    overflow: 'hidden',
   },
 });
 

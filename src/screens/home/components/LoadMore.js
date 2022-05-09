@@ -53,18 +53,18 @@ const CouncilAllDetail = props => {
   const _renderItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    // console.log(date[1]);
 
     let backgroundColor = '';
-    const pillarCategory = item?.pillar_categories[0]?.parent;
+    const pillarCategory =
+      item?.pillar_categories[0]?.parent || item?.pillar_categories[1]?.parent;
     switch (pillarCategory) {
-      case 0:
-      case 118:
-        backgroundColor = Colors.PRACTICE_COLOR;
-        break;
       case 0:
       case 117:
         backgroundColor = Colors.COMMUNITY_COLOR;
+        break;
+      case 0:
+      case 118:
+        backgroundColor = Colors.PRACTICE_COLOR;
         break;
       default:
         backgroundColor = Colors.COACHING_COLOR;
@@ -72,7 +72,9 @@ const CouncilAllDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => ToastMessage.show('Please first join growth council')}>
+          onPress={() =>
+            ToastMessage.show('Log in as Council membership to review')
+          }>
           <View style={styles.eventCard} key={index}>
             <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
             <View style={styles.eventDetails}>
@@ -101,15 +103,18 @@ const CouncilAllDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => ToastMessage.show('Please first join growth council')}>
+          onPress={() =>
+            ToastMessage.show('Log in as Council membership to review')
+          }>
           <View style={styles.poeCard} key={index}>
             <View style={[styles.poeTheme, styles.shadowProp]}>
               <Image
                 source={{uri: item.image}}
                 style={{
-                  width: 30,
-                  height: 30,
+                  width: 35,
+                  height: 35,
                 }}
+                resizeMode="contain"
               />
             </View>
             <View style={styles.eventDetails}>
@@ -203,22 +208,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   events: {
-    padding: 30,
+    padding: 20,
     width: '100%',
   },
   eventsTitle: {
     marginBottom: 34,
-    fontWeight: 'semi-bold',
+    fontWeight: '600',
+	color:'black'
   },
   poeTitle: {
     marginTop: 10,
-    marginBottom: 34,
-    fontWeight: 'semi-bold',
+    marginBottom: 30,
+    fontWeight: '600',
+	color:'black'
   },
   eventList: {},
   eventCard: {
     width: '100%',
-    marginTop: 5,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     backgroundColor: '#fff',
@@ -230,6 +236,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flexDirection: 'row',
     flexWrap: 'nowrap',
+    alignItems: 'center',
     // backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 5,
@@ -247,8 +254,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   poeTheme: {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

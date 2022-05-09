@@ -31,6 +31,7 @@ import eventReducer from '../screens/event/slice/eventSlice';
 import eventRegisterReducer from '../screens/event/slice/eventRegisterSlice';
 
 import connectionReducer from '../screens/chat/slice/connetionSlice';
+import notificationReducer from '../screens/chat/slice/notificationSlice';
 
 import memberConnectionReducer from '../screens/people/slice/memberConnectionSlice';
 
@@ -75,6 +76,18 @@ import poeSelfLearnReducer from '../screens/selfLearn/slice/poeSelfLearnSlice';
 import selfLearnTraitReducer from '../screens/selfLearn/slice/selfLearnTraitsSlice';
 import selfLearnReducer from '../screens/selfLearn/slice/selfLearnByIdSlice';
 
+import contentReducer from '../screens/contentLibrary/slice/contentSlice';
+import contentLibraryReducer from '../screens/contentLibrary/slice/contentLibrarySlice';
+import libraryDetailReducer from '../screens/contentLibrary/slice/libraryDetailSlice';
+import contentLibraryDetailsReducer from '../screens/details/slice/contentLibraryDetailSlice';
+import latestContentReducer from '../screens/dashboard/slice/latestContentSlice';
+import searchContentReducer from '../screens/contentLibrary/slice/searchContentSlice';
+
+import criticalIssueReducer from '../screens/criticalIssue/slice/criticalIssueSlice';
+import contentTagsReducer from '../screens/contentLibrary/slice/contentTagsSlice';
+
+import radarReducer from '../screens/details/slice/radarSlice';
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -103,6 +116,8 @@ const reducers = combineReducers({
   pillarMemberContents: pillarMembersContentsReducer,
 
   connection: connectionReducer,
+  notifications: notificationReducer,
+
   communities: communityReducer,
   communityMemberContents: communityMemberContentReducer,
   sessionDetails: sessionDetailReducer,
@@ -132,6 +147,15 @@ const reducers = combineReducers({
   poeSelfLearns: poeSelfLearnReducer,
   selfLearnTraits: selfLearnTraitReducer,
   selfLearns: selfLearnReducer,
+  content: contentReducer,
+  contentLibrary: contentLibraryReducer,
+  libraryDetails: libraryDetailReducer,
+  criticalIssue: criticalIssueReducer,
+  contentLibraryDetails: contentLibraryDetailsReducer,
+  latestContent: latestContentReducer,
+  searchContent: searchContentReducer,
+  contentTags: contentTagsReducer,
+  radarMemberDetails:radarReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

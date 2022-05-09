@@ -40,7 +40,7 @@ const SubHeader = props => {
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          {props.noDrawer ? (
+          {props?.noDrawer ? (
             <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <IonIcon name="arrow-back-sharp" size={30} color="white" />
             </TouchableOpacity>
@@ -49,20 +49,14 @@ const SubHeader = props => {
               <IonIcon name="menu-outline" color={'white'} size={30} />
             </TouchableOpacity>
           )}
-          <Image
-            source={require('../../assets/img/GILCouncillog.png')}
-            style={{
-              height: 35,
-              width: 35,
-              marginLeft: 12,
-            }}
-          />
+
           <Text
             style={{
               marginLeft: 10,
               fontFamily: 'SFProText-Medium',
-              fontSize: 21,
+              fontSize: 18,
               color: 'white',
+              width: '80%',
             }}>
             {props.title}
           </Text>

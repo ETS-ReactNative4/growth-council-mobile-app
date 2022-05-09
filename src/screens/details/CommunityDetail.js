@@ -17,6 +17,11 @@ import {
   resetPillarMemberContent,
 } from './slice/pillarMembersContentsSlice';
 
+import {
+  fetchAllPillarPOEs,
+  resetPillarPOE,
+} from '../dashboard/slice/pillarPOESlice';
+
 const CommunityDetailScreen = props => {
   const dispatch = useDispatch();
 
@@ -36,6 +41,10 @@ const CommunityDetailScreen = props => {
     pillarMemberContentLoading,
     pillarMemberContentError,
   } = useSelector(state => state.pillarMemberContents);
+
+  const {pillarPOEs, pillarPOELoading, pillarPOEError} = useSelector(
+    state => state.pillarPOEs,
+  );
 
   /**
    * Fetch event data.
@@ -88,6 +97,14 @@ const CommunityDetailScreen = props => {
     dispatch(resetPillarMemberContent());
   };
 
+  const fetchAllPillarPOE = pillarId => {
+    dispatch(fetchAllPillarPOEs(pillarId));
+  };
+
+  const cleanPillarPOE = () => {
+    dispatch(resetPillarPOE());
+  };
+
   return (
     <CommunityDetail
       {...props}
@@ -111,6 +128,11 @@ const CommunityDetailScreen = props => {
       pillarMemberContentError={pillarMemberContentError}
       fetchAllPillarMemberContent={fetchAllPillarMemberContent}
       cleanPillarMemberContent={cleanPillarMemberContent}
+      pillarPOEs={pillarPOEs}
+      pillarPOELoading={pillarPOELoading}
+      pillarPOEError={pillarPOEError}
+      fetchAllPillarPOE={fetchAllPillarPOE}
+      cleanPillarPOE={cleanPillarPOE}
     />
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   View,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
+  Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
@@ -17,7 +18,11 @@ import SelfAssessment from './selfAssessment';
 import SessionAbout from './sessionAbout';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {BubblesLoader} from 'react-native-indicator';
-import {set} from 'immer/dist/internal';
+import moment from 'moment';
+import ToastMessage from '../../../shared/toast';
+import {padding} from '@mui/system';
+import {TextArea} from 'native-base';
+import SessionCompleted from './sessionCompleted';
 
 const CoachingSession = props => {
   const {
@@ -41,9 +46,11 @@ const CoachingSession = props => {
     cleanSessionRegister,
   } = props;
 
+  const scrollRef = useRef();
   const [value, setValue] = useState('About');
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [scoreVisible, setScoreVisible] = useState(false);
   const [answers, setAnswers] = useState({
     questions: {
       growthIndex: [],
@@ -91,17 +98,29 @@ const CoachingSession = props => {
     });
   }, [answers]);
 
-  // score 
-  let num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(2);
-  if (isNaN(num)) num = 0.00;
-  console.log(num);
+  // score
+  let num = 0.0;
+  if (sessions?.session_score) {
+    num = sessions.session_score.toFixed(2);
+  } else {
+    num = ((score.growthIndexScore + score.innovativeIndexScore) / 2).toFixed(
+      2,
+    );
+    if (isNaN(num)) num = 0.0;
+  }
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
     </View>
   ) : (
-    <ScrollView style={styles.scrollBox}>
+    <ScrollView style={styles.scrollBox} ref={scrollRef}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={styles.container}>
         <StatusBar
           barStyle="dark-content"
@@ -109,7 +128,11 @@ const CoachingSession = props => {
         />
         <View>
           <View style={[styles.content, {height: 'auto'}]}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
               <View style={styles.buttonWrapper}>
                 <ButtonToggleGroup
                   highlightBackgroundColor={'white'}
@@ -118,14 +141,29 @@ const CoachingSession = props => {
                   inactiveTextColor={'grey'}
                   values={['About', 'Self-Assessment']}
                   value={value}
-                  onSelect={val => setValue(val)}
+                  onSelect={val => {
+                    if (moment(sessions?.event_end).isBefore()) {
+                      if (sessions?.completed_status) {
+                        ToastMessage.show('You have completed this assessment');
+                      } else {
+                        return setValue(val);
+                      }
+                    } else {
+                      ToastMessage.show('Session has not ended');
+                    }
+                  }}
                   style={{
+                    paddingLeft: 5,
+                    paddingRight: 5,
                     height: 30,
-                    marginTop: 5,
-                    width: '90%',
-                    marginLeft: 10,
-                    fontSize: 12,
-                    borderRadius: 15,
+                  }}
+                  textStyle={{
+                    paddingHorizontal: 0,
+                    fontSize: 14,
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
                   }}
                 />
               </View>
@@ -150,7 +188,12 @@ const CoachingSession = props => {
                   onRequestClose={() => {
                     setModalVisible(false);
                   }}>
-                  <View>
+                  <ScrollView
+                    style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
+                    contentContainerStyle={{
+                      alignItems: 'center',
+                      paddingBottom: 10,
+                    }}>
                     <View style={styles.modalView}>
                       {traits?.map((trait, index1) => (
                         <View key={index1}>
@@ -162,36 +205,36 @@ const CoachingSession = props => {
                                   style={{width: 20, height: 20}}
                                 />
                               </View>
-
                               <Text
                                 style={{
-                                  paddingLeft: 10,
                                   fontSize: 12,
-                                  width: '53%',
+                                  width: '50%',
                                 }}>
                                 {trait?.title}
                               </Text>
                             </View>
                             {index1 === 0 && (
-                              <View style={{flexDirection: 'row'}}>
-                                <Text style={{marginTop: 15, fontSize: 12}}>
-                                  Score
-                                </Text>
-                                <View
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+                                }}>
+                                <Text style={{fontSize: 12}}>Score</Text>
+                                <TouchableOpacity
+                                  onPress={() => setScoreVisible(!scoreVisible)}
+                                  onPressIn={() => {
+                                    setDisplay(!display);
+                                  }}
                                   style={{
                                     width: 40,
-                                    height: 30,
                                     marginLeft: 5,
                                     backgroundColor: 'orange',
                                     borderRadius: 50,
                                     padding: 5,
-                                    marginTop: 10,
                                     alignItems: 'center',
                                   }}>
-                                  <Text style={{fontSize: 12}}>
-                                    {num}
-                                  </Text>
-                                </View>
+                                  <Text style={{fontSize: 12}}>{num}</Text>
+                                </TouchableOpacity>
                               </View>
                             )}
                           </View>
@@ -200,10 +243,11 @@ const CoachingSession = props => {
                               <View
                                 style={[styles.textStyle, styles.shadowProp]}
                                 key={index2}>
-                                <Text style={{fontSize: 12}}>
+                                <Text style={{fontSize: 12, width: '80%'}}>
                                   {subTrait?.title}
                                 </Text>
-                                {checkMark(index1, index2) && (
+                                {(checkMark(index1, index2) ||
+                                  sessions?.completed_status) && (
                                   <Ionicons
                                     name={'checkmark-outline'}
                                     size={20}
@@ -222,7 +266,244 @@ const CoachingSession = props => {
                         <Text style={styles.textS}>Close</Text>
                       </Pressable>
                     </View>
-                  </View>
+                  </ScrollView>
+                </Modal>
+              </View>
+
+              <View style={styles.centeredView}>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={scoreVisible}
+                  onRequestClose={() => {
+                    setScoreVisible(false);
+                  }}>
+                  <ScrollView
+                    style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
+                    contentContainerStyle={{
+                      alignItems: 'center',
+                      paddingBottom: 10,
+                    }}>
+                    <View style={styles.modalView}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignContent: 'center',
+                          justifyContent: 'center',
+                          padding: 20,
+                        }}>
+                        <Text
+                          style={{
+                            width: '80%',
+                            paddingTop: 20,
+                            paddingLeft: 80,
+                            fontSize: 18,
+                            color: 'black',
+                            fontWeight: '700',
+                          }}>
+                          Scores Chart
+                        </Text>
+                        <Pressable onPress={() => setScoreVisible(false)}>
+                          <Ionicons
+                            name={'close'}
+                            size={35}
+                            color={'#4936BE'}
+                          />
+                        </Pressable>
+                      </View>
+
+                      <View style={{flexDirection: 'row', marginBottom: 10}}>
+                        {traits?.map((trait, index1) => (
+                          <View
+                            style={[
+                              {
+                                backgroundColor: '#ffff',
+                                borderRadius: 20,
+                                marginLeft: 10,
+                                marginBottom: 5,
+                                padding: 10,
+                                width: '45%',
+                                alignItems: 'center',
+                              },
+                              styles.shadowProp,
+                            ]}>
+                            <Text
+                              style={{
+                                fontSize: 12,
+                                color: '#8DC182',
+                                fontWeight: '700',
+                              }}>
+                              {trait?.title}
+                            </Text>
+                          </View>
+                        ))}
+                      </View>
+
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          marginTop: 10,
+                        }}>
+                        <View
+                          style={{
+                            width: '35%',
+
+                            alignContent: 'center',
+                          }}>
+                          <View
+                            style={[
+                              {
+                                backgroundColor: '#97CB0A',
+                                borderRadius: 20,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                                padding: 10,
+                                width: '100%',
+                                alignItems: 'center',
+                              },
+                              styles.shadowProp,
+                            ]}>
+                            <Text style={{fontSize: 12, color: 'white'}}>
+                              EXPLICITY
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              alignItems: 'center',
+                            }}>
+                            <Text>4.1 - 5</Text>
+                          </View>
+                        </View>
+
+                        <Text
+                          style={{
+                            width: '60%',
+                            marginLeft: 30,
+
+                            fontSize: 12,
+                            paddingRight: 15,
+                          }}>
+                          {' '}
+                          You create a transparent environment where the flow of
+                          information is seamless. EveryBody around you is aware
+                          about the expectations for performance, quality and
+                          results. You often express your discontentment when
+                          benchmarks are not met and provide candid reactions
+                          when they are met.
+                        </Text>
+                      </View>
+
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          marginTop: 10,
+                        }}>
+                        <View
+                          style={{
+                            width: '35%',
+                          }}>
+                          <View
+                            style={[
+                              {
+                                backgroundColor: '#FCCC4D',
+                                borderRadius: 20,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                                padding: 10,
+                                width: '100%',
+                                alignItems: 'center',
+                              },
+                              styles.shadowProp,
+                            ]}>
+                            <Text style={{fontSize: 12, color: 'white'}}>
+                              INCONSISTENT
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              alignItems: 'center',
+                            }}>
+                            <Text>2.6 - 4</Text>
+                          </View>
+                        </View>
+
+                        <Text
+                          style={{
+                            width: '60%',
+                            marginLeft: 30,
+
+                            fontSize: 12,
+                            paddingRight: 15,
+                          }}>
+                          {' '}
+                          There is an appreciation for honestlty and sincerity,
+                          however you are isnconsistent when it comes to
+                          integrating it into your system. You try your best to
+                          build a transparent communication channel around you
+                          but often fear that it might lead to a toxic
+                          environemnt.
+                        </Text>
+                      </View>
+
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          marginTop: 10,
+                        }}>
+                        <View
+                          style={{
+                            width: '35%',
+
+                            alignContent: 'center',
+                          }}>
+                          <View
+                            style={[
+                              {
+                                backgroundColor: '#FC8935',
+                                borderRadius: 20,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                                padding: 10,
+                                width: '100%',
+                                alignItems: 'center',
+                              },
+                              styles.shadowProp,
+                            ]}>
+                            <Text style={{fontSize: 12, color: 'white'}}>
+                              AMBIGIOUS
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              alignItems: 'center',
+                            }}>
+                            <Text>4.1-5</Text>
+                          </View>
+                        </View>
+
+                        <Text
+                          style={{
+                            width: '60%',
+                            marginLeft: 30,
+
+                            fontSize: 12,
+                            paddingRight: 15,
+                          }}>
+                          {' '}
+                          You are unexpressive of your true emotions. There is a
+                          belief that your words might hurt others, so you
+                          creaft the carefully to the xtent at which it distorts
+                          the real essence of the message your are trying to get
+                          across. Yo hesitate to transparently display
+                          dissatisfaction when standards are not met and express
+                          joy when they are met.
+                        </Text>
+                      </View>
+                    </View>
+                  </ScrollView>
                 </Modal>
               </View>
             </View>
@@ -253,6 +534,7 @@ const CoachingSession = props => {
                 <SelfAssessment
                   {...props}
                   score={score}
+                  sessions={sessions}
                   traits={traits}
                   traitsLoading={traitsLoading}
                   traitsError={traitsError}
@@ -262,7 +544,9 @@ const CoachingSession = props => {
                   setAnswers={setAnswers}
                   selectedId={selectedId}
                   setSelectedId={setSelectedId}
+                  scrollRef={scrollRef}
                 />
+                // <SessionCompleted />
               )}
             </View>
           </View>
@@ -403,10 +687,12 @@ const styles = StyleSheet.create({
     paddingLeft: 110,
   },
   buttonWrapper: {
-    width: 310,
+    width: Dimensions.get('window').width - 70,
     height: 40,
-    backgroundColor: '#ECECEC',
+    paddingHorizontal: 10,
+    justifyContent: 'center',
     borderRadius: 15,
+    backgroundColor: '#ECECEC',
   },
   centeredView: {
     flex: 1,
@@ -416,16 +702,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 0.2,
-    paddingBottom: 5,
-    paddingLeft: 10,
+    borderBottomWidth: 0.3, 
+    paddingLeft: 5,
     borderBottomColor: '#EBECFO',
-    marginTop: 10,
+    alignItems: 'center',
   },
   traitWrapper: {
     paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   traitW: {
     height: 50,
@@ -437,14 +723,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   modalView: {
-    width: 295,
-    margin: 20,
+    width: Dimensions.get('window').width - 30,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
     shadowColor: '#000',
-    marginTop: 110,
-    marginLeft: 80,
+    marginTop: 100,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -465,6 +749,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     backgroundColor: '#2196F3',
   },
+
   textS: {
     color: 'white',
     fontWeight: 'bold',

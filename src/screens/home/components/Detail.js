@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   ImageBackground,
+  SafeAreaView,
 } from 'react-native';
 import {Button} from 'native-base';
 import HTMLView from 'react-native-htmlview';
@@ -37,8 +38,6 @@ const Detail = props => {
     description = '';
   }
 
-  // console.log('Details ====== ', details?.heading1);
-
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -55,7 +54,9 @@ const Detail = props => {
               <Button
                 style={styles.acceptButton}
                 onPress={() => navigation.navigate('SignUp')}>
-                <Text style={styles.acceptButtonText}>Join Growth Council</Text>
+                <Text style={styles.acceptButtonText}>
+                  Join Growth Innovation Leadership Council
+                </Text>
               </Button>
             </View>
 
@@ -102,14 +103,12 @@ const styles = StyleSheet.create({
   },
   acceptButton: {
     borderRadius: 10,
-    marginTop: 5,
-    width: '45%',
     height: 50,
-    backgroundColor: '#183863',
+    backgroundColor: Colors.PRACTICE_COLOR,
     marginTop: 10,
   },
   acceptButtonText: {
-    color: '#ffffff',
+    color: 'white',
   },
   titleBorder: {
     marginTop: 30,

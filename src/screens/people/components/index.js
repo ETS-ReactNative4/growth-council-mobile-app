@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   StyleSheet,
   View,
@@ -12,12 +12,14 @@ import {
   Modal,
   SafeAreaView,
   RefreshControl,
+  StatusBar,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-picker/picker';
 import {useToast} from 'native-base';
+import {useIsFocused, useFocusEffect} from '@react-navigation/native';
 import {Colors, Typography} from '../../../theme';
 import ToastMessage from '../../../shared/toast';
 import {Dialog} from 'react-native-paper';
@@ -25,6 +27,7 @@ import {BubblesLoader} from 'react-native-indicator';
 import Footer from '../../../shared/footer';
 import {Searchbar} from 'react-native-paper';
 import BottomNav from '../../../layout/BottomLayout';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -52,25 +55,32 @@ const People = props => {
   } = props;
 
   const toast = useToast();
-  const [category, setCategory] = useState();
+  const isFocused = useIsFocused();
+  const [category, setCategory] = useState('');
+  const [account, setAccount] = useState('');
+  const [region, setRegion] = useState('');
   const [searchKey, setSearchKey] = useState('');
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
- 
-  useEffect(() => {
-    const fetchAllUsersAsync = async () => {
-      await fetchAllUsers({
-        s: searchKey,
-        sort: sorting,
-        expertise_areas: category,
-      });
-    };
-    fetchAllUsersAsync();
-	
-	return () => {
-		cleanUser();
-	  };
-  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllUsersAsync = async () => {
+        await fetchAllUsers({
+          s: searchKey,
+          sort: sorting,
+          expertise_areas: category,
+          // category: account,
+          // country: region,
+        });
+      };
+      fetchAllUsersAsync();
+
+      return () => {
+        cleanUser();
+      };
+    }, [isFocused]),
+  );
 
   useEffect(() => {
     setMemberConnection(users);
@@ -91,18 +101,220 @@ const People = props => {
       item.connection = true;
       items[index] = item;
       setMemberConnection(items);
-	  fetchAllUsers({
+      fetchAllUsers({
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
-      })
+        // category: account,
+        // country: region,
+      });
       ToastMessage.show('You have successfully connected.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
     }
-    console.log(response);
   };
+
+  const countries = [
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'Andorra',
+    'Angola',
+    'Antigua & Deps',
+    'Argentina',
+    'Armenia',
+    'Australia',
+    'Austria',
+    'Azerbaijan',
+    'Bahamas',
+    'Bahrain',
+    'Bangladesh',
+    'Barbados',
+    'Belarus',
+    'Belgium',
+    'Belize',
+    'Benin',
+    'Bhutan',
+    'Bolivia',
+    'Bosnia Herzegovina',
+    'Botswana',
+    'Brazil',
+    'Brunei',
+    'Bulgaria',
+    'Burkina',
+    'Burundi',
+    'Cambodia',
+    'Cameroon',
+    'Canada',
+    'Cape Verde',
+    'Central African Rep',
+    'Chad',
+    'Chile',
+    'China',
+    'Colombia',
+    'Comoros',
+    'Congo',
+    'Congo {Democratic Rep}',
+    'Costa Rica',
+    'Croatia',
+    'Cuba',
+    'Cyprus',
+    'Czech Republic',
+    'Denmark',
+    'Djibouti',
+    'Dominica',
+    'Dominican Republic',
+    'East Timor',
+    'Ecuador',
+    'Egypt',
+    'El Salvador',
+    'Equatorial Guinea',
+    'Eritrea',
+    'Estonia',
+    'Ethiopia',
+    'Fiji',
+    'Finland',
+    'France',
+    'Gabon',
+    'Gambia',
+    'Georgia',
+    'Germany',
+    'Ghana',
+    'Greece',
+    'Grenada',
+    'Guatemala',
+    'Guinea',
+    'Guinea-Bissau',
+    'Guyana',
+    'Haiti',
+    'Honduras',
+    'Hungary',
+    'Iceland',
+    'India',
+    'Indonesia',
+    'Iran',
+    'Iraq',
+    'Ireland {Republic}',
+    'Israel',
+    'Italy',
+    'Ivory Coast',
+    'Jamaica',
+    'Japan',
+    'Jordan',
+    'Kazakhstan',
+    'Kenya',
+    'Kiribati',
+    'Korea North',
+    'Korea South',
+    'Kosovo',
+    'Kuwait',
+    'Kyrgyzstan',
+    'Laos',
+    'Latvia',
+    'Lebanon',
+    'Lesotho',
+    'Liberia',
+    'Libya',
+    'Liechtenstein',
+    'Lithuania',
+    'Luxembourg',
+    'Macedonia',
+    'Madagascar',
+    'Malawi',
+    'Malaysia',
+    'Maldives',
+    'Mali',
+    'Malta',
+    'Marshall Islands',
+    'Mauritania',
+    'Mauritius',
+    'Mexico',
+    'Micronesia',
+    'Moldova',
+    'Monaco',
+    'Mongolia',
+    'Montenegro',
+    'Morocco',
+    'Mozambique',
+    'Myanmar, {Burma}',
+    'Namibia',
+    'Nauru',
+    'Nepal',
+    'Netherlands',
+    'New Zealand',
+    'Nicaragua',
+    'Niger',
+    'Nigeria',
+    'Norway',
+    'Oman',
+    'Pakistan',
+    'Palau',
+    'Panama',
+    'Papua New Guinea',
+    'Paraguay',
+    'Peru',
+    'Philippines',
+    'Poland',
+    'Portugal',
+    'Qatar',
+    'Romania',
+    'Russian Federation',
+    'Rwanda',
+    'St Kitts & Nevis',
+    'St Lucia',
+    'Saint Vincent & the Grenadines',
+    'Samoa',
+    'San Marino',
+    'Sao Tome & Principe',
+    'Saudi Arabia',
+    'Senegal',
+    'Serbia',
+    'Seychelles',
+    'Sierra Leone',
+    'Singapore',
+    'Slovakia',
+    'Slovenia',
+    'Solomon Islands',
+    'Somalia',
+    'South Africa',
+    'South Sudan',
+    'Spain',
+    'Sri Lanka',
+    'Sudan',
+    'Suriname',
+    'Swaziland',
+    'Sweden',
+    'Switzerland',
+    'Syria',
+    'Taiwan',
+    'Tajikistan',
+    'Tanzania',
+    'Thailand',
+    'Togo',
+    'Tonga',
+    'Trinidad & Tobago',
+    'Tunisia',
+    'Turkey',
+    'Turkmenistan',
+    'Tuvalu',
+    'Uganda',
+    'Ukraine',
+    'United Arab Emirates',
+    'United Kingdom',
+    'United States',
+    'Uruguay',
+    'Uzbekistan',
+    'Vanuatu',
+    'Vatican City',
+    'Venezuela',
+    'Vietnam',
+    'Yemen',
+    'Zambia',
+    'Zimbabwe',
+  ];
+
+  const pillar = ['Community', 'Best Practice', 'Growth Coaching'];
 
   const _renderItem = ({item, index}) => {
     return (
@@ -160,16 +372,19 @@ const People = props => {
   };
 
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [accountVisible, setAccountVisible] = useState(false);
+  const [regionVisible, setRegionVisible] = useState(false);
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-        }}
-	>
-        <View style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
+      <View style={styles.container}>
+        <View style={{marginBottom: 20}}>
           <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
             <Searchbar
               style={styles.input}
@@ -182,9 +397,35 @@ const People = props => {
                   s: text,
                   sort: sorting,
                   expertise_areas: category,
+                  category: account,
+                  country: region,
                 });
               }}
             />
+            {/* <TouchableOpacity style={styles.icon}
+              onPress={async () => {
+                let newSorting = 'DESC';
+                if( sorting === 'DESC'){
+                  newSorting = 'ASC'
+                }
+                setSorting(newSorting);
+                
+                await fetchAllUsers({
+                  s: searchKey,
+                  sort: newSorting,
+                  expertise_areas: category,
+                  category: account,
+                  country: region,
+                });
+              }}
+            >
+              <Ionicons
+                name="swap-vertical-outline"
+                size={25}
+                color="#7E7F84"
+              />
+              <Text style={styles.textWrapper}>Sort</Text>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.iconWrapper}>
             <TouchableOpacity
@@ -192,70 +433,62 @@ const People = props => {
               style={{
                 flex: 1,
                 alignItems: 'center',
-                borderWidth: 1,
+                borderWidth: 0.3,
                 paddingVertical: 10,
-                borderRadius: 10,
                 borderColor: 'gray',
-                marginRight: 30,
+                height: 60,
+                borderBottomLeftRadius: 10,
+                borderTopLeftRadius: 10,
+                justifyContent: 'center',
               }}>
               <Text style={{fontSize: 14, color: '#222B45'}}>
-                {category ? category : 'Select Expertise Areas'}
+                {category ? category : 'Expertise Areas'}
               </Text>
             </TouchableOpacity>
-            <View style={styles.icon}>
-              <Ionicons
-                name="arrow-up"
-                size={20}
-                color="#7E7F84"
-                onPress={async () => {
-                  setSorting('DESC');
-
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'DESC',
-                    expertise_areas: category,
-                  });
-                }}
-              />
-              <Ionicons
-                name="arrow-down"
-                size={20}
-                color="#7E7F84"
-                onPress={async () => {
-                  setSorting('ASC');
-
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'ASC',
-                    expertise_areas: category,
-                  });
-                }}
-              />
-              <Text style={styles.textWrapper}>Sort</Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => setAccountVisible(true)}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                borderWidth: 0.3,
+                paddingVertical: 10,
+                borderColor: 'gray',
+                height: 60,
+                justifyContent: 'center',
+              }}>
+              <Text style={{fontSize: 14, color: '#222B45'}}>
+                {account ? account : 'Account Type'}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setRegionVisible(true)}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                borderWidth: 0.3,
+                paddingVertical: 10,
+                borderColor: 'gray',
+                height: 60,
+                justifyContent: 'center',
+                borderBottomRightRadius: 10,
+                borderTopRightRadius: 10,
+              }}>
+              <Text style={{fontSize: 14, color: '#222B45'}}>
+                {region ? region : 'Region'}
+              </Text>
+            </TouchableOpacity>
           </View>
-          {userLoading && (
-            <View style={styles.loading1}>
-              <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-            </View>
-          )}
+        </View>
+        {userLoading && <Loading />}
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
 
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+            paddingBottom: 50,
+          }}>
           <View style={{marginTop: 10}}>
-            {memberConnectionLoading && (
-              <View
-                style={{
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  zIndex: 1011,
-                }}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-              </View>
-            )}
+            {memberConnectionLoading && <Loading />}
             <FlatList
               vertical
               showsVerticalScrollIndicator={false}
@@ -263,64 +496,186 @@ const People = props => {
               renderItem={_renderItem}
             />
           </View>
-        </View>
-        <Footer />
-        <Modal transparent visible={pickerVisible}>
+          {/* <Footer /> */}
+        </ScrollView>
+      </View>
+
+      <Modal transparent visible={pickerVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
           <View
             style={{
-              flex: 1,
-              backgroundColor: 'rgba(56,56,56,0.3)',
-              justifyContent: 'flex-end',
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
             }}>
-            <View
-              style={{
-                height: 300,
-                backgroundColor: 'white',
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                padding: 20,
-              }}>
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => setPickerVisible(false)}
-                style={{alignItems: 'flex-end'}}>
-                <Text
-                  style={{
-                    padding: 15,
-                    fontSize: 18,
-                  }}>
-                  Done
-                </Text>
-              </TouchableOpacity>
-              <View style={{marginBottom: 40}}>
-                <Picker
-                  selectedValue={category}
-                  mode="dropdown"
-                  itemTextStyle={{fontSize: 12}}
-                  onValueChange={async (itemValue, itemIndex) => {
-                    setCategory(itemValue);
-                    await fetchAllUsers({
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setPickerVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={category}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 12}}
+                onValueChange={async itemValue => {
+                  setCategory(itemValue);
+                  if (itemValue === 'Expertise Areas') {
+                    fetchAllUsers({
                       s: searchKey,
-                      sort: 'ASC',
-                      expertise_areas: category,
+                      sort: sorting,
+                      expertise_areas: '',
                     });
-                  }}>
-                  {Object.keys(expertise).map(key => {
-                    return (
-                      <Picker.Item
-                        label={expertise[key]}
-                        value={key}
-                        key={key}
-                        style={{fontSize: 14}}
-                      />
-                    );
-                  })}
-                </Picker>
-              </View>
+                  } else {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      expertise_areas: itemValue,
+                    });
+                  }
+                }}>
+                {Object.keys(expertise).map(key => {
+                  return (
+                    <Picker.Item
+                      label={expertise[key]}
+                      value={key}
+                      key={key}
+                      style={{fontSize: 14}}
+                    />
+                  );
+                })}
+              </Picker>
             </View>
           </View>
-        </Modal>
-      </ScrollView>
+        </View>
+      </Modal>
+
+      <Modal transparent visible={accountVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setAccountVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={account}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 12}}
+                onValueChange={async itemValue => {
+                  setAccount(itemValue);
+                  await fetchAllUsers({
+                    s: searchKey,
+                    sort: 'ASC',
+                    category: account,
+                  });
+                }}>
+                {Object.keys(pillar).map(key => {
+                  return (
+                    <Picker.Item
+                      label={pillar[key]}
+                      value={pillar[key]}
+                      key={key}
+                      style={{fontSize: 14}}
+                    />
+                  );
+                })}
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal transparent visible={regionVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(56,56,56,0.3)',
+            justifyContent: 'flex-end',
+          }}>
+          <View
+            style={{
+              height: 300,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              padding: 20,
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setRegionVisible(false)}
+              style={{alignItems: 'flex-end'}}>
+              <Text
+                style={{
+                  padding: 15,
+                  fontSize: 18,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+            <View style={{marginBottom: 40}}>
+              <Picker
+                selectedValue={region}
+                mode="dropdown"
+                itemTextStyle={{fontSize: 12}}
+                onValueChange={async (itemValue, itemIndex) => {
+                  setRegion(itemValue);
+                  await fetchAllUsers({
+                    s: searchKey,
+                    sort: 'ASC',
+                    country: region,
+                  });
+                }}>
+                {Object.keys(countries).map(key => {
+                  return (
+                    <Picker.Item
+                      label={countries[key]}
+                      value={countries[key]}
+                      key={key}
+                      style={{fontSize: 14}}
+                    />
+                  );
+                })}
+              </Picker>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       <BottomNav {...props} navigation={navigation} />
     </SafeAreaView>
   );
@@ -331,11 +686,14 @@ const styles = StyleSheet.create({
     // ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     flex: 1,
+    marginBottom: 20,
   },
   input: {
     height: 45,
     width: '90%',
-    margin: 20,
+    marginLeft: 20,
+    marginTop: 20,
+    marginBottom: 20,
     borderRadius: 20,
     backgroundColor: '#F5F5F5',
   },
@@ -352,15 +710,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 15,
+    height: 70,
   },
   icon: {
+    marginHorizontal: 10,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    width: '20%',
     borderColor: '#707070',
   },
   textWrapper: {
+    marginLeft: 5,
     fontSize: 14,
     color: '#7E7F84',
   },

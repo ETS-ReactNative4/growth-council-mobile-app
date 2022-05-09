@@ -4,10 +4,10 @@ import {
   Text,
   View,
   ScrollView,
-  StatusBar,
   TouchableOpacity,
   Dimensions,
   ImageBackground,
+  Image,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {Button} from 'native-base';
@@ -59,7 +59,7 @@ const SignInForm = props => {
         token: messageToken,
       };
       const resp = await postToAPI(firebasePayload);
-      console.log('API Response::::', resp?.data);
+    
       await signIn(values);
     },
   });
@@ -79,7 +79,8 @@ const SignInForm = props => {
   );
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1, height: screenHeight}}>
+    <ScrollView
+      contentContainerStyle={{flexGrow: 1, height: screenHeight + 100}}>
       <View style={styles.container}>
         <ImageBackground
           source={require('../../../assets/img/splash-screen.png')}
@@ -89,6 +90,13 @@ const SignInForm = props => {
           <View>
             <View style={styles.content}>
               <View style={styles.header}>
+                <Image
+                  style={{width: '80%'}}
+                  source={require('../../../assets/img/GILCouncil.jpg')}
+                  resizeMode="contain"
+                />
+              </View>
+              <View style={{marginTop: 10}}>
                 <Text style={styles.headingText1}>
                   Growth Innovation
                   {'\n'}
@@ -99,15 +107,6 @@ const SignInForm = props => {
                   Login to your account below.
                 </Text>
               </View>
-
-				
-				{!message?.success && (
-					<View style={styles.message}>
-					<Text style={styles.errorText}>{message?.message}</Text>
-					</View>
-				)}
-			
-             
 
               <View style={styles.body}>
                 {loading && (
@@ -150,17 +149,26 @@ const SignInForm = props => {
                 )}
 
                 <Ionicons
-                  name={hidePass ? 'eye-outline' : 'eye-off-outline'}
-                  size={25}
-                  color={Colors.PRIMARY_HEADING_COLOR}
+                  name={!hidePass ? 'eye-outline' : 'eye-off-outline'}
+                  size={22}
+                  color={
+                    !hidePass
+                      ? Colors.PRIMARY_BACKGROUND_ICON_COLOR
+                      : Colors.PRIMARY_HEADING_COLOR
+                  }
                   onPress={() => setHidePass(!hidePass)}
                   style={{
                     position: 'absolute',
-                    bottom: 25,
+                    bottom: 20,
                     right: 15,
                   }}
                 />
               </View>
+              {!message?.success && (
+                <View style={styles.message}>
+                  <Text style={styles.errorText}>{message?.message}</Text>
+                </View>
+              )}
 
               <View style={styles.loginButtonWrapper}>
                 <Button style={styles.loginButton} onPress={handleSubmit}>
@@ -172,12 +180,12 @@ const SignInForm = props => {
                   <Text
                     style={styles.forgotButtonText}
                     onPress={() => navigation.navigate('Forgot')}>
-                    Forgot Password?
+                    Reset Password?
                   </Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.signuptext}>
-                <Text>Join Growth Council</Text>
+                <Text>Join Growth Innovation Leadership Council</Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
                   onPress={() => navigation.navigate('SignUp')}>
@@ -188,7 +196,7 @@ const SignInForm = props => {
               <View
                 style={[
                   styles.signuptext,
-                  {marginTop: Platform.OS === 'ios' ? 60 : 110},
+                  {marginTop: Platform.OS === 'ios' ? 40 : 80},
                 ]}>
                 {/* <Ionicons name="help-circle-outline" size={20} color={'#31ade5'}/> */}
                 <Text>Need Help? </Text>
@@ -212,10 +220,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
   },
   header: {
-    height: 50,
-    marginTop: Platform.OS === 'ios' ? 20 : 50,
-    marginBottom: Platform.OS === 'ios' ? 10 : 30,
-    //width: '80%',
+    marginTop: Platform.OS === 'ios' ? 20 : 20,
   },
   body: {
     width: '90%',
@@ -229,7 +234,7 @@ const styles = StyleSheet.create({
   },
   message: {
     ...CommonStyles.message,
-    paddingTop: 29,
+    paddingTop: 0,
   },
   errorText: {
     ...CommonStyles.errorText,
@@ -254,7 +259,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   loginButton: {
-    ...CommonStyles.button,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.PRACTICE_COLOR,
     height: 40,
     marginBottom: 15,
     borderRadius: 10,
@@ -278,7 +285,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_MEDIUM,
     paddingLeft: 8,
   },
-  
+
   signuptext: {
     flexDirection: 'row',
   },

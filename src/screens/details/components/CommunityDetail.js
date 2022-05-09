@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -9,16 +9,25 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
+  StatusBar,
+  PermissionsAndroid,
 } from 'react-native';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {BubblesLoader} from 'react-native-indicator';
 import YoutubePlayer from '../../../shared/youtube';
-import Footer from '../../../shared/footer';
+import HTMLView from 'react-native-htmlview';
 import Player from '../../dashboard/components/Player';
-import {useIsFocused} from '@react-navigation/native';
-
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
+
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
 
 const CommunityDetail = props => {
   const {
@@ -44,6 +53,11 @@ const CommunityDetail = props => {
     pillarMemberContentError,
     fetchAllPillarMemberContent,
     cleanPillarMemberContent,
+    pillarPOEs,
+    pillarPOELoading,
+    pillarPOEError,
+    fetchAllPillarPOE,
+    cleanPillarPOE,
   } = props;
 
   const isFocused = useIsFocused();
@@ -81,21 +95,18 @@ const CommunityDetail = props => {
     setMemberConnection(pillarMemberContents);
   }, [pillarMemberContents]);
 
-  const connectMemberByMemberID = async (memberID, index) => {
-    const response = await connectMemberByIdentifier({member_id: memberID});
-    if (response?.payload?.code === 200) {
-      let items = [...memberConnection];
-      let item = {...items[index]};
-      item.connection = true;
-      items[index] = item;
-      setMemberConnection(items);
-      ToastMessage.show('You have successfully connected.');
-    } else {
-      toast.closeAll();
-      ToastMessage.show(response?.payload?.response);
-    }
-    console.log(response);
-  };
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAllPillarPOEAsync = async () => {
+        await fetchAllPillarPOE(route.params.poeId);
+      };
+      fetchAllPillarPOEAsync();
+
+      return () => {
+        cleanPillarPOE();
+      };
+    }, []),
+  );
 
   const _renderItem = ({item, index}, navigation) => {
     return (
@@ -132,21 +143,59 @@ const CommunityDetail = props => {
     );
   };
 
+  const _renderMiddleItem = ({item, index}, navigation) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('SubPoe', {
+            poeId: item?.term_id,
+            id: route?.params?.poeId,
+          })
+        }>
+        <View style={styles.middleWrapper}>
+          <View style={[styles.middleW, styles.shadowProp]}>
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+              resizeMode="contain"
+            />
+          </View>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+              color: '#030303',
+            }}>
+            {item?.name}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   const _renderTopItem = ({item, index}) => {
     const actualDate = moment(item.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
-    console.log(date[1]);
 
     let backgroundImage = '';
-    switch (item?.pillar_categories[0]?.parent) {
-      case 119:
-        backgroundImage = require('../../../assets/img/Rectangle.png');
-        break;
-      case 118:
-        backgroundImage = require('../../../assets/img/Rectangle1.png');
-        break;
-      default:
+    switch (
+      item?.pillar_categories[0]?.parent ||
+      item?.pillar_categories[1]?.parent
+    ) {
+      case 0:
+      case 117:
         backgroundImage = require('../../../assets/img/Rectangle2.png');
+        break;
+
+      case 0:
+      case 118:
+        backgroundImage = require('../../../assets/img/best-practice-bg.png');
+        break;
+
+      default:
+        backgroundImage = require('../../../assets/img/Rectangle.png');
     }
 
     let organizer = item?.organizer?.term_name;
@@ -169,7 +218,7 @@ const CommunityDetail = props => {
           <ImageBackground
             style={{
               width: '100%',
-              height: '100%',
+              height: 150,
               borderRadius: 20,
             }}
             source={backgroundImage}>
@@ -203,127 +252,265 @@ const CommunityDetail = props => {
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
     const link = file.split('=', 2);
-    let videoLink = link[1].split('&', 2);
+    let videoLink = link[1]?.split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
+
+  const _renderContent = ({item, index}) => {
+    const fileUrl = item?.file?.url;
+
+    const checkPermission = async () => {
+      if (Platform.OS === 'ios') {
+        downloadFile();
+      } else {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+              title: 'Storage Permission Required',
+              message:
+                'Application needs access to your storage to download File',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            downloadFile();
+
+          
+          } else {
+            Alert.alert('Error', 'Storage Permission Not Granted');
+          }
+        } catch (err) {
+          ToastMessage.show('++++' + err);
+        }
+      }
+    };
+
+    const downloadFile = () => {
+      let date = new Date();
+
+      let FILE_URL = fileUrl;
+
+      let file_ext = getFileExtention(FILE_URL);
+
+      file_ext = '.' + file_ext[0];
+
+      const {config, fs} = ReactNativeBlobUtil;
+      let RootDir = fs.dirs.PictureDir;
+      let options = {
+        fileCache: true,
+        addAndroidDownloads: {
+          path:
+            RootDir +
+            '/file_' +
+            Math.floor(date.getTime() + date.getSeconds() / 2) +
+            file_ext,
+          description: 'downloading file...',
+          notification: true,
+          useDownloadManager: true,
+        },
+      };
+      config(options)
+        .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
+        .then(res => {
+         
+          ToastMessage.show('PDF File Downloaded Successfully.');
+        });
+    };
+
+    const getFileExtention = fileUrl => {
+      return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
+    };
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
+        }>
+        <View style={styles.attachmentContainer}>
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
+            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.attachmentDownloadButton}
+            onPress={checkPermission}>
+            <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   let backgroundColor = '';
+  let title = '';
   const parent = poeDetails?.parent;
   switch (parent) {
     case 118:
       backgroundColor = Colors.PRACTICE_COLOR;
+      title = 'Best Practices';
       break;
     case 117:
       backgroundColor = Colors.COMMUNITY_COLOR;
+      title = 'Growth Community';
       break;
     case 119:
       backgroundColor = Colors.COACHING_COLOR;
+      title = 'Growth Coaching';
   }
+
+  let poeDescription = poeDetails?.description;
+  if (poeDescription !== undefined) {
+    poeDescription = poeDetails?.description;
+  } else {
+    poeDescription = '';
+  }
+
   return (
-    <ScrollView
-      style={{
-        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-      }}>
-      <View style={styles.container}>
-        <ImageBackground
-          source={{uri: poeDetails?.pillar_detail_image}}
-          style={{height: 240, width: '100%'}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <View style={styles.arrow}>
-              <Ionicons name={'arrow-back'} size={50} color="white" />
-            </View>
-          </TouchableOpacity>
-        </ImageBackground>
+    <>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
+      <ScrollView
+        style={{
+          backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+        }}>
+        <View style={styles.container}>
+          <ImageBackground
+            source={{uri: poeDetails?.pillar_detail_image}}
+            style={{height: 240, width: '100%'}}></ImageBackground>
 
-        <View style={[styles.icon, styles.shadowProp]}>
-          <Image
-            source={{uri: poeDetails?.image}}
-            style={{
-              width: 35,
-              height: 35,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          />
-        </View>
-
-        <ScrollView
-          style={[styles.content, {backgroundColor: backgroundColor}]}>
-          <View style={styles.contentWrapper}>
-            <Text
+          <View style={[styles.icon, styles.shadowProp]}>
+            <Image
+              source={{uri: poeDetails?.image}}
               style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: '#1E2022',
-                textAlign: 'center',
-                marginTop: 50,
-              }}>
-              {poeDetails.name}
-            </Text>
-
-            <Text style={styles.paragraph}>{poeDetails.description}</Text>
-
-            <View style={styles.top}>
-              <Text style={styles.title}> Events</Text>
-
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={poeEvents}
-                  renderItem={_renderTopItem}
-                />
-              </View>
-            </View>
-            <View style={styles.bottom}>
-              <Text style={styles.title}> Members</Text>
-              <View>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.members}
-                  renderItem={item => _renderItem(item, navigation)}
-                />
-              </View>
-            </View>
-
-            <View style={styles.growthContent}>
-              <Text style={styles.title}> Growth Coaching Content</Text>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}>
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={pillarMemberContents?.pillar_contents}
-                  renderItem={_renderContentItem}
-                />
-              </View>
-            </View>
-
-            <Footer />
+                width: 35,
+                height: 35,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            />
           </View>
-        </ScrollView>
-      </View>
-      {poeDetailLoading && (
-        <View
-          style={{
-            height: Dimensions.get('window').height,
-            position: 'absolute',
-            justifyContent: 'center',
-            alignItems: 'center',
-            left: 0,
-            right: 0,
-          }}>
-          <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+
+          <ScrollView
+            style={[styles.content, {backgroundColor: backgroundColor}]}>
+            <View style={styles.contentWrapper}>
+              <View style={{padding: 15}}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    color: '#1E2022',
+                    textAlign: 'center',
+                    marginTop: 40,
+                    marginBottom: 15,
+                  }}>
+                  {poeDetails.name}
+                </Text>
+
+                <HTMLView
+                  value={poeDescription}
+                  textComponentProps={{
+                    style: {
+                      fontFamily: Typography.FONT_SF_REGULAR,
+                      fontSize: 14,
+                      lineHeight: 20,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#77838F',
+                    },
+                  }}
+                />
+              </View>
+              {poeDetails?.slug === '10-growth-processes' && (
+                <View style={styles.top}>
+                  <Text style={styles.title}> Sub Points of Engagement</Text>
+                  <FlatList
+                    numColumns={4}
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarPOEs}
+                    // renderItem={_renderMiddleItem}
+                    renderItem={item => _renderMiddleItem(item, navigation)}
+                  />
+                </View>
+              )}
+
+              {poeDetails?.parent !== 118 && poeEvents?.length !== 0 && (
+                <View style={styles.top}>
+                  <Text style={styles.title}> Events</Text>
+
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={poeEvents}
+                      renderItem={_renderTopItem}
+                    />
+                  </View>
+                </View>
+              )}
+              {poeDetails?.parent === 118 &&
+                poeDetails?.attachments?.length !== 0 &&
+                poeDetails?.attachments !== null && (
+                  <View style={styles.sectionContainer}>
+                    <FlatList
+                      vertical
+                      showsHorizontalScrollIndicator={false}
+                      data={poeDetails?.attachments}
+                      renderItem={_renderContent}
+                    />
+                  </View>
+                )}
+              {/* {pillarMemberContents?.members?.length !== 0 && (
+                <View style={styles.bottom}>
+                  <Text style={styles.title}> Members</Text>
+                  <View>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarMemberContents?.members}
+                      renderItem={item => _renderItem(item, navigation)}
+                    />
+                  </View>
+                </View>
+              )} */}
+
+              {poeDetails?.pillar_contents?.length !== 0 &&
+                poeDetails?.pillar_contents !== false &&
+                poeDetails?.pillar_contents !== null && (
+                  <View style={styles.growthContent}>
+                    <Text style={styles.title}> Content Library</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={pillarMemberContents?.pillar_contents}
+                        renderItem={_renderContentItem}
+                      />
+                    </View>
+                  </View>
+                )}
+
+              {/* <Footer /> */}
+            </View>
+          </ScrollView>
         </View>
-      )}
-    </ScrollView>
+        {poeDetailLoading && <Loading />}
+      </ScrollView>
+    </>
   );
 };
 
@@ -336,11 +523,13 @@ const styles = StyleSheet.create({
   arrow: {
     marginTop: 30,
   },
+
   title: {
-    fontFamily: Typography.FONT_SF_SEMIBOLD,
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily: Typography.FONT_SF_REGULAR,
     color: Colors.PRIMARY_TEXT_COLOR,
-    marginLeft: 15,
+    fontWeight: '650',
+    marginLeft: 10,
   },
 
   icon: {
@@ -358,6 +547,7 @@ const styles = StyleSheet.create({
     // borderRadius: 18,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+    marginBottom: 20,
   },
   contentWrapper: {
     backgroundColor: 'white',
@@ -379,9 +569,36 @@ const styles = StyleSheet.create({
   topWrapper: {
     height: 144,
     width: 256,
-    marginTop: 20,
     marginLeft: 15,
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginRight: 5,
+    marginTop: 15,
+  },
+  middleWrapper: {
+    width: (Dimensions.get('window').width - 10) / 4,
     borderRadius: 20,
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  middleW: {
+    backgroundColor: 'white',
+    width: 64,
+    height: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   bottom: {
     marginTop: 15,
@@ -416,14 +633,13 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_SF_REGULAR,
     marginTop: 5,
-    fontWeight: '800',
+    fontWeight: '600',
     color: 'white',
     fontSize: 12,
   },
   headingText2: {
     ...CommonStyles.headingText2,
     fontFamily: Typography.FONT_SF_REGULAR,
-    fontWeight: '400',
     color: 'white',
     fontSize: 8,
   },
@@ -451,6 +667,46 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  attachmentContainer: {
+    margin: 1,
+    width: contentContainerWidth,
+    height: 70,
+    paddingLeft: 20,
+    paddingRight: 8,
+    marginRight: 5,
+    marginLeft: 15,
+    marginTop: 20,
+    paddingBottom: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 15,
+    shadowOpacity: 0.1,
+    shadowColor: Colors.UNDENARY_BACKGROUND_COLOR,
+    elevation: 5,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+  },
+  attachmentTitle: {
+    marginLeft: 10,
+    fontSize: 14,
+    width: '80%',
+    fontFamily: 'SFProText-Regular',
+    color: Colors.SECONDARY_TEXT_COLOR,
+  },
+  attachmentDownloadButton: {
+    width: 35,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: '#F5F5F5',
+  },
+  sectionContainer: {
+    marginBottom: 20,
+    marginTop: 20,
   },
 });
 

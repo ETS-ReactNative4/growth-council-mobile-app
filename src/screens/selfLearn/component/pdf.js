@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   Text,
   PermissionsAndroid,
+  PermissionStatus,
 } from 'react-native';
 import Pdf from 'react-native-pdf';
-import RNFetchBlob from 'rn-fetch-blob';
 import ToastMessage from '../../../shared/toast';
+import ReactNativeBlobUtil from 'react-native-blob-util';
 
 const pdf = props => {
   const {navigation, route} = props;
@@ -19,9 +20,6 @@ const pdf = props => {
   const fileUrl = route.params.paramsFile;
 
   const checkPermission = async () => {
-    // Function to check the platform
-    // If Platform is Android then check for permissions.
-
     if (Platform.OS === 'ios') {
       downloadFile();
     } else {
@@ -36,19 +34,16 @@ const pdf = props => {
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           downloadFile();
-
-          console.log('Storage Permission Granted.');
         } else {
           Alert.alert('Error', 'Storage Permission Not Granted');
         }
       } catch (err) {
-        console.log('++++' + err);
+		ToastMessage.show( err);
       }
     }
   };
 
   const downloadFile = () => {
-    // Get today's date to add the time suffix in filename
     let date = new Date();
 
     let FILE_URL = fileUrl;
@@ -57,11 +52,12 @@ const pdf = props => {
 
     file_ext = '.' + file_ext[0];
 
-    const {config, fs} = RNFetchBlob;
-    let RootDir = fs.dirs.PictureDir;
-    let options = {
-      fileCache: true,
-      addAndroidDownloads: {
+    const {config, fs} = ReactNativeBlobUtil;
+    let RootDir =
+      Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+    let options = Platform.select({
+      ios: {
+        fileCache: true,
         path:
           RootDir +
           '/file_' +
@@ -69,19 +65,30 @@ const pdf = props => {
           file_ext,
         description: 'downloading file...',
         notification: true,
-        useDownloadManager: true,
       },
-    };
+      android: {
+        fileCache: true,
+        addAndroidDownloads: {
+          path:
+            RootDir +
+            '/file_' +
+            Math.floor(date.getTime() + date.getSeconds() / 2) +
+            file_ext,
+          description: 'downloading file...',
+          notification: true,
+          useDownloadManager: true,
+        },
+      },
+    });
     config(options)
       .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
       .then(res => {
-        console.log('res -> ', JSON.stringify(res));
+		console.log('res -> ', JSON.stringify(res));
         ToastMessage.show('PDF File Downloaded Successfully.');
       });
   };
 
   const getFileExtention = fileUrl => {
-
     return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
   };
 
@@ -89,18 +96,6 @@ const pdf = props => {
     <View style={styles.container}>
       <Pdf
         source={source}
-        onLoadComplete={(numberOfPages, filePath) => {
-          console.log(`Number of pages: ${5}`);
-        }}
-        onPageChanged={(page, numberOfPages) => {
-          console.log(`Current page: ${1}`);
-        }}
-        onError={error => {
-          console.log(error);
-        }}
-        onPressLink={uri => {
-          console.log(`Link pressed: ${uri}`);
-        }}
         style={styles.pdf}
       />
 
@@ -118,7 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 5,
   },
   pdf: {
     flex: 1,

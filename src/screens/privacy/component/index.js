@@ -28,10 +28,9 @@ const privacy = props => {
   const win = Dimensions.get('window');
 
   useEffect(() => {
-    const fetchPolicyAsync = async () => {
-      await fetchPrivacyPolicy();
-    };
-    fetchPolicyAsync();
+  
+      fetchPrivacyPolicy();
+    
   }, []);
 
   let description = privacy.content1;
@@ -44,8 +43,10 @@ const privacy = props => {
   return (
     <>
       <StatusBar
-        barStyle="dark-content"
-        backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
       />
       <ScrollView
        >
@@ -70,7 +71,7 @@ const privacy = props => {
               </Text>
             </Button>
           </View>
-          <Footer />
+          {/* <Footer /> */}
         </View>
       </ScrollView>
     </>
@@ -80,6 +81,7 @@ export default privacy;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
+	paddingBottom: 20,
   },
   header: {
     ...CommonStyles.header,

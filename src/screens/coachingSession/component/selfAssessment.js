@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, StatusBar} from 'react-native';
 import {Button} from 'native-base';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
 
@@ -17,6 +17,7 @@ import {
 import {BubblesLoader} from 'react-native-indicator';
 import ToastMessage from '../../../shared/toast';
 import {store} from '../../../utils/httpUtil';
+import SessionCompleted from './sessionCompleted';
 
 const win = Dimensions.get('window');
 const SelfAssessment = props => {
@@ -34,6 +35,9 @@ const SelfAssessment = props => {
     setAnswers,
     selectedId,
     setSelectedId,
+    sessions,
+
+    scrollRef,
   } = props;
 
   const dispatch = useDispatch();
@@ -53,15 +57,6 @@ const SelfAssessment = props => {
   const [subTraitLength, setSubTraitLength] = useState(0);
 
   const [subTraits, setSubTraits] = useState(traits[index.traitIndex]);
-
-  const scrollRef = useRef(null);
-
-  const onFabPress = () => {
-    scrollRef.current?.scrollTo({
-      y: -50,
-      animated: true,
-    });
-  };
 
   useEffect(() => {
     setSubTraits(traits[index.traitIndex]);
@@ -100,17 +95,24 @@ const SelfAssessment = props => {
 
   useEffect(() => {}, [traitLength, subTraitLength]);
 
-
   const handleNextButtonClick = async () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+
     if (
       index.traitIndex === traitLength - 1 &&
       index.subTraitIndex === subTraitLength - 1
     ) {
-      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, score)
+      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, {
+        score,
+        completedStatus: true,
+      })
         .then(response => {
           if (response?.data?.code === 200) {
             ToastMessage.show(
-              'You score has submitted. Please complete all the session.',
+              'You score has submitted.',
             );
             setAnswers({
               questions: {
@@ -119,7 +121,12 @@ const SelfAssessment = props => {
               },
               yellowQuestions: [],
             });
-            navigation.navigate('radar');
+            navigation.goBack();
+
+            if (sessions.title === 'Session 10') {
+            //   ToastMessage.show('You score has submitted.');
+              navigation.navigate('SessionCompleted');
+            }
           } else {
             toast.closeAll();
             ToastMessage.show(response?.payload?.response);
@@ -132,11 +139,39 @@ const SelfAssessment = props => {
     } else if (index.subTraitIndex === subTraitLength - 1) {
       setIndex({...index, subTraitIndex: 0, traitIndex: index.traitIndex + 1});
       onFabPress();
+      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, {
+        score,
+        completedStatus: false,
+      })
+        .then(response => {
+          toast.closeAll();
+          ToastMessage.show(response?.payload?.response);
+        })
+        .catch(error => {
+          toast.closeAll();
+          ToastMessage.show('Something is wrong, please contact admin.');
+        });
     } else {
       setIndex({...index, subTraitIndex: index.subTraitIndex + 1});
+      store(`jwt-auth/v1/sessions/${route?.params?.id}/score`, {
+        score,
+        completedStatus: false,
+      })
+        .then(response => {
+          toast.closeAll();
+          ToastMessage.show(response?.payload?.response);
+        })
+        .catch(error => {
+          toast.closeAll();
+          ToastMessage.show('Something is wrong, please contact admin.');
+        });
     }
   };
   const handlePreviousButtonClick = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
     if (index.subTraitIndex === 0 && index.traitIndex > 0) {
       setIndex({
         ...index,
@@ -147,112 +182,120 @@ const SelfAssessment = props => {
       setIndex({...index, subTraitIndex: index.subTraitIndex - 1});
     }
   };
- 
+
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
-      {traits?.length > 0 ? (
-        <View style={{flex: 1}}>
-          <View style={styles.Wrapper}>
-            <ButtonToggleGroup
-              highlightBackgroundColor={'white'}
-              highlightTextColor={'#0B0B45'}
-              inactiveBackgroundColor={'transparent'}
-              inactiveTextColor={'grey'}
-              values={[sub, 'Yellow Questions']}
-              value={value}
-              onSelect={val => setValue(val)}
-              style={{
-                flex: 0,
-                height: 30,
-                marginTop: 5,
-                width: '98%',
-                marginLeft: 4,
-                borderRadius: 15,
-              }}
-              textStyle={{
-                paddingHorizontal: 0,
-                paddingLeft: 5,
-                fontSize: 10,
-                width: '100%',
-              }}
-            />
-          </View>
-
-          <View>
-            {value === sub && (
-              <Trait
-                {...props}
-                subTraits={traits[index.traitIndex]}
-                // subTraitsLoading={subTraitsLoading}
-                // subTraitsError={subTraitsError}
-                fetchAllSubTrait={fetchAllSubTrait}
-                cleanSubTrait={cleanSubTrait}
-                count={index.subTraitIndex}
-                traitIndex={index}
-                answers={answers}
-                setAnswers={setAnswers}
-                selectedId={selectedId}
-                setSelectedId={setSelectedId}
-                traitsAnswer={traitsAnswer}
-                traitsAnswerLoading={traitsAnswerLoading}
-                traitsAnswerError={traitsAnswerError}
-                fetchTraitsAnswer={fetchTraitsAnswer}
-                updateTraitsAnswer={updateTraitsAnswer}
-                cleanTraitsAnswer={cleanTraitsAnswer}
+    <View>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
+      <View style={{flex: 1, backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
+        {traits?.length > 0 ? (
+          <View style={{flex: 1}}>
+            <View style={styles.Wrapper}>
+              <ButtonToggleGroup
+                highlightBackgroundColor={'white'}
+                highlightTextColor={'#0B0B45'}
+                inactiveBackgroundColor={'transparent'}
+                inactiveTextColor={'grey'}
+                values={[sub, 'Yellow Questions']}
+                value={value}
+                onSelect={val => setValue(val)}
+                style={{
+                  flex: 0,
+                  height: 30,
+                  marginTop: 5,
+                  width: '98%',
+                  marginLeft: 4,
+                  borderRadius: 15,
+                }}
+                textStyle={{
+                  paddingHorizontal: 0,
+                  paddingLeft: 5,
+                  fontSize: 10,
+                  width: '100%',
+                }}
               />
-            )}
-            {value === 'Yellow Questions' && (
-              <Question
-                {...props}
-                subTraits={traits[index.traitIndex]}
-                traitIndex={index}
-                // subTraitsLoading={subTraitsLoading}
-                // fetchAllSubTrait={fetchAllSubTrait}
+            </View>
 
-                count={index.subTraitIndex}
-                answers={answers}
-                setAnswers={setAnswers}
-                traitsAnswer={traitsAnswer}
-                traitsAnswerLoading={traitsAnswerLoading}
-                traitsAnswerError={traitsAnswerError}
-                fetchTraitsAnswer={fetchTraitsAnswer}
-                updateTraitsAnswer={updateTraitsAnswer}
-                cleanTraitsAnswer={cleanTraitsAnswer}
-              />
-            )}
+            <View>
+              {value === sub && (
+                <Trait
+                  {...props}
+                  subTraits={traits[index.traitIndex]}
+                  // subTraitsLoading={subTraitsLoading}
+                  // subTraitsError={subTraitsError}
+                  fetchAllSubTrait={fetchAllSubTrait}
+                  cleanSubTrait={cleanSubTrait}
+                  count={index.subTraitIndex}
+                  traitIndex={index}
+                  answers={answers}
+                  setAnswers={setAnswers}
+                  selectedId={selectedId}
+                  setSelectedId={setSelectedId}
+                  traitsAnswer={traitsAnswer}
+                  traitsAnswerLoading={traitsAnswerLoading}
+                  traitsAnswerError={traitsAnswerError}
+                  fetchTraitsAnswer={fetchTraitsAnswer}
+                  updateTraitsAnswer={updateTraitsAnswer}
+                  cleanTraitsAnswer={cleanTraitsAnswer}
+                />
+              )}
+              {value === 'Yellow Questions' && (
+                <Question
+                  {...props}
+                  subTraits={traits[index.traitIndex]}
+                  traitIndex={index}
+                  // subTraitsLoading={subTraitsLoading}
+                  // fetchAllSubTrait={fetchAllSubTrait}
+
+                  count={index.subTraitIndex}
+                  answers={answers}
+                  setAnswers={setAnswers}
+                  traitsAnswer={traitsAnswer}
+                  traitsAnswerLoading={traitsAnswerLoading}
+                  traitsAnswerError={traitsAnswerError}
+                  fetchTraitsAnswer={fetchTraitsAnswer}
+                  updateTraitsAnswer={updateTraitsAnswer}
+                  cleanTraitsAnswer={cleanTraitsAnswer}
+                />
+              )}
+            </View>
           </View>
+        ) : (
+          <View style={styles.bubblesLoader}>
+            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          </View>
+        )}
+        <View
+          style={{
+            height: 90,
+            display: 'flex',
+            flexDirection: 'row',
+            paddingTop: 15,
+            borderTopWidth: 0.4,
+            marginTop: 20,
+          }}>
+          <Button
+            style={styles.buttonWrapper}
+            onPress={handlePreviousButtonClick}
+            disabled={index.traitIndex === 0 && index.subTraitIndex === 0}>
+            <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
+              Previous
+            </Text>
+          </Button>
+          <Button style={styles.buttonWrapper} onPress={handleNextButtonClick}>
+            <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
+              {index.traitIndex === traitLength - 1 &&
+              index.subTraitIndex === subTraitLength - 1
+                ? 'Complete'
+                : 'Next'}
+            </Text>
+          </Button>
         </View>
-      ) : (
-        <View style={styles.bubblesLoader}>
-          <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-        </View>
-      )}
-      <View
-        style={{
-          height: 90,
-          display: 'flex',
-          flexDirection: 'row',
-          paddingTop: 15,
-          borderTopWidth: 0.4,
-          marginTop: 20,
-        }}>
-        <Button
-          style={styles.buttonWrapper}
-          onPress={handlePreviousButtonClick}
-          disabled={index.traitIndex === 0 && index.subTraitIndex === 0}>
-          <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
-            Previous
-          </Text>
-        </Button>
-        <Button style={styles.buttonWrapper} onPress={handleNextButtonClick}>
-          <Text style={{color: '#FFFFFF', marginTop: 2, fontSize: 14}}>
-            {index.traitIndex === traitLength - 1 &&
-            index.subTraitIndex === subTraitLength - 1
-              ? 'Complete'
-              : 'Next'}
-          </Text>
-        </Button>
       </View>
     </View>
   );

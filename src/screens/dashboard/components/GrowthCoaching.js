@@ -10,19 +10,27 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  PermissionsAndroid,
+  StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
+import {Linking} from 'react-native';
 import {BubblesLoader} from 'react-native-indicator';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import ToastMessage from '../../../shared/toast';
 import YoutubePlayer from '../../../shared/youtube';
 import Footer from '../../../shared/footer';
 import BottomNav from '../../../layout/BottomLayout';
 import Player from './Player';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import {isEmptyArray} from 'formik';
+import Loading from '../../../shared/loading';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
@@ -96,8 +104,6 @@ const GrowthCoaching = props => {
     setMemberConnection(pillarMemberContents?.members);
   }, [pillarMemberContents?.members]);
 
-  
-
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -147,7 +153,6 @@ const GrowthCoaching = props => {
     } else {
       navigationPath = 'CommunityDetail';
     }
-    console.log(item?.slug);
 
     return (
       <TouchableOpacity
@@ -155,13 +160,16 @@ const GrowthCoaching = props => {
           navigation.navigate(navigationPath, {
             poeId: item?.term_id,
             pillarId: item?.parent,
+            title: 'Growth Coaching',
+            image: require('../../../assets/img/Rectangle.png'),
           })
         }>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
               source={{uri: item?.image}}
-              style={{width: 30, height: 30}}
+              style={{width: 30, height: 35}}
+              resizeMode="contain"
             />
           </View>
           <Text
@@ -196,11 +204,18 @@ const GrowthCoaching = props => {
     } else {
       description = item?.organizer?.description;
     }
-
+    const pillarname = 'Growth Coaching';
+    const image = require('../../../assets/img/Rectangle.png');
     return (
       <View style={styles.topWrapper}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('EventDetail', {id: item.ID})}>
+          onPress={() =>
+            navigation.navigate('EventDetail', {
+              id: item.ID,
+              title: pillarname,
+              image: image,
+            })
+          }>
           <ImageBackground
             style={{
               width: '100%',
@@ -242,80 +257,223 @@ const GrowthCoaching = props => {
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
 
+  const _renderContent = ({item, index}) => {
+    const fileUrl = item?.file?.url;
+
+    const checkPermission = async () => {
+      if (Platform.OS === 'ios') {
+        downloadFile();
+      } else {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+              title: 'Storage Permission Required',
+              message:
+                'Application needs access to your storage to download File',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            downloadFile();
+          } else {
+            Alert.alert('Error', 'Storage Permission Not Granted');
+          }
+        } catch (err) {
+          ToastMessage.show(err);
+        }
+      }
+    };
+
+    const downloadFile = () => {
+      let date = new Date();
+
+      let FILE_URL = fileUrl;
+
+      let file_ext = getFileExtention(FILE_URL);
+
+      file_ext = '.' + file_ext[0];
+
+      const {config, fs} = ReactNativeBlobUtil;
+      let RootDir = fs.dirs.PictureDir;
+      let options = {
+        fileCache: true,
+        addAndroidDownloads: {
+          path:
+            RootDir +
+            '/file_' +
+            Math.floor(date.getTime() + date.getSeconds() / 2) +
+            file_ext,
+          description: 'downloading file...',
+          notification: true,
+          useDownloadManager: true,
+        },
+      };
+      config(options)
+        .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
+        .then(res => {
+          console.log('res -> ', JSON.stringify(res));
+          ToastMessage.show('PDF File Downloaded Successfully.');
+        });
+    };
+
+    const getFileExtention = fileUrl => {
+      return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
+    };
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('pdf', {
+            paramsFile: item?.file?.url,
+            title: item?.file?.title,
+          })
+        }>
+        <View style={styles.attachmentContainer}>
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <FontAwesomeIcon name="file-pdf-o" size={35} color="#9B9CA0" />
+            <Text style={styles.attachmentTitle}>{item?.file?.title}</Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.attachmentDownloadButton}
+            onPress={checkPermission}>
+            <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const _renderExternal = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => Linking.openURL(item?.link)}>
+        <View
+          style={{
+            marginBottom: 10,
+            flexDirection: 'row',
+            marginLeft: 20,
+            marginTop: 10,
+          }}>
+          <Text style={{fontSize: 14, fontWeight: '800'}}>{item?.link}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
         <View style={styles.container}>
-          <View style={styles.top}>
-            <Text style={styles.title}>Growth Coaching Events</Text>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarEvents}
-                //renderItem={_renderTopItem}
-                renderItem={item => _renderTopItem(item, navigation)}
-              />
-            </View>
-          </View>
-
-          <View style={styles.middle}>
-            <Text style={styles.title}>Points of Engagement</Text>
-
-            {pillarEventLoading && (
-              <View style={styles.loading1}>
-                <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
+          {pillarEvents?.length !== 0 &&
+            pillarEvents !== null &&
+            pillarEvents !== false && (
+              <View style={styles.top}>
+                <Text style={styles.title}>Growth Coaching Events</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarEvents}
+                    //renderItem={_renderTopItem}
+                    renderItem={item => _renderTopItem(item, navigation)}
+                  />
+                </View>
               </View>
             )}
 
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={pillarPOEs}
-              renderItem={_renderMiddleItem}
-              // renderItem={item => _renderMiddleItem(item, navigation)}
-            />
-          </View>
+          {pillarEventLoading && (
+            <View style={{marginTop: 40}}>
+              <Loading />
+            </View>
+          )}
+          {pillarPOEs?.length !== 0 && (
+            <View style={styles.middle}>
+              <Text style={styles.title}>Points of Engagement</Text>
 
-          <View style={styles.bottom}>
-            <Text style={styles.title}>Growth Coaching Members</Text>
-            <View>
               <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents?.members}
-                renderItem={_renderItem}
+                data={pillarPOEs}
+                renderItem={_renderMiddleItem}
+                // renderItem={item => _renderMiddleItem(item, navigation)}
               />
             </View>
-          </View>
+          )}
+		   {pillarMemberContents?.external_link?.length !== 0 &&
+            pillarMemberContents?.external_link !== false &&
+            pillarMemberContents?.external_link !== null && (
+              <View style={styles.content}>
+                <Text style={styles.title}>External Links:</Text>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  data={pillarMemberContents?.external_link}
+                  renderItem={_renderExternal}
+                />
+              </View>
+            )}
 
-          <View style={styles.content}>
-            <Text style={styles.title}>Growth Coaching Content</Text>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={pillarMemberContents?.pillar_contents}
-                renderItem={_renderContentItem}
-              />
+          {/* {pillarMemberContents?.members?.length !== 0 && (
+            <View style={styles.bottom}>
+              <Text style={styles.title}>Growth Coaching Members</Text>
+              <View>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.members}
+                  renderItem={_renderItem}
+                />
+              </View>
             </View>
-          </View>
-          <Footer />
+          )} */}
+          {pillarMemberContents?.attachments?.length !== 0 &&
+            pillarMemberContents?.attachments !== null &&
+            pillarMemberContents?.attachments !== false && (
+              <View style={styles.sectionContainer}>
+                <FlatList
+                  vertical
+                  showsHorizontalScrollIndicator={false}
+                  data={pillarMemberContents?.attachments}
+                  renderItem={_renderContent}
+                />
+              </View>
+            )}
+
+          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+            pillarMemberContents?.pillar_contents !== null &&
+            pillarMemberContents?.pillar_contents !== false && (
+              <View style={styles.content}>
+                <Text style={styles.title}>Growth Coaching Content</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarMemberContents?.pillar_contents}
+                    renderItem={_renderContentItem}
+                  />
+                </View>
+              </View>
+            )}
+
+          {/* <Footer /> */}
         </View>
       </ScrollView>
       <BottomNav {...props} navigation={navigation} />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -324,6 +482,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
     width: '100%',
+    marginBottom: 60,
   },
   top: {
     marginTop: 25,
@@ -435,7 +594,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loading1: {
-    top: 10,
+    top: 50,
     left: 0,
     right: 0,
     bottom: 0,
@@ -443,6 +602,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     zIndex: 1011,
+  },
+  attachmentContainer: {
+    margin: 1,
+    width: contentContainerWidth,
+    height: 70,
+    paddingLeft: 20,
+    paddingRight: 8,
+    marginRight: 5,
+    marginLeft: 15,
+    marginTop: 20,
+    paddingBottom: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 15,
+    shadowOpacity: 0.1,
+    shadowColor: Colors.UNDENARY_BACKGROUND_COLOR,
+    elevation: 5,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+  },
+  attachmentTitle: {
+    marginLeft: 10,
+    fontSize: 14,
+    width: '80%',
+    fontFamily: 'SFProText-Regular',
+    color: Colors.SECONDARY_TEXT_COLOR,
+  },
+  attachmentDownloadButton: {
+    width: 35,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: '#F5F5F5',
+  },
+  sectionContainer: {
+    marginBottom: 20,
+    marginTop: 20,
   },
 });
 

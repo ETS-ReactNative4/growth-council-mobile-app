@@ -1,7 +1,13 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Platform} from 'react-native';
+import {
+  ImageBackground,
+  Platform,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import DrawerNavigation from '../navigations/DrawerNavigation';
 
 import HomeScreen from '../screens/home';
@@ -14,7 +20,12 @@ import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
 
 import ContactUsScreen from '../screens/static/ContactUs';
-
+import ContentLibraryScreen from '../screens/contentLibrary/contentLibrary';
+import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
+import ContentTagsScreen from '../screens/contentLibrary/contentTags';
+import CriticalIssueScreen from '../screens/criticalIssue/index';
+import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
+import ContentScreen from '../screens/contentLibrary';
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
 import EventDetailScreen from '../screens/event';
@@ -27,11 +38,10 @@ import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
 import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
-import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
-import BestPracticeScreen from '../screens/dashboard/BestPractice';
-import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
+import SubPOEDetailScreen from '../screens/details/subPoeDetails';
+import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
 import CoachingSessionDetailScreen from '../screens/coachingSession';
@@ -39,13 +49,15 @@ import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
 
+
 import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
-import CalendarScreen from '../screens/calendar';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
 import SubHeader from '../shared/header/SubHeader';
+import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
+import SessionCompleted from '../screens/coachingSession/component/sessionCompleted';
 
 const Stack = createStackNavigator();
 
@@ -57,7 +69,13 @@ export const DashboardStackScreen = () => {
       screenOptions={({navigation}) => ({
         header: () => <MainHeader navigation={navigation} />,
       })}>
-      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={({route, navigation}) => ({
+          animationEnabled: false,
+        })}
+      />
       <DashboardStack.Screen name="UserList" component={UserListScreen} />
       <DashboardStack.Screen
         name="People"
@@ -89,7 +107,7 @@ export const DashboardStackScreen = () => {
   );
 };
 
-const MainNavigation = props => {
+const MainNavigation = () => {
   return (
     <Stack.Navigator detachInactiveScreens={false} screenOptions={() => ({})}>
       <Stack.Group>
@@ -118,7 +136,7 @@ const MainNavigation = props => {
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                 }}
                 color={'white'}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.goBack()}
               />
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
@@ -162,7 +180,7 @@ const MainNavigation = props => {
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                 }}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.goBack()}
               />
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
@@ -173,8 +191,7 @@ const MainNavigation = props => {
           name="Forgot"
           component={ForgotScreen}
           options={{
-			headerTitle: 'Forget',
-			
+            headerTitle: 'Forget',
           }}
         />
         <Stack.Screen
@@ -197,7 +214,7 @@ const MainNavigation = props => {
           }}
         />
         <Stack.Screen
-          name="radar"
+          name="FrostRadar"
           component={FrostRadarScreen}
           options={{
             headerLeft: () => null,
@@ -209,10 +226,10 @@ const MainNavigation = props => {
         <Stack.Screen
           name="coachingSession"
           component={CoachingSessionDetailScreen}
-          options={() => ({
-            header: ({navigation}) => (
+          options={({route, navigation}) => ({
+            header: () => (
               <SubHeader
-                title="Session"
+                title={route?.params?.title}
                 image={require('../assets/img/Rectangle.png')}
                 navigation={navigation}
                 noDrawer={true}
@@ -220,6 +237,22 @@ const MainNavigation = props => {
             ),
           })}
         />
+
+        <Stack.Screen
+          name="SessionCompleted"
+          component={SessionCompleted}
+          options={({route, navigation}) => ({
+            header: () => (
+              <SubHeader
+                title="Session 10"
+                image={require('../assets/img/Rectangle.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        />
+
         <Stack.Screen
           name="selfAssessment"
           component={SelfAssessment}
@@ -248,12 +281,71 @@ const MainNavigation = props => {
             ),
           })}
         />
+        {/* <Stack.Screen
+          name="contentLibrary"
+          component={ContentScreen}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="content Library"
+                image={require('../assets/img/Rectangle.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        /> */}
         <Stack.Screen
           name="pdf"
           component={PDFDetailScreen}
-          options={{
-            headerTitle: 'Self Learn',
-          }}
+          options={() => ({
+            header: ({navigation, route}) => (
+              <SubHeader
+                title={route?.params?.title}
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer={true}
+              />
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="SubPoe"
+          component={SubPOEDetailScreen}
+          //   options={({route}) => ({
+          //     poeId: route.params.id,
+          //     background: route.params.image,
+          //     header: ({ navigation}) => (
+          //       <SubHeader
+          //         title="Growth Content"
+          //         image={require('../assets/img/best-practice-bg.png')}
+          //         navigation={navigation}
+          //         noDrawer
+          //       />
+          //     ),
+          //   })}
+          options={({route, navigation}) => ({
+            poeId: route.params.id,
+            background: route.params.image,
+            headerTitle: '',
+            headerStyle: {height: 80},
+            headerTransparent: true,
+            headerLeft: props => (
+              <Ionicons
+                name={'arrow-back'}
+                size={40}
+                color={'white'}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+				  marginLeft:10,
+                }}
+                onPress={() => navigation.navigate('Growth Content')}
+              />
+            ),
+            ...TransitionPresets.RevealFromBottomAndroid,
+            gestureDirection: 'horizontal-inverted',
+          })}
         />
         <Stack.Screen
           name="ManageAccount"
@@ -309,6 +401,97 @@ const MainNavigation = props => {
             ),
           })}
         />
+
+        <Stack.Screen
+          name="CriticalIssue"
+          component={CriticalIssueScreen}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Critical Issues"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentLibrary"
+          component={ContentScreen}
+          options={() => ({
+            header: ({navigation}) => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <DashboardStack.Screen
+          name="ContentDetail"
+          component={ContentLibraryScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <DashboardStack.Screen
+          name="LibraryDetail"
+          component={LibraryDetailScreen}
+          options={({route, navigation}) => ({
+            resourceId: route?.params?.resourceId,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentTags"
+          component={ContentTagsScreen}
+          options={({route, navigation}) => ({
+            id: route?.params?.id,
+            animationEnabled: false,
+            header: () => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ContentLibraryDetail"
+          component={ContentLibraryDetailScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            animationEnabled: false,
+            header: ({navigation}) => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
         <Stack.Screen
           name="ContactUs"
           component={ContactUsScreen}
@@ -326,9 +509,16 @@ const MainNavigation = props => {
         <Stack.Screen
           name="EventDetail"
           component={EventDetailScreen}
-          options={({route}) => ({
+          options={({navigation, route}) => ({
             id: route?.params?.id,
-            headerShown: false,
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
         <Stack.Screen
@@ -352,7 +542,6 @@ const MainNavigation = props => {
             userID: route?.params?.userID,
             friendID: route?.params?.friendID,
             friendName: route?.params?.friendName,
-            //headerTitle: route?.params?.friendName,
             headerShown: false,
           })}
         />
@@ -371,12 +560,26 @@ const MainNavigation = props => {
           })}
         />
         <Stack.Screen
+          name="Privacys"
+          component={PrivacyScreen}
+          options={({navigation}) => ({
+            header: () => (
+              <OptionHeader
+                title="Privacy Policy"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
           name="Terms"
           component={Terms}
-		  options={({navigation}) => ({
+          options={({navigation}) => ({
             header: () => (
-              <SubHeader
-                title="Terms of use"
+              <OptionHeader
+                title="Terms Of Use"
                 image={require('../assets/img/appBG.png')}
                 navigation={navigation}
                 noDrawer
@@ -387,16 +590,23 @@ const MainNavigation = props => {
       </Stack.Group>
 
       <Stack.Group>
-        
         <Stack.Screen
           name="CommunityDetail"
           component={CommunityDetailScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             poeId: route.params.poeId,
             pillarId: route.params.pillarId,
-            headerShown: false,
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
           })}
         />
+
         <Stack.Screen
           name="CouncilDetail"
           component={CouncilDetailScreen}
@@ -406,6 +616,21 @@ const MainNavigation = props => {
         <Stack.Screen
           name="GrowthDetail"
           component={GrowthDetailScreen}
+          options={({navigation, route}) => ({
+            header: () => (
+              <SubHeader
+                title={route.params.title}
+                image={route.params.image}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="Radar"
+          component={RadarScreen}
           options={{headerShown: false}}
         />
       </Stack.Group>

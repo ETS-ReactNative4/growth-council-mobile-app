@@ -12,12 +12,10 @@ const PrivacyScreen = props => {
     state => state.privacy,
   );
 
-  // fetch Privacy data
   const fetchPrivacyPolicy = () => {
     dispatch(fetchPrivacy());
   };
 
-  //clear Privacy data
   const cleanPrivacy = () => {
     dispatch(resetPrivacy());
   };

@@ -67,21 +67,8 @@ const Session = props => {
   const actualDate = moment(sessions?.event_start).format('LLLL').split(',', 6);
   const date = actualDate[1].split(' ', 3);
 
-  let backgroundColor = Colors.COMMUNITY_COLOR;
-  const pillarCategory = sessions?.pillar_categories
-    ? sessions?.pillar_categories[0]?.slug
-    : '';
-  switch (pillarCategory) {
-    case 'growth-coaching':
-      backgroundColor = Colors.COACHING_COLOR;
-      break;
-    case 'basic-practices':
-      backgroundColor = Colors.PRACTICE_COLOR;
-      break;
-    case 'growth-community':
-      backgroundColor = Colors.COMMUNITY_COLOR;
-  }
-
+  let backgroundColor = Colors.COACHING_COLOR;
+ 
   let description = sessions?.descirption;
   if (description !== undefined) {
     description = sessions?.descirption;
@@ -343,7 +330,7 @@ const Session = props => {
           </View>
         </ImageBackground>
       </View>
-      <Footer />
+      {/* <Footer /> */}
     </ScrollView>
   );
 };
@@ -445,7 +432,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   registeredButton: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

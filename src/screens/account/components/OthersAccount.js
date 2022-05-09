@@ -17,6 +17,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import {PRIMARY_BACKGROUND_COLOR} from '../../../theme/colors';
 import Footer from '../../../shared/footer';
 import ToastMessage from '../../../shared/toast';
+import Loading from '../../../shared/loading';
 
 const OthersAccount = props => {
   const {
@@ -99,26 +100,7 @@ const OthersAccount = props => {
                 <Text style={styles.errorText} />
               </View>
 
-              {otherProfileLoading && (
-                <>
-                  <View
-                    style={{
-                      flex: 1,
-                      alignItems: 'center',
-                      flexDirection: 'column',
-                      justifyContent: 'space-around',
-                      position: 'absolute',
-                      zIndex: 1011,
-                      top: 120,
-                      left: 100,
-                    }}>
-                    <BubblesLoader
-                      color={Colors.SECONDARY_TEXT_COLOR}
-                      size={80}
-                    />
-                  </View>
-                </>
-              )}
+              {otherProfileLoading && <Loading />}
               <View style={styles.middleWrapper}>
                 <View style={styles.middleImage}>
                   <Ionicons name="person-outline" color="white" size={20} />
@@ -249,7 +231,6 @@ const OthersAccount = props => {
           </View>
         </View>
       </View>
-      <Footer style={{marginBottom: 5}} />
     </ScrollView>
   );
 };

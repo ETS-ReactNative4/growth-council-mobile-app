@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  StatusBar,
 } from 'react-native';
 import {Button, useToast} from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
@@ -20,6 +21,7 @@ import {BubblesLoader} from 'react-native-indicator';
 
 import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 
 const sessionAbout = props => {
   const {
@@ -57,7 +59,7 @@ const sessionAbout = props => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
     if (response?.payload?.code === 200) {
       setSessionStatus(true);
-      ToastMessage.show('You have successfully registered this event.');
+      ToastMessage.show('You have successfully RSVP this event.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
@@ -76,16 +78,9 @@ const sessionAbout = props => {
 
   const _renderItem = ({item, index}, navigation) => {
     return (
-      <View>
-        <View style={styles.traitWrapper}>
-          <View style={[styles.traitW, styles.shadowProp]}>
-            <Image
-              source={{uri: item?.image}}
-              style={{width: 25, height: 25}}
-            />
-          </View>
-
-          <Text style={{paddingLeft: 10, width: 100, fontSize: 12}}>
+      <View style={styles.traitWrapper}>
+        <View style={[styles.traitW, styles.shadowProp]}>
+          <Text style={{paddingHorizontal: 10, fontSize: 12}}>
             {item?.title}
           </Text>
         </View>
@@ -99,16 +94,19 @@ const sessionAbout = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM (dddd), h:mma - ');
+  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (h:mma)');
 
-  const GobalTime = moment(timeToDisplay).format('h:mm a');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (dddd)');
-  const GobalMonth = moment(timeToDisplay).format('D MMMM (dddd) - ');
+  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const GobalEndTime = moment(timeToEnd).format('h:mma ');
+  const GobalEndMonth = moment(timeToEnd).format('D MMMM (h:mma)');
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM (dddd), h:mm a ');
-  const GobalEndTime = moment(timeToEnd).format('h:mm a ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM (dddd)');
+  const EventDate = moment(sessions?.event_start).format('D MMMM, dddd, h:mma - ');
+  const EventStartMonth = moment(sessions?.event_start).format('D MMMM (h:mma)');
 
+  const EventDateEnd = moment(sessions?.event_end).format('D MMMM, dddd, h:mm a ');
+  const EventEndTime = moment(sessions?.event_end).format('h:mma ');
+  const EventEndMonth = moment(sessions?.event_end).format('D MMMM (h:mma)');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -116,9 +114,6 @@ const sessionAbout = props => {
       currentTimeZoneOffsetInHours,
     );
     setTimeToDisplay(convertedToLocalTime);
-  }, [sessions]);
-
-  useEffect(() => {
     const convertedToLocalTimeEnd = formatTimeByOffset(
       backEndTimeStamp,
       currentTimeZoneOffsetInHours,
@@ -128,6 +123,12 @@ const sessionAbout = props => {
 
   return (
     <View>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
       <View style={{height: 150, flexDirection: 'column'}}>
         <View
           style={{
@@ -157,11 +158,20 @@ const sessionAbout = props => {
             {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
               {GobalStartMonth === GobalEndMonth
-                ? GobalDate +
-                  GobalDateEnd.split(/(\s+)/)[6] +
-                  GobalDateEnd.split(/(\s+)/)[8]
-                : GobalMonth + GobalEndMonth}{' '}
-              ({deviceTimeZone})
+                ? GobalDate + GobalEndTime
+                : GobalStartMonth +
+                  GobalDate.split(/(\s+)/)[7] +
+                  GobalDate.split(/(\s+)/)[8] +
+                  GobalDate.split(/(\s+)/)[7] +
+                  GobalEndMonth}{' '}
+              ({deviceTimeZone}) / {EventDate.split(/(\s+)/)[7] }
+              {EventStartMonth === EventEndMonth
+                ? EventDate + EventEndTime
+                : EventStartMonth +
+                  EventDate.split(/(\s+)/)[7] +
+                  EventDate.split(/(\s+)/)[8] +
+                  EventDate.split(/(\s+)/)[7] +
+                  EventEndMonth}
             </Text>
           </View>
           {!sessionStatus && (
@@ -196,40 +206,43 @@ const sessionAbout = props => {
             </View>
           )}
         </View>
-        <View
-          style={{
-            flex: 1,
-            paddingTop: 20,
-            flexDirection: 'row',
-          }}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: '#A1BA68',
-              height: 60,
-              width: 48,
-              borderRadius: 14,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Ionicons name={'location-outline'} size={35} color={'white'} />
-          </View>
-
-          {!isSessionLoaded && (
+        {sessions?.location?.location_city !== undefined &&
+          sessions?.location?.location_address !== '' && (
             <View
               style={{
-                flex: 5,
-                paddingLeft: 10,
+                flex: 1,
+                paddingTop: 20,
+                flexDirection: 'row',
               }}>
-              <Text style={styles.eventLocationDetails}>
-                {sessions?.location?.location_city}
-                {sessions?.location?.location_state}
-                {sessions?.location?.location_country}
-              </Text>
-              <Text>{sessions?.location?.location_address}</Text>
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: '#A1BA68',
+                  height: 60,
+                  width: 48,
+                  borderRadius: 14,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Ionicons name={'location-outline'} size={35} color={'white'} />
+              </View>
+
+              {!isSessionLoaded && (
+                <View
+                  style={{
+                    flex: 5,
+                    paddingLeft: 10,
+                  }}>
+                  <Text style={styles.eventLocationDetails}>
+                    {sessions?.location?.location_city}
+                    {sessions?.location?.location_state}
+                    {sessions?.location?.location_country}
+                  </Text>
+                  <Text>{sessions?.location?.location_address}</Text>
+                </View>
+              )}
             </View>
           )}
-        </View>
       </View>
 
       <View>
@@ -244,71 +257,68 @@ const sessionAbout = props => {
           renderItem={item => _renderItem(item, navigation)}
         />
       </View>
+      {sessions?.organizer?.term_name !== undefined &&
+        sessions?.organizer?.term_name !== '' && (
+          <View style={{height: 150}}>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.contentHeading}>Coached By</Text>
+            </View>
+            <View style={styles.hostdetail}>
+              <View style={styles.hostimage}>
+                <Image
+                  source={{uri: sessions?.organizer_image}}
+                  style={{width: '100%', height: '100%'}}
+                />
+              </View>
 
-      <View style={{height: 150}}>
-        <View style={{marginTop: 25}}>
-          <Text style={styles.contentHeading}>Coached By</Text>
-        </View>
-        <View style={styles.hostdetail}>
-          <View style={styles.hostimage}>
-            <Image
-              source={{uri: sessions?.organizer_image}}
-              style={{width: '100%', height: '100%'}}
-            />
+              <View
+                style={{
+                  flex: 3,
+                  paddingLeft: 20,
+                }}>
+                <Text style={styles.contentHeading}>
+                  {sessions?.organizer?.term_name}
+                </Text>
+                <Text>{sessions?.organizer?.description}</Text>
+              </View>
+              <View
+                style={{
+                  flex: 2,
+                  height: 60,
+                  width: 30,
+                  borderRadius: 15,
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                }}
+              />
+            </View>
           </View>
-
-          <View
-            style={{
-              flex: 3,
-              paddingLeft: 20,
-            }}>
-            <Text style={styles.contentHeading}>
-              {sessions?.organizer?.term_name}
-            </Text>
-            <Text>{sessions?.organizer?.description}</Text>
-          </View>
-          <View
-            style={{
-              flex: 2,
-              height: 60,
-              width: 30,
-              borderRadius: 15,
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-            }}
-          />
-        </View>
-      </View>
-
-      <View>
-        <Text style={styles.contentHeading}>Session Brief</Text>
-        {!isSessionLoaded && (
-          <HTMLView value={description} stylesheet={styles} />
         )}
-      </View>
 
+      {sessions?.descirption !== undefined && sessions?.descirption !== '' && (
+        <View>
+          <Text style={styles.contentHeading}>Session Brief</Text>
+          {!isSessionLoaded && (
+            <HTMLView value={description} stylesheet={styles} />
+          )}
+        </View>
+      )}
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        {sessionRegisterLoading && (
-          <View style={styles.loading1}>
-            <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
-          </View>
-        )}
+        {sessionRegisterLoading && <Loading />}
         {!sessionStatus && (
           <Button
             style={styles.acceptButton}
             onPress={() => registerSessionBySessionID(route?.params?.id)}>
-            <Text style={styles.acceptButtonText}>Sign Up in One Click</Text>
+            <Text style={styles.acceptButtonText}>RSVP</Text>
           </Button>
         )}
         {sessionStatus && (
           <TouchableOpacity style={styles.registeredButton} disabled>
-            <View style={{paddingLeft: 10}}>
-              <Image
-                source={require('../../../assets/img/tick-icon.png')}
-                style={{width: 30, height: 30}}
-              />
-            </View>
-            <Text style={styles.registeredButtonText}>Registered</Text>
+            <Image
+              source={require('../../../assets/img/tick-icon.png')}
+              style={{width: 30, height: 30}}
+            />
+            <Text style={styles.registeredButtonText}>RSVP't</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -361,7 +371,7 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
     marginLeft: 5,
-    fontSize: 14,
+    fontSize: 12,
   },
   eventLocationDetails: {
     fontFamily: Typography.FONT_NORMAL,
@@ -444,6 +454,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: '#ffffff',
     marginTop: 25,
+    padding: 10,
     borderColor: '#F26722',
     borderWidth: 2,
     flexDirection: 'row',
@@ -456,11 +467,11 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   registeredButtonText: {
-    width: '100%',
     height: 20,
     fontSize: 14,
     color: '#F26722',
-    paddingLeft: 110,
+    textAlign: 'center',
+    width: '90%',
   },
   buttonWrapper: {
     width: 308,
@@ -471,12 +482,11 @@ const styles = StyleSheet.create({
   traitWrapper: {
     paddingTop: 5,
     paddingBottom: 5,
-	marginRight:5,
+    marginRight: 5,
     flexDirection: 'row',
   },
   traitW: {
-    height: 60,
-    width: 60,
+    padding: 10,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
