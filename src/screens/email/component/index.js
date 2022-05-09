@@ -12,11 +12,10 @@ import {
   TextInput,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Footer from '../../../shared/footer';
-import HTMLView from 'react-native-htmlview';
-import FlatTextInput from '../../../shared/form/FlatTextInput';
-
+import {useFormik} from 'formik';
+import {Button} from 'native-base';
 import {CommonStyles, Colors, Typography} from '../../../theme';
+import Loading from '../../../shared/loading';
 
 const Email = props => {
   const {
@@ -26,7 +25,30 @@ const Email = props => {
     profileError,
     fetchProfile,
     cleanProfile,
+
+    sendMail,
+    sendMailLoading,
+    sendMailError,
+    sendMailUser,
+    cleanSendMail,
   } = props;
+
+  const {handleChange, handleBlur, handleSubmit, values, errors, touched} =
+    useFormik({
+      initialValues: {
+        subject: '',
+        message: '',
+      },
+      onSubmit: async values => {
+        await sendMailUser(values).then(response => {
+          if (response?.payload?.code === 200) {
+            navigation.navigate('Dashboard');
+            ToastMessage.show('Email send sucessfuly');
+            ToastMessage.show(response?.payload?.message);
+          }
+        });
+      },
+    });
 
   useEffect(() => {
     const fetchProfileAsync = async () => {
@@ -34,6 +56,13 @@ const Email = props => {
     };
     fetchProfileAsync();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      cleanSendMail();
+    };
+  }, []);
+
   return (
     <>
       <StatusBar
@@ -57,7 +86,7 @@ const Email = props => {
               <View
                 style={{
                   justifyContent: 'center',
-
+                  width: '90%',
                   marginLeft: 10,
                 }}>
                 <Text style={{color: 'white', fontSize: 20}}>New Messages</Text>
@@ -66,12 +95,11 @@ const Email = props => {
                 </Text>
               </View>
             </View>
-            <Ionicons
-              name={'send-sharp'}
-              size={30}
-              color={'white'}
-              style={{marginTop: 30, position: 'absolute', right: 20}}
-            />
+            {/* <TouchableOpacity onPress={handleSubmit}>
+              <View style={{marginTop: 20, position: 'absolute', right: 20}}>
+                <Ionicons name={'send-sharp'} size={30} color={'white'} />
+              </View>
+            </TouchableOpacity> */}
 
             {/**/}
           </View>
@@ -85,14 +113,15 @@ const Email = props => {
                 editable={false}
               />
             </View>
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
               <Text style={{fontSize: 18, marginTop: 10}}>To :</Text>
               <TextInput
                 multiline={true}
                 style={styles.input}
                 value="agajgjgjejkgsha"
               />
-            </View>
+            </View> */}
+            {sendMailLoading && <Loading />}
 
             <View style={{marginTop: 10}}>
               <Text style={{fontSize: 18}}>Subject :</Text>
@@ -100,7 +129,11 @@ const Email = props => {
                 multiline={true}
                 numberOfLines={3}
                 style={styles.textarea}
-                value=""
+                value={values.subject}
+                onChangeText={handleChange('subject')}
+                onFocus={handleBlur('subject')}
+                error={errors.subject}
+                touched={touched.subject}
               />
             </View>
 
@@ -110,8 +143,18 @@ const Email = props => {
                 multiline={true}
                 numberOfLines={15}
                 style={styles.textarea}
-                value=""
+                value={values.message}
+                onChangeText={handleChange('message')}
+                onFocus={handleBlur('message')}
+                error={errors.message}
+                touched={touched.message}
               />
+            </View>
+
+            <View style={styles.buttonWrapper}>
+              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style={styles.buttonText}>Send</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -140,5 +183,22 @@ const styles = StyleSheet.create({
   },
   textarea: {
     padding: 10,
+    fontSize: 20,
+  },
+  buttonWrapper: {
+    width: 200,
+    marginTop: 20,
+  },
+  button: {
+    width: '60%',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#02B0F0',
+    height: 56,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });

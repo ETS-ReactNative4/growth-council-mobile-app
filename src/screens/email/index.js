@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Email from './component';
 import {fetchProfileByID, resetProfile} from '../account/slice/profileSlice';
+import {sendMailByUser, resetSendMail} from './slice/emailSlice';
 
 const EmailScreen = props => {
   const dispatch = useDispatch();
@@ -10,12 +11,22 @@ const EmailScreen = props => {
     state => state.profile,
   );
 
+  const {sendMail, sendMailLoading, sendMailError} = useSelector(
+    state => state.sendMail,
+  );
+
   const fetchProfile = () => {
     dispatch(fetchProfileByID());
   };
-
   const cleanProfile = () => {
     dispatch(resetProfile());
+  };
+
+  const sendMailUser = () => {
+    dispatch(sendMailByUser());
+  };
+  const cleanSendMail = () => {
+    dispatch(resetSendMail());
   };
 
   return (
@@ -26,6 +37,11 @@ const EmailScreen = props => {
       profileError={profileError}
       fetchProfile={fetchProfile}
       cleanProfile={cleanProfile}
+      sendMail={sendMail}
+      sendMailLoading={sendMailLoading}
+      sendMailError={sendMailError}
+      sendMailUser={sendMailUser}
+      cleanSendMail={cleanSendMail}
     />
   );
 };
