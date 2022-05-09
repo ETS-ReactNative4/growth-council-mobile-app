@@ -121,7 +121,7 @@ const CoachingSession = props => {
     );
     if (isNaN(num)) num = 0.0;
   }
-  const previousSession = profile?.session_score?.map((item) => item?.completed_status);
+  const previousSession = profile?.session_score?.map(item => item?.session);
 
   console.log(previousSession);
 
@@ -161,6 +161,10 @@ const CoachingSession = props => {
                     if (moment(sessions?.event_end).isBefore()) {
                       if (sessions?.completed_status) {
                         ToastMessage.show('You have completed this assessment');
+                      } else if (previousSession === undefined) {
+                        ToastMessage.show(
+                          'First, please complete previous session',
+                        );
                       } else {
                         return setValue(val);
                       }
