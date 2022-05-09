@@ -63,32 +63,35 @@ const CommunityDetail = props => {
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
-  useEffect(() => {
-    const fetchEventDetailAsync = async () => {
-      await fetchSessionDetailByIdentifier(route.params.id);
-    };
-    fetchEventDetailAsync();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchSessionDetailByIdentifier(route.params.id);
+      return () => {
+        cleanSessionDetail();
+      };
+    }, []),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchAllPOEDetail(route.params.poeId);
+      return () => {
+        cleanPOEDetail();
+      };
+    }, []),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchAllPOEEvent(route.params.poeId);
+      return () => {
+        cleanPOEEvent();
+      };
+    }, []),
+  );
 
   useEffect(() => {
-    const fetchAllPOEDetailAsync = async () => {
-      await fetchAllPOEDetail(route.params.poeId);
-    };
-    fetchAllPOEDetailAsync();
-  }, []);
-
-  useEffect(() => {
-    const fetchAllPOEEventAsync = async () => {
-      await fetchAllPOEEvent(route.params.poeId);
-    };
-    fetchAllPOEEventAsync();
-  }, []);
-
-  useEffect(() => {
-    const fetchAllPillarMemberContentAsync = async () => {
-      await fetchAllPillarMemberContent(route.params.pillarId);
-    };
-    fetchAllPillarMemberContentAsync();
+    fetchAllPillarMemberContent(route.params.pillarId);
   }, [isFocused]);
 
   useEffect(() => {
@@ -97,10 +100,7 @@ const CommunityDetail = props => {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPillarPOEAsync = async () => {
-        await fetchAllPillarPOE(route.params.poeId);
-      };
-      fetchAllPillarPOEAsync();
+      fetchAllPillarPOE(route.params.poeId);
 
       return () => {
         cleanPillarPOE();
@@ -233,8 +233,8 @@ const CommunityDetail = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text>{date[1]}</Text>
               <Text>{date[0]}</Text>
+              <Text>{date[1]}</Text>
             </View>
 
             <View style={styles.header}>
@@ -274,8 +274,6 @@ const CommunityDetail = props => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
-
-          
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
@@ -312,7 +310,6 @@ const CommunityDetail = props => {
       config(options)
         .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
         .then(res => {
-         
           ToastMessage.show('PDF File Downloaded Successfully.');
         });
     };
@@ -347,6 +344,7 @@ const CommunityDetail = props => {
   let backgroundColor = '';
   let title = '';
   const parent = poeDetails?.parent;
+  const slug = poeDetails?.slug;
   switch (parent) {
     case 118:
       backgroundColor = Colors.PRACTICE_COLOR;
@@ -357,6 +355,13 @@ const CommunityDetail = props => {
       title = 'Growth Community';
       break;
     case 119:
+      backgroundColor = Colors.COACHING_COLOR;
+      title = 'Growth Coaching';
+    case 133:
+      backgroundColor = Colors.PRACTICE_COLOR;
+  }
+  switch (slug) {
+    case 'executive-coaching-clinic':
       backgroundColor = Colors.COACHING_COLOR;
       title = 'Growth Coaching';
   }
@@ -423,6 +428,7 @@ const CommunityDetail = props => {
                       alignItems: 'center',
                       justifyContent: 'center',
                       color: '#77838F',
+                      textAlign: 'justify',
                     },
                   }}
                 />
@@ -440,7 +446,7 @@ const CommunityDetail = props => {
                 </View>
               )}
 
-              {poeDetails?.parent !== 118 && poeEvents?.length !== 0 && (
+              {poeDetails !== null && poeEvents?.length !== 0 && (
                 <View style={styles.top}>
                   <Text style={styles.title}> Events</Text>
 
@@ -484,11 +490,11 @@ const CommunityDetail = props => {
                 </View>
               )} */}
 
-              {poeDetails?.pillar_contents?.length !== 0 &&
+              {/* {poeDetails?.pillar_contents?.length !== 0 &&
                 poeDetails?.pillar_contents !== false &&
                 poeDetails?.pillar_contents !== null && (
                   <View style={styles.growthContent}>
-                    <Text style={styles.title}> Content Library</Text>
+                    <Text style={styles.title}> Contents Library</Text>
                     <View
                       style={{
                         display: 'flex',
@@ -502,7 +508,7 @@ const CommunityDetail = props => {
                       />
                     </View>
                   </View>
-                )}
+                )} */}
 
               {/* <Footer /> */}
             </View>
@@ -544,12 +550,14 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   content: {
+    width: '98%',
     // borderRadius: 18,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginBottom: 20,
   },
   contentWrapper: {
+    width: '100%',
     backgroundColor: 'white',
     overflow: 'scroll',
     marginTop: 10,
@@ -565,6 +573,7 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 10,
     justifyContent: 'center',
+    marginBottom: 10,
   },
   topWrapper: {
     height: 144,
@@ -649,14 +658,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
   },
-  ContentWrapper: {
-    height: 206,
-    width: 364,
-    marginTop: 20,
-    marginLeft: 15,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
+  //   ContentWrapper: {
+  //     height: 206,
+  //     width: 364,
+  //     marginTop: 20,
+  //     marginLeft: 15,
+  //     borderRadius: 20,
+  //     overflow: 'hidden',
+  //   },
   shadowProp: {
     shadowColor: '#000',
     shadowOffset: {

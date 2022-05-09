@@ -44,6 +44,12 @@ const CoachingSession = props => {
     sessionRegisterError,
     registerSessionByIdentifier,
     cleanSessionRegister,
+
+    profile,
+    profileLoading,
+    profileError,
+    fetchProfile,
+    cleanProfile,
   } = props;
 
   const scrollRef = useRef();
@@ -73,6 +79,13 @@ const CoachingSession = props => {
       return answers.questions.innovativeIndex[subTraitIndex];
     }
   };
+
+  useEffect(() => {
+    const fetchProfileAsync = async () => {
+      await fetchProfile();
+    };
+    fetchProfileAsync();
+  }, []);
 
   useEffect(() => {
     let traitsLength = traits.length;
@@ -108,6 +121,9 @@ const CoachingSession = props => {
     );
     if (isNaN(num)) num = 0.0;
   }
+  const previousSession = profile?.session_score?.map(item => item?.session);
+  const previousSessionID = route.params.previousSessionID;
+
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
@@ -145,6 +161,13 @@ const CoachingSession = props => {
                     if (moment(sessions?.event_end).isBefore()) {
                       if (sessions?.completed_status) {
                         ToastMessage.show('You have completed this assessment');
+                      } else if (
+                        previousSession.indexOf(previousSessionID) > -1 !==
+                        true
+                      ) {
+                        ToastMessage.show(
+                          'First, please complete previous session',
+                        );
                       } else {
                         return setValue(val);
                       }
@@ -209,6 +232,7 @@ const CoachingSession = props => {
                                 style={{
                                   fontSize: 12,
                                   width: '50%',
+                                  marginLeft: 10,
                                 }}>
                                 {trait?.title}
                               </Text>
@@ -379,12 +403,11 @@ const CoachingSession = props => {
                         <Text
                           style={{
                             width: '60%',
-                            marginLeft: 30,
-
+                            marginLeft: 25,
+                            textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
                           }}>
-                          {' '}
                           You create a transparent environment where the flow of
                           information is seamless. EveryBody around you is aware
                           about the expectations for performance, quality and
@@ -432,12 +455,11 @@ const CoachingSession = props => {
                         <Text
                           style={{
                             width: '60%',
-                            marginLeft: 30,
-
+                            marginLeft: 25,
+                            textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
                           }}>
-                          {' '}
                           There is an appreciation for honestlty and sincerity,
                           however you are isnconsistent when it comes to
                           integrating it into your system. You try your best to
@@ -487,12 +509,11 @@ const CoachingSession = props => {
                         <Text
                           style={{
                             width: '60%',
-                            marginLeft: 30,
-
+                            marginLeft: 25,
+                            textAlign: 'justify',
                             fontSize: 12,
                             paddingRight: 15,
                           }}>
-                          {' '}
                           You are unexpressive of your true emotions. There is a
                           belief that your words might hurt others, so you
                           creaft the carefully to the xtent at which it distorts
@@ -702,7 +723,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 0.3, 
+    borderBottomWidth: 0.3,
     paddingLeft: 5,
     borderBottomColor: '#EBECFO',
     alignItems: 'center',

@@ -190,7 +190,7 @@ const ContentLibraryDetail = props => {
     return (
       <TouchableOpacity onPress={() => Linking.openURL(item?.link)}>
         <View style={{marginBottom: 10, flexDirection: 'row'}}>
-          <Text>{item?.link}</Text>
+          <Text style={{color: 'blue'}}>{item?.label}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -283,7 +283,6 @@ const ContentLibraryDetail = props => {
 
                   <View
                     style={{
-                      marginLeft: 20,
                       width: '85%',
                     }}>
                     <Text style={styles.userNameText}>
@@ -364,7 +363,7 @@ const ContentLibraryDetail = props => {
             contentLibraryDetails?.call_to_action !== false &&
             contentLibraryDetails?.call_to_action !== null && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.bodyTitleText}>Call to Action:</Text>
+                <Text style={styles.bodyTitleText}>Key Take-Aways:</Text>
                 <FlatList
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}
@@ -483,11 +482,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontFamily: 'SFProText-SemiBold',
     color: Colors.PRIMARY_TEXT_COLOR,
+    fontWeight: '700',
   },
   userImage: {
     width: 60,
     height: 60,
     borderRadius: 14,
+    marginRight: 15,
     resizeMode: 'contain',
   },
   userNameText: {

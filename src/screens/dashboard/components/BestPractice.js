@@ -133,7 +133,7 @@ const BestPractice = props => {
             source={require('../../../assets/img/best-practice-bg.png')}>
             <View
               style={{
-                width: 40,
+                width: 50,
                 height: 50,
                 marginTop: 10,
                 marginLeft: 200,
@@ -142,8 +142,8 @@ const BestPractice = props => {
                 padding: 5,
                 alignItems: 'center',
               }}>
-              <Text style={{color: '#030303'}}>{date[1]}</Text>
               <Text style={{color: '#030303'}}>{date[0]}</Text>
+              <Text style={{color: '#030303'}}>{date[1]}</Text>
             </View>
 
             <View style={styles.header}>
@@ -208,14 +208,14 @@ const BestPractice = props => {
             item.slug === 'annual-ceo-survey' ||
             item.slug === 'innovation-generator'
           ) {
-            navigation.navigate('', {
-              poeId: item?.term_id,
-              pillarId: item?.parent,
-            });
+            navigation.navigate('Growth Content');
+          } else if (item.slug === 'content-library') {
+            navigation.navigate('ContentLibrary');
           } else {
             navigation.navigate('CommunityDetail', {
               poeId: item?.term_id,
               pillarId: item?.parent,
+
               title: 'Growth Content',
               image: require('../../../assets/img/best-practice-bg.png'),
             });
@@ -333,7 +333,7 @@ const BestPractice = props => {
 
   const _renderContentItem = ({item, index}) => {
     const file = item?.file;
-    const link = file.split('=', 2);
+    const link = file?.split('=', 2);
     let videoLink = link[1].split('&', 2);
     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
   };
@@ -348,7 +348,9 @@ const BestPractice = props => {
             marginLeft: 20,
             marginTop: 10,
           }}>
-          <Text style={{fontSize: 14, fontWeight: '800'}}>{item?.link}</Text>
+          <Text style={{fontSize: 14, fontWeight: '600', color: 'blue'}}>
+            {item?.link}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -400,7 +402,7 @@ const BestPractice = props => {
               renderItem={item => _renderMiddleItem(item, navigation)}
             />
           </View>
-          {pillarMemberContents?.attachments?.length !== 0 &&
+          {pillarMemberContents?.attachments !== undefined &&
             pillarMemberContents?.attachments !== false && (
               <View style={styles.sectionContainer}>
                 <FlatList
@@ -411,11 +413,11 @@ const BestPractice = props => {
                 />
               </View>
             )}
-          {pillarMemberContents?.external_link?.length !== 0 &&
+          {pillarMemberContents?.external_link !== undefined &&
             pillarMemberContents?.external_link !== false &&
             pillarMemberContents?.external_link !== null && (
               <View style={styles.content}>
-                <Text style={styles.title}>External Links:</Text>
+                <Text style={styles.title}>External Links</Text>
                 <FlatList
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}
@@ -439,7 +441,7 @@ const BestPractice = props => {
             </View>
           )} */}
 
-          {pillarMemberContents?.pillar_contents?.length !== 0 &&
+          {pillarMemberContents?.pillar_contents !== undefined &&
             pillarMemberContents?.pillar_contents !== null &&
             pillarMemberContents?.pillar_contents !== false && (
               <View style={styles.content}>

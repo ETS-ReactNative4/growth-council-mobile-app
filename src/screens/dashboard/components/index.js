@@ -12,7 +12,11 @@ import {
   StatusBar,
   Dimensions,
   Platform,
+  Alert,
+  BackHandler,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useAuthentication} from '../../../context/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {BubblesLoader} from 'react-native-indicator';
@@ -73,11 +77,12 @@ const Dashboard = props => {
     cleanCriticalIssue,
   } = props;
 
+  const nav = useNavigation();
+
+  const {signOut} = useAuthentication();
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
-  const [dataSource, setDataSource] = useState([]);
-  const [scrollToIndex, setScrollToIndex] = useState(0);
   const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
   const [ref, setRef] = useState(null);
 
@@ -132,17 +137,18 @@ const Dashboard = props => {
     setDataSourceCords(criticalIssue);
   }, [criticalIssue]);
 
-  const scrollHandler = () => {
-    if (dataSourceCords?.critical_issue_mobile_lists?.length > 0) {
-      ref.current?.scrollTo({
-        x: 0,
-        y: dataSourceCords,
-        animated: true,
-      });
-    } else {
-      alert('Out of Max Index');
-    }
-  };
+  useEffect(() => {
+    const backAction = () => {
+      BackHandler.exitApp();
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   const _renderItem = ({item, index}) => {
     return (
@@ -166,7 +172,9 @@ const Dashboard = props => {
               }}>
               {item?.user_meta?.first_name} {item?.user_meta?.last_name}
             </Text>
-            <Text style={{fontSize: 6, color: '#030303'}}>
+            <Text style={{fontSize: 6, color: '#030303', marginTop: 5}}>
+              {item?.registered_date}
+              {'\n'}
               Frost and Sullivan
             </Text>
           </View>
@@ -287,7 +295,7 @@ const Dashboard = props => {
             })
           }>
           <ImageBackground
-            style={{width: '100%', height: 150, borderRadius: 20}}
+            style={{width: '100%', height: 180, borderRadius: 20}}
             source={backgroundImage}>
             <View
               style={{
@@ -316,19 +324,11 @@ const Dashboard = props => {
     );
   };
 
-  //   const _renderContentItem = ({item, index}) => {
-  //     const file = item?.file;
-  //     const link = file.split('=', 2);
-  //     let videoLink = link[1].split('&', 2);
-
-  //     return <Player {...props} item={item} file={file} videoLink={videoLink} />;
-  //   };
-
   const _renderCritical = ({item, index}) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('CriticalIssue'), scrollHandler();
+          navigation.navigate('CriticalIssue', {index});
         }}>
         <View
           style={styles.ContentWrapper}
@@ -337,7 +337,8 @@ const Dashboard = props => {
             const layout = items.nativeEvent.layout;
             dataSourceCords[index] = layout.y;
             setDataSourceCords(dataSourceCords);
-          }}>
+          }}
+          onScroll={e => setPos(e.nativeEvent.contentOffset.y)}>
           <View
             style={{
               flexDirection: 'row',
@@ -508,7 +509,7 @@ const styles = StyleSheet.create({
   },
 
   topWrapper: {
-    height: 144,
+    height: 160,
     width: 256,
     marginLeft: 15,
     borderRadius: 16,
@@ -530,14 +531,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     width: '98%',
     color: 'white',
-    fontSize: 12,
+    fontSize: 11,
   },
   headingText2: {
     fontFamily: Typography.FONT_SF_MEDIUM,
     fontWeight: '700',
     color: 'white',
     fontSize: 8,
-    lineHeight: 12,
+    lineHeight: 10,
   },
   middle: {
     marginTop: 10,

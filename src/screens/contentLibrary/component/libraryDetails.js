@@ -48,7 +48,6 @@ const LibraryDetail = props => {
     }, []),
   );
 
-
   useEffect(() => {
     setFilteredDataSource(libraryDetails);
   }, [libraryDetails]);
@@ -136,7 +135,7 @@ const LibraryDetail = props => {
           </View>
           {route.params.breadcrumbName !== undefined && (
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{fontSize: 9}}>{route.params.breadcrumbName}</Text>
+              <Text style={{fontSize: 9}}>{route.params.breadcrumbName} </Text>
               <Ionicons
                 name="chevron-forward-outline"
                 size={15}

@@ -12,7 +12,7 @@ import {
   StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Material from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Footer from '../../../shared/footer';
 import ToastMessage from '../../../shared/toast';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -95,10 +95,9 @@ const Setting = props => {
               </View>
               <View style={styles.header}>
                 <Text style={styles.headingText1}>
-                  {profile?.user_meta?.first_name}{' '}
-                  {profile?.user_meta?.last_name}
+				{profile?.display_name}
                 </Text>
-                <Text style={{color: '#222B45'}}>{profile.user_email}</Text>
+                <Text style={{color: '#222B45'}}>{profile.user_meta?.title}</Text>
               </View>
             </View>
           </View>
@@ -153,10 +152,10 @@ const Setting = props => {
                 </View>
                 <View style={styles.wrapper}>
                   <TouchableOpacity
-                    onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+                    onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
                     <View style={styles.middleWrapper}>
                       <View style={styles.middleImage1}>
-                        <Ionicons name={'headset'} size={20} color="white" />
+                        <AntDesign name={'mail'} size={20} color="white" />
                       </View>
                       <Text style={styles.menuText}>Help</Text>
                     </View>

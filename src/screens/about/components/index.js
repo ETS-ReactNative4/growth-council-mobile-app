@@ -140,13 +140,12 @@ const About = props => {
                 styles.plainButton,
                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
               ]}
-              onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+              onPress={() => navigation.navigate('Email')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
                 Contact Us
               </Text>
             </Button>
           </View>
-
         </View>
       </ScrollView>
     </>

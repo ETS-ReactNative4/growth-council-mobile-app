@@ -25,6 +25,7 @@ import LibraryDetailScreen from '../screens/contentLibrary/libraryDetails';
 import ContentTagsScreen from '../screens/contentLibrary/contentTags';
 import CriticalIssueScreen from '../screens/criticalIssue/index';
 import ContentLibraryDetailScreen from '../screens/details/ContentLibraryDetail';
+import TabDetailScreen from '../screens/details/TabDetails';
 import ContentScreen from '../screens/contentLibrary';
 import ChangePasswordScreen from '../screens/account/ChangePassword';
 
@@ -49,7 +50,6 @@ import SelfLearnDetailScreen from '../screens/selfLearn';
 import PDFDetailScreen from '../screens/selfLearn/pdf';
 import SelfAssessment from '../screens/coachingSession/component/selfAssessment';
 
-
 import MainHeader from '../shared/header/MainHeader';
 import AccountScreen from '../screens/account';
 import UserListScreen from '../screens/chat/UserList';
@@ -58,6 +58,8 @@ import SubHeader from '../shared/header/SubHeader';
 import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
 import SessionCompleted from '../screens/coachingSession/component/sessionCompleted';
+
+import EmailScreen from '../screens/email';
 
 const Stack = createStackNavigator();
 
@@ -131,7 +133,7 @@ const MainNavigation = () => {
             headerLeft: props => (
               <Ionicons
                 name={'arrow-back'}
-                size={80}
+                size={60}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
                 }}
@@ -153,7 +155,7 @@ const MainNavigation = () => {
             headerLeft: props => (
               <Ionicons
                 name={'arrow-back'}
-                size={70}
+                size={60}
                 color={'white'}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
@@ -163,6 +165,7 @@ const MainNavigation = () => {
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
             gestureDirection: 'horizontal-inverted',
+            navigationOptions: {gesturesEnabled: false},
           })}
         />
         <Stack.Screen
@@ -175,7 +178,7 @@ const MainNavigation = () => {
             headerLeft: props => (
               <Ionicons
                 name={'arrow-back'}
-                size={80}
+                size={60}
                 color={'white'}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
@@ -190,9 +193,23 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Forgot"
           component={ForgotScreen}
-          options={{
-            headerTitle: 'Forget',
-          }}
+          options={({navigation}) => ({
+            headerTitle: '',
+            headerStyle: {height: 80},
+            headerTransparent: true,
+            headerLeft: props => (
+              <Ionicons
+                name={'arrow-back'}
+                size={40}
+                color={'black'}
+                style={{
+                  position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                  marginLeft: 10,
+                }}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="SignUpNext"
@@ -335,18 +352,19 @@ const MainNavigation = () => {
               <Ionicons
                 name={'arrow-back'}
                 size={40}
-                color={'white'}
+                color={'black'}
                 style={{
                   position: Platform.OS === 'ios' ? 'absolute' : 'relative',
-				  marginLeft:10,
+                  marginLeft: 10,
                 }}
-                onPress={() => navigation.navigate('Growth Content')}
+                onPress={() => navigation.goBack()}
               />
             ),
             ...TransitionPresets.RevealFromBottomAndroid,
             gestureDirection: 'horizontal-inverted',
           })}
         />
+
         <Stack.Screen
           name="ManageAccount"
           component={ManageAccountScreen}
@@ -481,7 +499,23 @@ const MainNavigation = () => {
           component={ContentLibraryDetailScreen}
           options={({route}) => ({
             id: route?.params?.id,
-            animationEnabled: false,
+            // animationEnabled: false,
+            header: ({navigation}) => (
+              <SubHeader
+                title="Content Library"
+                image={require('../assets/img/appBG.png')}
+                navigation={navigation}
+                noDrawer
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="TabDetail"
+          component={TabDetailScreen}
+          options={({route}) => ({
+            id: route?.params?.id,
+            // animationEnabled: false,
             header: ({navigation}) => (
               <SubHeader
                 title="Content Library"
@@ -631,6 +665,11 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Radar"
           component={RadarScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Email"
+          component={EmailScreen}
           options={{headerShown: false}}
         />
       </Stack.Group>

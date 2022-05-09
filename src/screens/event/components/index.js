@@ -15,9 +15,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
-import 'moment-timezone';
+// import 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {formatTimeByOffset} from './timezone';
 import {BubblesLoader} from 'react-native-indicator';
@@ -104,19 +104,19 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const eventDate = moment(events?.event_start).format('D MMMM, h:mma - ');
-  const eventEnd = moment(events?.event_end).format('D MMMM, h:mma');
+  const eventDate = moment(events?.event_start).format('MMMM D, h:mma - ');
+  const eventEnd = moment(events?.event_end).format('MMMM D, h:mma');
 
-  const eventStartMonth = moment(events?.event_start).format('D MMMM');
+  const eventStartMonth = moment(events?.event_start).format('MMMM D');
 
   const eventEndTime = moment(events?.event_end).format('h:mma ');
-  const eventEndMonth = moment(events?.event_end).format('D MMMM');
+  const eventEndMonth = moment(events?.event_end).format('MMMM D');
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM');
+  const GobalDate = moment(timeToDisplay).format('MMMM D, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('MMMM D');
 
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM');
+  const GobalEndMonth = moment(timeToEnd).format('MMMM D');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -180,7 +180,7 @@ const Event = props => {
                 <Text style={styles.headingText1}>{events?.title}</Text>
               )}
               <View style={styles.poe}>
-                <Text style={{fontSize: 12}}>{title}</Text>
+                <Text style={{fontSize: 11}}>{title}</Text>
               </View>
             </View>
           </View>
@@ -206,6 +206,7 @@ const Event = props => {
                     style={{
                       flex: 5,
                       paddingLeft: 5,
+                      justifyContent: 'center',
                     }}>
                     {/* <Text style={styles.eventDetails}>{GobalDate} /</Text> */}
                     <Text style={styles.eventDetails}>
@@ -213,7 +214,7 @@ const Event = props => {
                         ? GobalDate + GobalEndTime
                         : GobalStartMonth +
                           GobalDate.split(/(\s+)/)[7] +
-                          GobalDate.split(/(\s+)/)[8] +
+                          GobalDate.split(/(\s+)/)[6] +
                           GobalDate.split(/(\s+)/)[7] +
                           GobalEndMonth}{' '}
                       ({deviceTimeZone}) /{' '}
@@ -221,9 +222,10 @@ const Event = props => {
                         ? eventDate + eventEndTime
                         : eventStartMonth +
                           eventDate.split(/(\s+)/)[7] +
-                          eventDate.split(/(\s+)/)[8] +
+                          eventDate.split(/(\s+)/)[6] +
                           eventDate.split(/(\s+)/)[7] +
                           eventEndMonth}
+                      (America)
                     </Text>
                   </View>
                   {!eventStatus && (
@@ -312,29 +314,32 @@ const Event = props => {
                     </View>
 
                     <View style={styles.hostdetail}>
-                      <View
-                        style={[
-                          styles.hostimage,
-                          {backgroundColor: backgroundColor},
-                        ]}>
-                        <Image
-                          source={{
-                            uri:
-                              typeof events?.organizer_image === 'boolean'
-                                ? null
-                                : events?.organizer_image,
-                          }}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                          }}
-                        />
-                      </View>
+                      {events?.organizer_image !== false &&
+                        events?.organizer_image !== null && (
+                          <View
+                            style={[
+                              styles.hostimage,
+                              {backgroundColor: backgroundColor},
+                            ]}>
+                            <Image
+                              source={{
+                                uri:
+                                  typeof events?.organizer_image === 'boolean'
+                                    ? null
+                                    : events?.organizer_image,
+                              }}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                              }}
+                            />
+                          </View>
+                        )}
 
                       <View
                         style={{
                           flex: 3,
-                          paddingLeft: 20,
+
                           justifyContent: 'center',
                         }}>
                         <Text style={styles.contentTitle}>
@@ -348,19 +353,30 @@ const Event = props => {
                     </View>
                   </View>
                 )}
-              {events?.descirption !== undefined && events?.descirption !== '' && (
-                <View>
-                  <Text style={[styles.contentHeading, {marginTop: 20}]}>
-                    Event Info
-                  </Text>
-                  {!isEventLoaded && (
-                    <HTMLView
-                      value={description}
-                      style={{fontSize: 14, color: '#77838F'}}
-                    />
-                  )}
-                </View>
-              )}
+              {events?.descirption !== undefined &&
+                events?.descirption !== '' &&
+                events?.descirption !== null && (
+                  <View>
+                    <Text style={[styles.contentHeading, {marginTop: 20}]}>
+                      Event Info
+                    </Text>
+                    {!isEventLoaded && (
+                      <HTMLView
+                        value={description}
+                        textComponentProps={{
+                          style: {
+                            fontSize: 12,
+                            lineHeight: 20,
+                            fontWeight: 'regular',
+                            color: '#666767',
+                            alignItems: 'center',
+                            textAlign: 'justify',
+                          },
+                        }}
+                      />
+                    )}
+                  </View>
+                )}
 
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 {eventRegisterLoading && <Loading />}
@@ -368,9 +384,7 @@ const Event = props => {
                   <Button
                     style={styles.acceptButton}
                     onPress={() => registerEventByEventID(route?.params?.id)}>
-                    <Text style={styles.acceptButtonText}>
-                     RSVP
-                    </Text>
+                    <Text style={styles.acceptButtonText}>RSVP</Text>
                   </Button>
                 )}
                 {eventStatus && (
@@ -384,7 +398,7 @@ const Event = props => {
                         }}
                       />
                     </View>
-                    <Text style={styles.registeredButtonText}>RSVP't</Text>
+                    <Text style={styles.registeredButtonText}>RSVP'd</Text>
                   </TouchableOpacity>
                 )}
               </View>
@@ -426,14 +440,14 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_NORMAL,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
     color: '#ffff',
   },
   eventDetails: {
     fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
     marginLeft: 5,
-    fontSize: 13,
+    fontSize: 12,
     color: '#1E2022',
     fontWeight: 'bold',
   },
@@ -511,20 +525,19 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginBottom: 20,
     borderRadius: 14,
-    padding: 20,
+    padding: 15,
     position: 'relative',
   },
 
   poe: {
-    width: 160,
     position: 'absolute',
     top: -15,
     left: 0,
     backgroundColor: '#ffff',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderWidth: 0.2,
     paddingVertical: 5,
   },
@@ -561,6 +574,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 15,
   },
   eventaddress: {
     flex: 2,

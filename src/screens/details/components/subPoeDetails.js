@@ -53,12 +53,14 @@ const SubPOEDetails = props => {
 
   const isFocused = useIsFocused();
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     const fetchAllPOEDetailAsync = async () => {
       await fetchAllPOEDetail(route.params.poeId);
     };
     fetchAllPOEDetailAsync();
-  }, []);
+  }, []),
+  )
 
 
   useFocusEffect(
