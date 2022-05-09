@@ -140,7 +140,7 @@ const GrowthDetail = props => {
       </View>
     );
   };
-
+  
   const _renderMiddleItem = ({item, index}) => {
     const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
@@ -148,12 +148,16 @@ const GrowthDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('coachingSession', {
-              id: item.ID,
-              sessionId: item?.ID,
-              title: item?.title,
-            })
+          onPress={
+            (() =>
+              navigation.navigate('coachingSession', {
+                id: item.ID,
+                sessionId: item?.ID,
+                title: item?.title,
+				previousSessionID:coachingSession[index-1]?.ID
+              })
+            // abcd())
+			)
           }>
           <View
             style={{
@@ -214,34 +218,34 @@ const GrowthDetail = props => {
                   selfLearnId: item?.ID,
                 })
               }> */}
-              <View>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 16,
-                    marginTop: 10,
-                    color: 'black',
-                    width: '80%',
-                  }}>
-                  {item?.title}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    marginTop: 5,
-                    width: 180,
-                  }}>
-                  {item.subtitle}
-                </Text>
-                <Text
-                  style={{
-                    marginTop: 10,
-                    fontSize: 11,
-                    width: 180,
-                  }}>
-                  {item.author}
-                </Text>
-              </View>
+            <View>
+              <Text
+                style={{
+                  fontWeight: '500',
+                  fontSize: 16,
+                  marginTop: 10,
+                  color: 'black',
+                  width: '80%',
+                }}>
+                {item?.title}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  marginTop: 5,
+                  width: 180,
+                }}>
+                {item.subtitle}
+              </Text>
+              <Text
+                style={{
+                  marginTop: 10,
+                  fontSize: 11,
+                  width: 180,
+                }}>
+                {item.author}
+              </Text>
+            </View>
             {/* </TouchableOpacity> */}
             <View
               style={{
@@ -319,7 +323,7 @@ const GrowthDetail = props => {
                     padding: 15,
                     textAlign: 'left',
                     color: '#77838F',
-					textAlign: 'justify',
+                    textAlign: 'justify',
                   },
                 }}
               />

@@ -83,24 +83,11 @@ const Dashboard = props => {
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [dataSource, setDataSource] = useState([]);
-  const [scrollToIndex, setScrollToIndex] = useState(0);
-  const [currentDate, setCurrentDate] = useState('');
+
   const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
   const [ref, setRef] = useState(null);
 
-  useEffect(() => {
-    const backAction = () => {
-      BackHandler.exitApp();
-    };
-	
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
-  }, []);
+  
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -153,18 +140,20 @@ const Dashboard = props => {
     setDataSourceCords(criticalIssue);
   }, [criticalIssue]);
 
-  const scrollHandler = () => {
-    if (dataSourceCords?.critical_issue_mobile_lists?.length > 0) {
-      ref.current?.scrollTo({
-        x: 0,
-        y: dataSourceCords,
-        animated: true,
-      });
-    } else {
-      alert('Out of Max Index');
-    }
-  };
 
+  useEffect(() => {
+    const backAction = () => {
+      BackHandler.exitApp();
+    };
+	
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+  
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>

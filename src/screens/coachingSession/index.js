@@ -8,6 +8,7 @@ import {
   registerSessionByID,
   resetSessionRegister,
 } from '../sessions/slice/sessionRegister';
+import {fetchProfileByID, resetProfile} from '../account/slice/profileSlice';
 
 const CoachingSessionDetailScreen = props => {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ const CoachingSessionDetailScreen = props => {
   );
   const {sessionRegisters, sessionRegisterLoading, sessionRegisterError} =
     useSelector(state => state.sessionRegisters);
+  const {profile, profileLoading, profileError} = useSelector(
+    state => state.profile,
+  );
 
   useEffect(() => {
     fetchSessionByIdentifier(route.params.id);
@@ -60,6 +64,14 @@ const CoachingSessionDetailScreen = props => {
     dispatch(resetSessionRegister());
   };
 
+  const fetchProfile = () => {
+    dispatch(fetchProfileByID());
+  };
+
+  const cleanProfile = () => {
+    dispatch(resetProfile());
+  };
+
   return (
     <CoachingSession
       {...props}
@@ -78,6 +90,12 @@ const CoachingSessionDetailScreen = props => {
       sessionRegisterError={sessionRegisterError}
       registerSessionByIdentifier={registerSessionByIdentifier}
       cleanSessionRegister={cleanSessionRegister}
+
+	  profile={profile}
+	  profileLoading={profileLoading}
+	  profileError={profileError}
+	  fetchProfile={fetchProfile}
+	  cleanProfile={cleanProfile}
     />
   );
 };

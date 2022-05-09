@@ -44,6 +44,12 @@ const CoachingSession = props => {
     sessionRegisterError,
     registerSessionByIdentifier,
     cleanSessionRegister,
+
+    profile,
+    profileLoading,
+    profileError,
+    fetchProfile,
+    cleanProfile,
   } = props;
 
   const scrollRef = useRef();
@@ -73,6 +79,13 @@ const CoachingSession = props => {
       return answers.questions.innovativeIndex[subTraitIndex];
     }
   };
+
+  useEffect(() => {
+    const fetchProfileAsync = async () => {
+      await fetchProfile();
+    };
+    fetchProfileAsync();
+  }, []);
 
   useEffect(() => {
     let traitsLength = traits.length;
@@ -108,6 +121,9 @@ const CoachingSession = props => {
     );
     if (isNaN(num)) num = 0.0;
   }
+  const previousSession = profile?.session_score?.map((item) => item?.completed_status);
+
+  console.log(previousSession);
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
