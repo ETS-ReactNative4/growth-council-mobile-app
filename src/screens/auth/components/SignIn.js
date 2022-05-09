@@ -71,6 +71,8 @@ const SignInForm = props => {
     },
   });
 
+  const areAllFieldsFilled = values.username != '' && values.password != '';
+
   const postToAPI = async data => {
     return await axios.get(
       `${API_URL}/pd/fcm/subscribe?api_secret_key=s3D6nHoU9AUw%jjTHy0K@UO)&user_email=${data?.username}&device_token=${data.token}&subscribed=UserNotification`,
@@ -178,11 +180,16 @@ const SignInForm = props => {
               )}
 
               <View style={styles.loginButtonWrapper}>
-               
-                  <Button style={styles.loginButton} onPress={handleSubmit} >
-                    <Text style={styles.loginButtonText}>Sign In</Text>
-                  </Button>
-              
+                <Button
+                  style={
+                    !areAllFieldsFilled
+                      ? styles.loginButton1
+                      : styles.loginButton
+                  }
+                  onPress={handleSubmit}
+                  disabled={!areAllFieldsFilled}>
+                  <Text style={styles.loginButtonText}>Sign In</Text>
+                </Button>
               </View>
               <View style={styles.forgotButtonWrapper}>
                 <TouchableOpacity>
@@ -276,9 +283,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '50%',
   },
+  loginButton1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'grey',
+    height: 40,
+    marginBottom: 15,
+    borderRadius: 10,
+    width: '50%',
+  },
   loginButtonText: {
     ...CommonStyles.buttonText,
-    
   },
   forgotButtonWrapper: {
     ...CommonStyles.forgotButtonWrapper,

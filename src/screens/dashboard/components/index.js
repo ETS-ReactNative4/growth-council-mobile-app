@@ -82,12 +82,9 @@ const Dashboard = props => {
   const {signOut} = useAuthentication();
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
-  const [scrollPosition, setScrollPosition] = useState(0);
 
   const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
   const [ref, setRef] = useState(null);
-
-  
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -140,12 +137,11 @@ const Dashboard = props => {
     setDataSourceCords(criticalIssue);
   }, [criticalIssue]);
 
-
   useEffect(() => {
     const backAction = () => {
       BackHandler.exitApp();
     };
-	
+
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       backAction,
@@ -153,7 +149,7 @@ const Dashboard = props => {
 
     return () => backHandler.remove();
   }, []);
-  
+
   const _renderItem = ({item, index}) => {
     return (
       <View style={[styles.bottomWrapper, styles.shadowProp]} key={index}>
@@ -329,16 +325,10 @@ const Dashboard = props => {
   };
 
   const _renderCritical = ({item, index}) => {
-    const scroll = e => {
-      e => setScrollPosition(e.nativeEvent.contentOffset.y);
-    };
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('CriticalIssue'),
-            (setScrollPosition = e =>
-              setScrollPosition(e.nativeEvent.contentOffset.y)),
-            (scrollPosition = {scrollPosition});
+          navigation.navigate('CriticalIssue');
         }}>
         <View
           style={styles.ContentWrapper}
@@ -370,7 +360,6 @@ const Dashboard = props => {
               }}>
               {item?.heading}
             </Text>
-            <Text style={{fontSize: 6, color: 'white'}}>{scrollPosition}</Text>
           </View>
         </View>
       </TouchableOpacity>

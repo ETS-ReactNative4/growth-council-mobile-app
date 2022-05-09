@@ -31,8 +31,7 @@ const CriticalIssue = props => {
     criticalIssueError,
     fetchCritcalIssue,
     cleanCriticalIssue,
-    scrollPosition,
-    setScrollPosition,
+  
   } = props;
 
   useEffect(() => {
@@ -42,7 +41,7 @@ const CriticalIssue = props => {
   const _renderCritical = ({item, index}) => {
     return (
       <View style={styles.content} 
-	//   onScroll={route.params.setScrollPosition}
+
 	  >
         <Image
           style={{
@@ -53,7 +52,7 @@ const CriticalIssue = props => {
           source={{uri: item?.image}}
         />
         <View style={styles.contentWrapper}>
-          <Text>{scrollPosition}</Text>
+          
           <Text style={{color: 'black', fontSize: 14, marginBottom: 10}}>
             {item?.heading}
           </Text>
