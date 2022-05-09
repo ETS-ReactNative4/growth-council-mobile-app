@@ -218,7 +218,7 @@ const SignInForm = props => {
                 <Text>Need Help? </Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
-                  onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
+                  onPress={() => navigation.navigate('Email')}>
                   {' '}
                   Contact Us{' '}
                 </Text>

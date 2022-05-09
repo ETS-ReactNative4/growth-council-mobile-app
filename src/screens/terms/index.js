@@ -158,7 +158,7 @@ const Terms = props => {
                 styles.plainButton,
                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
               ]}
-              onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
+              onPress={() => navigation.navigate('Email')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
                 Contact Our Program Team
               </Text>

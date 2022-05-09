@@ -1,11 +1,8 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from 'firebase/auth';
 import uuid from 'react-native-uuid';
 import crashlytics from '@react-native-firebase/crashlytics';
+import auth from '@react-native-firebase/auth'
 
 import {
   setAsyncStorage,
@@ -14,7 +11,6 @@ import {
 } from '../../utils/storageUtil';
 import {JWT_TOKEN, API_URL, USER_NAME, USER_AVATAR} from '../../constants';
 import {navigate} from '../../utils/navigationUtil';
-import {auth} from '../../utils/firebaseUtil';
 
 export const AuthContext = createContext({});
 
@@ -56,8 +52,8 @@ export const AuthProvider = ({children}) => {
               await setAsyncStorage(USER_NAME, response.data.user_display_name);
               await setAsyncStorage(USER_AVATAR, response.data.avatar);
 
-              const firebaseResponse = await signInWithEmailAndPassword(
-                auth,
+              const firebaseResponse = await auth().signInWithEmailAndPassword(
+  
                 response?.data?.user_email,
                 response?.data?.firebase_password,
               );

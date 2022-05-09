@@ -123,8 +123,7 @@ const CoachingSession = props => {
   }
   const previousSession = profile?.session_score?.map(item => item?.session);
   const previousSessionID = route.params.previousSessionID;
-  console.log(previousSession);
-  console.log({previousSessionID});
+
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>

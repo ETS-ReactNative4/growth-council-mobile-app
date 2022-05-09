@@ -328,7 +328,7 @@ const Dashboard = props => {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('CriticalIssue');
+          navigation.navigate('CriticalIssue', {index}), scrollHandler();
         }}>
         <View
           style={styles.ContentWrapper}

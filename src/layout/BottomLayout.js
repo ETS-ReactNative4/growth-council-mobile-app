@@ -29,7 +29,7 @@ const BottomLayout = ({focused, navigation}) => {
           </View>
         </Pressable>
 
-        <Pressable onPress={() => navigation.navigate('Email')}>
+        <Pressable onPress={() => navigation.navigate('Calendar')}>
           <View>
             <View
               style={{

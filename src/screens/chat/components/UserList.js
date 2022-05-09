@@ -215,7 +215,7 @@ const UserList = props => {
                     <TouchableOpacity>
                         <Button
                             style={[styles.button]}
-                            onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
+                            onPress={() => navigation.navigate('Email')}>
                             <Text style={styles.buttonText}>Contact us</Text>
                         </Button>
                     </TouchableOpacity>

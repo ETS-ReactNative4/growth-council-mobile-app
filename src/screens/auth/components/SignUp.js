@@ -16,13 +16,12 @@ import * as Yup from 'yup';
 import {Picker} from '@react-native-picker/picker';
 import {BubblesLoader} from 'react-native-indicator';
 import uuid from 'react-native-uuid';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
 import PhoneInput from 'react-native-phone-number-input';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import FlatTextInput from '../../../shared/form/FlatTextInput';
 import CheckBox from '../../../shared/form/Checkbox';
 import ToastMessage from '../../../shared/toast';
-import {auth} from '../../../utils/firebaseUtil';
+import auth from '@react-native-firebase/auth'
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -86,11 +85,8 @@ const SignUpForm = props => {
         values.email.lastIndexOf('@'),
       );
       try {
-        const response = await createUserWithEmailAndPassword(
-          auth,
-          values?.email?.trim(),
-          values?.password,
-        );
+        const response = await auth().createUserWithEmailAndPassword(values?.email?.trim(),
+        values?.password);
         const token = await response.user.getIdToken();
         if (token) {
           await registerCustomer(values).then(response => {
