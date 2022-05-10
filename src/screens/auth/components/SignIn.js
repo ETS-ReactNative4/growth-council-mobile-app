@@ -55,11 +55,11 @@ const SignInForm = props => {
     // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     initialValues: {username: '', password: ''},
     onSubmit: async values => {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        values?.username?.trim(),
-        values?.password,
-      ).catch(e => console.log(e));
+    //   const response = await createUserWithEmailAndPassword(
+    //     auth,
+    //     values?.username?.trim(),
+    //     values?.password,
+    //   ).catch(e => console.log(e));
       const messageToken = await messaging().getToken();
       const firebasePayload = {
         username: values.username,

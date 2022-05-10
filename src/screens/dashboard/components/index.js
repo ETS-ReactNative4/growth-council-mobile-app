@@ -31,6 +31,7 @@ import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import Loading from '../../../shared/loading';
+import { sendNotification } from '../../../utils/sendNotification';
 
 const win = Dimensions.get('window').width;
 const contentContainerWidth = win / 2;
