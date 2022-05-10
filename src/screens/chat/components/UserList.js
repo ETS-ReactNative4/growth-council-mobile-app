@@ -226,7 +226,7 @@ const UserList = props => {
                         <FlatList
                             Vertical
                             showsVerticalScrollIndicator={false}
-                            data={users}
+                            data={users.sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : b.lastUpdated > a.lastUpdated ? 1 : 0)}
                             renderItem={_renderItems}
                         />
                     </View>
