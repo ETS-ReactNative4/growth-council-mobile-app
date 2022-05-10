@@ -71,11 +71,7 @@ const SignInForm = props => {
     },
   });
 
-  const areAllFieldsFilled = createUserWithEmailAndPassword(
-    auth,
-    values?.username?.trim(),
-    values?.password,
-  );
+  const areAllFieldsFilled = values.username != '' && values.password != '';
 
   const postToAPI = async data => {
     return await axios.get(
