@@ -433,18 +433,22 @@ const CommunityDetail = props => {
                   }}
                 />
               </View>
-              {poeDetails?.slug === '10-growth-processes' && (
-                <View style={styles.top}>
-                  <Text style={styles.title}> Sub Points of Engagement</Text>
-                  <FlatList
-                    numColumns={4}
-                    showsHorizontalScrollIndicator={false}
-                    data={pillarPOEs}
-                    // renderItem={_renderMiddleItem}
-                    renderItem={item => _renderMiddleItem(item, navigation)}
-                  />
-                </View>
-              )}
+              {poeDetails !== null &&
+                pillarPOEs !== null &&
+                pillarPOEs !== false &&
+                pillarPOEs !== undefined && 
+				pillarPOEs?.length !== 0 &&(
+                  <View style={styles.top}>
+                    <Text style={styles.title}> Sub Points of Engagement</Text>
+                    <FlatList
+                      numColumns={4}
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarPOEs}
+                      // renderItem={_renderMiddleItem}
+                      renderItem={item => _renderMiddleItem(item, navigation)}
+                    />
+                  </View>
+                )}
 
               {poeDetails !== null && poeEvents?.length !== 0 && (
                 <View style={styles.top}>
