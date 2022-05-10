@@ -72,6 +72,7 @@ const SignInForm = props => {
   });
 
   const areAllFieldsFilled = createUserWithEmailAndPassword(
+    auth,
     values?.username?.trim(),
     values?.password,
   );

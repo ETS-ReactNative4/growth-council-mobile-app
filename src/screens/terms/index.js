@@ -158,7 +158,7 @@ const Terms = props => {
                 styles.plainButton,
                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
               ]}
-              onPress={() => navigation.navigate('Email')}>
+              onPress={() => navigation.navigate('EmailDetail')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
                 Contact Our Program Team
               </Text>

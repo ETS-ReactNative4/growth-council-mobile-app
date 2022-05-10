@@ -36,7 +36,8 @@ import SearchScreen from '../screens/search';
 import FrostRadarScreen from '../screens/radar';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
-import PrivacyScreen from '../screens/privacy';
+import PrivacyScreen from '../screens/privacy/index';
+import PrivacyDetailScreen from '../screens/privacy/pivacy';
 import Terms from '../screens/terms';
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
@@ -59,7 +60,8 @@ import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
 import SessionCompleted from '../screens/coachingSession/component/sessionCompleted';
 
-import EmailScreen from '../screens/email';
+import EmailScreen from '../screens/email/index';
+import EmailDetailsScreen from '../screens/email/email';
 
 const Stack = createStackNavigator();
 
@@ -595,7 +597,7 @@ const MainNavigation = () => {
         />
         <Stack.Screen
           name="Privacys"
-          component={PrivacyScreen}
+          component={PrivacyDetailScreen}
           options={({navigation}) => ({
             header: () => (
               <OptionHeader
@@ -670,6 +672,11 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Email"
           component={EmailScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="EmailDetail"
+          component={EmailDetailsScreen}
           options={{headerShown: false}}
         />
       </Stack.Group>

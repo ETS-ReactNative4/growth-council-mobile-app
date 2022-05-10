@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import Privacy from './component/index';
+
 import PrivacyDetails from './component/privacy';
 
 import {fetchPrivacy, resetPrivacy} from './slice/privacySlice';
@@ -22,7 +22,9 @@ const PrivacyScreen = props => {
   };
 
   return (
-    <Privacy
+ 
+
+	<PrivacyDetails
       {...props}
       privacy={privacy}
       privacyLoading={privacyLoading}
