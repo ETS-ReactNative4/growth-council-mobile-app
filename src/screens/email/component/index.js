@@ -12,6 +12,7 @@ import {
   TextInput,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useIsFocused} from '@react-navigation/native';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import {Button} from 'native-base';
@@ -39,14 +40,15 @@ const Email = props => {
     sendMailUser,
     cleanSendMail,
   } = props;
+  const isFocused = useIsFocused();
 
   const {handleChange, handleBlur, handleSubmit, values, errors, touched} =
     useFormik({
       validationSchema: emailSchema,
       initialValues: {
-        From: profile?.user_email,
         subject: '',
         message: '',
+        sender: profile?.user_email
       },
       onSubmit: async values => {
         await sendMailUser(values).then(response => {
@@ -63,13 +65,13 @@ const Email = props => {
       await fetchProfile();
     };
     fetchProfileAsync();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     return () => {
       cleanSendMail();
     };
-  }, []);
+  }, [isFocused]);
 
   return (
     <>
@@ -103,11 +105,6 @@ const Email = props => {
                 </Text>
               </View>
             </View>
-            {/* <TouchableOpacity onPress={handleSubmit}>
-              <View style={{marginTop: 20, position: 'absolute', right: 20}}>
-                <Ionicons name={'send-sharp'} size={30} color={'white'} />
-              </View>
-            </TouchableOpacity> */}
 
             {/**/}
           </View>
@@ -116,23 +113,14 @@ const Email = props => {
               <Text style={{fontSize: 18, marginTop: 10}}>From :</Text>
               <TextInput
                 multiline={true}
-                style={styles.input}
-                value={values.From}
-                editable={false}
-				onChangeText={handleChange('From')}
-                onFocus={handleBlur('From')}
-                error={errors.From}
-                touched={touched.From}
+                style={[styles.input, {color: 'blue'}]}
+                value={values.sender}
+                onChangeText={handleChange('sender')}
+                onFocus={handleBlur('sender')}
+                error={errors.sender}
+                touched={touched.sender}
               />
             </View>
-            {/* <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 18, marginTop: 10}}>To :</Text>
-              <TextInput
-                multiline={true}
-                style={styles.input}
-                value="agajgjgjejkgsha"
-              />
-            </View> */}
             {sendMailLoading && <Loading />}
 
             <View style={{marginTop: 10}}>

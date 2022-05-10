@@ -121,9 +121,13 @@ const CoachingSession = props => {
     );
     if (isNaN(num)) num = 0.0;
   }
-  const previousSession = profile?.session_score?.map(item => item?.session);
-  const previousSessionID = route.params.previousSessionID;
+  const previousSession =
+    profile?.session_score !== false
+      ? profile?.session_score?.map(item => item?.session)
+      : [0];
 
+  const previousSessionID = route.params.previousSessionID;
+  console.log({previousSessionID});
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
@@ -165,9 +169,13 @@ const CoachingSession = props => {
                         previousSession.indexOf(previousSessionID) > -1 !==
                         true
                       ) {
-                        ToastMessage.show(
-                          'First, please complete previous session',
-                        );
+                        if (previousSessionID === undefined) {
+                          return setValue(val);
+                        } else {
+                          ToastMessage.show(
+                            'First, please complete previous session',
+                          );
+                        }
                       } else {
                         return setValue(val);
                       }

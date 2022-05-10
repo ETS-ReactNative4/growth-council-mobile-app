@@ -70,8 +70,8 @@ const People = props => {
           s: searchKey,
           sort: sorting,
           expertise_areas: category,
-          // category: account,
-          // country: region,
+          category: account,
+          country: region,
         });
       };
       fetchAllUsersAsync();
@@ -105,8 +105,8 @@ const People = props => {
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
-        // category: account,
-        // country: region,
+        category: account,
+        country: region,
       });
       ToastMessage.show('You have successfully connected.');
     } else {

@@ -83,23 +83,23 @@ const UserList = props => {
         setMemberConnection(users);
     }, [users]);
 
-    const connectMemberByMemberID = async (memberID, index) => {
-        const response = await connectMemberByIdentifier({member_id: memberID});
-        if (response?.payload?.code === 200) {
-            let items = [...memberConnection];
-            let item = {...items[index]};
-            item.connection = true;
-            items[index] = item;
-            setMemberConnection(items);
-            fetchAllUsers({
-                s: searchKey,
-            });
-            ToastMessage.show('You have successfully connected.');
-        } else {
-            toast.closeAll();
-            ToastMessage.show(response?.payload?.response);
-        }
-    };
+    // const connectMemberByMemberID = async (memberID, index) => {
+    //     const response = await connectMemberByIdentifier({member_id: memberID});
+    //     if (response?.payload?.code === 200) {
+    //         let items = [...memberConnection];
+    //         let item = {...items[index]};
+    //         item.connection = true;
+    //         items[index] = item;
+    //         setMemberConnection(items);
+    //         fetchAllUsers({
+    //             s: searchKey,
+    //         });
+    //         ToastMessage.show('You have successfully connected.');
+    //     } else {
+    //         toast.closeAll();
+    //         ToastMessage.show(response?.payload?.response);
+    //     }
+    // };
 
     const _renderItems = ({item, index}) => {
         return (
