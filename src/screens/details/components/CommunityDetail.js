@@ -23,7 +23,8 @@ import HTMLView from 'react-native-htmlview';
 import Player from '../../dashboard/components/Player';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Loading from '../../../shared/loading';
-import ReactNativeBlobUtil from 'react-native-blob-util';
+import RNFetchBlob from 'react-native-blob-util';
+// import ReactNativeBlobUtil from 'react-native-blob-util';
 import ToastMessage from '../../../shared/toast';
 
 const win = Dimensions.get('window');

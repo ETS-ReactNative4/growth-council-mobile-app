@@ -14,7 +14,7 @@ import {
 import {Searchbar, Button} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
-import {useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused, useNavigation} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
@@ -26,14 +26,13 @@ import Loading from '../../../shared/loading';
 import firestore from '@react-native-firebase/firestore'
 
 const UserList = props => {
-  const {
-    navigation,
-    route,
-    connection,
-    connectionLoading,
-    connectionError,
-    fetchAllConnection,
-    cleanConnection,
+    const {
+        route,
+        connection,
+        connectionLoading,
+        connectionError,
+        fetchAllConnection,
+        cleanConnection,
 
     users,
     userLoading,
@@ -55,7 +54,9 @@ const UserList = props => {
     const [memberConnection, setMemberConnection] = useState([]);
     const isFocused = useIsFocused();
     const [_users, setUsers] = useState([]);
-
+    const [reload, setReload] = useState(false);
+    const [text, setText] = useState("");
+    const navigation = useNavigation();
 
      // getActualUsersFromFirebase
   const getFirebaseUsers = async () => {
@@ -100,12 +101,19 @@ const UserList = props => {
     }
      
    }
+
+  useEffect(() => {
+    navigation.addListener("focus", () => {
+        setText("");
+        setReload(!reload);
+    })
+  }, [])
  
    useEffect(() => {
      if(userID && users.length){
         getFirebaseUsers();
      }
-   }, [userID, users])
+   }, [userID, users, reload])
 
   useEffect(() => {
     const setLoggedInUserInfoAsync = async () => {
@@ -119,40 +127,47 @@ const UserList = props => {
     setLoggedInUserInfoAsync();
   }, [isFocused]);
 
-  useEffect(() => {
-    const fetchAllUsersAsync = async () => {
-      await fetchAllUsers({
-        s: searchKey,
-      });
-    };
-    fetchAllUsersAsync();
+    useEffect(() => {
+       navigation.addListener('focus', () => {
+        const fetchAllUsersAsync = async () => {
+            await fetchAllUsers({
+                s: searchKey,
+            });
+        };
+        fetchAllUsersAsync();
 
-    return () => {
-      cleanUser();
-    };
-  }, [isFocused]);
+        return () => {
+            cleanUser();
+        };
+       })
+    }, []);
 
   useEffect(() => {
     setMemberConnection(users);
   }, [users]);
 
-  // const connectMemberByMemberID = async (memberID, index) => {
-  //     const response = await connectMemberByIdentifier({member_id: memberID});
-  //     if (response?.payload?.code === 200) {
-  //         let items = [...memberConnection];
-  //         let item = {...items[index]};
-  //         item.connection = true;
-  //         items[index] = item;
-  //         setMemberConnection(items);
-  //         fetchAllUsers({
-  //             s: searchKey,
-  //         });
-  //         ToastMessage.show('You have successfully connected.');
-  //     } else {
-  //         toast.closeAll();
-  //         ToastMessage.show(response?.payload?.response);
-  //     }
-  // };
+    useEffect(() => {
+        if(text.length) setUsers(prev => users.filter(user => user.display_name.toLowerCase().includes(text.toLowerCase()) || user.ID.includes(text)))
+        else setReload(!reload);
+    }, [text])
+
+    const connectMemberByMemberID = async (memberID, index) => {
+        const response = await connectMemberByIdentifier({member_id: memberID});
+        if (response?.payload?.code === 200) {
+            let items = [...memberConnection];
+            let item = {...items[index]};
+            item.connection = true;
+            items[index] = item;
+            setMemberConnection(items);
+            fetchAllUsers({
+                s: searchKey,
+            });
+            ToastMessage.show('You have successfully connected.');
+        } else {
+            toast.closeAll();
+            ToastMessage.show(response?.payload?.response);
+        }
+    };
 
   const _renderItems = ({item, index}) => {
     return (
@@ -255,11 +270,10 @@ const UserList = props => {
                         style={styles.input}
                         placeholder="Search"
                         keyboardType="default"
-                        value={searchKey}
+                        value={text}
                         onChangeText={async text => {
                             setSearchKey(text);
-                            if(text.length) setUsers(prev => users.filter(user => user.display_name.toLowerCase().includes(text.toLowerCase()) || user.ID.includes(text)))
-                            else getFirebaseUsers();
+                            setText(text);
                         }}
                     />
                 </View>
@@ -278,7 +292,7 @@ const UserList = props => {
                         <FlatList
                             Vertical
                             showsVerticalScrollIndicator={false}
-                            data={_users.sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : b.lastUpdated > a.lastUpdated ? 1 : 0)}
+                            data={_users.filter(user => !!user.display_name).sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : b.lastUpdated > a.lastUpdated ? 1 : 0)}
                             renderItem={_renderItems}
                         />
                     </View>

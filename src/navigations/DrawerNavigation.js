@@ -5,7 +5,7 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {
   SafeAreaView,
   StyleSheet,
@@ -39,9 +39,11 @@ import DashboardScreen from '../screens/dashboard';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
 import MainHeader from '../shared/header/MainHeader';
-import {getPathFromState, getFocusedRouteNameFromRoute} from '@react-navigation/native'
+import {
+  getPathFromState,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
 import AccountScreen from '../screens/account';
-
 
 const Drawer = createDrawerNavigator();
 
@@ -147,7 +149,6 @@ const CustomDrawerContent = props => {
 const DashboardStack = createStackNavigator();
 
 export const DashboardStackScreen = () => {
-
   return (
     <DashboardStack.Navigator
       screenOptions={({navigation}) => ({
@@ -169,16 +170,16 @@ const DrawerNavigation = () => {
     <Drawer.Navigator
       initialRouteName="Dashboard"
       screenOptions={() => ({
-        activeTintColor: '#e91e63',
+        // activeTintColor: '#e91e63',
+        drawerActiveBackgroundColor: 'rgba(0,0,0,0)',
+        drawerActiveTintColor: '#888',
+        drawerInactiveTintColor: '#888',
         itemStyle: {marginVertical: 1},
       })}
       drawerContent={props => {
-        const filteredProps = {...props, state: {...props.state, routeNames: props.state.routeNames.filter(routeName => routeName !== 'Account' && routeName !== "People" && routeName !== "UserList"), routes: props.state.routes.filter(route => route.name !== "Account" && route.name !== "People" && route.name !== "UserList")}};
-        return (
-          <CustomDrawerContent {...filteredProps} />
-        )
-      }
-      }>
+        // const filteredProps = {...props,  state: {...props.state, routeNames: props.state.routeNames.filter(routeName => routeName !== 'Account' && routeName !== "People" && routeName !== "UserList"), routes: props.state.routes.filter(route => route.name !== "Account" && route.name !== "People" && route.name !== "UserList")}};
+        return <CustomDrawerContent {...props} />;
+      }}>
       <Drawer.Screen
         name="Dashboard"
         component={DashboardStackScreen}
@@ -200,20 +201,6 @@ const DrawerNavigation = () => {
             <SubHeader
               title="Growth Community"
               image={require('../assets/img/Rectangle2.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <Drawer.Screen name="UserList" component={UserListScreen} />
-      <Drawer.Screen
-        name="People"
-        component={PeopleScreen}
-        options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Member Connection"
-              image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />
           ),
@@ -250,19 +237,6 @@ const DrawerNavigation = () => {
             <SubHeader
               title="Growth Coaching"
               image={require('../assets/img/Rectangle.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      />
-      <Drawer.Screen
-        name="Account"
-        component={AccountScreen}
-        options={() => ({
-          header: ({navigation}) => (
-            <SubHeader
-              title="Profile"
-              image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />
           ),
@@ -362,6 +336,57 @@ const DrawerNavigation = () => {
           header: () => (
             <SubHeader
               title="Contribute Ideas"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen
+        options={{
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null,
+          drawerItemStyle: {height: 0},
+          header: ({navigation}) => (
+            <SubHeader
+              title="User List"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        }}
+        name="UserList"
+        component={UserListScreen}
+      />
+      <Drawer.Screen
+        name="People"
+        component={PeopleScreen}
+        options={() => ({
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null,
+          drawerItemStyle: {height: 0},
+          header: ({navigation}) => (
+            <SubHeader
+              title="Member Connection"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen
+        name="Account"
+        component={AccountScreen}
+        options={() => ({
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null,
+          drawerItemStyle: {height: 0},
+          header: ({navigation}) => (
+            <SubHeader
+              title="Profile"
               image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />
