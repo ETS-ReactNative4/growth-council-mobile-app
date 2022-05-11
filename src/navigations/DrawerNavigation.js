@@ -48,30 +48,23 @@ const Drawer = createDrawerNavigator();
 const CustomDrawerContent = props => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-
   const {loading, setLoading, message, setMessage, signOut} =
     useAuthentication();
-
   const {profile, profileLoading, profileError} = useSelector(
     state => state.profile,
   );
-
   const fetchProfileByIdentifier = () => {
     dispatch(fetchProfileByID());
   };
-
   useEffect(() => {
     fetchProfileByIdentifier();
   }, [isFocused]);
-
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
-
   const logout = async () => {
     await signOut();
   };
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <View
@@ -119,13 +112,11 @@ const CustomDrawerContent = props => {
       </View> */}
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-
         <DrawerItem
           label="Logout"
           onPress={logout}
           icon={() => <Material name={'logout'} size={20} color={'#00008B'} />}
         />
-
         <View style={styles.footer}>
           <TouchableOpacity
             onPress={() => Linking.openURL('https://www.frost.com/')}>
@@ -138,7 +129,6 @@ const CustomDrawerContent = props => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-
           <Text style={styles.footerText}>Powered By</Text>
           <TouchableOpacity
             onPress={() => Linking.openURL('https://frostdigi.ai/')}>
@@ -197,7 +187,6 @@ const DrawerNavigation = () => {
             <Material name="inbox" color={'#00008B'} size={20} />
           ),
           headerShown: false,
-          navigationOptions: {gesturesEnabled: false},
         })}
       />
       <Drawer.Screen
@@ -235,11 +224,7 @@ const DrawerNavigation = () => {
         component={BestPracticeScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Image
-              source={require('../../src/assets/img/GrowthContentlogo.png')}
-              style={{width: 20, height: 25}}
-              resizeMode="cover"
-            />
+            <Feature name="thumbs-up" color={'#f26722'} size={20} />
           ),
           header: () => (
             <SubHeader
@@ -257,7 +242,7 @@ const DrawerNavigation = () => {
           drawerIcon: ({focused, size}) => (
             <Image
               source={require('../../src/assets/img/GrowthCoaching-01.png')}
-              style={{width: 20, height: 25}}
+              style={{width: 25, height: 30}}
               resizeMode="cover"
             />
           ),
@@ -298,8 +283,23 @@ const DrawerNavigation = () => {
             />
           ),
         })}
-      /> 
-
+      />
+      {/* <Drawer.Screen
+        name="Critical Issues"
+        component={CriticalIssueScreen}
+        options={({navigation}) => ({
+          drawerIcon: ({focused, size}) => (
+            <Material name="content-copy" color={'#00008B'} size={20} />
+          ),
+          header: () => (
+            <SubHeader
+              title="Critical Issues"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      /> */}
       <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}
@@ -371,7 +371,6 @@ const DrawerNavigation = () => {
     </Drawer.Navigator>
   );
 };
-
 const styles = StyleSheet.create({
   drawerItem: {
     padding: 16,
@@ -391,5 +390,4 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
 });
-
 export default DrawerNavigation;
