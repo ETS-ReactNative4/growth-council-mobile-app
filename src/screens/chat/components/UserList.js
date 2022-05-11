@@ -55,7 +55,7 @@ const UserList = props => {
     const [memberConnection, setMemberConnection] = useState([]);
     const isFocused = useIsFocused();
     const [_users, setUsers] = useState([]);
-
+    const [reload, setReload] = useState(false);
 
      // getActualUsersFromFirebase
   const getFirebaseUsers = async () => {
@@ -105,7 +105,7 @@ const UserList = props => {
      if(userID && users.length){
         getFirebaseUsers();
      }
-   }, [userID, users])
+   }, [userID, users, reload])
 
     useEffect(() => {
         const setLoggedInUserInfoAsync = async () => {
@@ -259,7 +259,7 @@ const UserList = props => {
                         onChangeText={async text => {
                             setSearchKey(text);
                             if(text.length) setUsers(prev => users.filter(user => user.display_name.toLowerCase().includes(text.toLowerCase()) || user.ID.includes(text)))
-                            else getFirebaseUsers();
+                            else setReload(!reload);
                         }}
                     />
                 </View>
@@ -278,7 +278,7 @@ const UserList = props => {
                         <FlatList
                             Vertical
                             showsVerticalScrollIndicator={false}
-                            data={_users.sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : b.lastUpdated > a.lastUpdated ? 1 : 0)}
+                            data={_users.filter(user => !!user.display_name).sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : b.lastUpdated > a.lastUpdated ? 1 : 0)}
                             renderItem={_renderItems}
                         />
                     </View>

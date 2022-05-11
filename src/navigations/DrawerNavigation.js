@@ -179,7 +179,10 @@ const DrawerNavigation = () => {
     <Drawer.Navigator
       initialRouteName="Dashboard"
       screenOptions={() => ({
-        activeTintColor: '#e91e63',
+        // activeTintColor: '#e91e63',
+        drawerActiveBackgroundColor: 'rgba(0,0,0,0)',
+        drawerActiveTintColor: '#888',
+        drawerInactiveTintColor: '#888',
         itemStyle: {marginVertical: 1},
       })}
       drawerContent={props => {

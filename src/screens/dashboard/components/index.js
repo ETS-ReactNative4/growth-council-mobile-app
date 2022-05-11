@@ -371,9 +371,8 @@ const Dashboard = props => {
     <View style={{flex: 1}}>
       <StatusBar
         barStyle="light-content"
-        hidden={false}
-        backgroundColor="grey"
-        translucent={false}
+        hidden={true}
+        translucent={true}
       />
       <ScrollView onScroll={(e) => {
         const offset = e.nativeEvent.contentOffset.y;
