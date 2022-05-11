@@ -11,8 +11,7 @@ import analytics from '@react-native-firebase/analytics';
 import PushNotification, {Importance} from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {store, persistor} from './store';
-import {MainNavigation} from './navigations';
-import {navigationRef} from './utils/navigationUtil';
+import MainNavigation from './navigations';
 import {AuthProvider} from './context/auth';
 import SplashScreen from './screens/splash';
 
@@ -88,9 +87,7 @@ const App = () => {
         <NativeBaseProvider>
           <PaperProvider>
             <AuthProvider>
-              <NavigationContainer ref={navigationRef}>
                 <MainNavigation />
-              </NavigationContainer>
             </AuthProvider>
           </PaperProvider>
         </NativeBaseProvider>

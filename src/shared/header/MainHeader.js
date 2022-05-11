@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -19,12 +19,14 @@ import HeaderRight from './HeaderRight';
 
 const MainHeader = props => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const {profile, profileLoading, profileError} = useSelector(
     state => state.profile,
   );
   const fetchProfileByIdentifier = () => {
     dispatch(fetchProfileByID());
   };
+  
 
   return (
     <ImageBackground
@@ -46,7 +48,7 @@ const MainHeader = props => {
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
             <IonIcon name="menu-outline" color={'white'} size={30} />
           </TouchableOpacity>
 
@@ -60,7 +62,7 @@ const MainHeader = props => {
 
         <HeaderRight
           {...props}
-          navigation={props.navigation}
+          navigation={navigation}
           profile={profile}
           fetchProfileByIdentifier={fetchProfileByIdentifier}
         />

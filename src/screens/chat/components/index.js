@@ -183,7 +183,7 @@ const Chat = props => {
       notification_type: 'chat',
     });
     // update the last message Status
-    await firestore().collection(`rooms`).doc(chatID()).set({lastUpdated: Date.now()}, {merge: true});
+    await firestore().collection(`rooms`).doc(chatID()).set({lastUpdated: Date.now(), roomId: chatID().split("_")}, {merge: true});
 
     // const response = await sendNotificationByIdentifier({
     //   user_id: friendID,

@@ -5,6 +5,7 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,7 +19,7 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux';
-import {useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused, useRoute} from '@react-navigation/native';
 import {Linking} from 'react-native';
 import {useAuthentication} from '../context/auth';
 import ContentScreen from '../screens/contentLibrary';
@@ -31,11 +32,16 @@ import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
 import BestPracticeScreen from '../screens/dashboard/BestPractice';
 import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import SettingScreen from '../screens/setting/index';
-
 import SubHeader from '../shared/header/SubHeader';
-import {DashboardStackScreen} from './MainNavigation';
 
 import {fetchProfileByID} from '../screens/account/slice/profileSlice';
+import DashboardScreen from '../screens/dashboard';
+import UserListScreen from '../screens/chat/UserList';
+import PeopleScreen from '../screens/people';
+import MainHeader from '../shared/header/MainHeader';
+import {getPathFromState, getFocusedRouteNameFromRoute} from '@react-navigation/native'
+import AccountScreen from '../screens/account';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -148,6 +154,26 @@ const CustomDrawerContent = props => {
   );
 };
 
+const DashboardStack = createStackNavigator();
+
+export const DashboardStackScreen = () => {
+
+  return (
+    <DashboardStack.Navigator
+      screenOptions={({navigation}) => ({
+        header: () => <MainHeader navigation={navigation} />,
+      })}>
+      <DashboardStack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={({route, navigation}) => ({
+          animationEnabled: false,
+        })}
+      />
+    </DashboardStack.Navigator>
+  );
+};
+
 const DrawerNavigation = () => {
   return (
     <Drawer.Navigator
@@ -156,7 +182,13 @@ const DrawerNavigation = () => {
         activeTintColor: '#e91e63',
         itemStyle: {marginVertical: 1},
       })}
-      drawerContent={props => <CustomDrawerContent {...props} />}>
+      drawerContent={props => {
+        const filteredProps = {...props, state: {...props.state, routeNames: props.state.routeNames.filter(routeName => routeName !== 'Account' && routeName !== "People" && routeName !== "UserList"), routes: props.state.routes.filter(route => route.name !== "Account" && route.name !== "People" && route.name !== "UserList")}};
+        return (
+          <CustomDrawerContent {...filteredProps} />
+        )
+      }
+      }>
       <Drawer.Screen
         name="Dashboard"
         component={DashboardStackScreen}
@@ -179,6 +211,20 @@ const DrawerNavigation = () => {
             <SubHeader
               title="Growth Community"
               image={require('../assets/img/Rectangle2.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen name="UserList" component={UserListScreen} />
+      <Drawer.Screen
+        name="People"
+        component={PeopleScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Member Connection"
+              image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />
           ),
@@ -224,7 +270,20 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      {/* <Drawer.Screen
+      <Drawer.Screen
+        name="Account"
+        component={AccountScreen}
+        options={() => ({
+          header: ({navigation}) => (
+            <SubHeader
+              title="Profile"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen
         name="Content Library"
         component={ContentScreen}
         options={({navigation}) => ({
@@ -239,7 +298,7 @@ const DrawerNavigation = () => {
             />
           ),
         })}
-      /> */}
+      /> 
 
       <Drawer.Screen
         name="Calendar"
