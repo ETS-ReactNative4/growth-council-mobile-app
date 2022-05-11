@@ -56,6 +56,7 @@ const UserList = props => {
     const isFocused = useIsFocused();
     const [_users, setUsers] = useState([]);
     const [reload, setReload] = useState(false);
+    const [text, setText] = useState("");
 
      // getActualUsersFromFirebase
   const getFirebaseUsers = async () => {
@@ -135,6 +136,11 @@ const UserList = props => {
     useEffect(() => {
         setMemberConnection(users);
     }, [users]);
+
+    useEffect(() => {
+        if(text.length) setUsers(prev => users.filter(user => user.display_name.toLowerCase().includes(text.toLowerCase()) || user.ID.includes(text)))
+        else setReload(!reload);
+    }, [text])
 
     const connectMemberByMemberID = async (memberID, index) => {
         const response = await connectMemberByIdentifier({member_id: memberID});
@@ -258,8 +264,7 @@ const UserList = props => {
                         value={searchKey}
                         onChangeText={async text => {
                             setSearchKey(text);
-                            if(text.length) setUsers(prev => users.filter(user => user.display_name.toLowerCase().includes(text.toLowerCase()) || user.ID.includes(text)))
-                            else setReload(!reload);
+                            setText(text);
                         }}
                     />
                 </View>
