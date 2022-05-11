@@ -6,27 +6,28 @@ import auth from '@react-native-firebase/auth'
 
 import {setAsyncStorage, clearAsyncStorage, getAsyncStorage} from '../../utils/storageUtil';
 import {JWT_TOKEN, API_URL, USER_NAME, USER_AVATAR} from '../../constants';
-import {navigate} from '../../utils/navigationUtil';
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(null);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        const isUserAlreadyLoggedIn = async () => {
-            const token = await getAsyncStorage(JWT_TOKEN);
-            if (token) navigate('Dashboard');
-        };
-        isUserAlreadyLoggedIn();
-    });
+      (async () => {
+        const token = await getAsyncStorage(JWT_TOKEN);
+        if(token) setLoggedIn(true)
+        else setLoggedIn(false);
+      })()
+    })
 
     return (
         <AuthContext.Provider
             value={{
                 loading,
                 message,
+                loggedIn,
                 setMessage,
                 setLoading,
                 signIn: async fromData => {
@@ -44,6 +45,7 @@ export const AuthProvider = ({children}) => {
                             },
                         );
                         if (response.data.token) {
+                            setLoggedIn(true);
                             await setAsyncStorage(JWT_TOKEN, response.data.token);
                             await setAsyncStorage(USER_NAME, response.data.user_display_name);
                             await setAsyncStorage(USER_AVATAR, response.data.avatar);
@@ -60,7 +62,7 @@ export const AuthProvider = ({children}) => {
                                     email: response?.data?.user_email,
                                 }),
                             ]);
-                            if (token) navigate('Dashboard');
+                            if(token) setLoggedIn(true);
                         } else {
                             setLoading(false);
                             setMessage(response?.data?.message);
@@ -75,7 +77,8 @@ export const AuthProvider = ({children}) => {
                     await clearAsyncStorage(JWT_TOKEN);
                     await clearAsyncStorage(USER_NAME);
                     await clearAsyncStorage(USER_AVATAR);
-                    navigate('SignIn');
+                    // await auth().signOut();
+                    setLoggedIn(false);
                 },
             }}>
             {children}

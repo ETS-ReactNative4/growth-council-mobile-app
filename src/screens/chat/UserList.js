@@ -12,39 +12,8 @@ import {
 
 const UserListScreen = props => {
   const dispatch = useDispatch();
-  const [_users, setUsers] = useState([]);
 
   const {users, userLoading, userError} = useSelector(state => state.users);
-
-
-  // getActualUsersFromFirebase
-  const getFirebaseUsers = async () => {
-   try {
-    const __users = await firestore().collection("rooms").get();
-
-
-    const actualUsers = users.map(item => {
-       const user = __users.docs.find(usr => usr.id.includes(item.ID));
-
-       if(user){
-         return {...item, lastUpdated: user.data().lastUpdated ?? Number.NEGATIVE_INFINITY}
-       } else {
-         return {...item, lastUpdated: Number.NEGATIVE_INFINITY}
-       }
-
-     })
-
-   setUsers(actualUsers);
-   } catch(error){
-     console.log(error);
-   }
-    
-  }
-
-  useEffect(() => {
-    getFirebaseUsers();
-  }, [])
-
 
 
   const {connection, connectionLoading, connectionError} = useSelector(
@@ -84,7 +53,7 @@ const UserListScreen = props => {
       connectionError={connectionError}
       fetchAllConnection={fetchAllConnection}
       cleanConnection={cleanConnection}
-      users={_users}
+      users={users}
       userLoading={userLoading}
       userError={userError}
       fetchAllUsers={fetchAllUsers}

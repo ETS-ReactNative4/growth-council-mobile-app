@@ -23,6 +23,7 @@ import {decodeUserID} from '../../../utils/jwtUtil';
 import BottomNav from '../../../layout/BottomLayout';
 import ChatCount from '../../../shared/chatCount';
 import Loading from '../../../shared/loading';
+import firestore from '@react-native-firebase/firestore'
 
 const UserList = props => {
     const {
@@ -53,6 +54,58 @@ const UserList = props => {
     const [userName, setUserName] = useState(null);
     const [memberConnection, setMemberConnection] = useState([]);
     const isFocused = useIsFocused();
+    const [_users, setUsers] = useState([]);
+
+
+     // getActualUsersFromFirebase
+  const getFirebaseUsers = async () => {
+    try {
+
+        if(!userID) console.log("USER ID NOT FOUND");
+
+        const fbUsers = await firestore().collection('rooms').get();
+        console.log("FB USERS");
+        console.log(fbUsers);
+        console.log("*****************");
+
+        const docs = fbUsers.docs.filter(doc => doc.id.includes(userID));
+        console.log("DOC USERS");
+        console.log(docs);
+        console.log("*****************");
+
+        const data = docs.map(doc => ({id: doc.id, ...doc.data()}));
+        console.log("MAP USERS");
+        console.log(data);
+        console.log("*****************");
+
+        let __users = [];
+        for(let i = 0; i < data.length; i++){
+            const id = data[i].id;
+            const arr = id.split("_");
+            const user_id = arr[0] == userID ? arr[1] : arr[0];
+            const user = users.find(usr => usr.ID == user_id);
+            __users.push({...user, ...data[i]});
+        }
+        
+        console.log("ACTUAL USERS");
+        console.log(__users);
+        console.log("*****************");
+
+
+        setUsers(__users);
+
+
+    } catch(error){
+      console.log(error);
+    }
+     
+   }
+ 
+   useEffect(() => {
+     if(userID && users.length){
+        getFirebaseUsers();
+     }
+   }, [userID, users])
 
     useEffect(() => {
         const setLoggedInUserInfoAsync = async () => {
@@ -205,9 +258,8 @@ const UserList = props => {
                         value={searchKey}
                         onChangeText={async text => {
                             setSearchKey(text);
-                            await fetchAllUsers({
-                                s: text,
-                            });
+                            if(text.length) setUsers(prev => users.filter(user => user.display_name.toLowerCase().includes(text.toLowerCase()) || user.ID.includes(text)))
+                            else getFirebaseUsers();
                         }}
                     />
                 </View>
@@ -226,7 +278,7 @@ const UserList = props => {
                         <FlatList
                             Vertical
                             showsVerticalScrollIndicator={false}
-                            data={users.sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : b.lastUpdated > a.lastUpdated ? 1 : 0)}
+                            data={_users.sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : b.lastUpdated > a.lastUpdated ? 1 : 0)}
                             renderItem={_renderItems}
                         />
                     </View>

@@ -5,7 +5,7 @@ import {useIsFocused} from '@react-navigation/native';
 
 const HeaderRight = props => {
   const {navigation, profile, fetchProfileByIdentifier} = props;
-
+  
   useEffect(() => {
     fetchProfileByIdentifier();
   }, []);
