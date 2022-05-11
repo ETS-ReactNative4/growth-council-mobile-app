@@ -113,35 +113,70 @@ const SubPOEDetails = props => {
     };
 
     const downloadFile = () => {
-      let date = new Date();
-
-      let FILE_URL = fileUrl;
-
-      let file_ext = getFileExtention(FILE_URL);
-
-      file_ext = '.' + file_ext[0];
-
-      const {config, fs} = ReactNativeBlobUtil;
-      let RootDir = fs.dirs.PictureDir;
-      let options = {
-        fileCache: true,
-        addAndroidDownloads: {
-          path:
-            RootDir +
-            '/file_' +
-            Math.floor(date.getTime() + date.getSeconds() / 2) +
-            file_ext,
-          description: 'downloading file...',
-          notification: true,
-          useDownloadManager: true,
-        },
-      };
-      config(options)
-        .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
-        .then(res => {
-			console.log('res -> ', JSON.stringify(res));
-          ToastMessage.show('PDF File Downloaded Successfully.');
-        });
+		const {config, fs} = RNFetchBlob;
+		const {
+		  dirs: {DownloadDir, DocumentDir},
+		} = RNFetchBlob.fs;
+		const isIOS = Platform.OS === 'ios';
+		const aPath =
+		  Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+		// Platform.select({ios: DocumentDir, android: DocumentDir});
+	
+		let date = new Date();
+		let FILE_URL = fileUrl;
+	
+		let file_ext = getFileExtention(FILE_URL);
+	
+		file_ext = '.' + file_ext[0];
+	
+		const configOptions = Platform.select({
+		  ios: {
+			fileCache: true,
+			path:
+			  aPath +
+			  '/file_' +
+			  Math.floor(date.getTime() + date.getSeconds() / 2) +
+			  file_ext,
+			description: 'downloading file...',
+		  },
+		  android: {
+			fileCache: false,
+			addAndroidDownloads: {
+			  path:
+				aPath +
+				'/file_' +
+				Math.floor(date.getTime() + date.getSeconds() / 2) +
+				file_ext,
+			  description: 'downloading file...',
+			  notification: true,
+			  useDownloadManager: true,
+			},
+		  },
+		});
+	
+		if (isIOS) {
+		  RNFetchBlob.config(configOptions)
+			.fetch('GET', FILE_URL)
+			.then(res => {
+			  console.log('file', res);
+			  RNFetchBlob.ios.previewDocument('file://' + res.path());
+			});
+		  return;
+		} else {
+		  config(configOptions)
+			.fetch('GET', FILE_URL)
+			.progress((received, total) => {
+			  console.log('progress', received / total);
+			})
+	
+			.then(res => {
+			  console.log('file download', res);
+			  RNFetchBlob.android.actionViewIntent(res.path());
+			})
+			.catch((errorMessage, statusCode) => {
+			  console.log('error with downloading file', errorMessage);
+			});
+		}
     };
 
     const getFileExtention = fileUrl => {

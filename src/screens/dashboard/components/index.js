@@ -78,9 +78,6 @@ const Dashboard = props => {
     cleanCriticalIssue,
   } = props;
 
-  const nav = useNavigation();
-
-  const {signOut} = useAuthentication();
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
