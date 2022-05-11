@@ -242,7 +242,7 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Content Library"
         component={ContentScreen}
         options={({navigation}) => ({
@@ -257,7 +257,7 @@ const DrawerNavigation = () => {
             />
           ),
         })}
-      />
+      /> */}
       {/* <Drawer.Screen
         name="Critical Issues"
         component={CriticalIssueScreen}
