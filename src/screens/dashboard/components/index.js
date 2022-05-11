@@ -30,7 +30,7 @@ import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import Loading from '../../../shared/loading';
-import { sendNotification } from '../../../utils/sendNotification';
+import {sendNotification} from '../../../utils/sendNotification';
 import MainHeader from '../../../shared/header/MainHeader';
 
 const win = Dimensions.get('window').width;
@@ -367,24 +367,32 @@ const Dashboard = props => {
     <View style={{flex: 1}}>
       <StatusBar
         barStyle="light-content"
-        hidden={true}
-        translucent={true}
+        hidden={false}
+        translucent={false}
+        backgroundColor="grey"
       />
-      <ScrollView onScroll={(e) => {
-        const offset = e.nativeEvent.contentOffset.y;
-        if(offset >= 70){
+      <ScrollView
+        onScroll={e => {
+          const offset = e.nativeEvent.contentOffset.y;
+          if (offset >= 70) {
             navigation.setOptions({
-              headerShown: false
-            })
-        } else {
-          navigation.setOptions({
-            headerShown: true
-          })
-        }
-      }} showsVerticalScrollIndicator={false} style={styles.container}>
+              headerShown: false,
+            });
+          } else {
+            navigation.setOptions({
+              headerShown: true,
+            });
+          }
+        }}
+        showsVerticalScrollIndicator={false}
+        style={styles.container}>
         <View>
           <ImageBackground
-            style={{width: '100%', height: (Dimensions.get('screen').height / 3), paddingTop: Dimensions.get('screen').height / 9}}
+            style={{
+              width: '100%',
+              height: Dimensions.get('screen').height / 3,
+              paddingTop: Dimensions.get('screen').height / 9,
+            }}
             source={require('../../../assets/img/appBG.png')}>
             <View style={styles.pillar}>
               <PillarList
