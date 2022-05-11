@@ -14,7 +14,7 @@ import {
 import {Searchbar, Button} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
-import {useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused, useNavigation} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
@@ -27,7 +27,6 @@ import firestore from '@react-native-firebase/firestore'
 
 const UserList = props => {
     const {
-        navigation,
         route,
         connection,
         connectionLoading,
@@ -57,6 +56,7 @@ const UserList = props => {
     const [_users, setUsers] = useState([]);
     const [reload, setReload] = useState(false);
     const [text, setText] = useState("");
+    const navigation = useNavigation();
 
      // getActualUsersFromFirebase
   const getFirebaseUsers = async () => {
@@ -101,6 +101,13 @@ const UserList = props => {
     }
      
    }
+
+  useEffect(() => {
+    navigation.addListener("focus", () => {
+        setText("");
+        setReload(!reload);
+    })
+  }, [])
  
    useEffect(() => {
      if(userID && users.length){
@@ -121,6 +128,7 @@ const UserList = props => {
     }, [isFocused]);
 
     useEffect(() => {
+       navigation.addListener('focus', () => {
         const fetchAllUsersAsync = async () => {
             await fetchAllUsers({
                 s: searchKey,
@@ -131,7 +139,8 @@ const UserList = props => {
         return () => {
             cleanUser();
         };
-    }, [isFocused]);
+       })
+    }, []);
 
     useEffect(() => {
         setMemberConnection(users);
@@ -261,7 +270,7 @@ const UserList = props => {
                         style={styles.input}
                         placeholder="Search"
                         keyboardType="default"
-                        value={searchKey}
+                        value={text}
                         onChangeText={async text => {
                             setSearchKey(text);
                             setText(text);
