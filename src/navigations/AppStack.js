@@ -232,7 +232,7 @@ const AppStack = () => (
       options={({route, navigation}) => ({
         id: route?.params?.id,
         header: () => (
-          <SubHeader
+          <MainHeader
             title="Others Account"
             image={require('../assets/img/appBG.png')}
             navigation={navigation}

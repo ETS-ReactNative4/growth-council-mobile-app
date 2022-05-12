@@ -385,7 +385,7 @@ const DrawerNavigation = () => {
           drawerIcon: () => null,
           drawerItemStyle: {height: 0},
           header: ({navigation}) => (
-            <SubHeader
+            <MainHeader
               title="Profile"
               image={require('../assets/img/appBG.png')}
               navigation={navigation}
