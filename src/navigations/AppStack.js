@@ -30,6 +30,7 @@ import PrivacyScreen from '../screens/privacy';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import SubPOEDetailScreen from '../screens/details/subPoeDetails';
+import SubPOEListDetailScreen from '../screens/details/subPoeListDetails';
 import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
@@ -166,6 +167,21 @@ const AppStack = () => (
         ),
       })}
     />
+	<Screen
+      name="SubPoeList"
+      component={SubPOEListDetailScreen}
+      options={() => ({
+        header: ({navigation}) => (
+          <SubHeader
+            title="Growth Content"
+            image={require('../assets/img/best-practice-bg.png')}
+            navigation={navigation}
+            noDrawer={true}
+          />
+        ),
+      })}
+    />
+	
     <Screen
       name="ManageAccount"
       component={ManageAccountScreen}

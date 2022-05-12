@@ -31,7 +31,7 @@ import ToastMessage from '../../../shared/toast';
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
 
-const SubPOEDetails = props => {
+const SubPOEListDetails = props => {
   const {
     navigation,
     route,
@@ -206,13 +206,7 @@ const SubPOEDetails = props => {
 
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('SubPoeList', {
-            poeId: item?.term_id,
-            id: route?.params?.poeId,
-          })
-        }>
+      <TouchableOpacity>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
@@ -236,7 +230,7 @@ const SubPOEDetails = props => {
     );
   };
 
-  let backgroundColor = '';
+  let backgroundColor = Colors.PRACTICE_COLOR;
   const parent = poeDetails?.parent;
   switch (parent) {
     case 118:
@@ -285,8 +279,7 @@ const SubPOEDetails = props => {
             />
           </View>
 
-          <ScrollView
-            style={[styles.content, {backgroundColor: backgroundColor}]}>
+          <ScrollView style={[styles.content]}>
             <View style={styles.contentWrapper}>
               <Text
                 style={{
@@ -406,6 +399,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginBottom: 20,
+    backgroundColor: Colors.PRACTICE_COLOR,
   },
   contentWrapper: {
     width: '100%',
@@ -570,4 +564,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SubPOEDetails;
+export default SubPOEListDetails;
