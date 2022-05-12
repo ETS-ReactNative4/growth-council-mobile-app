@@ -375,7 +375,7 @@ const Dashboard = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="#000"
+        backgroundColor="#001D3F"
         translucent={true}
       />
       <ScrollView

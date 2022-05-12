@@ -1,10 +1,11 @@
-export const sendNotification =  (to, title, body) => new Promise(async (resolve , reject) => {
+export const sendNotification =  (to, title, body, data) => new Promise(async (resolve , reject) => {
     const dataToSend  = {
         notification: {
             id: title,
             title: title,
             body: body,
           },
+          data,
           to: to
     }
 
