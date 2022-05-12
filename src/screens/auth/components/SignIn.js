@@ -54,11 +54,11 @@ const SignInForm = props => {
     validationSchema: signInSchema,
     initialValues: {username: '', password: ''},
     onSubmit: async values => {
-    //   const response = await createUserWithEmailAndPassword(
-    //     auth,
-    //     values?.username?.trim(),
-    //     values?.password,
-    //   ).catch(e => console.log(e));
+      //   const response = await createUserWithEmailAndPassword(
+      //     auth,
+      //     values?.username?.trim(),
+      //     values?.password,
+      //   ).catch(e => console.log(e));
       const messageToken = await messaging().getToken();
       const firebasePayload = {
         username: values.username,
@@ -217,7 +217,7 @@ const SignInForm = props => {
                 <Text>Need Help? </Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
-                  onPress={() => navigation.navigate('Gmail')}>
+                  onPress={() => navigation.navigate('Email')}>
                   {' '}
                   Contact Us{' '}
                 </Text>

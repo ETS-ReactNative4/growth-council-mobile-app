@@ -64,6 +64,7 @@ const Detail = props => {
                   },
                 }}
               />
+              {detailLoading && <Loading />}
               <Button
                 style={styles.acceptButton}
                 onPress={() => navigation.navigate('SignUp')}>

@@ -117,7 +117,13 @@ const CustomDrawerContent = props => {
         <DrawerItem
           label="Logout"
           onPress={logout}
-          icon={() => <Material name={'logout'} size={20} color={'#00008B'} />}
+          icon={() => (
+            <Material
+              name={'logout'}
+              size={20}
+              color={'#00008B'}
+            />
+          )}
         />
         <View style={styles.footer}>
           <TouchableOpacity
@@ -159,7 +165,7 @@ export const DashboardStackScreen = () => {
         component={DashboardScreen}
         options={({route, navigation}) => ({
           animationEnabled: false,
-          gestureEnabled: false
+          gestureEnabled: false,
         })}
       />
     </DashboardStack.Navigator>
@@ -386,10 +392,7 @@ const DrawerNavigation = () => {
           drawerIcon: () => null,
           drawerItemStyle: {height: 0},
           header: ({navigation}) => (
-            <MainHeader
-              title="Profile"
-              navigation={navigation}
-            />
+            <MainHeader title="Profile" navigation={navigation} />
           ),
         })}
       />
