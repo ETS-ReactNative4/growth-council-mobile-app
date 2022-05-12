@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {
-    StyleSheet,
-    View,
-    FlatList,
-    Text,
-    TouchableOpacity,
-    Image,
-    ScrollView,
-    StatusBar,
-    SafeAreaView,
-    Linking
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  StatusBar,
+  SafeAreaView,
+  Linking,
 } from 'react-native';
 import {Searchbar, Button} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -34,18 +34,18 @@ const UserList = props => {
         fetchAllConnection,
         cleanConnection,
 
-        users,
-        userLoading,
-        userError,
-        fetchAllUsers,
-        cleanUser,
+    users,
+    userLoading,
+    userError,
+    fetchAllUsers,
+    cleanUser,
 
-        memberConnections,
-        memberConnectionLoading,
-        memberConnectionError,
-        connectMemberByIdentifier,
-        cleanConnectMember,
-    } = props;
+    memberConnections,
+    memberConnectionLoading,
+    memberConnectionError,
+    connectMemberByIdentifier,
+    cleanConnectMember,
+  } = props;
 
     const [userID, setUserID] = useState(null);
     const [searchKey, setSearchKey] = useState('');
@@ -115,17 +115,17 @@ const UserList = props => {
      }
    }, [userID, users, reload])
 
-    useEffect(() => {
-        const setLoggedInUserInfoAsync = async () => {
-            let token = await getAsyncStorage(JWT_TOKEN);
-            setUserID(decodeUserID(token));
-            let avatar = await getAsyncStorage(USER_AVATAR);
-            setAvatarImg(avatar);
-            let username = await getAsyncStorage(USER_NAME);
-            setUserName(username);
-        };
-        setLoggedInUserInfoAsync();
-    }, [isFocused]);
+  useEffect(() => {
+    const setLoggedInUserInfoAsync = async () => {
+      let token = await getAsyncStorage(JWT_TOKEN);
+      setUserID(decodeUserID(token));
+      let avatar = await getAsyncStorage(USER_AVATAR);
+      setAvatarImg(avatar);
+      let username = await getAsyncStorage(USER_NAME);
+      setUserName(username);
+    };
+    setLoggedInUserInfoAsync();
+  }, [isFocused]);
 
     useEffect(() => {
        navigation.addListener('focus', () => {
@@ -142,9 +142,9 @@ const UserList = props => {
        })
     }, []);
 
-    useEffect(() => {
-        setMemberConnection(users);
-    }, [users]);
+  useEffect(() => {
+    setMemberConnection(users);
+  }, [users]);
 
     useEffect(() => {
         if(text.length) setUsers(prev => users.filter(user => user.display_name.toLowerCase().includes(text.toLowerCase()) || user.ID.includes(text)))
@@ -169,57 +169,57 @@ const UserList = props => {
         }
     };
 
-    const _renderItems = ({item, index}) => {
-        return (
-            <View>
-                <TouchableOpacity
-                    onPress={() =>
-                        navigation.navigate('Chat', {
-                            friendID: item?.ID,
-                            friendName: item?.display_name,
-                            friendAvatar: item?.avatar,
-                            userID: userID,
-                            userName: userName,
-                            userAvatar: avatarImg,
-                        })
-                    }>
-                    <View style={[styles.wrapper, styles.shadowProp]} key={index}>
-                        <Image
-                            source={{uri: item?.avatar}}
-                            style={{
-                                height: 60,
-                                width: 60,
-                                borderRadius: 50,
-                                margin: 14,
-                            }}
-                        />
-                        <View style={{margin: 10, width: '65%'}}>
-                            <Text
-                                style={{
-                                    fontSize: 14,
-                                    fontFamily: Typography.FONT_SF_REGULAR,
-                                    color: 'black',
-                                }}>
-                                {item?.display_name}
-                            </Text>
-                            <Text style={{fontSize: 12, marginTop: 10}}>
-                                {item?.user_email}
-                            </Text>
-                            <Text style={{fontSize: 12, color: '#222B45'}}>
-                                {item?.company}
-                            </Text>
-                            <View
-                                style={{
-                                    top: 20,
-                                    right: 10,
-                                    backgroundColor: 'red',
-                                    zIndex: 101,
-                                    position: 'absolute',
-                                }}>
-                                <ChatCount item={item} userID={userID}/>
-                            </View>
-                        </View>
-                        {/* {!memberConnection[index]?.connection && (
+  const _renderItems = ({item, index}) => {
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Chat', {
+              friendID: item?.ID,
+              friendName: item?.display_name,
+              friendAvatar: item?.avatar,
+              userID: userID,
+              userName: userName,
+              userAvatar: avatarImg,
+            })
+          }>
+          <View style={[styles.wrapper, styles.shadowProp]} key={index}>
+            <Image
+              source={{uri: item?.avatar}}
+              style={{
+                height: 60,
+                width: 60,
+                borderRadius: 50,
+                margin: 14,
+              }}
+            />
+            <View style={{margin: 10, width: '65%'}}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontFamily: Typography.FONT_SF_REGULAR,
+                  color: 'black',
+                }}>
+                {item?.display_name}
+              </Text>
+              <Text style={{fontSize: 12, marginTop: 10}}>
+                {item?.user_email}
+              </Text>
+              <Text style={{fontSize: 12, color: '#222B45'}}>
+                {item?.company}
+              </Text>
+              <View
+                style={{
+                  top: 20,
+                  right: 10,
+                  backgroundColor: 'red',
+                  zIndex: 101,
+                  position: 'absolute',
+                }}>
+                <ChatCount item={item} userID={userID} />
+              </View>
+            </View>
+            {/* {!memberConnection[index]?.connection && (
               <TouchableOpacity
                 onPress={() => connectMemberByMemberID(item.ID, index)}>
                 <Ionicons
@@ -230,41 +230,41 @@ const UserList = props => {
                 />
               </TouchableOpacity>
             )} */}
-                        {memberConnection[index]?.connection && (
-                            <Material name="check-circle" size={1} color="#14A2E2"/>
-                        )}
-                    </View>
-                </TouchableOpacity>
-            </View>
-        );
-    };
+            {memberConnection[index]?.connection && (
+              <Material name="check-circle" size={1} color="#14A2E2" />
+            )}
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
-    return (
-        <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-            <StatusBar
-                barStyle="light-content"
-                hidden={false}
-                backgroundColor="grey"
-                translucent={false}
-            />
-            <View style={styles.container}>
-                <View
-                    style={{
-                        height: 80,
-                        paddingLeft: 4,
-                        paddingRight: 20,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        shadowColor: '#000000',
-                        shadowOffset: {width: 0, height: 3},
-                        shadowRadius: 9,
-                        shadowOpacity: 0.1,
-                        elevation: 5,
-                        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-                    }}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9"/>
-                    </TouchableOpacity>
+  return (
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <StatusBar
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor="grey"
+        translucent={false}
+      />
+      <View style={styles.container}>
+        <View
+          style={{
+            height: 80,
+            paddingLeft: 4,
+            paddingRight: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            shadowColor: '#000000',
+            shadowOffset: {width: 0, height: 3},
+            shadowRadius: 9,
+            shadowOpacity: 0.1,
+            elevation: 5,
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+          }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
+          </TouchableOpacity>
 
                     <Searchbar
                         style={styles.input}
@@ -303,75 +303,75 @@ const UserList = props => {
         <Footer />
       </View> */}
 
-            <BottomNav {...props} navigation={navigation}/>
-        </SafeAreaView>
-    );
+      <BottomNav {...props} navigation={navigation} />
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        ...CommonStyles.container,
-        backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-        paddingBottom: 70,
+  container: {
+    ...CommonStyles.container,
+    backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+    paddingBottom: 70,
+  },
+  wrapper: {
+    height: 88,
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    margin: 10,
+    borderRadius: 10,
+  },
+  buttonWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingLeft: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 35,
+    justifyContent: 'center',
+  },
+  button: {
+    width: '100%',
+    borderRadius: 10,
+    height: 38,
+    marginTop: 8,
+    backgroundColor: 'white',
+    borderColor: '#F26722',
+    borderWidth: 1,
+  },
+  buttonText: {
+    color: '#F26722',
+    fontSize: 12,
+  },
+  input: {
+    flex: 1,
+    height: 45,
+    marginLeft: 10,
+    borderRadius: 19,
+    backgroundColor: '#F5F5F5',
+    marginRight: 15,
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    wrapper: {
-        height: 88,
-        display: 'flex',
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        margin: 10,
-        borderRadius: 10,
-    },
-    buttonWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        paddingLeft: 25,
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingRight: 35,
-        justifyContent: 'center',
-    },
-    button: {
-        width: '100%',
-        borderRadius: 10,
-        height: 38,
-        marginTop: 8,
-        backgroundColor: 'white',
-        borderColor: '#F26722',
-        borderWidth: 1,
-    },
-    buttonText: {
-        color: '#F26722',
-        fontSize: 12,
-    },
-    input: {
-        flex: 1,
-        height: 45,
-        marginLeft: 10,
-        borderRadius: 19,
-        backgroundColor: '#F5F5F5',
-        marginRight: 15,
-    },
-    shadowProp: {
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 1.84,
-        elevation: 5,
-    },
-    loading1: {
-        top: 10,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        zIndex: 1011,
-    },
+    shadowOpacity: 0.25,
+    shadowRadius: 1.84,
+    elevation: 5,
+  },
+  loading1: {
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1011,
+  },
 });
 
 export default UserList;

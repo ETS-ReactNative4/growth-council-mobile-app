@@ -69,12 +69,12 @@ const SignUpForm = props => {
       first_name: '',
       last_name: '',
       username: ``,
-      password: 'admin21',
+      password: uuid.v4(),
       title: '',
       company: '',
       phone: '',
       email: '',
-      country: '',
+      country: 'United States',
       checked: false,
       firebase_password: uuid.v4(),
     },
@@ -328,6 +328,15 @@ const SignUpForm = props => {
   ];
 
   const [isPickerVisible, setIsPickerVisible] = useState(false);
+  const areAllFieldsFilled =
+    values.first_name != '' &&
+    values.last_name != '' &&
+    values.title != '' &&
+    values.company &&
+    values.email != '' &&
+    values.phone != '' &&
+    values.country != '';
+
 
   return (
     <View style={styles.container}>
@@ -508,9 +517,11 @@ const SignUpForm = props => {
 
             <View style={styles.loginButtonWrapper}>
               <Button
-                style={styles.loginButton}
+                style={
+                  !areAllFieldsFilled ? styles.loginButton1 : styles.loginButton
+                }
                 onPress={handleSubmit}
-                disabled={!isValid}>
+                disabled={!areAllFieldsFilled}>
                 <Text style={styles.loginButtonText}>Join Now</Text>
               </Button>
             </View>
@@ -651,6 +662,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.PRACTICE_COLOR,
+    marginLeft: 5,
+  },
+  loginButton1: {
+    width: '50%',
+    borderRadius: 25,
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'grey',
     marginLeft: 5,
   },
   loginButtonText: {

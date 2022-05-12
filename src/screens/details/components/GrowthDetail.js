@@ -26,6 +26,8 @@ import {Button} from 'native-base';
 import Loading from '../../../shared/loading';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
+const win = Dimensions.get('window');
+const contentContainerWidth = win.width - 30;
 
 const GrowthDetail = props => {
   const {
@@ -138,7 +140,7 @@ const GrowthDetail = props => {
       </View>
     );
   };
-
+  
   const _renderMiddleItem = ({item, index}) => {
     const actualDate = moment(item?.event_start).format('ll').split(',', 3);
     const date = actualDate[0].split(' ', 3);
@@ -146,12 +148,16 @@ const GrowthDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('coachingSession', {
-              id: item.ID,
-              sessionId: item?.ID,
-              title: item?.title,
-            })
+          onPress={
+            (() =>
+              navigation.navigate('coachingSession', {
+                id: item.ID,
+                sessionId: item?.ID,
+                title: item?.title,
+				previousSessionID:coachingSession[index-1]?.ID
+              })
+            // abcd())
+			)
           }>
           <View
             style={{
@@ -192,66 +198,66 @@ const GrowthDetail = props => {
   const _renderLearnItem = ({item, index}) => {
     return (
       <View>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('selflearn', {
-              id: item.ID,
-              selfLearnId: item?.ID,
-            })
-          }>
-          <View style={styles.learnWrapper}>
-            <Image
-              source={{uri: item?.image}}
-              style={{
-                width: 72,
-                height: 102,
-                margin: 10,
-                borderRadius: 10,
-              }}
-            />
+        <View style={styles.learnWrapper}>
+          <Image
+            source={{uri: item?.image}}
+            style={{
+              width: 150,
+              height: 180,
+              margin: 10,
+              borderRadius: 10,
+            }}
+            resizeMode="contain"
+          />
+
+          <View>
+            {/* <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('selflearn', {
+                  id: item.ID,
+                  selfLearnId: item?.ID,
+                })
+              }> */}
             <View>
-              <View style={{width: '80%'}}>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 12,
-                    marginTop: 10,
-                    color: 'black',
-                  }}>
-                  {item?.title}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 8,
-                    marginTop: 5,
-                  }}>
-                  {item.subtitle}
-                </Text>
-                <Text
-                  style={{
-                    marginTop: 10,
-                    fontSize: 8,
-                  }}>
-                  {item.author}
-                </Text>
-              </View>
-              <View
+              <Text
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  marginLeft: 10,
-                  fontSize: 8,
+                  fontWeight: '500',
+                  fontSize: 16,
+                  marginTop: 10,
+                  color: 'black',
+                  width: '80%',
                 }}>
-                <Ionicons
-                  name={'book-outline'}
-                  size={18}
-                  color="#cccccc"
-                  style={{right: 0, marginLeft: 80}}
-                />
-              </View>
+                {item?.title}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  marginTop: 5,
+                  width: 180,
+                }}>
+                {item.subtitle}
+              </Text>
+              <Text
+                style={{
+                  marginTop: 10,
+                  fontSize: 11,
+                  width: 180,
+                }}>
+                {item.author}
+              </Text>
+            </View>
+            {/* </TouchableOpacity> */}
+            <View
+              style={{
+                justifyContent: 'center',
+                position: 'absolute',
+                right: 25,
+                bottom: 10,
+              }}>
+              <Ionicons name={'book-outline'} size={20} color="#cccccc" />
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -317,32 +323,35 @@ const GrowthDetail = props => {
                     padding: 15,
                     textAlign: 'left',
                     color: '#77838F',
+                    textAlign: 'justify',
                   },
                 }}
               />
               {coachingSessionLoading && <Loading />}
-              {coachingSession?.length !== 0 && (
-                <View style={styles.middle}>
-                  <Text style={styles.title}>Growth Coaching Sessions</Text>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={coachingSession}
-                      renderItem={_renderMiddleItem}
-                    />
+              {coachingSession?.length !== 0 &&
+                coachingSession !== null &&
+                coachingSession !== false && (
+                  <View style={styles.middle}>
+                    <Text style={styles.title}>Growth Coaching Sessions</Text>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={coachingSession}
+                        renderItem={_renderMiddleItem}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
               {poeSelfLearns?.length !== 0 &&
                 poeSelfLearns !== false &&
                 poeSelfLearns !== null && (
                   <View style={styles.learn}>
-                    <Text style={styles.title}>Growth Leader</Text>
+                    <Text style={styles.title}>Be a Growth Leader</Text>
                     <View
                       style={{
                         display: 'flex',
@@ -383,7 +392,9 @@ const GrowthDetail = props => {
                       onPress={() => {
                         navigation.navigate('Radar');
                       }}>
-                      <Text style={styles.buttonText}>View Frost chart</Text>
+                      <Text style={styles.buttonText}>
+                        View Frost Radar on Growth Leader
+                      </Text>
                     </Button>
                   </View>
                 </View>
@@ -443,7 +454,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Typography.FONT_SF_REGULAR,
     color: Colors.PRIMARY_TEXT_COLOR,
-    fontWeight: '650',
+    fontWeight: '700',
     marginLeft: 15,
   },
 
@@ -495,13 +506,11 @@ const styles = StyleSheet.create({
     borderColor: '#9EBD6D',
   },
   learn: {
-    height: 140,
     marginTop: 30,
     justifyContent: 'center',
   },
   learnWrapper: {
-    height: 118,
-    width: 224,
+    width: contentContainerWidth,
     marginTop: 20,
     marginLeft: 15,
     borderRadius: 10,
@@ -590,13 +599,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   button: {
-    ...CommonStyles.button,
-    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.PRIMARY_BUTTON_COLOR,
     marginBottom: 15,
     borderRadius: 10,
-    width: '50%',
   },
   buttonText: {
     ...CommonStyles.buttonText,
+    marginHorizontal: 10,
   },
 });

@@ -6,7 +6,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {NativeBaseProvider} from 'native-base';
 import RNBootSplash from 'react-native-bootsplash';
 import {Provider as PaperProvider} from 'react-native-paper';
-
 import messaging from '@react-native-firebase/messaging';
 import analytics from '@react-native-firebase/analytics';
 import PushNotification, {Importance} from 'react-native-push-notification';
@@ -17,19 +16,18 @@ import {AuthProvider} from './context/auth';
 import SplashScreen from './screens/splash';
 
 XMLHttpRequest = GLOBAL.originalXMLHttpRequest
-    ? GLOBAL.originalXMLHttpRequest
-    : GLOBAL.XMLHttpRequest;
-    let fakeApiCallWithoutBadNetwork = ms =>
-    new Promise(resolve => setTimeout(resolve, ms));
+  ? GLOBAL.originalXMLHttpRequest
+  : GLOBAL.XMLHttpRequest;
+let fakeApiCallWithoutBadNetwork = ms =>
+  new Promise(resolve => setTimeout(resolve, ms));
 const App = () => {
-
   useEffect(() => {
     init();
   }, []);
 
   let init = async () => {
     await RNBootSplash.hide();
-};
+  };
 
   useEffect(() => {
     getNotifications();
@@ -46,17 +44,14 @@ const App = () => {
     });
     return unsubscribe;
   }, []);
-
   useEffect(() => {
-     getToken();
-  }, [])
-
+    getToken();
+  }, []);
   const getToken = async () => {
-   const token = await messaging().getToken();
-   console.log("***************************************");
-   console.log(token);
+    const token = await messaging().getToken();
+    console.log('***************************************');
+    console.log(token);
   };
-
   const getNotifications = async () => {
     await messaging().onNotificationOpenedApp(remoteMessage => {});
     await messaging()
@@ -76,8 +71,6 @@ const App = () => {
       created => console.log('created channel', created),
     );
   };
-
-
   return (
     <Provider store={store}>
       {/**
@@ -102,5 +95,4 @@ const App = () => {
     </Provider>
   );
 };
-
 export default App;

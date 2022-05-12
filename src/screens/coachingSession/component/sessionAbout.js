@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HTMLView from 'react-native-htmlview';
 import {formatTimeByOffset} from '../../event/components/timezone';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {BubblesLoader} from 'react-native-indicator';
@@ -59,7 +59,7 @@ const sessionAbout = props => {
     const response = await registerSessionByIdentifier({session_id: sessionID});
     if (response?.payload?.code === 200) {
       setSessionStatus(true);
-      ToastMessage.show('You have successfully RSVP this event.');
+      ToastMessage.show('You have successfully RSVP’d  this event.');
     } else {
       toast.closeAll();
       ToastMessage.show(response?.payload?.response);
@@ -94,19 +94,23 @@ const sessionAbout = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('D MMMM, dddd, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('D MMMM (h:mma)');
+  const GobalDate = moment(timeToDisplay).format('MMMM D, dddd, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('MMMM D');
 
-  const GobalDateEnd = moment(timeToEnd).format('D MMMM, dddd, h:mm a ');
+  const GobalDateEnd = moment(timeToEnd).format('MMMM D, dddd, h:mm a ');
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('D MMMM (h:mma)');
+  const GobalEndMonth = moment(timeToEnd).format('MMMM D');
 
-  const EventDate = moment(sessions?.event_start).format('D MMMM, dddd, h:mma - ');
-  const EventStartMonth = moment(sessions?.event_start).format('D MMMM (h:mma)');
+  const EventDate = moment(sessions?.event_start).format(
+    'MMMM D, dddd, h:mma - ',
+  );
+  const EventStartMonth = moment(sessions?.event_start).format('MMMM D');
 
-  const EventDateEnd = moment(sessions?.event_end).format('D MMMM, dddd, h:mm a ');
+  const EventDateEnd = moment(sessions?.event_end).format(
+    'MMMM D, dddd, h:mm a ',
+  );
   const EventEndTime = moment(sessions?.event_end).format('h:mma ');
-  const EventEndMonth = moment(sessions?.event_end).format('D MMMM (h:mma)');
+  const EventEndMonth = moment(sessions?.event_end).format('MMMM D');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -154,6 +158,7 @@ const sessionAbout = props => {
             style={{
               flex: 4,
               paddingLeft: 5,
+              justifyContent: 'center',
             }}>
             {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
@@ -164,7 +169,7 @@ const sessionAbout = props => {
                   GobalDate.split(/(\s+)/)[8] +
                   GobalDate.split(/(\s+)/)[7] +
                   GobalEndMonth}{' '}
-              ({deviceTimeZone}) / {EventDate.split(/(\s+)/)[7] }
+              ({deviceTimeZone}) / {EventDate.split(/(\s+)/)[7]}
               {EventStartMonth === EventEndMonth
                 ? EventDate + EventEndTime
                 : EventStartMonth +
@@ -172,6 +177,7 @@ const sessionAbout = props => {
                   EventDate.split(/(\s+)/)[8] +
                   EventDate.split(/(\s+)/)[7] +
                   EventEndMonth}
+              (America)
             </Text>
           </View>
           {!sessionStatus && (
@@ -261,7 +267,7 @@ const sessionAbout = props => {
         sessions?.organizer?.term_name !== '' && (
           <View style={{height: 150}}>
             <View style={{marginTop: 25}}>
-              <Text style={styles.contentHeading}>Coached By</Text>
+              <Text style={styles.contentHeading}>Coach By</Text>
             </View>
             <View style={styles.hostdetail}>
               <View style={styles.hostimage}>
@@ -299,7 +305,19 @@ const sessionAbout = props => {
         <View>
           <Text style={styles.contentHeading}>Session Brief</Text>
           {!isSessionLoaded && (
-            <HTMLView value={description} stylesheet={styles} />
+            <HTMLView
+              value={description}
+              textComponentProps={{
+                style: {
+                  fontSize: 12,
+                  lineHeight: 20,
+                  fontWeight: 'regular',
+                  color: '#666767',
+                  alignItems: 'center',
+                  textAlign: 'justify',
+                },
+              }}
+            />
           )}
         </View>
       )}
@@ -318,7 +336,7 @@ const sessionAbout = props => {
               source={require('../../../assets/img/tick-icon.png')}
               style={{width: 30, height: 30}}
             />
-            <Text style={styles.registeredButtonText}>RSVP't</Text>
+            <Text style={styles.registeredButtonText}>RSVP'd</Text>
           </TouchableOpacity>
         )}
       </View>

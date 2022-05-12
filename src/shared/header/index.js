@@ -32,7 +32,7 @@ const HeaderTitle = props => {
           fontSize: Platform.OS === 'ios' ? 16 : 18,
           fontWeight: 'normal',
         }}>
-        {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
+        {profile?.display_name} 
       </Text>
     </View>
   );

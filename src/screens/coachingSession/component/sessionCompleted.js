@@ -69,7 +69,7 @@ const SessionCompleted = props => {
             width: '100%',
             height: 250,
           }}
-          resizeMode="center"
+          resizeMode="contain"
         />
       </View>
       <View

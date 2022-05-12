@@ -5,7 +5,7 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {
   SafeAreaView,
   StyleSheet,
@@ -39,39 +39,34 @@ import DashboardScreen from '../screens/dashboard';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
 import MainHeader from '../shared/header/MainHeader';
-import {getPathFromState, getFocusedRouteNameFromRoute} from '@react-navigation/native'
+import {
+  getPathFromState,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
 import AccountScreen from '../screens/account';
-
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = props => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-
   const {loading, setLoading, message, setMessage, signOut} =
     useAuthentication();
-
   const {profile, profileLoading, profileError} = useSelector(
     state => state.profile,
   );
-
   const fetchProfileByIdentifier = () => {
     dispatch(fetchProfileByID());
   };
-
   useEffect(() => {
     fetchProfileByIdentifier();
   }, [isFocused]);
-
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
-
   const logout = async () => {
     await signOut();
   };
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <View
@@ -119,13 +114,11 @@ const CustomDrawerContent = props => {
       </View> */}
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-
         <DrawerItem
           label="Logout"
           onPress={logout}
           icon={() => <Material name={'logout'} size={20} color={'#00008B'} />}
         />
-
         <View style={styles.footer}>
           <TouchableOpacity
             onPress={() => Linking.openURL('https://www.frost.com/')}>
@@ -138,7 +131,6 @@ const CustomDrawerContent = props => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-
           <Text style={styles.footerText}>Powered By</Text>
           <TouchableOpacity
             onPress={() => Linking.openURL('https://frostdigi.ai/')}>
@@ -157,7 +149,6 @@ const CustomDrawerContent = props => {
 const DashboardStack = createStackNavigator();
 
 export const DashboardStackScreen = () => {
-
   return (
     <DashboardStack.Navigator
       screenOptions={({navigation}) => ({
@@ -188,11 +179,8 @@ const DrawerNavigation = () => {
       })}
       drawerContent={props => {
         // const filteredProps = {...props,  state: {...props.state, routeNames: props.state.routeNames.filter(routeName => routeName !== 'Account' && routeName !== "People" && routeName !== "UserList"), routes: props.state.routes.filter(route => route.name !== "Account" && route.name !== "People" && route.name !== "UserList")}};
-        return (
-          <CustomDrawerContent {...props} />
-        )
-      }
-      }>
+        return <CustomDrawerContent {...props} />;
+      }}>
       <Drawer.Screen
         name="Dashboard"
         component={DashboardStackScreen}
@@ -255,7 +243,7 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Content Library"
         component={ContentScreen}
         options={({navigation}) => ({
@@ -270,7 +258,7 @@ const DrawerNavigation = () => {
             />
           ),
         })}
-      />
+      /> */}
       {/* <Drawer.Screen
         name="Critical Issues"
         component={CriticalIssueScreen}
@@ -355,12 +343,23 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      <Drawer.Screen options={{
-         drawerLabel: () => null,
-         title: null,
-         drawerIcon: () => null,
-         drawerItemStyle: {height: 0}
-      }} name="UserList" component={UserListScreen} />
+      <Drawer.Screen
+        options={{
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null,
+          drawerItemStyle: {height: 0},
+          header: ({navigation}) => (
+            <SubHeader
+              title="User List"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        }}
+        name="UserList"
+        component={UserListScreen}
+      />
       <Drawer.Screen
         name="People"
         component={PeopleScreen}
@@ -397,7 +396,6 @@ const DrawerNavigation = () => {
     </Drawer.Navigator>
   );
 };
-
 const styles = StyleSheet.create({
   drawerItem: {
     padding: 16,
@@ -417,5 +415,4 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
 });
-
 export default DrawerNavigation;

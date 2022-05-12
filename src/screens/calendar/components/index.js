@@ -11,7 +11,7 @@ import {
   StatusBar,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {BubblesLoader} from 'react-native-indicator';
 import * as RNLocalize from 'react-native-localize';
 import {Picker} from '@react-native-picker/picker';
@@ -133,9 +133,9 @@ const EventCalendar = props => {
   });
 
   const renderItem = ({item, index}) => {
-    const actualDate = moment(item.event_start).format('D MMMM ');
-    const eventStart = moment(item.event_start).format('D MMMM -');
-    const eventEnd = moment(item.event_end).format('D MMMM ');
+    const actualDate = moment(item.event_start).format('MMMM DD ');
+    const eventStart = moment(item.event_start).format('MMMM DD -');
+    const eventEnd = moment(item.event_end).format('MMMM DD ');
     const startdate = eventStart.split(' ', 3)[1].split('', 3);
     const enddate = eventEnd.split(' ', 3)[1].split('', 3);
 
@@ -144,6 +144,7 @@ const EventCalendar = props => {
 
     const today = moment().tz(deviceTimeZone);
     const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
+    console.log('a', startdate[1]);
 
     let convertedToLocalTime = formatTimeByOffset(
       backStartTimeStamp,
@@ -212,7 +213,7 @@ const EventCalendar = props => {
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <Text
               style={{
-                marginTop: 30,
+                paddingVertical: 20,
                 marginLeft: 5,
                 marginRight: 5,
                 fontSize: 12,
@@ -234,8 +235,7 @@ const EventCalendar = props => {
                     ? actualDate.split(' ', 3)[0] +
                       actualDate.split(/(\s+)/)[1] +
                       startdate[0] +
-                      startdate[1] +
-                      startdate[2]
+                      startdate[1]
                     : eventStart.split(/(\s+)/)[2] ===
                       eventEnd.split(/(\s+)/)[2]
                     ? eventStart.split(/(\s+)/)[0] +
@@ -299,7 +299,6 @@ const EventCalendar = props => {
                   all_events: showAllEvents,
                 })
                   .then(response => {
-                  
                     if (response?.payload?.code === 200) {
                       setCurrentEvents(response?.payload?.data);
                     } else {
@@ -309,7 +308,7 @@ const EventCalendar = props => {
                   })
                   .catch(e => {
                     //   ToastMessage.show(e?.response?.payload?.response);
-                  
+
                     // setMarkedDay([]);
                     setCurrentEvents([]);
                   });
@@ -381,7 +380,7 @@ const EventCalendar = props => {
                         })
                         .catch(e => {
                           //   ToastMessage.show(e?.response?.payload?.response);
-                          
+
                           //   setMarkedDay([]);
                           setCurrentEvents([]);
                         });
@@ -464,6 +463,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 10,
+    justifyContent: 'center',
+    alignContent: 'center',
+    textAlign: 'center',
   },
   eventTheme: {
     height: '100%',
@@ -473,7 +475,6 @@ const styles = StyleSheet.create({
   },
   eventDetails: {
     flex: 1,
-    height: 80,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     padding: 10,

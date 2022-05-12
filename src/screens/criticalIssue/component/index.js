@@ -26,7 +26,7 @@ import { useFocusEffect } from '@react-navigation/native';
 const CriticalIssue = props => {
   const {
     navigation,
-	route,
+    route,
     criticalIssue,
     criticalIssueLoading,
     criticalIssueError,
@@ -57,8 +57,9 @@ const CriticalIssue = props => {
 
   const _renderCritical = ({item, index}) => {
     return (
-      <View
-        style={styles.content}>
+      <View style={styles.content} 
+
+	  >
         <Image
           style={{
             width: Dimensions.get('window').width - 40,
@@ -68,6 +69,7 @@ const CriticalIssue = props => {
           source={{uri: item?.image}}
         />
         <View style={styles.contentWrapper}>
+          
           <Text style={{color: 'black', fontSize: 14, marginBottom: 10}}>
             {item?.heading}
           </Text>

@@ -176,6 +176,12 @@ const Chat = props => {
       // await addDoc(chatsCol, {_id, createdAt, text, user, status: 'unread'});
     }
 
+    const response = await sendNotificationByIdentifier({
+      user_id: friendID,
+      title: `Message From ${userName}`,
+      message: text,
+      notification_type: 'chat',
+    });
     // update the last message Status
     await firestore().collection(`rooms`).doc(chatID()).set({lastUpdated: Date.now(), roomId: chatID().split("_")}, {merge: true});
 
@@ -209,14 +215,13 @@ const Chat = props => {
               width: 50,
               borderRadius: 50,
               marginLeft: 10,
-              backgroundColor: 'red',
             }}
           />
           <View
             style={{
               width: '60%',
               justifyContent: 'center',
-              alignItems: 'center',
+              marginLeft: 20,
             }}>
             <Text style={{color: '#323232', fontSize: 16}}>{friendName}</Text>
           </View>
@@ -238,7 +243,12 @@ const Chat = props => {
         renderSend={props => {
           return (
             <Send {...props} containerStyle={styles.sendContainer}>
-              <Ionicons name={'send-sharp'} size={20} color={'white'} />
+              <Ionicons
+                name={'send-sharp'}
+                size={20}
+                color={'white'}
+                style={{marginLeft: 4}}
+              />
             </Send>
           );
         }}
@@ -259,8 +269,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     marginRight: 15,
-    height: 35,
-    width: 35,
+    height: 40,
+    width: 45,
     paddingHorizontal: 5,
     backgroundColor: '#246EE9',
     borderRadius: 40,

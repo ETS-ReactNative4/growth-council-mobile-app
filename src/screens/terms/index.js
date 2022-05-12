@@ -37,23 +37,18 @@ const Terms = props => {
               <View style={styles.titleBorder}></View>
             </View>
             <View>
-              <Text>
-                Welcome to our Web site. By using any of our web sites
-                (frost.com, store.frost.com, go.frost.com, hub.frost.com,
-                brandanddemandsolutions.com, pdsxchange.com,
-                growthinnovationleadership.com, customercontactmindxchange.com,
-                cxmindxchange, starmindxchange.com, gilcouncil.com, or
-                customerleadershipcouncil.com), you are agreeing to comply with
-                and be bound by the following terms of use. Please review the
-                following terms carefully. If you do not agree to these terms,
-                you should not use this site. The term “Frost & Sullivan” or
-                “us” or “we” or “our” refers to Frost & Sullivan, Inc., the
-                owner of the Web sites. The term “you” refers to the user or
-                viewer of our Web Site.
+              <Text style={{textAlign: 'justify', fontSize: 16}}>
+                Welcome to our Web site. By using any of our web sites you are
+                agreeing to comply with and be bound by the following terms of
+                use. Please review the following terms carefully. If you do not
+                agree to these terms, you should not use this site. The term
+                “Frost & Sullivan” or “us” or “we” or “our” refers to Frost &
+                Sullivan, Inc., the owner of the Web sites. The term “you”
+                refers to the user or viewer of our Web Site.
                 {'\n'}
                 {'\n'}
               </Text>
-              <Text>
+              <Text style={{textAlign: 'justify', fontSize: 16}}>
                 1. Acceptance of Agreement.
                 {'\n'}
                 {'\n'}
@@ -91,14 +86,10 @@ const Terms = props => {
                 3. Service Marks.
                 {'\n'}
                 {'\n'}
-                “Frost.com”, “Brandandemandsolutions.com”, “Pdsxchange.com”,
-                “Growthinnovationleadership.com”,
-                “Customercontactmindxchange.com”, “Cxmindxchange”,
-                “Starmindxchange.com”, “Gilcouncil.com”, or
-                “Customerleadershipcouncil.com” and others are our service marks
-                or registered service marks or trademarks. Other product and
-                company names mentioned on the Site may be trademarks of their
-                respective owners.
+                “Frost.com”, “Brandandemandsolutions.com” and others are our
+                service marks or registered service marks or trademarks. Other
+                product and company names mentioned on the Site may be
+                trademarks of their respective owners.
                 {'\n'}
                 {'\n'}
                 4. Limited License; Permitted Uses.
@@ -167,7 +158,7 @@ const Terms = props => {
                 styles.plainButton,
                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
               ]}
-              onPress={() => Linking.openURL('mailto:contact@frost.com')}>
+              onPress={() => navigation.navigate('EmailDetail')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
                 Contact Our Program Team
               </Text>
