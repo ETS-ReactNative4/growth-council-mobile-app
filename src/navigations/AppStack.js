@@ -5,7 +5,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {Navigator, Screen} = createStackNavigator();
 
-
 import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
 
@@ -23,12 +22,10 @@ import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
 import GmailScreen from '../screens/email/index';
 
-
 import FrostRadarScreen from '../screens/radar';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
-
 
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
@@ -62,7 +59,7 @@ const AppStack = () => (
         headerLeft: () => null,
       })}
     />
-  
+
     <Screen
       name="Journey"
       component={JourneyScreen}
@@ -345,12 +342,8 @@ const AppStack = () => (
       component={SearchScreen}
       options={{headerShown: false}}
     />
-	<Screen
-      name="Email"
-      component={EmailScreen}
-      options={{headerShown: false}}
-    />
-	<Screen
+
+    <Screen
       name="Gmail"
       component={GmailScreen}
       options={{headerShown: false}}
@@ -381,7 +374,6 @@ const AppStack = () => (
       })}
     />
 
-   
     <Screen
       name="CommunityDetail"
       component={CommunityDetailScreen}
@@ -398,8 +390,6 @@ const AppStack = () => (
         ),
       })}
     />
-
-   
 
     <Screen
       name="GrowthDetail"

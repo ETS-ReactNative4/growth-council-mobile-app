@@ -32,6 +32,7 @@ import HTMLView from 'react-native-htmlview';
 import Loading from '../../../shared/loading';
 import {sendNotification} from '../../../utils/sendNotification';
 import MainHeader from '../../../shared/header/MainHeader';
+import messaging from '@react-native-firebase/messaging'
 
 const win = Dimensions.get('window').width;
 const contentContainerWidth = win / 2;
@@ -90,6 +91,12 @@ const Dashboard = props => {
     };
     fetchAllUpcomingEventAsync();
   }, []);
+
+  useEffect(() => {
+    messaging().getToken().then(token => {
+      console.log("FCM ---> " + token);
+    })
+  }, [])
 
   useEffect(() => {
     const fetchAllCommunityMemberAsync = async () => {
@@ -368,8 +375,8 @@ const Dashboard = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        translucent={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
+        translucent={true}
       />
       <ScrollView
         onScroll={e => {

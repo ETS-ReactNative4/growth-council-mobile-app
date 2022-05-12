@@ -48,7 +48,7 @@ const Profile = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView
@@ -78,9 +78,9 @@ const Profile = props => {
           <Image
             source={require('../../../assets/img/appBG.png')}
             style={{
-              width: '100%',
-              height: Dimensions.get('screen').height / 4,
+              height: Dimensions.get('screen').height / 3,
               paddingTop: Dimensions.get('screen').height / 9,
+              width: win.width,
             }}
           />
           <View

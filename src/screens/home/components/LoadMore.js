@@ -132,7 +132,7 @@ const CouncilAllDetail = props => {
     <>
       <StatusBar
         barStyle="dark-content"
-        backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
+        backgroundColor={"#001D3F"}
       />
       <View style={styles.container}>
         <ScrollView>

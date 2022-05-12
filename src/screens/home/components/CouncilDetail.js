@@ -105,7 +105,7 @@ const CouncilDetail = props => {
         <View style={styles.container}>
           <StatusBar
             barStyle="dark-content"
-            backgroundColor={Colors.PRIMARY_BACKGROUND_COLOR}
+            backgroundColor={"#001D3F"}
           />
 
           <View style={{marginLeft: 20, marginRight: 20, flex: 1}}>

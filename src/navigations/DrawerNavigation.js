@@ -159,6 +159,7 @@ export const DashboardStackScreen = () => {
         component={DashboardScreen}
         options={({route, navigation}) => ({
           animationEnabled: false,
+          gestureEnabled: false
         })}
       />
     </DashboardStack.Navigator>
@@ -387,7 +388,6 @@ const DrawerNavigation = () => {
           header: ({navigation}) => (
             <MainHeader
               title="Profile"
-              image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />
           ),
