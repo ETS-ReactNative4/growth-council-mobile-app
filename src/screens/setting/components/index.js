@@ -152,7 +152,7 @@ const Setting = props => {
                 </View>
                 <View style={styles.wrapper}>
                   <TouchableOpacity
-                    onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
+                    onPress={() => navigation.navigate("Gmail")}>
                     <View style={styles.middleWrapper}>
                       <View style={styles.middleImage1}>
                         <AntDesign name={'mail'} size={20} color="white" />

@@ -52,7 +52,6 @@ const SignInForm = props => {
     isValid,
   } = useFormik({
     validationSchema: signInSchema,
-    // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     initialValues: {username: '', password: ''},
     onSubmit: async values => {
     //   const response = await createUserWithEmailAndPassword(
@@ -218,7 +217,7 @@ const SignInForm = props => {
                 <Text>Need Help? </Text>
                 <Text
                   style={{color: '#31ade5', fontWeight: '700'}}
-                  onPress={() => navigation.navigate('Email')}>
+                  onPress={() => navigation.navigate('Gmail')}>
                   {' '}
                   Contact Us{' '}
                 </Text>

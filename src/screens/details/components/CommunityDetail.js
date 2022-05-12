@@ -70,7 +70,7 @@ const CommunityDetail = props => {
       return () => {
         cleanSessionDetail();
       };
-    }, []),
+    }, [isFocused]),
   );
 
   useFocusEffect(
@@ -79,7 +79,7 @@ const CommunityDetail = props => {
       return () => {
         cleanPOEDetail();
       };
-    }, []),
+    }, [isFocused]),
   );
 
   useFocusEffect(
@@ -88,7 +88,7 @@ const CommunityDetail = props => {
       return () => {
         cleanPOEEvent();
       };
-    }, []),
+    }, [isFocused]),
   );
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const CommunityDetail = props => {
       return () => {
         cleanPillarPOE();
       };
-    }, []),
+    }, [isFocused]),
   );
 
   const _renderItem = ({item, index}, navigation) => {

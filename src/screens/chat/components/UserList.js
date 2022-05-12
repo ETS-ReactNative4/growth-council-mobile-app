@@ -14,7 +14,11 @@ import {
 import {Searchbar, Button} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialIcons';
-import {useFocusEffect, useIsFocused, useNavigation} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import {getAsyncStorage} from '../../../utils/storageUtil';
@@ -23,16 +27,16 @@ import {decodeUserID} from '../../../utils/jwtUtil';
 import BottomNav from '../../../layout/BottomLayout';
 import ChatCount from '../../../shared/chatCount';
 import Loading from '../../../shared/loading';
-import firestore from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore';
 
 const UserList = props => {
-    const {
-        route,
-        connection,
-        connectionLoading,
-        connectionError,
-        fetchAllConnection,
-        cleanConnection,
+  const {
+    route,
+    connection,
+    connectionLoading,
+    connectionError,
+    fetchAllConnection,
+    cleanConnection,
 
     users,
     userLoading,
@@ -47,73 +51,68 @@ const UserList = props => {
     cleanConnectMember,
   } = props;
 
-    const [userID, setUserID] = useState(null);
-    const [searchKey, setSearchKey] = useState('');
-    const [avatarImg, setAvatarImg] = useState(null);
-    const [userName, setUserName] = useState(null);
-    const [memberConnection, setMemberConnection] = useState([]);
-    const isFocused = useIsFocused();
-    const [_users, setUsers] = useState([]);
-    const [reload, setReload] = useState(false);
-    const [text, setText] = useState("");
-    const navigation = useNavigation();
+  const [userID, setUserID] = useState(null);
+  const [searchKey, setSearchKey] = useState('');
+  const [avatarImg, setAvatarImg] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [memberConnection, setMemberConnection] = useState([]);
+  const isFocused = useIsFocused();
+  const [_users, setUsers] = useState([]);
+  const [reload, setReload] = useState(false);
+  const [text, setText] = useState('');
+  const navigation = useNavigation();
 
-     // getActualUsersFromFirebase
+  // getActualUsersFromFirebase
   const getFirebaseUsers = async () => {
     try {
+      if (!userID) console.log('USER ID NOT FOUND');
 
-        if(!userID) console.log("USER ID NOT FOUND");
+      const fbUsers = await firestore().collection('rooms').get();
+      console.log('FB USERS');
+      console.log(fbUsers);
+      console.log('*****************');
 
-        const fbUsers = await firestore().collection('rooms').get();
-        console.log("FB USERS");
-        console.log(fbUsers);
-        console.log("*****************");
+      const docs = fbUsers.docs.filter(doc => doc.id.includes(userID));
+      console.log('DOC USERS');
+      console.log(docs);
+      console.log('*****************');
 
-        const docs = fbUsers.docs.filter(doc => doc.id.includes(userID));
-        console.log("DOC USERS");
-        console.log(docs);
-        console.log("*****************");
+      const data = docs.map(doc => ({id: doc.id, ...doc.data()}));
+      console.log('MAP USERS');
+      console.log(data);
+      console.log('*****************');
 
-        const data = docs.map(doc => ({id: doc.id, ...doc.data()}));
-        console.log("MAP USERS");
-        console.log(data);
-        console.log("*****************");
+      let __users = [];
+      for (let i = 0; i < data.length; i++) {
+        const id = data[i].id;
+        const arr = id.split('_');
+        const user_id = arr[0] == userID ? arr[1] : arr[0];
+        const user = users.find(usr => usr.ID == user_id);
+        __users.push({...user, ...data[i]});
+      }
 
-        let __users = [];
-        for(let i = 0; i < data.length; i++){
-            const id = data[i].id;
-            const arr = id.split("_");
-            const user_id = arr[0] == userID ? arr[1] : arr[0];
-            const user = users.find(usr => usr.ID == user_id);
-            __users.push({...user, ...data[i]});
-        }
-        
-        console.log("ACTUAL USERS");
-        console.log(__users);
-        console.log("*****************");
+      console.log('ACTUAL USERS');
+      console.log(__users);
+      console.log('*****************');
 
-
-        setUsers(__users);
-
-
-    } catch(error){
+      setUsers(__users);
+    } catch (error) {
       console.log(error);
     }
-     
-   }
+  };
 
   useEffect(() => {
-    navigation.addListener("focus", () => {
-        setText("");
-        setReload(!reload);
-    })
-  }, [])
- 
-   useEffect(() => {
-     if(userID && users.length){
-        getFirebaseUsers();
-     }
-   }, [userID, users, reload])
+    navigation.addListener('focus', () => {
+      setText('');
+      setReload(!reload);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (userID && users.length) {
+      getFirebaseUsers();
+    }
+  }, [userID, users, reload]);
 
   useEffect(() => {
     const setLoggedInUserInfoAsync = async () => {
@@ -127,47 +126,54 @@ const UserList = props => {
     setLoggedInUserInfoAsync();
   }, [isFocused]);
 
-    useEffect(() => {
-       navigation.addListener('focus', () => {
-        const fetchAllUsersAsync = async () => {
-            await fetchAllUsers({
-                s: searchKey,
-            });
-        };
-        fetchAllUsersAsync();
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      const fetchAllUsersAsync = async () => {
+        await fetchAllUsers({
+          s: searchKey,
+        });
+      };
+      fetchAllUsersAsync();
 
-        return () => {
-            cleanUser();
-        };
-       })
-    }, []);
+      return () => {
+        cleanUser();
+      };
+    });
+  }, []);
 
   useEffect(() => {
     setMemberConnection(users);
   }, [users]);
 
-    useEffect(() => {
-        if(text.length) setUsers(prev => users.filter(user => user.display_name.toLowerCase().includes(text.toLowerCase()) || user.ID.includes(text)))
-        else setReload(!reload);
-    }, [text])
+  useEffect(() => {
+    if (text.length)
+      setUsers(prev =>
+        users.filter(
+          user =>
+            user.display_name.toLowerCase().includes(text.toLowerCase()) ||
+            user.ID.includes(text),
+        ),
+      );
+    else setReload(!reload);
+  }, [text]);
 
-    const connectMemberByMemberID = async (memberID, index) => {
-        const response = await connectMemberByIdentifier({member_id: memberID});
-        if (response?.payload?.code === 200) {
-            let items = [...memberConnection];
-            let item = {...items[index]};
-            item.connection = true;
-            items[index] = item;
-            setMemberConnection(items);
-            fetchAllUsers({
-                s: searchKey,
-            });
-            ToastMessage.show('You have successfully connected.');
-        } else {
-            toast.closeAll();
-            ToastMessage.show(response?.payload?.response);
-        }
-    };
+  const connectMemberByMemberID = async (memberID, index) => {
+    const response = await connectMemberByIdentifier({member_id: memberID});
+    if (response?.payload?.code === 200) {
+      let items = [...memberConnection];
+      let item = {...items[index]};
+      item.connection = true;
+      items[index] = item;
+      setMemberConnection(items);
+      fetchAllUsers({
+        s: searchKey,
+      });
+      ToastMessage.show('You have successfully connected.');
+    } else {
+      toast.closeAll();
+      ToastMessage.show(response?.payload?.response);
+    }
+  };
 
   const _renderItems = ({item, index}) => {
     return (
@@ -266,39 +272,47 @@ const UserList = props => {
             <Ionicons name="chevron-back-outline" size={30} color="#B2B3B9" />
           </TouchableOpacity>
 
-                    <Searchbar
-                        style={styles.input}
-                        placeholder="Search"
-                        keyboardType="default"
-                        value={text}
-                        onChangeText={async text => {
-                            setSearchKey(text);
-                            setText(text);
-                        }}
-                    />
-                </View>
-                <View style={styles.buttonWrapper}>
-                    <TouchableOpacity>
-                        <Button
-                            style={[styles.button]}
-                            onPress={() => Linking.openURL('mailto:contact@frost.com')}>
-                            <Text style={styles.buttonText}>Contact us</Text>
-                        </Button>
-                    </TouchableOpacity>
-                </View>
-                {userLoading && <Loading/>}
-                <ScrollView>
-                    <View style={{marginTop: 10}}>
-                        <FlatList
-                            Vertical
-                            showsVerticalScrollIndicator={false}
-                            data={_users.filter(user => !!user.display_name).sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : b.lastUpdated > a.lastUpdated ? 1 : 0)}
-                            renderItem={_renderItems}
-                        />
-                    </View>
-                </ScrollView>
-            </View>
-            {/* <View
+          <Searchbar
+            style={styles.input}
+            placeholder="Search"
+            keyboardType="default"
+            value={text}
+            onChangeText={async text => {
+              setSearchKey(text);
+              setText(text);
+            }}
+          />
+        </View>
+        <View style={styles.buttonWrapper}>
+          <TouchableOpacity>
+            <Button
+              style={[styles.button]}
+              onPress={() => navigation.navigate('Gmail')}>
+              <Text style={styles.buttonText}>Contact us</Text>
+            </Button>
+          </TouchableOpacity>
+        </View>
+        {userLoading && <Loading />}
+        <ScrollView>
+          <View style={{marginTop: 10}}>
+            <FlatList
+              Vertical
+              showsVerticalScrollIndicator={false}
+              data={_users
+                .filter(user => !!user.display_name)
+                .sort((a, b) =>
+                  a.lastUpdated > b.lastUpdated
+                    ? -1
+                    : b.lastUpdated > a.lastUpdated
+                    ? 1
+                    : 0,
+                )}
+              renderItem={_renderItems}
+            />
+          </View>
+        </ScrollView>
+      </View>
+      {/* <View
         style={{paddingBottom: 20, backgroundColor: 'white', marginTop: 10}}>
         <Footer />
       </View> */}

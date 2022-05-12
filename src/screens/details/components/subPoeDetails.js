@@ -60,7 +60,7 @@ const SubPOEDetails = props => {
         await fetchAllPOEDetail(route.params.poeId);
       };
       fetchAllPOEDetailAsync();
-    }, []),
+    }, [isFocused]),
   );
 
   useFocusEffect(
@@ -72,7 +72,7 @@ const SubPOEDetails = props => {
       return () => {
         cleanPillarPOE();
       };
-    }, []),
+    }, [isFocused]),
   );
 
   const _renderContentItem = ({item, index}) => {
@@ -312,6 +312,7 @@ const SubPOEDetails = props => {
                   },
                 }}
               />
+			  {poeDetailLoading && <Loading />}
               {poeDetails !== null &&
                 pillarPOEs !== null &&
                 pillarPOEs !== false &&
@@ -364,7 +365,7 @@ const SubPOEDetails = props => {
             </View>
           </ScrollView>
         </View>
-        {poeDetailLoading && <Loading />}
+        
       </ScrollView>
     </>
   );

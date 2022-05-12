@@ -5,7 +5,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {Navigator, Screen} = createStackNavigator();
 
-import HomeDetailScreen from '../screens/home/Detail';
 
 import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
@@ -22,13 +21,15 @@ import ChangePasswordScreen from '../screens/account/ChangePassword';
 import EventDetailScreen from '../screens/event';
 import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
+import GmailScreen from '../screens/email/index';
+
 
 import FrostRadarScreen from '../screens/radar';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
-import Terms from '../screens/terms';
-import CouncilDetailScreen from '../screens/home/CouncilDetail';
+
+
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import SubPOEDetailScreen from '../screens/details/subPoeDetails';
@@ -61,28 +62,7 @@ const AppStack = () => (
         headerLeft: () => null,
       })}
     />
-    <Screen
-      name="HomeDetail"
-      component={HomeDetailScreen}
-      options={({route, navigation}) => ({
-        headerTitle: '',
-        headerStyle: {height: 80},
-        headerTransparent: true,
-        headerLeft: props => (
-          <Ionicons
-            name={'arrow-back'}
-            size={80}
-            style={{
-              position: Platform.OS === 'ios' ? 'absolute' : 'relative',
-            }}
-            color={'white'}
-            onPress={() => navigation.goBack()}
-          />
-        ),
-        ...TransitionPresets.RevealFromBottomAndroid,
-        gestureDirection: 'horizontal-inverted',
-      })}
-    />
+  
     <Screen
       name="Journey"
       component={JourneyScreen}
@@ -178,38 +158,15 @@ const AppStack = () => (
     <Screen
       name="SubPoe"
       component={SubPOEDetailScreen}
-      //   options={({route}) => ({
-      //     poeId: route.params.id,
-      //     background: route.params.image,
-      //     header: ({ navigation}) => (
-      //       <SubHeader
-      //         title="Growth Content"
-      //         image={require('../assets/img/best-practice-bg.png')}
-      //         navigation={navigation}
-      //         noDrawer
-      //       />
-      //     ),
-      //   })}
-      options={({route, navigation}) => ({
-        poeId: route.params.id,
-        background: route.params.image,
-        headerTitle: '',
-        headerStyle: {height: 80},
-        headerTransparent: true,
-        headerLeft: props => (
-          <Ionicons
-            name={'arrow-back'}
-            size={40}
-            color={'black'}
-            style={{
-              position: Platform.OS === 'ios' ? 'absolute' : 'relative',
-              marginLeft: 10,
-            }}
-            onPress={() => navigation.goBack()}
+      options={() => ({
+        header: ({navigation}) => (
+          <SubHeader
+            title="Growth Content"
+            image={require('../assets/img/best-practice-bg.png')}
+            navigation={navigation}
+            noDrawer={true}
           />
         ),
-        ...TransitionPresets.RevealFromBottomAndroid,
-        gestureDirection: 'horizontal-inverted',
       })}
     />
     <Screen
@@ -388,6 +345,16 @@ const AppStack = () => (
       component={SearchScreen}
       options={{headerShown: false}}
     />
+	<Screen
+      name="Email"
+      component={EmailScreen}
+      options={{headerShown: false}}
+    />
+	<Screen
+      name="Gmail"
+      component={GmailScreen}
+      options={{headerShown: false}}
+    />
 
     <Screen
       name="Chat"
@@ -413,34 +380,8 @@ const AppStack = () => (
         ),
       })}
     />
-    <Screen
-      name="Privacys"
-      component={PrivacyScreen}
-      options={({navigation}) => ({
-        header: () => (
-          <OptionHeader
-            title="Privacy Policy"
-            image={require('../assets/img/appBG.png')}
-            navigation={navigation}
-            noDrawer
-          />
-        ),
-      })}
-    />
-    <Screen
-      name="Terms"
-      component={Terms}
-      options={({navigation}) => ({
-        header: () => (
-          <OptionHeader
-            title="Terms Of Use"
-            image={require('../assets/img/appBG.png')}
-            navigation={navigation}
-            noDrawer
-          />
-        ),
-      })}
-    />
+
+   
     <Screen
       name="CommunityDetail"
       component={CommunityDetailScreen}
@@ -458,11 +399,7 @@ const AppStack = () => (
       })}
     />
 
-    <Screen
-      name="CouncilDetail"
-      component={CouncilDetailScreen}
-      options={{headerShown: false}}
-    />
+   
 
     <Screen
       name="GrowthDetail"
