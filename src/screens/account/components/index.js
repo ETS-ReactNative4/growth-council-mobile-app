@@ -48,10 +48,21 @@ const Profile = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#000"
         translucent={false}
       />
-      <ScrollView
+      <ScrollView onScroll={(e) => {
+        const offset = e.nativeEvent.contentOffset.y;
+        if(offset >= 70){
+            navigation.setOptions({
+              headerShown: false
+            })
+        } else {
+          navigation.setOptions({
+            headerShown: true
+          })
+        }
+      }}
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: PRIMARY_BACKGROUND_COLOR,
@@ -65,7 +76,7 @@ const Profile = props => {
           }}>
           <Image
             source={require('../../../assets/img/appBG.png')}
-            style={{height: 160, width: win.width}}
+            style={{height: (Dimensions.get('screen').height / 3), paddingTop: Dimensions.get('screen').height / 9, width: win.width}}
           />
           <View
             style={{

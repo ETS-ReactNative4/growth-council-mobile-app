@@ -371,7 +371,8 @@ const Dashboard = props => {
     <View style={{flex: 1}}>
       <StatusBar
         barStyle="light-content"
-        hidden={true}
+        hidden={false}
+        backgroundColor="#000"
         translucent={true}
       />
       <ScrollView onScroll={(e) => {

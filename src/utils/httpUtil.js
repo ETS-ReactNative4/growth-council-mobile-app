@@ -19,3 +19,4 @@ export function destroy(endpoint, id) {
 export function uploadImage(endpoint, data) {
   return httpBase(true).post(`/${endpoint}`, data);
 }
+
