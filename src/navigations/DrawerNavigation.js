@@ -152,6 +152,7 @@ export const DashboardStackScreen = () => {
   return (
     <DashboardStack.Navigator
       screenOptions={({navigation}) => ({
+        gestureEnabled: false,
         header: () => <MainHeader navigation={navigation} />,
       })}>
       <DashboardStack.Screen

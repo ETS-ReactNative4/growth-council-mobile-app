@@ -21,6 +21,8 @@ const PushNotificationsConfigs = {
                     userName: notification.data.userName,
                     userAvatar: notification.data.userAvatar,
                   })
+            } else if (notification.data.type == "event"){
+                navigate("EventDetail", {id: notification.data.post_id});
             }
           }
       },

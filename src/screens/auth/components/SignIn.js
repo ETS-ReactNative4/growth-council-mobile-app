@@ -182,12 +182,12 @@ const SignInForm = props => {
               <View style={styles.loginButtonWrapper}>
                 <Button
                   style={
-                    !areAllFieldsFilled
+                    [!areAllFieldsFilled
                       ? styles.loginButton1
-                      : styles.loginButton
+                      : styles.loginButton, loading && {backgroundColor: "grey"}]
                   }
                   onPress={handleSubmit}
-                  disabled={!areAllFieldsFilled}>
+                  disabled={!areAllFieldsFilled || loading}>
                   <Text style={styles.loginButtonText}>Sign In</Text>
                 </Button>
               </View>
