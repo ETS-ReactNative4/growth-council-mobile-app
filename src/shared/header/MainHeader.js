@@ -33,7 +33,7 @@ const MainHeader = props => {
         width: Dimensions.get('window').width,
         backgroundColor: 'rgba(0,0,0,0)',
         position: 'absolute',
-        top: 0,
+        top: 4,
         left: 0,
       }}>
       <View

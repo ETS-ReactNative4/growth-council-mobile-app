@@ -377,6 +377,7 @@ const Dashboard = props => {
         hidden={false}
         backgroundColor="#001D3F"
         translucent={true}
+		
       />
       <ScrollView
         onScroll={e => {
