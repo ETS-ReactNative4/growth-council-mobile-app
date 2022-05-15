@@ -93,10 +93,12 @@ const Dashboard = props => {
   }, []);
 
   useEffect(() => {
-    messaging().getToken().then(token => {
-      console.log("FCM ---> " + token);
-    })
-  }, [])
+    messaging()
+      .getToken()
+      .then(token => {
+        console.log('FCM ---> ' + token);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchAllCommunityMemberAsync = async () => {
@@ -377,7 +379,6 @@ const Dashboard = props => {
         hidden={false}
         backgroundColor="#001D3F"
         translucent={true}
-		
       />
       <ScrollView
         onScroll={e => {
@@ -394,7 +395,13 @@ const Dashboard = props => {
         }}
         showsVerticalScrollIndicator={false}
         style={styles.container}>
-        <View>
+        <View
+          style={{
+            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
+            justifyContent: 'center',
+            alignContent: 'center',
+            marginBottom: 30,
+          }}>
           <ImageBackground
             style={{
               width: '100%',
