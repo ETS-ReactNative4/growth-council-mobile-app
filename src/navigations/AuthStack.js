@@ -9,7 +9,7 @@ import HomeDetailScreen from '../screens/home/Detail';
 import SignInScreen from '../screens/auth/SignIn';
 import ForgotScreen from '../screens/auth/Forgot';
 import SignUpScreen from '../screens/auth/SignUp';
-import Terms from '../screens/terms';
+import TermScreen from '../screens/terms';
 import PrivacyScreen from '../screens/privacy';
 import EmailScreen from '../screens/email/email';
 
@@ -112,7 +112,7 @@ const AuthStack = () => {
 
       <Screen
         name="Terms"
-        component={Terms}
+        component={TermScreen}
         options={({navigation}) => ({
           header: () => (
             <OptionHeader

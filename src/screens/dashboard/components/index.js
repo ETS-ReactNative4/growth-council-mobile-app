@@ -76,6 +76,12 @@ const Dashboard = props => {
     criticalIssueError,
     fetchCritcalIssue,
     cleanCriticalIssue,
+
+    newMember,
+    newMemberLoading,
+    newMemberError,
+    fetchNewMember,
+    cleanNewMember,
   } = props;
 
   const isFocused = useIsFocused();
@@ -135,6 +141,17 @@ const Dashboard = props => {
     };
     fetchLatestContentAsync();
   }, []);
+
+  useEffect(() => {
+    const fetchNewMemberAsync = async () => {
+      await fetchNewMember({
+        s: '',
+        sort: 'Desc',
+      });
+    };
+    fetchNewMemberAsync();
+  });
+
 
   useEffect(() => {
     fetchCritcalIssue();
@@ -468,7 +485,7 @@ const Dashboard = props => {
                 <FlatList
                   horizontal
                   showsHorizontalScrollIndicator={false}
-                  data={communityMembers}
+                  data={newMember}
                   renderItem={_renderItem}
                 />
               </View>
