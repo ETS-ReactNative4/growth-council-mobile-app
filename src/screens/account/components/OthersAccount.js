@@ -108,7 +108,7 @@ const OthersAccount = props => {
         <View
           style={{
             display: 'flex',
-            marginTop: -90,
+            marginTop: -80,
             alignContent: 'center',
             marginLeft: 'auto',
             marginRight: 'auto',

@@ -56,19 +56,14 @@ const SubPOEListDetails = props => {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPOEDetailAsync = async () => {
-        await fetchAllPOEDetail(route.params.poeId);
-      };
-      fetchAllPOEDetailAsync();
+      fetchAllPOEDetail(route.params.poeId);
     }, [isFocused]),
   );
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPillarPOEAsync = async () => {
-        await fetchAllPillarPOE(route.params.poeId);
-      };
-      fetchAllPillarPOEAsync();
+      fetchAllPillarPOE(route.params.poeId);
+
       return () => {
         cleanPillarPOE();
       };

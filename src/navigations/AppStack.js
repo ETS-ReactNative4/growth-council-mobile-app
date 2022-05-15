@@ -47,6 +47,7 @@ import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
 import SessionCompleted from '../screens/coachingSession/component/sessionCompleted';
 import DrawerNavigation from '../navigations/DrawerNavigation';
+import Header from '../shared/header/header';
 
 const AppStack = () => (
   <Navigator>
@@ -167,7 +168,7 @@ const AppStack = () => (
         ),
       })}
     />
-	<Screen
+    <Screen
       name="SubPoeList"
       component={SubPOEListDetailScreen}
       options={() => ({
@@ -181,13 +182,13 @@ const AppStack = () => (
         ),
       })}
     />
-	
+
     <Screen
       name="ManageAccount"
       component={ManageAccountScreen}
       options={() => ({
         header: ({navigation}) => (
-          <SubHeader
+          <Header
             title="Account"
             image={require('../assets/img/appBG.png')}
             navigation={navigation}
@@ -202,7 +203,7 @@ const AppStack = () => (
       options={({route, navigation}) => ({
         id: route?.params?.id,
         header: () => (
-          <MainHeader
+          <Header
             title="Others Account"
             image={require('../assets/img/appBG.png')}
             navigation={navigation}

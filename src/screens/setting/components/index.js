@@ -10,6 +10,7 @@ import {
   Switch,
   TouchableOpacity,
   StatusBar,
+  Dimensions
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -56,6 +57,18 @@ const Setting = props => {
         translucent={false}
       />
       <ScrollView
+        onScroll={e => {
+          const offset = e.nativeEvent.contentOffset.y;
+          if (offset >= 70) {
+            navigation.setOptions({
+              headerShown: false,
+            });
+          } else {
+            navigation.setOptions({
+              headerShown: true,
+            });
+          }
+        }}
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: PRIMARY_BACKGROUND_COLOR,
@@ -64,12 +77,16 @@ const Setting = props => {
           style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, width: '100%'}}>
           <Image
             source={require('../../../assets/img/appBG.png')}
-            style={{height: 160}}
+            style={{
+              height: Dimensions.get('screen').height / 4,
+              paddingTop: Dimensions.get('screen').height / 8,
+     
+            }}
           />
           <View
             style={{
               display: 'flex',
-              marginTop: -90,
+              marginTop: -80,
               alignContent: 'center',
               marginLeft: 'auto',
               marginRight: 'auto',
@@ -94,10 +111,10 @@ const Setting = props => {
                 />
               </View>
               <View style={styles.header}>
-                <Text style={styles.headingText1}>
-				{profile?.display_name}
+                <Text style={styles.headingText1}>{profile?.display_name}</Text>
+                <Text style={{color: '#222B45'}}>
+                  {profile.user_meta?.title}
                 </Text>
-                <Text style={{color: '#222B45'}}>{profile.user_meta?.title}</Text>
               </View>
             </View>
           </View>
@@ -152,7 +169,7 @@ const Setting = props => {
                 </View>
                 <View style={styles.wrapper}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Gmail")}>
+                    onPress={() => navigation.navigate('Gmail')}>
                     <View style={styles.middleWrapper}>
                       <View style={styles.middleImage1}>
                         <AntDesign name={'mail'} size={20} color="white" />

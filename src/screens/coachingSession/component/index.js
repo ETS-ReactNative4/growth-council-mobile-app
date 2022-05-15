@@ -127,7 +127,7 @@ const CoachingSession = props => {
       : [0];
 
   const previousSessionID = route.params.previousSessionID;
-  console.log({previousSessionID});
+
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>

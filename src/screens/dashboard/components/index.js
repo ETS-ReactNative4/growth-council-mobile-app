@@ -32,7 +32,7 @@ import HTMLView from 'react-native-htmlview';
 import Loading from '../../../shared/loading';
 import {sendNotification} from '../../../utils/sendNotification';
 import MainHeader from '../../../shared/header/MainHeader';
-import messaging from '@react-native-firebase/messaging'
+import messaging from '@react-native-firebase/messaging';
 
 const win = Dimensions.get('window').width;
 const contentContainerWidth = win / 2;
@@ -395,18 +395,12 @@ const Dashboard = props => {
         }}
         showsVerticalScrollIndicator={false}
         style={styles.container}>
-        <View
-          style={{
-            backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR,
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginBottom: 30,
-          }}>
+        <View>
           <ImageBackground
             style={{
               width: '100%',
               height: Dimensions.get('screen').height / 3,
-              paddingTop: Dimensions.get('screen').height / 9,
+              paddingTop: Dimensions.get('screen').height / 8,
             }}
             source={require('../../../assets/img/appBG.png')}>
             <View style={styles.pillar}>
