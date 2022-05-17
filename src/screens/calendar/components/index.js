@@ -42,21 +42,24 @@ const EventCalendar = props => {
   //   const [markedDay, setMarkedDay] = useState([]);
 
   useEffect(() => {
-    fetchAllCalendarEvent({
-      year: moment().format('YYYY'),
-      month: moment().format('MM'),
-      all_events: showAllEvents,
-    })
-      .then(response => {
-        if (response?.payload?.code === 200) {
-          setCurrentEvents(response?.payload?.data);
-        } else {
-          setCurrentEvents([]);
-        }
+    const fetchAllCalendarEventAsync = async () => {
+      await fetchAllCalendarEvent({
+        year: moment().format('YYYY'),
+        month: moment().format('MM'),
+        all_events: showAllEvents,
       })
-      .catch(e => {
-        setCurrentEvents([]);
-      });
+        .then(response => {
+          if (response?.payload?.code === 200) {
+            setCurrentEvents(response?.payload?.data);
+          } else {
+            setCurrentEvents([]);
+          }
+        })
+        .catch(e => {
+          setCurrentEvents([]);
+        });
+    };
+    fetchAllCalendarEventAsync();
   }, []);
 
   const getDates = (startDate, endDate) => {

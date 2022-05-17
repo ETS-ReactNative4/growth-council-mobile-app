@@ -63,21 +63,21 @@ const People = props => {
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchAllUsers({
+  useEffect(() => {
+	const fetchAllUsersAsync = async () => {
+      await fetchAllUsers({
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
         category: account,
         country: region,
       });
-
-      return () => {
-        cleanUser();
-      };
-    }, [isFocused]),
-  );
+    };
+    fetchAllUsersAsync();
+    return () => {
+      cleanUser();
+    };
+  }, [isFocused]);
 
   useEffect(() => {
     setMemberConnection(users);
