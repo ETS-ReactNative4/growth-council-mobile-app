@@ -1,18 +1,13 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 
-
 const Stack = createStackNavigator();
-
-
 
 const MainNavigation = () => {
   return (
     <Stack.Navigator detachInactiveScreens={false} screenOptions={() => ({})}>
       <Stack.Group>
-        
-        
-{/*         
+        {/*         
         <Stack.Screen
           name="SignUpNext"
           component={SignUpNextScreen}
@@ -23,12 +18,6 @@ const MainNavigation = () => {
             ...TransitionPresets.RevealFromBottomAndroid,
           }}
         /> */}
-      
-
-
-
-
-
 
         {/* <Stack.Screen
           name="contentLibrary"
@@ -44,23 +33,9 @@ const MainNavigation = () => {
             ),
           })}
         /> */}
-
-
-
-
-
-
-
-
-
-
-
-       
       </Stack.Group>
 
-      <Stack.Group>
-        
-      </Stack.Group>
+      <Stack.Group></Stack.Group>
     </Stack.Navigator>
   );
 };

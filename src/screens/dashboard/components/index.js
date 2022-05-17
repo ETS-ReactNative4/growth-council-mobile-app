@@ -494,7 +494,6 @@ const Dashboard = props => {
 
         <View style={styles.content}>
           <Text style={styles.title}>
-            {' '}
             {criticalIssue?.critical_issue_mobile_title}
           </Text>
           <View

@@ -154,7 +154,6 @@ export const DashboardStackScreen = () => {
     <DashboardStack.Navigator
       screenOptions={({navigation}) => ({
         gestureEnabled: false,
-        header: () => <MainHeader navigation={navigation} />,
       })}>
       <DashboardStack.Screen
         name="Dashboard"
@@ -162,6 +161,7 @@ export const DashboardStackScreen = () => {
         options={({route, navigation}) => ({
           animationEnabled: false,
           gestureEnabled: false,
+          header: () => <MainHeader navigation={navigation} />,
         })}
       />
     </DashboardStack.Navigator>
@@ -388,7 +388,7 @@ const DrawerNavigation = () => {
           drawerIcon: () => null,
           drawerItemStyle: {height: 0},
           header: ({navigation}) => (
-            <Header title="Profile" navigation={navigation} />
+            <MainHeader title="Profile" navigation={navigation} />
           ),
         })}
       />

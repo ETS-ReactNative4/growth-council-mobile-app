@@ -16,6 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchProfileByID} from '../../screens/account/slice/profileSlice';
 import {navigationRef, toggleDrawer} from '../../utils/navigationUtil';
 import HeaderRight from './HeaderRight';
+import HeaderTitle from './index';
 
 const Header = props => {
   const dispatch = useDispatch();
@@ -37,7 +38,6 @@ const Header = props => {
         top: 0,
         left: 0,
       }}>
-     
       <View
         style={{
           flexDirection: 'row',
@@ -63,7 +63,7 @@ const Header = props => {
             </TouchableOpacity>
           )}
 
-          <Text
+          {/* <Text
             style={{
               marginLeft: 10,
               fontFamily: 'SFProText-Medium',
@@ -72,7 +72,14 @@ const Header = props => {
               width: '80%',
             }}>
             {props.title}
-          </Text>
+          </Text> */}
+          <HeaderTitle
+            {...props}
+            title={props.title}
+            profile={profile}
+            profileLoading={profileLoading}
+            fetchProfileByIdentifier={fetchProfileByIdentifier}
+          />
         </View>
 
         <HeaderRight
