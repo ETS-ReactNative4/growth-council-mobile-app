@@ -42,7 +42,6 @@ const MainHeader = props => {
           justifyContent: 'space-between',
           alignItems: 'center',
           paddingTop: Platform.OS === 'ios' ? 40 : 40,
-
           paddingHorizontal: 15,
           backgroundColor: 'rgba(0,0,0,0)',
         }}>

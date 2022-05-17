@@ -33,8 +33,6 @@ const Terms = props => {
     fetchTermsOfUse();
   });
 
-  console.log({terms});
-
   let description = terms.content1;
   if (description !== undefined) {
     description = terms.content1;
@@ -64,7 +62,7 @@ const Terms = props => {
                     color: 'black',
                     fontSize: 16,
                     paddingBottom: 30,
-                    textAlign:'left'
+                    textAlign:'justify'
                   },
                 }}
               />
