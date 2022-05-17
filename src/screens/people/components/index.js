@@ -65,16 +65,13 @@ const People = props => {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllUsersAsync = async () => {
-        await fetchAllUsers({
-          s: searchKey,
-          sort: sorting,
-          expertise_areas: category,
-          category: account,
-          country: region,
-        });
-      };
-      fetchAllUsersAsync();
+      fetchAllUsers({
+        s: searchKey,
+        sort: sorting,
+        expertise_areas: category,
+        category: account,
+        country: region,
+      });
 
       return () => {
         cleanUser();
@@ -87,10 +84,7 @@ const People = props => {
   }, [users]);
 
   useEffect(() => {
-    const fetchAllExpertisesAsync = async () => {
-      await fetchAllExpertises();
-    };
-    fetchAllExpertisesAsync();
+    fetchAllExpertises();
   }, []);
 
   const connectMemberByMemberID = async (memberID, index) => {
@@ -115,14 +109,9 @@ const People = props => {
     }
   };
 
-  const countries = [
-	"Region",
-    "NORTH AMERICA",
-	"APAC",
-	"MEASA"
-  ];
+  const countries = ['Region', 'NORTH AMERICA', 'APAC', 'MEASA'];
 
-  const pillar = ['Acount Type','Council Member', 'Associate Member'];
+  const pillar = ['Acount Type', 'Council Member', 'Associate Member'];
 
   const _renderItem = ({item, index}) => {
     return (
