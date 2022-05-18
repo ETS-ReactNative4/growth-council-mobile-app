@@ -388,7 +388,7 @@ const DrawerNavigation = () => {
           drawerIcon: () => null,
           drawerItemStyle: {height: 0},
           header: ({navigation}) => (
-            <MainHeader title="Profile" navigation={navigation} />
+            <Header title="Profile" navigation={navigation} />
           ),
         })}
       />
