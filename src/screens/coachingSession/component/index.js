@@ -121,6 +121,12 @@ const CoachingSession = props => {
     );
     if (isNaN(num)) num = 0.0;
   }
+
+  let growth = score.growthIndexScore.toFixed(2);
+  if (isNaN(growth)) growth = 0.0;
+  let innovation = score.innovativeIndexScore.toFixed(2);
+  if (isNaN(innovation)) innovation = 0.0;
+
   const previousSession =
     profile?.session_score !== false
       ? profile?.session_score?.map(item => item?.session)
@@ -264,9 +270,7 @@ const CoachingSession = props => {
                                     alignItems: 'center',
                                   }}>
                                   <Text style={{fontSize: 12}}>
-                                    {index1 === 0
-                                      ? score.growthIndexScore
-                                      : score.innovativeIndexScore}
+                                    {index1 === 0 ? growth : innovation}
                                     {/* {num} */}
                                   </Text>
                                 </TouchableOpacity>
