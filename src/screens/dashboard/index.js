@@ -28,6 +28,8 @@ import {
   resetCriticalIssue,
 } from '../criticalIssue/slice/criticalIssueSlice';
 
+import {fetchAllNewMember, resetNewMember} from './slice/newMemberSlice';
+
 const DashboardScreen = props => {
   const dispatch = useDispatch();
   const [contentSlider, setContentSlider] = useState([]);
@@ -48,6 +50,10 @@ const DashboardScreen = props => {
   );
   const {criticalIssue, criticalIssueLoading, criticalIssueError} = useSelector(
     state => state.criticalIssue,
+  );
+
+  const {newMember, newMemberLoading, newMemberError} = useSelector(
+    state => state.newMember,
   );
 
   useEffect(() => {
@@ -104,6 +110,13 @@ const DashboardScreen = props => {
     dispatch(resetCriticalIssue());
   };
 
+  const fetchNewMember = () => {
+    dispatch(fetchAllNewMember());
+  };
+
+  const cleanNewMember = () =>{
+	  dispatch(resetNewMember())
+  }
 
   return (
     <Dashboard
@@ -113,37 +126,38 @@ const DashboardScreen = props => {
       upcomingEventError={upcomingEventError}
       fetchAllUpcomingEvent={fetchAllUpcomingEvent}
       cleanUpcomingEvent={cleanUpcomingEvent}
-	  
       poes={poes}
       poeLoading={poeLoading}
       poeError={poeError}
       fetchAllPOE={fetchAllPOE}
       cleanPOE={cleanPOE}
-
       communityMembers={communityMembers}
       communityMemberLoading={communityMemberLoading}
       communityMemberError={communityMemberError}
       fetchAllCommunityMember={fetchAllCommunityMember}
       cleanCommunityMember={cleanCommunityMember}
-
       pillarSliders={pillarSliders}
       pillarSliderLoading={pillarSliderLoading}
       pillarSliderError={pillarSliderError}
       fetchAllPillarSlider={fetchAllPillarSlider}
       cleanPillarSlider={cleanPillarSlider}
       contentSlider={contentSlider}
-
       latestContent={latestContent}
       latestContentLoading={latestContentLoading}
       latestContentError={latestContentError}
       fetchLatestContent={fetchLatestContent}
       cleanLatestContent={cleanLatestContent}
-
-	  criticalIssue={criticalIssue}
+      criticalIssue={criticalIssue}
       criticalIssueLoading={criticalIssueLoading}
       criticalIssueError={criticalIssueError}
       fetchCritcalIssue={fetchCritcalIssue}
       cleanCriticalIssue={cleanCriticalIssue}
+
+	  newMember={newMember}
+	  newMemberLoading={newMemberLoading}
+	  newMemberError={newMemberError}
+	  fetchNewMember={fetchNewMember}
+	  cleanNewMember={cleanNewMember}
     />
   );
 };

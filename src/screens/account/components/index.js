@@ -48,10 +48,22 @@ const Profile = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView
+        onScroll={e => {
+          const offset = e.nativeEvent.contentOffset.y;
+          if (offset >= 70) {
+            navigation.setOptions({
+              headerShown: false,
+            });
+          } else {
+            navigation.setOptions({
+              headerShown: true,
+            });
+          }
+        }}
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: PRIMARY_BACKGROUND_COLOR,
@@ -65,12 +77,16 @@ const Profile = props => {
           }}>
           <Image
             source={require('../../../assets/img/appBG.png')}
-            style={{height: 160, width: win.width}}
+            style={{
+              height: Dimensions.get('screen').height / 4,
+              paddingTop: Dimensions.get('screen').height / 8,
+              width: win.width,
+            }}
           />
           <View
             style={{
               display: 'flex',
-              marginTop: -90,
+              marginTop: -80,
               alignContent: 'center',
               marginLeft: 'auto',
               marginRight: 'auto',
@@ -101,10 +117,10 @@ const Profile = props => {
                 />
               </View>
               <View style={styles.header}>
-                <Text style={styles.headingText1}>
-                {profile?.display_name}
+                <Text style={styles.headingText1}>{profile?.display_name}</Text>
+                <Text style={{color: '#222B45'}}>
+                  {profile?.user_meta?.title}
                 </Text>
-                <Text style={{color: '#222B45'}}>{profile?.user_meta?.title}</Text>
               </View>
             </View>
           </View>
@@ -139,7 +155,7 @@ const Profile = props => {
                     }}
                   />
                 </View>
-                {profileLoading && <Loading />	}
+                {profileLoading && <Loading />}
                 {value === 'Points of Engagement' && <MyEvent {...props} />}
 
                 {value === 'About me' && <AboutMe {...props} />}

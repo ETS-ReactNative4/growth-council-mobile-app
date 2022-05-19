@@ -5,8 +5,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {Navigator, Screen} = createStackNavigator();
 
-import HomeDetailScreen from '../screens/home/Detail';
-
 import SignUpNextScreen from '../screens/auth/SignUpNext';
 import JourneyScreen from '../screens/auth/Journey';
 
@@ -22,16 +20,17 @@ import ChangePasswordScreen from '../screens/account/ChangePassword';
 import EventDetailScreen from '../screens/event';
 import SessionDetailScreen from '../screens/sessions';
 import SearchScreen from '../screens/search';
+import GmailScreen from '../screens/email/index';
 
 import FrostRadarScreen from '../screens/radar';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
-import Terms from '../screens/terms';
-import CouncilDetailScreen from '../screens/home/CouncilDetail';
+
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import SubPOEDetailScreen from '../screens/details/subPoeDetails';
+import SubPOEListDetailScreen from '../screens/details/subPoeListDetails';
 import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
@@ -48,6 +47,7 @@ import OptionHeader from '../shared/header/optionHeader';
 import DashboardScreen from '../screens/dashboard';
 import SessionCompleted from '../screens/coachingSession/component/sessionCompleted';
 import DrawerNavigation from '../navigations/DrawerNavigation';
+import Header from '../shared/header/header';
 
 const AppStack = () => (
   <Navigator>
@@ -61,28 +61,7 @@ const AppStack = () => (
         headerLeft: () => null,
       })}
     />
-    <Screen
-      name="HomeDetail"
-      component={HomeDetailScreen}
-      options={({route, navigation}) => ({
-        headerTitle: '',
-        headerStyle: {height: 80},
-        headerTransparent: true,
-        headerLeft: props => (
-          <Ionicons
-            name={'arrow-back'}
-            size={80}
-            style={{
-              position: Platform.OS === 'ios' ? 'absolute' : 'relative',
-            }}
-            color={'white'}
-            onPress={() => navigation.goBack()}
-          />
-        ),
-        ...TransitionPresets.RevealFromBottomAndroid,
-        gestureDirection: 'horizontal-inverted',
-      })}
-    />
+
     <Screen
       name="Journey"
       component={JourneyScreen}
@@ -178,46 +157,38 @@ const AppStack = () => (
     <Screen
       name="SubPoe"
       component={SubPOEDetailScreen}
-      //   options={({route}) => ({
-      //     poeId: route.params.id,
-      //     background: route.params.image,
-      //     header: ({ navigation}) => (
-      //       <SubHeader
-      //         title="Growth Content"
-      //         image={require('../assets/img/best-practice-bg.png')}
-      //         navigation={navigation}
-      //         noDrawer
-      //       />
-      //     ),
-      //   })}
-      options={({route, navigation}) => ({
-        poeId: route.params.id,
-        background: route.params.image,
-        headerTitle: '',
-        headerStyle: {height: 80},
-        headerTransparent: true,
-        headerLeft: props => (
-          <Ionicons
-            name={'arrow-back'}
-            size={40}
-            color={'black'}
-            style={{
-              position: Platform.OS === 'ios' ? 'absolute' : 'relative',
-              marginLeft: 10,
-            }}
-            onPress={() => navigation.goBack()}
+      options={() => ({
+        header: ({navigation}) => (
+          <SubHeader
+            title="Growth Content"
+            image={require('../assets/img/best-practice-bg.png')}
+            navigation={navigation}
+            noDrawer={true}
           />
         ),
-        ...TransitionPresets.RevealFromBottomAndroid,
-        gestureDirection: 'horizontal-inverted',
       })}
     />
+    <Screen
+      name="SubPoeList"
+      component={SubPOEListDetailScreen}
+      options={() => ({
+        header: ({navigation}) => (
+          <SubHeader
+            title="Growth Content"
+            image={require('../assets/img/best-practice-bg.png')}
+            navigation={navigation}
+            noDrawer={true}
+          />
+        ),
+      })}
+    />
+
     <Screen
       name="ManageAccount"
       component={ManageAccountScreen}
       options={() => ({
         header: ({navigation}) => (
-          <SubHeader
+          <Header
             title="Account"
             image={require('../assets/img/appBG.png')}
             navigation={navigation}
@@ -232,7 +203,7 @@ const AppStack = () => (
       options={({route, navigation}) => ({
         id: route?.params?.id,
         header: () => (
-          <SubHeader
+          <Header
             title="Others Account"
             image={require('../assets/img/appBG.png')}
             navigation={navigation}
@@ -390,6 +361,12 @@ const AppStack = () => (
     />
 
     <Screen
+      name="Gmail"
+      component={GmailScreen}
+      options={{headerShown: false}}
+    />
+
+    <Screen
       name="Chat"
       component={ChatScreen}
       options={({route}) => ({
@@ -413,34 +390,7 @@ const AppStack = () => (
         ),
       })}
     />
-    <Screen
-      name="Privacys"
-      component={PrivacyScreen}
-      options={({navigation}) => ({
-        header: () => (
-          <OptionHeader
-            title="Privacy Policy"
-            image={require('../assets/img/appBG.png')}
-            navigation={navigation}
-            noDrawer
-          />
-        ),
-      })}
-    />
-    <Screen
-      name="Terms"
-      component={Terms}
-      options={({navigation}) => ({
-        header: () => (
-          <OptionHeader
-            title="Terms Of Use"
-            image={require('../assets/img/appBG.png')}
-            navigation={navigation}
-            noDrawer
-          />
-        ),
-      })}
-    />
+
     <Screen
       name="CommunityDetail"
       component={CommunityDetailScreen}
@@ -456,12 +406,6 @@ const AppStack = () => (
           />
         ),
       })}
-    />
-
-    <Screen
-      name="CouncilDetail"
-      component={CouncilDetailScreen}
-      options={{headerShown: false}}
     />
 
     <Screen

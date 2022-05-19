@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Button,
+  Dimensions,
 } from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -78,6 +79,18 @@ const OthersAccount = props => {
 
   return (
     <ScrollView
+      onScroll={e => {
+        const offset = e.nativeEvent.contentOffset.y;
+        if (offset >= 70) {
+          navigation.setOptions({
+            headerShown: false,
+          });
+        } else {
+          navigation.setOptions({
+            headerShown: true,
+          });
+        }
+      }}
       contentContainerStyle={{
         flexGrow: 1,
         backgroundColor: PRIMARY_BACKGROUND_COLOR,
@@ -85,13 +98,17 @@ const OthersAccount = props => {
       <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
         <Image
           source={require('../../../assets/img/appBG.png')}
-          style={{height: 160}}
+          style={{
+            width: '100%',
+            height: Dimensions.get('screen').height / 4,
+            paddingTop: Dimensions.get('screen').height / 4,
+          }}
         />
 
         <View
           style={{
             display: 'flex',
-            marginTop: -90,
+            marginTop: -80,
             alignContent: 'center',
             marginLeft: 'auto',
             marginRight: 'auto',

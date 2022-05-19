@@ -32,6 +32,7 @@ import HTMLView from 'react-native-htmlview';
 import Loading from '../../../shared/loading';
 import {sendNotification} from '../../../utils/sendNotification';
 import MainHeader from '../../../shared/header/MainHeader';
+import messaging from '@react-native-firebase/messaging';
 
 const win = Dimensions.get('window').width;
 const contentContainerWidth = win / 2;
@@ -75,6 +76,12 @@ const Dashboard = props => {
     criticalIssueError,
     fetchCritcalIssue,
     cleanCriticalIssue,
+
+    newMember,
+    newMemberLoading,
+    newMemberError,
+    fetchNewMember,
+    cleanNewMember,
   } = props;
 
   const isFocused = useIsFocused();
@@ -89,6 +96,14 @@ const Dashboard = props => {
       await fetchAllUpcomingEvent();
     };
     fetchAllUpcomingEventAsync();
+  }, []);
+
+  useEffect(() => {
+    messaging()
+      .getToken()
+      .then(token => {
+        console.log('FCM ---> ' + token);
+      });
   }, []);
 
   useEffect(() => {
@@ -126,6 +141,17 @@ const Dashboard = props => {
     };
     fetchLatestContentAsync();
   }, []);
+
+  useEffect(() => {
+    const fetchNewMemberAsync = async () => {
+      await fetchNewMember({
+        s: '',
+        sort: 'Desc',
+      });
+    };
+    fetchNewMemberAsync();
+  });
+
 
   useEffect(() => {
     fetchCritcalIssue();
@@ -368,8 +394,8 @@ const Dashboard = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        translucent={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
+        translucent={true}
       />
       <ScrollView
         onScroll={e => {
@@ -391,7 +417,7 @@ const Dashboard = props => {
             style={{
               width: '100%',
               height: Dimensions.get('screen').height / 3,
-              paddingTop: Dimensions.get('screen').height / 9,
+              paddingTop: Dimensions.get('screen').height / 8,
             }}
             source={require('../../../assets/img/appBG.png')}>
             <View style={styles.pillar}>
@@ -459,7 +485,7 @@ const Dashboard = props => {
                 <FlatList
                   horizontal
                   showsHorizontalScrollIndicator={false}
-                  data={communityMembers}
+                  data={newMember}
                   renderItem={_renderItem}
                 />
               </View>
@@ -468,7 +494,6 @@ const Dashboard = props => {
 
         <View style={styles.content}>
           <Text style={styles.title}>
-            {' '}
             {criticalIssue?.critical_issue_mobile_title}
           </Text>
           <View

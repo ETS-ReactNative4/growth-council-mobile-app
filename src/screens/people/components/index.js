@@ -63,34 +63,28 @@ const People = props => {
   const [sorting, setSorting] = useState('ASC');
   const [memberConnection, setMemberConnection] = useState([]);
 
-  useFocusEffect(
-    useCallback(() => {
-      const fetchAllUsersAsync = async () => {
-        await fetchAllUsers({
-          s: searchKey,
-          sort: sorting,
-          expertise_areas: category,
-          category: account,
-          country: region,
-        });
-      };
-      fetchAllUsersAsync();
-
-      return () => {
-        cleanUser();
-      };
-    }, [isFocused]),
-  );
+  useEffect(() => {
+	const fetchAllUsersAsync = async () => {
+      await fetchAllUsers({
+        s: searchKey,
+        sort: sorting,
+        expertise_areas: category,
+        category: account,
+        country: region,
+      });
+    };
+    fetchAllUsersAsync();
+    return () => {
+      cleanUser();
+    };
+  }, [isFocused]);
 
   useEffect(() => {
     setMemberConnection(users);
   }, [users]);
 
   useEffect(() => {
-    const fetchAllExpertisesAsync = async () => {
-      await fetchAllExpertises();
-    };
-    fetchAllExpertisesAsync();
+    fetchAllExpertises();
   }, []);
 
   const connectMemberByMemberID = async (memberID, index) => {
@@ -115,14 +109,9 @@ const People = props => {
     }
   };
 
-  const countries = [
-	"Region",
-    "NORTH AMERICA",
-	"APAC",
-	"MEASA"
-  ];
+  const countries = ['Region', 'NORTH AMERICA', 'APAC', 'MEASA'];
 
-  const pillar = ['Acount Type','Council Member', 'Associate Member'];
+  const pillar = ['Acount Type', 'Council Member', 'Associate Member'];
 
   const _renderItem = ({item, index}) => {
     return (
@@ -188,7 +177,7 @@ const People = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <View style={styles.container}>

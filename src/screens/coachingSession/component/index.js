@@ -127,7 +127,7 @@ const CoachingSession = props => {
       : [0];
 
   const previousSessionID = route.params.previousSessionID;
-  console.log({previousSessionID});
+
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
@@ -138,7 +138,7 @@ const CoachingSession = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <View style={styles.container}>

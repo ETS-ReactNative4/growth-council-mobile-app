@@ -42,7 +42,7 @@ const EventCalendar = props => {
   //   const [markedDay, setMarkedDay] = useState([]);
 
   useEffect(() => {
-    const fetchCalendarEventAsync = async () => {
+    const fetchAllCalendarEventAsync = async () => {
       await fetchAllCalendarEvent({
         year: moment().format('YYYY'),
         month: moment().format('MM'),
@@ -59,7 +59,7 @@ const EventCalendar = props => {
           setCurrentEvents([]);
         });
     };
-    fetchCalendarEventAsync();
+    fetchAllCalendarEventAsync();
   }, []);
 
   const getDates = (startDate, endDate) => {
@@ -260,7 +260,7 @@ const EventCalendar = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>

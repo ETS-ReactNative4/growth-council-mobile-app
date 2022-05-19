@@ -43,7 +43,7 @@ const privacy = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView>
@@ -72,7 +72,7 @@ const privacy = props => {
                 styles.plainButton,
                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
               ]}
-              onPress={() => navigation.navigate('Email')}>
+              onPress={() => navigation.navigate('Gmail')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
                 Contact Our Program Team
               </Text>

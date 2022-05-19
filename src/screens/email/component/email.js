@@ -66,7 +66,7 @@ const Email = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView style={{backgroundColor: 'white'}}>
@@ -164,16 +164,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   input: {
+    width: '85%',
     paddingLeft: 10,
     color: 'black',
     fontSize: 16,
     textAlignHorizontal: 'left',
+    borderBottomWidth: 0.2,
+    borderWidth: 0.2,
+    borderRadius: 10,
+    marginLeft: 5,
   },
   textarea: {
     paddingTop: 10,
     fontSize: 16,
     textAlignVertical: 'top',
     lineHeight: 30,
+    borderBottomWidth: 0.2,
+    borderWidth: 0.2,
+    marginTop: 10,
+    borderRadius: 10,
   },
   buttonWrapper: {
     width: 200,

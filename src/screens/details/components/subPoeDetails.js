@@ -56,23 +56,17 @@ const SubPOEDetails = props => {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPOEDetailAsync = async () => {
-        await fetchAllPOEDetail(route.params.poeId);
-      };
-      fetchAllPOEDetailAsync();
-    }, []),
+      fetchAllPOEDetail(route.params.poeId);
+    }, [isFocused]),
   );
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPillarPOEAsync = async () => {
-        await fetchAllPillarPOE(route.params.poeId);
-      };
-      fetchAllPillarPOEAsync();
+      fetchAllPillarPOE(route.params.poeId);
       return () => {
         cleanPillarPOE();
       };
-    }, []),
+    }, [isFocused]),
   );
 
   const _renderContentItem = ({item, index}) => {
@@ -208,7 +202,7 @@ const SubPOEDetails = props => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('SubPoe', {
+          navigation.navigate('SubPoeList', {
             poeId: item?.term_id,
             id: route?.params?.poeId,
           })
@@ -261,7 +255,7 @@ const SubPOEDetails = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView
@@ -312,6 +306,7 @@ const SubPOEDetails = props => {
                   },
                 }}
               />
+              {poeDetailLoading && <Loading />}
               {poeDetails !== null &&
                 pillarPOEs !== null &&
                 pillarPOEs !== false &&
@@ -342,7 +337,8 @@ const SubPOEDetails = props => {
                 )}
               {poeDetails?.pillar_contents?.length !== 0 &&
                 poeDetails?.pillar_contents !== null &&
-                poeDetails?.pillar_contents !== false && (
+                poeDetails?.pillar_contents !== false &&
+                poeDetails?.pillar_contents !== undefined && (
                   <View style={styles.growthContent}>
                     <Text style={styles.title}> Content Library</Text>
                     <View
@@ -364,7 +360,6 @@ const SubPOEDetails = props => {
             </View>
           </ScrollView>
         </View>
-        {poeDetailLoading && <Loading />}
       </ScrollView>
     </>
   );

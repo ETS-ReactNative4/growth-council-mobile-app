@@ -52,14 +52,9 @@ const SignInForm = props => {
     isValid,
   } = useFormik({
     validationSchema: signInSchema,
-    // initialValues: {username: 'bikranshu.t@gmail.com', password: '123456'},
     initialValues: {username: '', password: ''},
     onSubmit: async values => {
-    //   const response = await createUserWithEmailAndPassword(
-    //     auth,
-    //     values?.username?.trim(),
-    //     values?.password,
-    //   ).catch(e => console.log(e));
+     
       const messageToken = await messaging().getToken();
       const firebasePayload = {
         username: values.username,
@@ -182,12 +177,12 @@ const SignInForm = props => {
               <View style={styles.loginButtonWrapper}>
                 <Button
                   style={
-                    !areAllFieldsFilled
+                    [!areAllFieldsFilled
                       ? styles.loginButton1
-                      : styles.loginButton
+                      : styles.loginButton, loading && {backgroundColor: "grey"}]
                   }
                   onPress={handleSubmit}
-                  disabled={!areAllFieldsFilled}>
+                  disabled={!areAllFieldsFilled || loading}>
                   <Text style={styles.loginButtonText}>Sign In</Text>
                 </Button>
               </View>

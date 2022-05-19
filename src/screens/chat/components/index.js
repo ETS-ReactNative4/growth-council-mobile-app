@@ -8,6 +8,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore'
 
 import {CommonStyles, Colors} from '../../../theme';
+import { getFCMTOkenForUser } from '../../../utils/httpUtil';
+import { sendNotification } from '../../../utils/sendNotification';
 
 const Chat = props => {
   const {
@@ -29,6 +31,7 @@ const Chat = props => {
 
   const [userScreen, setUserScreen] = useState(false);
   const [friendScreen, setFriendScreen] = useState(false);
+  const [friendToken, setFriendToken] = useState("");
 
   const chatID = () => {
     const chatIDPre = [];
@@ -39,6 +42,16 @@ const Chat = props => {
   };
 
   const [messages, setMessages] = useState([]);
+
+
+  useEffect(() => {
+    getFCMTOkenForUser(friendID).then(res => {
+      const token = res?.data?.data;
+      setFriendToken(typeof token == "string" ? token : token[0]);
+    }).catch(error => {
+      console.log(error);
+    })
+  }, [])
 
   useLayoutEffect(() => {
     let unsubscribe = null;
@@ -80,12 +93,12 @@ const Chat = props => {
       let docIds = [];
       const chatsCol = firestore().collection(`rooms/${chatID()}/messages`);
 
-      const snapShot = await chatsCol.where('status', "==", 'unread').where('user._id', '==', friendID).get();
-
-      snapShot.docs?.map(async record => {
-        if(record.exists){
-          const taskDocRef = await record.ref.update({...record.data(), status: 'read'});
-        }
+      chatsCol.where('status', "==", 'unread').where('user._id', '==', friendID).onSnapshot(snapShot => {
+        snapShot.docs?.map(async record => {
+          if(record.exists){
+            const taskDocRef = await record.ref.update({...record.data(), status: 'read'});
+          }
+        })
       })
 
       // const chatSnapshot = await getDocs(
@@ -176,23 +189,18 @@ const Chat = props => {
       // await addDoc(chatsCol, {_id, createdAt, text, user, status: 'unread'});
     }
 
-    const response = await sendNotificationByIdentifier({
-      user_id: friendID,
-      title: `Message From ${userName}`,
-      message: text,
-      notification_type: 'chat',
-    });
     // update the last message Status
     await firestore().collection(`rooms`).doc(chatID()).set({lastUpdated: Date.now(), roomId: chatID().split("_")}, {merge: true});
 
-    // const response = await sendNotificationByIdentifier({
-    //   user_id: friendID,
-    //   title: `Message From ${userName}`,
-    //   message: text,
-    //   notification_type: 'chat',
-    // });
+    sendNotification(friendToken, `${userName}`, text, {type: 'chat',  friendID: userID,
+     friendName:userName,
+     friendAvatar: userAvatar,
+     userID: friendID,
+     userAvatar: friendAvatar,
+     userName: friendName
     
-  }, []);
+  });
+})
 
   return (
     <View style={styles.container}>
