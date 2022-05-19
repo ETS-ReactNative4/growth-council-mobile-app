@@ -128,7 +128,6 @@ const CoachingSession = props => {
 
   const previousSessionID = route.params.previousSessionID;
 
-
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -244,31 +243,33 @@ const CoachingSession = props => {
                                 }}>
                                 {trait?.title}
                               </Text>
-                            </View>
-                            {index1 === 0 && (
-                              <View
-                                style={{
-                                  flexDirection: 'row',
-                                  alignItems: 'center',
-                                }}>
-                                <Text style={{fontSize: 12}}>Score</Text>
-                                <TouchableOpacity
-                                  onPress={() => setScoreVisible(!scoreVisible)}
-                                  onPressIn={() => {
-                                    setDisplay(!display);
-                                  }}
+                              {index1 === 0 && (
+                                <View
                                   style={{
-                                    width: 40,
-                                    marginLeft: 5,
-                                    backgroundColor: 'orange',
-                                    borderRadius: 50,
-                                    padding: 5,
+                                    flexDirection: 'row',
                                     alignItems: 'center',
                                   }}>
-                                  <Text style={{fontSize: 12}}>{num}</Text>
-                                </TouchableOpacity>
-                              </View>
-                            )}
+                                  <Text style={{fontSize: 12}}>Score</Text>
+                                  <TouchableOpacity
+                                    onPress={() =>
+                                      setScoreVisible(!scoreVisible)
+                                    }
+                                    onPressIn={() => {
+                                      setDisplay(!display);
+                                    }}
+                                    style={{
+                                      width: 40,
+                                      marginLeft: 5,
+                                      backgroundColor: 'orange',
+                                      borderRadius: 50,
+                                      padding: 5,
+                                      alignItems: 'center',
+                                    }}>
+                                    <Text style={{fontSize: 12}}>{num}</Text>
+                                  </TouchableOpacity>
+                                </View>
+                              )}
+                            </View>
                           </View>
                           <View style={{marginTop: 10, marginLeft: 50}}>
                             {trait?.sub_traits?.map((subTrait, index2) => (
