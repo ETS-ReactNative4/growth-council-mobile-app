@@ -73,7 +73,7 @@ const CouncilAllDetail = props => {
       <View>
         <TouchableOpacity
           onPress={() =>
-            ToastMessage.show('Join Growth Council')
+            ToastMessage.show('Please login to review further."')
           }>
           <View style={styles.eventCard} key={index}>
             <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
@@ -104,7 +104,7 @@ const CouncilAllDetail = props => {
       <View>
         <TouchableOpacity
           onPress={() =>
-            ToastMessage.show('Join Growth Council')
+            ToastMessage.show('Please login to review further."')
           }>
           <View style={styles.poeCard} key={index}>
             <View style={[styles.poeTheme, styles.shadowProp]}>
