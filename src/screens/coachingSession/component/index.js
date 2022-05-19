@@ -243,32 +243,34 @@ const CoachingSession = props => {
                                 }}>
                                 {trait?.title}
                               </Text>
-                              {index1 === 0 && (
-                                <View
+
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+                                }}>
+                                <Text style={{fontSize: 12}}>Score</Text>
+                                <TouchableOpacity
+                                  onPress={() => setScoreVisible(!scoreVisible)}
+                                  onPressIn={() => {
+                                    setDisplay(!display);
+                                  }}
                                   style={{
-                                    flexDirection: 'row',
+                                    width: 40,
+                                    marginLeft: 5,
+                                    backgroundColor: 'orange',
+                                    borderRadius: 50,
+                                    padding: 5,
                                     alignItems: 'center',
                                   }}>
-                                  <Text style={{fontSize: 12}}>Score</Text>
-                                  <TouchableOpacity
-                                    onPress={() =>
-                                      setScoreVisible(!scoreVisible)
-                                    }
-                                    onPressIn={() => {
-                                      setDisplay(!display);
-                                    }}
-                                    style={{
-                                      width: 40,
-                                      marginLeft: 5,
-                                      backgroundColor: 'orange',
-                                      borderRadius: 50,
-                                      padding: 5,
-                                      alignItems: 'center',
-                                    }}>
-                                    <Text style={{fontSize: 12}}>{num}</Text>
-                                  </TouchableOpacity>
-                                </View>
-                              )}
+                                  <Text style={{fontSize: 12}}>
+                                    {index1 === 0
+                                      ? score.growthIndexScore
+                                      : score.innovativeIndexScore}
+                                    {/* {num} */}
+                                  </Text>
+                                </TouchableOpacity>
+                              </View>
                             </View>
                           </View>
                           <View style={{marginTop: 10, marginLeft: 50}}>
