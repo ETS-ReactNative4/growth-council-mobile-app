@@ -292,7 +292,7 @@ const SubPOEDetails = props => {
                 }}>
                 {poeDetails?.name}
               </Text>
-
+			  {poeDetailLoading && <Loading />}
               <HTMLView
                 value={poeDescription}
                 textComponentProps={{
@@ -306,7 +306,7 @@ const SubPOEDetails = props => {
                   },
                 }}
               />
-			  {poeDetailLoading && <Loading />}
+			 
               {poeDetails !== null &&
                 pillarPOEs !== null &&
                 pillarPOEs !== false &&
