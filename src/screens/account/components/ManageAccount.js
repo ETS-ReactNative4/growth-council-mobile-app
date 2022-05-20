@@ -12,6 +12,7 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Keyboard,
+  Dimensions,
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -239,6 +240,18 @@ const ManageAccount = props => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}>
       <ScrollView
+        onScroll={e => {
+          const offset = e.nativeEvent.contentOffset.y;
+          if (offset >= 70) {
+            navigation.setOptions({
+              headerShown: false,
+            });
+          } else {
+            navigation.setOptions({
+              headerShown: true,
+            });
+          }
+        }}
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: PRIMARY_BACKGROUND_COLOR,
@@ -252,11 +265,14 @@ const ManageAccount = props => {
         <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
           <ImageBackground
             source={require('../../../assets/img/appBG.png')}
-            style={{height: 180}}></ImageBackground>
+            style={{
+              height: Dimensions.get('screen').height / 3,
+              paddingTop: Dimensions.get('screen').height / 9,
+            }}></ImageBackground>
           <View
             style={{
               display: 'flex',
-              marginTop: -90,
+              marginTop: -150,
               alignContent: 'center',
               marginLeft: 'auto',
               marginRight: 'auto',
