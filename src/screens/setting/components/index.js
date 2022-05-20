@@ -157,7 +157,7 @@ const Setting = props => {
                 <View style={styles.wrapper}>
                   <TouchableOpacity
                     onPress={() =>
-                      Linking.openURL('mailto:Councils@frost.com')
+						navigation.navigate('Gmail')
                     }>
                     <View style={styles.middleWrapper}>
                       <View style={styles.middleImage1}>

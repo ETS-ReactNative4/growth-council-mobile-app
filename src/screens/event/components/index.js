@@ -262,6 +262,7 @@ const Event = props => {
                     </View>
                   )}
                 </View>
+                {eventLoading && <Loading />}
                 {events?.location?.location_city !== undefined &&
                   events?.location?.location_address !== '' && (
                     <View
@@ -295,8 +296,6 @@ const Event = props => {
                           <Text>{events?.location?.location_address}</Text>
                         </View>
                       )}
-
-                      {eventLoading && <Loading />}
                     </View>
                   )}
               </View>
