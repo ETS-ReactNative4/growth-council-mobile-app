@@ -306,7 +306,7 @@ const SubPOEDetails = props => {
                   },
                 }}
               />
-              {poeDetailLoading && <Loading />}
+			  {poeDetailLoading && <Loading />}
               {poeDetails !== null &&
                 pillarPOEs !== null &&
                 pillarPOEs !== false &&
@@ -325,7 +325,8 @@ const SubPOEDetails = props => {
                 )}
               {poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null &&
-                poeDetails?.attachments !== false && (
+                poeDetails?.attachments !== false &&
+				poeDetails?.pillar_contents !== undefined && ( 
                   <View style={styles.sectionContainer}>
                     <FlatList
                       vertical
@@ -360,6 +361,7 @@ const SubPOEDetails = props => {
             </View>
           </ScrollView>
         </View>
+       
       </ScrollView>
     </>
   );

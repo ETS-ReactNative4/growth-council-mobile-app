@@ -28,7 +28,7 @@ import {
   resetCriticalIssue,
 } from '../criticalIssue/slice/criticalIssueSlice';
 
-import {fetchAllNewMember, resetNewMember} from './slice/newMemberSlice';
+
 
 const DashboardScreen = props => {
   const dispatch = useDispatch();
@@ -52,9 +52,7 @@ const DashboardScreen = props => {
     state => state.criticalIssue,
   );
 
-  const {newMember, newMemberLoading, newMemberError} = useSelector(
-    state => state.newMember,
-  );
+ 
 
   useEffect(() => {
     let content = pillarSliders?.flatMap((value, key) => {
@@ -153,11 +151,7 @@ const DashboardScreen = props => {
       fetchCritcalIssue={fetchCritcalIssue}
       cleanCriticalIssue={cleanCriticalIssue}
 
-	  newMember={newMember}
-	  newMemberLoading={newMemberLoading}
-	  newMemberError={newMemberError}
-	  fetchNewMember={fetchNewMember}
-	  cleanNewMember={cleanNewMember}
+
     />
   );
 };

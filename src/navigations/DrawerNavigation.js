@@ -154,6 +154,7 @@ export const DashboardStackScreen = () => {
     <DashboardStack.Navigator
       screenOptions={({navigation}) => ({
         gestureEnabled: false,
+        header: () => <MainHeader navigation={navigation} />,
       })}>
       <DashboardStack.Screen
         name="Dashboard"
@@ -161,7 +162,6 @@ export const DashboardStackScreen = () => {
         options={({route, navigation}) => ({
           animationEnabled: false,
           gestureEnabled: false,
-          header: () => <MainHeader navigation={navigation} />,
         })}
       />
     </DashboardStack.Navigator>
@@ -320,13 +320,7 @@ const DrawerNavigation = () => {
           drawerIcon: ({focused, size}) => (
             <Ionicons name="settings-outline" color={'#00008B'} size={20} />
           ),
-          header: () => (
-            <Header
-              title="Settings"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
+          header: () => <Header title="Settings" navigation={navigation} />,
         })}
       />
       <Drawer.Screen

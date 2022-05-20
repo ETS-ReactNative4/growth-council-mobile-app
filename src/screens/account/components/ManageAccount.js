@@ -12,7 +12,7 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Keyboard,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import {Button} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -265,16 +265,14 @@ const ManageAccount = props => {
         <View style={{backgroundColor: PRIMARY_BACKGROUND_COLOR}}>
           <Image
             source={require('../../../assets/img/appBG.png')}
-			style={{
-				height: Dimensions.get('screen').height / 4,
-				paddingTop: Dimensions.get('screen').height / 8,
-				
-			  }}
-			/>
+            style={{
+              height: Dimensions.get('screen').height / 3,
+              paddingTop: Dimensions.get('screen').height / 9,
+            }}/>
           <View
             style={{
               display: 'flex',
-              marginTop: -80,
+              marginTop: -150,
               alignContent: 'center',
               marginLeft: 'auto',
               marginRight: 'auto',

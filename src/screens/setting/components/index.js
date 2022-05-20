@@ -80,7 +80,6 @@ const Setting = props => {
             style={{
               height: Dimensions.get('screen').height / 4,
               paddingTop: Dimensions.get('screen').height / 8,
-     
             }}
           />
           <View
@@ -169,7 +168,9 @@ const Setting = props => {
                 </View>
                 <View style={styles.wrapper}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('Gmail')}>
+                    onPress={() =>
+						navigation.navigate('Gmail')
+                    }>
                     <View style={styles.middleWrapper}>
                       <View style={styles.middleImage1}>
                         <AntDesign name={'mail'} size={20} color="white" />
