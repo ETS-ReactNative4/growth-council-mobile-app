@@ -31,7 +31,7 @@ import ToastMessage from '../../../shared/toast';
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
 
-const SubPOEDetails = props => {
+const SubPOEListDetails = props => {
   const {
     navigation,
     route,
@@ -56,23 +56,18 @@ const SubPOEDetails = props => {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPOEDetailAsync = async () => {
-        await fetchAllPOEDetail(route.params.poeId);
-      };
-      fetchAllPOEDetailAsync();
-    }, []),
+      fetchAllPOEDetail(route.params.poeId);
+    }, [isFocused]),
   );
 
   useFocusEffect(
     useCallback(() => {
-      const fetchAllPillarPOEAsync = async () => {
-        await fetchAllPillarPOE(route.params.poeId);
-      };
-      fetchAllPillarPOEAsync();
+      fetchAllPillarPOE(route.params.poeId);
+
       return () => {
         cleanPillarPOE();
       };
-    }, []),
+    }, [isFocused]),
   );
 
   const _renderContentItem = ({item, index}) => {
@@ -206,13 +201,7 @@ const SubPOEDetails = props => {
 
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('SubPoeList', {
-            poeId: item?.term_id,
-            id: route?.params?.poeId,
-          })
-        }>
+      <TouchableOpacity>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
@@ -236,7 +225,7 @@ const SubPOEDetails = props => {
     );
   };
 
-  let backgroundColor = '';
+  let backgroundColor = Colors.PRACTICE_COLOR;
   const parent = poeDetails?.parent;
   switch (parent) {
     case 118:
@@ -285,8 +274,7 @@ const SubPOEDetails = props => {
             />
           </View>
 
-          <ScrollView
-            style={[styles.content, {backgroundColor: backgroundColor}]}>
+          <ScrollView style={[styles.content]}>
             <View style={styles.contentWrapper}>
               <Text
                 style={{
@@ -312,7 +300,7 @@ const SubPOEDetails = props => {
                   },
                 }}
               />
-			  {poeDetailLoading && <Loading />}
+              {poeDetailLoading && <Loading />}
               {poeDetails !== null &&
                 pillarPOEs !== null &&
                 pillarPOEs !== false &&
@@ -331,8 +319,7 @@ const SubPOEDetails = props => {
                 )}
               {poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null &&
-                poeDetails?.attachments !== false &&
-				poeDetails?.pillar_contents !== undefined && ( 
+                poeDetails?.attachments !== false && (
                   <View style={styles.sectionContainer}>
                     <FlatList
                       vertical
@@ -344,7 +331,8 @@ const SubPOEDetails = props => {
                 )}
               {poeDetails?.pillar_contents?.length !== 0 &&
                 poeDetails?.pillar_contents !== null &&
-                poeDetails?.pillar_contents !== false && (
+                poeDetails?.pillar_contents !== false &&
+                poeDetails?.pillar_contents !== undefined && (
                   <View style={styles.growthContent}>
                     <Text style={styles.title}> Content Library</Text>
                     <View
@@ -366,7 +354,6 @@ const SubPOEDetails = props => {
             </View>
           </ScrollView>
         </View>
-       
       </ScrollView>
     </>
   );
@@ -407,6 +394,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginBottom: 20,
+    backgroundColor: Colors.PRACTICE_COLOR,
   },
   contentWrapper: {
     width: '100%',
@@ -571,4 +559,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SubPOEDetails;
+export default SubPOEListDetails;
