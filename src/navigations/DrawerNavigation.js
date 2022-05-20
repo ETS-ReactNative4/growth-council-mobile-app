@@ -39,6 +39,7 @@ import DashboardScreen from '../screens/dashboard';
 import UserListScreen from '../screens/chat/UserList';
 import PeopleScreen from '../screens/people';
 import MainHeader from '../shared/header/MainHeader';
+import Header from '../shared/header/header';
 import {
   getPathFromState,
   getFocusedRouteNameFromRoute,
@@ -160,7 +161,7 @@ export const DashboardStackScreen = () => {
         component={DashboardScreen}
         options={({route, navigation}) => ({
           animationEnabled: false,
-          gestureEnabled: false
+          gestureEnabled: false,
         })}
       />
     </DashboardStack.Navigator>
@@ -319,13 +320,7 @@ const DrawerNavigation = () => {
           drawerIcon: ({focused, size}) => (
             <Ionicons name="settings-outline" color={'#00008B'} size={20} />
           ),
-          header: () => (
-            <SubHeader
-              title="Settings"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
+          header: () => <Header title="Settings" navigation={navigation} />,
         })}
       />
       <Drawer.Screen
@@ -387,10 +382,7 @@ const DrawerNavigation = () => {
           drawerIcon: () => null,
           drawerItemStyle: {height: 0},
           header: ({navigation}) => (
-            <MainHeader
-              title="Profile"
-              navigation={navigation}
-            />
+            <Header title="Profile" navigation={navigation} />
           ),
         })}
       />

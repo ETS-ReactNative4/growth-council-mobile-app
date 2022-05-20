@@ -10,6 +10,7 @@ import {
   Switch,
   TouchableOpacity,
   StatusBar,
+  Dimensions
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -64,7 +65,10 @@ const Setting = props => {
           style={{backgroundColor: PRIMARY_BACKGROUND_COLOR, width: '100%'}}>
           <Image
             source={require('../../../assets/img/appBG.png')}
-            style={{height: 160}}
+            style={{
+              height: Dimensions.get('screen').height / 4,
+              paddingTop: Dimensions.get('screen').height / 8,
+            }}
           />
           <View
             style={{
@@ -94,10 +98,10 @@ const Setting = props => {
                 />
               </View>
               <View style={styles.header}>
-                <Text style={styles.headingText1}>
-				{profile?.display_name}
+                <Text style={styles.headingText1}>{profile?.display_name}</Text>
+                <Text style={{color: '#222B45'}}>
+                  {profile.user_meta?.title}
                 </Text>
-                <Text style={{color: '#222B45'}}>{profile.user_meta?.title}</Text>
               </View>
             </View>
           </View>
@@ -152,7 +156,9 @@ const Setting = props => {
                 </View>
                 <View style={styles.wrapper}>
                   <TouchableOpacity
-                    onPress={() => Linking.openURL('mailto:Councils@frost.com')}>
+                    onPress={() =>
+                      Linking.openURL('mailto:Councils@frost.com')
+                    }>
                     <View style={styles.middleWrapper}>
                       <View style={styles.middleImage1}>
                         <AntDesign name={'mail'} size={20} color="white" />

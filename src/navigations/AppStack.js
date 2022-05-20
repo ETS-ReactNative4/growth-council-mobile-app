@@ -27,7 +27,7 @@ import FrostRadarScreen from '../screens/radar';
 import ManageAccountScreen from '../screens/account/ManageAccount';
 import OtherAccountScreen from '../screens/account/OthersAccount';
 import PrivacyScreen from '../screens/privacy';
-import Terms from '../screens/terms';
+
 import CouncilDetailScreen from '../screens/home/CouncilDetail';
 import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
@@ -413,34 +413,8 @@ const AppStack = () => (
         ),
       })}
     />
-    <Screen
-      name="Privacys"
-      component={PrivacyScreen}
-      options={({navigation}) => ({
-        header: () => (
-          <OptionHeader
-            title="Privacy Policy"
-            image={require('../assets/img/appBG.png')}
-            navigation={navigation}
-            noDrawer
-          />
-        ),
-      })}
-    />
-    <Screen
-      name="Terms"
-      component={Terms}
-      options={({navigation}) => ({
-        header: () => (
-          <OptionHeader
-            title="Terms Of Use"
-            image={require('../assets/img/appBG.png')}
-            navigation={navigation}
-            noDrawer
-          />
-        ),
-      })}
-    />
+   
+ 
     <Screen
       name="CommunityDetail"
       component={CommunityDetailScreen}
@@ -458,12 +432,7 @@ const AppStack = () => (
       })}
     />
 
-    <Screen
-      name="CouncilDetail"
-      component={CouncilDetailScreen}
-      options={{headerShown: false}}
-    />
-
+    
     <Screen
       name="GrowthDetail"
       component={GrowthDetailScreen}
