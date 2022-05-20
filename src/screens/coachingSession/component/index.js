@@ -121,9 +121,35 @@ const CoachingSession = props => {
     );
     if (isNaN(num)) num = 0.0;
   }
-  const previousSession = profile?.session_score?.map(item => item?.session);
+
+  const previousSession =
+    profile?.session_score !== false
+      ? profile?.session_score?.map(item => item?.session)
+      : [0];
+
+  const previousGrowth =
+    profile?.session_score !== false
+      ? profile?.session_score?.map(item => item?.growth_index)
+      : [0];
+	  
+  const previousInnovation =
+    profile?.session_score !== false
+      ? profile?.session_score?.map(item => item?.innovative_index)
+      : [0];
+
   const previousSessionID = route.params.previousSessionID;
 
+  let growth = 0.0;
+  let innovation = 0.0;
+  if (previousSession.indexOf(sessions.ID) > -1 === true) {
+    growth = previousGrowth;
+    innovation = previousInnovation;
+  } else {
+    growth = score.growthIndexScore.toFixed(2);
+    innovation = score.innovativeIndexScore.toFixed(2);
+    if (isNaN(growth)) growth = 0.0;
+    if (isNaN(innovation)) innovation = 0.0;
+  }
 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
@@ -165,9 +191,13 @@ const CoachingSession = props => {
                         previousSession.indexOf(previousSessionID) > -1 !==
                         true
                       ) {
-                        ToastMessage.show(
-                          'First, please complete previous session',
-                        );
+                        if (previousSessionID === undefined) {
+                          return setValue(val);
+                        } else {
+                          ToastMessage.show(
+                            'First, please complete previous session',
+                          );
+                        }
                       } else {
                         return setValue(val);
                       }
@@ -237,30 +267,32 @@ const CoachingSession = props => {
                                 {trait?.title}
                               </Text>
                             </View>
-                            {index1 === 0 && (
-                              <View
+
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                              }}>
+                              <Text style={{fontSize: 12}}>Score</Text>
+                              <TouchableOpacity
+                                onPress={() => setScoreVisible(!scoreVisible)}
+                                onPressIn={() => {
+                                  setDisplay(!display);
+                                }}
                                 style={{
-                                  flexDirection: 'row',
+                                  width: 40,
+                                  marginLeft: 5,
+                                  backgroundColor: 'orange',
+                                  borderRadius: 50,
+                                  padding: 5,
                                   alignItems: 'center',
                                 }}>
-                                <Text style={{fontSize: 12}}>Score</Text>
-                                <TouchableOpacity
-                                  onPress={() => setScoreVisible(!scoreVisible)}
-                                  onPressIn={() => {
-                                    setDisplay(!display);
-                                  }}
-                                  style={{
-                                    width: 40,
-                                    marginLeft: 5,
-                                    backgroundColor: 'orange',
-                                    borderRadius: 50,
-                                    padding: 5,
-                                    alignItems: 'center',
-                                  }}>
-                                  <Text style={{fontSize: 12}}>{num}</Text>
-                                </TouchableOpacity>
-                              </View>
-                            )}
+                                <Text style={{fontSize: 12}}>
+                                  {index1 === 0 ? growth : innovation}
+                                  {/* {num} */}
+                                </Text>
+                              </TouchableOpacity>
+                            </View>
                           </View>
                           <View style={{marginTop: 10, marginLeft: 50}}>
                             {trait?.sub_traits?.map((subTrait, index2) => (
