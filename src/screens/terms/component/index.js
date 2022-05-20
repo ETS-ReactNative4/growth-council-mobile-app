@@ -18,27 +18,10 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Footer from '../../../shared/footer';
 
 const Terms = props => {
-  const {
-    navigation,
-    terms,
-    termsLoading,
-    termsError,
-    fetchTermsOfUse,
-    cleanTerms,
-  } = props;
+  const {navigation} = props;
 
   const win = Dimensions.get('window');
 
-  useEffect(() => {
-    fetchTermsOfUse();
-  });
-
-  let description = terms.content1;
-  if (description !== undefined) {
-    description = terms.content1;
-  } else {
-    description = '';
-  }
   return (
     <>
       <StatusBar
@@ -51,18 +34,18 @@ const Terms = props => {
         <View style={styles.container}>
           <View style={styles.privacy}>
             <View style={styles.title}>
-              <Text style={styles.titleText}>{terms?.heading1}</Text>
+              <Text style={styles.titleText}>gfkjgs</Text>
               <View style={styles.titleBorder}></View>
             </View>
             <View>
               <HTMLView
-                value={description}
+                value="sbfgas"
                 textComponentProps={{
                   style: {
                     color: 'black',
                     fontSize: 16,
                     paddingBottom: 30,
-                    textAlign:'justify'
+                    textAlign: 'justify',
                   },
                 }}
               />
