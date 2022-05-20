@@ -70,8 +70,8 @@ const People = props => {
           s: searchKey,
           sort: sorting,
           expertise_areas: category,
-          // category: account,
-          // country: region,
+          category: account,
+          country: region,
         });
       };
       fetchAllUsersAsync();
@@ -105,8 +105,8 @@ const People = props => {
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
-        // category: account,
-        // country: region,
+        category: account,
+        country: region,
       });
       ToastMessage.show('You have successfully connected.');
     } else {
@@ -188,7 +188,7 @@ const People = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <View style={styles.container}>

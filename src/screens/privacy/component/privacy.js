@@ -11,59 +11,59 @@ import {
 } from 'react-native';
 import {Button} from 'native-base';
 import {Linking} from 'react-native';
-import HTMLView from 'react-native-htmlview';
 import Footer from '../../../shared/footer';
+import HTMLView from 'react-native-htmlview';
 
 import {CommonStyles, Colors, Typography} from '../../../theme';
 
-const screenHeight = Math.round(Dimensions.get('window').height);
-
-const Feedback = props => {
-  const {navigation, feedback, feedbackLoading, feedbackError, fetchFeedback} =
-    props;
+const privacy = props => {
+  const {
+    navigation,
+    privacy,
+    privacyLoading,
+    privacyError,
+    fetchPrivacyPolicy,
+  } = props;
 
   const win = Dimensions.get('window');
 
   useEffect(() => {
-    const fetchFeedbackAsync = async () => {
-      await fetchFeedback();
-    };
-    fetchFeedbackAsync();
+    fetchPrivacyPolicy();
   }, []);
 
-  let heading = feedback?.heading1;
-  if (heading !== undefined) {
-    heading = feedback?.heading1;
-  } else {
-    heading = '';
-  }
-
-  let description = feedback?.content1;
+  let description = privacy.content1;
   if (description !== undefined) {
-    description = feedback?.content1;
+    description = privacy.content1;
   } else {
     description = '';
   }
 
   return (
     <>
-	 <StatusBar
+      <StatusBar
         barStyle="light-content"
         hidden={false}
         backgroundColor="#001D3F"
         translucent={false}
       />
-      <ScrollView
-        style={{
-          height: Platform.OS === 'ios' ? 400 : 350,
-        }}>
-        <View style={[styles.container, {height: win.height}]}>
-          <View style={styles.feedback}>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.privacy}>
             <View style={styles.title}>
-              <Text style={styles.titleText}>{heading}</Text>
+              <Text style={styles.titleText}>{privacy.heading1}</Text>
               <View style={styles.titleBorder}></View>
             </View>
-            <HTMLView value={description} textComponentProps={{ style: {fontSize:14} }}  />
+            <HTMLView
+              value={description}
+              textComponentProps={{
+                style: {
+                  color: 'black',
+                  fontSize: 16,
+                  paddingBottom: 30,
+                  textAlign: 'justify',
+                },
+              }}
+            />
           </View>
           <View style={styles.cta}>
             <Button
@@ -72,23 +72,23 @@ const Feedback = props => {
                 styles.plainButton,
                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
               ]}
-              onPress={() => navigation.navigate('Email')}>
+              onPress={() => navigation.navigate('EmailDetail')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
                 Contact Our Program Team
               </Text>
             </Button>
           </View>
-		  {/* <Footer /> */}
+          {/* <Footer /> */}
         </View>
-	
       </ScrollView>
     </>
   );
 };
-export default Feedback;
+export default privacy;
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
+    paddingBottom: 20,
   },
   header: {
     ...CommonStyles.header,
@@ -97,13 +97,11 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     marginRight: 32,
   },
-  feedback: {
-    paddingLeft: 30,
-	paddingRight: 30,
+  privacy: {
+    padding: 30,
   },
   title: {
-	marginTop:30,
-	marginBottom: 30,
+    marginBottom: 30,
   },
   titleText: {
     color: '#000',

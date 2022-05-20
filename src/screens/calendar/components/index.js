@@ -213,7 +213,7 @@ const EventCalendar = props => {
           <View style={[styles.eventCard, styles.shadowProp]} key={index}>
             <Text
               style={{
-                marginTop: 30,
+                paddingVertical: 20,
                 marginLeft: 5,
                 marginRight: 5,
                 fontSize: 12,
@@ -260,7 +260,7 @@ const EventCalendar = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView style={{backgroundColor: Colors.PRIMARY_BACKGROUND_COLOR}}>
@@ -463,6 +463,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 10,
+    justifyContent: 'center',
+    alignContent: 'center',
+    textAlign: 'center',
   },
   eventTheme: {
     height: '100%',
@@ -472,7 +475,6 @@ const styles = StyleSheet.create({
   },
   eventDetails: {
     flex: 1,
-    height: 80,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     padding: 10,

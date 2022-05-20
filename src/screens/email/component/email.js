@@ -28,11 +28,6 @@ const emailSchema = Yup.object().shape({
 const Email = props => {
   const {
     navigation,
-    profile,
-    profileLoading,
-    profileError,
-    fetchProfile,
-    cleanProfile,
 
     sendMail,
     sendMailLoading,
@@ -48,7 +43,7 @@ const Email = props => {
       initialValues: {
         subject: '',
         message: '',
-        sender: profile?.user_email
+        sender: '',
       },
       onSubmit: async values => {
         await sendMailUser(values).then(response => {
@@ -59,13 +54,6 @@ const Email = props => {
         });
       },
     });
-
-  useEffect(() => {
-    const fetchProfileAsync = async () => {
-      await fetchProfile();
-    };
-    fetchProfileAsync();
-  }, [isFocused]);
 
   useEffect(() => {
     return () => {
@@ -100,9 +88,6 @@ const Email = props => {
                   marginLeft: 10,
                 }}>
                 <Text style={{color: 'white', fontSize: 20}}>New Messages</Text>
-                <Text style={{color: 'white', fontSize: 16}}>
-                  {profile?.user_email}
-                </Text>
               </View>
             </View>
 
@@ -113,6 +98,7 @@ const Email = props => {
               <Text style={{fontSize: 18, marginTop: 10}}>From :</Text>
               <TextInput
                 multiline={true}
+                numberOfLines={1}
                 style={[styles.input, {color: 'blue'}]}
                 value={values.sender}
                 onChangeText={handleChange('sender')}
@@ -181,6 +167,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: 'black',
     fontSize: 16,
+    textAlignHorizontal: 'left',
   },
   textarea: {
     paddingTop: 10,

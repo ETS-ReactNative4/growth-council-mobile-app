@@ -26,7 +26,7 @@ const Terms = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView>
@@ -86,10 +86,10 @@ const Terms = props => {
                 3. Service Marks.
                 {'\n'}
                 {'\n'}
-                “Frost.com”, “Brandandemandsolutions.com” and others are our service marks
-                or registered service marks or trademarks. Other product and
-                company names mentioned on the Site may be trademarks of their
-                respective owners.
+                “Frost.com”, “Brandandemandsolutions.com” and others are our
+                service marks or registered service marks or trademarks. Other
+                product and company names mentioned on the Site may be
+                trademarks of their respective owners.
                 {'\n'}
                 {'\n'}
                 4. Limited License; Permitted Uses.
@@ -158,7 +158,7 @@ const Terms = props => {
                 styles.plainButton,
                 {backgroundColor: Colors.SECONDARY_BUTTON_COLOR},
               ]}
-              onPress={() => navigation.navigate('Email')}>
+              onPress={() => navigation.navigate('EmailDetail')}>
               <Text style={[styles.buttonText, styles.plainButtonText]}>
                 Contact Our Program Team
               </Text>

@@ -121,7 +121,6 @@ const CoachingSession = props => {
     );
     if (isNaN(num)) num = 0.0;
   }
-
   const previousSession =
     profile?.session_score !== false
       ? profile?.session_score?.map(item => item?.session)
@@ -129,12 +128,12 @@ const CoachingSession = props => {
 
   const previousGrowth =
     profile?.session_score !== false
-      ? profile?.session_score?.map(item => item?.growth_index)
+      ? profile?.session_score?.map(item => item?.growth_index[0])
       : [0];
 	  
   const previousInnovation =
     profile?.session_score !== false
-      ? profile?.session_score?.map(item => item?.innovative_index)
+      ? profile?.session_score?.map(item => item?.innovative_index[0])
       : [0];
 
   const previousSessionID = route.params.previousSessionID;
@@ -160,7 +159,7 @@ const CoachingSession = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <View style={styles.container}>

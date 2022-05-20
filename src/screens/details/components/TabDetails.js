@@ -17,7 +17,8 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import ToastMessage from '../../../shared/toast';
-import ReactNativeBlobUtil from 'react-native-blob-util';
+import RNFetchBlob from 'react-native-blob-util';
+// import ReactNativeBlobUtil from 'react-native-blob-util';
 import BottomNav from '../../../layout/BottomLayout';
 import ArticleFeedbackCard from '../../../shared/card/ArticleFeedbackCard';
 import Footer from '../../../shared/footer';
@@ -87,35 +88,70 @@ const TabDetail = props => {
     };
 
     const downloadFile = () => {
-      let date = new Date();
+      const {config, fs} = RNFetchBlob;
+      const {
+        dirs: {DownloadDir, DocumentDir},
+      } = RNFetchBlob.fs;
+      const isIOS = Platform.OS === 'ios';
+      const aPath =
+        Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+      // Platform.select({ios: DocumentDir, android: DocumentDir});
 
+      let date = new Date();
       let FILE_URL = fileUrl;
 
       let file_ext = getFileExtention(FILE_URL);
 
       file_ext = '.' + file_ext[0];
 
-      const {config, fs} = ReactNativeBlobUtil;
-      let RootDir = fs.dirs.PictureDir;
-      let options = {
-        fileCache: true,
-        addAndroidDownloads: {
+      const configOptions = Platform.select({
+        ios: {
+          fileCache: true,
           path:
-            RootDir +
+            aPath +
             '/file_' +
             Math.floor(date.getTime() + date.getSeconds() / 2) +
             file_ext,
           description: 'downloading file...',
-          notification: true,
-          useDownloadManager: true,
         },
-      };
-      config(options)
-        .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
-        .then(res => {
-          console.log('res -> ', JSON.stringify(res));
-          ToastMessage.show('PDF File Downloaded Successfully.');
-        });
+        android: {
+          fileCache: false,
+          addAndroidDownloads: {
+            path:
+              aPath +
+              '/file_' +
+              Math.floor(date.getTime() + date.getSeconds() / 2) +
+              file_ext,
+            description: 'downloading file...',
+            notification: true,
+            useDownloadManager: true,
+          },
+        },
+      });
+
+      if (isIOS) {
+        RNFetchBlob.config(configOptions)
+          .fetch('GET', FILE_URL)
+          .then(res => {
+            console.log('file', res);
+            RNFetchBlob.ios.previewDocument('file://' + res.path());
+          });
+        return;
+      } else {
+        config(configOptions)
+          .fetch('GET', FILE_URL)
+          .progress((received, total) => {
+            console.log('progress', received / total);
+          })
+
+          .then(res => {
+            console.log('file download', res);
+            RNFetchBlob.android.actionViewIntent(res.path());
+          })
+          .catch((errorMessage, statusCode) => {
+            console.log('error with downloading file', errorMessage);
+          });
+      }
     };
 
     const getFileExtention = fileUrl => {
@@ -207,7 +243,7 @@ const TabDetail = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
 

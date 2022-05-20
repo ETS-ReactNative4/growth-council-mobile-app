@@ -5,6 +5,7 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import {createStackNavigator} from '@react-navigation/stack';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,7 +19,7 @@ import Font from 'react-native-vector-icons/FontAwesome5';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Feature from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux';
-import {useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused, useRoute} from '@react-navigation/native';
 import {Linking} from 'react-native';
 import {useAuthentication} from '../context/auth';
 import ContentScreen from '../screens/contentLibrary';
@@ -31,41 +32,41 @@ import HomeCommunityScreen from '../screens/dashboard/HomeCommunity';
 import BestPracticeScreen from '../screens/dashboard/BestPractice';
 import GrowthCoachingScreen from '../screens/dashboard/GrowthCoaching';
 import SettingScreen from '../screens/setting/index';
-
 import SubHeader from '../shared/header/SubHeader';
-import {DashboardStackScreen} from './MainNavigation';
 
 import {fetchProfileByID} from '../screens/account/slice/profileSlice';
+import DashboardScreen from '../screens/dashboard';
+import UserListScreen from '../screens/chat/UserList';
+import PeopleScreen from '../screens/people';
+import MainHeader from '../shared/header/MainHeader';
+import {
+  getPathFromState,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
+import AccountScreen from '../screens/account';
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = props => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-
   const {loading, setLoading, message, setMessage, signOut} =
     useAuthentication();
-
   const {profile, profileLoading, profileError} = useSelector(
     state => state.profile,
   );
-
   const fetchProfileByIdentifier = () => {
     dispatch(fetchProfileByID());
   };
-
   useEffect(() => {
     fetchProfileByIdentifier();
   }, [isFocused]);
-
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
-
   const logout = async () => {
     await signOut();
   };
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <View
@@ -113,13 +114,11 @@ const CustomDrawerContent = props => {
       </View> */}
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-
         <DrawerItem
           label="Logout"
           onPress={logout}
           icon={() => <Material name={'logout'} size={20} color={'#00008B'} />}
         />
-
         <View style={styles.footer}>
           <TouchableOpacity
             onPress={() => Linking.openURL('https://www.frost.com/')}>
@@ -132,7 +131,6 @@ const CustomDrawerContent = props => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-
           <Text style={styles.footerText}>Powered By</Text>
           <TouchableOpacity
             onPress={() => Linking.openURL('https://frostdigi.ai/')}>
@@ -148,15 +146,42 @@ const CustomDrawerContent = props => {
   );
 };
 
+const DashboardStack = createStackNavigator();
+
+export const DashboardStackScreen = () => {
+  return (
+    <DashboardStack.Navigator
+      screenOptions={({navigation}) => ({
+        gestureEnabled: false,
+        header: () => <MainHeader navigation={navigation} />,
+      })}>
+      <DashboardStack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={({route, navigation}) => ({
+          animationEnabled: false,
+          gestureEnabled: false
+        })}
+      />
+    </DashboardStack.Navigator>
+  );
+};
+
 const DrawerNavigation = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
       screenOptions={() => ({
-        activeTintColor: '#e91e63',
+        // activeTintColor: '#e91e63',
+        drawerActiveBackgroundColor: 'rgba(0,0,0,0)',
+        drawerActiveTintColor: '#888',
+        drawerInactiveTintColor: '#888',
         itemStyle: {marginVertical: 1},
       })}
-      drawerContent={props => <CustomDrawerContent {...props} />}>
+      drawerContent={props => {
+        // const filteredProps = {...props,  state: {...props.state, routeNames: props.state.routeNames.filter(routeName => routeName !== 'Account' && routeName !== "People" && routeName !== "UserList"), routes: props.state.routes.filter(route => route.name !== "Account" && route.name !== "People" && route.name !== "UserList")}};
+        return <CustomDrawerContent {...props} />;
+      }}>
       <Drawer.Screen
         name="Dashboard"
         component={DashboardStackScreen}
@@ -165,7 +190,6 @@ const DrawerNavigation = () => {
             <Material name="inbox" color={'#00008B'} size={20} />
           ),
           headerShown: false,
-          navigationOptions: {gesturesEnabled: false},
         })}
       />
       <Drawer.Screen
@@ -189,11 +213,7 @@ const DrawerNavigation = () => {
         component={BestPracticeScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Image
-              source={require('../../src/assets/img/GrowthContentlogo.png')}
-              style={{width: 20, height: 25}}
-              resizeMode="cover"
-            />
+            <Feature name="thumbs-up" color={'#f26722'} size={20} />
           ),
           header: () => (
             <SubHeader
@@ -211,7 +231,7 @@ const DrawerNavigation = () => {
           drawerIcon: ({focused, size}) => (
             <Image
               source={require('../../src/assets/img/GrowthCoaching-01.png')}
-              style={{width: 20, height: 25}}
+              style={{width: 25, height: 30}}
               resizeMode="cover"
             />
           ),
@@ -240,7 +260,22 @@ const DrawerNavigation = () => {
           ),
         })}
       /> */}
-
+      {/* <Drawer.Screen
+        name="Critical Issues"
+        component={CriticalIssueScreen}
+        options={({navigation}) => ({
+          drawerIcon: ({focused, size}) => (
+            <Material name="content-copy" color={'#00008B'} size={20} />
+          ),
+          header: () => (
+            <SubHeader
+              title="Critical Issues"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      /> */}
       <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}
@@ -309,10 +344,59 @@ const DrawerNavigation = () => {
           ),
         })}
       />
+      <Drawer.Screen
+        options={{
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null,
+          drawerItemStyle: {height: 0},
+          header: ({navigation}) => (
+            <SubHeader
+              title="User List"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        }}
+        name="UserList"
+        component={UserListScreen}
+      />
+      <Drawer.Screen
+        name="People"
+        component={PeopleScreen}
+        options={() => ({
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null,
+          drawerItemStyle: {height: 0},
+          header: ({navigation}) => (
+            <SubHeader
+              title="Member Connection"
+              image={require('../assets/img/appBG.png')}
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen
+        name="Account"
+        component={AccountScreen}
+        options={() => ({
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null,
+          drawerItemStyle: {height: 0},
+          header: ({navigation}) => (
+            <MainHeader
+              title="Profile"
+              navigation={navigation}
+            />
+          ),
+        })}
+      />
     </Drawer.Navigator>
   );
 };
-
 const styles = StyleSheet.create({
   drawerItem: {
     padding: 16,
@@ -332,5 +416,4 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
 });
-
 export default DrawerNavigation;

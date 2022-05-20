@@ -15,13 +15,12 @@ import {
   Alert,
   BackHandler,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {useAuthentication} from '../../../context/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
-import {useIsFocused} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import PillarList from './PillarList';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -31,13 +30,15 @@ import Player from './Player';
 import BottomNav from '../../../layout/BottomLayout';
 import HTMLView from 'react-native-htmlview';
 import Loading from '../../../shared/loading';
+import {sendNotification} from '../../../utils/sendNotification';
+import MainHeader from '../../../shared/header/MainHeader';
+import messaging from '@react-native-firebase/messaging'
 
 const win = Dimensions.get('window').width;
 const contentContainerWidth = win / 2;
 
 const Dashboard = props => {
   const {
-    navigation,
     upcomingEvents,
     upcomingEventLoading,
     upcomingEventError,
@@ -77,14 +78,12 @@ const Dashboard = props => {
     cleanCriticalIssue,
   } = props;
 
-  const nav = useNavigation();
-
-  const {signOut} = useAuthentication();
   const isFocused = useIsFocused();
   const [memberConnection, setMemberConnection] = useState([]);
 
   const [dataSourceCords, setDataSourceCords] = useState(criticalIssue);
   const [ref, setRef] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchAllUpcomingEventAsync = async () => {
@@ -92,6 +91,12 @@ const Dashboard = props => {
     };
     fetchAllUpcomingEventAsync();
   }, []);
+
+  useEffect(() => {
+    messaging().getToken().then(token => {
+      console.log("FCM ---> " + token);
+    })
+  }, [])
 
   useEffect(() => {
     const fetchAllCommunityMemberAsync = async () => {
@@ -370,13 +375,31 @@ const Dashboard = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
-        translucent={false}
+        backgroundColor="#001D3F"
+        translucent={true}
       />
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+      <ScrollView
+        onScroll={e => {
+          const offset = e.nativeEvent.contentOffset.y;
+          if (offset >= 70) {
+            navigation.setOptions({
+              headerShown: false,
+            });
+          } else {
+            navigation.setOptions({
+              headerShown: true,
+            });
+          }
+        }}
+        showsVerticalScrollIndicator={false}
+        style={styles.container}>
         <View>
           <ImageBackground
-            style={{width: '100%', height: 180}}
+            style={{
+              width: '100%',
+              height: Dimensions.get('screen').height / 3,
+              paddingTop: Dimensions.get('screen').height / 9,
+            }}
             source={require('../../../assets/img/appBG.png')}>
             <View style={styles.pillar}>
               <PillarList

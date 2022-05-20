@@ -24,7 +24,8 @@ import Player from '../../dashboard/components/Player';
 import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Loading from '../../../shared/loading';
-import ReactNativeBlobUtil from 'react-native-blob-util';
+import RNFetchBlob from 'react-native-blob-util';
+// import ReactNativeBlobUtil from 'react-native-blob-util';
 import ToastMessage from '../../../shared/toast';
 
 const win = Dimensions.get('window');
@@ -55,13 +56,12 @@ const SubPOEDetails = props => {
 
   useFocusEffect(
     useCallback(() => {
-    const fetchAllPOEDetailAsync = async () => {
-      await fetchAllPOEDetail(route.params.poeId);
-    };
-    fetchAllPOEDetailAsync();
-  }, []),
-  )
-
+      const fetchAllPOEDetailAsync = async () => {
+        await fetchAllPOEDetail(route.params.poeId);
+      };
+      fetchAllPOEDetailAsync();
+    }, []),
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -101,47 +101,80 @@ const SubPOEDetails = props => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             downloadFile();
-
-            
           } else {
             Alert.alert('Error', 'Storage Permission Not Granted');
           }
         } catch (err) {
-			ToastMessage.show(err);
+          ToastMessage.show(err);
         }
       }
     };
 
     const downloadFile = () => {
-      let date = new Date();
+      const {config, fs} = RNFetchBlob;
+      const {
+        dirs: {DownloadDir, DocumentDir},
+      } = RNFetchBlob.fs;
+      const isIOS = Platform.OS === 'ios';
+      const aPath =
+        Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+      // Platform.select({ios: DocumentDir, android: DocumentDir});
 
+      let date = new Date();
       let FILE_URL = fileUrl;
 
       let file_ext = getFileExtention(FILE_URL);
 
       file_ext = '.' + file_ext[0];
 
-      const {config, fs} = ReactNativeBlobUtil;
-      let RootDir = fs.dirs.PictureDir;
-      let options = {
-        fileCache: true,
-        addAndroidDownloads: {
+      const configOptions = Platform.select({
+        ios: {
+          fileCache: true,
           path:
-            RootDir +
+            aPath +
             '/file_' +
             Math.floor(date.getTime() + date.getSeconds() / 2) +
             file_ext,
           description: 'downloading file...',
-          notification: true,
-          useDownloadManager: true,
         },
-      };
-      config(options)
-        .fetch('GET', FILE_URL, ToastMessage.show('PDF File Download Started.'))
-        .then(res => {
-			console.log('res -> ', JSON.stringify(res));
-          ToastMessage.show('PDF File Downloaded Successfully.');
-        });
+        android: {
+          fileCache: false,
+          addAndroidDownloads: {
+            path:
+              aPath +
+              '/file_' +
+              Math.floor(date.getTime() + date.getSeconds() / 2) +
+              file_ext,
+            description: 'downloading file...',
+            notification: true,
+            useDownloadManager: true,
+          },
+        },
+      });
+
+      if (isIOS) {
+        RNFetchBlob.config(configOptions)
+          .fetch('GET', FILE_URL)
+          .then(res => {
+            console.log('file', res);
+            RNFetchBlob.ios.previewDocument('file://' + res.path());
+          });
+        return;
+      } else {
+        config(configOptions)
+          .fetch('GET', FILE_URL)
+          .progress((received, total) => {
+            console.log('progress', received / total);
+          })
+
+          .then(res => {
+            console.log('file download', res);
+            RNFetchBlob.android.actionViewIntent(res.path());
+          })
+          .catch((errorMessage, statusCode) => {
+            console.log('error with downloading file', errorMessage);
+          });
+      }
     };
 
     const getFileExtention = fileUrl => {
@@ -166,6 +199,38 @@ const SubPOEDetails = props => {
             onPress={checkPermission}>
             <FeatherIcon name="arrow-down" size={20} color="#9B9CA0" />
           </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const _renderMiddleItem = ({item, index}, navigation) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('SubPoe', {
+            poeId: item?.term_id,
+            id: route?.params?.poeId,
+          })
+        }>
+        <View style={styles.middleWrapper}>
+          <View style={[styles.middleW, styles.shadowProp]}>
+            <Image
+              source={{uri: item?.image}}
+              style={{width: 30, height: 30}}
+              resizeMode="contain"
+            />
+          </View>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 10,
+              marginHorizontal: 10,
+              textAlign: 'center',
+              color: '#030303',
+            }}>
+            {item?.name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -196,7 +261,7 @@ const SubPOEDetails = props => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="grey"
+        backgroundColor="#001D3F"
         translucent={false}
       />
       <ScrollView
@@ -247,7 +312,22 @@ const SubPOEDetails = props => {
                   },
                 }}
               />
-
+              {poeDetails !== null &&
+                pillarPOEs !== null &&
+                pillarPOEs !== false &&
+                pillarPOEs !== undefined &&
+                pillarPOEs?.length !== 0 && (
+                  <View style={styles.top}>
+                    <Text style={styles.title}> Sub Points of Engagement</Text>
+                    <FlatList
+                      numColumns={4}
+                      showsHorizontalScrollIndicator={false}
+                      data={pillarPOEs}
+                      // renderItem={_renderMiddleItem}
+                      renderItem={item => _renderMiddleItem(item, navigation)}
+                    />
+                  </View>
+                )}
               {poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null &&
                 poeDetails?.attachments !== false && (
@@ -320,12 +400,14 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   content: {
+    width: '98%',
     // borderRadius: 18,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginBottom: 20,
   },
   contentWrapper: {
+    width: '100%',
     backgroundColor: 'white',
     overflow: 'scroll',
     marginTop: 10,
