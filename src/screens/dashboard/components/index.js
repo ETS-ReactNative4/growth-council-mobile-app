@@ -32,7 +32,7 @@ import HTMLView from 'react-native-htmlview';
 import Loading from '../../../shared/loading';
 import {sendNotification} from '../../../utils/sendNotification';
 import MainHeader from '../../../shared/header/MainHeader';
-import messaging from '@react-native-firebase/messaging'
+import messaging from '@react-native-firebase/messaging';
 
 const win = Dimensions.get('window').width;
 const contentContainerWidth = win / 2;
@@ -93,21 +93,26 @@ const Dashboard = props => {
   }, []);
 
   useEffect(() => {
-    messaging().getToken().then(token => {
-      console.log("FCM ---> " + token);
-    })
-  }, [])
+    messaging()
+      .getToken()
+      .then(token => {
+        console.log('FCM ---> ' + token);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchAllCommunityMemberAsync = async () => {
-      await fetchAllCommunityMember();
+      await fetchAllCommunityMember({
+        s: '',
+        sort: 'Desc',
+      });
     };
     fetchAllCommunityMemberAsync();
 
     return () => {
       cleanCommunityMember();
     };
-  }, [isFocused]);
+  }, []);
 
   useEffect(() => {
     const fetchPillarSliderAsync = async () => {
