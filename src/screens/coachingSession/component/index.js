@@ -126,23 +126,31 @@ const CoachingSession = props => {
       ? profile?.session_score?.map(item => item?.session)
       : [0];
 
-  const previousGrowth =
+  const Growth =
     profile?.session_score !== false
-      ? profile?.session_score?.map(item => item?.growth_index[0])
-      : [0];
-	  
-  const previousInnovation =
+      ? profile?.session_score?.map(item => {
+          let growth =
+            item?.session === sessions.ID ? item?.growth_index : null;
+          return growth;
+        })
+      : 0.0;
+
+  const Innovation =
     profile?.session_score !== false
-      ? profile?.session_score?.map(item => item?.innovative_index[0])
-      : [0];
+      ? profile?.session_score?.map(item => {
+          let inn =
+            item?.session === sessions.ID ? item?.innovative_index : null;
+          return inn;
+        })
+      : 0.0;
 
   const previousSessionID = route.params.previousSessionID;
 
   let growth = 0.0;
   let innovation = 0.0;
   if (previousSession.indexOf(sessions.ID) > -1 === true) {
-    growth = previousGrowth;
-    innovation = previousInnovation;
+    growth = Growth;
+    innovation = Innovation;
   } else {
     growth = score.growthIndexScore.toFixed(2);
     innovation = score.innovativeIndexScore.toFixed(2);
