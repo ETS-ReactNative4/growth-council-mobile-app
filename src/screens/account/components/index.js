@@ -78,7 +78,7 @@ const Profile = props => {
           <Image
             source={require('../../../assets/img/appBG.png')}
             style={{
-              height: Dimensions.get('screen').height / 3,
+              height: Dimensions.get('screen').height / 4,
               paddingTop: Dimensions.get('screen').height / 9,
               width: win.width,
             }}
@@ -86,7 +86,7 @@ const Profile = props => {
           <View
             style={{
               display: 'flex',
-              marginTop: -150,
+              marginTop: -80,
               alignContent: 'center',
               marginLeft: 'auto',
               marginRight: 'auto',

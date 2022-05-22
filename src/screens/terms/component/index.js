@@ -18,9 +18,27 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import Footer from '../../../shared/footer';
 
 const Terms = props => {
-  const {navigation} = props;
+  const {
+    navigation,
+    terms,
+    termsLoadig,
+    termsError,
+    fetchTermsOfUse,
+    cleanTerms,
+  } = props;
 
   const win = Dimensions.get('window');
+
+  useEffect(() => {
+    fetchTermsOfUse();
+  }, []);
+
+  let description = terms.content1;
+  if (description !== undefined) {
+    description = terms.content1;
+  } else {
+    description = '';
+  }
 
   return (
     <>
@@ -34,12 +52,12 @@ const Terms = props => {
         <View style={styles.container}>
           <View style={styles.privacy}>
             <View style={styles.title}>
-              <Text style={styles.titleText}>gfkjgs</Text>
+              <Text style={styles.titleText}>{terms.heading1}</Text>
               <View style={styles.titleBorder}></View>
             </View>
             <View>
               <HTMLView
-                value="sbfgas"
+                value={description}
                 textComponentProps={{
                   style: {
                     color: 'black',

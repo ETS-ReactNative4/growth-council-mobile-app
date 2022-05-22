@@ -20,9 +20,7 @@ import {CommonStyles, Colors, Typography} from '../../../theme';
 import {BubblesLoader} from 'react-native-indicator';
 import moment from 'moment';
 import ToastMessage from '../../../shared/toast';
-import {padding} from '@mui/system';
-import {TextArea} from 'native-base';
-import SessionCompleted from './sessionCompleted';
+import HTMLView from 'react-native-htmlview';
 
 const CoachingSession = props => {
   const {
@@ -54,6 +52,7 @@ const CoachingSession = props => {
 
   const scrollRef = useRef();
   const [value, setValue] = useState('About');
+  const [count, setCount] = useState(0);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [scoreVisible, setScoreVisible] = useState(false);
@@ -133,7 +132,7 @@ const CoachingSession = props => {
             item?.session === sessions.ID ? item?.growth_index : null;
           return growth;
         })
-      : 0.0;
+      : [0];
 
   const Innovation =
     profile?.session_score !== false
@@ -142,7 +141,7 @@ const CoachingSession = props => {
             item?.session === sessions.ID ? item?.innovative_index : null;
           return inn;
         })
-      : 0.0;
+      : [0];
 
   const previousSessionID = route.params.previousSessionID;
 
@@ -285,7 +284,11 @@ const CoachingSession = props => {
                                 onPress={() => setScoreVisible(!scoreVisible)}
                                 onPressIn={() => {
                                   setDisplay(!display);
+                                  setCount(
+                                    index1 === 0 ? 0 : 1,
+                                  );
                                 }}
+                                id={trait.ID}
                                 style={{
                                   width: 40,
                                   marginLeft: 5,
@@ -340,7 +343,8 @@ const CoachingSession = props => {
                   visible={scoreVisible}
                   onRequestClose={() => {
                     setScoreVisible(false);
-                  }}>
+                  }}
+                  id={props.id}>
                   <ScrollView
                     style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
                     contentContainerStyle={{
@@ -348,35 +352,35 @@ const CoachingSession = props => {
                       paddingBottom: 10,
                     }}>
                     <View style={styles.modalView}>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          alignContent: 'center',
-                          justifyContent: 'center',
-                          padding: 20,
-                        }}>
-                        <Text
+                      <View>
+                        <View
                           style={{
-                            width: '80%',
-                            paddingTop: 20,
-                            paddingLeft: 80,
-                            fontSize: 18,
-                            color: 'black',
-                            fontWeight: '700',
+                            flexDirection: 'row',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            padding: 20,
                           }}>
-                          Scores Chart
-                        </Text>
-                        <Pressable onPress={() => setScoreVisible(false)}>
-                          <Ionicons
-                            name={'close'}
-                            size={35}
-                            color={'#4936BE'}
-                          />
-                        </Pressable>
-                      </View>
+                          <Text
+                            style={{
+                              width: '80%',
+                              paddingTop: 20,
+                              paddingLeft: 80,
+                              fontSize: 18,
+                              color: 'black',
+                              fontWeight: '700',
+                            }}>
+                            Scores Chart
+                          </Text>
+                          <Pressable onPress={() => setScoreVisible(false)}>
+                            <Ionicons
+                              name={'close'}
+                              size={35}
+                              color={'#4936BE'}
+                            />
+                          </Pressable>
+                        </View>
 
-                      <View style={{flexDirection: 'row', marginBottom: 10}}>
-                        {traits?.map((trait, index1) => (
+                        <View style={{flexDirection: 'row', marginBottom: 10}}>
                           <View
                             style={[
                               {
@@ -396,171 +400,78 @@ const CoachingSession = props => {
                                 color: '#8DC182',
                                 fontWeight: '700',
                               }}>
-                              {trait?.title}
+                              {traits[count]?.title}
                             </Text>
-                          </View>
-                        ))}
-                      </View>
-
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          marginTop: 10,
-                        }}>
-                        <View
-                          style={{
-                            width: '35%',
-
-                            alignContent: 'center',
-                          }}>
-                          <View
-                            style={[
-                              {
-                                backgroundColor: '#97CB0A',
-                                borderRadius: 20,
-                                marginLeft: 10,
-                                marginTop: 5,
-                                marginBottom: 5,
-                                padding: 10,
-                                width: '100%',
-                                alignItems: 'center',
-                              },
-                              styles.shadowProp,
-                            ]}>
-                            <Text style={{fontSize: 12, color: 'white'}}>
-                              EXPLICITY
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              alignItems: 'center',
-                            }}>
-                            <Text>4.1 - 5</Text>
                           </View>
                         </View>
-
-                        <Text
-                          style={{
-                            width: '60%',
-                            marginLeft: 25,
-                            textAlign: 'justify',
-                            fontSize: 12,
-                            paddingRight: 15,
-                          }}>
-                          You create a transparent environment where the flow of
-                          information is seamless. EveryBody around you is aware
-                          about the expectations for performance, quality and
-                          results. You often express your discontentment when
-                          benchmarks are not met and provide candid reactions
-                          when they are met.
-                        </Text>
-                      </View>
-
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          marginTop: 10,
-                        }}>
-                        <View
-                          style={{
-                            width: '35%',
-                          }}>
-                          <View
-                            style={[
-                              {
-                                backgroundColor: '#FCCC4D',
-                                borderRadius: 20,
-                                marginLeft: 10,
-                                marginTop: 5,
-                                marginBottom: 5,
-                                padding: 10,
-                                width: '100%',
-                                alignItems: 'center',
-                              },
-                              styles.shadowProp,
-                            ]}>
-                            <Text style={{fontSize: 12, color: 'white'}}>
-                              INCONSISTENT
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              alignItems: 'center',
-                            }}>
-                            <Text>2.6 - 4</Text>
-                          </View>
-                        </View>
-
-                        <Text
-                          style={{
-                            width: '60%',
-                            marginLeft: 25,
-                            textAlign: 'justify',
-                            fontSize: 12,
-                            paddingRight: 15,
-                          }}>
-                          There is an appreciation for honestlty and sincerity,
-                          however you are isnconsistent when it comes to
-                          integrating it into your system. You try your best to
-                          build a transparent communication channel around you
-                          but often fear that it might lead to a toxic
-                          environemnt.
-                        </Text>
-                      </View>
-
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          marginTop: 10,
-                        }}>
-                        <View
-                          style={{
-                            width: '35%',
-
-                            alignContent: 'center',
-                          }}>
-                          <View
-                            style={[
-                              {
-                                backgroundColor: '#FC8935',
-                                borderRadius: 20,
-                                marginLeft: 10,
-                                marginTop: 5,
-                                marginBottom: 5,
-                                padding: 10,
-                                width: '100%',
-                                alignItems: 'center',
-                              },
-                              styles.shadowProp,
-                            ]}>
-                            <Text style={{fontSize: 12, color: 'white'}}>
-                              AMBIGIOUS
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              alignItems: 'center',
-                            }}>
-                            <Text>4.1-5</Text>
-                          </View>
-                        </View>
-
-                        <Text
-                          style={{
-                            width: '60%',
-                            marginLeft: 25,
-                            textAlign: 'justify',
-                            fontSize: 12,
-                            paddingRight: 15,
-                          }}>
-                          You are unexpressive of your true emotions. There is a
-                          belief that your words might hurt others, so you
-                          creaft the carefully to the xtent at which it distorts
-                          the real essence of the message your are trying to get
-                          across. Yo hesitate to transparently display
-                          dissatisfaction when standards are not met and express
-                          joy when they are met.
-                        </Text>
+                        {traits[count]?.score_description?.map(
+                          (data, index) => {
+                            let backgroundColor = '';
+                            switch (data?.score_category) {
+                              case 'Expert':
+                                backgroundColor = '#97CB0A';
+                                break;
+                              case 'Inconsistent':
+                                backgroundColor = '#FCCC4D';
+                                break;
+                              case 'Ambigious':
+                                backgroundColor = '#FC8935';
+                                break;
+                            }
+                            return (
+                              <View
+                                key={index}
+                                style={{
+                                  flexDirection: 'row',
+                                  marginTop: 10,
+                                }}>
+                                <View
+                                  style={{
+                                    width: '35%',
+                                    alignContent: 'center',
+                                  }}>
+                                  <View
+                                    style={[
+                                      {
+                                        backgroundColor: backgroundColor,
+                                        borderRadius: 20,
+                                        marginLeft: 10,
+                                        marginTop: 5,
+                                        marginBottom: 5,
+                                        padding: 10,
+                                        width: '100%',
+                                        alignItems: 'center',
+                                      },
+                                      styles.shadowProp,
+                                    ]}>
+                                    <Text
+                                      style={{fontSize: 12, color: 'white'}}>
+                                      {data?.score_category}
+                                    </Text>
+                                  </View>
+                                  <View
+                                    style={{
+                                      alignItems: 'center',
+                                    }}>
+                                    <Text>{data?.score_range}</Text>
+                                  </View>
+                                </View>
+                                <HTMLView
+                                  value={data?.score_description}
+                                  textComponentProps={{
+                                    style: {
+                                      width: '60%',
+                                      marginLeft: 25,
+                                      textAlign: 'justify',
+                                      fontSize: 12,
+                                      paddingRight: 15,
+                                    },
+                                  }}
+                                />
+                              </View>
+                            );
+                          },
+                        )}
                       </View>
                     </View>
                   </ScrollView>
@@ -605,6 +516,8 @@ const CoachingSession = props => {
                   selectedId={selectedId}
                   setSelectedId={setSelectedId}
                   scrollRef={scrollRef}
+                  index={index}
+                  setIndex={setIndex}
                 />
                 // <SessionCompleted />
               )}
