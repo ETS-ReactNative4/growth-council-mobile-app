@@ -52,6 +52,7 @@ const CoachingSession = props => {
 
   const scrollRef = useRef();
   const [value, setValue] = useState('About');
+  const [count, setCount] = useState(0);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [scoreVisible, setScoreVisible] = useState(false);
@@ -156,7 +157,6 @@ const CoachingSession = props => {
     if (isNaN(innovation)) innovation = 0.0;
   }
 
-  console.log('score', traits);
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -284,7 +284,11 @@ const CoachingSession = props => {
                                 onPress={() => setScoreVisible(!scoreVisible)}
                                 onPressIn={() => {
                                   setDisplay(!display);
+                                  setCount(
+                                    index1 === 0 ? 0 : 1,
+                                  );
                                 }}
+                                id={trait.ID}
                                 style={{
                                   width: 40,
                                   marginLeft: 5,
@@ -339,70 +343,69 @@ const CoachingSession = props => {
                   visible={scoreVisible}
                   onRequestClose={() => {
                     setScoreVisible(false);
-                  }}>
+                  }}
+                  id={props.id}>
                   <ScrollView
                     style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
                     contentContainerStyle={{
                       alignItems: 'center',
                       paddingBottom: 10,
                     }}>
-                    {traits?.map((trait, index1) => (
-                      <View style={styles.modalView}>
-                        <View>
-                          <View
+                    <View style={styles.modalView}>
+                      <View>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            padding: 20,
+                          }}>
+                          <Text
                             style={{
-                              flexDirection: 'row',
-                              alignContent: 'center',
-                              justifyContent: 'center',
-                              padding: 20,
+                              width: '80%',
+                              paddingTop: 20,
+                              paddingLeft: 80,
+                              fontSize: 18,
+                              color: 'black',
+                              fontWeight: '700',
                             }}>
+                            Scores Chart
+                          </Text>
+                          <Pressable onPress={() => setScoreVisible(false)}>
+                            <Ionicons
+                              name={'close'}
+                              size={35}
+                              color={'#4936BE'}
+                            />
+                          </Pressable>
+                        </View>
+
+                        <View style={{flexDirection: 'row', marginBottom: 10}}>
+                          <View
+                            style={[
+                              {
+                                backgroundColor: '#ffff',
+                                borderRadius: 20,
+                                marginLeft: 10,
+                                marginBottom: 5,
+                                padding: 10,
+                                width: '45%',
+                                alignItems: 'center',
+                              },
+                              styles.shadowProp,
+                            ]}>
                             <Text
                               style={{
-                                width: '80%',
-                                paddingTop: 20,
-                                paddingLeft: 80,
-                                fontSize: 18,
-                                color: 'black',
+                                fontSize: 12,
+                                color: '#8DC182',
                                 fontWeight: '700',
                               }}>
-                              Scores Chart
+                              {traits[count]?.title}
                             </Text>
-                            <Pressable onPress={() => setScoreVisible(false)}>
-                              <Ionicons
-                                name={'close'}
-                                size={35}
-                                color={'#4936BE'}
-                              />
-                            </Pressable>
                           </View>
-
-                          <View
-                            style={{flexDirection: 'row', marginBottom: 10}}>
-                            <View
-                              key={index1}
-                              style={[
-                                {
-                                  backgroundColor: '#ffff',
-                                  borderRadius: 20,
-                                  marginLeft: 10,
-                                  marginBottom: 5,
-                                  padding: 10,
-                                  width: '45%',
-                                  alignItems: 'center',
-                                },
-                                styles.shadowProp,
-                              ]}>
-                              <Text
-                                style={{
-                                  fontSize: 12,
-                                  color: '#8DC182',
-                                  fontWeight: '700',
-                                }}>
-                                {trait?.title}
-                              </Text>
-                            </View>
-                          </View>
-                          {trait?.score_description?.map((data, index) => {
+                        </View>
+                        {traits[count]?.score_description?.map(
+                          (data, index) => {
                             let backgroundColor = '';
                             switch (data?.score_category) {
                               case 'Expert':
@@ -467,10 +470,10 @@ const CoachingSession = props => {
                                 />
                               </View>
                             );
-                          })}
-                        </View>
+                          },
+                        )}
                       </View>
-                    ))}
+                    </View>
                   </ScrollView>
                 </Modal>
               </View>
