@@ -5,7 +5,7 @@ import {fetch} from '../../../utils/httpUtil';
 export const fetchTerms = createAsyncThunk(
   'terms/fetchAll',
   (_, {rejectWithValue}) => {
-    return fetch(`jwt-auth/v1/page/privacy_policy`)
+    return fetch(`jwt-auth/v1/page/terms_and_conditions`)
       .then(response => response.data.data)
       .catch(error => rejectWithValue(error?.response?.data || error));
   },

@@ -395,12 +395,12 @@ const AppStack = () => (
       name="CommunityDetail"
       component={CommunityDetailScreen}
       options={({route, navigation}) => ({
-        poeId: route.params.poeId,
-        pillarId: route.params.pillarId,
+        poeId: route?.params?.poeId,
+        pillarId: route?.params?.pillarId,
         header: () => (
           <SubHeader
-            title={route.params.title}
-            image={route.params.image}
+            title={route?.params?.title}
+            image={route?.params?.image}
             navigation={navigation}
             noDrawer
           />
@@ -414,8 +414,8 @@ const AppStack = () => (
       options={({navigation, route}) => ({
         header: () => (
           <SubHeader
-            title={route.params.title}
-            image={route.params.image}
+            title={route?.params?.title}
+            image={route?.params?.image}
             navigation={navigation}
             noDrawer
           />
