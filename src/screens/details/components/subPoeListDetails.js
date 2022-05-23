@@ -329,7 +329,7 @@ const SubPOEListDetails = props => {
                     />
                   </View>
                 )}
-              {poeDetails?.pillar_contents?.length !== 0 &&
+              {/* {poeDetails?.pillar_contents?.length !== 0 &&
                 poeDetails?.pillar_contents !== null &&
                 poeDetails?.pillar_contents !== false &&
                 poeDetails?.pillar_contents !== undefined && (
@@ -348,7 +348,7 @@ const SubPOEListDetails = props => {
                       />
                     </View>
                   </View>
-                )}
+                )} */}
 
               {/* <Footer /> */}
             </View>
