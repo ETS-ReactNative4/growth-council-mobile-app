@@ -206,8 +206,8 @@ const BestPractice = props => {
       <TouchableOpacity
         onPress={() => {
           if (
-            item.slug === 'annual-ceo-survey' ||
-            item.slug === 'innovation-generator'
+            item.slug === 'companies-to-action' ||
+            item.slug === 'growth-opportunity'
           ) {
             navigation.navigate('Growth Content');
           } else if (item.slug === 'content-library') {

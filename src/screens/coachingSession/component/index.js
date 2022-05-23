@@ -267,7 +267,7 @@ const CoachingSession = props => {
                               <Text
                                 style={{
                                   fontSize: 12,
-                                  width: '50%',
+                                  width: '60%',
                                   marginLeft: 10,
                                 }}>
                                 {trait?.title}
@@ -284,9 +284,7 @@ const CoachingSession = props => {
                                 onPress={() => setScoreVisible(!scoreVisible)}
                                 onPressIn={() => {
                                   setDisplay(!display);
-                                  setCount(
-                                    index1 === 0 ? 0 : 1,
-                                  );
+                                  setCount(index1 === 0 ? 0 : 1);
                                 }}
                                 id={trait.ID}
                                 style={{
@@ -388,8 +386,7 @@ const CoachingSession = props => {
                                 borderRadius: 20,
                                 marginLeft: 10,
                                 marginBottom: 5,
-                                padding: 10,
-                                width: '45%',
+                                padding:12,
                                 alignItems: 'center',
                               },
                               styles.shadowProp,
@@ -420,7 +417,6 @@ const CoachingSession = props => {
                             }
                             return (
                               <View
-                                
                                 style={{
                                   flexDirection: 'row',
                                   marginTop: 10,
@@ -516,7 +512,6 @@ const CoachingSession = props => {
                   selectedId={selectedId}
                   setSelectedId={setSelectedId}
                   scrollRef={scrollRef}
-                  
                 />
                 // <SessionCompleted />
               )}

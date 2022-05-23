@@ -147,12 +147,24 @@ const CommunityDetail = props => {
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('SubPoe', {
-            poeId: item?.term_id,
-            id: route?.params?.poeId,
-          })
-        }>
+        onPress={() => {
+          if (
+            item.slug === 'visionary-innovation-content' ||
+            item.slug === 'innovation-generator' ||
+            item.slug === 'annual-ceo-survey'
+          ) {
+            navigation.navigate('CommunityDetail', {
+              poeId: route?.params?.poeId,
+              title: 'Growth Content',
+              image: require('../../../assets/img/best-practice-bg.png'),
+            });
+          } else {
+            navigation.navigate('SubPoe', {
+              poeId: item?.term_id,
+              id: route?.params?.poeId,
+            });
+          }
+        }}>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
@@ -285,70 +297,70 @@ const CommunityDetail = props => {
     };
 
     const downloadFile = () => {
-		const {config, fs} = RNFetchBlob;
-		const {
-		  dirs: {DownloadDir, DocumentDir},
-		} = RNFetchBlob.fs;
-		const isIOS = Platform.OS === 'ios';
-		const aPath =
-		  Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
-		// Platform.select({ios: DocumentDir, android: DocumentDir});
-	
-		let date = new Date();
-		let FILE_URL = fileUrl;
-	
-		let file_ext = getFileExtention(FILE_URL);
-	
-		file_ext = '.' + file_ext[0];
-	
-		const configOptions = Platform.select({
-		  ios: {
-			fileCache: true,
-			path:
-			  aPath +
-			  '/file_' +
-			  Math.floor(date.getTime() + date.getSeconds() / 2) +
-			  file_ext,
-			description: 'downloading file...',
-		  },
-		  android: {
-			fileCache: false,
-			addAndroidDownloads: {
-			  path:
-				aPath +
-				'/file_' +
-				Math.floor(date.getTime() + date.getSeconds() / 2) +
-				file_ext,
-			  description: 'downloading file...',
-			  notification: true,
-			  useDownloadManager: true,
-			},
-		  },
-		});
-	
-		if (isIOS) {
-		  RNFetchBlob.config(configOptions)
-			.fetch('GET', FILE_URL)
-			.then(res => {
-			  console.log('file', res);
-			  RNFetchBlob.ios.previewDocument('file://' + res.path());
-			});
-		  return;
-		} else {
-		  config(configOptions)
-			.fetch('GET', FILE_URL)
-			.progress((received, total) => {
-			  console.log('progress', received / total);
-			})
-	
-			.then(res => {
-			  console.log('file download', res);
-			  RNFetchBlob.android.actionViewIntent(res.path());
-			})
-			.catch((errorMessage, statusCode) => {
-			  console.log('error with downloading file', errorMessage);
-			});
-		}
+      const {config, fs} = RNFetchBlob;
+      const {
+        dirs: {DownloadDir, DocumentDir},
+      } = RNFetchBlob.fs;
+      const isIOS = Platform.OS === 'ios';
+      const aPath =
+        Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+      // Platform.select({ios: DocumentDir, android: DocumentDir});
+
+      let date = new Date();
+      let FILE_URL = fileUrl;
+
+      let file_ext = getFileExtention(FILE_URL);
+
+      file_ext = '.' + file_ext[0];
+
+      const configOptions = Platform.select({
+        ios: {
+          fileCache: true,
+          path:
+            aPath +
+            '/file_' +
+            Math.floor(date.getTime() + date.getSeconds() / 2) +
+            file_ext,
+          description: 'downloading file...',
+        },
+        android: {
+          fileCache: false,
+          addAndroidDownloads: {
+            path:
+              aPath +
+              '/file_' +
+              Math.floor(date.getTime() + date.getSeconds() / 2) +
+              file_ext,
+            description: 'downloading file...',
+            notification: true,
+            useDownloadManager: true,
+          },
+        },
+      });
+
+      if (isIOS) {
+        RNFetchBlob.config(configOptions)
+          .fetch('GET', FILE_URL)
+          .then(res => {
+            console.log('file', res);
+            RNFetchBlob.ios.previewDocument('file://' + res.path());
+          });
+        return;
+      } else {
+        config(configOptions)
+          .fetch('GET', FILE_URL)
+          .progress((received, total) => {
+            console.log('progress', received / total);
+          })
+
+          .then(res => {
+            console.log('file download', res);
+            RNFetchBlob.android.actionViewIntent(res.path());
+          })
+          .catch((errorMessage, statusCode) => {
+            console.log('error with downloading file', errorMessage);
+          });
+      }
     };
 
     const getFileExtention = fileUrl => {
@@ -473,8 +485,8 @@ const CommunityDetail = props => {
               {poeDetails !== null &&
                 pillarPOEs !== null &&
                 pillarPOEs !== false &&
-                pillarPOEs !== undefined && 
-				pillarPOEs?.length !== 0 &&(
+                pillarPOEs !== undefined &&
+                pillarPOEs?.length !== 0 && (
                   <View style={styles.top}>
                     <Text style={styles.title}> Sub Points of Engagement</Text>
                     <FlatList

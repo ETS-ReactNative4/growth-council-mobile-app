@@ -41,7 +41,7 @@ const AuthStack = () => {
           headerLeft: props => (
             <Ionicons
               name={'arrow-back'}
-              size={80}
+              size={70}
               style={{
                 position: Platform.OS === 'ios' ? 'absolute' : 'relative',
               }}
@@ -90,7 +90,7 @@ const AuthStack = () => {
           headerLeft: props => (
             <Ionicons
               name={'arrow-back'}
-              size={80}
+              size={70}
               color={'white'}
               style={{
                 position: Platform.OS === 'ios' ? 'absolute' : 'relative',
@@ -105,9 +105,25 @@ const AuthStack = () => {
       <Screen
         name="Forgot"
         component={ForgotScreen}
-        options={{
-          headerTitle: 'Forget',
-        }}
+        options={({route, navigation}) => ({
+          headerTitle: '',
+          headerStyle: {height: 80},
+          headerTransparent: true,
+          headerLeft: props => (
+            <Ionicons
+              name={'arrow-back'}
+              size={50}
+              style={{
+                position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+                marginLeft: 10,
+              }}
+              color={'black'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          ...TransitionPresets.RevealFromBottomAndroid,
+          gestureDirection: 'horizontal-inverted',
+        })}
       />
 
       <Screen
