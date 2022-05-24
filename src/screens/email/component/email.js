@@ -169,9 +169,8 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     textAlignHorizontal: 'left',
-    borderBottomWidth: 0.2,
     borderWidth: 0.2,
-    borderRadius: 10,
+    borderRadius: 5,
     marginLeft: 5,
   },
   textarea: {
@@ -179,10 +178,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlignVertical: 'top',
     lineHeight: 30,
-    borderBottomWidth: 0.2,
     borderWidth: 0.2,
     marginTop: 10,
-    borderRadius: 10,
+    borderRadius: 5,
   },
   buttonWrapper: {
     width: 200,

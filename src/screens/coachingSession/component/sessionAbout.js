@@ -260,7 +260,7 @@ const sessionAbout = props => {
           renderItem={item => _renderItem(item, navigation)}
         />
       </View>
-      {sessions?.organizer?.term_name !== undefined &&
+      {/* {sessions?.organizer?.term_name !== undefined &&
         sessions?.organizer?.term_name !== '' && (
           <View style={{height: 150}}>
             <View style={{marginTop: 25}}>
@@ -296,10 +296,10 @@ const sessionAbout = props => {
               />
             </View>
           </View>
-        )}
+        )} */}
 
       {sessions?.descirption !== undefined && sessions?.descirption !== '' && (
-        <View>
+        <View style={{marginTop:20}}>
           <Text style={styles.contentHeading}>Session Brief</Text>
           {!isSessionLoaded && (
             <HTMLView

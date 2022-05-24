@@ -208,7 +208,7 @@ const Radar = props => {
                     </Pressable>
                   </View>
                   <View style={{padding: 10}}>
-                    <Text style={{fontSize: 18, color: 'black', marginTop: 10}}>
+                    <Text style={{fontSize: 18, color: 'black', marginTop: 20}}>
                       {name}
                     </Text>
 
@@ -244,7 +244,6 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   seperationline: {
-    marginTop: 10,
     marginBottom: 10,
     borderBottomColor: 'black',
     borderBottomWidth: 0.5,
@@ -331,9 +330,8 @@ const styles = StyleSheet.create({
   },
   modalText: {
     paddingVertical: 10,
-    marginBottom: 15,
-    textAlign: 'center',
-    marginTop: 10,
+    marginBottom: 10,
+    textAlign: 'justify',
     color: '#686868',
   },
 });
