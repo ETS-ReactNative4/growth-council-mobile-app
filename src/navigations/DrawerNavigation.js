@@ -347,7 +347,7 @@ const DrawerNavigation = () => {
           drawerItemStyle: {height: 0},
           header: ({navigation}) => (
             <SubHeader
-              title="User List"
+              title="Chat"
               image={require('../assets/img/appBG.png')}
               navigation={navigation}
             />

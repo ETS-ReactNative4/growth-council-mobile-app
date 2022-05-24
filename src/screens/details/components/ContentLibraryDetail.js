@@ -302,7 +302,8 @@ const ContentLibraryDetail = props => {
             )}
           {contentLibraryDetails?.presenter !== false &&
             contentLibraryDetails?.presenter !== null &&
-            contentLibraryDetails?.presenter !== '' && (
+            contentLibraryDetails?.presenter !== '' &&
+            contentLibraryDetails?.presenter !== undefined && (
               <View style={styles.sectionContainerBorder}>
                 <Text style={styles.bodyTitleText}>Presented By:</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -352,6 +353,20 @@ const ContentLibraryDetail = props => {
                 </Text>
               </View>
             )}
+          {/* external_links */}
+          {contentLibraryDetails?.external_links?.length !== 0 &&
+            contentLibraryDetails?.external_links !== false &&
+            contentLibraryDetails?.external_links !== null && (
+              <View style={styles.sectionContainer}>
+                {/* <Text style={styles.bodyTitleText}>External Links:</Text> */}
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  data={contentLibraryDetails?.external_links}
+                  renderItem={_renderExternal}
+                />
+              </View>
+            )}
 
           {/* Panelists */}
           {contentLibraryDetails?.panelists !== undefined &&
@@ -397,7 +412,8 @@ const ContentLibraryDetail = props => {
           {/* Call To Action Section */}
           {contentLibraryDetails?.call_to_action?.length !== 0 &&
             contentLibraryDetails?.call_to_action !== false &&
-            contentLibraryDetails?.call_to_action !== null && (
+            contentLibraryDetails?.call_to_action !== null &&
+            contentLibraryDetails?.call_to_action !== undefined && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.bodyTitleText}>Key Take-Aways:</Text>
                 <FlatList
@@ -412,7 +428,8 @@ const ContentLibraryDetail = props => {
           {/* Attachments Section */}
           {contentLibraryDetails?.attachment?.length !== 0 &&
             contentLibraryDetails?.attachment !== false &&
-            contentLibraryDetails?.attachment !== null && (
+            contentLibraryDetails?.attachment !== null &&
+            contentLibraryDetails?.attachment !== undefined && (
               <View style={styles.sectionContainer}>
                 <Text style={styles.bodyTitleText}>Attachments:</Text>
                 <FlatList
@@ -424,25 +441,11 @@ const ContentLibraryDetail = props => {
               </View>
             )}
 
-          {/* external_links */}
-          {contentLibraryDetails?.external_links?.length !== 0 &&
-            contentLibraryDetails?.external_links !== false &&
-            contentLibraryDetails?.external_links !== null && (
-              <View style={styles.sectionContainer}>
-                <Text style={styles.bodyTitleText}>External Links:</Text>
-                <FlatList
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                  data={contentLibraryDetails?.external_links}
-                  renderItem={_renderExternal}
-                />
-              </View>
-            )}
-
           {/* Tags Section */}
           {contentLibraryDetails?.tags?.length !== 0 &&
             contentLibraryDetails?.tags?.length !== false &&
-            contentLibraryDetails?.tags?.length !== null && (
+            contentLibraryDetails?.tags?.length !== null &&
+            contentLibraryDetails?.tags?.length !== undefined && (
               <View style={styles.sectionContainerBorder}>
                 <Text style={styles.bodyTitleText}>Tags:</Text>
 

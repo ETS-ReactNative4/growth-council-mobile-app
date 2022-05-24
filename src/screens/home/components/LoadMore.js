@@ -72,9 +72,7 @@ const CouncilAllDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() =>
-            ToastMessage.show('Please login to review further."')
-          }>
+          onPress={() => ToastMessage.show('Please login to review further."')}>
           <View style={styles.eventCard} key={index}>
             <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
             <View style={styles.eventDetails}>
@@ -103,9 +101,7 @@ const CouncilAllDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() =>
-            ToastMessage.show('Please login to review further."')
-          }>
+          onPress={() => ToastMessage.show('Please login to review further."')}>
           <View style={styles.poeCard} key={index}>
             <View style={[styles.poeTheme, styles.shadowProp]}>
               <Image
@@ -130,35 +126,41 @@ const CouncilAllDetail = props => {
 
   return (
     <>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={"#001D3F"}
-      />
+      <StatusBar barStyle="dark-content" backgroundColor={'#001D3F'} />
       <View style={styles.container}>
         <ScrollView>
-          <View style={styles.events}>
-            <Text style={styles.poeTitle}>POINTS OF ENGAGEMENT </Text>
-            <View styles={styles.eventList}>
-              <FlatList
-                vertical
-                showsHorizontalScrollIndicator={false}
-                data={pillarPOEs}
-                renderItem={_renderPOE}
-              />
-            </View>
-          </View>
-
-          <View style={styles.events}>
-            <Text style={styles.eventsTitle}>UPCOMING EVENTS</Text>
-            <View styles={styles.eventList}>
-              <FlatList
-                vertical
-                showsHorizontalScrollIndicator={false}
-                data={upcomingEvents}
-                renderItem={_renderItem}
-              />
-            </View>
-          </View>
+          {pillarPOEs?.length !== 0 &&
+            pillarPOEs !== null &&
+            pillarPOEs !== false &&
+            pillarPOEs !== undefined && (
+              <View style={styles.events}>
+                <Text style={styles.poeTitle}>POINTS OF ENGAGEMENT </Text>
+                <View styles={styles.eventList}>
+                  <FlatList
+                    vertical
+                    showsHorizontalScrollIndicator={false}
+                    data={pillarPOEs}
+                    renderItem={_renderPOE}
+                  />
+                </View>
+              </View>
+            )}
+          {upcomingEvents?.length !== 0 &&
+            upcomingEvents !== null &&
+            upcomingEvents !== false &&
+            upcomingEvents !== undefined && (
+              <View style={styles.events}>
+                <Text style={styles.eventsTitle}>UPCOMING EVENTS</Text>
+                <View styles={styles.eventList}>
+                  <FlatList
+                    vertical
+                    showsHorizontalScrollIndicator={false}
+                    data={upcomingEvents}
+                    renderItem={_renderItem}
+                  />
+                </View>
+              </View>
+            )}
         </ScrollView>
       </View>
     </>

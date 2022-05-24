@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.headingText1,
     fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
-    fontSize: 14,
+    fontSize: 15,
     marginBottom: 15,
     fontWeight: 'bold',
   },
@@ -471,6 +471,7 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontSize: 14,
     fontWeight: 'bold',
+    fontStyle: 'italic',
   },
   contentText: {
     fontFamily: Typography.FONT_NORMAL,

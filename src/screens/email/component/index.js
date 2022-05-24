@@ -178,13 +178,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   input: {
-	width: '85%',
+    width: '85%',
     paddingLeft: 10,
     color: 'black',
     fontSize: 16,
-	borderBottomWidth: 0.2,
+	textAlignHorizontal: 'left',
     borderWidth: 0.2,
-    borderRadius: 10,
+    borderRadius: 5,
     marginLeft: 5,
   },
   textarea: {
@@ -192,10 +192,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlignVertical: 'top',
     lineHeight: 30,
-	borderBottomWidth: 0.2,
     borderWidth: 0.2,
     marginTop: 10,
-    borderRadius: 10,
+    borderRadius: 5,
   },
   buttonWrapper: {
     width: 200,

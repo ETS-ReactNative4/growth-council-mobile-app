@@ -70,7 +70,7 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="people-outline"
                 color={'#000'}
-                size={30}
+                size={35}
                 style={{color: focused ? 'black' : '#FFFFFF'}}
               />
             </View>
@@ -86,7 +86,7 @@ const BottomLayout = ({focused, navigation}) => {
               <Ionicons
                 name="person-outline"
                 color={'#000'}
-                size={30}
+                size={28}
                 style={{color: focused ? 'black' : '#FFFFFF'}}
               />
             </View>
