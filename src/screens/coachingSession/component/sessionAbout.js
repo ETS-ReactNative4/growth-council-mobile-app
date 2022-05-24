@@ -133,7 +133,7 @@ const sessionAbout = props => {
         backgroundColor="grey"
         translucent={false}
       />
-      <View style={{height: 150, flexDirection: 'column'}}>
+      <View style={{ flexDirection: 'column'}}>
         <View
           style={{
             flex: 1,
@@ -158,7 +158,6 @@ const sessionAbout = props => {
             style={{
               flex: 4,
               paddingLeft: 5,
-              justifyContent: 'center',
             }}>
             {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
@@ -184,7 +183,6 @@ const sessionAbout = props => {
             <View
               style={{
                 flex: 1,
-                justifyContent: 'center',
                 alignItems: 'center',
               }}>
               <TouchableOpacity
@@ -201,7 +199,6 @@ const sessionAbout = props => {
             <View
               style={{
                 flex: 1,
-                justifyContent: 'center',
                 alignItems: 'center',
               }}>
               <Feather
@@ -248,7 +245,7 @@ const sessionAbout = props => {
                 </View>
               )}
             </View>
-          )}
+         )}
       </View>
 
       <View>
