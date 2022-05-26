@@ -142,7 +142,7 @@ const Email = props => {
               <TextInput
                 multiline={true}
                 numberOfLines={15}
-                style={styles.textarea}
+                style={styles.textarea1}
                 value={values.message}
                 onChangeText={handleChange('message')}
                 onFocus={handleBlur('message')}
@@ -182,13 +182,24 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: 'black',
     fontSize: 16,
-	textAlignHorizontal: 'left',
+    textAlignHorizontal: 'left',
     borderWidth: 0.2,
     borderRadius: 5,
     marginLeft: 5,
   },
   textarea: {
-    paddingTop: 10,
+    minHeight: 50,
+    height: 'auto',
+    fontSize: 16,
+    textAlignVertical: 'top',
+    lineHeight: 20,
+    borderWidth: 0.2,
+    marginTop: 10,
+    borderRadius: 5,
+  },
+  textarea1: {
+    minHeight: 300,
+    height: 'auto',
     fontSize: 16,
     textAlignVertical: 'top',
     lineHeight: 30,

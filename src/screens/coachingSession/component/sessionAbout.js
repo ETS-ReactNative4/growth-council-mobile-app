@@ -133,7 +133,7 @@ const sessionAbout = props => {
         backgroundColor="grey"
         translucent={false}
       />
-      <View style={{ flexDirection: 'column'}}>
+      <View style={{flexDirection: 'column'}}>
         <View
           style={{
             flex: 1,
@@ -145,38 +145,41 @@ const sessionAbout = props => {
             style={{
               flex: 1,
               backgroundColor: '#A1BA68',
-              height: 60,
-              width: 30,
+              height: 50,
+              width: 40,
               borderRadius: 15,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <MaterialIcons name={'event'} size={35} color={'white'} />
+            <MaterialIcons name={'event'} size={30} color={'white'} />
           </View>
 
           <View
             style={{
               flex: 4,
               paddingLeft: 5,
+              justifyContent: 'center',
             }}>
             {/* <Text style={styles.eventDetails}>{GobalDate} </Text> */}
             <Text style={styles.eventDetails}>
-              {GobalStartMonth === GobalEndMonth
+              {/* {GobalStartMonth === GobalEndMonth
                 ? GobalDate + GobalEndTime
                 : GobalStartMonth +
                   GobalDate.split(/(\s+)/)[7] +
                   GobalDate.split(/(\s+)/)[8] +
                   GobalDate.split(/(\s+)/)[7] +
                   GobalEndMonth}{' '}
-              ({deviceTimeZone}) / {EventDate.split(/(\s+)/)[7]}
+              ({deviceTimeZone}) /  */}
+              {/* {EventDate.split(/(\s+)/)[7]} */}
               {EventStartMonth === EventEndMonth
                 ? EventDate + EventEndTime
                 : EventStartMonth +
                   EventDate.split(/(\s+)/)[7] +
                   EventDate.split(/(\s+)/)[8] +
                   EventDate.split(/(\s+)/)[7] +
-                  EventEndMonth}
-              (America)
+                  EventEndMonth +
+                  EventDate.split(/(\s+)/)[7]}
+              ({sessions?.time_zone})
             </Text>
           </View>
           {!sessionStatus && (
@@ -209,7 +212,7 @@ const sessionAbout = props => {
             </View>
           )}
         </View>
-        {sessions?.location?.location_city !== undefined &&
+        {sessions?.location?.location_address !== undefined &&
           sessions?.location?.location_address !== '' && (
             <View
               style={{
@@ -221,13 +224,13 @@ const sessionAbout = props => {
                 style={{
                   flex: 1,
                   backgroundColor: '#A1BA68',
-                  height: 60,
+                  height: 50,
                   width: 48,
                   borderRadius: 14,
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Ionicons name={'location-outline'} size={35} color={'white'} />
+                <Ionicons name={'location-outline'} size={30} color={'white'} />
               </View>
 
               {!isSessionLoaded && (
@@ -235,17 +238,20 @@ const sessionAbout = props => {
                   style={{
                     flex: 5,
                     paddingLeft: 10,
+                    justifyContent: 'center',
                   }}>
-                  <Text style={styles.eventLocationDetails}>
+                  {/* <Text style={styles.eventLocationDetails}>
                     {sessions?.location?.location_city}
                     {sessions?.location?.location_state}
                     {sessions?.location?.location_country}
+                  </Text> */}
+                  <Text style={styles.eventLocationDetails}>
+                    {sessions?.location?.location_address}
                   </Text>
-                  <Text>{sessions?.location?.location_address}</Text>
                 </View>
               )}
             </View>
-         )}
+          )}
       </View>
 
       <View>
@@ -299,7 +305,7 @@ const sessionAbout = props => {
         )} */}
 
       {sessions?.descirption !== undefined && sessions?.descirption !== '' && (
-        <View style={{marginTop:20}}>
+        <View style={{marginTop: 20}}>
           <Text style={styles.contentHeading}>Session Brief</Text>
           {!isSessionLoaded && (
             <HTMLView
@@ -386,7 +392,7 @@ const styles = StyleSheet.create({
     color: Colors.NONARY_TEXT_COLOR,
     fontWeight: 'bold',
     marginLeft: 5,
-    fontSize: 12,
+    fontSize: 13,
   },
   eventLocationDetails: {
     fontFamily: Typography.FONT_NORMAL,

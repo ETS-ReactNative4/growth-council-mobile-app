@@ -78,7 +78,7 @@ const Profile = props => {
           <Image
             source={require('../../../assets/img/appBG.png')}
             style={{
-              height: Dimensions.get('screen').height / 4,
+              height: (Dimensions.get('screen').height -150)/ 3,
               paddingTop: Dimensions.get('screen').height / 9,
               width: win.width,
             }}
