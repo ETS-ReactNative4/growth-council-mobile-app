@@ -402,7 +402,7 @@ const Dashboard = props => {
           <ImageBackground
             style={{
               width: '100%',
-              height: (Dimensions.get('screen').height -20)/ 3,
+              height: (Dimensions.get('screen').height -50)/ 3,
               paddingTop: Dimensions.get('screen').height / 8,
             }}
             source={require('../../../assets/img/appBG.png')}>

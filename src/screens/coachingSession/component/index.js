@@ -132,7 +132,7 @@ const CoachingSession = props => {
             item?.session === sessions.ID ? item?.growth_index : null;
           return growth;
         })
-      : [0];
+      : 0;
 
   const Innovation =
     profile?.session_score !== false
@@ -141,7 +141,7 @@ const CoachingSession = props => {
             item?.session === sessions.ID ? item?.innovative_index : null;
           return inn;
         })
-      : [0];
+      : 0;
 
   const previousSessionID = route.params.previousSessionID;
 
@@ -151,12 +151,13 @@ const CoachingSession = props => {
     growth = Growth;
     innovation = Innovation;
   } else {
-    growth = score.growthIndexScore.toFixed(2);
-    innovation = score.innovativeIndexScore.toFixed(2);
+    growth = score.growthIndexScore.toFixed(1);
+    innovation = score.innovativeIndexScore.toFixed(1);
     if (isNaN(growth)) growth = 0.0;
     if (isNaN(innovation)) innovation = 0.0;
   }
 
+ 
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -227,10 +228,11 @@ const CoachingSession = props => {
                 />
               </View>
               <TouchableOpacity
-                onPress={() => setModalVisible(!modalVisible)}
-                onPressIn={() => {
-                  setDisplay(!display);
-                }}>
+                onPress={() =>  setModalVisible(!modalVisible)}
+                // onPressIn={() => {
+                //   setDisplay(!display);
+                // }}
+				>
                 <Ionicons
                   name={modalVisible ? 'close' : 'menu'}
                   size={35}
@@ -280,10 +282,9 @@ const CoachingSession = props => {
                                 alignItems: 'center',
                               }}>
                               <Text style={{fontSize: 12}}>Score</Text>
-                              <TouchableOpacity
+                              <Pressable
                                 onPress={() => setScoreVisible(!scoreVisible)}
                                 onPressIn={() => {
-                                  setDisplay(!display);
                                   setCount(index1 === 0 ? 0 : 1);
                                 }}
                                 id={trait.ID}
@@ -299,7 +300,7 @@ const CoachingSession = props => {
                                   {index1 === 0 ? growth : innovation}
                                   {/* {num} */}
                                 </Text>
-                              </TouchableOpacity>
+                              </Pressable>
                             </View>
                           </View>
                           <View style={{marginTop: 10, marginLeft: 50}}>
@@ -341,8 +342,7 @@ const CoachingSession = props => {
                   visible={scoreVisible}
                   onRequestClose={() => {
                     setScoreVisible(false);
-                  }}
-                  id={props.id}>
+                  }}>
                   <ScrollView
                     style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
                     contentContainerStyle={{
@@ -386,7 +386,7 @@ const CoachingSession = props => {
                                 borderRadius: 20,
                                 marginLeft: 10,
                                 marginBottom: 5,
-                                padding:12,
+                                padding: 12,
                                 alignItems: 'center',
                               },
                               styles.shadowProp,
@@ -401,8 +401,8 @@ const CoachingSession = props => {
                             </Text>
                           </View>
                         </View>
-                        {traits[count]?.score_description?.map(
-                          (data, index) => {
+                        {/* {traits[count]?.score_description?.map(
+                          (data) => {
                             let backgroundColor = '';
                             switch (data?.score_category) {
                               case 'Expert':
@@ -467,7 +467,7 @@ const CoachingSession = props => {
                               </View>
                             );
                           },
-                        )}
+                        )} */}
                       </View>
                     </View>
                   </ScrollView>
