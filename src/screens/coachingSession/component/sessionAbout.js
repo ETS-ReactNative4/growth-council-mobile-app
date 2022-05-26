@@ -94,23 +94,35 @@ const sessionAbout = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const GobalDate = moment(timeToDisplay).format('MMMM D, dddd, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('MMMM D');
+  const GobalDate = moment(timeToDisplay)
+    .tz(deviceTimeZone)
+    .format('MMMM D, dddd, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay)
+    .tz(deviceTimeZone)
+    .format('MMMM D');
 
-  const GobalDateEnd = moment(timeToEnd).format('MMMM D, dddd, h:mm a ');
-  const GobalEndTime = moment(timeToEnd).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).format('MMMM D');
+  const GobalDateEnd = moment(timeToEnd)
+    .tz(deviceTimeZone)
+    .format('MMMM D, dddd, h:mm a ');
+  const GobalEndTime = moment(timeToEnd).tz(deviceTimeZone).format('h:mma ');
+  const GobalEndMonth = moment(timeToEnd).tz(deviceTimeZone).format('MMMM D');
 
-  const EventDate = moment(sessions?.event_start).format(
-    'MMMM D, dddd, h:mma - ',
-  );
-  const EventStartMonth = moment(sessions?.event_start).format('MMMM D');
+  const EventDate = moment(sessions?.event_start)
+    .tz(deviceTimeZone)
+    .format('MMMM D, dddd, h:mma - ');
+  const EventStartMonth = moment(sessions?.event_start)
+    .tz(deviceTimeZone)
+    .format('MMMM D');
 
-  const EventDateEnd = moment(sessions?.event_end).format(
-    'MMMM D, dddd, h:mm a ',
-  );
-  const EventEndTime = moment(sessions?.event_end).format('h:mma ');
-  const EventEndMonth = moment(sessions?.event_end).format('MMMM D');
+  const EventDateEnd = moment(sessions?.event_end)
+    .tz(deviceTimeZone)
+    .format('MMMM D, dddd, h:mm a ');
+  const EventEndTime = moment(sessions?.event_end)
+    .tz(deviceTimeZone)
+    .format('h:mma ');
+  const EventEndMonth = moment(sessions?.event_end)
+    .tz(deviceTimeZone)
+    .format('MMMM D');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
@@ -133,7 +145,7 @@ const sessionAbout = props => {
         backgroundColor="grey"
         translucent={false}
       />
-      <View style={{ flexDirection: 'column'}}>
+      <View style={{flexDirection: 'column'}}>
         <View
           style={{
             flex: 1,
@@ -245,7 +257,7 @@ const sessionAbout = props => {
                 </View>
               )}
             </View>
-         )}
+          )}
       </View>
 
       <View>
@@ -299,7 +311,7 @@ const sessionAbout = props => {
         )} */}
 
       {sessions?.descirption !== undefined && sessions?.descirption !== '' && (
-        <View style={{marginTop:20}}>
+        <View style={{marginTop: 20}}>
           <Text style={styles.contentHeading}>Session Brief</Text>
           {!isSessionLoaded && (
             <HTMLView
