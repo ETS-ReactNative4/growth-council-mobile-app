@@ -105,32 +105,32 @@ const Event = props => {
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
   const eventDate = moment(events?.event_start)
-    .tz(deviceTimeZone)
+    .tz(events?.time_zone)
     .format('MMMM D, h:mma - ');
   const eventEnd = moment(events?.event_end)
-    .tz(deviceTimeZone)
+    .tz(events?.time_zone)
     .format('MMMM D, h:mma');
 
   const eventStartMonth = moment(events?.event_start)
-    .tz(deviceTimeZone)
+    .tz(events?.time_zone)
     .format('MMMM D');
 
   const eventEndTime = moment(events?.event_end)
-    .tz(deviceTimeZone)
+    .tz(events?.time_zone)
     .format('h:mma ');
   const eventEndMonth = moment(events?.event_end)
-    .tz(deviceTimeZone)
+    .tz(events?.time_zone)
     .format('MMMM D');
 
   const GobalDate = moment(timeToDisplay)
-    .tz(deviceTimeZone)
+    .tz(events?.time_zone)
     .format('MMMM D, h:mma - ');
   const GobalStartMonth = moment(timeToDisplay)
-    .tz(deviceTimeZone)
+    .tz(events?.time_zone)
     .format('MMMM D');
 
-  const GobalEndTime = moment(timeToEnd).tz(deviceTimeZone).format('h:mma ');
-  const GobalEndMonth = moment(timeToEnd).tz(deviceTimeZone).format('MMMM D');
+  const GobalEndTime = moment(timeToEnd).tz(events?.time_zone).format('h:mma ');
+  const GobalEndMonth = moment(timeToEnd).tz(events?.time_zone).format('MMMM D');
 
   useEffect(() => {
     const convertedToLocalTime = formatTimeByOffset(
