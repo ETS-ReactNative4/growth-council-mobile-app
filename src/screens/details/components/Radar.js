@@ -73,6 +73,8 @@ const Radar = props => {
       ? profile?.session_score?.map(item => item?.session)
       : [0];
 
+  console.log(previousSession);
+
   function LoadingIndicatorView() {
     return (
       <ActivityIndicator
@@ -128,60 +130,64 @@ const Radar = props => {
           <View style={styles.container}>
             <View style={styles.mainContent}>
               <View>
-                {previousSession !== 5740 && (
-                  <View>
-                    <View style={{flexDirection: 'row', flex: 1}}>
-                      <View style={{flex: 2}}>
-                        <Text style={styles.title}>Name</Text>
+                {radarMemberDetails?.present_growth_index
+                  ?.user_radar_growth_index !== "" &&
+                  radarMemberDetails?.present_growth_index
+                    ?.user_radar_innovation_index !== "" && (
+                    <View>
+                      <View style={{flexDirection: 'row', flex: 1}}>
+                        <View style={{flex: 2}}>
+                          <Text style={styles.title}>Name</Text>
+                        </View>
+                        <View style={{flex: 2, marginLeft: 10}}>
+                          <Text style={styles.title}>Growth Index</Text>
+                        </View>
+                        <View style={{flex: 2, marginLeft: 10}}>
+                          <Text style={styles.title}>Innovation Index</Text>
+                        </View>
                       </View>
-                      <View style={{flex: 2, marginLeft: 10}}>
-                        <Text style={styles.title}>Growth Index</Text>
-                      </View>
-                      <View style={{flex: 2, marginLeft: 10}}>
-                        <Text style={styles.title}>Innovation Index</Text>
-                      </View>
-                    </View>
 
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        flex: 1,
-                        alignItems: 'center',
-                      }}>
-                      <View style={{flex: 2}}>
-                        <Text style={styles.name}>
-                          {radarMemberDetails?.display_name}
-                        </Text>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          flex: 1,
+                          alignItems: 'center',
+                        }}>
+                        <View style={{flex: 2}}>
+                          <Text style={styles.name}>
+                            {radarMemberDetails?.display_name}
+                          </Text>
+                        </View>
+                        <View style={{flex: 2}}>
+                          <TextInput
+                            editable={false}
+                            textAlign={'center'}
+                            style={styles.input}
+                            value={
+                              radarMemberDetails?.present_growth_index
+                                ?.user_radar_growth_index
+                            }
+                            maxLength={3}
+                          />
+                        </View>
+                        <View style={{flex: 2}}>
+                          <TextInput
+                            editable={false}
+                            textAlign={'center'}
+                            style={styles.input}
+                            value={
+                              radarMemberDetails?.present_growth_index
+                                ?.user_radar_innovation_index
+                            }
+                            maxLength={3}
+                          />
+                        </View>
                       </View>
-                      <View style={{flex: 2}}>
-                        <TextInput
-                          editable={false}
-                          textAlign={'center'}
-                          style={styles.input}
-                          value={
-                            radarMemberDetails?.present_growth_index
-                              ?.user_radar_growth_index
-                          }
-                          maxLength={3}
-                        />
-                      </View>
-                      <View style={{flex: 2}}>
-                        <TextInput
-                          editable={false}
-                          textAlign={'center'}
-                          style={styles.input}
-                          value={
-                            radarMemberDetails?.present_growth_index
-                              ?.user_radar_innovation_index
-                          }
-                          maxLength={3}
-                        />
-                      </View>
+					  <View style={styles.seperationline} />
                     </View>
-                  </View>
-                )}
+                  )}
 
-                <View style={styles.seperationline} />
+            
                 <View style={{marginTop: 10}}>
                   {radarMemberDetails?.member_details?.map(item => {
                     const memberData = () => {
@@ -212,7 +218,7 @@ const Radar = props => {
               </View>
             </View>
           </View>
-         
+
           <View style={styles.centeredView}>
             <Modal
               animationType="slide"
