@@ -231,14 +231,14 @@ const People = props => {
                 flex: 1,
                 alignItems: 'center',
                 borderWidth: 0.3,
-                paddingVertical: 10,
+                paddingVertical: 5,
                 borderColor: 'gray',
                 height: 60,
                 borderBottomLeftRadius: 10,
                 borderTopLeftRadius: 10,
                 justifyContent: 'center',
               }}>
-              <Text style={{fontSize: 14, color: '#222B45'}}>
+              <Text style={{fontSize: 11, color: '#222B45'}}>
                 {category ? category : 'Expertise Areas'}
               </Text>
             </TouchableOpacity>
@@ -248,12 +248,12 @@ const People = props => {
                 flex: 1,
                 alignItems: 'center',
                 borderWidth: 0.3,
-                paddingVertical: 10,
+                paddingVertical: 5,
                 borderColor: 'gray',
                 height: 60,
                 justifyContent: 'center',
               }}>
-              <Text style={{fontSize: 14, color: '#222B45'}}>
+              <Text style={{fontSize: 11, color: '#222B45'}}>
                 {account ? account : 'Account Type'}
               </Text>
             </TouchableOpacity>
@@ -263,14 +263,14 @@ const People = props => {
                 flex: 1,
                 alignItems: 'center',
                 borderWidth: 0.3,
-                paddingVertical: 10,
+                paddingVertical: 5,
                 borderColor: 'gray',
                 height: 60,
                 justifyContent: 'center',
                 borderBottomRightRadius: 10,
                 borderTopRightRadius: 10,
               }}>
-              <Text style={{fontSize: 14, color: '#222B45'}}>
+              <Text style={{fontSize: 11, color: '#222B45'}}>
                 {region ? region : 'Region'}
               </Text>
             </TouchableOpacity>
