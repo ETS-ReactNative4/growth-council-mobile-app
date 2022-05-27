@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
+  FlatList,
   Dimensions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -157,7 +158,71 @@ const CoachingSession = props => {
     if (isNaN(innovation)) innovation = 0.0;
   }
 
- 
+  const _renderItem = ({item, index}) => {
+    let backgroundColor = '';
+    switch (item?.score_category) {
+      case 'Expert':
+        backgroundColor = '#97CB0A';
+        break;
+      case 'Inconsistent':
+        backgroundColor = '#FCCC4D';
+        break;
+      case 'Ambigious':
+        backgroundColor = '#FC8935';
+        break;
+    }
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: 10,
+        }}>
+        <View
+          style={{
+            width: '35%',
+            alignContent: 'center',
+          }}>
+          <View
+            style={[
+              {
+                backgroundColor: backgroundColor,
+                borderRadius: 20,
+                marginLeft: 10,
+                marginTop: 5,
+                marginBottom: 5,
+                padding: 10,
+                width: '100%',
+                alignItems: 'center',
+              },
+              styles.shadowProp,
+            ]}>
+            <Text style={{fontSize: 12, color: 'white'}}>
+              {item?.score_category}
+            </Text>
+          </View>
+          <View
+            style={{
+              alignItems: 'center',
+            }}>
+            <Text>{item?.score_range}</Text>
+          </View>
+        </View>
+        <HTMLView
+          value={item?.score_description}
+          textComponentProps={{
+            style: {
+              width: '60%',
+              marginLeft: 25,
+              textAlign: 'justify',
+              fontSize: 12,
+              paddingRight: 15,
+            },
+          }}
+        />
+      </View>
+    );
+  };
+
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -228,16 +293,15 @@ const CoachingSession = props => {
                 />
               </View>
               <TouchableOpacity
-                onPress={() =>  setModalVisible(!modalVisible)}
+                onPress={() => setModalVisible(!modalVisible)}
                 // onPressIn={() => {
                 //   setDisplay(!display);
                 // }}
-				>
+              >
                 <Ionicons
                   name={modalVisible ? 'close' : 'menu'}
                   size={35}
                   color={'black'}
-                  //   style={{marginLeft: 5}}
                 />
               </TouchableOpacity>
 
@@ -401,73 +465,15 @@ const CoachingSession = props => {
                             </Text>
                           </View>
                         </View>
-                        {/* {traits[count]?.score_description?.map(
-                          (data) => {
-                            let backgroundColor = '';
-                            switch (data?.score_category) {
-                              case 'Expert':
-                                backgroundColor = '#97CB0A';
-                                break;
-                              case 'Inconsistent':
-                                backgroundColor = '#FCCC4D';
-                                break;
-                              case 'Ambigious':
-                                backgroundColor = '#FC8935';
-                                break;
-                            }
-                            return (
-                              <View
-                                style={{
-                                  flexDirection: 'row',
-                                  marginTop: 10,
-                                }}>
-                                <View
-                                  style={{
-                                    width: '35%',
-                                    alignContent: 'center',
-                                  }}>
-                                  <View
-                                    style={[
-                                      {
-                                        backgroundColor: backgroundColor,
-                                        borderRadius: 20,
-                                        marginLeft: 10,
-                                        marginTop: 5,
-                                        marginBottom: 5,
-                                        padding: 10,
-                                        width: '100%',
-                                        alignItems: 'center',
-                                      },
-                                      styles.shadowProp,
-                                    ]}>
-                                    <Text
-                                      style={{fontSize: 12, color: 'white'}}>
-                                      {data?.score_category}
-                                    </Text>
-                                  </View>
-                                  <View
-                                    style={{
-                                      alignItems: 'center',
-                                    }}>
-                                    <Text>{data?.score_range}</Text>
-                                  </View>
-                                </View>
-                                <HTMLView
-                                  value={data?.score_description}
-                                  textComponentProps={{
-                                    style: {
-                                      width: '60%',
-                                      marginLeft: 25,
-                                      textAlign: 'justify',
-                                      fontSize: 12,
-                                      paddingRight: 15,
-                                    },
-                                  }}
-                                />
-                              </View>
-                            );
-                          },
-                        )} */}
+
+                        <View>
+                          <FlatList
+                            vertical
+                            showsHorizontalScrollIndicator={false}
+                            data={traits[count]?.score_description}
+                            renderItem={_renderItem}
+                          />
+                        </View>
                       </View>
                     </View>
                   </ScrollView>
