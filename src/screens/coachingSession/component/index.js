@@ -126,12 +126,10 @@ const CoachingSession = props => {
       ? profile?.session_score?.map(item => item?.session)
       : [0];
 
-	  
   let Growth =
     profile?.session_score !== false
       ? profile?.session_score?.map(item => {
-          let grow =
-            item?.session === sessions.ID ? item?.growth_index: null;
+          let grow = item?.session === sessions.ID ? item?.growth_index : null;
           return grow;
         })
       : 0;
@@ -141,9 +139,8 @@ const CoachingSession = props => {
       ? profile?.session_score?.map(item => {
           let inn =
             item?.session === sessions.ID ? item?.innovative_index : null;
-		
+
           return inn;
-		  
         })
       : 0;
 
@@ -152,8 +149,8 @@ const CoachingSession = props => {
   let growth = 0.0;
   let innovation = 0.0;
   if (previousSession.indexOf(sessions.ID) > -1 === true) {
-    growth = Growth;
-    innovation = Innovation;
+    growth = (Growth)
+    innovation = (Innovation)
   } else {
     growth = score.growthIndexScore.toFixed(1);
     innovation = score.innovativeIndexScore.toFixed(1);
@@ -294,8 +291,7 @@ const CoachingSession = props => {
                   }}
                 />
               </View>
-              <TouchableOpacity
-                onPress={() => setModalVisible(!modalVisible)}>
+              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <Ionicons
                   name={modalVisible ? 'close' : 'menu'}
                   size={35}
@@ -322,12 +318,12 @@ const CoachingSession = props => {
                         <View key={index1}>
                           <View style={styles.wrapper}>
                             <View style={styles.traitWrapper}>
-                              <View style={[styles.traitW, styles.shadowProp]}>
+                              {/* <View style={[styles.traitW, styles.shadowProp]}>
                                 <Image
                                   source={{uri: trait?.image}}
                                   style={{width: 20, height: 20}}
                                 />
-                              </View>
+                              </View> */}
                               <Text
                                 style={{
                                   fontSize: 12,
@@ -359,8 +355,7 @@ const CoachingSession = props => {
                                     padding: 5,
                                     alignItems: 'center',
                                   }}>
-                                  
-                                  <Text style={{fontSize: 13}}>
+                                  <Text style={{fontSize: 13, letterSpacing:1.5}}>
                                     {index1 === 0 ? growth : innovation}
                                   </Text>
                                 </View>
@@ -680,8 +675,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   traitWrapper: {
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 15,
+    paddingBottom:15,
     flexDirection: 'row',
     alignItems: 'center',
   },
