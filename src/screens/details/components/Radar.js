@@ -138,7 +138,7 @@ const Radar = props => {
                         radarMemberDetails?.present_growth_index
                           ?.user_radar_growth_index
                       }
-                      maxLength={4}
+                      maxLength={3}
                     />
                   </View>
                   <View style={{flex: 2}}>
@@ -150,7 +150,7 @@ const Radar = props => {
                         radarMemberDetails?.present_growth_index
                           ?.user_radar_innovation_index
                       }
-                      maxLength={4}
+                      maxLength={3}
                     />
                   </View>
                 </View>

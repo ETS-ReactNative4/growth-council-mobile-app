@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  FlatList,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonToggleGroup from 'react-native-button-toggle-group';
@@ -121,26 +121,29 @@ const CoachingSession = props => {
     );
     if (isNaN(num)) num = 0.0;
   }
-  const previousSession =
+  let previousSession =
     profile?.session_score !== false
       ? profile?.session_score?.map(item => item?.session)
       : [0];
 
-  const Growth =
+	  
+  let Growth =
     profile?.session_score !== false
       ? profile?.session_score?.map(item => {
-          let growth =
-            item?.session === sessions.ID ? item?.growth_index : null;
-          return growth;
+          let grow =
+            item?.session === sessions.ID ? item?.growth_index: null;
+          return grow;
         })
       : 0;
 
-  const Innovation =
+  let Innovation =
     profile?.session_score !== false
       ? profile?.session_score?.map(item => {
           let inn =
             item?.session === sessions.ID ? item?.innovative_index : null;
+		
           return inn;
+		  
         })
       : 0;
 
@@ -222,7 +225,6 @@ const CoachingSession = props => {
       </View>
     );
   };
-
   return traitsLoading && sessionLoading ? (
     <View style={styles.bubblesLoader}>
       <BubblesLoader color={Colors.SECONDARY_TEXT_COLOR} size={80} />
@@ -293,11 +295,7 @@ const CoachingSession = props => {
                 />
               </View>
               <TouchableOpacity
-                onPress={() => setModalVisible(!modalVisible)}
-                // onPressIn={() => {
-                //   setDisplay(!display);
-                // }}
-              >
+                onPress={() => setModalVisible(!modalVisible)}>
                 <Ionicons
                   name={modalVisible ? 'close' : 'menu'}
                   size={35}
@@ -350,20 +348,22 @@ const CoachingSession = props => {
                                 onPress={() => setScoreVisible(!scoreVisible)}
                                 onPressIn={() => {
                                   setCount(index1 === 0 ? 0 : 1);
-                                }}
-                                id={trait.ID}
-                                style={{
-                                  width: 40,
-                                  marginLeft: 5,
-                                  backgroundColor: 'orange',
-                                  borderRadius: 50,
-                                  padding: 5,
-                                  alignItems: 'center',
                                 }}>
-                                <Text style={{fontSize: 12}}>
-                                  {index1 === 0 ? growth : innovation}
-                                  {/* {num} */}
-                                </Text>
+                                <View
+                                  style={{
+                                    width: 40,
+                                    height: 30,
+                                    marginLeft: 5,
+                                    backgroundColor: 'orange',
+                                    borderRadius: 50,
+                                    padding: 5,
+                                    alignItems: 'center',
+                                  }}>
+                                  
+                                  <Text style={{fontSize: 13}}>
+                                    {index1 === 0 ? growth : innovation}
+                                  </Text>
+                                </View>
                               </Pressable>
                             </View>
                           </View>
@@ -465,7 +465,6 @@ const CoachingSession = props => {
                             </Text>
                           </View>
                         </View>
-
                         <View>
                           <FlatList
                             vertical
