@@ -307,171 +307,169 @@ const CoachingSession = props => {
                   onRequestClose={() => {
                     setModalVisible(false);
                   }}>
-                  <ScrollView
-                    style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
-                    contentContainerStyle={{
-                      alignItems: 'center',
-                      paddingBottom: 10,
+                  {
+                    scoreVisible ?
+                    <ScrollView
+                      style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
+                      contentContainerStyle={{
+                        alignItems: 'center',
+                        paddingBottom: 10,
                     }}>
-                    <View style={styles.modalView}>
-                      {traits?.map((trait, index1) => (
-                        <View key={index1}>
-                          <View style={styles.wrapper}>
-                            <View style={styles.traitWrapper}>
-                              {/* <View style={[styles.traitW, styles.shadowProp]}>
-                                <Image
-                                  source={{uri: trait?.image}}
-                                  style={{width: 20, height: 20}}
-                                />
-                              </View> */}
+                      <View style={styles.modalView}>
+                        <View>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              alignContent: 'center',
+                              justifyContent: 'center',
+                              padding: 20,
+                            }}>
+                            <Text
+                              style={{
+                                width: '80%',
+                                paddingTop: 20,
+                                paddingLeft: 80,
+                                fontSize: 18,
+                                color: 'black',
+                                fontWeight: '700',
+                              }}>
+                              Scores Chart
+                            </Text>
+                            <Pressable onPress={() => setScoreVisible(false)}>
+                              <Ionicons
+                                name={'close'}
+                                size={35}
+                                color={'#4936BE'}
+                              />
+                            </Pressable>
+                          </View>
+
+                          <View style={{flexDirection: 'row', marginBottom: 10}}>
+                            <View
+                              style={[
+                                {
+                                  backgroundColor: '#ffff',
+                                  borderRadius: 20,
+                                  marginLeft: 10,
+                                  marginBottom: 5,
+                                  padding: 12,
+                                  alignItems: 'center',
+                                },
+                                styles.shadowProp,
+                              ]}>
                               <Text
                                 style={{
                                   fontSize: 12,
-                                  width: '60%',
-                                  marginLeft: 10,
+                                  color: '#8DC182',
+                                  fontWeight: '700',
                                 }}>
-                                {trait?.title}
+                                {traits[count]?.title}
                               </Text>
                             </View>
-
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                              }}>
-                              <Text style={{fontSize: 12}}>Score</Text>
-                              <Pressable
-                                onPress={() => setScoreVisible(!scoreVisible)}
-                                onPressIn={() => {
-                                  setCount(index1 === 0 ? 0 : 1);
-                                }}>
-                                <View
-                                  style={{
-                                    width: 40,
-                                    height: 30,
-                                    marginLeft: 5,
-                                    backgroundColor: 'orange',
-                                    borderRadius: 50,
-                                    padding: 5,
-                                    alignItems: 'center',
-                                  }}>
-                                  <Text style={{fontSize: 13, letterSpacing:1.5}}>
-                                    {index1 === 0 ? growth : innovation}
-                                  </Text>
-                                </View>
-                              </Pressable>
-                            </View>
                           </View>
-                          <View style={{marginTop: 10, marginLeft: 50}}>
-                            {trait?.sub_traits?.map((subTrait, index2) => (
-                              <View
-                                style={[styles.textStyle, styles.shadowProp]}
-                                key={index2}>
-                                <Text style={{fontSize: 12, width: '80%'}}>
-                                  {subTrait?.title}
-                                </Text>
-                                {(checkMark(index1, index2) ||
-                                  sessions?.completed_status) && (
-                                  <Ionicons
-                                    name={'checkmark-outline'}
-                                    size={20}
-                                    color={'#A1BA68'}
-                                  />
-                                )}
-                              </View>
-                            ))}
+                          <View>
+                            <FlatList
+                              vertical
+                              showsHorizontalScrollIndicator={false}
+                              data={traits[count]?.score_description}
+                              renderItem={_renderItem}
+                            />
                           </View>
                         </View>
-                      ))}
+                      </View>
+                    </ScrollView>
+                      : <ScrollView
+                      style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
+                      contentContainerStyle={{
+                        alignItems: 'center',
+                        paddingBottom: 10,
+                      }}>
+                      <View style={styles.modalView}>
+                        {traits?.map((trait, index1) => (
+                          <View key={index1}>
+                            <View style={styles.wrapper}>
+                              <View style={styles.traitWrapper}>
+                                {/* <View style={[styles.traitW, styles.shadowProp]}>
+                                  <Image
+                                    source={{uri: trait?.image}}
+                                    style={{width: 20, height: 20}}
+                                  />
+                                </View> */}
+                                <Text
+                                  style={{
+                                    fontSize: 12,
+                                    width: '60%',
+                                    marginLeft: 10,
+                                  }}>
+                                  {trait?.title}
+                                </Text>
+                              </View>
 
-                      <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(false)}>
-                        <Text style={styles.textS}>Close</Text>
-                      </Pressable>
-                    </View>
-                  </ScrollView>
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+                                }}>
+                                <Text style={{fontSize: 12}}>Score</Text>
+                                <Pressable
+                                  onPress={() => {
+                                    setScoreVisible(true)
+                                  }}
+                                  onPressIn={() => {
+                                    setCount(index1 === 0 ? 0 : 1);
+                                  }}>
+                                  <View
+                                    style={{
+                                      width: 40,
+                                      height: 30,
+                                      marginLeft: 5,
+                                      backgroundColor: 'orange',
+                                      borderRadius: 50,
+                                      padding: 5,
+                                      alignItems: 'center',
+                                    }}>
+                                    <Text style={{fontSize: 13, letterSpacing:1.5}}>
+                                      {index1 === 0 ? growth : innovation}
+                                    </Text>
+                                  </View>
+                                </Pressable>
+                              </View>
+                            </View>
+                            <View style={{marginTop: 10, marginLeft: 50}}>
+                              {trait?.sub_traits?.map((subTrait, index2) => (
+                                <View
+                                  style={[styles.textStyle, styles.shadowProp]}
+                                  key={index2}>
+                                  <Text style={{fontSize: 12, width: '80%'}}>
+                                    {subTrait?.title}
+                                  </Text>
+                                  {(checkMark(index1, index2) ||
+                                    sessions?.completed_status) && (
+                                    <Ionicons
+                                      name={'checkmark-outline'}
+                                      size={20}
+                                      color={'#A1BA68'}
+                                    />
+                                  )}
+                                </View>
+                              ))}
+                            </View>
+                          </View>
+                        ))}
+                        <Pressable
+                          style={[styles.button, styles.buttonClose]}
+                          onPress={() => setModalVisible(false)}>
+                          <Text style={styles.textS}>Close</Text>
+                        </Pressable>
+                      </View>
+                    </ScrollView>
+                  }
+                  
                 </Modal>
               </View>
 
               <View style={styles.centeredView}>
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={scoreVisible}
-                  onRequestClose={() => {
-                    setScoreVisible(false);
-                  }}>
-                  <ScrollView
-                    style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
-                    contentContainerStyle={{
-                      alignItems: 'center',
-                      paddingBottom: 10,
-                    }}>
-                    <View style={styles.modalView}>
-                      <View>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            alignContent: 'center',
-                            justifyContent: 'center',
-                            padding: 20,
-                          }}>
-                          <Text
-                            style={{
-                              width: '80%',
-                              paddingTop: 20,
-                              paddingLeft: 80,
-                              fontSize: 18,
-                              color: 'black',
-                              fontWeight: '700',
-                            }}>
-                            Scores Chart
-                          </Text>
-                          <Pressable onPress={() => setScoreVisible(false)}>
-                            <Ionicons
-                              name={'close'}
-                              size={35}
-                              color={'#4936BE'}
-                            />
-                          </Pressable>
-                        </View>
-
-                        <View style={{flexDirection: 'row', marginBottom: 10}}>
-                          <View
-                            style={[
-                              {
-                                backgroundColor: '#ffff',
-                                borderRadius: 20,
-                                marginLeft: 10,
-                                marginBottom: 5,
-                                padding: 12,
-                                alignItems: 'center',
-                              },
-                              styles.shadowProp,
-                            ]}>
-                            <Text
-                              style={{
-                                fontSize: 12,
-                                color: '#8DC182',
-                                fontWeight: '700',
-                              }}>
-                              {traits[count]?.title}
-                            </Text>
-                          </View>
-                        </View>
-                        <View>
-                          <FlatList
-                            vertical
-                            showsHorizontalScrollIndicator={false}
-                            data={traits[count]?.score_description}
-                            renderItem={_renderItem}
-                          />
-                        </View>
-                      </View>
-                    </View>
-                  </ScrollView>
-                </Modal>
+                
               </View>
             </View>
 
