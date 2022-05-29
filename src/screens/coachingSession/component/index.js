@@ -149,8 +149,8 @@ const CoachingSession = props => {
   let growth = 0.0;
   let innovation = 0.0;
   if (previousSession.indexOf(sessions.ID) > -1 === true) {
-    growth = (Growth)
-    innovation = (Innovation)
+    growth = Growth;
+    innovation = Innovation;
   } else {
     growth = score.growthIndexScore.toFixed(1);
     innovation = score.innovativeIndexScore.toFixed(1);
@@ -265,9 +265,7 @@ const CoachingSession = props => {
                         if (previousSessionID === undefined) {
                           return setValue(val);
                         } else {
-                          ToastMessage.show(
-                            'First, please complete previous session',
-                          );
+                          ToastMessage.show('Please complete previous session');
                         }
                       } else {
                         return setValue(val);
@@ -355,7 +353,8 @@ const CoachingSession = props => {
                                     padding: 5,
                                     alignItems: 'center',
                                   }}>
-                                  <Text style={{fontSize: 13, letterSpacing:1.5}}>
+                                  <Text
+                                    style={{fontSize: 13, letterSpacing: 1.5}}>
                                     {index1 === 0 ? growth : innovation}
                                   </Text>
                                 </View>
@@ -676,7 +675,7 @@ const styles = StyleSheet.create({
   },
   traitWrapper: {
     paddingTop: 15,
-    paddingBottom:15,
+    paddingBottom: 15,
     flexDirection: 'row',
     alignItems: 'center',
   },

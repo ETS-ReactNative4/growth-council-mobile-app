@@ -16,10 +16,7 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import moment from 'moment';
-import {BubblesLoader} from 'react-native-indicator';
-import YoutubePlayer from '../../../shared/youtube';
-import Footer from '../../../shared/footer';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Player from '../../dashboard/components/Player';
 import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
@@ -263,7 +260,7 @@ const SubPOEListDetails = props => {
             style={{height: 240, width: '100%'}}></ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>
-            <Image
+            {/* <Image
               source={{uri: poeDetails?.image}}
               style={{
                 width: 35,
@@ -271,20 +268,21 @@ const SubPOEListDetails = props => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-            />
+            /> */}
+            <FontAwesome5 name="toolbox" size={35} color="#f26722" />
           </View>
 
           <ScrollView style={[styles.content]}>
             <View style={styles.contentWrapper}>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: '500',
                   color: '#1E2022',
                   textAlign: 'center',
                   marginTop: 50,
                 }}>
-                {poeDetails?.name}
+                Toolkits
               </Text>
 
               <HTMLView
@@ -411,7 +409,7 @@ const styles = StyleSheet.create({
     color: '#77838F',
   },
   top: {
-    marginTop: 10,
+    marginTop: 40,
     justifyContent: 'center',
   },
   topWrapper: {

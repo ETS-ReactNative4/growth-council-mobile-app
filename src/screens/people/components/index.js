@@ -64,7 +64,7 @@ const People = props => {
   const [memberConnection, setMemberConnection] = useState([]);
 
   useEffect(() => {
-	const fetchAllUsersAsync = async () => {
+    const fetchAllUsersAsync = async () => {
       await fetchAllUsers({
         s: searchKey,
         sort: sorting,
@@ -111,7 +111,7 @@ const People = props => {
 
   const countries = ['Region', 'NORTH AMERICA', 'APAC', 'MEASA'];
 
-  const pillar = ['Acount Type', 'Council Member', 'Associate Member'];
+  const pillar = ['Acount Word', 'Council Member', 'Associate Member'];
 
   const _renderItem = ({item, index}) => {
     return (
@@ -254,7 +254,7 @@ const People = props => {
                 justifyContent: 'center',
               }}>
               <Text style={{fontSize: 11, color: '#222B45'}}>
-                {account ? account : 'Account Type'}
+                {account ? account : 'Account Word'}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
