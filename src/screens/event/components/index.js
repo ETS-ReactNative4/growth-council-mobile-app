@@ -104,16 +104,23 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const eventDate = moment(events?.event_start).format('MMMM D, h:mma - ');
-  const eventEnd = moment(events?.event_end).format('MMMM D, h:mma');
+  const eventDate = moment(events?.event_start)
+    .format('MMMM D, h:mma - ');
+  const eventEnd = moment(events?.event_end)
+    .format('MMMM D, h:mma');
 
-  const eventStartMonth = moment(events?.event_start).format('MMMM D');
+  const eventStartMonth = moment(events?.event_start)
+    .format('MMMM D');
 
-  const eventEndTime = moment(events?.event_end).format('h:mma ');
-  const eventEndMonth = moment(events?.event_end).format('MMMM D');
+  const eventEndTime = moment(events?.event_end)
+    .format('h:mma ');
+  const eventEndMonth = moment(events?.event_end)
+    .format('MMMM D');
 
-  const GobalDate = moment(timeToDisplay).format('MMMM D, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay).format('MMMM D');
+  const GobalDate = moment(timeToDisplay)
+    .format('MMMM D, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay)
+    .format('MMMM D');
 
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
   const GobalEndMonth = moment(timeToEnd).format('MMMM D');
@@ -210,14 +217,14 @@ const Event = props => {
                     }}>
                     {/* <Text style={styles.eventDetails}>{GobalDate} /</Text> */}
                     <Text style={styles.eventDetails}>
-                      {GobalStartMonth === GobalEndMonth
+                      {/* {GobalStartMonth === GobalEndMonth
                         ? GobalDate + GobalEndTime
                         : GobalStartMonth +
                           GobalDate.split(/(\s+)/)[7] +
                           GobalDate.split(/(\s+)/)[6] +
                           GobalDate.split(/(\s+)/)[7] +
                           GobalEndMonth}{' '}
-                      ({deviceTimeZone}) /{' '}
+                      ({deviceTimeZone}) /{' '} */}
                       {eventStartMonth === eventEndMonth
                         ? eventDate + eventEndTime
                         : eventStartMonth +
@@ -225,7 +232,7 @@ const Event = props => {
                           eventDate.split(/(\s+)/)[6] +
                           eventDate.split(/(\s+)/)[7] +
                           eventEndMonth}
-                      (America)
+                      ({events?.time_zone})
                     </Text>
                   </View>
                   {!eventStatus && (
@@ -446,7 +453,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_SF_MEDIUM,
     color: Colors.NONARY_TEXT_COLOR,
     marginLeft: 5,
-    fontSize: 12,
+    fontSize: 13,
     color: '#1E2022',
     fontWeight: 'bold',
   },

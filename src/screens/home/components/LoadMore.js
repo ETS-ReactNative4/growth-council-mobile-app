@@ -72,7 +72,9 @@ const CouncilAllDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => ToastMessage.show('Please login to review further."')}>
+          onPress={() =>
+            ToastMessage.show('Log in as Council Member to Review.')
+          }>
           <View style={styles.eventCard} key={index}>
             <View style={[styles.eventTheme, {borderColor: backgroundColor}]} />
             <View style={styles.eventDetails}>
@@ -101,7 +103,9 @@ const CouncilAllDetail = props => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => ToastMessage.show('Please login to review further."')}>
+          onPress={() =>
+            ToastMessage.show('Log in as Council Member to Review.')
+          }>
           <View style={styles.poeCard} key={index}>
             <View style={[styles.poeTheme, styles.shadowProp]}>
               <Image

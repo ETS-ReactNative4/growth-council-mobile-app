@@ -139,8 +139,6 @@ const Dashboard = props => {
     fetchLatestContentAsync();
   }, []);
 
-
-
   useEffect(() => {
     fetchCritcalIssue();
   }, []);
@@ -404,8 +402,8 @@ const Dashboard = props => {
           <ImageBackground
             style={{
               width: '100%',
-              height: Dimensions.get('screen').height / 3,
-              paddingTop: Dimensions.get('screen').height / 8,
+              height: (Dimensions.get('screen').height -100)/ 3,
+              paddingTop: Dimensions.get('screen').height / 10,
             }}
             source={require('../../../assets/img/appBG.png')}>
             <View style={styles.pillar}>
@@ -531,10 +529,12 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   top: {
+    height: 210,
     marginBottom: 10,
     marginTop: 60,
     justifyContent: 'center',
     marginLeft: 5,
+	
   },
 
   topWrapper: {

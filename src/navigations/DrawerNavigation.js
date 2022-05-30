@@ -87,32 +87,7 @@ const CustomDrawerContent = props => {
           resizeMode="contain"
         />
       </View>
-      {/* <View
-        style={{
-          flexDirection: 'row',
-          margin: 10,
-        }}>
-        <Image
-          source={{
-            uri: profile?.avatar,
-          }}
-          style={{
-            height: 45,
-            width: 45,
-            borderRadius: 20,
-          }}
-        />
-        <Text
-          style={{
-            color: 'black',
-            fontSize: Platform.OS === 'ios' ? 16 : 18,
-            fontWeight: 'normal',
-            marginTop: 10,
-            marginLeft: 20,
-          }}>
-          {profile?.user_meta?.first_name} {profile?.user_meta?.last_name}
-        </Text>
-      </View> */}
+
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
         <DrawerItem
@@ -177,7 +152,7 @@ const DrawerNavigation = () => {
         drawerActiveBackgroundColor: 'rgba(0,0,0,0)',
         drawerActiveTintColor: '#888',
         drawerInactiveTintColor: '#888',
-        itemStyle: {marginVertical: 1},
+
       })}
       drawerContent={props => {
         // const filteredProps = {...props,  state: {...props.state, routeNames: props.state.routeNames.filter(routeName => routeName !== 'Account' && routeName !== "People" && routeName !== "UserList"), routes: props.state.routes.filter(route => route.name !== "Account" && route.name !== "People" && route.name !== "UserList")}};
@@ -188,7 +163,12 @@ const DrawerNavigation = () => {
         component={DashboardStackScreen}
         options={() => ({
           drawerIcon: ({focused, size}) => (
-            <Material name="inbox" color={'#00008B'} size={20} />
+            <Material
+              name="inbox"
+              color={'#00008B'}
+              size={20}
+              
+            />
           ),
           headerShown: false,
         })}
@@ -198,7 +178,7 @@ const DrawerNavigation = () => {
         component={HomeCommunityScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Material name="group-work" color={'#14A2E2'} size={20} />
+            <Material name="group-work" color={'#14A2E2'} size={19} />
           ),
           header: () => (
             <SubHeader
@@ -214,7 +194,7 @@ const DrawerNavigation = () => {
         component={BestPracticeScreen}
         options={({navigation}) => ({
           drawerIcon: ({focused, size}) => (
-            <Feature name="thumbs-up" color={'#f26722'} size={20} />
+            <Feature name="thumbs-up" color={'#f26722'} size={19} />
           ),
           header: () => (
             <SubHeader
@@ -232,7 +212,7 @@ const DrawerNavigation = () => {
           drawerIcon: ({focused, size}) => (
             <Image
               source={require('../../src/assets/img/GrowthCoaching-01.png')}
-              style={{width: 25, height: 30}}
+              style={{width: 20, height: 30}}
               resizeMode="cover"
             />
           ),
@@ -245,38 +225,7 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      {/* <Drawer.Screen
-        name="Content Library"
-        component={ContentScreen}
-        options={({navigation}) => ({
-          drawerIcon: ({focused, size}) => (
-            <Material name="content-copy" color={'#00008B'} size={20} />
-          ),
-          header: () => (
-            <SubHeader
-              title="Content Library"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      /> */}
-      {/* <Drawer.Screen
-        name="Critical Issues"
-        component={CriticalIssueScreen}
-        options={({navigation}) => ({
-          drawerIcon: ({focused, size}) => (
-            <Material name="content-copy" color={'#00008B'} size={20} />
-          ),
-          header: () => (
-            <SubHeader
-              title="Critical Issues"
-              image={require('../assets/img/appBG.png')}
-              navigation={navigation}
-            />
-          ),
-        })}
-      /> */}
+
       <Drawer.Screen
         name="Calendar"
         component={CalendarScreen}

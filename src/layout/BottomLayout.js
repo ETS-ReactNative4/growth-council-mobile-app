@@ -81,7 +81,7 @@ const BottomLayout = ({focused, navigation}) => {
           <View>
             <View
               style={{
-                top: Platform.OS === 'ios' ? 8 : 0,
+                top: Platform.OS === 'ios' ? 10 : 3,
               }}>
               <Ionicons
                 name="person-outline"
