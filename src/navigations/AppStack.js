@@ -31,6 +31,7 @@ import CommunityDetailScreen from '../screens/details/CommunityDetail';
 import GrowthDetailScreen from '../screens/details/GrowthDetail';
 import SubPOEDetailScreen from '../screens/details/subPoeDetails';
 import SubPOEListDetailScreen from '../screens/details/subPoeListDetails';
+import ToolKitDetailScreen from '../screens/details/toolkitsDetail';
 import RadarScreen from '../screens/details/Radar';
 import UpcomingScreen from '../screens/dashboard/UpcomingView';
 import ChatScreen from '../screens/chat';
@@ -182,6 +183,21 @@ const AppStack = () => (
         ),
       })}
     />
+	 <Screen
+      name="ToolKit"
+      component={ToolKitDetailScreen}
+      options={() => ({
+        header: ({navigation}) => (
+          <SubHeader
+            title="Growth Content"
+            image={require('../assets/img/best-practice-bg.png')}
+            navigation={navigation}
+            noDrawer={true}
+          />
+        ),
+      })}
+    />
+	
 
     <Screen
       name="ManageAccount"

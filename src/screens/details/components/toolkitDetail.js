@@ -12,23 +12,26 @@ import {
   StatusBar,
   PermissionsAndroid,
 } from 'react-native';
+import {Button} from 'native-base';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 import Player from '../../dashboard/components/Player';
 import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Loading from '../../../shared/loading';
 import RNFetchBlob from 'react-native-blob-util';
-// import ReactNativeBlobUtil from 'react-native-blob-util';
+
 import ToastMessage from '../../../shared/toast';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
+const buttonContainerWidth = win.width - 40;
 
-const SubPOEListDetails = props => {
+const ToolkitDetails = props => {
   const {
     navigation,
     route,
@@ -37,11 +40,6 @@ const SubPOEListDetails = props => {
     poeDetailError,
     fetchAllPOEDetail,
     cleanPOEDetail,
-    pillarMemberContents,
-    pillarMemberContentLoading,
-    pillarMemberContentError,
-    fetchAllPillarMemberContent,
-    cleanPillarMemberContent,
     pillarPOEs,
     pillarPOELoading,
     pillarPOEError,
@@ -60,20 +58,11 @@ const SubPOEListDetails = props => {
   useFocusEffect(
     useCallback(() => {
       fetchAllPillarPOE(route.params.poeId);
-
       return () => {
         cleanPillarPOE();
       };
     }, [isFocused]),
   );
-
-  const _renderContentItem = ({item, index}) => {
-    const file = item?.file;
-    const link = file.split('=', 2);
-
-    let videoLink = link[1]?.split('&', 2);
-    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
-  };
 
   const _renderContent = ({item, index}) => {
     const fileUrl = item?.file?.url;
@@ -198,13 +187,7 @@ const SubPOEListDetails = props => {
 
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ToolKit', { 
-            poeId: item?.term_id,
-            id: route?.params?.poeId,
-          })
-        }>
+      <TouchableOpacity>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image
@@ -228,7 +211,7 @@ const SubPOEListDetails = props => {
     );
   };
 
-  let backgroundColor = Colors.PRACTICE_COLOR;
+  let backgroundColor = '';
   const parent = poeDetails?.parent;
   switch (parent) {
     case 118:
@@ -266,7 +249,7 @@ const SubPOEListDetails = props => {
             style={{height: 240, width: '100%'}}></ImageBackground>
 
           <View style={[styles.icon, styles.shadowProp]}>
-            {/* <Image
+            <Image
               source={{uri: poeDetails?.image}}
               style={{
                 width: 35,
@@ -274,24 +257,24 @@ const SubPOEListDetails = props => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-            /> */}
-            <FontAwesome5 name="toolbox" size={35} color="#f26722" />
+            />
           </View>
 
-          <ScrollView style={[styles.content]}>
+          <ScrollView
+            style={[styles.content, {backgroundColor: Colors.PRACTICE_COLOR}]}>
             <View style={styles.contentWrapper}>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: '500',
                   color: '#1E2022',
                   textAlign: 'center',
                   marginTop: 50,
                 }}>
-                Toolkits
+                {poeDetails?.name}
               </Text>
-
-              {/* <HTMLView
+              {poeDetailLoading && <Loading />}
+              <HTMLView
                 value={poeDescription}
                 textComponentProps={{
                   style: {
@@ -303,8 +286,8 @@ const SubPOEListDetails = props => {
                     color: '#77838F',
                   },
                 }}
-              /> */}
-              {poeDetailLoading && <Loading />}
+              />
+{/* 
               {poeDetails !== null &&
                 pillarPOEs !== null &&
                 pillarPOEs !== false &&
@@ -320,10 +303,11 @@ const SubPOEListDetails = props => {
                       renderItem={item => _renderMiddleItem(item, navigation)}
                     />
                   </View>
-                )}
-              {/* {poeDetails?.attachments?.length !== 0 &&
+                )} */}
+              {poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null &&
-                poeDetails?.attachments !== false && (
+                poeDetails?.attachments !== false &&
+                poeDetails?.pillar_contents !== undefined && (
                   <View style={styles.sectionContainer}>
                     <FlatList
                       vertical
@@ -332,27 +316,26 @@ const SubPOEListDetails = props => {
                       renderItem={_renderContent}
                     />
                   </View>
-                )} */}
-              {/* {poeDetails?.pillar_contents?.length !== 0 &&
-                poeDetails?.pillar_contents !== null &&
-                poeDetails?.pillar_contents !== false &&
-                poeDetails?.pillar_contents !== undefined && (
-                  <View style={styles.growthContent}>
-                    <Text style={styles.title}> Content Library</Text>
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                      }}>
-                      <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={pillarMemberContents?.pillar_contents}
-                        renderItem={_renderContentItem}
-                      />
-                    </View>
+                )}
+              <View style={styles.buttonWrapper}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('SubPoeList', {
+                      poeId: poeDetails?.term_id,
+                      id: route?.params?.poeId,
+                    })
+                  }>
+                  <View style={styles.signupbutton}>
+                    <FontAwesome5
+                      name="toolbox"
+                      size={25}
+                      color="white"
+                      style={{paddingRight: 40}}
+                    />
+                    <Text style={styles.signinbuttonText}>Toolkits</Text>
                   </View>
-                )} */}
+                </TouchableOpacity>
+              </View>
 
               {/* <Footer /> */}
             </View>
@@ -398,7 +381,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginBottom: 20,
-    backgroundColor: Colors.PRACTICE_COLOR,
   },
   contentWrapper: {
     width: '100%',
@@ -415,7 +397,7 @@ const styles = StyleSheet.create({
     color: '#77838F',
   },
   top: {
-    marginTop: 40,
+    marginTop: 10,
     justifyContent: 'center',
   },
   topWrapper: {
@@ -561,6 +543,27 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
+  buttonWrapper: {
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: 30,
+  },
+  signupbutton: {
+    ...CommonStyles.button,
+    width: buttonContainerWidth,
+    marginBottom: Platform.OS === 'ios' ? 10 : 20,
+    borderRadius: 10,
+    height: 56,
+    flexDirection: 'row',
+    backgroundColor: Colors.PRACTICE_COLOR,
+  },
+  signinbuttonText: {
+    fontFamily: Typography.FONT_SF_BOLD,
+    fontSize: 18,
+    color: 'white',
+    alignItems: 'center',
+    paddingRight: 50,
+  },
 });
 
-export default SubPOEListDetails;
+export default ToolkitDetails;
