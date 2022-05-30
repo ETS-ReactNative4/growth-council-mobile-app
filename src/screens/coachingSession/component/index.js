@@ -160,14 +160,14 @@ const CoachingSession = props => {
 
   const _renderItem = ({item, index}) => {
     let backgroundColor = '';
-    switch (item?.score_category) {
-      case 'Expert':
+    switch (item?.score_range) {
+      case '1 - 2.5':
         backgroundColor = '#97CB0A';
         break;
-      case 'Inconsistent':
+      case '2.6 - 4':
         backgroundColor = '#FCCC4D';
         break;
-      case 'Ambigious':
+      case '4.1 - 5':
         backgroundColor = '#FC8935';
         break;
     }
@@ -176,6 +176,7 @@ const CoachingSession = props => {
         style={{
           flexDirection: 'row',
           marginTop: 10,
+          paddingBottom: 10,
         }}>
         <View
           style={{
@@ -211,7 +212,7 @@ const CoachingSession = props => {
           value={item?.score_description}
           textComponentProps={{
             style: {
-              width: '60%',
+              width: 190,
               marginLeft: 25,
               textAlign: 'justify',
               fontSize: 12,
@@ -305,14 +306,13 @@ const CoachingSession = props => {
                   onRequestClose={() => {
                     setModalVisible(false);
                   }}>
-                  {
-                    scoreVisible ?
+                  {scoreVisible ? (
                     <ScrollView
                       style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
                       contentContainerStyle={{
                         alignItems: 'center',
                         paddingBottom: 10,
-                    }}>
+                      }}>
                       <View style={styles.modalView}>
                         <View>
                           <View
@@ -342,7 +342,8 @@ const CoachingSession = props => {
                             </Pressable>
                           </View>
 
-                          <View style={{flexDirection: 'row', marginBottom: 10}}>
+                          <View
+                            style={{flexDirection: 'row', marginBottom: 10}}>
                             <View
                               style={[
                                 {
@@ -376,7 +377,8 @@ const CoachingSession = props => {
                         </View>
                       </View>
                     </ScrollView>
-                      : <ScrollView
+                  ) : (
+                    <ScrollView
                       style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
                       contentContainerStyle={{
                         alignItems: 'center',
@@ -411,7 +413,7 @@ const CoachingSession = props => {
                                 <Text style={{fontSize: 12}}>Score</Text>
                                 <Pressable
                                   onPress={() => {
-                                    setScoreVisible(true)
+                                    setScoreVisible(true);
                                   }}
                                   onPressIn={() => {
                                     setCount(index1 === 0 ? 0 : 1);
@@ -426,7 +428,11 @@ const CoachingSession = props => {
                                       padding: 5,
                                       alignItems: 'center',
                                     }}>
-                                    <Text style={{fontSize: 13, letterSpacing:1.5}}>
+                                    <Text
+                                      style={{
+                                        fontSize: 13,
+                                        letterSpacing: 1.5,
+                                      }}>
                                       {index1 === 0 ? growth : innovation}
                                     </Text>
                                   </View>
@@ -461,14 +467,11 @@ const CoachingSession = props => {
                         </Pressable>
                       </View>
                     </ScrollView>
-                  }
-                  
+                  )}
                 </Modal>
               </View>
 
-              <View style={styles.centeredView}>
-                
-              </View>
+              <View style={styles.centeredView}></View>
             </View>
 
             <View style={{marginTop: 32}}>

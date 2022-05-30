@@ -111,15 +111,15 @@ const People = props => {
 
   const countries = {
     Region: 'Region',
-    'NORTH AMERICA': 'um_north-america',
-    APAC: 'um_apac',
-    MEASA: 'um_measa',
+    'NORTH AMERICA': 'NORTH AMERICA',
+    APAC: 'APAC',
+    MEASA: 'MEASA',
   };
 
   const pillar = {
     'Account Word': 'Account Word',
-    'Council Member': 'um_council-member',
-    'Associate Member': 'um_associate-member',
+    'Council Member': 'Council Member',
+    'Associate Member': 'Associate Member',
   };
 
   const _renderItem = ({item, index}) => {
@@ -208,30 +208,6 @@ const People = props => {
                 });
               }}
             />
-            {/* <TouchableOpacity style={styles.icon}
-              onPress={async () => {
-                let newSorting = 'DESC';
-                if( sorting === 'DESC'){
-                  newSorting = 'ASC'
-                }
-                setSorting(newSorting);
-                
-                await fetchAllUsers({
-                  s: searchKey,
-                  sort: newSorting,
-                  expertise_areas: category,
-                  category: account,
-                  country: region,
-                });
-              }}
-            >
-              <Ionicons
-                name="swap-vertical-outline"
-                size={25}
-                color="#7E7F84"
-              />
-              <Text style={styles.textWrapper}>Sort</Text>
-            </TouchableOpacity> */}
           </View>
           <View style={styles.iconWrapper}>
             <TouchableOpacity
@@ -402,7 +378,7 @@ const People = props => {
                 selectedValue={account}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={async itemValue => {
+                onValueChange={async (itemValue, itemIndex) => {
                   setAccount(itemValue);
                   if (itemValue === 'Account Word') {
                     fetchAllUsers({
