@@ -198,7 +198,13 @@ const SubPOEListDetails = props => {
 
   const _renderMiddleItem = ({item, index}, navigation) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('ToolKit', { 
+            poeId: item?.term_id,
+            id: route?.params?.poeId,
+          })
+        }>
         <View style={styles.middleWrapper}>
           <View style={[styles.middleW, styles.shadowProp]}>
             <Image

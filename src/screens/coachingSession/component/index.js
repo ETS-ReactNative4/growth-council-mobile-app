@@ -159,18 +159,18 @@ const CoachingSession = props => {
   }
 
   const _renderItem = ({item, index}) => {
-    let backgroundColor = '';
-    switch (item?.score_range) {
-      case '1 - 2.5':
-        backgroundColor = '#97CB0A';
-        break;
-      case '2.6 - 4':
-        backgroundColor = '#FCCC4D';
-        break;
-      case '4.1 - 5':
-        backgroundColor = '#FC8935';
-        break;
-    }
+    // switch (item?.score_range) {
+    //   case '1 - 2.5':
+    //     backgroundColor = '#97CB0A';
+    //     break;
+    //   case '2.6 - 4':
+    //     backgroundColor = '#FCCC4D';
+    //     break;
+    //   case '4.1 - 5':
+    //     backgroundColor = '#FC8935';
+    //     break;
+    // }
+    let backgroundColor = item?.score_color;
     return (
       <View
         style={{
