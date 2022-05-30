@@ -64,7 +64,7 @@ const People = props => {
   const [memberConnection, setMemberConnection] = useState([]);
 
   useEffect(() => {
-	const fetchAllUsersAsync = async () => {
+    const fetchAllUsersAsync = async () => {
       await fetchAllUsers({
         s: searchKey,
         sort: sorting,
@@ -109,9 +109,18 @@ const People = props => {
     }
   };
 
-  const countries = ['Region', 'NORTH AMERICA', 'APAC', 'MEASA'];
+  const countries = {
+    'Region': 'Region',
+    'NORTH AMERICA': 'NORTH AMERICA',
+    'APAC': 'APAC',
+    'MEASA': 'MEASA',
+  };
 
-  const pillar = ['Acount Type', 'Council Member', 'Associate Member'];
+  const pillar = {
+    'Account Word': 'Account Word',
+    'Council Member': 'Council Member',
+    'Associate Member': 'Associate Member',
+  };
 
   const _renderItem = ({item, index}) => {
     return (
@@ -199,30 +208,6 @@ const People = props => {
                 });
               }}
             />
-            {/* <TouchableOpacity style={styles.icon}
-              onPress={async () => {
-                let newSorting = 'DESC';
-                if( sorting === 'DESC'){
-                  newSorting = 'ASC'
-                }
-                setSorting(newSorting);
-                
-                await fetchAllUsers({
-                  s: searchKey,
-                  sort: newSorting,
-                  expertise_areas: category,
-                  category: account,
-                  country: region,
-                });
-              }}
-            >
-              <Ionicons
-                name="swap-vertical-outline"
-                size={25}
-                color="#7E7F84"
-              />
-              <Text style={styles.textWrapper}>Sort</Text>
-            </TouchableOpacity> */}
           </View>
           <View style={styles.iconWrapper}>
             <TouchableOpacity
@@ -254,7 +239,7 @@ const People = props => {
                 justifyContent: 'center',
               }}>
               <Text style={{fontSize: 11, color: '#222B45'}}>
-                {account ? account : 'Account Type'}
+                {account ? account : 'Account Word'}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -393,18 +378,26 @@ const People = props => {
                 selectedValue={account}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={async itemValue => {
+                onValueChange={async (itemValue, itemIndex) => {
                   setAccount(itemValue);
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'ASC',
-                    category: account,
-                  });
+                  if (itemValue === 'Account Word') {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      category: '',
+                    });
+                  } else {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      category: itemValue,
+                    });
+                  }
                 }}>
                 {Object.keys(pillar).map(key => {
                   return (
                     <Picker.Item
-                      label={pillar[key]}
+                      label={key}
                       value={pillar[key]}
                       key={key}
                       style={{fontSize: 14}}
@@ -445,22 +438,31 @@ const People = props => {
               </Text>
             </TouchableOpacity>
             <View style={{marginBottom: 40}}>
+				
               <Picker
                 selectedValue={region}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={async (itemValue, itemIndex) => {
+                onValueChange={async itemValue => {
                   setRegion(itemValue);
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'ASC',
-                    country: region,
-                  });
+                  if (itemValue === 'Region') {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      country: '',
+                    });
+                  } else {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      country: itemValue,
+                    });
+                  }
                 }}>
                 {Object.keys(countries).map(key => {
                   return (
                     <Picker.Item
-                      label={countries[key]}
+                      label={key}
                       value={countries[key]}
                       key={key}
                       style={{fontSize: 14}}

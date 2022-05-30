@@ -12,24 +12,24 @@ import {
   StatusBar,
   PermissionsAndroid,
 } from 'react-native';
+import {Button} from 'native-base';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import moment from 'moment';
-import {BubblesLoader} from 'react-native-indicator';
-import YoutubePlayer from '../../../shared/youtube';
-import Footer from '../../../shared/footer';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 import Player from '../../dashboard/components/Player';
 import HTMLView from 'react-native-htmlview';
 import {CommonStyles, Colors, Typography} from '../../../theme';
 import Loading from '../../../shared/loading';
 import RNFetchBlob from 'react-native-blob-util';
-// import ReactNativeBlobUtil from 'react-native-blob-util';
+
 import ToastMessage from '../../../shared/toast';
 
 const win = Dimensions.get('window');
 const contentContainerWidth = win.width - 30;
+const buttonContainerWidth = win.width - 40;
 
 const SubPOEDetails = props => {
   const {
@@ -40,11 +40,6 @@ const SubPOEDetails = props => {
     poeDetailError,
     fetchAllPOEDetail,
     cleanPOEDetail,
-    pillarMemberContents,
-    pillarMemberContentLoading,
-    pillarMemberContentError,
-    fetchAllPillarMemberContent,
-    cleanPillarMemberContent,
     pillarPOEs,
     pillarPOELoading,
     pillarPOEError,
@@ -68,14 +63,6 @@ const SubPOEDetails = props => {
       };
     }, [isFocused]),
   );
-
-  const _renderContentItem = ({item, index}) => {
-    const file = item?.file;
-    const link = file.split('=', 2);
-
-    let videoLink = link[1]?.split('&', 2);
-    return <Player {...props} item={item} file={file} videoLink={videoLink} />;
-  };
 
   const _renderContent = ({item, index}) => {
     const fileUrl = item?.file?.url;
@@ -292,7 +279,7 @@ const SubPOEDetails = props => {
                 }}>
                 {poeDetails?.name}
               </Text>
-			  {poeDetailLoading && <Loading />}
+              {poeDetailLoading && <Loading />}
               <HTMLView
                 value={poeDescription}
                 textComponentProps={{
@@ -306,7 +293,7 @@ const SubPOEDetails = props => {
                   },
                 }}
               />
-			 
+{/* 
               {poeDetails !== null &&
                 pillarPOEs !== null &&
                 pillarPOEs !== false &&
@@ -322,11 +309,11 @@ const SubPOEDetails = props => {
                       renderItem={item => _renderMiddleItem(item, navigation)}
                     />
                   </View>
-                )}
+                )} */}
               {poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null &&
                 poeDetails?.attachments !== false &&
-				poeDetails?.pillar_contents !== undefined && ( 
+                poeDetails?.pillar_contents !== undefined && (
                   <View style={styles.sectionContainer}>
                     <FlatList
                       vertical
@@ -336,32 +323,30 @@ const SubPOEDetails = props => {
                     />
                   </View>
                 )}
-              {poeDetails?.pillar_contents?.length !== 0 &&
-                poeDetails?.pillar_contents !== null &&
-                poeDetails?.pillar_contents !== false &&
-                poeDetails?.pillar_contents !== undefined && (
-                  <View style={styles.growthContent}>
-                    <Text style={styles.title}> Content Library</Text>
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                      }}>
-                      <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={pillarMemberContents?.pillar_contents}
-                        renderItem={_renderContentItem}
-                      />
-                    </View>
+              <View style={styles.buttonWrapper}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('SubPoeList', {
+                      poeId: poeDetails?.term_id,
+                      id: route?.params?.poeId,
+                    })
+                  }>
+                  <View style={styles.signupbutton}>
+                    <FontAwesome5
+                      name="toolbox"
+                      size={25}
+                      color="white"
+                      style={{paddingRight: 40}}
+                    />
+                    <Text style={styles.signinbuttonText}>Toolkits</Text>
                   </View>
-                )}
+                </TouchableOpacity>
+              </View>
 
               {/* <Footer /> */}
             </View>
           </ScrollView>
         </View>
-       
       </ScrollView>
     </>
   );
@@ -563,6 +548,27 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginBottom: 20,
     marginTop: 20,
+  },
+  buttonWrapper: {
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: 30,
+  },
+  signupbutton: {
+    ...CommonStyles.button,
+    width: buttonContainerWidth,
+    marginBottom: Platform.OS === 'ios' ? 10 : 20,
+    borderRadius: 10,
+    height: 56,
+    flexDirection: 'row',
+    backgroundColor: Colors.PRACTICE_COLOR,
+  },
+  signinbuttonText: {
+    fontFamily: Typography.FONT_SF_BOLD,
+    fontSize: 18,
+    color: 'white',
+    alignItems: 'center',
+    paddingRight: 50,
   },
 });
 
