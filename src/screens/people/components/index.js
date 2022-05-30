@@ -69,8 +69,8 @@ const People = props => {
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
-        category: account,
-        country: region,
+        account: account,
+        region: region,
       });
     };
     fetchAllUsersAsync();
@@ -99,8 +99,8 @@ const People = props => {
         s: searchKey,
         sort: sorting,
         expertise_areas: category,
-        category: account,
-        country: region,
+        account: account,
+        region: region,
       });
       ToastMessage.show('You have successfully connected.');
     } else {
@@ -110,14 +110,14 @@ const People = props => {
   };
 
   const countries = {
-    'Region': 'Region',
+    Region: 'Region',
     'NORTH AMERICA': 'NORTH AMERICA',
-    'APAC': 'APAC',
-    'MEASA': 'MEASA',
+    APAC: 'APAC',
+    MEASA: 'MEASA',
   };
 
   const pillar = {
-    'Account Word': 'Account Word',
+    'Account Type': 'Account Type',
     'Council Member': 'Council Member',
     'Associate Member': 'Associate Member',
   };
@@ -203,8 +203,8 @@ const People = props => {
                   s: text,
                   sort: sorting,
                   expertise_areas: category,
-                  category: account,
-                  country: region,
+                  account: account,
+                  region: region,
                 });
               }}
             />
@@ -239,7 +239,7 @@ const People = props => {
                 justifyContent: 'center',
               }}>
               <Text style={{fontSize: 11, color: '#222B45'}}>
-                {account ? account : 'Account Word'}
+                {account ? account : 'Account Type'}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -321,12 +321,16 @@ const People = props => {
                       s: searchKey,
                       sort: sorting,
                       expertise_areas: '',
+                      account: account,
+                      region: region,
                     });
                   } else {
                     fetchAllUsers({
                       s: searchKey,
                       sort: sorting,
                       expertise_areas: itemValue,
+                      account: account,
+                      region: region,
                     });
                   }
                 }}>
@@ -380,17 +384,21 @@ const People = props => {
                 itemTextStyle={{fontSize: 12}}
                 onValueChange={async (itemValue, itemIndex) => {
                   setAccount(itemValue);
-                  if (itemValue === 'Account Word') {
+                  if (itemValue === 'Account Type') {
                     fetchAllUsers({
                       s: searchKey,
                       sort: sorting,
-                      category: '',
+                      account: '',
+                      expertise_areas: category,
+                      region: region,
                     });
                   } else {
                     fetchAllUsers({
                       s: searchKey,
                       sort: sorting,
-                      category: itemValue,
+                      account: itemValue,
+                      expertise_areas: category,
+                      region: region,
                     });
                   }
                 }}>
@@ -438,7 +446,6 @@ const People = props => {
               </Text>
             </TouchableOpacity>
             <View style={{marginBottom: 40}}>
-				
               <Picker
                 selectedValue={region}
                 mode="dropdown"
@@ -449,13 +456,17 @@ const People = props => {
                     fetchAllUsers({
                       s: searchKey,
                       sort: sorting,
-                      country: '',
+                      region: '',
+                      expertise_areas: category,
+                      account: account,
                     });
                   } else {
                     fetchAllUsers({
                       s: searchKey,
                       sort: sorting,
-                      country: itemValue,
+                      region: itemValue,
+                      expertise_areas: category,
+                      account: account,
                     });
                   }
                 }}>
