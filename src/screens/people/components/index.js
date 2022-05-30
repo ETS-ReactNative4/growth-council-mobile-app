@@ -87,8 +87,6 @@ const People = props => {
     fetchAllExpertises();
   }, []);
 
-  console.log({expertise});
-
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
@@ -415,8 +413,8 @@ const People = props => {
                   } else {
                     fetchAllUsers({
                       s: searchKey,
-                      sort: 'ASC',
-                      category: account,
+                      sort: sorting,
+                      category: itemValue,
                     });
                   }
                 }}>
@@ -474,13 +472,13 @@ const People = props => {
                     fetchAllUsers({
                       s: searchKey,
                       sort: sorting,
-                      category: '',
+                      country: '',
                     });
                   } else {
                     fetchAllUsers({
                       s: searchKey,
-                      sort: 'ASC',
-                      country: region,
+                      sort: sorting,
+                      country: itemValue,
                     });
                   }
                 }}>
