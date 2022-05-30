@@ -179,7 +179,7 @@ const sessionAbout = props => {
                   EventDate.split(/(\s+)/)[7] +
                   EventEndMonth +
                   EventDate.split(/(\s+)/)[7]}
-              ({sessions?.time_zone})
+              ({sessions?.event_meta?.evo_event_timezone})
             </Text>
           </View>
           {!sessionStatus && (

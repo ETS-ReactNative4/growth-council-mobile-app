@@ -104,23 +104,16 @@ const Event = props => {
   const today = moment().tz(deviceTimeZone);
   const currentTimeZoneOffsetInHours = today.utcOffset() / 60;
 
-  const eventDate = moment(events?.event_start)
-    .format('MMMM D, h:mma - ');
-  const eventEnd = moment(events?.event_end)
-    .format('MMMM D, h:mma');
+  const eventDate = moment(events?.event_start).format('MMMM D, h:mma - ');
+  const eventEnd = moment(events?.event_end).format('MMMM D, h:mma');
 
-  const eventStartMonth = moment(events?.event_start)
-    .format('MMMM D');
+  const eventStartMonth = moment(events?.event_start).format('MMMM D');
 
-  const eventEndTime = moment(events?.event_end)
-    .format('h:mma ');
-  const eventEndMonth = moment(events?.event_end)
-    .format('MMMM D');
+  const eventEndTime = moment(events?.event_end).format('h:mma ');
+  const eventEndMonth = moment(events?.event_end).format('MMMM D');
 
-  const GobalDate = moment(timeToDisplay)
-    .format('MMMM D, h:mma - ');
-  const GobalStartMonth = moment(timeToDisplay)
-    .format('MMMM D');
+  const GobalDate = moment(timeToDisplay).format('MMMM D, h:mma - ');
+  const GobalStartMonth = moment(timeToDisplay).format('MMMM D');
 
   const GobalEndTime = moment(timeToEnd).format('h:mma ');
   const GobalEndMonth = moment(timeToEnd).format('MMMM D');
@@ -232,7 +225,7 @@ const Event = props => {
                           eventDate.split(/(\s+)/)[6] +
                           eventDate.split(/(\s+)/)[7] +
                           eventEndMonth}
-                      ({events?.time_zone})
+                      {events?.event_meta?.evo_event_timezone}
                     </Text>
                   </View>
                   {!eventStatus && (
