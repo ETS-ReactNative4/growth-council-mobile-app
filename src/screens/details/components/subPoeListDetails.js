@@ -285,7 +285,7 @@ const SubPOEListDetails = props => {
                 Toolkits
               </Text>
 
-              <HTMLView
+              {/* <HTMLView
                 value={poeDescription}
                 textComponentProps={{
                   style: {
@@ -297,7 +297,7 @@ const SubPOEListDetails = props => {
                     color: '#77838F',
                   },
                 }}
-              />
+              /> */}
               {poeDetailLoading && <Loading />}
               {poeDetails !== null &&
                 pillarPOEs !== null &&
@@ -315,7 +315,7 @@ const SubPOEListDetails = props => {
                     />
                   </View>
                 )}
-              {poeDetails?.attachments?.length !== 0 &&
+              {/* {poeDetails?.attachments?.length !== 0 &&
                 poeDetails?.attachments !== null &&
                 poeDetails?.attachments !== false && (
                   <View style={styles.sectionContainer}>
@@ -326,7 +326,7 @@ const SubPOEListDetails = props => {
                       renderItem={_renderContent}
                     />
                   </View>
-                )}
+                )} */}
               {/* {poeDetails?.pillar_contents?.length !== 0 &&
                 poeDetails?.pillar_contents !== null &&
                 poeDetails?.pillar_contents !== false &&

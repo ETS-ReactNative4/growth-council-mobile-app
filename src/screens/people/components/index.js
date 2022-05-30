@@ -87,6 +87,8 @@ const People = props => {
     fetchAllExpertises();
   }, []);
 
+  console.log({expertise});
+
   const connectMemberByMemberID = async (memberID, index) => {
     const response = await connectMemberByIdentifier({member_id: memberID});
     if (response?.payload?.code === 200) {
@@ -109,9 +111,18 @@ const People = props => {
     }
   };
 
-  const countries = ['Region', 'NORTH AMERICA', 'APAC', 'MEASA'];
+  const countries = {
+    Region: 'Region',
+    'NORTH AMERICA': 'um_north-america',
+    APAC: 'um_apac',
+    MEASA: 'um_measa',
+  };
 
-  const pillar = ['Acount Word', 'Council Member', 'Associate Member'];
+  const pillar = {
+    'Account Word': 'Account Word',
+    'Council Member': 'um_council-member',
+    'Associate Member': 'um_associate-member',
+  };
 
   const _renderItem = ({item, index}) => {
     return (
@@ -395,16 +406,24 @@ const People = props => {
                 itemTextStyle={{fontSize: 12}}
                 onValueChange={async itemValue => {
                   setAccount(itemValue);
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'ASC',
-                    category: account,
-                  });
+                  if (itemValue === 'Account Word') {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      category: '',
+                    });
+                  } else {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: 'ASC',
+                      category: account,
+                    });
+                  }
                 }}>
                 {Object.keys(pillar).map(key => {
                   return (
                     <Picker.Item
-                      label={pillar[key]}
+                      label={key}
                       value={pillar[key]}
                       key={key}
                       style={{fontSize: 14}}
@@ -449,18 +468,26 @@ const People = props => {
                 selectedValue={region}
                 mode="dropdown"
                 itemTextStyle={{fontSize: 12}}
-                onValueChange={async (itemValue, itemIndex) => {
+                onValueChange={async itemValue => {
                   setRegion(itemValue);
-                  await fetchAllUsers({
-                    s: searchKey,
-                    sort: 'ASC',
-                    country: region,
-                  });
+                  if (itemValue === 'Region') {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: sorting,
+                      category: '',
+                    });
+                  } else {
+                    fetchAllUsers({
+                      s: searchKey,
+                      sort: 'ASC',
+                      country: region,
+                    });
+                  }
                 }}>
                 {Object.keys(countries).map(key => {
                   return (
                     <Picker.Item
-                      label={countries[key]}
+                      label={key}
                       value={countries[key]}
                       key={key}
                       style={{fontSize: 14}}

@@ -327,7 +327,7 @@ const SubPOEDetails = props => {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('SubPoeList', {
-                      poeId: pillarPOEs[0]?.term_id,
+                      poeId: poeDetails?.term_id,
                       id: route?.params?.poeId,
                     })
                   }>
