@@ -352,14 +352,14 @@ const AppStack = () => (
       component={EventDetailScreen}
       options={({navigation, route}) => ({
         id: route?.params?.id,
-        header: () => (
-          <SubHeader
-            title={route.params.title}
-            image={route.params.image}
-            navigation={navigation}
-            noDrawer
-          />
-        ),
+		header: () => (
+			<SubHeader
+			  title={route?.params?.title}
+			  image={route?.params?.image}
+			  navigation={navigation}
+			  noDrawer
+			/>
+		  ),
       })}
     />
     <Screen
