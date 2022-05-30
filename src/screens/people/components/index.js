@@ -110,10 +110,10 @@ const People = props => {
   };
 
   const countries = {
-    Region: 'Region',
+    'Region': 'Region',
     'NORTH AMERICA': 'NORTH AMERICA',
-    APAC: 'APAC',
-    MEASA: 'MEASA',
+    'APAC': 'APAC',
+    'MEASA': 'MEASA',
   };
 
   const pillar = {
@@ -438,6 +438,7 @@ const People = props => {
               </Text>
             </TouchableOpacity>
             <View style={{marginBottom: 40}}>
+				
               <Picker
                 selectedValue={region}
                 mode="dropdown"
