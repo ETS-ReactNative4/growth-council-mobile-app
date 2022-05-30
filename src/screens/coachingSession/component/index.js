@@ -149,8 +149,8 @@ const CoachingSession = props => {
   let growth = 0.0;
   let innovation = 0.0;
   if (previousSession.indexOf(sessions.ID) > -1 === true) {
-    growth = Growth;
-    innovation = Innovation;
+    growth = (Growth)
+    innovation = (Innovation)
   } else {
     growth = score.growthIndexScore.toFixed(1);
     innovation = score.innovativeIndexScore.toFixed(1);
@@ -159,24 +159,23 @@ const CoachingSession = props => {
   }
 
   const _renderItem = ({item, index}) => {
-    let backgroundColor = '';
-    switch (item?.score_range) {
-      case '1 - 2.5':
-        backgroundColor = '#97CB0A';
-        break;
-      case '2.6 - 4':
-        backgroundColor = '#FCCC4D';
-        break;
-      case '4.1 - 5':
-        backgroundColor = '#FC8935';
-        break;
+    let backgroundColor = item?.score_color;
+    // switch (item?.score_category) {
+    //   case 'Expert':
+    //     backgroundColor = '#97CB0A';
+    //     break;
+    //   case 'Inconsistent':
+    //     backgroundColor = '#FCCC4D';
+    //     break;
+    //   case 'Ambigious':
+    //     backgroundColor = '#FC8935';
+    //     break;
     }
     return (
       <View
         style={{
           flexDirection: 'row',
           marginTop: 10,
-          paddingBottom: 10,
         }}>
         <View
           style={{
@@ -212,7 +211,7 @@ const CoachingSession = props => {
           value={item?.score_description}
           textComponentProps={{
             style: {
-              width: 190,
+              width: '60%',
               marginLeft: 25,
               textAlign: 'justify',
               fontSize: 12,
@@ -266,7 +265,9 @@ const CoachingSession = props => {
                         if (previousSessionID === undefined) {
                           return setValue(val);
                         } else {
-                          ToastMessage.show('Please complete previous session');
+                          ToastMessage.show(
+                            'First, please complete previous session',
+                          );
                         }
                       } else {
                         return setValue(val);
@@ -306,13 +307,14 @@ const CoachingSession = props => {
                   onRequestClose={() => {
                     setModalVisible(false);
                   }}>
-                  {scoreVisible ? (
+                  {
+                    scoreVisible ?
                     <ScrollView
                       style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
                       contentContainerStyle={{
                         alignItems: 'center',
                         paddingBottom: 10,
-                      }}>
+                    }}>
                       <View style={styles.modalView}>
                         <View>
                           <View
@@ -342,8 +344,7 @@ const CoachingSession = props => {
                             </Pressable>
                           </View>
 
-                          <View
-                            style={{flexDirection: 'row', marginBottom: 10}}>
+                          <View style={{flexDirection: 'row', marginBottom: 10}}>
                             <View
                               style={[
                                 {
@@ -377,8 +378,7 @@ const CoachingSession = props => {
                         </View>
                       </View>
                     </ScrollView>
-                  ) : (
-                    <ScrollView
+                      : <ScrollView
                       style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.3)'}}
                       contentContainerStyle={{
                         alignItems: 'center',
@@ -413,7 +413,7 @@ const CoachingSession = props => {
                                 <Text style={{fontSize: 12}}>Score</Text>
                                 <Pressable
                                   onPress={() => {
-                                    setScoreVisible(true);
+                                    setScoreVisible(true)
                                   }}
                                   onPressIn={() => {
                                     setCount(index1 === 0 ? 0 : 1);
@@ -428,11 +428,7 @@ const CoachingSession = props => {
                                       padding: 5,
                                       alignItems: 'center',
                                     }}>
-                                    <Text
-                                      style={{
-                                        fontSize: 13,
-                                        letterSpacing: 1.5,
-                                      }}>
+                                    <Text style={{fontSize: 13, letterSpacing:1.5}}>
                                       {index1 === 0 ? growth : innovation}
                                     </Text>
                                   </View>
@@ -467,11 +463,14 @@ const CoachingSession = props => {
                         </Pressable>
                       </View>
                     </ScrollView>
-                  )}
+                  }
+                  
                 </Modal>
               </View>
 
-              <View style={styles.centeredView}></View>
+              <View style={styles.centeredView}>
+                
+              </View>
             </View>
 
             <View style={{marginTop: 32}}>
@@ -675,7 +674,7 @@ const styles = StyleSheet.create({
   },
   traitWrapper: {
     paddingTop: 15,
-    paddingBottom: 15,
+    paddingBottom:15,
     flexDirection: 'row',
     alignItems: 'center',
   },
