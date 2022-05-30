@@ -192,14 +192,15 @@ const Chat = props => {
     // update the last message Status
     await firestore().collection(`rooms`).doc(chatID()).set({lastUpdated: Date.now(), roomId: chatID().split("_")}, {merge: true});
 
-    sendNotification(friendToken, `${userName}`, text, {type: 'chat',  friendID: userID,
-     friendName:userName,
-     friendAvatar: userAvatar,
-     userID: friendID,
-     userAvatar: friendAvatar,
-     userName: friendName
-    
-  });
+    sendNotification(friendToken, `New Message from ${userName}`, text, {
+      type: 'chat',
+      friendID: userID,
+      friendName: userName,
+      friendAvatar: userAvatar,
+      userID: friendID,
+      userAvatar: friendAvatar,
+      userName: friendName,
+    });
 })
 
   return (
